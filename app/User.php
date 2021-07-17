@@ -25,8 +25,6 @@ class User extends Authenticatable
         'perfil_id',
         'sector_id',
         'estado',
-        'latitud',
-        'longitud',
         'direccion',
         'celulares',
         'deleted_at',

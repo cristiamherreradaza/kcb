@@ -44,8 +44,9 @@ class UserController extends Controller
 
     public function nuevo()
     {
-        $categorias = Categoria::all();
-        return view('user.nuevo')->with(compact('categorias'));        			
+        // $categorias = Categoria::all();
+        // return view('user.nuevo')->with(compact('categorias'));        			
+        return view('user.nuevo');                  
     }
 
     public function ajaxDistrito(Request $request)

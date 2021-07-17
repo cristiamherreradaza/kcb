@@ -74,67 +74,6 @@
 
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="exampleSelect1">Categorias <span class="text-danger">*</span></label>
-                                <select class="form-control" id="categoria_id" name="categoria_id" required >
-                                    <option value="">Seleccione</option>
-                                    @foreach ($categorias as $c)
-                                        <option value="{{ $c->id }}">{{ $c->nombre }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="exampleInputPassword1">Password
-                                    <span class="text-danger">*</span></label>
-                                <input type="password" class="form-control" id="password" name="password" required />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12"><h3 class="text-info">Cuotas</h3></div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="exampleSelect1">Mes <span class="text-danger">*</span></label>
-                                <select class="form-control" id="mes" name="mes" required >
-                                    <option value="1">Enero</option>
-                                    <option value="2">Febrero</option>
-                                    <option value="3">Marzo</option>
-                                    <option value="4">Abril</option>
-                                    <option value="5">Mayo</option>
-                                    <option value="6">Junio</option>
-                                    <option value="7">Julio</option>
-                                    <option value="8">Agosto</option>
-                                    <option value="9">Septiembre</option>
-                                    <option value="10">Octubre</option>
-                                    <option value="11">Noviembre</option>
-                                    <option value="12">Diciembre</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="exampleInputPassword1">Gestion
-                                    <span class="text-danger">*</span></label>
-                                <input type="number" class="form-control" id="gestion" name="gestion" value="{{ date('Y') }}" required />
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="exampleInputPassword1">Importe
-                                    <span class="text-danger">*</span></label>
-                                <input type="number" class="form-control" id="importe" name="importe" value="350" required />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
                             <button type="button" class="btn btn-primary mr-2 btn-block" onclick="guarda()">Guardar</button>
                         </div>
                         <div class="col-md-6">

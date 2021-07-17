@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAsistenciasTable extends Migration
+class CreateRazasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateAsistenciasTable extends Migration
      */
     public function up()
     {
-        Schema::create('asistencias', function (Blueprint $table) {
+        Schema::create('razas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('evento_id')->nullable();
-            $table->foreign('evento_id')->references('id')->on('eventos');
-            $table->string('estado', 30)->nullable();
+            $table->string('nombre', 255);
+            $table->string('descripcion', 600);
+            $table->string('estado', 20)->nullable();
             $table->datetime('deleted_at')->nullable();
             $table->timestamps();
         });
@@ -32,6 +32,6 @@ class CreateAsistenciasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('asistencias');
+        Schema::dropIfExists('razas');
     }
 }
