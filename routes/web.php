@@ -45,13 +45,4 @@ Route::get('User/pagos/{user_id}', 'UserController@pagos');
 Route::get('User/cambiaPago/{id}/{estado}', 'UserController@cambiaPago');
 
 // EVENTOS
-Route::get('Evento/listado', 'EventoController@listado');
-Route::get('Evento/ajax_listado', 'EventoController@ajax_listado');
-Route::get('Evento/nuevo', 'EventoController@nuevo');
-Route::get('Evento/nuevo', 'EventoController@nuevo');
-Route::get('Evento/edita/{id}', 'EventoController@edita');
-Route::post('Evento/guarda', 'EventoController@guarda');
-Route::get('Evento/elimina/{id}', 'EventoController@elimina');
-Route::get('Evento/asistencia/{id}', 'EventoController@asistencia');
-Route::get('Evento/asiste/{user_id}/{evento_id}', 'EventoController@asiste');
-Route::get('Evento/falta/{user_id}/{evento_id}', 'EventoController@falta');
+Route::get('Raza/listado', 'RazaController@listado');

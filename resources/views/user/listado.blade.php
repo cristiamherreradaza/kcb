@@ -9,7 +9,7 @@
 	<div class="card card-custom gutter-b">
 		<div class="card-header flex-wrap py-3">
 			<div class="card-title">
-				<h3 class="card-label">Usuarios
+				<h3 class="card-label">RAZAS
 				</h3>
 			</div>
 			<div class="card-toolbar">
@@ -28,10 +28,11 @@
 							</g>
 						</svg>
 						<!--end::Svg Icon-->
-					</span>Nuevo Usuario</a>
+					</span>Nueva Raza</a>
 				<!--end::Button-->
 			</div>
 		</div>
+		
 		<div class="card-body">
 			<!--begin: Datatable-->
 			<div class="table-responsive m-t-40">
@@ -40,13 +41,19 @@
 						<tr>
 							<th>ID</th>
 							<th>Nombre</th>
-							<th>Carnet</th>
-							<th>Email</th>
-							<th>Perfil</th>
-							<th>Celulares</th>
+							<th>Descripcion</th>
 							<th>Actions</th>
 						</tr>
 					</thead>
+					<tbody>
+						@forelse ($collection as $item)
+							<tr>
+								<th></th>
+							</tr>
+						@empty
+							<h3 class="text-danger">NO EXISTEN RAZAS</h3>
+						@endforeach
+					</tbody>
 					<tbody>
 					</tbody>
 				</table>
