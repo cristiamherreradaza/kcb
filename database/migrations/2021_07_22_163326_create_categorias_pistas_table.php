@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRazasTable extends Migration
+class CreateCategoriasPistasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateRazasTable extends Migration
      */
     public function up()
     {
-        Schema::create('razas', function (Blueprint $table) {
+        Schema::create('categorias_pistas', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->string('nombre', 255)->nullable();
-            $table->string('descripcion', 600)->nullable();
+            $table->string('nombre',200)->nullable();
+            $table->string('descripcion',500)->nullable();
             $table->string('estado')->nullable();
             $table->datetime('deleted_at')->nullable();
             $table->timestamps();
@@ -32,6 +32,6 @@ class CreateRazasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('razas');
+        Schema::dropIfExists('categorias_pistas');
     }
 }

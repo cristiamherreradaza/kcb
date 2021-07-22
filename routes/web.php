@@ -48,3 +48,8 @@ Route::get('User/cambiaPago/{id}/{estado}', 'UserController@cambiaPago');
 Route::get('Raza/listado', 'RazaController@listado');
 Route::post('Raza/guarda', 'RazaController@guarda');
 Route::get('Raza/elimina/{tipo_id}', 'RazaController@elimina');
+
+// CATEGORIAS PISATAS
+Route::get('CategoriasPista/listado', 'CategoriasPistaController@listado');
+Route::post('CategoriasPista/guarda', 'CategoriasPistaController@guarda');
+Route::get('CategoriasPista/elimina/{tipo_id}', 'CategoriasPistaController@elimina');

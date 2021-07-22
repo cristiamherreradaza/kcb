@@ -100,6 +100,14 @@
 								<span class="menu-text">Razas</span>
 							</a>
 						</li>
+						<li class="menu-item" aria-haspopup="true">
+							<a href="{{ url('CategoriasPista/listado') }}" class="menu-link">
+								<i class="menu-bullet menu-bullet-dot">
+									<span></span>
+								</i>
+								<span class="menu-text">Categorias Pistas</span>
+							</a>
+						</li>
 			
 					</ul>
 				</div>
