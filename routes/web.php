@@ -50,7 +50,7 @@ Route::post('Raza/guarda', 'RazaController@guarda');
 Route::get('Raza/elimina/{tipo_id}', 'RazaController@elimina');
 
 // CATEGORIAS PISATAS
-Route::get('Examen/listado', 'ExamenController@listado');
+Route::get('CategoriasPista/listado', 'CategoriasPistaController@listado');
 Route::post('CategoriasPista/guarda', 'CategoriasPistaController@guarda');
 Route::get('CategoriasPista/elimina/{tipo_id}', 'CategoriasPistaController@elimina');
 
@@ -58,3 +58,8 @@ Route::get('CategoriasPista/elimina/{tipo_id}', 'CategoriasPistaController@elimi
 Route::get('Examen/listado', 'ExamenController@listado');
 Route::post('Examen/guarda', 'ExamenController@guarda');
 Route::get('Examen/elimina/{tipo_id}', 'ExamenController@elimina');
+
+// GRUPOS
+Route::get('Grupo/listado', 'GrupoController@listado');
+Route::post('Grupo/guarda', 'GrupoController@guarda');
+Route::get('Grupo/elimina/{tipo_id}', 'GrupoController@elimina');

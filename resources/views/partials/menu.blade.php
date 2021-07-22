@@ -116,6 +116,14 @@
 								<span class="menu-text">Examenes</span>
 							</a>
 						</li>
+						<li class="menu-item" aria-haspopup="true">
+							<a href="{{ url('Grupo/listado') }}" class="menu-link">
+								<i class="menu-bullet menu-bullet-dot">
+									<span></span>
+								</i>
+								<span class="menu-text">Grupos</span>
+							</a>
+						</li>
 			
 					</ul>
 				</div>
