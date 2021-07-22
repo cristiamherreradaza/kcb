@@ -93,11 +93,11 @@
 							</span>
 						</li>
 						<li class="menu-item" aria-haspopup="true">
-							<a href="{{ url('Evento/listado') }}" class="menu-link">
+							<a href="{{ url('Raza/listado') }}" class="menu-link">
 								<i class="menu-bullet menu-bullet-dot">
 									<span></span>
 								</i>
-								<span class="menu-text">Listado</span>
+								<span class="menu-text">Razas</span>
 							</a>
 						</li>
 			

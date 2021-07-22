@@ -44,5 +44,7 @@ Route::get('User/elimina/{id}', 'UserController@elimina');
 Route::get('User/pagos/{user_id}', 'UserController@pagos');
 Route::get('User/cambiaPago/{id}/{estado}', 'UserController@cambiaPago');
 
-// EVENTOS
+// RAZAS
 Route::get('Raza/listado', 'RazaController@listado');
+Route::post('Raza/guarda', 'RazaController@guarda');
+Route::get('Raza/elimina/{tipo_id}', 'RazaController@elimina');

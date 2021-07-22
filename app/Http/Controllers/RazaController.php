@@ -7,16 +7,35 @@ use Illuminate\Http\Request;
 
 class RazaController extends Controller
 {
-    public function listado(){
+    public function listado()
+    {
+        $razas = Raza::all();
 
-        echo "holas";
-        $razas = Raza::get();        
-
-        // foreach ($razas as $key => $r) {
-        //     echo "nombre ".$r->nombre;
-        // }
-
-        // dd($razas);
         return view('raza.listado')->with(compact('razas'));
+    }
+
+    public function guarda(Request $request)
+    {
+        // preguntamos si tiene tipo id
+        // para editar o crear un registro
+        if($request->input('raza_id') == null){
+            // creamos un nuevo registro
+            $tipo = new Raza();
+        }else{
+            // editamos un registro con su tipo_id
+            $tipo = Raza::find($request->input('raza_id'));
+        }
+
+        $tipo->nombre      = $request->input('nombre');
+        $tipo->descripcion = $request->input('descripcion');
+        $tipo->save();
+
+        return redirect('Raza/listado');
+    }
+
+    public function elimina(Request $request, $tipo_id)
+    {
+        Raza::destroy($tipo_id);
+        return redirect('Raza/listado');
     }
 }
