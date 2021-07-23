@@ -71,14 +71,14 @@
 							<div class="form-group">
                 			    <label for="exampleInputPassword1">Numero de Pista
                 			    <span class="text-danger">*</span></label>
-                			    <input type="text" class="form-control" id="num_pista" name="num_pista" required />
+                			    <input type="text" class="form-control" id="num_pista" name="num_pista" pattern="[0-9]{3}" title="El numero no puede exeder mas de 3 digitos" required />
                 			</div>
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
                 			    <label for="exampleInputPassword1">Circuito
                 			    <span class="text-danger">*</span></label>
-                			    <input type="text" class="form-control" id="circuito" name="circuito" required />
+                			    <input type="text" class="form-control" id="circuito" name="circuito" pattern="[0-9]{3}" title="El numero no puede exeder mas de 3 digitos" required />
                 			</div>
 						</div>
 					</div>
