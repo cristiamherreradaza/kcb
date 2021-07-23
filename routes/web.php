@@ -63,3 +63,8 @@ Route::get('Examen/elimina/{tipo_id}', 'ExamenController@elimina');
 Route::get('Grupo/listado', 'GrupoController@listado');
 Route::post('Grupo/guarda', 'GrupoController@guarda');
 Route::get('Grupo/elimina/{tipo_id}', 'GrupoController@elimina');
+
+// EVENTOS
+Route::get('Evento/listado', 'EventoController@listado');
+Route::post('Evento/guarda', 'EventoController@guarda');
+Route::get('Evento/elimina/{tipo_id}', 'EventoController@elimina');
