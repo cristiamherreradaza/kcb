@@ -132,6 +132,14 @@
 								<span class="menu-text">Eventos</span>
 							</a>
 						</li>
+						<li class="menu-item" aria-haspopup="true">
+							<a href="{{ url('Pista/listado') }}" class="menu-link">
+								<i class="menu-bullet menu-bullet-dot">
+									<span></span>
+								</i>
+								<span class="menu-text">Pistas</span>
+							</a>
+						</li>
 					</ul>
 				</div>
 			</li>
