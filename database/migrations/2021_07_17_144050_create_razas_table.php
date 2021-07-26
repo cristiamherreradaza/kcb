@@ -14,9 +14,8 @@ class CreateRazasTable extends Migration
     public function up()
     {
         Schema::create('razas', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users');
             $table->string('nombre', 255)->nullable();
             $table->string('descripcion', 600)->nullable();
             $table->string('estado')->nullable();

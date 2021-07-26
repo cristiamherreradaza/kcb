@@ -14,9 +14,8 @@ class CreateTitulosCreate extends Migration
     public function up()
     {
         Schema::create('titulos', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users');
             $table->string('nombre', 150)->nullable();
             $table->string('descripcion', 200)->nullable();
             $table->string('estado')->nullable();

@@ -14,9 +14,8 @@ class CreateEventosTable extends Migration
     public function up()
     {
         Schema::create('eventos', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users');
             $table->string('nombre', 500)->nullable();
             $table->datetime('fecha_inicio')->nullable();
             $table->datetime('fecha_fin')->nullable();
