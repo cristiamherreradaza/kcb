@@ -73,3 +73,8 @@ Route::get('Evento/elimina/{tipo_id}', 'EventoController@elimina');
 Route::get('Pista/listado', 'PistaController@listado');
 Route::post('Pista/guarda', 'PistaController@guarda');
 Route::get('Pista/elimina/{tipo_id}', 'PistaController@elimina');
+
+// TIPOS USUARIOS
+Route::get('TiposUsuario/listado', 'TiposUsuarioController@listado');
+Route::post('TiposUsuario/guarda', 'TiposUsuarioController@guarda');
+Route::get('TiposUsuario/elimina/{tipo_id}', 'TiposUsuarioController@elimina');
