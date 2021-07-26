@@ -15,8 +15,8 @@ class AddCamposPropietariosToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->unsignedBigInteger('user_id')->nullable()->after('id');
-            $table->string('socio',10)->nullable();
-            $table->string('genero',50)->nullable();
+            $table->string('socio',10)->nullable()->after('ci');
+            $table->string('genero',50)->nullable()->after('ci');
             $table->unsignedBigInteger('sucursal_id')->nullable()->after('id');
             $table->foreign('sucursal_id')->references('id')->on('sucursales');
         });
