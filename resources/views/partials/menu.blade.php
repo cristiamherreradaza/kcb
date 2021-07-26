@@ -156,6 +156,14 @@
 								<span class="menu-text">Titulos</span>
 							</a>
 						</li>
+						<li class="menu-item" aria-haspopup="true">
+							<a href="{{ url('Sucursal/listado') }}" class="menu-link">
+								<i class="menu-bullet menu-bullet-dot">
+									<span></span>
+								</i>
+								<span class="menu-text">Sucursales</span>
+							</a>
+						</li>
 					</ul>
 				</div>
 			</li>

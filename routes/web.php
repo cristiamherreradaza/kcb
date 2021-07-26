@@ -83,3 +83,8 @@ Route::get('TiposUsuario/elimina/{tipo_id}', 'TiposUsuarioController@elimina');
 Route::get('Titulo/listado', 'TituloController@listado');
 Route::post('Titulo/guarda', 'TituloController@guarda');
 Route::get('Titulo/elimina/{tipo_id}', 'TituloController@elimina');
+
+// SUCURSAL
+Route::get('Sucursal/listado', 'SucursalController@listado');
+Route::post('Sucursal/guarda', 'SucursalController@guarda');
+Route::get('Sucursal/elimina/{tipo_id}', 'SucursalController@elimina');
