@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Titulo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TituloController extends Controller
 {
@@ -26,6 +27,7 @@ class TituloController extends Controller
             $tipo = Titulo::find($request->input('titulo_id'));
         }
 
+        $tipo->user_id     = Auth::user()->id;
         $tipo->nombre      = $request->input('nombre');
         $tipo->descripcion = $request->input('descripcion');
         $tipo->save();

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Sucursal;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SucursalController extends Controller
 {
@@ -26,6 +27,7 @@ class SucursalController extends Controller
             $tipo = Sucursal::find($request->input('sucursal_id'));
         }
 
+        $tipo->user_id     = Auth::user()->id;
         $tipo->nombre      = $request->input('nombre');
         $tipo->celulares   = $request->input('celulares');
         $tipo->direccion   = $request->input('direccion');

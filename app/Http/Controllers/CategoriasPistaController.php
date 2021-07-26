@@ -25,7 +25,7 @@ class CategoriasPistaController extends Controller
             // editamos un registro con su tipo_id
             $tipo = CategoriasPista::find($request->input('tipo_id'));
         }
-
+        $tipo->user_id     = Auth::user()->id;
         $tipo->nombre      = $request->input('nombre');
         $tipo->descripcion = $request->input('descripcion');
         $tipo->save();

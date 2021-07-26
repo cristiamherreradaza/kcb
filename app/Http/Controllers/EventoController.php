@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Evento;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EventoController extends Controller
 {
@@ -25,7 +26,7 @@ class EventoController extends Controller
             // editamos un registro con su tipo_id
             $tipo = Evento::find($request->input('evento_id'));
         }
-
+        $tipo->user_id     = Auth::user()->id;
         $tipo->nombre      = $request->input('nombre');
         $tipo->fecha_inicio = $request->input('fecha_ini');
         $tipo->fecha_fin = $request->input('fecha_fin');

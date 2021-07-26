@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Pista;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PistaController extends Controller
 {
@@ -25,7 +26,8 @@ class PistaController extends Controller
             // editamos un registro con su tipo_id
             $tipo = Pista::find($request->input('pista_id'));
         }
-
+        
+        $tipo->user_id     = Auth::user()->id;
         $tipo->nombre        = $request->input('nombre');
         $tipo->descripcion   = $request->input('descripcion');
         $tipo->save();

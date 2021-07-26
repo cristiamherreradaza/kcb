@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Examen;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ExamenController extends Controller
 {
@@ -26,6 +27,7 @@ class ExamenController extends Controller
             $tipo = Examen::find($request->input('examen_id'));
         }
 
+        $tipo->user_id     = Auth::user()->id;
         $tipo->nombre      = $request->input('nombre');
         $tipo->descripcion = $request->input('descripcion');
         $tipo->save();

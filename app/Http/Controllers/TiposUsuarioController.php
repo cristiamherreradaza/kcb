@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\TiposUsuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TiposUsuarioController extends Controller
 {
@@ -26,6 +27,7 @@ class TiposUsuarioController extends Controller
             $tipo = TiposUsuario::find($request->input('tipoUsuario_id'));
         }
 
+        $tipo->user_id     = Auth::user()->id;
         $tipo->nombre      = $request->input('nombre');
         $tipo->descripcion = $request->input('descripcion');
         $tipo->save();

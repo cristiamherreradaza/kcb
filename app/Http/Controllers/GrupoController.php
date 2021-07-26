@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Grupo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GrupoController extends Controller
 {
@@ -26,6 +27,7 @@ class GrupoController extends Controller
             $tipo = Grupo::find($request->input('grupo_id'));
         }
 
+        $tipo->user_id     = Auth::user()->id;
         $tipo->nombre      = $request->input('nombre');
         $tipo->descripcion = $request->input('descripcion');
         $tipo->save();
