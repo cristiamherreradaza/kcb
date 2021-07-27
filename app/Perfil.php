@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Perfil extends Model
 {
     use SoftDeletes;
-    protected $table = "perfiles";
+    // protected $table = "perfiles";
     protected $fillable = [
         'user_id',
         'nombre',
