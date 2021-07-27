@@ -43,6 +43,7 @@ Route::get('User/edita/{id}', 'UserController@edita');
 Route::get('User/elimina/{id}', 'UserController@elimina');
 Route::get('User/pagos/{user_id}', 'UserController@pagos');
 Route::get('User/cambiaPago/{id}/{estado}', 'UserController@cambiaPago');
+Route::get('User/formulario', 'UserController@formulario');
 
 // RAZAS
 Route::get('Raza/listado', 'RazaController@listado');

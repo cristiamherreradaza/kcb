@@ -17,7 +17,7 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<form action="{{ url('User/guarda') }}" method="POST" id="formulario-tipos">
+					<form action="{{ url('User/guarda') }}" method="POST" id="formulario-usuarios">
 						@csrf
 						<div class="row">
 							<div class="col-md-4">
@@ -25,7 +25,7 @@
 									<label for="exampleInputPassword1">Nombre de Usuario
 									<span class="text-danger">*</span></label>
 									<input type="hidden" class="form-control" id="user_id" name="user_id" />
-									<input type="text" class="form-control" id="nombre" name="nombre" required />
+									<input type="text" class="form-control" id="name" name="name" required />
 								</div>
 							</div>
 
@@ -33,7 +33,7 @@
 								<div class="form-group">
 									<label for="exampleInputPassword1">Correo
 									<span class="text-danger">*</span></label>
-									<input type="email" class="form-control" id="correo" name="correo" required />
+									<input type="email" class="form-control" id="email" name="email" required />
 								</div>
 							</div>
 
@@ -41,7 +41,7 @@
 								<div class="form-group">
 									<label for="exampleInputPassword1">Contraseña
 									<span class="text-danger">*</span></label>
-									<input type="password" class="form-control" id="contrasenia" name="contrasenia" required />
+									<input type="password" class="form-control" id="password" name="password" required />
 								</div>
 							</div>
 						</div>
@@ -57,7 +57,7 @@
 								<div class="form-group">
 									<label for="exampleInputPassword1">Cedula
 									<span class="text-danger">*</span></label>
-									<input type="text" class="form-control" id="cedula" name="cedula" pattern="[0-9]{15}" title="El numero no puede exeder mas de 15 digitos" required />
+									<input type="number" class="form-control" id="ci" name="ci" title="El numero no puede exeder mas de 15 digitos" required />
 								</div>
 							</div>
 							<div class="col-md-3">
@@ -65,7 +65,6 @@
 									<label for="exampleInputPassword1">Genero
 									<span class="text-danger">*</span></label>
 									<select name="genero" id="genero" class="form-control">
-										<option value="">Elija el Genero</option>
 										<option value="Masculino">Masculino</option>
 										<option value="Femenino">Femenino</option>
 										<option value="Otros">Otros</option>
@@ -76,7 +75,7 @@
 								<div class="form-group">
 									<label for="exampleInputPassword1">Celular
 									<span class="text-danger">*</span></label>
-									<input type="text" class="form-control" id="celular" name="celular" required />
+									<input type="text" class="form-control" id="celulares" name="celulares" required />
 								</div>
 							</div>
 						</div>
@@ -92,8 +91,12 @@
 								<div class="form-group">
 									<label for="exampleInputPassword1">Sucursal
 									<span class="text-danger">*</span></label>
-									<select name="sucursal" id="sucursal" class="form-control">
-										<option value="">Ejija la Sucursal</option>
+									<select name="sucursal_id" id="sucursal_id" class="form-control">
+										@forelse ($sucursales as $s)
+											<option value="{{ $s->id }}">{{ $s->nombre }}</option>
+										@empty
+											NO existen sucursales	
+										@endforelse
 									</select>
 								</div>
 							</div>
@@ -101,8 +104,12 @@
 								<div class="form-group">
 									<label for="exampleInputPassword1">Perfil
 									<span class="text-danger">*</span></label>
-									<select name="perfil" id="perfil" class="form-control">
-										<option value="">Elija el Perfil</option>p
+									<select name="perfil_id" id="perfil_id" class="form-control">
+										@forelse ($perfiles as $p)
+											<option value="{{ $p->id }}">{{ $p->nombre }}</option>p
+										@empty
+											No existen perfiles											
+										@endforelse
 									</select>
 								</div>
 							</div>
@@ -192,10 +199,19 @@
 @section('js')
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script type="text/javascript">
+		function crear()
+		{
+			if($('#formulario-usuarios')[0].checkValidity()){
+				$('#formulario-usuarios').submit();
+			}else{
+				$('#formulario-usuarios')[0].reportValidity()
+			}
+		}
+
 		function nuevo()
     	{
 			// pone los inputs vacios
-			$("#user_id").val('');
+			/*$("#user_id").val('');
 			$("#nombre").val('');
 			$("#fecha_ini").val('');
 			$("#fecha_fin").val('');
@@ -204,8 +220,10 @@
 			$("#num_pista").val('');
 			$("#circuito").val('');
 			// abre el modal
-    		$("#modalGrupo").modal('show');
+    		$("#modalGrupo").modal('show');*/
+			window.location.href = "{{ url('User/formulario') }}";
     	}
+		
     	{{-- $(document).ready(function() {
     	    $('#tabla_usuarios').DataTable({
 				iDisplayLength: 10,

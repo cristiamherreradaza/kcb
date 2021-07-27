@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use App\Pago;
+use App\User;
+use App\Perfil;
 use App\Sector;
 use DataTables;
+use App\Sucursal;
 use App\Categoria;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -20,34 +23,18 @@ class UserController extends Controller
     public function listado()
     {
         $usuarios = User::all();
+        $sucursales = Sucursal::all();
+        $perfiles = Perfil::all();
 
-        return view('user.listado')->with(compact('usuarios'));
+        return view('user.listado')->with(compact('usuarios', 'sucursales', 'perfiles'));
     }
 
-    public function ajax_listado()
+    public function formulario()
     {
-        // $usuarios = User::all();
-        // return Datatables::of($usuarios)
-        //         ->addColumn('action', function($usuarios){
-        //             if($usuarios->id != 1){
-        //                 return '<a href="#" class="btn btn-icon btn-warning btn-sm mr-2" onclick="edita('.$usuarios->id.')">
-        //                             <i class="fas fa-edit"></i>
-        //                         </a>
-        //                         <a href="#" class="btn btn-icon btn-success btn-sm mr-2" onclick="cuotas('.$usuarios->id.')">
-        //                             <i class="fas fa-list-alt"></i>
-        //                         </a>
-        //                         <a href="#" class="btn btn-icon btn-danger btn-sm mr-2" onclick="elimina('.$usuarios->id.', \''.$usuarios->name.'\')">
-        //                             <i class="flaticon2-delete"></i>
-        //                         </a>';
-        //             }
-        //         })->make(true);
-    }
+        $sucursales = Sucursal::all();
+        $perfiles = Perfil::all();
 
-    public function nuevo()
-    {
-        // $categorias = Categoria::all();
-        // return view('user.nuevo')->with(compact('categorias'));        			
-        return view('user.nuevo');                  
+        return view('user.formulario')->with(compact('sucursales', 'perfiles'));                  
     }
 
     public function ajaxDistrito(Request $request)
@@ -69,25 +56,29 @@ class UserController extends Controller
 
     public function guarda(Request $request)
     {
-        // dd($request->all());
 
-        if($request->has('user_id')){
-            $persona = User::find($request->id);
+        if($request->filled('user_id')){
+            $persona = User::find($request->input('user_id'));
         }else{
             $persona = new User();
         }
 
-        $persona->name             = $request->nombre;
-        $persona->email            = $request->correo;
-        if($request->has('contrasenia')){
-            $persona->password         = Hash::make($request->contrasenia);
+        $persona->user_id = Auth::user()->id;
+        $persona->name    = $request->input('name');
+        $persona->email   = $request->input('email');
+        if($request->has('password')){
+            $persona->password = Hash::make($request->input('password'));
         }
-        $persona->fecha_nacimiento = $request->fecha_nacimiento;
-        $persona->ci               = $request->cedula;
-        $persona->direccion        = $request->direccion;
-        $persona->celulares        = $request->celulares;
+        $persona->perfil_id        = $request->input('perfil_id');
+        $persona->sucursal_id      = $request->input('sucursal_id');
+        $persona->direccion        = $request->input('direccion');
+        $persona->fecha_nacimiento = $request->input('fecha_nacimiento');
+        $persona->ci               = $request->input('ci');
+        $persona->genero           = $request->input('genero');
+        $persona->celulares        = $request->input('celulares');
+        $persona->socio            = $request->input('socio');
+        
         $persona->save();
-        $personaId = $persona->id;
             
         return redirect('User/listado');
     }
