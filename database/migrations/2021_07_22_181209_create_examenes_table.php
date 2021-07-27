@@ -15,6 +15,7 @@ class CreateExamenesTable extends Migration
     {
         Schema::create('examenes', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('codigo_anterior',11)->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->string('nombre',250)->nullable();
             $table->string('descripcion',250)->nullable();

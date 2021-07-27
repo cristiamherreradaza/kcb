@@ -15,6 +15,7 @@ class CreatePistasTable extends Migration
     {
         Schema::create('pistas', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('codigo_anterior',11)->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->string('nombre',500)->nullable();
             $table->string('descripcion',1000);

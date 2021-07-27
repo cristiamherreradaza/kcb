@@ -15,7 +15,8 @@ class AddCamposToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('ci', 15)->nullable()->after('password');
-            $table->string('perfil', 30)->nullable()->after('password');
+            $table->unsignedBigInteger('perfil_id')->nullable()->after('password');
+            $table->foreign('perfil_id')->references('id')->on('perfiles');
             $table->string('celulares', 30)->nullable()->after('password');
             $table->string('direccion', 200)->nullable()->after('password');
             $table->string('estado', 30)->nullable()->after('password');
@@ -33,7 +34,8 @@ class AddCamposToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('ci');
-            $table->dropColumn('perfil');
+            $table->dropForeign(['perfil_id']);
+            $table->dropColumn('perfil_id');
             $table->dropColumn('celulares');
             $table->dropColumn('direccion');
             $table->dropColumn('estado');

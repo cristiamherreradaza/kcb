@@ -7,17 +7,19 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Perfil extends Model
 {
-    protected $table = 'Perfiles';
     use SoftDeletes;
-
+    protected $table = "perfiles";
     protected $fillable = [
-        'nombre', 
-        'descripcion', 
-        'estado'
+        'user_id',
+        'nombre',
+        'descripcion',
+        'estado',
+        'deleted_at',
     ];
-
-    public function users()
+    
+    public function user()
     {
-        return $this->hasMany('App\User');
+        return $this->belongsTo('App\User', 'user_id');
     }
+
 }

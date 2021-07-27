@@ -19,27 +19,28 @@ class UserController extends Controller
 
     public function listado()
     {
-        return view('user.listado');
+        $usuarios = User::all();
+
+        return view('user.listado')->with(compact('usuarios'));
     }
 
     public function ajax_listado()
     {
-        $usuarios = User::all();
-        return Datatables::of($usuarios)
-                ->addColumn('action', function($usuarios){
-                    if($usuarios->id != 1){
-                        return '<a href="#" class="btn btn-icon btn-warning btn-sm mr-2" onclick="edita('.$usuarios->id.')">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <a href="#" class="btn btn-icon btn-success btn-sm mr-2" onclick="cuotas('.$usuarios->id.')">
-                                    <i class="fas fa-list-alt"></i>
-                                </a>
-                                <a href="#" class="btn btn-icon btn-danger btn-sm mr-2" onclick="elimina('.$usuarios->id.', \''.$usuarios->name.'\')">
-                                    <i class="flaticon2-delete"></i>
-                                </a>';
-
-                    }
-                })->make(true);
+        // $usuarios = User::all();
+        // return Datatables::of($usuarios)
+        //         ->addColumn('action', function($usuarios){
+        //             if($usuarios->id != 1){
+        //                 return '<a href="#" class="btn btn-icon btn-warning btn-sm mr-2" onclick="edita('.$usuarios->id.')">
+        //                             <i class="fas fa-edit"></i>
+        //                         </a>
+        //                         <a href="#" class="btn btn-icon btn-success btn-sm mr-2" onclick="cuotas('.$usuarios->id.')">
+        //                             <i class="fas fa-list-alt"></i>
+        //                         </a>
+        //                         <a href="#" class="btn btn-icon btn-danger btn-sm mr-2" onclick="elimina('.$usuarios->id.', \''.$usuarios->name.'\')">
+        //                             <i class="flaticon2-delete"></i>
+        //                         </a>';
+        //             }
+        //         })->make(true);
     }
 
     public function nuevo()
@@ -86,26 +87,9 @@ class UserController extends Controller
         $persona->fecha_nacimiento = $request->fecha_nacimiento;
         $persona->direccion        = $request->direccion;
         $persona->celulares        = $request->celulares;
-        $persona->perfil           = "Doctor";
         $persona->save();
         $personaId = $persona->id;
-
-        if(!$request->has('id')){
-            $meses = ['Mes', 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-
-            for ($i = $request->mes; $i <= 12; $i++) {
-                $pagos = new Pago();
-                $pagos->user_id = $personaId;
-                $pagos->monto = $request->importe;
-                $pagos->nmes = $i;
-                $pagos->mes = $meses[$i];
-                $pagos->gestion = $request->gestion;
-                $pagos->fecha_pago = date('Y-m-d H:i:s');
-                $pagos->estado = 'Debe';
-                $pagos->save();
-            }
-        }
-
+            
         return redirect('User/listado');
     }
 

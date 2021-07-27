@@ -5,30 +5,141 @@
 @endsection
 
 @section('content')
+	{{-- inicio modal  --}}
+	<!-- Modal-->
+	<div class="modal fade" id="modalGrupo" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">FORMULARIO DE USUARIOS</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<i aria-hidden="true" class="ki ki-close"></i>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form action="{{ url('User/guarda') }}" method="POST" id="formulario-tipos">
+						@csrf
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="exampleInputPassword1">Nombre de Usuario
+									<span class="text-danger">*</span></label>
+									<input type="hidden" class="form-control" id="evento_id" name="evento_id" />
+									<input type="text" class="form-control" id="nombre" name="nombre" required />
+								</div>
+							</div>
+
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="exampleInputPassword1">Correo
+									<span class="text-danger">*</span></label>
+									<input type="email" class="form-control" id="fecha_ini" name="fecha_ini" required />
+								</div>
+							</div>
+
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="exampleInputPassword1">Contraseña
+									<span class="text-danger">*</span></label>
+									<input type="password" class="form-control" id="fecha_fin" name="fecha_fin" required />
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="exampleInputPassword1">Fecha de Nacimiento
+									<span class="text-danger">*</span></label>
+									<input type="date" class="form-control" id="direccion" name="direccion" required />
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="exampleInputPassword1">Celular
+									<span class="text-danger">*</span></label>
+									<input type="text" class="form-control" id="ciudad" name="ciudad" required />
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="exampleInputPassword1">Cedula
+									<span class="text-danger">*</span></label>
+									<input type="text" class="form-control" id="num_pista" name="num_pista" pattern="[0-9]{3}" title="El numero no puede exeder mas de 3 digitos" required />
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="exampleInputPassword1">Genero
+									<span class="text-danger">*</span></label>
+									<select name="" id="" class="form-control">
+										<option value="">Elija el Genero</option>
+										<option value="Masculino">Masculino</option>
+										<option value="Femenino">Femenino</option>
+										<option value="Otros">Otros</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="exampleInputPassword1">Direccion
+									<span class="text-danger">*</span></label>
+									<input type="text" class="form-control" id="direccion" name="direccion" required />
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="exampleInputPassword1">Sucursal
+									<span class="text-danger">*</span></label>
+									<select name="" id="" class="form-control">
+										<option value="">Ejija la Sucursal</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="exampleInputPassword1">Perfil
+									<span class="text-danger">*</span></label>
+									<select name="" id="" class="form-control">
+										<option value="">Elija el Perfil</option>p
+									</select>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="exampleInputPassword1">Socio
+									<span class="text-danger">*</span></label>
+									<select name="" id="" class="form-control">
+										<option value="Si">Si</option>
+										<option value="No">No</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
+					<button type="button" class="btn btn-success font-weight-bold" onclick="crear()">Guardar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	{{-- fin inicio modal  --}}
+
 	<!--begin::Card-->
 	<div class="card card-custom gutter-b">
 		<div class="card-header flex-wrap py-3">
 			<div class="card-title">
-				<h3 class="card-label">RAZAS
+				<h3 class="card-label">LISTA DE USUARIOS
 				</h3>
 			</div>
 			<div class="card-toolbar">
 				<!--begin::Button-->
-				<a href="{{ url('User/nuevo') }}" class="btn btn-primary font-weight-bolder">
-					<span class="svg-icon svg-icon-md">
-						<!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
-						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
-							height="24px" viewBox="0 0 24 24" version="1.1">
-							<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-								<rect x="0" y="0" width="24" height="24" />
-								<circle fill="#000000" cx="9" cy="15" r="6" />
-								<path
-									d="M8.8012943,7.00241953 C9.83837775,5.20768121 11.7781543,4 14,4 C17.3137085,4 20,6.6862915 20,10 C20,12.2218457 18.7923188,14.1616223 16.9975805,15.1987057 C16.9991904,15.1326658 17,15.0664274 17,15 C17,10.581722 13.418278,7 9,7 C8.93357256,7 8.86733422,7.00080962 8.8012943,7.00241953 Z"
-									fill="#000000" opacity="0.3" />
-							</g>
-						</svg>
-						<!--end::Svg Icon-->
-					</span>Nueva Raza</a>
+				<a href="#" class="btn btn-primary font-weight-bolder" onclick="nuevo()">
+					<i class="fa fa-plus-square"></i> NUEVO USUARIO
+				</a>
 				<!--end::Button-->
 			</div>
 		</div>
@@ -41,18 +152,32 @@
 						<tr>
 							<th>ID</th>
 							<th>Nombre</th>
-							<th>Descripcion</th>
+							<th>Email</th>
+							<th>Celular</th>
+							<th>Cedula</th>
 							<th>Actions</th>
 						</tr>
 					</thead>
 					<tbody>
-						@forelse ($collection as $item)
+						@forelse ($usuarios as $u)
 							<tr>
-								<th></th>
+								<td>{{ $u->id }}</td>
+								<td>{{ $u->name }}</td>
+								<td>{{ $u->email }}</td>
+								<td>{{ $u->celulares }}</td>
+								<td>{{ $u->ci }}</td>
+								<td>
+									<button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $u->id }}', '{{ $u->nombre }}', '{{ $u->descripcion }}')">
+										<i class="flaticon2-edit"></i>
+									</button>
+									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $u->id }}', '{{ $u->nombre }}')">
+										<i class="flaticon2-cross"></i>
+									</button>
+								</td>
 							</tr>
 						@empty
-							<h3 class="text-danger">NO EXISTEN RAZAS</h3>
-						@endforeach
+							<h3 class="text-danger">NO EXISTEN USUARIOS</h3>
+						@endforelse
 					</tbody>
 					<tbody>
 					</tbody>
@@ -67,7 +192,21 @@
 @section('js')
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script type="text/javascript">
-    	$(document).ready(function() {
+		function nuevo()
+    	{
+			// pone los inputs vacios
+			$("#evento_id").val('');
+			$("#nombre").val('');
+			$("#fecha_ini").val('');
+			$("#fecha_fin").val('');
+			$("#direccion").val('');
+			$("#ciudad").val('');
+			$("#num_pista").val('');
+			$("#circuito").val('');
+			// abre el modal
+    		$("#modalGrupo").modal('show');
+    	}
+    	{{-- $(document).ready(function() {
     	    $('#tabla_usuarios').DataTable({
 				iDisplayLength: 10,
 				processing: true,
@@ -87,7 +226,7 @@
                     url: '{{ asset('datatableEs.json') }}'
                 }
             });
-    	} );
+    	} ); --}}
 
 		function edita(id)
 		{

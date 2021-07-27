@@ -15,6 +15,7 @@ class CrateTiposUsuariosTable extends Migration
     {
         Schema::create('tipos_usuarios', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('codigo_anterior',11)->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->string('nombre', 100)->nullable();
             $table->string('descripcion', 500)->nullable();

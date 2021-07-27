@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Raza;
+use App\Perfil;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class RazaController extends Controller
+class PerfilController extends Controller
 {
     public function listado()
     {
-        $razas = Raza::all();
+        $perfiles = Perfil::all();
 
-        return view('raza.listado')->with(compact('razas'));
+        return view('perfiles.listado')->with(compact('perfiles'));
     }
 
     public function guarda(Request $request)
@@ -20,12 +20,12 @@ class RazaController extends Controller
         // dd(Auth::user());
         // preguntamos si tiene tipo id
         // para editar o crear un registro
-        if($request->input('raza_id') == null){
+        if($request->input('perfil_id') == null){
             // creamos un nuevo registro
-            $tipo = new Raza();
+            $tipo = new Perfil();
         }else{
             // editamos un registro con su tipo_id
-            $tipo = Raza::find($request->input('raza_id'));
+            $tipo = Perfil::find($request->input('perfil_id'));
         }
 
         $tipo->user_id     = Auth::user()->id;
@@ -33,12 +33,12 @@ class RazaController extends Controller
         $tipo->descripcion = $request->input('descripcion');
         $tipo->save();
 
-        return redirect('Raza/listado');
+        return redirect('Perfil/listado');
     }
 
     public function elimina(Request $request, $tipo_id)
     {
-        Raza::destroy($tipo_id);
-        return redirect('Raza/listado');
+        Perfil::destroy($tipo_id);
+        return redirect('Perfil/listado');
     }
 }

@@ -88,3 +88,8 @@ Route::get('Titulo/elimina/{tipo_id}', 'TituloController@elimina');
 Route::get('Sucursal/listado', 'SucursalController@listado');
 Route::post('Sucursal/guarda', 'SucursalController@guarda');
 Route::get('Sucursal/elimina/{tipo_id}', 'SucursalController@elimina');
+
+// PERFILES
+Route::get('Perfil/listado', 'PerfilController@listado');
+Route::post('Perfil/guarda', 'PerfilController@guarda');
+Route::get('Perfil/elimina/{tipo_id}', 'PerfilController@elimina');

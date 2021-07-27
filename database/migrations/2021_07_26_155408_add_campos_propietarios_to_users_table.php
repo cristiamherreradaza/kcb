@@ -19,6 +19,7 @@ class AddCamposPropietariosToUsersTable extends Migration
             $table->string('genero',50)->nullable()->after('ci');
             $table->unsignedBigInteger('sucursal_id')->nullable()->after('id');
             $table->foreign('sucursal_id')->references('id')->on('sucursales');
+            $table->string('codigo_anterior',11)->nullable();
         });
     }
 
@@ -35,6 +36,7 @@ class AddCamposPropietariosToUsersTable extends Migration
             $table->dropColumn("user_id");
             $table->dropColumn("socio");
             $table->dropColumn("genero");
+            $table->dropColumn("codigo_anterior");
         });
     }
 }
