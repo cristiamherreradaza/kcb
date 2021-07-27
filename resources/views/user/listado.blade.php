@@ -24,7 +24,7 @@
 								<div class="form-group">
 									<label for="exampleInputPassword1">Nombre de Usuario
 									<span class="text-danger">*</span></label>
-									<input type="hidden" class="form-control" id="evento_id" name="evento_id" />
+									<input type="hidden" class="form-control" id="user_id" name="user_id" />
 									<input type="text" class="form-control" id="nombre" name="nombre" required />
 								</div>
 							</div>
@@ -33,7 +33,7 @@
 								<div class="form-group">
 									<label for="exampleInputPassword1">Correo
 									<span class="text-danger">*</span></label>
-									<input type="email" class="form-control" id="fecha_ini" name="fecha_ini" required />
+									<input type="email" class="form-control" id="correo" name="correo" required />
 								</div>
 							</div>
 
@@ -41,7 +41,7 @@
 								<div class="form-group">
 									<label for="exampleInputPassword1">Contraseña
 									<span class="text-danger">*</span></label>
-									<input type="password" class="form-control" id="fecha_fin" name="fecha_fin" required />
+									<input type="password" class="form-control" id="contrasenia" name="contrasenia" required />
 								</div>
 							</div>
 						</div>
@@ -50,28 +50,21 @@
 								<div class="form-group">
 									<label for="exampleInputPassword1">Fecha de Nacimiento
 									<span class="text-danger">*</span></label>
-									<input type="date" class="form-control" id="direccion" name="direccion" required />
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="form-group">
-									<label for="exampleInputPassword1">Celular
-									<span class="text-danger">*</span></label>
-									<input type="text" class="form-control" id="ciudad" name="ciudad" required />
+									<input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required />
 								</div>
 							</div>
 							<div class="col-md-3">
 								<div class="form-group">
 									<label for="exampleInputPassword1">Cedula
 									<span class="text-danger">*</span></label>
-									<input type="text" class="form-control" id="num_pista" name="num_pista" pattern="[0-9]{3}" title="El numero no puede exeder mas de 3 digitos" required />
+									<input type="text" class="form-control" id="cedula" name="cedula" pattern="[0-9]{15}" title="El numero no puede exeder mas de 15 digitos" required />
 								</div>
 							</div>
 							<div class="col-md-3">
 								<div class="form-group">
 									<label for="exampleInputPassword1">Genero
 									<span class="text-danger">*</span></label>
-									<select name="" id="" class="form-control">
+									<select name="genero" id="genero" class="form-control">
 										<option value="">Elija el Genero</option>
 										<option value="Masculino">Masculino</option>
 										<option value="Femenino">Femenino</option>
@@ -79,9 +72,16 @@
 									</select>
 								</div>
 							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="exampleInputPassword1">Celular
+									<span class="text-danger">*</span></label>
+									<input type="text" class="form-control" id="celular" name="celular" required />
+								</div>
+							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-3">
+							<div class="col-md-4">
 								<div class="form-group">
 									<label for="exampleInputPassword1">Direccion
 									<span class="text-danger">*</span></label>
@@ -92,7 +92,7 @@
 								<div class="form-group">
 									<label for="exampleInputPassword1">Sucursal
 									<span class="text-danger">*</span></label>
-									<select name="" id="" class="form-control">
+									<select name="sucursal" id="sucursal" class="form-control">
 										<option value="">Ejija la Sucursal</option>
 									</select>
 								</div>
@@ -101,16 +101,16 @@
 								<div class="form-group">
 									<label for="exampleInputPassword1">Perfil
 									<span class="text-danger">*</span></label>
-									<select name="" id="" class="form-control">
+									<select name="perfil" id="perfil" class="form-control">
 										<option value="">Elija el Perfil</option>p
 									</select>
 								</div>
 							</div>
-							<div class="col-md-3">
+							<div class="col-md-2">
 								<div class="form-group">
 									<label for="exampleInputPassword1">Socio
 									<span class="text-danger">*</span></label>
-									<select name="" id="" class="form-control">
+									<select name="socio" id="socio" class="form-control">
 										<option value="Si">Si</option>
 										<option value="No">No</option>
 									</select>
@@ -195,7 +195,7 @@
 		function nuevo()
     	{
 			// pone los inputs vacios
-			$("#evento_id").val('');
+			$("#user_id").val('');
 			$("#nombre").val('');
 			$("#fecha_ini").val('');
 			$("#fecha_fin").val('');

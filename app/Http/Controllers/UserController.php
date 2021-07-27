@@ -71,20 +71,19 @@ class UserController extends Controller
     {
         // dd($request->all());
 
-        if($request->has('id')){
+        if($request->has('user_id')){
             $persona = User::find($request->id);
         }else{
             $persona = new User();
         }
 
-        $persona->categoria_id     = $request->categoria_id;
         $persona->name             = $request->nombre;
-        $persona->ci               = $request->ci;
-        $persona->email            = $request->email;
-        if($request->has('password')){
-            $persona->password         = Hash::make($request->password);
+        $persona->email            = $request->correo;
+        if($request->has('contrasenia')){
+            $persona->password         = Hash::make($request->contrasenia);
         }
         $persona->fecha_nacimiento = $request->fecha_nacimiento;
+        $persona->ci               = $request->cedula;
         $persona->direccion        = $request->direccion;
         $persona->celulares        = $request->celulares;
         $persona->save();
