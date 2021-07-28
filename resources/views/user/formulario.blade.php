@@ -206,7 +206,6 @@
                 }
             }
         });
-
     }
 </script>
 @endsection

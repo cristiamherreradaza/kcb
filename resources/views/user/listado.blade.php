@@ -177,7 +177,7 @@
 									<button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $u->id }}')">
 										<i class="flaticon2-edit"></i>
 									</button>
-									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $u->id }}', '{{ $u->nombre }}')">
+									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $u->id }}', '{{ $u->name }}')">
 										<i class="flaticon2-cross"></i>
 									</button>
 								</td>
@@ -213,38 +213,10 @@
 			window.location.href = "{{ url('User/formulario') }}/0";
     	}
 		
-    	{{-- $(document).ready(function() {
-    	    $('#tabla_usuarios').DataTable({
-				iDisplayLength: 10,
-				processing: true,
-				serverSide: true,
-				ajax: "{{ url('User/ajax_listado') }}",
-				"order": [[ 0, "desc" ]],
-				columns: [
-					{data: 'id', name: 'id'},
-					{data: 'name', name: 'name'},
-					{data: 'ci', name: 'ci'},
-					{data: 'email', name: 'email'},
-					{data: 'perfil', name: 'perfil'},
-					{data: 'celulares', name: 'celulares'},
-					{data: 'action'},
-				],
-                language: {
-                    url: '{{ asset('datatableEs.json') }}'
-                }
-            });
-    	} ); --}}
-
 		function edita(id)
 		{
 			window.location.href = "{{ url('User/formulario') }}/"+id;
 		}
-
-		function cuotas(id)
-		{
-			window.location.href = "{{ url('User/pagos') }}/"+id;
-		}
-
 
 		function elimina(id, nombre)
         {
@@ -258,9 +230,7 @@
                 reverseButtons: true
             }).then(function(result) {
                 if (result.value) {
-
                     window.location.href = "{{ url('User/elimina') }}/"+id;
-
                     Swal.fire(
                         "Borrado!",
                         "El registro fue eliminado.",
