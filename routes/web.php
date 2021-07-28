@@ -43,7 +43,8 @@ Route::get('User/edita/{id}', 'UserController@edita');
 Route::get('User/elimina/{id}', 'UserController@elimina');
 Route::get('User/pagos/{user_id}', 'UserController@pagos');
 Route::get('User/cambiaPago/{id}/{estado}', 'UserController@cambiaPago');
-Route::get('User/formulario', 'UserController@formulario');
+Route::get('User/formulario/{id}', 'UserController@formulario');
+Route::post('User/validaEmail', 'UserController@validaEmail');
 
 // RAZAS
 Route::get('Raza/listado', 'RazaController@listado');

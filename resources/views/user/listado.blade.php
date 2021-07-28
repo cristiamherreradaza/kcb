@@ -174,7 +174,7 @@
 								<td>{{ $u->celulares }}</td>
 								<td>{{ $u->ci }}</td>
 								<td>
-									<button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $u->id }}', '{{ $u->nombre }}', '{{ $u->descripcion }}')">
+									<button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $u->id }}')">
 										<i class="flaticon2-edit"></i>
 									</button>
 									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $u->id }}', '{{ $u->nombre }}')">
@@ -210,18 +210,7 @@
 
 		function nuevo()
     	{
-			// pone los inputs vacios
-			/*$("#user_id").val('');
-			$("#nombre").val('');
-			$("#fecha_ini").val('');
-			$("#fecha_fin").val('');
-			$("#direccion").val('');
-			$("#ciudad").val('');
-			$("#num_pista").val('');
-			$("#circuito").val('');
-			// abre el modal
-    		$("#modalGrupo").modal('show');*/
-			window.location.href = "{{ url('User/formulario') }}";
+			window.location.href = "{{ url('User/formulario') }}/0";
     	}
 		
     	{{-- $(document).ready(function() {
@@ -248,7 +237,7 @@
 
 		function edita(id)
 		{
-			window.location.href = "{{ url('User/edita') }}/"+id;
+			window.location.href = "{{ url('User/formulario') }}/"+id;
 		}
 
 		function cuotas(id)

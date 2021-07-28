@@ -29,12 +29,18 @@ class UserController extends Controller
         return view('user.listado')->with(compact('usuarios', 'sucursales', 'perfiles'));
     }
 
-    public function formulario()
+    public function formulario(Request $request, $id)
     {
+        if ($id != 0) {
+            $user = User::find($id);
+        }else{
+            $user = null;
+        }
+
         $sucursales = Sucursal::all();
         $perfiles = Perfil::all();
 
-        return view('user.formulario')->with(compact('sucursales', 'perfiles'));                  
+        return view('user.formulario')->with(compact('sucursales', 'perfiles', 'user'));                  
     }
 
     public function ajaxDistrito(Request $request)
@@ -66,7 +72,7 @@ class UserController extends Controller
         $persona->user_id = Auth::user()->id;
         $persona->name    = $request->input('name');
         $persona->email   = $request->input('email');
-        if($request->has('password')){
+        if($request->filled('password')){
             $persona->password = Hash::make($request->input('password'));
         }
         $persona->perfil_id        = $request->input('perfil_id');
@@ -125,6 +131,16 @@ class UserController extends Controller
         $datosUsuario = User::find($datosPago->user_id);
 
         return view('user.pagos')->with(compact('pagos', 'datosUsuario'));                 
+
+    }
+
+    public function validaEmail(Request $request)
+    {
+        // dd($request->all());
+        $verificaEmail = User::where('email', $request->email)
+                            ->count();
+
+        return response()->json(['vEmail'=>$verificaEmail]);
 
     }
 }
