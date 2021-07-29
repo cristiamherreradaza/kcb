@@ -81,7 +81,7 @@
 						</svg>
 						<!--end::Svg Icon-->
 					</span>
-					<span class="menu-text">Eventos</span>
+					<span class="menu-text">Administracion</span>
 					<i class="menu-arrow"></i>
 				</a>
 				<div class="menu-submenu">
@@ -89,7 +89,7 @@
 					<ul class="menu-subnav">
 						<li class="menu-item menu-item-parent" aria-haspopup="true">
 							<span class="menu-link">
-								<span class="menu-text">Eventos</span>
+								<span class="menu-text">Administracion</span>
 							</span>
 						</li>
 						<li class="menu-item" aria-haspopup="true">

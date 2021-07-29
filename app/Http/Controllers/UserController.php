@@ -29,6 +29,17 @@ class UserController extends Controller
         return view('user.listado')->with(compact('usuarios', 'sucursales', 'perfiles'));
     }
 
+    public function listadoPropietarios()
+    {
+        $usuarios = User::where('perfil_id', 3)
+                        ->get();
+
+        $sucursales = Sucursal::all();
+        $perfiles = Perfil::all();
+
+        return view('user.listadoPropietarios')->with(compact('usuarios', 'sucursales', 'perfiles'));
+    }
+
     public function formulario(Request $request, $id)
     {
         if ($id != 0) {
@@ -41,23 +52,6 @@ class UserController extends Controller
         $perfiles = Perfil::all();
 
         return view('user.formulario')->with(compact('sucursales', 'perfiles', 'user'));                  
-    }
-
-    public function ajaxDistrito(Request $request)
-    {
-        $distritos = Sector::where('departamento', $request->departamento)
-                        ->whereNull('padre_id')
-                        ->get();
-        
-        return view('user.ajaxDistritos')->with(compact('distritos'));                   
-    }
-
-    public function ajaxOtb(Request $request)
-    {
-        $otbs = Sector::where('padre_id', $request->distrito)
-                        ->get();
-
-        return view('user.ajaxOtb')->with(compact('otbs'));                   
     }
 
     public function guarda(Request $request)
@@ -101,37 +95,6 @@ class UserController extends Controller
         $datosUsuario = User::findOrFail($id);
         $categorias = Categoria::all();
         return view('user.edita')->with(compact('datosUsuario', 'categorias'));                   
-    }
-
-    public function pagos(Request $request, $user_id)
-    {
-        $pagos = Pago::where('user_id', $user_id)
-                    ->get();
-
-        $datosUsuario = User::find($user_id);
-
-        return view('user.pagos')->with(compact('pagos', 'datosUsuario'));                 
-    }
-
-    public function cambiaPago(Request $request, $id, $estado)
-    {
-        $datosPago = Pago::find($id);
-
-        if($estado == 'Pagar'){
-            $pago = Pago::where('id', $id)
-                        ->update(['estado'=>'Pagado']);
-        }else{
-            $pago = Pago::where('id', $id)
-                        ->update(['estado'=>'Debe']);
-        }
-
-        $pagos = Pago::where('user_id', $datosPago->user_id)
-                    ->get();
-
-        $datosUsuario = User::find($datosPago->user_id);
-
-        return view('user.pagos')->with(compact('pagos', 'datosUsuario'));                 
-
     }
 
     public function validaEmail(Request $request)
