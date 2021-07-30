@@ -58,6 +58,14 @@
 								<span class="menu-text">Listado</span>
 							</a>
 						</li>
+						<li class="menu-item" aria-haspopup="true">
+							<a href="{{ url('User/listadoPropietario') }}" class="menu-link">
+								<i class="menu-bullet menu-bullet-dot">
+									<span></span>
+								</i>
+								<span class="menu-text">Propietario</span>
+							</a>
+						</li>
 						
 					</ul>
 				</div>
