@@ -5,13 +5,23 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Raza extends Model
+class Criadero extends Model
 {
     use SoftDeletes;
     protected $fillable = [
         'user_id',
+        'propietario_id',
+        'copropietario_id',
         'nombre',
-        'descripcion',
+        'registro_fci',
+        'departamento',
+        'fecha',
+        'modalidad_ingreso',
+        'direccion',
+        'celulares',
+        'pagina_web',
+        'email',
+        'observacion',
         'estado',
         'deleted_at',
     ];

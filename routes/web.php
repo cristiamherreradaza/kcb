@@ -96,3 +96,9 @@ Route::get('Sucursal/elimina/{tipo_id}', 'SucursalController@elimina');
 Route::get('Perfil/listado', 'PerfilController@listado');
 Route::post('Perfil/guarda', 'PerfilController@guarda');
 Route::get('Perfil/elimina/{tipo_id}', 'PerfilController@elimina');
+
+// CRIADEROS
+Route::get('Criadero/listado', 'CriaderoController@listado');
+Route::post('Criadero/guarda', 'CriaderoController@guarda');
+Route::get('Criadero/elimina/{id}', 'CriaderoController@elimina');
+Route::get('Criadero/formulario/{id}', 'CriaderoController@formulario');
