@@ -199,6 +199,14 @@
 @section('js')
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script type="text/javascript">
+		$(function () {
+			$('#tabla_usuarios').DataTable({
+				language: {
+					url: '{{ asset('datatableEs.json') }}'
+				},
+			});
+
+    	});
 		function crear()
 		{
 			if($('#formulario-usuarios')[0].checkValidity()){

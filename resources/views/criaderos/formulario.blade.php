@@ -60,21 +60,9 @@
                     <div class="form-group">
                         <label for="exampleInputPassword1">Co-Propietario
                             <span class="text-danger">*</span></label>
-                        <select name="copropietario_id" id="copropietario_id" class="form-control">
-                            @forelse ($user as $u )
-                                @if ($criadero!=null)
-                                    @if ($u->id == $criadero->propietario_id)
-                                        <option value="{{ $u->id }}" selected>{{ $u->name }}</option>
-                                    @else
-                                        <option value="{{ $u->id }}">{{ $u->name }}</option>
-                                    @endif
-                                @else
-                                    <option value="{{ $u->id }}">{{ $u->name }}</option>
-                                @endif
-                            @empty
-                                No Existen Propietarios
-                            @endforelse
-                        </select>
+                            <select class="form-control select2" id="copropietario_id" name="copropietario_id">
+                                <option label="Label"></option>
+                            </select>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -254,6 +242,30 @@
     });
 
     $("#propietario_id").select2({
+        placeholder: "Busca por nombre",
+        allowClear: true,
+        ajax: {
+            url: "{{ url('User/ajaxBuscaPropietario') }}",
+            dataType: 'json',
+            method: 'POST',
+            delay: 250,
+            data: function (params) {
+                return {
+                    search: params.term,
+                };
+            },
+            processResults: function (response) {
+
+                return {
+                    results: response
+                };
+            },
+            cache: true
+        },
+        minimumInputLength: 1,
+    });
+
+    $("#copropietario_id").select2({
         placeholder: "Busca por nombre",
         allowClear: true,
         ajax: {
