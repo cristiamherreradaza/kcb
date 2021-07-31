@@ -104,6 +104,23 @@ class UserController extends Controller
                             ->count();
 
         return response()->json(['vEmail'=>$verificaEmail]);
+    }
 
+    public function ajaxBuscaPropietario(Request $request)
+    {
+        $nombre = $request->input('search');
+        $propietarios = User::where('name', 'like', "%$nombre%")
+                            ->limit(15)
+                            ->get();
+
+        $response = array();
+        foreach($propietarios as $p){
+            $response[] = array(
+                'id'=>$p->id,
+                'text'=>$p->name." ($p->ci)",
+            );
+        }
+
+        return response()->json($response);
     }
 }

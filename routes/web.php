@@ -46,6 +46,7 @@ Route::get('User/pagos/{user_id}', 'UserController@pagos');
 Route::get('User/cambiaPago/{id}/{estado}', 'UserController@cambiaPago');
 Route::get('User/formulario/{id}', 'UserController@formulario');
 Route::post('User/validaEmail', 'UserController@validaEmail');
+Route::post('User/ajaxBuscaPropietario', 'UserController@ajaxBuscaPropietario');
 
 // RAZAS
 Route::get('Raza/listado', 'RazaController@listado');

@@ -34,7 +34,12 @@
                         <label for="exampleInputPassword1">Propietario
                             <span class="text-danger">*</span></label>
                         <input type="hidden" class="form-control" id="criadero_id" name="criadero_id" value="{{ ($criadero!=null)?$criadero->id:'' }}" />
-                        <select name="propietario_id" id="propietario_id" class="form-control">
+
+                        <select class="form-control select2" id="propietario_id" name="propietario_id">
+                            <option label="Label"></option>
+                        </select>
+
+                        {{-- <select name="propietario_id" id="propietario_id" class="form-control">
                             @forelse ($user as $u )
                                 @if ($criadero!=null)
                                     @if ($u->id == $criadero->propietario_id)
@@ -48,7 +53,7 @@
                             @empty
                                 No Existen Propietarios
                             @endforelse
-                        </select>
+                        </select> --}}
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -239,12 +244,37 @@
 
 @section('js')
 <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+<script src="{{ asset('assets/js/pages/crud/forms/widgets/select2.js') }} "></script>
 <script type="text/javascript">
 
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
+    });
+
+    $("#propietario_id").select2({
+        placeholder: "Busca por nombre",
+        allowClear: true,
+        ajax: {
+            url: "{{ url('User/ajaxBuscaPropietario') }}",
+            dataType: 'json',
+            method: 'POST',
+            delay: 250,
+            data: function (params) {
+                return {
+                    search: params.term,
+                };
+            },
+            processResults: function (response) {
+
+                return {
+                    results: response
+                };
+            },
+            cache: true
+        },
+        minimumInputLength: 1,
     });
 
     function crear()

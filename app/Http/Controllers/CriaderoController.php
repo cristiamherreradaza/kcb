@@ -50,6 +50,7 @@ class CriaderoController extends Controller
 
     public function guarda(Request $request)
     {
+        dd($request)
 
         if ($request->filled('criadero_id')) {
             $criadero = Criadero::find($request->input('criadero_id'));
