@@ -48,6 +48,12 @@ Route::get('User/formulario/{id}', 'UserController@formulario');
 Route::post('User/validaEmail', 'UserController@validaEmail');
 Route::post('User/ajaxBuscaPropietario', 'UserController@ajaxBuscaPropietario');
 
+//PROPIETARIOS
+Route::get('User/listadoPropietario', 'UserController@listadoPropietario');
+Route::get('User/formularioPropietario/{id}', 'UserController@formularioPropietario');
+Route::post('User/guardaPropietario', 'UserController@guardaPropietario');
+
+
 // RAZAS
 Route::get('Raza/listado', 'RazaController@listado');
 Route::post('Raza/guarda', 'RazaController@guarda');
