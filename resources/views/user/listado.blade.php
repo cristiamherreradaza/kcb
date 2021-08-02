@@ -174,6 +174,9 @@
 								<td>{{ $u->celulares }}</td>
 								<td>{{ $u->ci }}</td>
 								<td>
+									<button type="button" class="btn btn-icon btn-success" onclick="">
+										<i class=""></i>
+									</button>
 									<button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $u->id }}')">
 										<i class="flaticon2-edit"></i>
 									</button>

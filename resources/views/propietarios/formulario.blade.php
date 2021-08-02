@@ -42,11 +42,18 @@
                     <div class="form-group">
                         <label for="exampleInputPassword1">Correo
                             <span class="text-danger">*</span></label>
-                        <input type="email" class="form-control" id="email" name="email" value="{{ ($user!=null)?$user->email:'' }}" onfocusout="validaEmail()" required />
+                        <input type="email" class="form-control" id="email" name="email" value="{{ ($user!=null)?$user->email:'' }}" required />
                         <span class="form-text text-danger" id="msg-error-email" style="display: none;">Correo duplicado, cambielo!!!</span>
                     </div>
                 </div>
-        
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Fecha de Nacimiento
+                            <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" value="{{ ($user!=null)?$user->fecha_nacimiento:'' }}" required />
+                    </div>
+                </div>
                 {{--  <div class="col-md-4">
                     <div class="form-group">
                         <label for="exampleInputPassword1">Contraseña</label>
@@ -56,14 +63,7 @@
                 </div>  --}}
             </div>
             <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Fecha de Nacimiento
-                            <span class="text-danger">*</span></label>
-                        <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" value="{{ ($user!=null)?$user->fecha_nacimiento:'' }}" required />
-                    </div>
-                </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="exampleInputPassword1">Cedula
                             <span class="text-danger">*</span></label>
@@ -71,7 +71,7 @@
                             title="El numero no puede exeder mas de 15 digitos" value="{{ ($user!=null)?$user->ci:'' }}" required />
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="exampleInputPassword1">Genero
                             <span class="text-danger">*</span></label>
@@ -82,7 +82,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="exampleInputPassword1">Celular
                             <span class="text-danger">*</span></label>
@@ -91,7 +91,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-7">
                     <div class="form-group">
                         <label for="exampleInputPassword1">Direccion
                             <span class="text-danger">*</span></label>
@@ -101,11 +101,20 @@
 
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Sucursal
+                        <label for="exampleInputPassword1">Departamento
 
                             <span class="text-danger">*</span></label>
-                        <select name="sucursal_id" id="sucursal_id" class="form-control">
-                            @forelse ($sucursales as $s)
+                        <select name="departamento" id="departamento" class="form-control">
+                            <option value="La Paz" {{ ($user != null && $user->departamento=='La Paz')?'selected':'' }} >La Paz</option>
+                            <option value="Oruro" {{ ($user != null && $user->departamento=='Oruro')?'selected':'' }} >Oruro</option>
+                            <option value="Potosi" {{ ($user != null && $user->departamento=='Potosi')?'selected':'' }} >Potosi</option>
+                            <option value="Cochabamba" {{ ($user != null && $user->departamento=='Cochabamba')?'selected':'' }} >Cochabamba</option>
+                            <option value="Chuquisaca" {{ ($user != null && $user->departamento=='Chuquisaca')?'selected':'' }} >Chuquisaca</option>
+                            <option value="Tarija" {{ ($user != null && $user->departamento=='Tarija')?'selected':'' }} >Tarija</option>
+                            <option value="Pando" {{ ($user != null && $user->departamento=='Pando')?'selected':'' }} >Pando</option>
+                            <option value="Beni" {{ ($user != null && $user->departamento=='Beni')?'selected':'' }} >Beni</option>
+                            <option value="Santa Cruz" {{ ($user != null && $user->departamento=='Santa Cruz')?'selected':'' }} >Santa Cruz</option>
+                            {{--  @forelse ($sucursales as $s)
                                 @if ($user != null)
                                     @if ($user->sucursal_id == $s->id)
                                         <option value="{{ $s->id }}" selected>{{ $s->nombre }}</option>
@@ -117,32 +126,10 @@
                                 @endif
                             @empty
                                 NO existen sucursales
-                            @endforelse
+                            @endforelse  --}}
                         </select>
                     </div>
                 </div>
-                {{--  <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Perfil
-                            <span class="text-danger">*</span></label>
-                        <select name="perfil_id" id="perfil_id" class="form-control">
-                            @forelse ($perfiles as $p)
-                                @if ($user != null)
-                                    @if ($user->perfil_id == $p->id)
-                                        <option value="{{ $p->id }}" selected>{{ $p->nombre }}</option>p
-                                    @else
-                                        <option value="{{ $p->id }}">{{ $p->nombre }}</option>p
-                                    @endif
-                                @else
-                                    <option value="{{ $p->id }}">{{ $p->nombre }}</option>p
-                                @endif
-
-                            @empty
-                                No existen perfiles
-                            @endforelse
-                        </select>
-                    </div>
-                </div>  --}}
                 <div class="col-md-2">
                     <div class="form-group">
                         <label for="exampleInputPassword1">Socio
@@ -161,7 +148,7 @@
             </div>
             <div class="row">
                 <div class="col-md-6"><button type="button" class="btn btn-success btn-block" onclick="crear()">GUARDAR</button></div>
-                <div class="col-md-6"><button type="button" class="btn btn-dark btn-block">VOLVER</button></div>
+                <div class="col-md-6"><button type="button" class="btn btn-dark btn-block" onclick="volver()">VOLVER</button></div>
             </div>
         </form>
     </div>
@@ -206,6 +193,9 @@
                 }
             }
         });
+    }
+    function volver(){
+        window.location.href = "{{ url('User/listadoPropietario') }}";
     }
 </script>
 @endsection

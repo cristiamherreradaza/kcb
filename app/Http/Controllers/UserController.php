@@ -143,7 +143,7 @@ class UserController extends Controller
         $persona->email            = $request->input('email');
         $persona->password         = Hash::make($request->input('ci'));
         $persona->perfil_id        = "4";
-        $persona->sucursal_id      = $request->input('sucursal_id');
+        $persona->departamento     = $request->input('departamento');
         $persona->direccion        = $request->input('direccion');
         $persona->fecha_nacimiento = $request->input('fecha_nacimiento');
         $persona->ci               = $request->input('ci');
@@ -165,5 +165,12 @@ class UserController extends Controller
         $perfiles = Perfil::all();
 
         return view('propietarios.listado')->with(compact('usuarios', 'sucursales', 'perfiles'));
+    }
+
+    public function eliminaPropietario(Request $request)
+    {
+        User::destroy($request->id);
+        return redirect('User/listadoPropietario');
+
     }
 }

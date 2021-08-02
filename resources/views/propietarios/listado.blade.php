@@ -215,7 +215,7 @@
 		
 		function edita(id)
 		{
-			window.location.href = "{{ url('User/formulario') }}/"+id;
+			window.location.href = "{{ url('User/formularioPropietario') }}/"+id;
 		}
 
 		function elimina(id, nombre)
@@ -230,7 +230,7 @@
                 reverseButtons: true
             }).then(function(result) {
                 if (result.value) {
-                    window.location.href = "{{ url('User/elimina') }}/"+id;
+                    window.location.href = "{{ url('User/eliminaPropietario') }}/"+id;
                     Swal.fire(
                         "Borrado!",
                         "El registro fue eliminado.",

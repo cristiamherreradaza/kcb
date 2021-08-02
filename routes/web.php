@@ -52,6 +52,8 @@ Route::post('User/ajaxBuscaPropietario', 'UserController@ajaxBuscaPropietario');
 Route::get('User/listadoPropietario', 'UserController@listadoPropietario');
 Route::get('User/formularioPropietario/{id}', 'UserController@formularioPropietario');
 Route::post('User/guardaPropietario', 'UserController@guardaPropietario');
+Route::get('User/eliminaPropietario/{id}', 'UserController@eliminaPropietario');
+
 
 
 // RAZAS
