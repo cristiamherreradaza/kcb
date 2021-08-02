@@ -18,7 +18,7 @@
 <div class="card card-custom gutter-b">
     <div class="card-header flex-wrap py-3">
         <div class="card-title">
-            <h3 class="card-label">FORMULARIO DE USUARIOS
+            <h3 class="card-label">FORMULARIO DE CRIADEROS
             </h3>
         </div>
         <div class="card-toolbar">
@@ -33,36 +33,45 @@
                     <div class="form-group">
                         <label for="exampleInputPassword1">Propietario
                             <span class="text-danger">*</span></label>
-                        <input type="hidden" class="form-control" id="criadero_id" name="criadero_id" value="{{ ($criadero!=null)?$criadero->id:'' }}" />
+                            <input type="hidden" class="form-control" id="criadero_id" name="criadero_id" value="{{ ($criadero!=null)?$criadero->id:'' }}" />
+                            @if ($criadero != null)
+                                <br />
+                                <button type="button" id="boton-propietario-id" class="btn btn-primary btn-block" onclick="cambiaPropietario()">{{ $criadero->propietario->name }} ({{ $criadero->propietario->ci }})</button>
 
-                        <select class="form-control select2" id="propietario_id" name="propietario_id">
-                            <option label="Label"></option>
-                        </select>
-
-                        {{-- <select name="propietario_id" id="propietario_id" class="form-control">
-                            @forelse ($user as $u )
-                                @if ($criadero!=null)
-                                    @if ($u->id == $criadero->propietario_id)
-                                        <option value="{{ $u->id }}" selected>{{ $u->name }}</option>
-                                    @else
-                                        <option value="{{ $u->id }}">{{ $u->name }}</option>
-                                    @endif
-                                @else
-                                    <option value="{{ $u->id }}">{{ $u->name }}</option>
-                                @endif
-                            @empty
-                                No Existen Propietarios
-                            @endforelse
-                        </select> --}}
+                                <div id="select-propietario" style="display: none;">
+                                    <select class="form-control select2" id="propietario_id" name="propietario_id" style="width: 100%">
+                                        <option label="Label"></option>
+                                    </select>
+                                </div>
+                            @else
+                                <select class="form-control select2" id="propietario_id" name="propietario_id">
+                                    <option label="Label"></option>
+                                </select>
+                            @endif
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="exampleInputPassword1">Co-Propietario
+
                             <span class="text-danger">*</span></label>
-                            <select class="form-control select2" id="copropietario_id" name="copropietario_id">
-                                <option label="Label"></option>
-                            </select>
+
+                            @if ($criadero != null)
+                                <br />
+                                <button type="button" id="boton-copropietario-id" class="btn btn-primary btn-block" onclick="cambiaCoPropietario()">{{ $criadero->copropietario->name }} ({{ $criadero->copropietario->ci }})</button>                                
+
+                                <div id="select-copropietario" style="display: none;">
+                                    <select class="form-control select2" id="copropietario_id" name="copropietario_id" style="width: 100%">
+                                        <option label="Label"></option>
+                                    </select>
+                                </div>
+                            @else
+                                <div id="select-copropietario" style="display: none;">
+                                    <select class="form-control select2" id="copropietario_id" name="copropietario_id">
+                                        <option label="Label"></option>
+                                    </select>    
+                                </div>
+                            @endif
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -317,5 +326,19 @@
             }
         });
     }
+
+    function cambiaPropietario()
+    {
+        $("#select-propietario").show();
+        $("#boton-propietario-id").hide();
+    }
+
+    function cambiaCoPropietario()
+    {
+        $("#select-copropietario").show();
+        $("#boton-copropietario-id").hide();
+    }
+
+
 </script>
 @endsection

@@ -57,8 +57,15 @@ class CriaderoController extends Controller
         }
 
         $criadero->user_id = Auth::user()->id;
-        $criadero->propietario_id      = $request->input('propietario_id');
-        $criadero->copropietario_id    = $request->input('copropietario_id');
+
+        if($request->filled('propietario_id')){
+            $criadero->propietario_id = $request->input('propietario_id');
+        }
+
+        if($request->filled('copropietario_id')){
+            $criadero->copropietario_id = $request->input('propietario_id');
+        }
+
         $criadero->nombre              = $request->input('nombre');
         $criadero->registro_fci        = $request->input('registro_fci');
         $criadero->departamento        = $request->input('departamento');
