@@ -66,7 +66,7 @@
                                     </select>
                                 </div>
                             @else
-                                <div id="select-copropietario" style="display: none;">
+                                <div id="select-copropietario">
                                     <select class="form-control select2" id="copropietario_id" name="copropietario_id">
                                         <option label="Label"></option>
                                     </select>    

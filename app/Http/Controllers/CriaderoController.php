@@ -63,7 +63,7 @@ class CriaderoController extends Controller
         }
 
         if($request->filled('copropietario_id')){
-            $criadero->copropietario_id = $request->input('propietario_id');
+            $criadero->copropietario_id = $request->input('copropietario_id');
         }
 
         $criadero->nombre              = $request->input('nombre');
