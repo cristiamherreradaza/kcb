@@ -53,6 +53,7 @@ Route::get('User/listadoPropietario', 'UserController@listadoPropietario');
 Route::get('User/formularioPropietario/{id}', 'UserController@formularioPropietario');
 Route::post('User/guardaPropietario', 'UserController@guardaPropietario');
 Route::get('User/eliminaPropietario/{id}', 'UserController@eliminaPropietario');
+Route::get('User/listadoCriadero/{propietario_id}', 'UserController@listadoCriadero');
 
 
 

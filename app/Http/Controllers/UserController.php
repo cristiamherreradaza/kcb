@@ -9,6 +9,7 @@ use App\Sector;
 use DataTables;
 use App\Sucursal;
 use App\Categoria;
+use App\Criadero;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -173,4 +174,16 @@ class UserController extends Controller
         return redirect('User/listadoPropietario');
 
     }
+    // listamos los criaderos de un respectivo Usuario
+    public function listadoCriadero(Request $request, $propietario_id)
+    {
+        $criaderos = Criadero::where('propietario_id', $propietario_id)
+                        ->get();
+
+        // $sucursales = Sucursal::all();
+        // $perfiles = Perfil::all();
+
+    return view('user.listadoCriadero')->with(compact('criaderos'/*, 'sucursales', 'perfiles'*/));
+    }
+
 }

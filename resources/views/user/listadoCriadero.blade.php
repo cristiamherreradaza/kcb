@@ -7,7 +7,7 @@
 @section('content')
 	{{-- inicio modal  --}}
 	<!-- Modal-->
-	<div class="modal fade" id="modalGrupo" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+	{{--  <div class="modal fade" id="modalGrupo" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -132,7 +132,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div>  --}}
 	{{-- fin inicio modal  --}}
 
 	<!--begin::Card-->
@@ -154,7 +154,45 @@
 		<div class="card-body">
 			<!--begin: Datatable-->
 			<div class="table-responsive m-t-40">
-				<table class="table table-bordered table-hover table-striped" id="tabla_usuarios">
+                <table class="table table-bordered table-hover table-striped" id="tabla_usuarios">
+                    <thead>
+						<tr>
+							<th>ID</th>
+							<th>Nombre</th>
+							<th>Regsitro FCI</th>
+							<th>Departamento</th>
+							<th>Fecha</th>
+							<th>Modalidad</th>
+							<th>Direccion</th>
+							<th>Celulares</th>
+							<th>Pagina Web</th>
+							<th>Email</th>
+							<th>Observaciones</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+                    <tbody>
+                        @forelse ($criaderos as $cri )
+                            <tr>
+                                <td>{{ $cri-> id}}</td>
+                                <td>{{ $cri-> nombre}}</td>
+                                <td>{{ $cri-> registro_fci}}</td>
+                                <td>{{ $cri-> departamento}}</td>
+                                <td>{{ $cri-> fecha}}</td>
+                                <td>{{ $cri-> modalidad_ingreso}}</td>
+                                <td>{{ $cri-> direccion}}</td>
+                                <td>{{ $cri-> celulares}}</td>
+                                <td>{{ $cri-> pagina_web}}</td>
+                                <td>{{ $cri-> email}}</td>
+                                <td>{{ $cri-> observacion}}</td>
+                                <td></td>
+                            </tr>
+                        @empty
+                            No TIENE CRIADEROS
+                        @endforelse
+                    </tbody>
+                </table>
+				{{--  <table class="table table-bordered table-hover table-striped" id="tabla_usuarios">
 					<thead>
 						<tr>
 							<th>ID</th>
@@ -191,7 +229,7 @@
 					</tbody>
 					<tbody>
 					</tbody>
-				</table>
+				</table>  --}}
 			</div>
 			<!--end: Datatable-->
 		</div>
@@ -258,9 +296,6 @@
                 }
             });
         }
-	//lista de criaderos
-	function listaCriadero(id){
-        window.location.href = "{{ url('User/listadoCriadero') }}/"+id;
-	}
+	
     </script>
 @endsection
