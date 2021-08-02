@@ -204,6 +204,7 @@
     <script type="text/javascript">
 		$(function () {
 			$('#tabla_usuarios').DataTable({
+				order: [[ 0, "desc" ]],
 				language: {
 					url: '{{ asset('datatableEs.json') }}'
 				},
