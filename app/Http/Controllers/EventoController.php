@@ -34,9 +34,10 @@ class EventoController extends Controller
         $tipo->ciudad = $request->input('ciudad');
         $tipo->numero_pista = $request->input('num_pista');
         $tipo->circuito = $request->input('circuito');
-        $tipo->save();
+        // $tipo->save();
+        dd($request->input('circuito'));
 
-        return redirect('Evento/listado');
+        // return redirect('Evento/listado');
     }
 
     public function elimina(Request $request, $tipo_id)
