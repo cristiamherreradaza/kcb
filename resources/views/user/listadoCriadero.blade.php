@@ -174,17 +174,17 @@
                     <tbody>
                         @forelse ($criaderos as $cri )
                             <tr>
-                                <td>{{ $cri-> id}}</td>
-                                <td>{{ $cri-> nombre}}</td>
-                                <td>{{ $cri-> registro_fci}}</td>
-                                <td>{{ $cri-> departamento}}</td>
-                                <td>{{ $cri-> fecha}}</td>
-                                <td>{{ $cri-> modalidad_ingreso}}</td>
-                                <td>{{ $cri-> direccion}}</td>
-                                <td>{{ $cri-> celulares}}</td>
-                                <td>{{ $cri-> pagina_web}}</td>
-                                <td>{{ $cri-> email}}</td>
-                                <td>{{ $cri-> observacion}}</td>
+                                <td>{{ $cri->id}}</td>
+                                <td>{{ $cri->nombre}}</td>
+                                <td>{{ $cri->registro_fci}}</td>
+                                <td>{{ $cri->departamento}}</td>
+                                <td>{{ $cri->fecha}}</td>
+                                <td>{{ $cri->modalidad_ingreso}}</td>
+                                <td>{{ $cri->direccion}}</td>
+                                <td>{{ $cri->celulares}}</td>
+                                <td>{{ $cri->pagina_web}}</td>
+                                <td>{{ $cri->email}}</td>
+                                <td>{{ $cri->observacion}}</td>
                                 {{-- <td></td> --}}
                             </tr>
                         @empty

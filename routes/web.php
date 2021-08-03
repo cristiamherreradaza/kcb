@@ -115,3 +115,6 @@ Route::get('Criadero/formulario/{id}', 'CriaderoController@formulario');
 
 // EJEMPLARES
 Route::get('Ejemplar/formulario/{id}', 'EjemplarController@formulario');
+
+// MIGRACIONES
+Route::get('Migracion/razas', 'MigracionController@razas');
