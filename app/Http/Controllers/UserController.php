@@ -39,7 +39,8 @@ class UserController extends Controller
         }
 
         $sucursales = Sucursal::all();
-        $perfiles = Perfil::all();
+        $perfiles = Perfil::where('id','<>',4)
+                            ->get();
 
         return view('user.formulario')->with(compact('sucursales', 'perfiles', 'user'));                  
     }
@@ -66,7 +67,6 @@ class UserController extends Controller
         $persona->ci               = $request->input('ci');
         $persona->genero           = $request->input('genero');
         $persona->celulares        = $request->input('celulares');
-        $persona->socio            = $request->input('socio');
         
         $persona->save();
             

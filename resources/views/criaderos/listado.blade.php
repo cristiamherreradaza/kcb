@@ -75,6 +75,7 @@
 
 		$(function () {
 			$('#tabla_criaderos').DataTable({
+				order: [[ 0, "desc" ]],
 				language: {
 					url: '{{ asset('datatableEs.json') }}'
 				},

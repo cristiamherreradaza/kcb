@@ -57,7 +57,6 @@
                 			    <span class="text-danger">*</span></label>
                 			    {{-- <input type="text" class="form-control" id="descripcion" name="descripcion" required /> --}}
 								<select name="departamento" id="departamento" class="form-control" required>
-									<option value="">Elija el departamento</option>
 									<option value="La Paz">La Paz</option>
 									<option value="Oruro">Oruro</option>
 									<option value="Potosi">Potosi</option>
@@ -173,7 +172,11 @@
 			// pone los inputs vacios
 			$("#sucursal_id").val('');
 			$("#nombre").val('');
-			$("#descripcion").val('');
+			$("#direccion").val('');
+			$("#celulares").val('');
+			$("#departamento").val('La Paz');
+			$("#cuenta").val('');
+
 			// abre el modal
     		$("#modalRaza").modal('show');
     	}

@@ -168,7 +168,7 @@
 							<th>Pagina Web</th>
 							<th>Email</th>
 							<th>Observaciones</th>
-							<th>Actions</th>
+							{{-- <th>Actions</th> --}}
 						</tr>
 					</thead>
                     <tbody>
@@ -185,51 +185,13 @@
                                 <td>{{ $cri-> pagina_web}}</td>
                                 <td>{{ $cri-> email}}</td>
                                 <td>{{ $cri-> observacion}}</td>
-                                <td></td>
+                                {{-- <td></td> --}}
                             </tr>
                         @empty
                             No TIENE CRIADEROS
                         @endforelse
                     </tbody>
                 </table>
-				{{--  <table class="table table-bordered table-hover table-striped" id="tabla_usuarios">
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>Nombre</th>
-							<th>Email</th>
-							<th>Celular</th>
-							<th>Cedula</th>
-							<th>Actions</th>
-						</tr>
-					</thead>
-					<tbody>
-						@forelse ($usuarios as $u)
-							<tr>
-								<td>{{ $u->id }}</td>
-								<td>{{ $u->name }}</td>
-								<td>{{ $u->email }}</td>
-								<td>{{ $u->celulares }}</td>
-								<td>{{ $u->ci }}</td>
-								<td>
-									<button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $u->id }}')">
-										<i class="flaticon2-edit"></i>
-									</button>
-									<button type="button" class="btn btn-icon btn-success" onclick="listaCriadero('{{ $u->id }}')">
-										<i class="fas fa-dog"></i>
-									</button>
-									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $u->id }}', '{{ $u->name }}')">
-										<i class="flaticon2-cross"></i>
-									</button>
-								</td>
-							</tr>
-						@empty
-							<h3 class="text-danger">NO EXISTEN USUARIOS</h3>
-						@endforelse
-					</tbody>
-					<tbody>
-					</tbody>
-				</table>  --}}
 			</div>
 			<!--end: Datatable-->
 		</div>

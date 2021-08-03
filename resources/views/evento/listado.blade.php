@@ -62,23 +62,34 @@
 					<div class="row">
 						<div class="col-md-4">
 							<div class="form-group">
-                			    <label for="exampleInputPassword1">Ciudad
+                			    <label for="exampleInputPassword1">Departamento
                 			    <span class="text-danger">*</span></label>
-                			    <input type="text" class="form-control" id="ciudad" name="ciudad" required />
+								<select name="ciudad" id="ciudad" class="form-control">
+									<option value="La Paz">La Paz</option>
+									<option value="Oruro">Oruro</option>
+									<option value="Potosi">Potosi</option>
+									<option value="Cochabamba">Cochabamba</option>
+									<option value="Chuquisaca">Chuquisaca</option>
+									<option value="Tarija">Tarija</option>
+									<option value="Pando">Pando</option>
+									<option value="Beni">Beni</option>
+									<option value="Santa Cruz">Santa Cruz</option>
+								</select>
+                			    {{-- <input type="text" class="form-control" id="ciudad" name="ciudad" required /> --}}
                 			</div>
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
                 			    <label for="exampleInputPassword1">Numero de Pista
                 			    <span class="text-danger">*</span></label>
-                			    <input type="text" class="form-control" id="num_pista" name="num_pista" pattern="[0-9]{3}" title="El numero no puede exeder mas de 3 digitos" required />
+                			    <input type="number" class="form-control" id="num_pista" name="num_pista" required />
                 			</div>
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
                 			    <label for="exampleInputPassword1">Circuito
                 			    <span class="text-danger">*</span></label>
-                			    <input type="text" class="form-control" id="circuito" name="circuito" pattern="[0-9]{3}" title="El numero no puede exeder mas de 3 digitos" required />
+                			    <input type="number" class="form-control" id="circuito" name="circuito" required />
                 			</div>
 						</div>
 					</div>
@@ -183,7 +194,7 @@
 			$("#fecha_ini").val('');
 			$("#fecha_fin").val('');
 			$("#direccion").val('');
-			$("#ciudad").val('');
+			$("#ciudad").val('La Paz');
 			$("#num_pista").val('');
 			$("#circuito").val('');
 			// abre el modal

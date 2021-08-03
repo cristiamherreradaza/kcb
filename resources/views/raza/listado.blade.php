@@ -71,7 +71,7 @@
 		<div class="card-body">
 			<!--begin: Datatable-->
 			<div class="table-responsive m-t-40">
-				<table class="table table-bordered table-hover table-striped" id="tabla-insumos">
+				<table class="table table-bordered table-hover table-striped" id="tabla-raza">
 					<thead>
 						<tr>
 							<th>ID</th>
@@ -112,15 +112,13 @@
 @section('js')
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script type="text/javascript">
-
-    	$(function () {
-    	    $('#tabla-insumos').DataTable({
-    	        language: {
-    	            url: '{{ asset('datatableEs.json') }}',
-    	        },
-				order: [[ 0, "desc" ]]
-    	    });
-
+		$(function () {
+			$('#tabla-raza').DataTable({
+				order: [[ 0, "desc" ]],
+				language: {
+					url: '{{ asset('datatableEs.json') }}'
+				},
+			});
     	});
 
     	function nuevo()

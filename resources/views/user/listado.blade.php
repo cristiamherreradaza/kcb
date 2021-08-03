@@ -177,9 +177,6 @@
 									<button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $u->id }}')">
 										<i class="flaticon2-edit"></i>
 									</button>
-									<button type="button" class="btn btn-icon btn-success" onclick="listaCriadero('{{ $u->id }}')">
-										<i class="fas fa-dog"></i>
-									</button>
 									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $u->id }}', '{{ $u->name }}')">
 										<i class="flaticon2-cross"></i>
 									</button>
@@ -209,7 +206,6 @@
 					url: '{{ asset('datatableEs.json') }}'
 				},
 			});
-
     	});
 		function crear()
 		{
@@ -259,9 +255,5 @@
                 }
             });
         }
-	//lista de criaderos
-	function listaCriadero(id){
-        window.location.href = "{{ url('User/listadoCriadero') }}/"+id;
-	}
     </script>
 @endsection
