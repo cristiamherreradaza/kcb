@@ -87,9 +87,13 @@
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
-                			    <label for="exampleInputPassword1">Circuito
-                			    <span class="text-danger">*</span></label>
-                			    <input type="number" class="form-control" id="circuito" name="circuito" required />
+								<label for="exampleInputPassword1">Tipo de Evento
+									<span class="text-danger">*</span></label> <p></p> 
+                			    <label class="checkbox checkbox-success">   
+									<input type="checkbox" name="circuito" id="circuito"/>
+									<span></span>
+									&nbsp;Circuito
+								</label>
                 			</div>
 						</div>
 					</div>
