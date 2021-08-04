@@ -26,6 +26,11 @@ class EventoController extends Controller
             // editamos un registro con su tipo_id
             $tipo = Evento::find($request->input('evento_id'));
         }
+        if($request->has('circuito')){
+            $tipoCircuito = "Si";
+        }else{
+            $tipoCircuito = "No";
+        }
         $tipo->user_id     = Auth::user()->id;
         $tipo->nombre      = $request->input('nombre');
         $tipo->fecha_inicio = $request->input('fecha_ini');
@@ -33,11 +38,11 @@ class EventoController extends Controller
         $tipo->direccion = $request->input('direccion');
         $tipo->ciudad = $request->input('ciudad');
         $tipo->numero_pista = $request->input('num_pista');
-        $tipo->circuito = $request->input('circuito');
-        // $tipo->save();
-        dd($request->input('circuito'));
+        $tipo->circuito = $tipoCircuito;
+        
+        $tipo->save();
 
-        // return redirect('Evento/listado');
+        return redirect('Evento/listado');
     }
 
     public function elimina(Request $request, $tipo_id)
