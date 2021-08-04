@@ -21,4 +21,9 @@ class EjemplarController extends Controller
 
         return view('ejemplar.formulario')->with(compact('ejemplar', 'razas'));
     }
+
+    public function ajaxBuscaKcb(Request $request)
+    {
+        dd($request->all());
+    }
 }
