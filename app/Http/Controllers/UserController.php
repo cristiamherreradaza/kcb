@@ -137,12 +137,12 @@ class UserController extends Controller
             $persona = User::find($request->input('user_id'));
         }else{
             $persona = new User();
+            $persona->password     = Hash::make($request->input('ci'));
         }
 
         $persona->user_id          = Auth::user()->id;
         $persona->name             = $request->input('name');
         $persona->email            = $request->input('email');
-        $persona->password         = Hash::make($request->input('ci'));
         $persona->perfil_id        = "4";
         $persona->departamento     = $request->input('departamento');
         $persona->direccion        = $request->input('direccion');
@@ -150,7 +150,7 @@ class UserController extends Controller
         $persona->ci               = $request->input('ci');
         $persona->genero           = $request->input('genero');
         $persona->celulares        = $request->input('celulares');
-        $persona->socio            = $request->input('socio');
+        $persona->tipo            = $request->input('socio');
         
         $persona->save();
             

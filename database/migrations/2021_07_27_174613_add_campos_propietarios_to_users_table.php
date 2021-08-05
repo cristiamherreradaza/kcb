@@ -20,10 +20,10 @@ class AddCamposPropietariosToUsersTable extends Migration
             $table->unsignedBigInteger('perfil_id')->nullable()->after('id');
             $table->foreign('perfil_id')->references('id')->on('perfils');
             $table->string('ci', 15)->nullable()->after('password');
-            $table->string('socio', 10)->nullable()->after('password');
+            $table->string('tipo', 15)->nullable()->after('password');
             $table->string('genero', 50)->nullable()->after('password');
-            $table->string('codigo_anterior', 11)->nullable();
-            $table->string('celulares', 30)->nullable()->after('password');
+            $table->string('codigo_anterior', 11)->nullable()->after('id');
+            $table->string('celulares', 50)->nullable()->after('password');
             $table->string('direccion', 200)->nullable()->after('password');
             $table->string('estado', 30)->nullable()->after('password');
             $table->date('fecha_nacimiento')->nullable()->after('password');
@@ -51,7 +51,7 @@ class AddCamposPropietariosToUsersTable extends Migration
             $table->dropColumn('estado');
             $table->dropColumn('fecha_nacimiento');
             $table->dropColumn('deleted_at');
-            $table->dropColumn("socio");
+            $table->dropColumn("tipo");
             $table->dropColumn("genero");
             $table->dropColumn("codigo_anterior");
         });

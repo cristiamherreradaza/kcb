@@ -14,7 +14,7 @@ class Evento extends Model
         'fecha_inicio',
         'fecha_fin',
         'direccion',
-        'ciudad',
+        'departamento',
         'numero_pista',
         'circuito',
         'estado',

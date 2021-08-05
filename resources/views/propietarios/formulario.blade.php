@@ -132,15 +132,15 @@
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Socio
+                        <label for="exampleInputPassword1">Tipo
                             <span class="text-danger">*</span></label>
                         <select name="socio" id="socio" class="form-control">
                             @if ($user == null)
-                                <option value="Si">Si</option>
-                                <option value="No">No</option>
+                                <option value="Socio">Socio</option>
+                                <option value="Criador">Criador</option>
                             @else
-                                <option value="Si" {{ ($user->socio=='Si')?'selected':'' }}>Si</option>
-                                <option value="No" {{ ($user->socio=='No')?'selected':'' }}>No</option>
+                                <option value="Socio" {{ ($user->tipo=='Socio')?'selected':'' }}>Socio</option>
+                                <option value="Criador" {{ ($user->tipo=='Criador')?'selected':'' }}>Criador</option>
                             @endif
                         </select>
                     </div>

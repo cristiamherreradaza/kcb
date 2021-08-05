@@ -21,7 +21,7 @@ class CreateEventosTable extends Migration
             $table->datetime('fecha_inicio')->nullable();
             $table->datetime('fecha_fin')->nullable();
             $table->string('direccion', 600)->nullable();
-            $table->string('ciudad', 30)->nullable();
+            $table->string('departamento', 30)->nullable();
             $table->string('numero_pista', 3)->nullable();
             $table->string('circuito', 3)->nullable();
             $table->string('estado', 15)->nullable();

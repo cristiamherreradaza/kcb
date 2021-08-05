@@ -118,3 +118,5 @@ Route::get('Ejemplar/formulario/{id}', 'EjemplarController@formulario');
 
 // MIGRACIONES
 Route::get('Migracion/razas', 'MigracionController@razas');
+/* Migracion de Propietarios */
+Route::get('Migracion/Propietarios', 'MigracionController@propietarios');
