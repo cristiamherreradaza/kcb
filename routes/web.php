@@ -115,6 +115,7 @@ Route::get('Criadero/formulario/{id}', 'CriaderoController@formulario');
 
 // EJEMPLARES
 Route::get('Ejemplar/formulario/{id}', 'EjemplarController@formulario');
+Route::post('Ejemplar/ajaxBuscaKcb', 'EjemplarController@ajaxBuscaKcb');
 
 // MIGRACIONES
 Route::get('Migracion/razas', 'MigracionController@razas');

@@ -10,8 +10,43 @@
 
 @section('content')
 {{-- inicio modal  --}}
-<!-- Modal-->
+<div class="modal fade" id="modal-padres" data-backdrop="static" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdrop" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">BUSQUEDA DE EJEMPLARES</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="#" method="POST" id="formulario-padres">
+                    @csrf
+                    <div class="row">
 
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="kcb">KCB
+                                </label>
+                                <input type="text" class="form-control" id="busqueda-kcb" name="busqueda-kcb" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="nombre">Nombre
+                                </label>
+                                <input type="text" class="form-control" id="busqueda-nombre" name="busqueda-nombre" />
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 {{-- fin inicio modal  --}}
 
 <!--begin::Card-->
@@ -125,31 +160,45 @@
 
             <div class="row">
 
-                <div class="col-md-4">
+                <div class="col-md-12">
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Padre
-
+                        <label for="exampleInputPassword1">Raza
                             <span class="text-danger">*</span></label>
-
-                            @if ($ejemplar != null)
-                                <br />
-                                <button type="button" id="boton-copropietario-id" class="btn btn-primary btn-block" onclick="cambiaCoPropietario()">{{ $ejemplar->copropietario->name }} ({{ $ejemplar->copropietario->ci }})</button>                                
-
-                                <div id="select-copropietario" style="display: none;">
-                                    <select class="form-control select2" id="copropietario_id" name="copropietario_id" style="width: 100%">
-                                        <option label="Label"></option>
-                                    </select>
-                                </div>
-                            @else
-                                <div id="select-copropietario">
-                                    <select class="form-control select2" id="copropietario_id" name="copropietario_id">
-                                        <option label="Label"></option>
-                                    </select>    
-                                </div>
-                            @endif
+                            <select class="form-control select2" id="raza_id" name="raza_id">
+                                @forelse ($razas as $r)
+                                    <option value="{{ $r->id }}">{{ $r->nombre }} {{ $r->descripcion }}</option>                                    
+                                @empty
+                                    
+                                @endforelse
+                            </select>
                     </div>
                 </div>
 
+            </div>
+
+            <div class="row">
+                <div class="col-md-6"><button type="button" class="btn btn-primary btn-block" onclick="seleccionaPadre()">PADRE</button>
+                </div>
+                <div class="col-md-6"><button type="button" class="btn btn-info btn-block">MADRE</button></div>
+                
+            </div>
+            <br />
+            <div class="row">
+            
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Raza
+                            <span class="text-danger">*</span></label>
+                        <select class="form-control select2" id="raza_id" name="raza_id">
+                            @forelse ($razas as $r)
+                            <option value="{{ $r->id }}">{{ $r->nombre }} {{ $r->descripcion }}</option>
+                            @empty
+            
+                            @endforelse
+                        </select>
+                    </div>
+                </div>
+            
             </div>
 
             <div class="row">
@@ -171,6 +220,12 @@
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
+    });
+
+    $(function(){
+        $('#raza_id').select2({
+            placeholder: "Select a state"
+        });
     });
 
     $("#propietario_id").select2({
@@ -261,6 +316,32 @@
         $("#select-copropietario").show();
         $("#boton-copropietario-id").hide();
     }
+
+    function seleccionaPadre()
+    {
+        $("#modal-padres").modal('show');        
+    }
+
+    $("#busqueda-kcb").on("change paste keyup", function() {
+        console.log($(this).val());
+
+        let kcb = $($(this)).val();
+
+        $.ajax({
+            url: "{{ url('Ejemplar/ajaxBuscaKcb') }}",
+            data: {kcb: kcb},
+            type: 'POST',
+            success: function(data) {
+                // console.log(data.vEmail);     
+                /*if(data.vEmail > 0){
+                    $("#msg-error-email").show();
+                }else{
+                    $("#msg-error-email").hide();
+                }*/
+            }
+        });
+
+    });
 
 
 </script>
