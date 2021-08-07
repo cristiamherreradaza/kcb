@@ -31,8 +31,8 @@ class MigracionController extends Controller
         $contador = 1;
         $cuantos = 1;
         foreach ($propietarios as $pro) {
-            echo 'id-'.$pro->id." Nombre ".$pro->nombre.' email=>'.$pro->email1.' cuantos =>'.$cuantos."<br />";
-
+            echo 'id-'.$pro->id." Nombre ".$pro->nombre.' email=>'.$pro->email1.' cuantos =>'.$cuantos;
+            echo "Estado =>".$pro->estado."Genero => ".$pro->genero." <br> ";
             $user = new User();
             $user->codigo_anterior = $pro->id;
             $user->perfil_id = "4";
@@ -44,12 +44,16 @@ class MigracionController extends Controller
                 $sw = 0;
             }
             if($sw == 0){
-                $user->email = $pro->email1;
-                // echo "si ".$pro->email1." ".$sw.'<br /><br />';
+                $correoUser = DB::table('users')->where('email','=',$pro->email1)->count();
+                if($correoUser == 0){
+                    $user->email = $pro->email1;
+                }else{
+                    $user->email = $contador."@gmail.org.bo";
+                    $contador = $contador + 1;    
+                }
             }else{
                 $user->email = $contador."@gmail.org.bo";
                 $contador = $contador + 1;
-                // echo "no ".$pro->email1." ".$sw.'<br /><br />';
             }
             if($pro->ci == null || $pro->ci == ""){
                 $contrasenia = Hash::make("123456789");
@@ -57,7 +61,11 @@ class MigracionController extends Controller
                 $contrasenia = Hash::make($pro->ci);
             }
             $user->password = $contrasenia;
-            $user->fecha_nacimiento = $pro->fecha_nacimiento;
+            if($pro->fecha_nacimiento == "0000-00-00"){
+                $user->fecha_nacimiento = "2021-08-08";
+            }else{
+                $user->fecha_nacimiento = $pro->fecha_nacimiento;
+            }
             $user->direccion = $pro->direccion;
             $user->celulares = $pro->telefono1." ".$pro->telefono2." ".$pro->celular;
             $user->genero = $pro->genero;
@@ -71,5 +79,12 @@ class MigracionController extends Controller
             $user->save();
             $cuantos = $cuantos + 1;
         }
+        echo "<h1 class='text-success'>SUCCESSFUL</h1>";
+    }
+    public static function verifica($correo){
+        $sw = false;
+        $haber = User::where('email',$correo);
+        dd($haber);
+        return $sw;
     }
 }
