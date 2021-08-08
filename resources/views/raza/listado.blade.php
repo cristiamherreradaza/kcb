@@ -83,10 +83,10 @@
 					<tbody>
 						@forelse ($razas as $ra)
 							<tr>
-								<td>{{ $ra->id }}</td>
-								<td>{{ $ra->nombre }}</td>
-								<td>{{ $ra->descripcion }}</td>
-								<td>
+								<td style="width: 5%">{{ $ra->id }}</td>
+								<td style="width: 30%">{{ $ra->nombre }}</td>
+								<td style="width: 40%">{{ $ra->descripcion }}</td>
+								<td style="width: 10%">
 									<button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $ra->id }}', '{{ $ra->nombre }}', '{{ $ra->descripcion }}')">
 										<i class="flaticon2-edit"></i>
 									</button>
