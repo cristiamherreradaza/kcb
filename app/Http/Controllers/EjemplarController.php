@@ -26,4 +26,18 @@ class EjemplarController extends Controller
     {
         dd($request->all());
     }
+
+
+    // TODO - pasar funcion al controlador de migraciones
+    public function migracionMascotas()
+    {
+        $razasAnterior = DB::table('amascotas')
+                            ->orderBy('id', 'desc')
+                            ->limit(500)
+                            ->get();
+
+        foreach ($variable as $key => $value) {
+            # code...
+        }
+    }
 }

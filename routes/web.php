@@ -120,4 +120,4 @@ Route::post('Ejemplar/ajaxBuscaKcb', 'EjemplarController@ajaxBuscaKcb');
 // MIGRACIONES
 Route::get('Migracion/razas', 'MigracionController@razas');
 /* Migracion de Propietarios */
-Route::get('Migracion/Propietarios', 'MigracionController@propietarios');
+Route::get('Migracion/propietarios', 'MigracionController@propietarios');

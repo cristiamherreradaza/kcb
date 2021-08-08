@@ -23,7 +23,8 @@ class UserController extends Controller
 
     public function listado()
     {
-        $usuarios = User::all();
+        $usuarios = User::where('perfil_id', '<>', 4)
+                        ->get();
         $sucursales = Sucursal::all();
         $perfiles = Perfil::all();
 
@@ -160,6 +161,8 @@ class UserController extends Controller
     public function listadoPropietario()
     {
         $usuarios = User::where('perfil_id', 4)
+                        ->orderBy('id', 'desc')
+                        ->limit('100')
                         ->get();
 
         $sucursales = Sucursal::all();
