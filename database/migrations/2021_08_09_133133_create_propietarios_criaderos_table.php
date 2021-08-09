@@ -15,9 +15,10 @@ class CreatePropietariosCriaderosTable extends Migration
     {
         Schema::create('propietarios_criaderos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('propietario_id');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('propietario_id')->nullable();
             $table->foreign('propietario_id')->references('id')->on('users');
-            $table->unsignedBigInteger('criadero_id');
+            $table->unsignedBigInteger('criadero_id')->nullable();
             $table->foreign('criadero_id')->references('id')->on('criaderos');
             $table->string('estado',15)->nullable();
             $table->datetime('deleted_at')->nullable();
