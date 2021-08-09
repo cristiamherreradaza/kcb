@@ -54,8 +54,7 @@ Route::get('User/formularioPropietario/{id}', 'UserController@formularioPropieta
 Route::post('User/guardaPropietario', 'UserController@guardaPropietario');
 Route::get('User/eliminaPropietario/{id}', 'UserController@eliminaPropietario');
 Route::get('User/listadoCriadero/{propietario_id}', 'UserController@listadoCriadero');
-
-
+Route::post('User/ajaxListadoPropietarios', 'UserController@ajaxListadoPropietarios');
 
 // RAZAS
 Route::get('Raza/listado', 'RazaController@listado');

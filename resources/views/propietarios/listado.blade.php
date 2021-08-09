@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('css')
-    <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet">
+@section('metadatos')
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 @endsection
 
 @section('content')
@@ -158,70 +158,32 @@
 				<div class="row">
 					<div class="col-md-4">
 						<div class="form-group">
-							<label for="exampleInputPassword1">Nombre de Usuario
+							<label for="exampleInputPassword1">Nombre
 								<span class="text-danger">*</span></label>
-							<input type="hidden" class="form-control" id="user_id" name="user_id" />
-							<input type="text" class="form-control" id="name" name="name" required />
+							<input type="text" class="form-control" id="nombre_buscar" name="nombre_buscar" />
 						</div>
 					</div>
 			
 					<div class="col-md-4">
 						<div class="form-group">
-							<label for="exampleInputPassword1">Correo
+							<label for="exampleInputPassword1">Cedula
 								<span class="text-danger">*</span></label>
-							<input type="email" class="form-control" id="email" name="email" required />
+							<input type="text" class="form-control" id="cedula_buscar" name="cedula_buscar" />
+						</div>
+					</div>
+
+					<div class="col-md-4">
+						<div class="form-group">
+							<label for="exampleInputPassword1">&nbsp;</label>
+							<button type="button" class="btn btn-success btn-block" onclick="buscarPropietario()">BUSCAR</button>
 						</div>
 					</div>
 			
-					<div class="col-md-4">
-						<div class="form-group">
-							<label for="exampleInputPassword1">Contraseña
-								<span class="text-danger">*</span></label>
-							<input type="password" class="form-control" id="password" name="password" required />
-						</div>
-					</div>
 				</div>
 			</form>
 			<!--begin: Datatable-->
-			<div class="table-responsive m-t-40">
-				<table class="table table-bordered table-hover table-striped" id="tabla_usuarios">
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>Nombre</th>
-							<th>Email</th>
-							<th>Celular</th>
-							<th>Cedula</th>
-							<th>Actions</th>
-						</tr>
-					</thead>
-					<tbody>
-						@forelse ($usuarios as $u)
-							<tr>
-								<td>{{ $u->id }}</td>
-								<td>{{ $u->name }}</td>
-								<td>{{ $u->email }}</td>
-								<td>{{ $u->celulares }}</td>
-								<td>{{ $u->ci }}</td>
-								<td>
-									<button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $u->id }}')">
-										<i class="flaticon2-edit"></i>
-									</button>
-									<button type="button" class="btn btn-icon btn-success" onclick="listaCriadero('{{ $u->id }}')">
-										<i class="fas fa-dog"></i>
-									</button>
-									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $u->id }}', '{{ $u->name }}')">
-										<i class="flaticon2-cross"></i>
-									</button>
-								</td>
-							</tr>
-						@empty
-							<h3 class="text-danger">NO EXISTEN USUARIOS</h3>
-						@endforelse
-					</tbody>
-					<tbody>
-					</tbody>
-				</table>
+			<div class="table-responsive m-t-40" id="ajaxPropietarios">
+
 			</div>
 			<!--end: Datatable-->
 		</div>
@@ -230,15 +192,28 @@
 @stop
 
 @section('js')
-    <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+    
     <script type="text/javascript">
+
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
+
 		$(function () {
-			$('#tabla_usuarios').DataTable({
-				order: [[ 0, "desc" ]],
-				language: {
-					url: '{{ asset('datatableEs.json') }}'
-				},
+			// funcion para llamar a los datos iniciales de la tabla
+			let datosBusquda = $('#formulario-busqueda-usuarios').serializeArray();
+
+			$.ajax({
+				url: "{{ url('User/ajaxListadoPropietarios') }}",
+				data: datosBusquda,
+				type: 'POST',
+				success: function(data) {
+					$('#ajaxPropietarios').html(data);
+				}
 			});
+
     	});
 		
 		function crear()
@@ -292,6 +267,21 @@
 		//lista de criaderos
 		function listaCriadero(id){
 			window.location.href = "{{ url('User/listadoCriadero') }}/"+id;
+		}
+
+		function buscarPropietario()
+		{
+			let datosBusquda = $('#formulario-busqueda-usuarios').serializeArray();
+
+			$.ajax({
+				url: "{{ url('User/ajaxListadoPropietarios') }}",
+				data: datosBusquda,
+				type: 'POST',
+				success: function(data) {
+					$('#ajaxPropietarios').html(data);
+				}
+			});
+
 		}
     </script>
 @endsection

@@ -151,7 +151,7 @@ class UserController extends Controller
         $persona->ci               = $request->input('ci');
         $persona->genero           = $request->input('genero');
         $persona->celulares        = $request->input('celulares');
-        $persona->tipo            = $request->input('socio');
+        $persona->tipo             = $request->input('socio');
         
         $persona->save();
             
@@ -186,12 +186,35 @@ class UserController extends Controller
         // $sucursales = Sucursal::all();
         // $perfiles = Perfil::all();
 
-    return view('user.listadoCriadero')->with(compact('criaderos'/*, 'sucursales', 'perfiles'*/));
+        return view('user.listadoCriadero')->with(compact('criaderos'/*, 'sucursales', 'perfiles'*/));
     }
 
     public function ajaxListadoPropietarios(Request $request)
     {
+
+        $propietarios = User::query();
         
+        if($request->filled('nombre_buscar')){
+            $nombre = $request->input('nombre_buscar');
+            $propietarios->where('name', 'like', "%$nombre%");
+        }
+
+        if($request->filled('cedula_buscar')){
+            $cedula = $request->input('cedula_buscar');
+            $propietarios->where('name', 'like', "%$cedula%");
+        }
+
+        if($request->filled('nombre_buscar') || $request->filled('cedula_buscar')){
+            $propietarios->limit(20);
+        }else{
+            $propietarios->limit(100);
+        }
+
+        $propietarios->where('perfil_id', 4);
+
+        $datosPropietarios = $propietarios->get();
+
+        return view('user.ajaxListadoPropietarios')->with(compact('datosPropietarios'));
     }
 
 }
