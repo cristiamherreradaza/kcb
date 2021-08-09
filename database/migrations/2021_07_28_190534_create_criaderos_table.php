@@ -15,11 +15,8 @@ class CreateCriaderosTable extends Migration
     {
         Schema::create('criaderos', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('codigo_anterior',11)->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->unsignedBigInteger('propietario_id');
-            $table->foreign('propietario_id')->references('id')->on('users');
-            $table->unsignedBigInteger('copropietario_id');
-            $table->foreign('copropietario_id')->references('id')->on('users');
             $table->string('nombre',150)->nullable();
             $table->string('registro_fci',15)->nullable();
             $table->string('departamento',50)->nullable();
@@ -29,7 +26,6 @@ class CreateCriaderosTable extends Migration
             $table->string('celulares',150);
             $table->string('pagina_web')->nullable();
             $table->string('email',200)->nullable();
-            $table->string('observacion',300)->nullable();
             $table->string('estado',15)->nullable();
             $table->datetime('deleted_at')->nullable();
             $table->timestamps();

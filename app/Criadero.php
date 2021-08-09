@@ -10,8 +10,7 @@ class Criadero extends Model
     use SoftDeletes;
     protected $fillable = [
         'user_id',
-        'propietario_id',
-        'copropietario_id',
+        'codigo_anterior',
         'nombre',
         'registro_fci',
         'departamento',
@@ -21,7 +20,6 @@ class Criadero extends Model
         'celulares',
         'pagina_web',
         'email',
-        'observacion',
         'estado',
         'deleted_at',
     ];

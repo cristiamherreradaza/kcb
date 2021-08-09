@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Criadero;
 use App\Raza;
 use App\User;
 use Illuminate\Http\Request;
@@ -81,10 +82,70 @@ class MigracionController extends Controller
         }
         echo "<h1 class='text-success'>SUCCESSFUL</h1>";
     }
-    public static function verifica($correo){
-        $sw = false;
-        $haber = User::where('email',$correo);
-        dd($haber);
-        return $sw;
+    // private function verifica(){
+    //     $sw = "hola joel";
+    //     return $sw;
+    // }
+    public function criaderos(){
+        $criaderosAnterior = DB::table('acriaderos')->get();
+        foreach ($criaderosAnterior as $cri) {
+            echo 'id-'.$cri->id." Nombre ".$cri->nombre."<br />";
+            $criadero = new Criadero();
+            $criadero->codigo_anterior = $cri->id;
+            $criadero->user_id = 1;
+            $criadero->nombre = $cri->nombre;
+            $criadero->registro_fci = $cri->registro_fci;
+            switch ($cri->departamento_id) {
+                case 1:
+                    $departamento = "La Paz";
+                    break;
+                case 2:
+                    $departamento = "Cochabamba";
+                    break;
+                case 3:                    
+                    $departamento = "Santa Cruz";
+                    break;
+                case 4:
+                    $departamento = "Oruro";
+                    break;
+                case 5:
+                    $departamento = "Potosi";
+                break;
+                case 6:
+                    $departamento = "Tarija";
+                    break;
+                case 7:
+                    $departamento = "Beni";
+                    break;
+                case 8:
+                    $departamento = "Pando";
+                    break;
+                default:
+                    $departamento = "Sucre";
+                    break;
+            }
+            $criadero->departamento = $departamento;
+            $criadero->fecha = $cri->fecha_desde;
+            $criadero->modalidad_ingreso = $cri->modalidad_ingreso;
+            $criadero->direccion = $cri->direccion;
+            $telefono = "";
+            if($cri->telefono1 != 0){
+                $telefono = $telefono ." ".$cri->telefono1;
+            }
+            if($cri->telefono2 != 0){
+                $telefono = $telefono ." ".$cri->telefono2;
+            }
+            if($cri->celular1 != 0){
+                $telefono = $telefono ." ".$cri->celular1;
+            }
+            if($cri->celular2 != 0){
+                $telefono = $telefono ." ".$cri->celular2;
+            }
+            $criadero->celulares = $telefono;
+            $criadero->pagina_web = $cri->paginaweb;
+            $criadero->email = $cri->email1;
+            $criadero->save();
+        }
+        echo "<h1 class='text-success'>SUCCESSFUL</h1>";
     }
 }

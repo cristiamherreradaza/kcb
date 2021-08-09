@@ -117,7 +117,10 @@ Route::get('Criadero/formulario/{id}', 'CriaderoController@formulario');
 Route::get('Ejemplar/formulario/{id}', 'EjemplarController@formulario');
 Route::post('Ejemplar/ajaxBuscaKcb', 'EjemplarController@ajaxBuscaKcb');
 
-// MIGRACIONES
+
+// ---------- MIGRACIONES ----------
 Route::get('Migracion/razas', 'MigracionController@razas');
 /* Migracion de Propietarios */
 Route::get('Migracion/propietarios', 'MigracionController@propietarios');
+/* Migracion de Criaderos */
+Route::get('Migracion/criaderos', 'MigracionController@criaderos');
