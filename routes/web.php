@@ -124,3 +124,4 @@ Route::get('Migracion/razas', 'MigracionController@razas');
 Route::get('Migracion/propietarios', 'MigracionController@propietarios');
 /* Migracion de Criaderos */
 Route::get('Migracion/criaderos', 'MigracionController@criaderos');
+Route::get('Ejemplar/migracionMascotas', 'EjemplarController@migracionMascotas');

@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use App\Raza;
-use App\ejemplar;
+use App\Ejemplar;
 
 class EjemplarController extends Controller
 {
@@ -31,13 +32,16 @@ class EjemplarController extends Controller
     // TODO - pasar funcion al controlador de migraciones
     public function migracionMascotas()
     {
-        $razasAnterior = DB::table('amascotas')
+        $mascotas = DB::table('amascotas')
                             ->orderBy('id', 'desc')
                             ->limit(500)
                             ->get();
 
-        foreach ($variable as $key => $value) {
-            # code...
+        // dd($razasAnterior);
+
+        foreach ($mascotas as $key => $m) {
+            $ejemplar = new Ejemplar();
+            // $ejemplar->    
         }
     }
 }

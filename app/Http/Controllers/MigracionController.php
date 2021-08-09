@@ -13,7 +13,8 @@ class MigracionController extends Controller
 {
     function razas()
     {
-        $razasAnterior = DB::table('arazas')->get();
+        $razasAnterior = DB::table('arazas')
+                        ->get();
 
         foreach ($razasAnterior as $r) {
             echo 'id-'.$r->id." Nombre ".$r->nombre."<br />";

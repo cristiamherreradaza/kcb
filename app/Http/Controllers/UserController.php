@@ -189,4 +189,9 @@ class UserController extends Controller
     return view('user.listadoCriadero')->with(compact('criaderos'/*, 'sucursales', 'perfiles'*/));
     }
 
+    public function ajaxListadoPropietarios(Request $request)
+    {
+        
+    }
+
 }
