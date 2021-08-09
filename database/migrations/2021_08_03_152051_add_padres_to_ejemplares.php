@@ -15,10 +15,10 @@ class AddPadresToEjemplares extends Migration
     {
         Schema::table('ejemplares', function (Blueprint $table) {
 
-            $table->unsignedBigInteger('padre_id')->after('user_id');
+            $table->unsignedBigInteger('padre_id')->nullable()->after('user_id');
             $table->foreign('padre_id')->references('id')->on('ejemplares');
 
-            $table->unsignedBigInteger('madre_id')->after('user_id');
+            $table->unsignedBigInteger('madre_id')->nullable()->after('user_id');
             $table->foreign('madre_id')->references('id')->on('ejemplares');
         });
     }

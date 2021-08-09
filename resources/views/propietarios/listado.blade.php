@@ -152,6 +152,36 @@
 		</div>
 		
 		<div class="card-body">
+
+			<form action="{{ url('User/ajaxListadoPropietarios') }}" method="POST" id="formulario-busqueda-usuarios">
+				@csrf
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group">
+							<label for="exampleInputPassword1">Nombre de Usuario
+								<span class="text-danger">*</span></label>
+							<input type="hidden" class="form-control" id="user_id" name="user_id" />
+							<input type="text" class="form-control" id="name" name="name" required />
+						</div>
+					</div>
+			
+					<div class="col-md-4">
+						<div class="form-group">
+							<label for="exampleInputPassword1">Correo
+								<span class="text-danger">*</span></label>
+							<input type="email" class="form-control" id="email" name="email" required />
+						</div>
+					</div>
+			
+					<div class="col-md-4">
+						<div class="form-group">
+							<label for="exampleInputPassword1">Contraseña
+								<span class="text-danger">*</span></label>
+							<input type="password" class="form-control" id="password" name="password" required />
+						</div>
+					</div>
+				</div>
+			</form>
 			<!--begin: Datatable-->
 			<div class="table-responsive m-t-40">
 				<table class="table table-bordered table-hover table-striped" id="tabla_usuarios">

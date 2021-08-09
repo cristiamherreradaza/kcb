@@ -17,28 +17,28 @@ class CreateEjemplaresTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
 
-            $table->unsignedBigInteger('camada_id');
+            $table->unsignedBigInteger('camada_id')->nullable();
             $table->foreign('camada_id')->references('id')->on('camadas');
 
             $table->unsignedBigInteger('raza_id');
             $table->foreign('raza_id')->references('id')->on('razas');
 
-            $table->unsignedBigInteger('criadero_id');
+            $table->unsignedBigInteger('criadero_id')->nullable();
             $table->foreign('criadero_id')->references('id')->on('criaderos');
 
-            $table->unsignedBigInteger('propietario_id');
+            $table->unsignedBigInteger('propietario_id')->nullable();
             $table->foreign('propietario_id')->references('id')->on('users');
 
-            $table->unsignedBigInteger('propietario_actual_id');
+            $table->unsignedBigInteger('propietario_actual_id')->nullable();
             $table->foreign('propietario_actual_id')->references('id')->on('users');
 
-            $table->unsignedBigInteger('propietario_padre_id');
+            $table->unsignedBigInteger('propietario_padre_id')->nullable();
             $table->foreign('propietario_padre_id')->references('id')->on('users');
 
-            $table->unsignedBigInteger('propietario_madre_id');
+            $table->unsignedBigInteger('propietario_madre_id')->nullable();
             $table->foreign('propietario_madre_id')->references('id')->on('users');
 
-            $table->unsignedBigInteger('sucursal_id');
+            $table->unsignedBigInteger('sucursal_id')->nullable();
             $table->foreign('sucursal_id')->references('id')->on('sucursales');
 
             $table->string('num_tatuaje', 150)->nullable();
