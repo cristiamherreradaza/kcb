@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Criadero;
+use App\PropietarioCriadero;
 use App\Raza;
 use App\User;
 use Illuminate\Http\Request;
@@ -146,6 +147,29 @@ class MigracionController extends Controller
             $criadero->pagina_web = $cri->paginaweb;
             $criadero->email = $cri->email1;
             $criadero->save();
+        }
+        echo "<h1 class='text-success'>SUCCESSFUL</h1>";
+    }
+    // migraciones de propietarios criaderos
+    function propietarioCriadero(){
+        $criaderosAnterior = DB::table('acriaderos')->get();
+        foreach ($criaderosAnterior as $cri) {
+            echo 'id-'.$cri->id." Nombre ".$cri->nombre."<br />";
+            $propietarioCriadero = new PropietarioCriadero();
+
+            $acriadero = DB::table('criaderos')->where('codigo_anterior','=',$cri->id)->first();
+            if($acriadero){
+                $propietarioCriadero->criadero_id = $acriadero->id;
+            }else{
+                $propietarioCriadero->criadero_id = null;
+            }
+            $propietario = DB::table('users')->where('codigo_anterior','=',$cri->propietario_id)->first();
+            if($propietario){
+                $propietarioCriadero->propietario_id = $propietario->id;
+            }else{
+                $propietarioCriadero->propietario_id = null;
+            }
+            $propietarioCriadero->save();
         }
         echo "<h1 class='text-success'>SUCCESSFUL</h1>";
     }
