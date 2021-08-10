@@ -22,4 +22,15 @@ class PropietarioCriadero extends Model
     {
         return $this->belongsTo('App\User', 'user_id');
     }
+
+    public function propietario()
+    {
+        return $this->belongsTo('App\User', 'propietario_id');
+    }
+
+    public function criadero()
+    {
+        return $this->belongsTo('App\Criadero', 'criadero_id');
+    }
+
 }
