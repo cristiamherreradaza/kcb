@@ -7,6 +7,7 @@
             <th>Email</th>
             <th>Celular</th>
             <th>Cedula</th>
+            <th>Criaderos</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -18,6 +19,14 @@
             <td>{{ $p->email }}</td>
             <td>{{ $p->celulares }}</td>
             <td>{{ $p->ci }}</td>
+            <td>
+                @php
+                    $cantidad = App\PropietarioCriadero::where('propietario_id', $p->id)
+                                                        ->count();
+
+                    echo $cantidad;
+                @endphp
+            </td>
             <td>
                 <button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $p->id }}')">
                     <i class="flaticon2-edit"></i>
