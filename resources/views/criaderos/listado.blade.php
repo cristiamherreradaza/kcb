@@ -42,8 +42,8 @@
 							<tr>
 								<td>{{ $cri->id }}</td>
 								<td>{{ $cri->nombre }}</td>
-								<td>{{ $cri->propietario->name }}</td>
-								<td>{{ $cri->copropietario->name }}</td>
+								{{--  <td>{{ $cri->propietario->name }}</td>
+								<td>{{ $cri->copropietario->name }}</td>  --}}
 								<td>{{ $cri->celulares }}</td>
 								<td>{{ $cri->pagina_web }}</td>
 								<td>
