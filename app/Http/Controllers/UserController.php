@@ -178,10 +178,13 @@ class UserController extends Controller
     // listamos los criaderos de un respectivo Usuario
     public function listadoCriadero(Request $request, $propietario_id)
     {
-        $criaderos = DB::table('criaderos')
+        /*$criaderos = DB::table('criaderos')
                     ->join('propietarios_criaderos','criaderos.id','=','propietarios_criaderos.criadero_id')
                     ->where('propietarios_criaderos.propietario_id','=',$propietario_id)
-                    ->get();
+                    ->get();*/
+        
+        $criaderos = PropietarioCriadero::where('propietario_id', $propietario_id)
+                                        ->get();
                     // dd($criaderos);
         // $criaderos = PropietarioCriadero::where('propietario_id', $propietario_id)
         //                 ->get();
