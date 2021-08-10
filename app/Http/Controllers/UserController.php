@@ -7,10 +7,12 @@ use App\User;
 use App\Perfil;
 use App\Sector;
 use DataTables;
+use App\Criadero;
 use App\Sucursal;
 use App\Categoria;
-use App\Criadero;
+use App\PropietarioCriadero;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -180,8 +182,13 @@ class UserController extends Controller
     // listamos los criaderos de un respectivo Usuario
     public function listadoCriadero(Request $request, $propietario_id)
     {
-        $criaderos = Criadero::where('propietario_id', $propietario_id)
-                        ->get();
+        $criaderos = DB::table('criaderos')
+                    ->join('propietarios_criaderos','criaderos.id','=','propietarios_criaderos.criadero_id')
+                    ->where('propietarios_criaderos.propietario_id','=',$propietario_id)
+                    ->get();
+                    // dd($criaderos);
+        // $criaderos = PropietarioCriadero::where('propietario_id', $propietario_id)
+        //                 ->get();
 
         // $sucursales = Sucursal::all();
         // $perfiles = Perfil::all();

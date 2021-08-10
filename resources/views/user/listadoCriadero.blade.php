@@ -167,7 +167,7 @@
 							<th>Celulares</th>
 							<th>Pagina Web</th>
 							<th>Email</th>
-							<th>Observaciones</th>
+							{{--  <th>Observaciones</th>  --}}
 							{{-- <th>Actions</th> --}}
 						</tr>
 					</thead>
@@ -184,7 +184,7 @@
                                 <td>{{ $cri->celulares}}</td>
                                 <td>{{ $cri->pagina_web}}</td>
                                 <td>{{ $cri->email}}</td>
-                                <td>{{ $cri->observacion}}</td>
+                                {{--  <td>{{ $cri->observacion}}</td>  --}}
                                 {{-- <td></td> --}}
                             </tr>
                         @empty
