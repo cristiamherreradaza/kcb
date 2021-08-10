@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Criadero;
+use App\PropietarioCriadero;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -17,7 +18,9 @@ class CriaderoController extends Controller
 
     public function listado()
     {
-        $criaderos = Criadero::all();
+        // $criaderos = Criadero::all();
+        $criaderos = PropietarioCriadero::all();
+        // dd($criaderos);
 
         return view('criaderos.listado')->with(compact('criaderos'));
     }

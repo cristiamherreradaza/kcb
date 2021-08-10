@@ -30,8 +30,7 @@
 						<tr>
 							<th>ID</th>
 							<th>Nombre</th>
-							<th>Propietario</th>
-							<th>Copropietario</th>
+							<th>Propietario</th>  
 							<th>Celular</th>
 							<th>Pagina Web</th>
 							<th>Actions</th>
@@ -39,13 +38,24 @@
 					</thead>
 					<tbody>
 						@forelse ($criaderos as $cri)
+						@php
+							$pro = App\PropietarioCriadero::where('criadero_id', $cri->id)
+																->get();
+																
+						@endphp
 							<tr>
 								<td>{{ $cri->id }}</td>
-								<td>{{ $cri->nombre }}</td>
-								{{--  <td>{{ $cri->propietario->name }}</td>
-								<td>{{ $cri->copropietario->name }}</td>  --}}
-								<td>{{ $cri->celulares }}</td>
-								<td>{{ $cri->pagina_web }}</td>
+								<td>{{ $cri->criadero->nombre }}</td>
+								<td>
+									@forelse ($pro as $p)
+										{{ $p->id }}
+									@empty
+										No
+									@endforelse
+								</td>
+								{{--  <td>{{ $cri->propietarios->name }}</td>  --}}
+								<td>{{ $cri->criadero->celulares }}</td>
+								<td>{{ $cri->criadero->pagina_web }}</td>
 								<td>
 									<button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $cri->id }}')">
 										<i class="flaticon2-edit"></i>
