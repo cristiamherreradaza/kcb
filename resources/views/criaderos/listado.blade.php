@@ -48,7 +48,7 @@
 								<td>{{ $cri->criadero->nombre }}</td>
 								<td>
 									@forelse ($pro as $p)
-										{{ $p->id }}
+										{{ $p->propietario['name'] }}
 									@empty
 										No
 									@endforelse
