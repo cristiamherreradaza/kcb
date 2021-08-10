@@ -207,6 +207,7 @@ class UserController extends Controller
             $propietarios->where('name', 'like', "%$cedula%");
         }
 
+        // pregunto si los campos estan vacios
         if($request->filled('nombre_buscar') || $request->filled('cedula_buscar')){
             $propietarios->limit(20);
         }else{
