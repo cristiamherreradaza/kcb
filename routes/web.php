@@ -111,6 +111,9 @@ Route::get('Criadero/listado', 'CriaderoController@listado');
 Route::post('Criadero/guarda', 'CriaderoController@guarda');
 Route::get('Criadero/elimina/{id}', 'CriaderoController@elimina');
 Route::get('Criadero/formulario/{id}', 'CriaderoController@formulario');
+Route::post('Criadero/ajaxListadoCriadero', 'CriaderoController@ajaxListadoCriadero');
+
+
 
 // EJEMPLARES
 Route::get('Ejemplar/formulario/{id}', 'EjemplarController@formulario');
