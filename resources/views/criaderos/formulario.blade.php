@@ -33,6 +33,9 @@
                     <div class="form-group">
                         <label for="exampleInputPassword1">Propietario
                             <span class="text-danger">*</span></label>
+                            @php
+                                dd($criadero);
+                            @endphp
                             <input type="hidden" class="form-control" id="criadero_id" name="criadero_id" value="{{ ($criadero!=null)?$criadero->id:'' }}" />
                             @if ($criadero != null)
                                 <br />

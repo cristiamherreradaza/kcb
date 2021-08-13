@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
+use function GuzzleHttp\Promise\queue;
+
 class CriaderoController extends Controller
 {
     public function __construct()
@@ -105,5 +107,44 @@ class CriaderoController extends Controller
             ->count();
 
         return response()->json(['vEmail' => $verificaEmail]);
+    }
+
+
+    //buscado ajax
+
+    public function ajaxListadoCriadero(Request $request)
+    {
+        $criaderos = PropietarioCriadero::query()
+                    ->join('criaderos', 'criaderos.id', "propietarios_criaderos.criadero_id");
+
+        //buscamos por nombr de criador
+        if($request->filled('nombre_buscar')){
+            $nombre = $request->input('nombre_buscar');
+            $criaderos->where('criaderos.nombre', 'like', "%$nombre%");
+        }
+
+        //buscamos por criador
+        if($request->filled('criador_buscar')){
+            $criador = $request->input('criador_buscar');
+            $criaderos->join('users', 'users.id', "propietarios_criaderos.propietario_id")
+                      ->where('propietarios_criaderos.propietario_id', '=', "$criador");
+        }
+
+        // buscamos por departamento
+        if($request->filled('departamento_buscar')){
+            $departamento = $request->input('departamento_buscar');
+            $criaderos->where('criaderos.departamento', '=', "$departamento");
+        }
+
+        // // pregunto si los campos estan vacios
+        if($request->filled('nombre_buscar') || $request->filled('criador_buscar') || $request->filled('departamento_buscar')){
+            $criaderos->limit(20);
+        }else{
+            $criaderos->limit(100);
+        }
+
+        $datosCriaderos = $criaderos->get();
+
+        return view('criaderos.ajaxListadoCriadero')->with(compact('datosCriaderos'));
     }
 }
