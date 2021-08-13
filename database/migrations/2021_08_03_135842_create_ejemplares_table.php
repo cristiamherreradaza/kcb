@@ -15,12 +15,15 @@ class CreateEjemplaresTable extends Migration
     {
         Schema::create('ejemplares', function (Blueprint $table) {
             $table->id();
+
+            $table->string('codigo_anterior', 11)->nullable();
+
             $table->unsignedBigInteger('user_id')->nullable();
 
             $table->unsignedBigInteger('camada_id')->nullable();
             $table->foreign('camada_id')->references('id')->on('camadas');
 
-            $table->unsignedBigInteger('raza_id');
+            $table->unsignedBigInteger('raza_id')->nullable();
             $table->foreign('raza_id')->references('id')->on('razas');
 
             $table->unsignedBigInteger('criadero_id')->nullable();
@@ -41,6 +44,8 @@ class CreateEjemplaresTable extends Migration
             $table->unsignedBigInteger('sucursal_id')->nullable();
             $table->foreign('sucursal_id')->references('id')->on('sucursales');
 
+            $table->string('kcb', 150)->nullable();
+            $table->string('codigo_nacionalizado', 150)->nullable();
             $table->string('num_tatuaje', 150)->nullable();
             $table->string('chip', 150)->nullable();
             $table->date('fecha_nacimiento')->nullable();
@@ -60,6 +65,8 @@ class CreateEjemplaresTable extends Migration
             $table->string('consaiguinidad', 50)->nullable();
             $table->string('hermano', 255)->nullable();
             $table->string('departamento', 50)->nullable();
+            $table->string('fallecido', 5)->nullable();
+            $table->date('fecha_fallecido')->nullable();
             $table->date('fecha_emision')->nullable();
             $table->date('fecha_nacionalizado')->nullable();
 

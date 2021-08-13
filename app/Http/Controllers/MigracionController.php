@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Criadero;
-use App\PropietarioCriadero;
 use App\Raza;
 use App\User;
+use App\Criadero;
+use App\Ejemplar;
+use App\PropietarioCriadero;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -175,18 +176,98 @@ class MigracionController extends Controller
     }
 
     // TODO - pasar funcion al controlador de migraciones
-    public function migracionMascotas()
+    public function mascotas()
     {
         $mascotas = DB::table('amascotas')
-                            ->orderBy('id', 'desc')
-                            ->limit(500)
+                            // ->orderBy('id', 'desc')
+                            // ->limit(500)
                             ->get();
-
         // dd($razasAnterior);
 
-        foreach ($mascotas as $key => $m) {
-            $ejemplar = new Ejemplar();
-            // $ejemplar->    
+        foreach ($mascotas as $key => $mascota) {
+
+            echo $mascota->id . " - " . $mascota->nombre. "<br />";
+
+            $ejemplar                   = new Ejemplar();
+            $ejemplar->user_id          = 1;
+            $ejemplar->kcb              = $mascota->kcb;
+            $ejemplar->codigo_anterior  = $mascota->id;
+            $ejemplar->num_tatuaje      = $mascota->num_tatuaje;
+            $ejemplar->fecha_nacimiento = $mascota->fecha_nacimiento;
+            $ejemplar->chip             = $mascota->chip;
+            $ejemplar->color            = $mascota->color;
+            $ejemplar->senas            = $mascota->senas;
+            $ejemplar->nombre           = $mascota->nombre;
+            $ejemplar->nombre_completo  = $mascota->nombre_completo;
+
+            if($mascota->orden == 0 || $mascota->orden == null){
+                $mostrar = 'Nombre';
+            }else{
+                $mostrar = 'Afijo';
+            }
+
+            $ejemplar->primero_mostrar = $mostrar;
+            $ejemplar->prefijo = $mascota->prefijo;
+            
+            $raza = Raza::where('codigo_anterior', $mascota->raza_id)->first();
+            // dd($raza);
+            if($raza){
+                $raza_id = $raza->id;
+            }else{
+                $raza_id = null;
+            }
+            
+            $ejemplar->raza_id              = $raza_id;
+            $ejemplar->lechigada            = $mascota->lechigada;
+            $ejemplar->sexo                 = $mascota->sexo;
+            $ejemplar->origen               = $mascota->origen;
+            $ejemplar->hermano              = $mascota->hermano;
+            $ejemplar->codigo_nacionalizado = $mascota->codigo;
+
+            switch ($mascota->departamento_id) {
+                case 1:
+                    $departamento = "La Paz";
+                    break;
+                case 2:
+                    $departamento = "Cochabamba";
+                    break;
+                case 3:                    
+                    $departamento = "Santa Cruz";
+                    break;
+                case 4:
+                    $departamento = "Oruro";
+                    break;
+                case 5:
+                    $departamento = "Potosi";
+                break;
+                case 6:
+                    $departamento = "Tarija";
+                    break;
+                case 7:
+                    $departamento = "Beni";
+                    break;
+                case 8:
+                    $departamento = "Pando";
+                    break;
+                case 9:
+                    $departamento = "Sucre";
+                    break;
+                case null:
+                    $departamento = "Extranjero";
+                    break;
+            }
+
+            $propietario = User::where('codigo_anterior', $mascota->propietario_id)->first();
+            if($propietario){
+                $propietario_id = $propietario->id;
+            }else{
+                $propietario_id = null;
+            }
+
+            $ejemplar->propietario_id = $propietario_id;
+            $ejemplar->sucursal_id    = $mascota->sucursale_id;
+
+            $ejemplar->save();
         }
     }
 

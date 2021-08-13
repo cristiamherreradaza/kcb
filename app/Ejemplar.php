@@ -1,0 +1,70 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class Ejemplar extends Model
+{
+    use SoftDeletes;
+    protected $table = "ejemplares";
+
+    protected $fillable = [
+        'codigo_anterior',
+        'user_id',
+        'madre_id',
+        'padre_id',
+        'camada_id',
+        'raza_id',
+        'criadero_id',
+        'propietario_id',
+        'propietario_actual_id',
+        'propietario_padre_id',
+        'propietario_madre_id',
+        'suscursal_id',
+        'kcb',
+        'codigo_nacionalizado',
+        'num_tatuaje',
+        'chip',
+        'fecha_nacimiento',
+        'color',
+        'senas',
+        'nombre',
+        'nombre_completo',
+        'primero_mostrar',
+        'prefijo',
+        'variedad',
+        'lechigada',
+        'sexo',
+        'origen',
+        'propietario_extranjero',
+        'afijo_extranjero',
+        'lugar_extranjero',
+        'consaiguinidad',
+        'hermano',
+        'departamento',
+        'fallecido',
+        'fecha_fallecido',
+        'fecha_emision',
+        'fecha_nacionalizado',
+        'estado',
+        'deleted_at',
+    ];
+    
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'user_id');
+    }
+
+    public function copropietario()
+    {
+        return $this->belongsTo('App\User', 'copropietario_id');
+    }
+
+    public function propietarios()
+    {
+        return $this->hasMany('App\PropietarioCriadero');
+    }
+
+}
