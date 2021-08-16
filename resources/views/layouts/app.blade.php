@@ -1227,7 +1227,24 @@
 		<script src="{{ asset('assets/plugins/custom/prismjs/prismjs.bundle.js') }}"></script>
 		<script src="{{ asset('assets/js/scripts.bundle.js') }}"></script>
 		<script src="{{ asset('assets/js/pages/features/miscellaneous/sweetalert2.js') }}"></script>
-
+		<script>
+			// script para que todos los formularios pasen con ENTER en vez de TAB
+			jQuery(document).ready(function() {
+				$('body').on('keydown', 'input, select', function(e) {
+				if (e.key === "Enter") {
+					var self = $(this), form = self.parents('form:eq(0)'), focusable, next;
+					focusable = form.find('input,a,select,button,textarea').filter(':visible');
+					next = focusable.eq(focusable.index(this)+1);
+					if (next.length) {
+						next.focus();
+					} else {
+						form.submit();
+					}
+					return false;
+				}
+				});
+			});
+		</script>
 		@section('js')
 		@show
 		<!--end::Global Theme Bundle-->

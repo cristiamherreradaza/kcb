@@ -28,7 +28,7 @@
 		
 		<div class="card-body">
 
-			<form action="{{ url('Criadero/ajaxListadoCriadero') }}" method="POST" id="formulario-busqueda-usuarios">
+			<form action="{{ url('Criadero/ajaxListadoCriadero') }}" method="POST" id="formulario-busqueda-ejemplares">
 				@csrf
 				<div class="row">
 					<div class="col-md-1">
@@ -41,14 +41,14 @@
 					<div class="col-md-2">
 						<div class="form-group">
 							<label for="exampleInputPassword1">NOMBRE</label>
-							<input type="text" class="form-control" id="kcb_buscar" name="kcb_buscar" />
+							<input type="text" class="form-control" id="nombre_buscar" name="nombre_buscar" />
 						</div>
 					</div>
 
 					<div class="col-md-2">
 						<div class="form-group">
 							<label for="exampleInputPassword1">CHIP</label>
-							<input type="text" class="form-control" id="kcb_buscar" name="kcb_buscar" />
+							<input type="text" class="form-control" id="chip_buscar" name="chip_buscar" />
 						</div>
 					</div>
 
@@ -56,7 +56,7 @@
 						<div class="form-group">
 							<label for="exampleInputPassword1">RAZA
 								</label>
-							<select class="form-control select2" id="raza_id" name="raza_id">
+							<select class="form-control select2" id="raza_buscar" name="raza_buscar">
 								<option value="">Busca por raza</option>
 								@forelse ($razas as $r)
 									<option value="{{ $r->id }}">{{ $r->nombre }}</option>
@@ -71,7 +71,7 @@
 						<div class="form-group">
 							<label for="exampleInputPassword1">PROPIETARIO
 								</label>
-							<select class="form-control select2" id="criador_buscar" name="criador_buscar">
+							<select class="form-control select2" id="propietario_buscar" name="propietario_buscar">
 								<option label="Label"></option>
 							</select>
 						</div>
@@ -80,7 +80,7 @@
 					<div class="col-md-1">
 						<div class="form-group">
 							<label for="exampleInputPassword1">&nbsp;</label>
-							<button type="button" class="btn btn-success btn-block" onclick="bucarCriadero()">BUSCAR</button>
+							<button type="button" class="btn btn-success btn-block" onclick="buscaEjemplares()">BUSCAR</button>
 						</div>
 					</div>
 			
@@ -111,7 +111,7 @@
 
 		$(function () {
 			// funcion para llamar a los datos iniciales de la tabla
-			let datosBusquda = $('#formulario-busqueda-usuarios').serializeArray();
+			let datosBusquda = $('#formulario-busqueda-ejemplares').serializeArray();
 
 			$.ajax({
 				url: "{{ url('Ejemplar/ajaxListado') }}",
@@ -122,7 +122,7 @@
 				}
 			});
 
-			$('#raza_id').select2({
+			$('#raza_buscar').select2({
     	        placeholder: "Seleccione la raza"
 	        });
     	});
@@ -175,22 +175,22 @@
                 }
             });
         }
-		function bucarCriadero()
+		function buscaEjemplares()
 		{
-			let datosBusquda = $('#formulario-busqueda-usuarios').serializeArray();
+			let datosBusqueda = $('#formulario-busqueda-ejemplares').serializeArray();
 
 			$.ajax({
-				url: "{{ url('Criadero/ajaxListadoCriadero') }}",
-				data: datosBusquda,
+				url: "{{ url('Ejemplar/ajaxListado') }}",
+				data: datosBusqueda,
 				type: 'POST',
 				success: function(data) {
-					$('#ajaxCriadero').html(data);
+					$('#ajaxEjemplares').html(data);
 				}
 			});
 
 		}
 
-		$("#criador_buscar").select2({
+		$("#propietario_buscar").select2({
 			placeholder: "Busca por nombre",
 			allowClear: true,
 			ajax: {
