@@ -141,9 +141,11 @@ class MigracionController extends Controller
             if($cri->celular1 != 0){
                 $telefono = $telefono ." ".$cri->celular1;
             }
+
             if($cri->celular2 != 0){
                 $telefono = $telefono ." ".$cri->celular2;
             }
+            
             $criadero->celulares = $telefono;
             $criadero->pagina_web = $cri->paginaweb;
             $criadero->email = $cri->email1;
@@ -193,7 +195,14 @@ class MigracionController extends Controller
             $ejemplar->kcb              = $mascota->kcb;
             $ejemplar->codigo_anterior  = $mascota->id;
             $ejemplar->num_tatuaje      = $mascota->num_tatuaje;
-            $ejemplar->fecha_nacimiento = $mascota->fecha_nacimiento;
+
+            if($mascota->fecha_nacimiento = '0000-00-00'){
+                $fecha_nac = null;
+            }else{
+                $fecha_nac = $mascota->fecha_nacimiento;
+            }
+
+            $ejemplar->fecha_nacimiento = $fecha_nac;
             $ejemplar->chip             = $mascota->chip;
             $ejemplar->color            = $mascota->color;
             $ejemplar->senas            = $mascota->senas;

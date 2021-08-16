@@ -20,4 +20,9 @@ class Raza extends Model
     {
         return $this->belongsTo('App\User', 'user_id');
     }
+
+    public function ejemplares()
+    {
+        return $this->hasMany('App\Ejemplar');
+    }
 }

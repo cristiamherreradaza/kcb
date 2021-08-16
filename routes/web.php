@@ -118,7 +118,8 @@ Route::post('Criadero/ajaxListadoCriadero', 'CriaderoController@ajaxListadoCriad
 // EJEMPLARES
 Route::get('Ejemplar/formulario/{id}', 'EjemplarController@formulario');
 Route::post('Ejemplar/ajaxBuscaKcb', 'EjemplarController@ajaxBuscaKcb');
-
+Route::get('Ejemplar/listado', 'EjemplarController@listado');
+Route::post('Ejemplar/ajaxListado', 'EjemplarController@ajaxListado');
 
 // ---------- MIGRACIONES ----------
 Route::get('Migracion/razas', 'MigracionController@razas');

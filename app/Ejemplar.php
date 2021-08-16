@@ -57,14 +57,13 @@ class Ejemplar extends Model
         return $this->belongsTo('App\User', 'user_id');
     }
 
-    public function copropietario()
+    public function raza()
     {
-        return $this->belongsTo('App\User', 'copropietario_id');
+        return $this->belongsTo('App\Raza', 'raza_id');
     }
 
-    public function propietarios()
+    public function propietario()
     {
-        return $this->hasMany('App\PropietarioCriadero');
+        return $this->belongsTo('App\User', 'propietario_id');
     }
-
 }
