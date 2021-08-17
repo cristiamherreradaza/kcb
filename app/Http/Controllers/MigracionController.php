@@ -6,10 +6,13 @@ use App\Raza;
 use App\User;
 use App\Criadero;
 use App\Ejemplar;
+use App\Grupo;
+use App\GrupoRaza;
 use App\PropietarioCriadero;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use PhpParser\Node\Stmt\Foreach_;
 
 class MigracionController extends Controller
 {
@@ -96,6 +99,12 @@ class MigracionController extends Controller
             $criadero = new Criadero();
             $criadero->codigo_anterior = $cri->id;
             $criadero->user_id = 1;
+            $copropietario = DB::table('users')->where('codigo_anterior','=',$cri->copropietario_id)->first();
+            if($copropietario){
+                $criadero->copropietario_id = $copropietario->id;
+            }else{
+                $criadero->copropietario_id = null;
+            }
             $criadero->nombre = $cri->nombre;
             $criadero->registro_fci = $cri->registro_fci;
             switch ($cri->departamento_id) {
@@ -278,6 +287,44 @@ class MigracionController extends Controller
 
             $ejemplar->save();
         }
+    }
+
+    // Migracion de GRUPOS
+    public function grupos(){
+        $grupos = DB::table('agrupos')->get();
+        foreach ($grupos as $gru) {
+            echo 'id-'.$gru->id." Nombre ".$gru->nombre."<br />";
+            $grupo = new Grupo();
+            $grupo->codigo_anterior = $gru->id;
+            $grupo->user_id = 1;
+            $grupo->nombre = $gru->nombre;
+            $grupo->descripcion = $gru->descripcion;
+
+            $grupo->save();
+        }
+        
+        echo "<h1 class='text-success'>SUCCESSFUL</h1>";
+    }
+
+    // Migracion de GRUPOS_RAZAS
+    public function grupos_razas(){
+        $grupos = DB::table('agrupos_razas')->get();
+        foreach ($grupos as $gru) {
+            echo 'id-'.$gru->id;
+
+            $grupo = new GrupoRaza();
+
+            $grupo->codigo_anterior = $gru->id;
+            $grupo->user_id         = 1;
+            $raza = DB::table('razas')->where('codigo_anterior','=',$gru->raza_id)->first();
+            $grupo->raza_id         = $raza->id;
+            $g = DB::table('grupos')->where('codigo_anterior','=',$gru->grupo_id)->first();
+            $grupo->grupo_id        = $g->id;
+
+            $grupo->save();
+        }
+        
+        echo "<h1 class='text-success'>SUCCESSFUL</h1>";
     }
 
 }

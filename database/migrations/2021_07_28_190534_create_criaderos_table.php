@@ -17,13 +17,15 @@ class CreateCriaderosTable extends Migration
             $table->bigIncrements('id');
             $table->string('codigo_anterior',11)->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('copropietario_id')->nullable();
+            $table->foreign('copropietario_id')->references('id')->on('users');
             $table->string('nombre',150)->nullable();
             $table->string('registro_fci',15)->nullable();
             $table->string('departamento',50)->nullable();
             $table->date('fecha')->nullable();
             $table->string('modalidad_ingreso',150)->nullable();
             $table->string('direccion',150)->nullable();
-            $table->string('celulares',150);
+            $table->string('celulares',150)->nullable();
             $table->string('pagina_web')->nullable();
             $table->string('email',200)->nullable();
             $table->string('estado',15)->nullable();

@@ -40,17 +40,15 @@ class CriaderoController extends Controller
 
     public function formulario(Request $request, $id)
     {
-        // dd($id);
-        if ($id != 0) {
-            $criadero = Criadero::find($id);
-        } else {
-            $criadero = null;
+
+        if($id != 0){
+            $propietarioCriador = PropietarioCriadero::where("criadero_id",$id)
+                                            ->first();
+        }else{
+            $propietarioCriador = null;
         }
 
-        $user = User::all();
-
-        return view('criaderos.formulario')->with(compact('criadero', 'user'));
-        // return view('criaderos.formulario')->with(compact('criadero'));                  
+        return view('criaderos.formulario')->with(compact('propietarioCriador'));                  
     }
 
     public function guarda(Request $request)
@@ -64,12 +62,18 @@ class CriaderoController extends Controller
         $criadero->user_id = Auth::user()->id;
 
         if($request->filled('propietario_id')){
-            $criadero->propietario_id = $request->input('propietario_id');
+            $propietarioCriadero = PropietarioCriadero::where('criadero_id',$request->input('criadero_id'))
+                                                    ->first();
+            $propietarioCriadero->propietario_id = $request->input('propietario_id');
+
+            $propietarioCriadero->save();
         }
 
         if($request->filled('copropietario_id')){
             $criadero->copropietario_id = $request->input('copropietario_id');
         }
+
+        // dd($request->input('copropietario_id'));
 
         $criadero->nombre              = $request->input('nombre');
         $criadero->registro_fci        = $request->input('registro_fci');
@@ -80,7 +84,6 @@ class CriaderoController extends Controller
         $criadero->celulares           = $request->input('celulares');
         $criadero->pagina_web          = $request->input('pagina_web');
         $criadero->email               = $request->input('email');
-        $criadero->observacion         = $request->input('observacion');
 
         $criadero->save();
 
