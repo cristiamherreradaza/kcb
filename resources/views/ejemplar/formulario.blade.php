@@ -41,8 +41,12 @@
                             </div>
                         </div>
                     </div>
-
                 </form>
+                <div class="row">
+                    <div class="col-md-12" id="ajaxEjemplar">
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -177,7 +181,8 @@
             </div>
 
             <div class="row">
-                <div class="col-md-6"><button type="button" class="btn btn-primary btn-block" onclick="seleccionaPadre()">PADRE</button>
+                <div class="col-md-6" id="btn-padre">
+                    <button type="button" class="btn btn-primary btn-block" onclick="seleccionaPadre()">PADRE</button>
                 </div>
                 <div class="col-md-6"><button type="button" class="btn btn-info btn-block">MADRE</button></div>
                 
@@ -322,22 +327,17 @@
         $("#modal-padres").modal('show');        
     }
 
-    $("#busqueda-kcb").on("change paste keyup", function() {
-        console.log($(this).val());
+    $("#busqueda-kcb, #busqueda-nombre").on("change paste keyup", function() {
 
-        let kcb = $($(this)).val();
+        let kcb = $("#busqueda-kcb").val();
+        let nombre = $("#busqueda-nombre").val();
 
         $.ajax({
-            url: "{{ url('Ejemplar/ajaxBuscaKcb') }}",
-            data: {kcb: kcb},
+            url: "{{ url('Ejemplar/ajaxBuscaEjemplar') }}",
+            data: {kcb: kcb, nombre: nombre},
             type: 'POST',
             success: function(data) {
-                // console.log(data.vEmail);     
-                /*if(data.vEmail > 0){
-                    $("#msg-error-email").show();
-                }else{
-                    $("#msg-error-email").hide();
-                }*/
+                $("#ajaxEjemplar").html(data);
             }
         });
 

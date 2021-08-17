@@ -19,8 +19,8 @@
 			</div>
 			<div class="card-toolbar">
 				<!--begin::Button-->
-				<a href="#" class="btn btn-primary font-weight-bolder" onclick="nuevo()">
-					<i class="fa fa-plus-square"></i> NUEVO CRIADERO 
+				<a href="{{ url('Ejemplar/formulario/0') }}" class="btn btn-primary font-weight-bolder" onclick="nuevo()">
+					<i class="fa fa-plus-square"></i> NUEVO EJEMPLAR 
 				</a>
 				<!--end::Button-->
 			</div>
@@ -79,11 +79,17 @@
 
 					<div class="col-md-1">
 						<div class="form-group">
-							<label for="exampleInputPassword1">&nbsp;</label>
-							<button type="button" class="btn btn-success btn-block" onclick="buscaEjemplares()">BUSCAR</button>
+							<p style="margin-top: 24px;"></p>
+
+							<a href="#" class="btn btn-icon btn-primary" onclick="buscaEjemplares()">
+								<i class="fas fa-search"></i>
+							</a>
+							<a href="#" class="btn btn-icon btn-success" onclick="generaExcel()">
+								<i class="fas fa-file-excel"></i>
+							</a>
 						</div>
 					</div>
-			
+
 				</div>
 			</form>
 			
@@ -213,6 +219,11 @@
 			},
 			minimumInputLength: 1,
 		});
+
+		function generaExcel()
+		{
+			alert("funcion en construccion");
+		}
 
     </script>
 @endsection
