@@ -29,7 +29,7 @@
                             <div class="form-group">
                                 <label for="kcb">KCB
                                 </label>
-                                <input type="text" class="form-control" id="busqueda-kcb" name="busqueda-kcb" />
+                                <input type="text" class="form-control" id="busqueda-kcb" name="busqueda-kcb" autocomplete="off" />
                             </div>
                         </div>
 

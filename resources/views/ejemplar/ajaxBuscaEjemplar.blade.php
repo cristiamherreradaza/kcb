@@ -14,7 +14,7 @@
                 <td>{{ $e->nombre_completo }}</td>
                 <td>{{ $e->raza->nombre }}</td>
                 <td>
-                    <a href="#" class="btn btn-icon btn-success" onclick="selecciona('{{ $e->kcb }}', '{{ $e->nombre_completo }}');">
+                    <a href="#" class="btn btn-icon btn-success" onclick="selecciona('{{ $e->kcb }}', '{{ trim($e->nombre_completo) }}');">
                         <i class="fas fa-check"></i>
                     </a>
                 </td>
