@@ -24,17 +24,30 @@ class EjemplarController extends Controller
         return view('ejemplar.formulario')->with(compact('ejemplar', 'razas'));
     }
 
-    public function ajaxBuscaKcb(Request $request)
+    public function ajaxBuscaEjemplar(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
+        $queryEjemplares = Ejemplar::query();
+
+        if($request->filled('kcb')){
+            $kcb = $request->input('kcb');
+            $queryEjemplares->where('kcb', 'like', "%$kcb%");
+        }
+
+        if($request->filled('nombre')){
+            $nombre = $request->input('nombre');
+            $queryEjemplares->where('nombre', 'like', "%$nombre%");
+        }
+
+        $queryEjemplares->limit(8);
+
+        $ejemplares = $queryEjemplares->get();
+
+        return view('ejemplar.ajaxBuscaEjemplar')->with(compact('ejemplares'));
     }
 
     public function listado(Request $request)
     {
-        // $ejemplares = Ejemplar::orderBy('id', 'desc')
-        //                     ->limit(200)
-        //                     ->get();
-
         $razas = Raza::all();
         $propietarios = User::where('perfil_id', 4)
                             ->get();
@@ -51,16 +64,32 @@ class EjemplarController extends Controller
             $queryEjemplares->where('kcb', $kcb);
         }
 
+        if ($request->filled('nombre_buscar')) {
+            $nombre = $request->input('nombre_buscar');
+            $queryEjemplares->where('nombre', 'like', "%$nombre%");
+        }
+
+        if ($request->filled('chip_buscar')) {
+            $chip = $request->input('chip_buscar');
+            $queryEjemplares->where('chip', 'like', "%$chip%");
+        }
+
         if ($request->filled('raza_buscar')) {
             $raza_id = $request->input('raza_buscar');
             $queryEjemplares->where('raza_id', $raza_id);
         }
 
+        if ($request->filled('propietario_buscar')) {
+            $propietario_id = $request->input('propietario_buscar');
+            $queryEjemplares->where('propietario_id', $propietario_id);
+        }
+
         if ($request->filled('kcb_buscar') || $request->filled('nombre_buscar') || $request->filled('chip_buscar') || $request->filled('raza_buscar') || $request->filled('propietario_buscar')) {
-            $queryEjemplares->limit(45000);
+            $queryEjemplares->limit(300);
         }else{
             $queryEjemplares->limit(200);
         }
+
 
         $ejemplares = $queryEjemplares->get();
         
