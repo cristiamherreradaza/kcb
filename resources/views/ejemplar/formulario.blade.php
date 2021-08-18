@@ -195,16 +195,22 @@
             <br />
             <div class="row">
             
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Raza
-                            <span class="text-danger">*</span></label>
-                        <select class="form-control select2" id="raza_id" name="raza_id">
-                            @forelse ($razas as $r)
-                            <option value="{{ $r->id }}">{{ $r->nombre }} {{ $r->descripcion }}</option>
-                            @empty
-            
-                            @endforelse
+                        <label for="exampleInputPassword1">PROPIETARIO
+                        </label>
+                        <select class="form-control select2" id="propietario_id" name="propietario_id">
+                            <option label="Label"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">AFIJO
+                        </label>
+                        <select class="form-control select2" id="criadero_id" name="criadero_id">
+                            <option label="Label"></option>
                         </select>
                     </div>
                 </div>
@@ -262,11 +268,11 @@
         minimumInputLength: 1,
     });
 
-    $("#copropietario_id").select2({
+    $("#criadero_id").select2({
         placeholder: "Busca por nombre",
         allowClear: true,
         ajax: {
-            url: "{{ url('User/ajaxBuscaPropietario') }}",
+            url: "{{ url('Criadero/ajaxBuscaCriadero') }}",
             dataType: 'json',
             method: 'POST',
             delay: 250,

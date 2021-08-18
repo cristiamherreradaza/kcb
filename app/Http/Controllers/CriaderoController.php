@@ -150,4 +150,22 @@ class CriaderoController extends Controller
 
         return view('criaderos.ajaxListadoCriadero')->with(compact('datosCriaderos'));
     }
+
+    public function ajaxBuscaCriadero(Request $request)
+    {
+        $nombre = $request->input('search');
+        $propietarios = Criadero::where('nombre', 'like', "%$nombre%")
+                            ->limit(15)
+                            ->get();
+
+        $response = array();
+        foreach($propietarios as $p){
+            $response[] = array(
+                'id'=>$p->id,
+                'text'=>$p->nombre." ($p->registro_fci)",
+            );
+        }
+
+        return response()->json($response);
+    }
 }

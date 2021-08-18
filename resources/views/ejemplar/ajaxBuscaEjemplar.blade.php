@@ -37,7 +37,7 @@
             $("#modal-padres").modal('hide');
             $("#padre_id").val(id);
         }else{
-            var boton = '<button type="button" class="btn btn-info btn-block" onclick="seleccionaMadre()">'+nombre_completo+'</button>';
+            var boton = '<button type="button" class="btn btn-info btn-block" onclick="seleccionaMadre()">'+'KCB: '+kcb+' NOMBRE: '+nombre_completo+'</button>';
             $("#btn-madre").html(boton);
             $("#modal-padres").modal('hide');
             $("#madre_id").val(id);
