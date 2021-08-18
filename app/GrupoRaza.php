@@ -18,4 +18,13 @@ class GrupoRaza extends Model
         'estado',
         'deleted_at',
     ];
+    public function razas()
+    {
+        return $this->belongsTo('App\Raza', 'raza_id');
+    }
+
+    public function grupos()
+    {
+        return $this->belongsTo('App\Grupo', 'grupo_id');
+    }
 }
