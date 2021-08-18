@@ -6,9 +6,11 @@ use App\Raza;
 use App\User;
 use App\Criadero;
 use App\Ejemplar;
+use App\Examen;
 use App\Grupo;
 use App\GrupoRaza;
 use App\PropietarioCriadero;
+use App\Titulo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -325,6 +327,50 @@ class MigracionController extends Controller
         }
         
         echo "<h1 class='text-success'>SUCCESSFUL</h1>";
+    }
+
+    //MIGRACION DE TITULOS
+    public function titulos(){
+
+        $titulos = DB::table('atitulos')->get();
+        foreach ($titulos as $ti) {
+            echo 'id-'.$ti->id." nombre => ".$ti->nombre."<br>";
+            
+            $titulo = new Titulo();
+
+            $titulo->codigo_anterior = $ti->id;
+            $titulo->user_id         = 1;
+            $titulo->nombre          = $ti->nombre;
+            $titulo->descripcion     = $ti->descripcion;
+
+            $titulo->save();
+        }
+
+        echo "<h1 class='text-success'>SUCCESSFUL</h1>";
+    }
+
+    //MIGRACION DE TITULOS
+    public function examenes(){
+
+        $examenes = DB::table('aexamenes')->get();
+        foreach ($examenes as $ex) {
+            echo 'id-'.$ex->id." nombre => ".$ex->descripcion."<br>";
+            
+            $examen = new Examen();
+
+            $examen->codigo_anterior = $ex->id;
+            $examen->user_id         = 1;
+            $examen->nombre          = $ex->descripcion;
+
+            $examen->save();
+        }
+
+        echo "<h1 class='text-success'>SUCCESSFUL</h1>";
+    }
+
+    //MIGRACION DE EXAMENES_MASCOTAS
+    public function examenes_mascotas(){
+        
     }
 
 }

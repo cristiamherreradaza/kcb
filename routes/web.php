@@ -142,3 +142,9 @@ Route::get('Migracion/grupos', 'MigracionController@grupos');
 /* Migracion de GRUPOS_RAZAS */
 Route::get('Migracion/grupos_razas', 'MigracionController@grupos_razas');
 
+/* Migracion de TITULOS */
+Route::get('Migracion/titulos', 'MigracionController@titulos');
+
+/* Migracion de EXAMENES */
+Route::get('Migracion/examenes', 'MigracionController@examenes');
+

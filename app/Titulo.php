@@ -10,6 +10,7 @@ class Titulo extends Model
     use SoftDeletes;
     protected $fillable = [
         'user_id',
+        'codigo_anterior',
         'nombre',
         'descripcion',
         'estado',
