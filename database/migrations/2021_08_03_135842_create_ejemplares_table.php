@@ -62,7 +62,7 @@ class CreateEjemplaresTable extends Migration
             $table->string('propietario_extranjero', 300)->nullable();
             $table->string('afijo_extranjero', 200)->nullable();
             $table->string('lugar_extranjero', 200)->nullable();
-            $table->string('consaiguinidad', 50)->nullable();
+            $table->string('consanguinidad', 50)->nullable();
             $table->string('hermano', 255)->nullable();
             $table->string('departamento', 50)->nullable();
             $table->string('fallecido', 5)->nullable();

@@ -195,7 +195,7 @@
             <br />
             <div class="row">
             
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div class="form-group">
                         <label for="exampleInputPassword1">PROPIETARIO
                         </label>
@@ -205,7 +205,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="exampleInputPassword1">AFIJO
                         </label>
@@ -214,7 +214,76 @@
                         </select>
                     </div>
                 </div>
+
+                <div class="col-md-3">
+                @php
+                    $var = "";
+                @endphp
+
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Departamento
+                            <span class="text-danger">*</span></label>
+                        <select name="departamento" id="departamento" class="form-control">
+                            <option value="La Paz" {{ ($var!=null)? ($var=="La Paz")?"selected":'':'' }}>
+                                La Paz</option>
+                            <option value="Oruro" {{ ($var!=null)? ($var=="Oruro")?"selected":'':'' }}>
+                                Oruro</option>
+                            <option value="Potosi" {{ ($var!=null)? ($var=="Potosi")?"selected":'':'' }}>
+                                Potosi</option>
+                            <option value="Cochabamba" {{ ($var!=null)? ($var=="Cochabamba")?"selected":'':'' }}>
+                                Cochabamba</option>
+                            <option value="Chuquisaca" {{ ($var!=null)? ($var=="Chuquisaca")?"selected":'':'' }}>
+                                Chuquisaca</option>
+                            <option value="Tarija" {{ ($var!=null)? ($var=="Tarija")?"selected":'':'' }}>
+                                Tarija</option>
+                            <option value="Pando" {{ ($var!=null)? ($var=="Pando")?"selected":'':'' }}>
+                                Pando</option>
+                            <option value="Beni" {{ ($var!=null)? ($var=="Beni")?"selected":'':'' }}>
+                                Beni</option>
+                            <option value="Santa Cruz" {{ ($var!=null)? ($var=="Santa Cruz")?"selected":'':'' }}>
+                                Santa Cruz</option>
+                        </select>
+                    </div>
+                </div>
             
+            </div>
+
+            <div class="row">                
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="color">Consanguinidad
+                            <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="consanguinidad" name="consanguinidad" value="{{ ($ejemplar != null)? $ejemplar->color:'' }}" />
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="color">Hermano
+                            <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="hermano" name="hermano" value="{{ ($ejemplar != null)? $ejemplar->color:'' }}" />
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="color">Lechigada
+                            <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="color" name="color"
+                            value="{{ ($ejemplar != null)? $ejemplar->color:'' }}" />
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="color">Fecha Emision
+                            <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" id="color" name="color"
+                            value="{{ ($ejemplar != null)? $ejemplar->color:date('Y-m-d') }}" />
+                    </div>
+                </div>
+
             </div>
 
             <div class="row">
