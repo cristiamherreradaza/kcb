@@ -26,7 +26,7 @@
                 			<div class="form-group">
                 			    <label for="exampleInputPassword1">Nombre de la Raza
                 			    <span class="text-danger">*</span></label>
-                			    <input type="text" class="form-control" id="grupo_id" name="grupo_id" value="{{ $gruposRazas[0]->grupos->id }}"/>
+                			    <input type="hidden" class="form-control" id="grupo_id" name="grupo_id" value="{{ $gruposRazas[0]->grupos->id }}"/>
 								<select class="form-control select2" id="raza_id" name="raza_id">
 									@forelse ($razas as $r)
 										<option value="{{ $r->id }}">{{ $r->nombre }} {{ $r->descripcion }}</option>                                    
@@ -85,7 +85,7 @@
 								<td>{{ $ra->razas->nombre }}</td>
 								<td>{{ $ra->razas->descripcion }}</td>
 								<td>
-									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $ra->id }}', '{{ $ra->nombre }}')">
+									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $ra->id }}', '{{ $ra->razas->nombre }}', '{{ $ra->grupos->id }}')">
 										<i class="flaticon2-cross"></i>
 									</button>
 								</td>
@@ -123,7 +123,7 @@
     		$("#modalGrupo").modal('show');
     	}
 
-		function elimina(id, nombre)
+		function elimina(id, nombre, id_grupo)
         {
 			// mostramos la pregunta en el alert
             Swal.fire({
@@ -138,7 +138,7 @@
 				// si pulsa boton si
                 if (result.value) {
 
-                    window.location.href = "{{ url('Grupo/elimina') }}/"+id;
+                    window.location.href = "{{ url('Grupo/eliminaGrupoRaza') }}/"+id+"/"+id_grupo;
 
                     Swal.fire(
                         "Borrado!",

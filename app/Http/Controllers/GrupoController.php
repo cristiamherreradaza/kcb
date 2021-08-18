@@ -65,4 +65,9 @@ class GrupoController extends Controller
 
         return redirect('Grupo/listadoGrupoRaza/'.$request->input('grupo_id'));
     }
+
+    public function eliminaGrupoRaza(Request $request, $raza_id,$grupo_id){
+        GrupoRaza::destroy($raza_id);
+        return redirect('Grupo/listadoGrupoRaza/'.$grupo_id);
+    }
 }
