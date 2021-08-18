@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Grupo;
+use App\GrupoRaza;
+use App\Raza;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -39,5 +41,33 @@ class GrupoController extends Controller
     {
         Grupo::destroy($tipo_id);
         return redirect('Grupo/listado');
+    }
+
+    public function listadoGrupoRaza(Request $request, $grupo_id){
+
+        $razas = Raza::all();
+
+        $gruposRazas = GrupoRaza::where('grupo_id',$grupo_id)
+                            ->get();
+
+    return view('grupos.listadoGrupoRaza')->with(compact('gruposRazas','razas'));
+    }
+
+    public function agregarRaza(Request $request){
+
+        $grupoRaza = new GrupoRaza();
+
+        $grupoRaza->user_id  = Auth::user()->id;
+        $grupoRaza->raza_id  = $request->input('raza_id');
+        $grupoRaza->grupo_id = $request->input('grupo_id');
+
+        $grupoRaza->save();
+
+        return redirect('Grupo/listadoGrupoRaza/'.$request->input('grupo_id'));
+    }
+
+    public function eliminaGrupoRaza(Request $request, $raza_id,$grupo_id){
+        GrupoRaza::destroy($raza_id);
+        return redirect('Grupo/listadoGrupoRaza/'.$grupo_id);
     }
 }

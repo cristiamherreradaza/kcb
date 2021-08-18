@@ -75,6 +75,10 @@ Route::get('Examen/elimina/{tipo_id}', 'ExamenController@elimina');
 Route::get('Grupo/listado', 'GrupoController@listado');
 Route::post('Grupo/guarda', 'GrupoController@guarda');
 Route::get('Grupo/elimina/{tipo_id}', 'GrupoController@elimina');
+Route::get('Grupo/listadoGrupoRaza/{grupo_id}', 'GrupoController@listadoGrupoRaza');
+Route::post('Grupo/agregarRaza', 'GrupoController@agregarRaza');
+Route::get('Grupo/eliminaGrupoRaza/{raza_id}/{grupo_id}', 'GrupoController@eliminaGrupoRaza');
+
 
 // EVENTOS
 Route::get('Evento/listado', 'EventoController@listado');
@@ -137,4 +141,10 @@ Route::get('Migracion/grupos', 'MigracionController@grupos');
 
 /* Migracion de GRUPOS_RAZAS */
 Route::get('Migracion/grupos_razas', 'MigracionController@grupos_razas');
+
+/* Migracion de TITULOS */
+Route::get('Migracion/titulos', 'MigracionController@titulos');
+
+/* Migracion de EXAMENES */
+Route::get('Migracion/examenes', 'MigracionController@examenes');
 

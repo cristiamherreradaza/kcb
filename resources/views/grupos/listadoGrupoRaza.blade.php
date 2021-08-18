@@ -19,33 +19,29 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ url('Grupo/guarda') }}" method="POST" id="formulario-tipos">
+                <form action="{{ url('Grupo/agregarRaza') }}" method="POST" id="formulario-razas-grupos">
                 	@csrf
                 	<div class="row">
-
-                		<div class="col-md-4">
+                		<div class="col-md-12">
                 			<div class="form-group">
-                			    <label for="exampleInputPassword1">Nombre del grupo
+                			    <label for="exampleInputPassword1">Nombre de la Raza
                 			    <span class="text-danger">*</span></label>
-                			    <input type="hidden" class="form-control" id="grupo_id" name="grupo_id" />
-                			    <input type="text" class="form-control" id="nombre" name="nombre" required />
-                			</div>
-                		</div>
-
-                		<div class="col-md-8">
-                			<div class="form-group">
-                			    <label for="exampleInputPassword1">Descripcion
-                			    <span class="text-danger">*</span></label>
-                			    <input type="text" class="form-control" id="descripcion" name="descripcion" required />
+                			    <input type="hidden" class="form-control" id="grupo_id" name="grupo_id" value="{{ $gruposRazas[0]->grupos->id }}"/>
+								<select class="form-control select2" id="raza_id" name="raza_id">
+									@forelse ($razas as $r)
+										<option value="{{ $r->id }}">{{ $r->nombre }} {{ $r->descripcion }}</option>                                    
+									@empty
+										
+									@endforelse
+								</select>
                 			</div>
                 		</div>
                 	</div>
-
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-success font-weight-bold" onclick="crear()">Guardar</button>
+                <button type="button" class="btn btn-success font-weight-bold" onclick="agregar()">Agregar</button>
             </div>
         </div>
     </div>
@@ -56,18 +52,20 @@
 	<div class="card card-custom gutter-b">
 		<div class="card-header flex-wrap py-3">
 			<div class="card-title">
-				<h3 class="card-label">TIPOS DE GRUPOS
+				<h3 class="card-label">RAZAS DEL {{ $gruposRazas[0]->grupos->nombre }}
 				</h3>
 			</div>
 			<div class="card-toolbar">
 				<!--begin::Button-->
 				<a href="#" class="btn btn-primary font-weight-bolder" onclick="nuevo()">
-					<i class="fa fa-plus-square"></i> NUEVO GRUPO
+					<i class="fa fa-plus-square"></i> AGREGAR UNA NUEVA RAZA AL {{ $gruposRazas[0]->grupos->nombre }}
 				</a>
 				<!--end::Button-->
 			</div>
 		</div>
-		
+		{{-- @php
+			dd($gruposRazas);
+		@endphp --}}
 		<div class="card-body">
 			<!--begin: Datatable-->
 			<div class="table-responsive m-t-40">
@@ -81,19 +79,13 @@
 						</tr>
 					</thead>
 					<tbody>
-						@forelse ($grupos as $gru)
+						@forelse ($gruposRazas as $ra)
 							<tr>
-								<td>{{ $gru->id }}</td>
-								<td>{{ $gru->nombre }}</td>
-								<td>{{ $gru->descripcion }}</td>
+								<td>{{ $ra->razas->id }}</td>
+								<td>{{ $ra->razas->nombre }}</td>
+								<td>{{ $ra->razas->descripcion }}</td>
 								<td>
-									<button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $gru->id }}', '{{ $gru->nombre }}', '{{ $gru->descripcion }}')">
-										<i class="flaticon2-edit"></i>
-									</button>
-									<button type="button" class="btn btn-icon btn-success" onclick="listarRaza('{{ $gru->id }}')">
-										<i class="fas fa-dog"></i>
-									</button>
-									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $gru->id }}', '{{ $gru->nombre }}')">
+									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $ra->id }}', '{{ $ra->razas->nombre }}', '{{ $ra->grupos->id }}')">
 										<i class="flaticon2-cross"></i>
 									</button>
 								</td>
@@ -128,42 +120,10 @@
 
     	function nuevo()
     	{
-			// pone los inputs vacios
-			$("#grupo_id").val('');
-			$("#nombre").val('');
-			$("#descripcion").val('');
-			// abre el modal
     		$("#modalGrupo").modal('show');
     	}
 
-		function edita(id, nombre, descripcion)
-    	{
-			// colocamos valores en los inputs
-			$("#grupo_id").val(id);
-			$("#nombre").val(nombre);
-			$("#descripcion").val(descripcion);
-
-			// mostramos el modal
-    		$("#modalGrupo").modal('show');
-    	}
-
-    	function crear()
-    	{
-			// verificamos que el formulario este correcto
-    		if($("#formulario-tipos")[0].checkValidity()){
-				// enviamos el formulario
-    			$("#formulario-tipos").submit();
-				// mostramos la alerta
-				Swal.fire("Excelente!", "Registro Guardado!", "success");
-    		}else{
-				// de lo contrario mostramos los errores
-				// del formulario
-    			$("#formulario-tipos")[0].reportValidity()
-    		}
-
-    	}
-
-		function elimina(id, nombre)
+		function elimina(id, nombre, id_grupo)
         {
 			// mostramos la pregunta en el alert
             Swal.fire({
@@ -178,7 +138,7 @@
 				// si pulsa boton si
                 if (result.value) {
 
-                    window.location.href = "{{ url('Grupo/elimina') }}/"+id;
+                    window.location.href = "{{ url('Grupo/eliminaGrupoRaza') }}/"+id+"/"+id_grupo;
 
                     Swal.fire(
                         "Borrado!",
@@ -196,8 +156,20 @@
                 }
             });
         }
-		function listarRaza(id){
-			window.location.href = "{{ url('Grupo/listadoGrupoRaza') }}/"+id;
+
+		$(function(){
+			$('#raza_id').select2({
+				placeholder: "Select a state"
+			});
+		});
+
+		function agregar(){
+			if($('#formulario-razas-grupos')[0].checkValidity()){
+				$('#formulario-razas-grupos').submit();
+				Swal.fire("Excelente!", "Registro Guardado!", "success");
+			}else{
+				$('#formulario-razas-grupos')[0].reportValidity()
+			}
 		}
 
     </script>
