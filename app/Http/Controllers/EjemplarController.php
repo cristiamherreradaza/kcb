@@ -29,6 +29,8 @@ class EjemplarController extends Controller
         // dd($request->all());
         $queryEjemplares = Ejemplar::query();
 
+        $queryEjemplares->where('sexo', $request->input('sexo'));
+
         if($request->filled('kcb')){
             $kcb = $request->input('kcb');
             $queryEjemplares->where('kcb', 'like', "%$kcb%");

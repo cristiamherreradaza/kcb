@@ -29,6 +29,7 @@
                             <div class="form-group">
                                 <label for="kcb">KCB
                                 </label>
+                                <input type="hidden" name="sexo-modal" id="sexo-modal" value="macho">
                                 <input type="text" class="form-control" id="busqueda-kcb" name="busqueda-kcb" autocomplete="off" />
                             </div>
                         </div>
@@ -37,7 +38,7 @@
                             <div class="form-group">
                                 <label for="nombre">Nombre
                                 </label>
-                                <input type="text" class="form-control" id="busqueda-nombre" name="busqueda-nombre" />
+                                <input type="text" class="form-control" id="busqueda-nombre" name="busqueda-nombre" autocomplete="off" />
                             </div>
                         </div>
                     </div>
@@ -154,8 +155,8 @@
                         <label for="sexo">Sexo
                             <span class="text-danger">*</span></label>
                         <select name="sexo" id="sexo" class="form-control">
-                            <option value="Nombre" {{ ($ejemplar!=null)? ($ejemplar->sexo=="Macho")?"selected":'':'' }}>Macho</option>
-                            <option value="Afijo" {{ ($ejemplar!=null)? ($ejemplar->sexo=="Hembra")?"selected":'':'' }}>Hembra</option>
+                            <option value="Nombre" {{ ($ejemplar!=null)? ($ejemplar->sexo=="macho")?"selected":'':'' }}>Macho</option>
+                            <option value="Afijo" {{ ($ejemplar!=null)? ($ejemplar->sexo=="hembra")?"selected":'':'' }}>Hembra</option>
                         </select>
                     </div>
                 </div>
@@ -181,10 +182,14 @@
             </div>
 
             <div class="row">
+                <input type="hidden" name="padre_id" id="padre_id">
                 <div class="col-md-6" id="btn-padre">
                     <button type="button" class="btn btn-primary btn-block" onclick="seleccionaPadre()">PADRE</button>
                 </div>
-                <div class="col-md-6"><button type="button" class="btn btn-info btn-block">MADRE</button></div>
+                <input type="hidden" name="madre_id" id="madre_id">
+                <div class="col-md-6" id="btn-madre">
+                    <button type="button" class="btn btn-info btn-block" onclick="seleccionaMadre()">MADRE</button>
+                </div>
                 
             </div>
             <br />
@@ -300,7 +305,7 @@
             data: {email: email},
             type: 'POST',
             success: function(data) {
-                // console.log(data.vEmail);     
+
                 if(data.vEmail > 0){
                     $("#msg-error-email").show();
                 }else{
@@ -325,16 +330,25 @@
     function seleccionaPadre()
     {
         $("#modal-padres").modal('show');        
+        $("#sexo-modal").val('macho');
+        $("#ajaxEjemplar").html('');
+        $("#busqueda-kcb").val('');
+        $("#busqueda-nombre").val('');
     }
 
     $("#busqueda-kcb, #busqueda-nombre").on("change paste keyup", function() {
 
         let kcb = $("#busqueda-kcb").val();
         let nombre = $("#busqueda-nombre").val();
+        let sexo = $("#sexo-modal").val();
 
         $.ajax({
             url: "{{ url('Ejemplar/ajaxBuscaEjemplar') }}",
-            data: {kcb: kcb, nombre: nombre},
+            data: {
+                kcb: kcb, 
+                nombre: nombre,
+                sexo: sexo
+            },
             type: 'POST',
             success: function(data) {
                 $("#ajaxEjemplar").html(data);
@@ -343,6 +357,13 @@
 
     });
 
-
+    function seleccionaMadre()
+    {
+        $("#modal-padres").modal('show');
+        $("#sexo-modal").val('hembra');
+        $("#ajaxEjemplar").html('');
+        $("#busqueda-kcb").val('');
+        $("#busqueda-nombre").val('');
+    }
 </script>
 @endsection
