@@ -12,6 +12,7 @@ class Criadero extends Model
         'user_id',
         'codigo_anterior',
         'nombre',
+        'copropietario_id',
         'registro_fci',
         'departamento',
         'fecha',

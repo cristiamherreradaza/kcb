@@ -133,3 +133,9 @@ Route::get('Migracion/propietarioCriadero', 'MigracionController@propietarioCria
 // ejmplares primera etapa
 Route::get('Migracion/mascotas', 'MigracionController@mascotas');
 
+/* Migracion de GRUPOS */
+Route::get('Migracion/grupos', 'MigracionController@grupos');
+
+/* Migracion de GRUPOS_RAZAS */
+Route::get('Migracion/grupos_razas', 'MigracionController@grupos_razas');
+
