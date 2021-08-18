@@ -191,7 +191,7 @@ class MigracionController extends Controller
     {
         $mascotas = DB::table('amascotas')
                             // ->orderBy('id', 'desc')
-                            // ->limit(500)
+                            // ->limit(50)
                             ->get();
         // dd($razasAnterior);
 
@@ -237,7 +237,12 @@ class MigracionController extends Controller
             
             $ejemplar->raza_id              = $raza_id;
             $ejemplar->lechigada            = $mascota->lechigada;
-            $ejemplar->sexo                 = $mascota->sexo;
+            if ($mascota->sexo == 'macho') {
+                $sexo = 'Macho';
+            }else{
+                $sexo = 'Hembra';
+            }
+            $ejemplar->sexo                 = $sexo;
             $ejemplar->origen               = $mascota->origen;
             $ejemplar->hermano              = $mascota->hermano;
             $ejemplar->codigo_nacionalizado = $mascota->codigo;
@@ -276,7 +281,8 @@ class MigracionController extends Controller
             }
 
             $propietario = User::where('codigo_anterior', $mascota->propietario_id)->first();
-            if($propietario){
+
+            if($propietario && $mascota->propietario_id != null){
                 $propietario_id = $propietario->id;
             }else{
                 $propietario_id = null;

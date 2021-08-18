@@ -287,6 +287,16 @@
             </div>
 
             <div class="row">
+                <div class="col-md-12" id="btn-padre">
+                    <button type="button" class="btn btn-light-danger btn-block font-weight-bold mr-2"> FALLECIDO, PERDIDO O ROBADO</button>
+                </div>
+                {{-- <div class="col-md-6" id="btn-madre">
+                    <button type="button" class="btn btn-light-dark btn-block font-weight-bold mr-2"> NACIONALIZAR EJEMPLAR</button>
+                </div> --}}
+            
+            </div>
+
+            <div class="row">
                 <div class="col-md-6"><button type="button" class="btn btn-success btn-block" onclick="crear()">GUARDAR</button></div>
                 <div class="col-md-6"><button type="button" class="btn btn-dark btn-block">VOLVER</button></div>
             </div>
