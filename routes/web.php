@@ -148,3 +148,6 @@ Route::get('Migracion/titulos', 'MigracionController@titulos');
 /* Migracion de EXAMENES */
 Route::get('Migracion/examenes', 'MigracionController@examenes');
 
+/* Migracion de EXAMENES_MASCOTAS */
+Route::get('Migracion/examenes_mascotas', 'MigracionController@examenes_mascotas');
+

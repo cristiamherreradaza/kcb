@@ -7,6 +7,7 @@ use App\User;
 use App\Criadero;
 use App\Ejemplar;
 use App\Examen;
+use App\ExamenMascota;
 use App\Grupo;
 use App\GrupoRaza;
 use App\PropietarioCriadero;
@@ -378,6 +379,41 @@ class MigracionController extends Controller
 
     //MIGRACION DE EXAMENES_MASCOTAS
     public function examenes_mascotas(){
+        $examenes_mascotas = DB::table('aexamenes_mascotas')->get();
+        
+        foreach ($examenes_mascotas as $em) {
+            echo 'id-'.$em->id."<br>";
+
+            $examenMascota = new ExamenMascota();
+
+            $examenMascota->codigo_anterior       = $em->id;
+            $examenMascota->user_id               = 1;
+            $ejemplar                             = DB::table('ejemplares')->where('codigo_anterior',$em->mascota_id)->first();
+            if($ejemplar){
+                $examenMascota->ejemplar_id       = $ejemplar->id;
+            }else{
+                $examenMascota->ejemplar_id       = null;
+            }
+            $examen                               = DB::table('examenes')->where('codigo_anterior',$em->examene_id)->first();
+            if($examen){
+                $examenMascota->examen_id         = $examen->id;
+            }else{
+                $examenMascota->examen_id         = null;
+            }
+            $examenMascota->aptocriaseleccion_uno = $em->aptocriaseleccion_uno;
+            $examenMascota->aptocriaseleccion_dos = $em->aptocriaseleccion_dos;
+            if($em->fecha_examen != "0000-00-00"){
+                $examenMascota->fecha_examen      = $em->fecha_examen;
+            }else{
+                $examenMascota->fecha_examen      = now();
+            }
+            $examenMascota->dcf                   = $em->dcf;
+            $examenMascota->resultado             = $em->resultado;
+            $examenMascota->observacion           = $em->observacion;
+            $examenMascota->numero_formulario     = $em->numero_formulario;
+
+            $examenMascota->save();
+        }
         
     }
 

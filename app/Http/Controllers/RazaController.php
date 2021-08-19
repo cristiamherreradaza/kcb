@@ -11,6 +11,7 @@ class RazaController extends Controller
     public function listado()
     {
         $razas = Raza::all();
+        // $razas = Raza::orderBy('nombre')->all();
 
         return view('raza.listado')->with(compact('razas'));
     }

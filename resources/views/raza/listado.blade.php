@@ -114,7 +114,7 @@
     <script type="text/javascript">
 		$(function () {
 			$('#tabla-raza').DataTable({
-				order: [[ 0, "desc" ]],
+				order: [[ 1, "asc" ]],
 				language: {
 					url: '{{ asset('datatableEs.json') }}'
 				},
