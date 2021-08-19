@@ -248,6 +248,8 @@ class MigracionController extends Controller
             $ejemplar->origen               = $mascota->origen;
             $ejemplar->hermano              = $mascota->hermano;
             $ejemplar->codigo_nacionalizado = $mascota->codigo;
+            $ejemplar->consanguinidad       = $mascota->consanguinidad;
+
 
             switch ($mascota->departamento_id) {
                 case 1:
