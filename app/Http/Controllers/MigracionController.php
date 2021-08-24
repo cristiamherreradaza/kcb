@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Camada;
 use App\Raza;
 use App\User;
 use App\Criadero;
@@ -415,6 +416,116 @@ class MigracionController extends Controller
             $examenMascota->save();
         }
         
+    }
+
+    // MIGRACION DE CAMADAS
+    public function camadas(){
+        $camadas = DB::table('acamada')->get();
+
+        foreach ($camadas as $c) {
+
+            echo "ID => ".$c->id." REGISTRO PADRE => ".$c->numregistropadre. " REGISTRO MADRE => ".$c->numregistromadre."<br>";
+
+            $camada = new Camada();
+
+            $camada->codigo_anterior       = $c->id;
+            $camada->user_id               = 1;
+            $padre                         = DB::table('ejemplares')->where('codigo_anterior',intval($c->numregistropadre))->first();           
+            if($padre){
+                $camada->padre_id          = $padre->id;
+            }else{
+                $camada->padre_id          = null;
+            }
+            $madre                         = DB::table('ejemplares')->where('codigo_anterior',intval($c->numregistromadre))->first();           
+            if($madre){
+                $camada->madre_id          = $madre->id;
+            }else{
+                $camada->madre_id          = null;
+            }
+            $criadero                      = DB::table('criaderos')->where('codigo_anterior',$c->criadero_id)->first();
+            if($criadero){
+                $camada->criadero_id       = $criadero->id;
+            }else{
+                $camada->criadero_id       = null;
+            }
+            $sucursal                      = DB::table('sucursales')->where('id',$c->sucursale_id)->first();
+            if($sucursal){
+                $camada->sucursal_id       = $sucursal->id;
+            }else{
+                $camada->sucursal_id       = null;
+            }
+            $raza                          = DB::table('razas')->where('codigo_anterior',$c->raza_id)->first();
+            if($raza){
+                $camada->raza_id           = $raza->id;
+            }else{
+                $camada->raza_id           = null;
+            }
+            $tipo_pelo                     = $c->tipospelo_id;
+            switch ($tipo_pelo) {
+                case 1:
+                    $camada->tipo_pelo     = "Duro";
+                    break;
+                case 2:
+                    $camada->tipo_pelo     = "Liso";
+                    break;
+                case 3:
+                    $camada->tipo_pelo     = "Corto";
+                    break;
+                case 4:
+                    $camada->tipo_pelo     = "Largo";
+                    break;
+                default:
+                    $camada->tipo_pelo     = null;
+                break;
+            }
+            $camada->variedad              = $c->variedad;  
+            $camada->fecha_nacimiento      = $c->fecha_nacimiento;
+            $camada->camada                = $c->camada;
+            $camada->lechigada             = $c->lechigada;
+            $camada->num_parto_madre       = $c->numpartomadre;
+            $camada->cachorros_encontrados = $c->cachorrosencontrados;
+            $camada->visado                = $c->visado;
+            $camada->lugar                 = $c->lugar;
+            switch ($c->departamento_id) {
+                case 1:
+                    $departamento          = "La Paz";
+                    break;
+                case 2:
+                    $departamento          = "Cochabamba";
+                    break;
+                case 3:                    
+                    $departamento          = "Santa Cruz";
+                    break;
+                case 4:
+                    $departamento          = "Oruro";
+                    break;
+                case 5:
+                    $departamento          = "Potosi";
+                break;
+                case 6:
+                    $departamento          = "Tarija";
+                    break;
+                case 7:
+                    $departamento          = "Beni";
+                    break;
+                case 8:
+                    $departamento          = "Pando";
+                    break;
+                case 9:
+                    $departamento          = "Sucre";
+                    break;
+                default:
+                    $departamento          = null;
+                    break;
+            }
+            $camada->departamento          = $departamento;
+            $camada->fecha_registro        = $c->fecha;
+
+            $camada->save();
+        }
+
+        echo "<h1 class='text-success'>SUCCESSFUL</h1>";
+
     }
 
 }

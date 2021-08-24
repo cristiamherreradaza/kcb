@@ -15,6 +15,7 @@ class CreateCamadasTable extends Migration
     {
         Schema::create('camadas', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('codigo_anterior')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('padre_id')->nullable();
             $table->foreign('padre_id')->references('id')->on('ejemplares');
@@ -22,6 +23,8 @@ class CreateCamadasTable extends Migration
             $table->foreign('madre_id')->references('id')->on('ejemplares');
             $table->unsignedBigInteger('criadero_id')->nullable();
             $table->foreign('criadero_id')->references('id')->on('criaderos');
+            $table->unsignedBigInteger('sucursal_id')->nullable();
+            $table->foreign('sucursal_id')->references('id')->on('sucursales');
             $table->unsignedBigInteger('raza_id')->nullable();
             $table->foreign('raza_id')->references('id')->on('razas');
             $table->string('tipo_pelo')->nullable();
@@ -34,22 +37,7 @@ class CreateCamadasTable extends Migration
             $table->string('visado')->nullable();
             $table->string('lugar')->nullable();
             $table->string('departamento')->nullable();
-            $table->string('recibo')->nullable();
-
-
-            $table->string('kcb')->nullable();
-            $table->string('num_tatuaje')->nullable();
-            $table->date('fecha_nacimiento')->nullable();
-            $table->string('color')->nullable();
-            $table->string('senias')->nullable();
-            $table->string('nombre')->nullable();
-            $table->string('nombre_completo')->nullable();
-            $table->string('')->nullable();
-
-            $table->unsignedBigInteger('criadero_id');
-            $table->foreign('criadero_id')->references('id')->on('criaderos');
-            $table->unsignedBigInteger('raza_id');
-            $table->foreign('raza_id')->references('id')->on('razas');
+            $table->date('fecha_registro')->nullable();
             $table->string('estado',15)->nullable();
             $table->datetime('deleted_at')->nullable();
             $table->timestamps();

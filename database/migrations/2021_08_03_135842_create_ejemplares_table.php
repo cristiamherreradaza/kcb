@@ -20,8 +20,6 @@ class CreateEjemplaresTable extends Migration
 
             $table->unsignedBigInteger('user_id')->nullable();
 
-            $table->unsignedBigInteger('camada_id')->nullable();
-            $table->foreign('camada_id')->references('id')->on('camadas');
 
             $table->unsignedBigInteger('raza_id')->nullable();
             $table->foreign('raza_id')->references('id')->on('razas');

@@ -151,3 +151,6 @@ Route::get('Migracion/examenes', 'MigracionController@examenes');
 /* Migracion de EXAMENES_MASCOTAS */
 Route::get('Migracion/examenes_mascotas', 'MigracionController@examenes_mascotas');
 
+
+/* Migracion de CAMADAS */
+Route::get('Migracion/camadas', 'MigracionController@camadas');
