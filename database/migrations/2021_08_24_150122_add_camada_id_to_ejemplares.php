@@ -14,7 +14,7 @@ class AddCamadaIdToEjemplares extends Migration
     public function up()
     {
         Schema::table('ejemplares', function (Blueprint $table) {
-            $table->unsignedBigInteger('camada_id')->nullable();
+            $table->unsignedBigInteger('camada_id')->nullable()->after('kcb');
             $table->foreign('camada_id')->references('id')->on('camadas');
         });
     }

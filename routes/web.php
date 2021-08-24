@@ -154,3 +154,6 @@ Route::get('Migracion/examenes_mascotas', 'MigracionController@examenes_mascotas
 
 /* Migracion de CAMADAS */
 Route::get('Migracion/camadas', 'MigracionController@camadas');
+
+/* Migracion de PADRES MADRES EJEMPLARES */
+Route::get('Migracion/padres_madres', 'MigracionController@padres_madres');

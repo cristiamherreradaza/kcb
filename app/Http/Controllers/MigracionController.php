@@ -528,4 +528,44 @@ class MigracionController extends Controller
 
     }
 
+    // MIGRACION DE PADRES MADRES
+    public function padres_madres(){
+        $mascotas = DB::table('amascotas')
+                            ->orderBy('id', 'asc')
+                            ->limit(5000)
+                            ->get();
+        // dd($mascotas);
+
+        foreach ($mascotas as $m) {
+            echo  "ID => ".$m->id." Nombre => ".$m->nombre."<br>";
+
+            $mascota = Ejemplar::where('codigo_anterior',$m->id)->first();
+            // dd($mascota);
+
+            $padre = DB::table('ejemplares')->where('codigo_anterior',$m->reproductor_id)->first();
+            if($padre){
+                $mascota->padre_id = $padre->id;
+            }else{
+                $mascota->padre_id = null;
+            }
+            $madre = DB::table('ejemplares')->where('codigo_anterior',$m->reproductora_id)->first();
+            if($madre){
+                $mascota->madre_id = $madre->id;
+            }else{
+                $mascota->madre_id = null;
+            }
+            $camada = DB::table('camadas')->where('codigo_anterior',$m->camada_id)->first();
+            if($camada){
+                $mascota->camada_id = $camada->id;
+            }else{
+                $mascota->camada_id = null;
+            }
+            // dd($mascota);
+            $mascota->save();
+        }
+
+        echo "<h1 class='text-success'>SUCCESSFUL</h1>";
+        
+    }
+
 }
