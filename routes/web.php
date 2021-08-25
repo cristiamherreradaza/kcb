@@ -123,6 +123,7 @@ Route::get('Ejemplar/formulario/{id}', 'EjemplarController@formulario');
 Route::post('Ejemplar/ajaxBuscaEjemplar', 'EjemplarController@ajaxBuscaEjemplar');
 Route::get('Ejemplar/listado', 'EjemplarController@listado');
 Route::post('Ejemplar/ajaxListado', 'EjemplarController@ajaxListado');
+Route::post('Ejemplar/guarda', 'EjemplarController@guarda');
 
 // ---------- MIGRACIONES ----------
 Route::get('Migracion/razas', 'MigracionController@razas');

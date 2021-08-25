@@ -98,4 +98,15 @@ class EjemplarController extends Controller
         return view('ejemplar.ajaxListado')->with(compact('ejemplares'));
     }
 
+    public function guarda(Request $request)
+    {
+        // dd($request->all());
+        $ejemplar = new Ejemplar();
+        $ejemplar->nombre = $request->input('nombre');
+        $ejemplar->save();
+        $ejemplarId = $ejemplar->id;
+
+        return redirect("Ejemplar/formulario/$ejemplarId");
+    }
+
 }

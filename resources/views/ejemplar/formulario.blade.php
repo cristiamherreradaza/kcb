@@ -74,7 +74,7 @@
                     <div class="form-group">
                         <label for="nombre">Nombre
                             <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="nombre" name="nombre" value="{{ ($ejemplar != null)? $ejemplar->nombre:'' }}" />
+                        <input type="text" class="form-control" id="nombre" name="nombre" value="{{ ($ejemplar != null)? $ejemplar->nombre:'' }}" required />
                     </div>
                 </div>
 
@@ -103,7 +103,7 @@
                     <div class="form-group">
                         <label for="kcb">KCB
                             <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="kcb" name="kcb" value="{{ ($ejemplar != null)? $ejemplar->kcb:'' }}" />
+                        <input type="text" class="form-control" id="kcb" name="kcb" value="{{ ($ejemplar != null)? $ejemplar->kcb:'' }}" required />
                     </div>
                 </div>
 
@@ -319,7 +319,7 @@
 
                 
             </div>
-            
+
             <br />
             <div class="row">
                 <div class="col-md-12">
@@ -347,10 +347,9 @@
                     </div>
                 </div>
                 
-            
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="prefijo">Fecha Nacionalizado
+                        <label for="prefijo">Fecha Nacionalizado crt 
                             <span class="text-danger">*</span></label>
                         <input type="date" class="form-control" id="fecha_nacionalizado" name="fecha_nacionalizado"
                             value="{{ ($ejemplar != null)? $ejemplar->prefijo:'' }}" />
@@ -361,8 +360,23 @@
 
             <br />
 
+            @if ($ejemplar != null)
+
+                <div class="row">
+                
+                    <div class="col-md-4"><button type="button" class="btn btn-dark font-weight-bold btn-block">EXAMENES</button></div>
+                    <div class="col-md-4"><button type="button" class="btn btn-dark font-weight-bold btn-block">TRANSFERENCIAS</button></div>
+                    <div class="col-md-4"><button type="button" class="btn btn-dark font-weight-bold btn-block">TITULOS</button></div>
+                
+                </div>
+
+                <br />
+
+            @endif
+
+
             <div class="row">
-                <div class="col-md-6"><button type="button" class="btn btn-success btn-block" onclick="crear()">GUARDAR</button></div>
+                <div class="col-md-6"><button type="button" class="btn btn-success btn-block" onclick="guardar()">GUARDAR</button></div>
                 <div class="col-md-6"><button type="button" class="btn btn-dark btn-block">VOLVER</button></div>
             </div>
         </form>
@@ -436,13 +450,13 @@
         minimumInputLength: 1,
     });
 
-    function crear()
+    function guardar()
     {
-        if($('#formulario-usuarios')[0].checkValidity()){
-            $('#formulario-usuarios').submit();
-            Swal.fire("Excelente!", "Registro Guardado!", "success");
+        if($('#formulario-ejemplar')[0].checkValidity()){
+            $('#formulario-ejemplar').submit();
+            Swal.fire("Excelente!", "Ejemplar Guardado!", "success");
         }else{
-            $('#formulario-usuarios')[0].reportValidity()
+            $('#formulario-ejemplar')[0].reportValidity()
         }
     }
 
