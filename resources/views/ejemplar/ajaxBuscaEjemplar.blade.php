@@ -31,7 +31,7 @@
 <script type="text/javascript">
     function selecciona(id, kcb, nombre_completo, sexo)
     {
-        if(sexo == 'macho'){
+        if(sexo == 'Macho'){
             var boton = '<button type="button" class="btn btn-primary btn-block" onclick="seleccionaPadre()">'+'KCB: '+kcb+' NOMBRE: '+nombre_completo+'</button>';
             $("#btn-padre").html(boton);
             $("#modal-padres").modal('hide');
