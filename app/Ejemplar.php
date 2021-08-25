@@ -66,4 +66,12 @@ class Ejemplar extends Model
     {
         return $this->belongsTo('App\User', 'propietario_id');
     }
+    public function padre()
+    {
+        return $this->belongsTo('App\Ejemplar', 'padre_id');
+    }
+    public function madre()
+    {
+        return $this->belongsTo('App\Ejemplar', 'madre_id');
+    }
 }

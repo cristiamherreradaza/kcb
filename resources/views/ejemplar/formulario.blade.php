@@ -184,11 +184,19 @@
             <div class="row">
                 <input type="hidden" name="padre_id" id="padre_id">
                 <div class="col-md-6" id="btn-padre">
-                    <button type="button" class="btn btn-primary btn-block" onclick="seleccionaPadre()">PADRE</button>
+                    @if ($ejemplar->padre_id == null) 
+                        <button type="button" class="btn btn-primary btn-block" onclick="seleccionaPadre()">PADRE</button>
+                    @else
+                        <button type="button" class="btn btn-primary btn-block" onclick="seleccionaPadre()">KCB: {{ $ejemplar->padre->kcb }} NOMBRE: {{ $ejemplar->padre->nombre }}</button>
+                    @endif
                 </div>
                 <input type="hidden" name="madre_id" id="madre_id">
                 <div class="col-md-6" id="btn-madre">
-                    <button type="button" class="btn btn-info btn-block" onclick="seleccionaMadre()">MADRE</button>
+                    @if ($ejemplar == null)
+                        <button type="button" class="btn btn-info btn-block" onclick="seleccionaMadre()">MADRE</button>
+                    @else
+                        {{-- <button type="button" class="btn btn-info btn-block" onclick="seleccionaPadre()">{{ $ejemplar->madre->nombre }}</button> --}}
+                    @endif
                 </div>
                 
             </div>

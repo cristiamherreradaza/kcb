@@ -149,7 +149,7 @@
 		
 		function edita(id)
 		{
-			window.location.href = "{{ url('Criadero/formulario') }}/"+id;
+			window.location.href = "{{ url('Ejemplar/formulario') }}/"+id;
 		}
 
 		function elimina(id, nombre)

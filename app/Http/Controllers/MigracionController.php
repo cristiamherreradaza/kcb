@@ -531,8 +531,8 @@ class MigracionController extends Controller
     // MIGRACION DE PADRES MADRES
     public function padres_madres(){
         $mascotas = DB::table('amascotas')
-                            ->orderBy('id', 'asc')
-                            ->limit(5000)
+                            // ->orderBy('id', 'asc')
+                            // ->limit(5000)
                             ->get();
         // dd($mascotas);
 
@@ -559,6 +559,18 @@ class MigracionController extends Controller
                 $mascota->camada_id = $camada->id;
             }else{
                 $mascota->camada_id = null;
+            }
+            $criadero = DB::table('criaderos')->where('codigo_anterior',$m->criadero_id)->first();
+            if($criadero){
+                $mascota->criadero_id = $criadero->id;
+            }else{
+                $mascota->criadero_id = null;
+            }
+            $propietario = DB::table('criaderos')->where('codigo_anterior',$m->criadero_id)->first();
+            if($propietario){
+                $mascota->criadero_id = $criadero->id;
+            }else{
+                $mascota->criadero_id = null;
             }
             // dd($mascota);
             $mascota->save();
