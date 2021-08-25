@@ -287,14 +287,79 @@
             </div>
 
             <div class="row">
-                <div class="col-md-12" id="btn-padre">
-                    <button type="button" class="btn btn-light-danger btn-block font-weight-bold mr-2"> FALLECIDO, PERDIDO O ROBADO</button>
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-light-danger btn-block font-weight-bold mr-2" onclick="muestraBloqueFallecido();"> FALLECIDO, PERDIDO O ROBADO</button>
                 </div>
-                {{-- <div class="col-md-6" id="btn-madre">
-                    <button type="button" class="btn btn-light-dark btn-block font-weight-bold mr-2"> NACIONALIZAR EJEMPLAR</button>
-                </div> --}}
+            </div>
+
+            <div class="row" style="display: none;" id="bloque-fallecido">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="nombre">Fecha Fallecido
+                            <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" id="fecha_fallecido" name="fecha_fallecido" value="{{ ($ejemplar != null)? $ejemplar->nombre:'' }}" />
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="prefijo">Fecha Perdido
+                            <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" id="fecha_perdido" name="fecha_perdido" value="{{ ($ejemplar != null)? $ejemplar->prefijo:'' }}" />
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label for="prefijo">Descripcion de la perdida
+                            <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="descripcion_perdido" name="descripcion_perdido" value="{{ ($ejemplar != null)? $ejemplar->prefijo:'' }}" />
+                    </div>
+                </div>
+
+                
+            </div>
+            
+            <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-light-dark btn-block font-weight-bold mr-2"
+                        onclick="muestraBloqueNacionalizado();"> NACIONALIZADO</button>
+                </div>
+            </div>
+            <div class="row" style="display: none;" id="bloque-nacionalizado">
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="prefijo">Origen (Ciudad)
+                            <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="origen_nacionalizado" name="origen_nacionalizado"
+                            value="{{ ($ejemplar != null)? $ejemplar->prefijo:'' }}" />
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="prefijo">Codigo / Registro
+                            <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="codigo_nacionalizado" name="codigo_nacionalizado"
+                            value="{{ ($ejemplar != null)? $ejemplar->prefijo:'' }}" />
+                    </div>
+                </div>
+                
+            
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="prefijo">Fecha Nacionalizado
+                            <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" id="fecha_nacionalizado" name="fecha_nacionalizado"
+                            value="{{ ($ejemplar != null)? $ejemplar->prefijo:'' }}" />
+                    </div>
+                </div>
             
             </div>
+
+            <br />
 
             <div class="row">
                 <div class="col-md-6"><button type="button" class="btn btn-success btn-block" onclick="crear()">GUARDAR</button></div>
@@ -449,6 +514,14 @@
         $("#ajaxEjemplar").html('');
         $("#busqueda-kcb").val('');
         $("#busqueda-nombre").val('');
+    }
+
+    function muestraBloqueFallecido(){
+        $("#bloque-fallecido").toggle('slow');
+    }
+
+    function muestraBloqueNacionalizado(){
+        $("#bloque-nacionalizado").toggle('slow');
     }
 </script>
 @endsection
