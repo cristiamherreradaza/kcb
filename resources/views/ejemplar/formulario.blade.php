@@ -75,6 +75,7 @@
                         <label for="nombre">Nombre
                             <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="nombre" name="nombre" value="{{ ($ejemplar != null)? $ejemplar->nombre:'' }}" required />
+                        <input type="text" value="{{ ($ejemplar==null)? 0:$ejemplar->id }}" name="ejemplar_id" id="ejemplar_id">
                     </div>
                 </div>
 
@@ -170,6 +171,9 @@
                         <label for="exampleInputPassword1">Raza
                             <span class="text-danger">*</span></label>
                             <select class="form-control select2" id="raza_id" name="raza_id">
+                                @if ($ejemplar != null && $ejemplar->raza_id != null)
+                                    <option value="{{ $ejemplar->raza->id }}"> {{ $ejemplar->raza->id }} {{ $ejemplar->raza->nombre }} {{ $ejemplar->raza->descripcion }}</option>
+                                @endif
                                 @forelse ($razas as $r)
                                     <option value="{{ $r->id }}">{{ $r->nombre }} {{ $r->descripcion }}</option>                                    
                                 @empty
@@ -184,18 +188,18 @@
             <div class="row">
                 <input type="hidden" name="padre_id" id="padre_id">
                 <div class="col-md-6" id="btn-padre">
-                    @if ($ejemplar->padre_id == null) 
-                        <button type="button" class="btn btn-primary btn-block" onclick="seleccionaPadre()">PADRE</button>
-                    @else
+                    @if ($ejemplar != null && $ejemplar->padre_id != null) 
                         <button type="button" class="btn btn-primary btn-block" onclick="seleccionaPadre()">KCB: {{ $ejemplar->padre->kcb }} NOMBRE: {{ $ejemplar->padre->nombre }}</button>
+                    @else
+                        <button type="button" class="btn btn-primary btn-block" onclick="seleccionaPadre()">PADRE</button>
                     @endif
                 </div>
                 <input type="hidden" name="madre_id" id="madre_id">
                 <div class="col-md-6" id="btn-madre">
-                    @if ($ejemplar == null)
-                        <button type="button" class="btn btn-info btn-block" onclick="seleccionaMadre()">MADRE</button>
+                    @if ($ejemplar != null && $ejemplar->madre_id != null)
+                        <button type="button" class="btn btn-info btn-block" onclick="seleccionaPadre()">KCB: {{ $ejemplar->madre->kcb }} NOMBRE: {{ $ejemplar->madre->nombre }}</button>
                     @else
-                        {{-- <button type="button" class="btn btn-info btn-block" onclick="seleccionaPadre()">{{ $ejemplar->madre->nombre }}</button> --}}
+                        <button type="button" class="btn btn-info btn-block" onclick="seleccionaMadre()">MADRE</button>
                     @endif
                 </div>
                 
@@ -208,6 +212,9 @@
                         <label for="exampleInputPassword1">PROPIETARIO
                         </label>
                         <select class="form-control select2" id="propietario_id" name="propietario_id">
+                            @if ($ejemplar != null && $ejemplar->propietario_id != null)
+                                <option value="{{ $ejemplar->propietario->id }}">{{ $ejemplar->propietario->name }}</option>
+                            @endif
                             <option label="Label"></option>
                         </select>
                     </div>
@@ -262,7 +269,7 @@
                     <div class="form-group">
                         <label for="color">Consanguinidad
                             <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="consanguinidad" name="consanguinidad" value="{{ ($ejemplar != null)? $ejemplar->color:'' }}" />
+                        <input type="text" class="form-control" id="consanguinidad" name="consanguinidad" value="{{ ($ejemplar != null)? $ejemplar->consanguinidad:'' }}" />
                     </div>
                 </div>
 
@@ -270,7 +277,7 @@
                     <div class="form-group">
                         <label for="color">Hermano
                             <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="hermano" name="hermano" value="{{ ($ejemplar != null)? $ejemplar->color:'' }}" />
+                        <input type="text" class="form-control" id="hermano" name="hermano" value="{{ ($ejemplar != null)? $ejemplar->hermano:'' }}" />
                     </div>
                 </div>
 
@@ -278,8 +285,8 @@
                     <div class="form-group">
                         <label for="color">Lechigada
                             <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="color" name="color"
-                            value="{{ ($ejemplar != null)? $ejemplar->color:'' }}" />
+                        <input type="text" class="form-control" id="lechigada" name="lechigada"
+                            value="{{ ($ejemplar != null)? $ejemplar->lechigada:'' }}" />
                     </div>
                 </div>
 
@@ -287,8 +294,8 @@
                     <div class="form-group">
                         <label for="color">Fecha Emision
                             <span class="text-danger">*</span></label>
-                        <input type="date" class="form-control" id="color" name="color"
-                            value="{{ ($ejemplar != null)? $ejemplar->color:date('Y-m-d') }}" />
+                        <input type="date" class="form-control" id="fecha_emision" name="fecha_emision"
+                            value="{{ ($ejemplar != null)? $ejemplar->fecha_emision:date('Y-m-d') }}" />
                     </div>
                 </div>
 
@@ -299,7 +306,7 @@
                     <button type="button" class="btn btn-light-danger btn-block font-weight-bold mr-2" onclick="muestraBloqueFallecido();"> FALLECIDO, PERDIDO O ROBADO</button>
                 </div>
             </div>
-
+            <br>
             <div class="row" style="display: none;" id="bloque-fallecido">
                 <div class="col-md-2">
                     <div class="form-group">
@@ -335,6 +342,7 @@
                         onclick="muestraBloqueNacionalizado();"> NACIONALIZADO</button>
                 </div>
             </div>
+            <br>
             <div class="row" style="display: none;" id="bloque-nacionalizado">
 
                 <div class="col-md-4">
