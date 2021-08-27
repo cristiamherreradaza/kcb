@@ -75,7 +75,7 @@
                         <label for="nombre">Nombre
                             <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="nombre" name="nombre" value="{{ ($ejemplar != null)? $ejemplar->nombre:'' }}" required />
-                        <input type="text" value="{{ ($ejemplar==null)? 0:$ejemplar->id }}" name="ejemplar_id" id="ejemplar_id">
+                        <input type="hidden" value="{{ ($ejemplar==null)? 0:$ejemplar->id }}" name="ejemplar_id" id="ejemplar_id">
                     </div>
                 </div>
 
@@ -156,8 +156,8 @@
                         <label for="sexo">Sexo
                             <span class="text-danger">*</span></label>
                         <select name="sexo" id="sexo" class="form-control">
-                            <option value="Nombre" {{ ($ejemplar!=null)? ($ejemplar->sexo=="macho")?"selected":'':'' }}>Macho</option>
-                            <option value="Afijo" {{ ($ejemplar!=null)? ($ejemplar->sexo=="hembra")?"selected":'':'' }}>Hembra</option>
+                            <option value="Macho" {{ ($ejemplar!=null)? ($ejemplar->sexo=="Macho")?"selected":'':'' }}>Macho</option>
+                            <option value="Hembra" {{ ($ejemplar!=null)? ($ejemplar->sexo=="Hembra")?"selected":'':'' }}>Hembra</option>
                         </select>
                     </div>
                 </div>
@@ -225,6 +225,9 @@
                         <label for="exampleInputPassword1">AFIJO
                         </label>
                         <select class="form-control select2" id="criadero_id" name="criadero_id">
+                            @if ($ejemplar != null && $ejemplar->criadero_id != null)
+                                <option value="{{ $ejemplar->criadero->id }}">{{ $ejemplar->criadero->nombre }}</option>
+                            @endif
                             <option label="Label"></option>
                         </select>
                     </div>

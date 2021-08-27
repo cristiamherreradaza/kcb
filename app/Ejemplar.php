@@ -74,4 +74,8 @@ class Ejemplar extends Model
     {
         return $this->belongsTo('App\Ejemplar', 'madre_id');
     }
+    public function criadero()
+    {
+        return $this->belongsTo('App\Criadero', 'criadero_id');
+    }
 }

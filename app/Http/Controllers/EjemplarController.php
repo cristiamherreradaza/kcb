@@ -153,20 +153,19 @@ class EjemplarController extends Controller
             if($request->input('prefijo') == ""){
                 $nombreCompleto = $nombreCompleto." ";
             }else{
-                // $nombreCompleto = $nombreCompleto 
+                $nombreCompleto = $nombreCompleto." ".$request->input('prefijo')." "; 
             }
-
+            $nombreCompleto = $nombreCompleto." ".$ejemplar->nombre;
         }
-        $ejemplar->nombre_completo      = $request->input('');
-
-
+        $ejemplar->nombre_completo      = $nombreCompleto;
         
-        $nombreCompleto                 = 0;
-        // dd($request->all());
-        $ejemplar->nombre = $request->input('nombre');
+        //precedemos con el guardado de datos 
         $ejemplar->save();
+
+        // sacamos el id para mostrar el registro
         $ejemplarId = $ejemplar->id;
 
+        // redirigimos a la vista
         return redirect("Ejemplar/formulario/$ejemplarId");
     }
 
