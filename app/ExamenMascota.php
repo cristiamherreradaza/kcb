@@ -25,4 +25,8 @@ class ExamenMascota extends Model
         'estado',
         'deleted_at',
     ];
+    public function examen()
+    {
+        return $this->belongsTo('App\Examen', 'examen_id');
+    }
 }

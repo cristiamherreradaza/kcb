@@ -9,6 +9,90 @@
 @endsection
 
 @section('content')
+
+{{--  modal Examen  --}}
+
+<div class="modal fade" id="modal-examen" data-backdrop="static" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdrop" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">NUEVO EXAMEN</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="#" method="POST" id="formulario-padres">
+                    @csrf
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="kcb">Examen
+                                </label>
+                                <input type="text" class="form-control" name="nombre_examen" id="nombre_examen">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="nombre">Fecha
+                                </label>
+                                <input type="date" class="form-control" id="fecha_examen" name="fecha_examen" autocomplete="off" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="nombre">Doctor
+                            </label>
+                            <input type="text" class="form-control" id="doctor" name="doctor" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="kcb">Resultado
+                                </label>
+                                <input type="text" class="form-control" name="resultado" id="resultado">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="nombre">Observacion
+                                </label>
+                                <input type="text" class="form-control" id="obserbacion" name="obserbacion" autocomplete="off" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="kcb">Num. Formulario
+                                </label>
+                                <input type="text" class="form-control" name="resultado" id="resultado">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="nombre">Codigo DFC
+                                </label>
+                                <input type="text" class="form-control" id="obserbacion" name="obserbacion" autocomplete="off" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button class="btn btn-primary btn-block">Registrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{--  end modal Examen  --}}
 {{-- inicio modal  --}}
 <div class="modal fade" id="modal-padres" data-backdrop="static" tabindex="-1" role="dialog"
     aria-labelledby="staticBackdrop" aria-hidden="true">
@@ -224,7 +308,7 @@
                     <div class="form-group">
                         <label for="exampleInputPassword1">AFIJO
                         </label>
-                        <select class="form-control select2" id="criadero_id" name="criadero_id">
+                        <select class="form-control select2" id="criadero_id" name="criadero_id" required>
                             @if ($ejemplar != null && $ejemplar->criadero_id != null)
                                 <option value="{{ $ejemplar->criadero->id }}">{{ $ejemplar->criadero->nombre }}</option>
                             @endif
@@ -380,17 +464,59 @@
             <br />
 
             @if ($ejemplar != null)
-
-                <div class="row">
+                <ul class="nav nav-primary nav-pills nav-justified" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">EXAMENES</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">TRANSFERENCIAS</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">TITULOS</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        @php
+                            $examenes = App\ExamenMascota::where('ejemplar_id', $ejemplar->id)
+                                                                ->get();
+                            //dd($examenes);
+                            $numeroExamenes = $examenes->count();
+                            //dd($numeroExamenes);
+                        @endphp
+                        <br>
+                        @if ($numeroExamenes != 0)
+                            <table class="table table-striped">
+                                <tr>
+                                    <th>FECHA</th>
+                                    <th>EXAMEN</th>
+                                </tr>
+                                @foreach ($examenes as $e)
+                                    <tr>
+                                        <td>{{ $e->fecha_examen }}</td>
+                                        <td>{{ $e->examen->nombre }}</td>
+                                    </tr>
+                                @endforeach
+                            </table>
+                        @else
+            				<a href="#" class="btn btn-info font-weight-bolder btn-block" onclick="nuevoExamen()">Nuevo Examen</a>
+                        @endif
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        ...TRANSFERENCIAS
+                    </div>
+                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                        ...TITULOS
+                    </div>
+                </div>
+                {{--  <div class="row">
                 
                     <div class="col-md-4"><button type="button" class="btn btn-dark font-weight-bold btn-block">EXAMENES</button></div>
                     <div class="col-md-4"><button type="button" class="btn btn-dark font-weight-bold btn-block">TRANSFERENCIAS</button></div>
                     <div class="col-md-4"><button type="button" class="btn btn-dark font-weight-bold btn-block">TITULOS</button></div>
                 
-                </div>
-
+                </div>  --}}
                 <br />
-
             @endif
 
 
@@ -555,6 +681,9 @@
 
     function muestraBloqueNacionalizado(){
         $("#bloque-nacionalizado").toggle('slow');
+    }
+    function nuevoExamen(){
+        $("#modal-examen").modal('show');
     }
 </script>
 @endsection

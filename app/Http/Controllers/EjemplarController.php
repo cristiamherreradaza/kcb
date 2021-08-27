@@ -6,6 +6,7 @@ use App\Raza;
 use App\User;
 
 use App\Ejemplar;
+use App\ExamenMascota;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -165,8 +166,16 @@ class EjemplarController extends Controller
         // sacamos el id para mostrar el registro
         $ejemplarId = $ejemplar->id;
 
+        // sacamos sus examenes
+        // $examenes = ExamenMascota::where('ejemplar_id', $ejemplarId)
+        //                 ->get();
+        
+        
+        // dd($examenes);
+
         // redirigimos a la vista
         return redirect("Ejemplar/formulario/$ejemplarId");
+        // return view('ejemplar.formulario')->with(compact('ejemplar', 'razas','examenes'));
     }
 
 }

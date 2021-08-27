@@ -580,4 +580,6 @@ class MigracionController extends Controller
         
     }
 
+    
+
 }
