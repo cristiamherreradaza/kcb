@@ -158,7 +158,7 @@
                     <div class="form-group">
                         <label for="nombre">Nombre
                             <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="nombre" name="nombre" value="{{ ($ejemplar != null)? $ejemplar->nombre:'' }}" required />
+                        <input type="text" class="form-control" id="nombre" name="nombre" value="{{ ($ejemplar != null)? $ejemplar->nombre:'' }}" placeholder="Demitri" required />
                         <input type="hidden" value="{{ ($ejemplar==null)? 0:$ejemplar->id }}" name="ejemplar_id" id="ejemplar_id">
                     </div>
                 </div>
@@ -167,7 +167,7 @@
                     <div class="form-group">
                         <label for="prefijo">Prefijo del nombre
                             <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="prefijo" name="prefijo" value="{{ ($ejemplar != null)? $ejemplar->prefijo:'' }}" />
+                        <input type="text" class="form-control" id="prefijo" name="prefijo" value="{{ ($ejemplar != null)? $ejemplar->prefijo:'' }}" placeholder="de o de la" />
                     </div>
                 </div>
 
@@ -188,7 +188,13 @@
                     <div class="form-group">
                         <label for="kcb">KCB
                             <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="kcb" name="kcb" value="{{ ($ejemplar != null)? $ejemplar->kcb:'' }}" required />
+                        <input type="text" class="form-control" id="kcb" name="kcb" value="{{ ($ejemplar != null)? $ejemplar->kcb:'' }}" placeholder="65123" required />
+                        <span class="form-text text-info">KCB tentativo: 
+                            @php
+                                $ultimoKCB = App\Ejemplar::latest()->first();
+                                echo $ultimoKCB->kcb;
+                            @endphp
+                        </span>
                     </div>
                 </div>
 
@@ -196,7 +202,7 @@
                     <div class="form-group">
                         <label for="num_tatuaje">Numero Tatuaje
                             <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="num_tatuaje" name="num_tatuaje" value="{{ ($ejemplar != null)? $ejemplar->num_tatuaje:'' }}" />
+                        <input type="text" class="form-control" id="num_tatuaje" name="num_tatuaje" value="{{ ($ejemplar != null)? $ejemplar->num_tatuaje:'' }}" placeholder="04578" placeholder="" />
                     </div>
                 </div>
 
@@ -204,7 +210,7 @@
                     <div class="form-group">
                         <label for="chip">Numero Chip
                             <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="chip" name="chip" value="{{ ($ejemplar != null)? $ejemplar->chip:'' }}" />
+                        <input type="text" class="form-control" id="chip" name="chip" value="{{ ($ejemplar != null)? $ejemplar->chip:'' }}" placeholder="900057600430900" />
                     </div>
                 </div>
 
@@ -223,7 +229,7 @@
                     <div class="form-group">
                         <label for="color">Color
                             <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="color" name="color" value="{{ ($ejemplar != null)? $ejemplar->color:'' }}" />
+                        <input type="text" class="form-control" id="color" name="color" value="{{ ($ejemplar != null)? $ejemplar->color:'' }}" placeholder="Negro/Fuego" />
                     </div>
                 </div>
 
@@ -231,7 +237,7 @@
                     <div class="form-group">
                         <label for="senas">Se&ntilde;as o Marcas
                             <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="senas" name="senas" value="{{ ($ejemplar != null)? $ejemplar->senas:'' }}" />
+                        <input type="text" class="form-control" id="senas" name="senas" value="{{ ($ejemplar != null)? $ejemplar->senas:'' }}" placeholder="Manchas Cafes" />
                     </div>
                 </div>
 
@@ -356,7 +362,7 @@
                     <div class="form-group">
                         <label for="color">Consanguinidad
                             <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="consanguinidad" name="consanguinidad" value="{{ ($ejemplar != null)? $ejemplar->consanguinidad:'' }}" />
+                        <input type="text" class="form-control" id="consanguinidad" name="consanguinidad" value="{{ ($ejemplar != null)? $ejemplar->consanguinidad:'' }}" placeholder="4:2:4" />
                     </div>
                 </div>
 
@@ -364,7 +370,7 @@
                     <div class="form-group">
                         <label for="color">Hermano
                             <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="hermano" name="hermano" value="{{ ($ejemplar != null)? $ejemplar->hermano:'' }}" />
+                        <input type="text" class="form-control" id="hermano" name="hermano" value="{{ ($ejemplar != null)? $ejemplar->hermano:'' }}" placeholder="CAIN, CANDY, CIRA, CONY" />
                     </div>
                 </div>
 
@@ -373,7 +379,7 @@
                         <label for="color">Lechigada
                             <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="lechigada" name="lechigada"
-                            value="{{ ($ejemplar != null)? $ejemplar->lechigada:'' }}" />
+                            value="{{ ($ejemplar != null)? $ejemplar->lechigada:'' }}" placeholder="CBBA/RW-028/C - REG 27/06/21" />
                     </div>
                 </div>
 
@@ -400,6 +406,7 @@
                         <label for="nombre">Fecha Fallecido
                             <span class="text-danger">*</span></label>
                         <input type="date" class="form-control" id="fecha_fallecido" name="fecha_fallecido" value="{{ ($ejemplar != null)? $ejemplar->nombre:'' }}" />
+                        <span class="form-text text-muted">Si fallecio seleccionar fecha</span>
                     </div>
                 </div>
 
@@ -408,6 +415,7 @@
                         <label for="prefijo">Fecha Perdido
                             <span class="text-danger">*</span></label>
                         <input type="date" class="form-control" id="fecha_perdido" name="fecha_perdido" value="{{ ($ejemplar != null)? $ejemplar->prefijo:'' }}" />
+                        <span class="form-text text-muted">Si se extravio seleccionar fecha</span>
                     </div>
                 </div>
 
@@ -415,14 +423,13 @@
                     <div class="form-group">
                         <label for="prefijo">Descripcion de la perdida
                             <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="descripcion_perdido" name="descripcion_perdido" value="{{ ($ejemplar != null)? $ejemplar->prefijo:'' }}" />
+                        <input type="text" class="form-control" id="descripcion_perdido" name="descripcion_perdido" value="{{ ($ejemplar != null)? $ejemplar->prefijo:'' }}" placeholder="Se extravion por la plaza Villaroel a horas 13:00, lleva una chompa color rojo, reponde a nombre Snoopy" />
                     </div>
                 </div>
-
                 
             </div>
 
-            <br />
+            {{-- <br /> --}}
             <div class="row">
                 <div class="col-md-12">
                     <button type="button" class="btn btn-light-dark btn-block font-weight-bold mr-2"
@@ -452,7 +459,7 @@
                 
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="prefijo">Fecha Nacionalizado crt 
+                        <label for="prefijo">Fecha Nacionalizado
                             <span class="text-danger">*</span></label>
                         <input type="date" class="form-control" id="fecha_nacionalizado" name="fecha_nacionalizado"
                             value="{{ ($ejemplar != null)? $ejemplar->prefijo:'' }}" />
@@ -464,51 +471,69 @@
             <br />
 
             @if ($ejemplar != null)
-                <ul class="nav nav-primary nav-pills nav-justified" id="myTab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">EXAMENES</a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">TRANSFERENCIAS</a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">TITULOS</a>
-                    </li>
-                </ul>
-                <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        @php
-                            $examenes = App\ExamenMascota::where('ejemplar_id', $ejemplar->id)
-                                                                ->get();
-                            //dd($examenes);
-                            $numeroExamenes = $examenes->count();
-                            //dd($numeroExamenes);
-                        @endphp
-                        <br>
-                        @if ($numeroExamenes != 0)
-                            <table class="table table-striped">
-                                <tr>
-                                    <th>FECHA</th>
-                                    <th>EXAMEN</th>
-                                </tr>
-                                @foreach ($examenes as $e)
+
+                <div class="example-preview">
+                    <ul class="nav nav-pills nav-justified" id="myTab1" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="examenes-tab-1" data-toggle="tab" href="#examenes-1">
+                                <span class="nav-icon">
+                                    <i class="far fa-list-alt"></i>
+                                </span>
+                                <span class="nav-text">EXAMENES</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="transferencias-tab-1" data-toggle="tab" href="#transferencias-1" aria-controls="transferencias">
+                                <span class="nav-icon">
+                                    <i class="fas fa-arrows-alt-h"></i>
+                                </span>
+                                <span class="nav-text">TRANSFERENCIAS</span>
+                            </a>
+                        </li>                        
+                        <li class="nav-item">
+                            <a class="nav-link" id="contact-tab-1" data-toggle="tab" href="#titulos-1" aria-controls="titulos">
+                                <span class="nav-icon">
+                                    <i class="fas fa-award"></i>
+                                </span>
+                                <span class="nav-text">TITULOS</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content mt-5" id="myTabContent1">
+                        <div class="tab-pane fade show active" id="examenes-1" role="tabpanel" aria-labelledby="examenes-tab-1">
+                            @php
+                                $examenes = App\ExamenMascota::where('ejemplar_id', $ejemplar->id)
+                                                                    ->get();
+                                //dd($examenes);
+                                $numeroExamenes = $examenes->count();
+                                //dd($numeroExamenes);
+                            @endphp
+                            @if ($numeroExamenes != 0)
+                                <table class="table table-striped">
                                     <tr>
-                                        <td>{{ $e->fecha_examen }}</td>
-                                        <td>{{ $e->examen->nombre }}</td>
+                                        <th>FECHA</th>
+                                        <th>EXAMEN</th>
                                     </tr>
-                                @endforeach
-                            </table>
-                        @else
-            				<a href="#" class="btn btn-info font-weight-bolder btn-block" onclick="nuevoExamen()">Nuevo Examen</a>
-                        @endif
-                    </div>
-                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                        ...TRANSFERENCIAS
-                    </div>
-                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                        ...TITULOS
+                                    @foreach ($examenes as $e)
+                                        <tr>
+                                            <td>{{ $e->fecha_examen }}</td>
+                                            <td>{{ $e->examen->nombre }}</td>
+                                        </tr>
+                                    @endforeach
+                                </table>
+                            @else
+                                <a href="#" class="btn btn-info font-weight-bolder btn-block" onclick="nuevoExamen()">Nuevo Examen</a>
+                            @endif
+                        </div>
+                        <div class="tab-pane fade" id="transferencias-1" role="tabpanel" aria-labelledby="transferencias-tab-1">
+                            ...TRANSFERENCIAS
+                        </div>
+                        <div class="tab-pane fade" id="titulos-1" role="tabpanel" aria-labelledby="contact-tab-1">
+                            ...TITULOS
+                        </div>
                     </div>
                 </div>
+
                 {{--  <div class="row">
                 
                     <div class="col-md-4"><button type="button" class="btn btn-dark font-weight-bold btn-block">EXAMENES</button></div>
