@@ -7,6 +7,7 @@ use App\User;
 
 use App\Ejemplar;
 use App\ExamenMascota;
+use App\Transferencia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -210,6 +211,35 @@ class EjemplarController extends Controller
 
         return view('ejemplar.ajaxGuardaExamen')->with(compact('examenesEjemplar'));
 
+    }
+
+
+    // TRANSFERENCIAS
+
+    public function ajaxGuardaTransferencia(request $request){
+
+        $transferencia = new Transferencia();
+
+        $transferencia->user_id                 = Auth::user()->id;
+        $transferencia->propietario_id          = $request->input('transferencia_propietario_id');
+        $transferencia->ejemplar_id             = $request->input('transferencia_ejemplar_id');
+        $transferencia->fecha_transferencia     = $request->input('transferencia_fecha_transferencia');
+        $transferencia->estado                  = $request->input('transferencia_estado');
+        if($request->input('transferencia_pedigree') == null){
+            $transferencia->pedigree_exportacion    = "No";
+        }else{
+            $transferencia->pedigree_exportacion    = "Si";
+        }
+        $transferencia->fecha_exportacion       = $request->input('transferencia_fecha_exportacion');
+        $transferencia->pais_destino            = $request->input('transferencia_pais_destino');
+        
+        $transferencia->save();
+
+        $ejemplarTransferencias = Transferencia::Where('ejemplar_id', $request->input('transferencia_ejemplar_id'))
+                                        ->orderBy('id', 'desc')  
+                                        ->get();
+
+        return view('ejemplar.ajaxGuardaTransferencia')->with(compact('ejemplarTransferencias'));
     }
 
 }

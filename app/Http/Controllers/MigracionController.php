@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Camada;
 use App\Raza;
 use App\User;
+use App\Grupo;
+use App\Camada;
+use App\Examen;
+use App\Titulo;
 use App\Criadero;
 use App\Ejemplar;
-use App\Examen;
-use App\ExamenMascota;
-use App\Grupo;
 use App\GrupoRaza;
+use App\ExamenMascota;
+use App\Transferencia;
 use App\PropietarioCriadero;
-use App\Titulo;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\Foreach_;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use PhpParser\Node\Stmt\Foreach_;
 
 class MigracionController extends Controller
 {
@@ -580,6 +581,82 @@ class MigracionController extends Controller
         
     }
 
+    // MIGRACION DE TRAMSFERENCIA
+    public function tramsferencia(){
+
+        $tramsferencias = DB::table('amascotas_propietarios')
+                            // ->where('id',15673)
+                            ->get();
+        $contador = 1;
+        $contadorRegistros = 0;
+        $contadorNoPropietarios = 0;
+        $contadorNoMascotas = 0;
+        $contadorPropietariosError = 0;
+        $contadorMascotasError = 0;
+
+        foreach ($tramsferencias as $tra) {
+            echo "id=> ".$tra->id." Contador de Ciclos =>".$contador." Contador de Registros =>".$contadorRegistros." Contador No existentes propietarios => ".$contadorNoPropietarios." Contador No existentes Mascotas => ".$contadorNoMascotas." Contador Error propietarios => ".$contadorPropietariosError." Contador Error mascotas => ".$contadorMascotasError."<br><br>";
+            $sw = true;
+
+            $transferencia = new Transferencia();
+            
+            $transferencia->codigo_anterior = $tra->id;
+            $transferencia->user_id         = 1;
+            if($tra->propietario_id == 0 || $tra->propietario_id > 7000){
+                $sw = false;
+                $contadorPropietariosError++;
+            }else{
+                $propietario = User::where('codigo_anterior', $tra->propietario_id)->first();
+                if($propietario){
+                    $transferencia->propietario_id = $propietario->id;
+                }else{
+                    $sw = false;
+                    $contadorNoPropietarios++;
+                }
+            }
+            if($tra->mascota_id == 0 || $tra->mascota_id > 50000){
+                $contadorMascotasError++;
+                $sw = false;
+            }else{
+                $mascota = Ejemplar::where('codigo_anterior', $tra->mascota_id)->first();
+                if($mascota){
+                    $transferencia->ejemplar_id = $mascota->id;
+                }else{
+                    $contadorNoMascotas++;
+                    $sw = false;
+                }
+            }
+            if($tra->fecha_transfer == '0000-00-00' || $tra->fecha_transfer == '0202-00-22'){
+                $transferencia->fecha_transferencia = now();
+            }else{
+                $transferencia->fecha_transferencia = $tra->fecha_transfer;
+            }
+            if($tra->estado == 1){
+                $transferencia->estado  = "Actual";
+            }else{
+                $transferencia->estado  = "Anterior";
+            }
+            if($tra->pedigree_exportacion == 1){
+                $transferencia->pedigree_exportacion = "Si";
+            }else{
+                $transferencia->pedigree_exportacion = "No";
+            }
+            if($tra->fecha_exportacion == '0000-00-00'){
+                $transferencia->fecha_exportacion = now();
+            }else{
+                $transferencia->fecha_exportacion = $tra->fecha_exportacion;
+            }
+            $transferencia->pais_destino    = $tra->pais_destino;
+            if($sw){
+                $transferencia->save();
+                $contadorRegistros++;
+            }
+
+            $contador++;
+        }
+
+        echo "<h1 class='text-success'>SUCCESSFUL</h1>";
+    }
     
 
 }

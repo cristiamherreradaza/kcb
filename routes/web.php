@@ -126,6 +126,9 @@ Route::post('Ejemplar/ajaxListado', 'EjemplarController@ajaxListado');
 Route::post('Ejemplar/guarda', 'EjemplarController@guarda');
 Route::post('Ejemplar/ajaxGuardaExamen', 'EjemplarController@ajaxGuardaExamen');
 Route::post('Ejemplar/ajaxEliminaExamen', 'EjemplarController@ajaxEliminaExamen');
+Route::post('Ejemplar/ajaxGuardaTransferencia', 'EjemplarController@ajaxGuardaTransferencia');
+
+
 
 // ---------- MIGRACIONES ----------
 Route::get('Migracion/razas', 'MigracionController@razas');
@@ -160,3 +163,6 @@ Route::get('Migracion/camadas', 'MigracionController@camadas');
 
 /* Migracion de PADRES MADRES EJEMPLARES */
 Route::get('Migracion/padres_madres', 'MigracionController@padres_madres');
+
+/* Migracion de TRAMSFERENCIA */
+Route::get('Migracion/tramsferencia', 'MigracionController@tramsferencia');

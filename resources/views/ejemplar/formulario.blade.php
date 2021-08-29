@@ -12,8 +12,101 @@
 
 {{--  modal Examen  --}}
 
-<div class="modal fade" id="modal-examen" data-backdrop="static" tabindex="-1" role="dialog"
-    aria-labelledby="staticBackdrop" aria-hidden="true">
+<div class="modal fade" id="modal-tramsferencia" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">NUEVA TRANSFERENCIA</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="POST" id="formulario-transferencia">
+                    @csrf
+                    <input type="hidden" name="transferencia_ejemplar_id" value="{{ $ejemplar->id }}">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">PROPIETARIO
+                                </label><br>
+                                <select class="form-control select2" id="transferencia_propietario_id" name="transferencia_propietario_id">
+                                    {{-- @if ($ejemplar != null && $ejemplar->propietario_id != null)
+                                        <option value="{{ $ejemplar->propietario->id }}">{{ $ejemplar->propietario->name }}</option>
+                                    @endif --}}
+                                    <option label="Label"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="nombre">Fecha de Transferencia
+                                </label>
+                                <input type="date" class="form-control" id="transferencia_fecha_transferencia" name="transferencia_fecha_transferencia" autocomplete="off" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="nombre">En caso de ser Pedigree
+                                </label>
+                                <div class="form-group row">
+                                    {{-- <label class="col-3 col-form-label">Success State</label> --}}
+                                    <div class="col-9 col-form-label">
+                                        <div class="checkbox-inline">
+                                            <label class="checkbox checkbox-lg checkbox-success">
+                                                <input type="checkbox" name="transferencia_pedigree" id="transferencia_pedigree" {{--  checked="checked"  --}} />
+                                                <span></span>
+                                                Pedigree
+                                            </label>
+                                        </div>
+                                        {{-- <span class="form-text text-muted">Some help text goes here</span> --}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="nombre">Fecha de Exportacion
+                                </label>
+                                <input type="date" class="form-control" id="transferencia_fecha_exportacion" name="transferencia_fecha_exportacion" autocomplete="off" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="nombre">Estado
+                                </label>
+                                <select class="form-control" name="transferencia_estado" id="transferencia_estado">
+                                    <option value="Actual">Propietario Actual</option>
+                                    <option value="Anterior">Propietario Anterior</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="kcb">Pais Destino
+                                </label>
+                                <input type="text" class="form-control" name="transferencia_pais_destino" id="transferencia_pais_destino">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button type="button" class="btn btn-success btn-block" onclick="guardaTransferencia();">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{--  end modal Examen  --}}
+
+{{--  modal Examen  --}}
+
+<div class="modal fade" id="modal-examen" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -533,21 +626,41 @@
                             @endif
                         </div>
                         <div class="tab-pane fade" id="transferencias-1" role="tabpanel" aria-labelledby="transferencias-tab-1">
-                            ...TRANSFERENCIAS
+                            @php
+                                $transferencias = App\Transferencia::where('ejemplar_id', $ejemplar->id)
+                                                                    ->orderBy('id', 'desc')
+                                                                    ->get();
+                                $numeroTransferencia = $transferencias->count();
+                            @endphp
+                            @if ($numeroTransferencia != 0)
+                                <table class="table table-striped">
+                                    <tr>
+                                        <th>FECHA</th>
+                                        <th>PROPIETARIO</th>
+                                        <th></th>
+                                    </tr>
+                                    @foreach ($transferencias as $tra)
+                                        <tr>
+                                            <td>{{ $tra->fecha_transferencia }}</td>
+                                            <td>{{ $tra->propietario->name }}</td>
+                                            <td>
+                                                {{-- <button type="button" class="btn btn-icon btn-danger" onclick="eliminaExamen('{{ $e->id }}', '{{ $e->examen->nombre }}')">
+                                                                                        <i class="flaticon2-cross"></i>
+                                                                                    </button> --}}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </table>
+                                <a href="#" class="btn btn-info btn-block" onclick="nuevaTransferencia()">Nueva Tramsferencia</a>
+                            @else
+                                <a href="#" class="btn btn-info btn-block" onclick="nuevaTransferencia()">Nueva Tramsferencia</a>
+                            @endif
                         </div>
                         <div class="tab-pane fade" id="titulos-1" role="tabpanel" aria-labelledby="contact-tab-1">
                             ...TITULOS
                         </div>
                     </div>
                 </div>
-
-                {{--  <div class="row">
-                
-                    <div class="col-md-4"><button type="button" class="btn btn-dark font-weight-bold btn-block">EXAMENES</button></div>
-                    <div class="col-md-4"><button type="button" class="btn btn-dark font-weight-bold btn-block">TRANSFERENCIAS</button></div>
-                    <div class="col-md-4"><button type="button" class="btn btn-dark font-weight-bold btn-block">TITULOS</button></div>
-                
-                </div>  --}}
                 <br />
             @endif
 
@@ -782,6 +895,56 @@
             }
         });
 
+    }
+
+    // TRAMSFERENCIAS
+
+    function nuevaTransferencia() {
+        $("#modal-tramsferencia").modal('show');
+    }
+
+    $("#transferencia_propietario_id").select2({
+        placeholder: "Busca por nombre",
+        allowClear: true,
+        ajax: {
+            url: "{{ url('User/ajaxBuscaPropietario') }}",
+            dataType: 'json',
+            method: 'POST',
+            delay: 250,
+            data: function (params) {
+                return {
+                    search: params.term,
+                };
+            },
+            processResults: function (response) {
+
+                return {
+                    results: response
+                };
+            },
+            cache: true
+        },
+        minimumInputLength: 1,
+    });
+
+    function guardaTransferencia(){
+        // $("#formulario-examen")
+        if($("#formulario-transferencia")[0].checkValidity()){
+            // alert('bien');
+            $("#modal-tramsferencia").modal('hide');
+            Swal.fire("Excelente!", "Examen Guardado!", "success");
+            let datosFormularioTransferencia = $("#formulario-transferencia").serializeArray();
+            $.ajax({
+				url: "{{ url('Ejemplar/ajaxGuardaTransferencia') }}",
+				data: datosFormularioTransferencia,
+				type: 'POST',
+				success: function(data) {
+					$('#transferencias-1').html(data);
+				}
+			});
+        }else{
+            $("#formulario-transferencia")[0].reportValidity();
+        }
     }
 </script>
 @endsection
