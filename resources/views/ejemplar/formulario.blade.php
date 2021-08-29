@@ -23,14 +23,15 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="#" method="POST" id="formulario-padres">
+                <form action="{{ url('Ejemplar/guardaExamen') }}" method="POST" id="formulario-examenes">
                     @csrf
+                    <input type="hidden" name="ejemplar_examen_id" value="{{ $ejemplar->id }}">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="kcb">Examen
                                 </label>
-                                <input type="text" class="form-control" name="nombre_examen" id="nombre_examen">
+                                <input type="text" class="form-control" name="nombre_examen" id="nombre_examen" required>
                             </div>
                         </div>
 
@@ -84,7 +85,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <button class="btn btn-primary btn-block">Registrar</button>
+                        <button type="button" class="btn btn-success btn-block" onclick="guardaExamen();">Guardar</button>
                     </div>
                 </form>
             </div>
@@ -189,7 +190,7 @@
                         <label for="kcb">KCB
                             <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="kcb" name="kcb" value="{{ ($ejemplar != null)? $ejemplar->kcb:'' }}" placeholder="65123" required />
-                        <span class="form-text text-info">KCB tentativo: 
+                        <span class="form-text text-info">Ultimo KCB: 
                             @php
                                 $ultimoKCB = App\Ejemplar::latest()->first();
                                 echo $ultimoKCB->kcb;
@@ -503,26 +504,32 @@
                         <div class="tab-pane fade show active" id="examenes-1" role="tabpanel" aria-labelledby="examenes-tab-1">
                             @php
                                 $examenes = App\ExamenMascota::where('ejemplar_id', $ejemplar->id)
+                                                                    ->orderBy('id', 'desc')
                                                                     ->get();
-                                //dd($examenes);
                                 $numeroExamenes = $examenes->count();
-                                //dd($numeroExamenes);
                             @endphp
                             @if ($numeroExamenes != 0)
                                 <table class="table table-striped">
                                     <tr>
                                         <th>FECHA</th>
                                         <th>EXAMEN</th>
+                                        <th></th>
                                     </tr>
                                     @foreach ($examenes as $e)
                                         <tr>
                                             <td>{{ $e->fecha_examen }}</td>
                                             <td>{{ $e->examen->nombre }}</td>
+                                            <td>
+                                                <button type="button" class="btn btn-icon btn-danger" onclick="eliminaExamen('{{ $e->id }}', '{{ $e->examen->nombre }}')">
+                                                                                        <i class="flaticon2-cross"></i>
+                                                                                    </button>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </table>
+                                <a href="#" class="btn btn-info btn-block" onclick="nuevoExamen()">Nuevo Examen</a>
                             @else
-                                <a href="#" class="btn btn-info font-weight-bolder btn-block" onclick="nuevoExamen()">Nuevo Examen</a>
+                                <a href="#" class="btn btn-info btn-block" onclick="nuevoExamen()">Nuevo Examen</a>
                             @endif
                         </div>
                         <div class="tab-pane fade" id="transferencias-1" role="tabpanel" aria-labelledby="transferencias-tab-1">
@@ -709,6 +716,72 @@
     }
     function nuevoExamen(){
         $("#modal-examen").modal('show');
+    }
+
+    function guardaExamen(){
+        // $("#formulario-examen")
+        if($("#formulario-examenes")[0].checkValidity()){
+            // alert('bien');
+            $("#modal-examen").modal('hide');
+            Swal.fire("Excelente!", "Examen Guardado!", "success");
+            let datosFormularioExamen = $("#formulario-examenes").serializeArray();
+            $.ajax({
+				url: "{{ url('Ejemplar/ajaxGuardaExamen') }}",
+				data: datosFormularioExamen,
+				type: 'POST',
+				success: function(data) {
+					$('#examenes-1').html(data);
+				}
+			});
+        }else{
+            $("#formulario-examenes")[0].reportValidity();
+        }
+    }
+
+    function eliminaExamen(id, nombreExamen){
+
+        Swal.fire({
+            // mostramos el modal de confirmacion eliminar
+            title: "Quieres eliminar "+nombreExamen,
+            text: "Ya no podras recuperarlo!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Si, borrar!",
+            cancelButtonText: "No, cancelar!",
+            reverseButtons: true
+        }).then(function(result) {
+            // si pulsa boton si
+            if (result.value) {
+
+                // window.location.href = "{{ url('Ejemplar/eliminaExamen') }}/"+id;
+                // enviar via ajax la eliminacion
+
+                $.ajax({
+                    url: "{{ url('Ejemplar/ajaxEliminaExamen') }}",
+                    data: {idExamen: id},
+                    type: 'POST',
+                    success: function(data) {
+                        $('#examenes-1').html(data);
+                    }
+                });
+
+
+                Swal.fire(
+                    "Borrado!",
+                    "El registro fue eliminado.",
+                    "success"
+                )
+                // result.dismiss can be "cancel", "overlay",
+                // "close", and "timer"
+            } else if (result.dismiss === "cancel") {
+                Swal.fire(
+                    "Cancelado",
+                    "La operacion fue cancelada",
+                    "error"
+                )
+            }
+        });
+
     }
 </script>
 @endsection

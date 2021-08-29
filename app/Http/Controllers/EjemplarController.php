@@ -178,4 +178,38 @@ class EjemplarController extends Controller
         // return view('ejemplar.formulario')->with(compact('ejemplar', 'razas','examenes'));
     }
 
+    public function ajaxGuardaExamen(Request $request){
+        // dd($request->all());
+
+        $nuevoExamen               = new ExamenMascota();
+        $nuevoExamen->user_id      = 1;
+        $nuevoExamen->ejemplar_id  = $request->input('ejemplar_examen_id');
+        $nuevoExamen->examen_id    = 1;
+        $nuevoExamen->fecha_examen = $request->input('fecha_examen');
+        $nuevoExamen->resultado    = $request->input('resultado');
+        $nuevoExamen->save();
+
+        $examenesEjemplar = ExamenMascota::where('ejemplar_id', $request->input('ejemplar_examen_id'))
+                            ->orderBy('id', 'desc')  
+                            ->get();
+
+        return view('ejemplar.ajaxGuardaExamen')->with(compact('examenesEjemplar'));
+
+        
+    }
+
+    public function ajaxEliminaExamen(Request $request){
+
+        $examenEjemplar = ExamenMascota::find($request->idExamen);
+
+        $eliminaExamen = ExamenMascota::destroy($request->idExamen);
+
+        $examenesEjemplar = ExamenMascota::where('ejemplar_id', $examenEjemplar->ejemplar_id)
+                                            ->orderBy('id', 'desc')  
+                                            ->get();
+
+        return view('ejemplar.ajaxGuardaExamen')->with(compact('examenesEjemplar'));
+
+    }
+
 }
