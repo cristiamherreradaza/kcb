@@ -644,9 +644,9 @@
                                             <td>{{ $tra->fecha_transferencia }}</td>
                                             <td>{{ $tra->propietario->name }}</td>
                                             <td>
-                                                {{-- <button type="button" class="btn btn-icon btn-danger" onclick="eliminaExamen('{{ $e->id }}', '{{ $e->examen->nombre }}')">
-                                                                                        <i class="flaticon2-cross"></i>
-                                                                                    </button> --}}
+                                                <button type="button" class="btn btn-icon btn-danger" onclick="eliminaTransferencia('{{ $tra->id }}', '{{ $tra->propietario->name }}')">
+                                                    <i class="flaticon2-cross"></i>
+                                                </button>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -945,6 +945,50 @@
         }else{
             $("#formulario-transferencia")[0].reportValidity();
         }
+    }
+
+    function eliminaTransferencia(id, nombrePropietario){
+        Swal.fire({
+            // mostramos el modal de confirmacion eliminar
+            title: "Quieres eliminar "+nombrePropietario,
+            text: "Ya no podras recuperarlo!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Si, borrar!",
+            cancelButtonText: "No, cancelar!",
+            reverseButtons: true
+        }).then(function(result) {
+            // si pulsa boton si
+            if (result.value) {
+
+                // window.location.href = "{{ url('Ejemplar/eliminaExamen') }}/"+id;
+                // enviar via ajax la eliminacion
+
+                $.ajax({
+                    url: "{{ url('Ejemplar/ajaxEliminaTransferencia') }}",
+                    data: {idTransferencia: id},
+                    type: 'POST',
+                    success: function(data) {
+                        $('#transferencias-1').html(data);
+                    }
+                });
+
+
+                Swal.fire(
+                    "Borrado!",
+                    "El registro fue eliminado.",
+                    "success"
+                )
+                // result.dismiss can be "cancel", "overlay",
+                // "close", and "timer"
+            } else if (result.dismiss === "cancel") {
+                Swal.fire(
+                    "Cancelado",
+                    "La operacion fue cancelada",
+                    "error"
+                )
+            }
+        });
     }
 </script>
 @endsection

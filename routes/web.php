@@ -127,6 +127,7 @@ Route::post('Ejemplar/guarda', 'EjemplarController@guarda');
 Route::post('Ejemplar/ajaxGuardaExamen', 'EjemplarController@ajaxGuardaExamen');
 Route::post('Ejemplar/ajaxEliminaExamen', 'EjemplarController@ajaxEliminaExamen');
 Route::post('Ejemplar/ajaxGuardaTransferencia', 'EjemplarController@ajaxGuardaTransferencia');
+Route::post('Ejemplar/ajaxEliminaTransferencia', 'EjemplarController@ajaxEliminaTransferencia');
 
 
 

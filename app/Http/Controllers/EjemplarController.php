@@ -242,4 +242,29 @@ class EjemplarController extends Controller
         return view('ejemplar.ajaxGuardaTransferencia')->with(compact('ejemplarTransferencias'));
     }
 
+    public function ajaxEliminaTransferencia(Request $request){
+
+        $transferencia = Transferencia::find($request->idTransferencia);
+
+        $eliminaTransferencia = Transferencia::destroy($request->idTransferencia);
+
+        $ejemplarTransferencias = Transferencia::where('ejemplar_id', $transferencia->ejemplar_id)
+                                            ->orderBy('id', 'desc')  
+                                            ->get();
+
+        return view('ejemplar.ajaxGuardaTransferencia')->with(compact('ejemplarTransferencias'));
+
+
+        // $examenEjemplar = ExamenMascota::find($request->idExamen);
+
+        // $eliminaExamen = ExamenMascota::destroy($request->idExamen);
+
+        // $examenesEjemplar = ExamenMascota::where('ejemplar_id', $examenEjemplar->ejemplar_id)
+        //                                     ->orderBy('id', 'desc')  
+        //                                     ->get();
+
+        // return view('ejemplar.ajaxGuardaExamen')->with(compact('examenesEjemplar'));
+
+    }
+
 }
