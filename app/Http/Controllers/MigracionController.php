@@ -657,6 +657,9 @@ class MigracionController extends Controller
 
         echo "<h1 class='text-success'>SUCCESSFUL</h1>";
     }
-    
 
+    // MIGRACIUON DE MASCOTAS TITULOS
+    public function mascotas_titulos(){
+        
+    }
 }
