@@ -12,234 +12,234 @@
 
 
 {{--  modal Titulo  --}}
-
-<div class="modal fade" id="modal-titulo" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">NUEVO TITULO</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <i aria-hidden="true" class="ki ki-close"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="" method="POST" id="formulario-titulo">
-                    @csrf
-                    <input type="hidden" name="titulo_ejemplar_id" value="{{ $ejemplar->id }}">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="exampleInputPassword1">TITULO
-                                </label><br>
-                                <select class="form-control select2" id="titulo_titulo_id" name="titulo_titulo_id">
-                                    {{--  @if ($ejemplar != null && $ejemplar->raza_id != null)
-                                        <option value="{{ $ejemplar->raza->id }}"> {{ $ejemplar->raza->id }} {{ $ejemplar->raza->nombre }} {{ $ejemplar->raza->descripcion }}</option>
-                                    @endif  --}}
-                                    @forelse ($titulos as $ti)
-                                        <option value="{{ $ti->id }}">{{ $ti->nombre }} {{ $ti->descripcion }}</option>                                    
-                                    @empty
-                                        
-                                    @endforelse
-                                </select>
+@if ($ejemplar != null)
+    <div class="modal fade" id="modal-titulo" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">NUEVO TITULO</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="POST" id="formulario-titulo">
+                        @csrf
+                        <input type="hidden" name="titulo_ejemplar_id" value="{{ $ejemplar->id }}">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">TITULO
+                                    </label><br>
+                                    <select class="form-control select2" id="titulo_titulo_id" name="titulo_titulo_id">
+                                        {{--  @if ($ejemplar != null && $ejemplar->raza_id != null)
+                                            <option value="{{ $ejemplar->raza->id }}"> {{ $ejemplar->raza->id }} {{ $ejemplar->raza->nombre }} {{ $ejemplar->raza->descripcion }}</option>
+                                        @endif  --}}
+                                        @forelse ($titulos as $ti)
+                                            <option value="{{ $ti->id }}">{{ $ti->nombre }} {{ $ti->descripcion }}</option>                                    
+                                        @empty
+                                            
+                                        @endforelse
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="nombre">Fecha de Obtencion
-                                </label>
-                                <input type="date" class="form-control" id="titulo_fecha_obtencion" name="titulo_fecha_obtencion" autocomplete="off" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <button type="button" class="btn btn-success btn-block" onclick="guardarTitulo();">Guardar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-{{--  end modal Titulo  --}}
-
-
-{{--  modal Transferencia  --}}
-
-<div class="modal fade" id="modal-tramsferencia" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">NUEVA TRANSFERENCIA</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <i aria-hidden="true" class="ki ki-close"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="" method="POST" id="formulario-transferencia">
-                    @csrf
-                    <input type="hidden" name="transferencia_ejemplar_id" value="{{ $ejemplar->id }}">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="exampleInputPassword1">PROPIETARIO
-                                </label><br>
-                                <select class="form-control select2" id="transferencia_propietario_id" name="transferencia_propietario_id">
-                                    {{-- @if ($ejemplar != null && $ejemplar->propietario_id != null)
-                                        <option value="{{ $ejemplar->propietario->id }}">{{ $ejemplar->propietario->name }}</option>
-                                    @endif --}}
-                                    <option label="Label"></option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="nombre">Fecha de Transferencia
-                                </label>
-                                <input type="date" class="form-control" id="transferencia_fecha_transferencia" name="transferencia_fecha_transferencia" autocomplete="off" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="nombre">En caso de ser Pedigree
-                                </label>
-                                <div class="form-group row">
-                                    {{-- <label class="col-3 col-form-label">Success State</label> --}}
-                                    <div class="col-9 col-form-label">
-                                        <div class="checkbox-inline">
-                                            <label class="checkbox checkbox-lg checkbox-success">
-                                                <input type="checkbox" name="transferencia_pedigree" id="transferencia_pedigree" {{--  checked="checked"  --}} />
-                                                <span></span>
-                                                Pedigree
-                                            </label>
-                                        </div>
-                                        {{-- <span class="form-text text-muted">Some help text goes here</span> --}}
-                                    </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="nombre">Fecha de Obtencion
+                                    </label>
+                                    <input type="date" class="form-control" id="titulo_fecha_obtencion" name="titulo_fecha_obtencion" autocomplete="off" />
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="nombre">Fecha de Exportacion
-                                </label>
-                                <input type="date" class="form-control" id="transferencia_fecha_exportacion" name="transferencia_fecha_exportacion" autocomplete="off" />
-                            </div>
+                        <div class="row">
+                            <button type="button" class="btn btn-success btn-block" onclick="guardarTitulo();">Guardar</button>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="nombre">Estado
-                                </label>
-                                <select class="form-control" name="transferencia_estado" id="transferencia_estado">
-                                    <option value="Actual">Propietario Actual</option>
-                                    <option value="Anterior">Propietario Anterior</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="kcb">Pais Destino
-                                </label>
-                                <input type="text" class="form-control" name="transferencia_pais_destino" id="transferencia_pais_destino">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <button type="button" class="btn btn-success btn-block" onclick="guardaTransferencia();">Guardar</button>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-{{--  end modal Transferencia  --}}
+    {{--  end modal Titulo  --}}
 
-{{--  modal Examen  --}}
 
-<div class="modal fade" id="modal-examen" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">NUEVO EXAMEN</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <i aria-hidden="true" class="ki ki-close"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="{{ url('Ejemplar/guardaExamen') }}" method="POST" id="formulario-examenes">
-                    @csrf
-                    <input type="hidden" name="ejemplar_examen_id" value="{{ $ejemplar->id }}">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="kcb">Examen
-                                </label>
-                                <input type="text" class="form-control" name="nombre_examen" id="nombre_examen" required>
+    {{--  modal Transferencia  --}}
+
+    <div class="modal fade" id="modal-tramsferencia" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">NUEVA TRANSFERENCIA</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="POST" id="formulario-transferencia">
+                        @csrf
+                        <input type="hidden" name="transferencia_ejemplar_id" value="{{ $ejemplar->id }}">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">PROPIETARIO
+                                    </label><br>
+                                    <select class="form-control select2" id="transferencia_propietario_id" name="transferencia_propietario_id">
+                                        {{-- @if ($ejemplar != null && $ejemplar->propietario_id != null)
+                                            <option value="{{ $ejemplar->propietario->id }}">{{ $ejemplar->propietario->name }}</option>
+                                        @endif --}}
+                                        <option label="Label"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="nombre">Fecha de Transferencia
+                                    </label>
+                                    <input type="date" class="form-control" id="transferencia_fecha_transferencia" name="transferencia_fecha_transferencia" autocomplete="off" />
+                                </div>
                             </div>
                         </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="nombre">Fecha
-                                </label>
-                                <input type="date" class="form-control" id="fecha_examen" name="fecha_examen" autocomplete="off" />
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="nombre">En caso de ser Pedigree
+                                    </label>
+                                    <div class="form-group row">
+                                        {{-- <label class="col-3 col-form-label">Success State</label> --}}
+                                        <div class="col-9 col-form-label">
+                                            <div class="checkbox-inline">
+                                                <label class="checkbox checkbox-lg checkbox-success">
+                                                    <input type="checkbox" name="transferencia_pedigree" id="transferencia_pedigree" {{--  checked="checked"  --}} />
+                                                    <span></span>
+                                                    Pedigree
+                                                </label>
+                                            </div>
+                                            {{-- <span class="form-text text-muted">Some help text goes here</span> --}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="nombre">Fecha de Exportacion
+                                    </label>
+                                    <input type="date" class="form-control" id="transferencia_fecha_exportacion" name="transferencia_fecha_exportacion" autocomplete="off" />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label for="nombre">Doctor
-                            </label>
-                            <input type="text" class="form-control" id="doctor" name="doctor" autocomplete="off" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="kcb">Resultado
-                                </label>
-                                <input type="text" class="form-control" name="resultado" id="resultado">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="nombre">Estado
+                                    </label>
+                                    <select class="form-control" name="transferencia_estado" id="transferencia_estado">
+                                        <option value="Actual">Propietario Actual</option>
+                                        <option value="Anterior">Propietario Anterior</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="kcb">Pais Destino
+                                    </label>
+                                    <input type="text" class="form-control" name="transferencia_pais_destino" id="transferencia_pais_destino">
+                                </div>
                             </div>
                         </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="nombre">Observacion
-                                </label>
-                                <input type="text" class="form-control" id="obserbacion" name="obserbacion" autocomplete="off" />
-                            </div>
+                        <div class="row">
+                            <button type="button" class="btn btn-success btn-block" onclick="guardaTransferencia();">Guardar</button>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="kcb">Num. Formulario
-                                </label>
-                                <input type="text" class="form-control" name="resultado" id="resultado">
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="nombre">Codigo DFC
-                                </label>
-                                <input type="text" class="form-control" id="obserbacion" name="obserbacion" autocomplete="off" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <button type="button" class="btn btn-success btn-block" onclick="guardaExamen();">Guardar</button>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-{{--  end modal Examen  --}}
+    {{--  end modal Transferencia  --}}
+
+    {{--  modal Examen  --}}
+
+    <div class="modal fade" id="modal-examen" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">NUEVO EXAMEN</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ url('Ejemplar/guardaExamen') }}" method="POST" id="formulario-examenes">
+                        @csrf
+                        <input type="hidden" name="ejemplar_examen_id" value="{{ $ejemplar->id }}">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="kcb">Examen
+                                    </label>
+                                    <input type="text" class="form-control" name="nombre_examen" id="nombre_examen" required>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="nombre">Fecha
+                                    </label>
+                                    <input type="date" class="form-control" id="fecha_examen" name="fecha_examen" autocomplete="off" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="nombre">Doctor
+                                </label>
+                                <input type="text" class="form-control" id="doctor" name="doctor" autocomplete="off" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="kcb">Resultado
+                                    </label>
+                                    <input type="text" class="form-control" name="resultado" id="resultado">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="nombre">Observacion
+                                    </label>
+                                    <input type="text" class="form-control" id="obserbacion" name="obserbacion" autocomplete="off" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="kcb">Num. Formulario
+                                    </label>
+                                    <input type="text" class="form-control" name="resultado" id="resultado">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="nombre">Codigo DFC
+                                    </label>
+                                    <input type="text" class="form-control" id="obserbacion" name="obserbacion" autocomplete="off" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <button type="button" class="btn btn-success btn-block" onclick="guardaExamen();">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{--  end modal Examen  --}}
+@endif
 {{-- inicio modal  --}}
 <div class="modal fade" id="modal-padres" data-backdrop="static" tabindex="-1" role="dialog"
     aria-labelledby="staticBackdrop" aria-hidden="true">
