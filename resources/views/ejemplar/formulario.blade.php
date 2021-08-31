@@ -23,79 +23,36 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="" method="POST" id="formulario-transferencia">
+                <form action="" method="POST" id="formulario-titulo">
                     @csrf
-                    <input type="hidden" name="transferencia_ejemplar_id" value="{{ $ejemplar->id }}">
+                    <input type="hidden" name="titulo_ejemplar_id" value="{{ $ejemplar->id }}">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="exampleInputPassword1">PROPIETARIO
+                                <label for="exampleInputPassword1">TITULO
                                 </label><br>
-                                <select class="form-control select2" id="transferencia_propietario_id" name="transferencia_propietario_id">
-                                    {{-- @if ($ejemplar != null && $ejemplar->propietario_id != null)
-                                        <option value="{{ $ejemplar->propietario->id }}">{{ $ejemplar->propietario->name }}</option>
-                                    @endif --}}
-                                    <option label="Label"></option>
+                                <select class="form-control select2" id="titulo_titulo_id" name="titulo_titulo_id">
+                                    {{--  @if ($ejemplar != null && $ejemplar->raza_id != null)
+                                        <option value="{{ $ejemplar->raza->id }}"> {{ $ejemplar->raza->id }} {{ $ejemplar->raza->nombre }} {{ $ejemplar->raza->descripcion }}</option>
+                                    @endif  --}}
+                                    @forelse ($titulos as $ti)
+                                        <option value="{{ $ti->id }}">{{ $ti->nombre }} {{ $ti->descripcion }}</option>                                    
+                                    @empty
+                                        
+                                    @endforelse
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="nombre">Fecha de Transferencia
+                                <label for="nombre">Fecha de Obtencion
                                 </label>
-                                <input type="date" class="form-control" id="transferencia_fecha_transferencia" name="transferencia_fecha_transferencia" autocomplete="off" />
+                                <input type="date" class="form-control" id="titulo_fecha_obtencion" name="titulo_fecha_obtencion" autocomplete="off" />
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="nombre">En caso de ser Pedigree
-                                </label>
-                                <div class="form-group row">
-                                    {{-- <label class="col-3 col-form-label">Success State</label> --}}
-                                    <div class="col-9 col-form-label">
-                                        <div class="checkbox-inline">
-                                            <label class="checkbox checkbox-lg checkbox-success">
-                                                <input type="checkbox" name="transferencia_pedigree" id="transferencia_pedigree" {{--  checked="checked"  --}} />
-                                                <span></span>
-                                                Pedigree
-                                            </label>
-                                        </div>
-                                        {{-- <span class="form-text text-muted">Some help text goes here</span> --}}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="nombre">Fecha de Exportacion
-                                </label>
-                                <input type="date" class="form-control" id="transferencia_fecha_exportacion" name="transferencia_fecha_exportacion" autocomplete="off" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="nombre">Estado
-                                </label>
-                                <select class="form-control" name="transferencia_estado" id="transferencia_estado">
-                                    <option value="Actual">Propietario Actual</option>
-                                    <option value="Anterior">Propietario Anterior</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="kcb">Pais Destino
-                                </label>
-                                <input type="text" class="form-control" name="transferencia_pais_destino" id="transferencia_pais_destino">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <button type="button" class="btn btn-success btn-block" onclick="guardaTransferencia();">Guardar</button>
+                        <button type="button" class="btn btn-success btn-block" onclick="guardarTitulo();">Guardar</button>
                     </div>
                 </form>
             </div>
@@ -710,8 +667,8 @@
                                             <td>{{ $e->examen->nombre }}</td>
                                             <td>
                                                 <button type="button" class="btn btn-icon btn-danger" onclick="eliminaExamen('{{ $e->id }}', '{{ $e->examen->nombre }}')">
-                                                                                        <i class="flaticon2-cross"></i>
-                                                                                    </button>
+                                                    <i class="flaticon2-cross"></i>
+                                                </button>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -754,33 +711,33 @@
                         </div>
                         <div class="tab-pane fade" id="titulos-1" role="tabpanel" aria-labelledby="contact-tab-1">
                             @php
-                                $transferencias = App\Transferencia::where('ejemplar_id', $ejemplar->id)
+                                $tituloEjemplar = App\TituloEjemplar::where('ejemplar_id', $ejemplar->id)
                                                                     ->orderBy('id', 'desc')
                                                                     ->get();
-                                $numeroTransferencia = $transferencias->count();
+                                $numeroTituloEjemplares = $tituloEjemplar->count();
                             @endphp
-                            @if ($numeroTransferencia != 0)
+                            @if ($numeroTituloEjemplares != 0)
                                 <table class="table table-striped">
                                     <tr>
                                         <th>FECHA</th>
-                                        <th>PROPIETARIO</th>
+                                        <th>EXAMEN</th>
                                         <th></th>
                                     </tr>
-                                    @foreach ($transferencias as $tra)
+                                    @foreach ($tituloEjemplar as $te)
                                         <tr>
-                                            <td>{{ $tra->fecha_transferencia }}</td>
-                                            <td>{{ $tra->propietario->name }}</td>
+                                            <td>{{ $te->fecha_obtencion }}</td>
+                                            <td>{{ $te->titulo->nombre}}</td>
                                             <td>
-                                                <button type="button" class="btn btn-icon btn-danger" onclick="eliminaTransferencia('{{ $tra->id }}', '{{ $tra->propietario->name }}')">
+                                                <button type="button" class="btn btn-icon btn-danger" onclick="eliminaTitulo('{{ $te->id }}', '{{ $te->titulo->nombre }}')">
                                                     <i class="flaticon2-cross"></i>
                                                 </button>
                                             </td>
                                         </tr>
                                     @endforeach
                                 </table>
-                                <a href="#" class="btn btn-info btn-block" onclick="nuevaTransferencia()">Nueva Tramsferencia</a>
+                                <a href="#" class="btn btn-info btn-block" onclick="nuevoTitulo()">Nuevo Titulo</a>
                             @else
-                                <a href="#" class="btn btn-info btn-block" onclick="nuevaTransferencia()">Nueva Tramsferencia</a>
+                                <a href="#" class="btn btn-info btn-block" onclick="nuevoTitulo()">Nuevo Titulo</a>
                             @endif
                         </div>
                     </div>
@@ -1094,6 +1051,81 @@
                     type: 'POST',
                     success: function(data) {
                         $('#transferencias-1').html(data);
+                    }
+                });
+
+
+                Swal.fire(
+                    "Borrado!",
+                    "El registro fue eliminado.",
+                    "success"
+                )
+                // result.dismiss can be "cancel", "overlay",
+                // "close", and "timer"
+            } else if (result.dismiss === "cancel") {
+                Swal.fire(
+                    "Cancelado",
+                    "La operacion fue cancelada",
+                    "error"
+                )
+            }
+        });
+    }
+
+    {{--  TITULOS  --}}
+
+    function nuevoTitulo(){
+        $("#modal-titulo").modal('show');
+    }
+
+    function guardarTitulo(){
+        if($("#formulario-titulo")[0].checkValidity()){
+            // alert('bien');
+            $("#modal-titulo").modal('hide');
+            Swal.fire("Excelente!", "Titulo Guardado!", "success");
+            let datosFormularioTitulo = $("#formulario-titulo").serializeArray();
+            $.ajax({
+				url: "{{ url('Ejemplar/ajaxGuardaTitulo') }}",
+				data: datosFormularioTitulo,
+				type: 'POST',
+				success: function(data) {
+					$('#titulos-1').html(data);
+				}
+			});
+        }else{
+            $("#formulario-titulo")[0].reportValidity();
+        }
+    }
+
+    $(function(){
+        $('#titulo_titulo_id').select2({
+            placeholder: "Select a state"
+        });
+    });
+
+    function eliminaTitulo(id, nombrePropietario){
+        Swal.fire({
+            // mostramos el modal de confirmacion eliminar
+            title: "Quieres eliminar "+nombrePropietario,
+            text: "Ya no podras recuperarlo!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Si, borrar!",
+            cancelButtonText: "No, cancelar!",
+            reverseButtons: true
+        }).then(function(result) {
+            // si pulsa boton si
+            if (result.value) {
+
+                // window.location.href = "{{ url('Ejemplar/eliminaExamen') }}/"+id;
+                // enviar via ajax la eliminacion
+
+                $.ajax({
+                    url: "{{ url('Ejemplar/ajaxEliminaTitulo') }}",
+                    data: {idTituloEjemplar: id},
+                    type: 'POST',
+                    success: function(data) {
+                        $('#titulos-1').html(data);
                     }
                 });
 

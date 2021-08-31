@@ -19,4 +19,9 @@ class TituloEjemplar extends Model
         'estado',
         'deleted_at',
     ];
+
+    public function titulo()
+    {
+        return $this->belongsTo('App\Titulo', 'titulo_id');
+    }
 }

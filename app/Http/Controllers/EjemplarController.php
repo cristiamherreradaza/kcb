@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Raza;
 use App\User;
 
+use App\Titulo;
 use App\Ejemplar;
 use App\ExamenMascota;
+use App\TituloEjemplar;
 use App\Transferencia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -24,7 +26,9 @@ class EjemplarController extends Controller
 
         $razas = Raza::all();
 
-        return view('ejemplar.formulario')->with(compact('ejemplar', 'razas'));
+        $titulos = Titulo::all();
+
+        return view('ejemplar.formulario')->with(compact('ejemplar', 'razas', 'titulos'));
     }
 
     public function ajaxBuscaEjemplar(Request $request)
@@ -167,13 +171,6 @@ class EjemplarController extends Controller
         // sacamos el id para mostrar el registro
         $ejemplarId = $ejemplar->id;
 
-        // sacamos sus examenes
-        // $examenes = ExamenMascota::where('ejemplar_id', $ejemplarId)
-        //                 ->get();
-        
-        
-        // dd($examenes);
-
         // redirigimos a la vista
         return redirect("Ejemplar/formulario/$ejemplarId");
         // return view('ejemplar.formulario')->with(compact('ejemplar', 'razas','examenes'));
@@ -253,18 +250,38 @@ class EjemplarController extends Controller
                                             ->get();
 
         return view('ejemplar.ajaxGuardaTransferencia')->with(compact('ejemplarTransferencias'));
-
-
-        // $examenEjemplar = ExamenMascota::find($request->idExamen);
-
-        // $eliminaExamen = ExamenMascota::destroy($request->idExamen);
-
-        // $examenesEjemplar = ExamenMascota::where('ejemplar_id', $examenEjemplar->ejemplar_id)
-        //                                     ->orderBy('id', 'desc')  
-        //                                     ->get();
-
-        // return view('ejemplar.ajaxGuardaExamen')->with(compact('examenesEjemplar'));
-
     }
 
+
+    // TITULOS
+    public function ajaxGuardaTitulo(request $request){
+
+        $titulosEjemplar = new TituloEjemplar();
+
+        $titulosEjemplar->user_id           = Auth::user()->id;
+        $titulosEjemplar->titulo_id         = $request->input('titulo_titulo_id');
+        $titulosEjemplar->ejemplar_id       = $request->input('titulo_ejemplar_id');
+        $titulosEjemplar->fecha_obtencion   = $request->input('titulo_fecha_obtencion');
+
+        $titulosEjemplar->save();
+
+        $titulosEjemplares                  = TituloEjemplar::where('ejemplar_id', $request->input('titulo_ejemplar_id'))
+                                                            ->orderBy('id', 'desc')
+                                                            ->get();
+        
+        return view('ejemplar.ajaxGuardaTitulo')->with(compact('titulosEjemplares'));
+    }
+
+    public function ajaxEliminaTitulo(Request $request){
+
+        $tituloEjemplar = TituloEjemplar::find($request->idTituloEjemplar);
+
+        $eliminaTitulo = TituloEjemplar::destroy($request->idTituloEjemplar);
+
+        $titulosEjemplares = TituloEjemplar::where('ejemplar_id', $tituloEjemplar->ejemplar_id)
+                                            ->orderBy('id', 'desc')  
+                                            ->get();
+
+        return view('ejemplar.ajaxGuardaTitulo')->with(compact('titulosEjemplares'));
+    }
 }
