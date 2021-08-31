@@ -52,7 +52,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <button type="button" class="btn btn-success btn-block" onclick="guardarTitulo();">Guardar</button>
+                            <button type="button" class="btn btn-sm btn-success btn-block" onclick="guardarTitulo();">Guardar</button>
                         </div>
                     </form>
                 </div>
@@ -147,7 +147,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <button type="button" class="btn btn-success btn-block" onclick="guardaTransferencia();">Guardar</button>
+                            <button type="button" class="btn btn-sm btn-success btn-block" onclick="guardaTransferencia();">Guardar</button>
                         </div>
                     </form>
                 </div>
@@ -241,7 +241,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <button type="button" class="btn btn-success btn-block" onclick="guardaExamen();">Guardar</button>
+                            <button type="button" class="btn btn-sm btn-success btn-block" onclick="guardaExamen();">Guardar</button>
                         </div>
                     </form>
                 </div>
@@ -436,17 +436,17 @@
                 <input type="hidden" name="padre_id" id="padre_id">
                 <div class="col-md-6" id="btn-padre">
                     @if ($ejemplar != null && $ejemplar->padre_id != null) 
-                        <button type="button" class="btn btn-primary btn-block" onclick="seleccionaPadre()">KCB: {{ $ejemplar->padre->kcb }} NOMBRE: {{ $ejemplar->padre->nombre }}</button>
+                        <button type="button" class="btn btn-sm btn-primary btn-block" onclick="seleccionaPadre()">KCB: {{ $ejemplar->padre->kcb }} NOMBRE: {{ $ejemplar->padre->nombre }}</button>
                     @else
-                        <button type="button" class="btn btn-primary btn-block" onclick="seleccionaPadre()">PADRE</button>
+                        <button type="button" class="btn btn-sm btn-primary btn-block" onclick="seleccionaPadre()">PADRE</button>
                     @endif
                 </div>
                 <input type="hidden" name="madre_id" id="madre_id">
                 <div class="col-md-6" id="btn-madre">
                     @if ($ejemplar != null && $ejemplar->madre_id != null)
-                        <button type="button" class="btn btn-info btn-block" onclick="seleccionaPadre()">KCB: {{ $ejemplar->madre->kcb }} NOMBRE: {{ $ejemplar->madre->nombre }}</button>
+                        <button type="button" class="btn btn-sm btn-info btn-block" onclick="seleccionaPadre()">KCB: {{ $ejemplar->madre->kcb }} NOMBRE: {{ $ejemplar->madre->nombre }}</button>
                     @else
-                        <button type="button" class="btn btn-info btn-block" onclick="seleccionaMadre()">MADRE</button>
+                        <button type="button" class="btn btn-sm btn-info btn-block" onclick="seleccionaMadre()">MADRE</button>
                     @endif
                 </div>
                 
@@ -553,7 +553,7 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <button type="button" class="btn btn-light-danger btn-block font-weight-bold mr-2" onclick="muestraBloqueFallecido();"> FALLECIDO, PERDIDO O ROBADO</button>
+                    <button type="button" class="btn btn-sm btn-light-danger btn-block font-weight-bold mr-2" onclick="muestraBloqueFallecido();"> FALLECIDO, PERDIDO O ROBADO</button>
                 </div>
             </div>
             <br>
@@ -589,7 +589,7 @@
             {{-- <br /> --}}
             <div class="row">
                 <div class="col-md-12">
-                    <button type="button" class="btn btn-light-dark btn-block font-weight-bold mr-2"
+                    <button type="button" class="btn btn-sm btn-light-dark btn-block font-weight-bold mr-2"
                         onclick="muestraBloqueNacionalizado();"> NACIONALIZADO</button>
                 </div>
             </div>
@@ -676,7 +676,7 @@
                                             <td>{{ $e->fecha_examen }}</td>
                                             <td>{{ $e->examen->nombre }}</td>
                                             <td>
-                                                <button type="button" class="btn btn-icon btn-danger" onclick="eliminaExamen('{{ $e->id }}', '{{ $e->examen->nombre }}')">
+                                                <button type="button" class="btn btn-sm btn-icon btn-danger" onclick="eliminaExamen('{{ $e->id }}', '{{ $e->examen->nombre }}')">
                                                     <i class="flaticon2-cross"></i>
                                                 </button>
                                             </td>
@@ -707,7 +707,7 @@
                                             <td>{{ $tra->fecha_transferencia }}</td>
                                             <td>{{ $tra->propietario->name }}</td>
                                             <td>
-                                                <button type="button" class="btn btn-icon btn-danger" onclick="eliminaTransferencia('{{ $tra->id }}', '{{ $tra->propietario->name }}')">
+                                                <button type="button" class="btn btn-sm btn-icon btn-danger" onclick="eliminaTransferencia('{{ $tra->id }}', '{{ $tra->propietario->name }}')">
                                                     <i class="flaticon2-cross"></i>
                                                 </button>
                                             </td>
@@ -738,7 +738,7 @@
                                             <td>{{ $te->fecha_obtencion }}</td>
                                             <td>{{ $te->titulo->nombre}}</td>
                                             <td>
-                                                <button type="button" class="btn btn-icon btn-danger" onclick="eliminaTitulo('{{ $te->id }}', '{{ $te->titulo->nombre }}')">
+                                                <button type="button" class="btn btn-sm btn-icon btn-danger" onclick="eliminaTitulo('{{ $te->id }}', '{{ $te->titulo->nombre }}')">
                                                     <i class="flaticon2-cross"></i>
                                                 </button>
                                             </td>
@@ -757,8 +757,8 @@
 
 
             <div class="row">
-                <div class="col-md-6"><button type="button" class="btn btn-success btn-block" onclick="guardar()">GUARDAR</button></div>
-                <div class="col-md-6"><button type="button" class="btn btn-dark btn-block">VOLVER</button></div>
+                <div class="col-md-6"><button type="button" class="btn btn-sm btn-success btn-block" onclick="guardar()">GUARDAR</button></div>
+                <div class="col-md-6"><button type="button" class="btn btn-sm btn-dark btn-block">VOLVER</button></div>
             </div>
         </form>
     </div>

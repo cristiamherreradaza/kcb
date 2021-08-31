@@ -22,10 +22,10 @@
             <td>{{ $e->raza['nombre'] }}</td>
             <td>{{ $e->propietario['name'] }}</td>
             <td style="width: 10%">
-                <button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $e->id }}')">
+                <button type="button" class="btn btn-sm btn-icon btn-warning" onclick="edita('{{ $e->id }}')">
                     <i class="flaticon2-edit"></i>
                 </button>
-                <button type="button" class="btn btn-icon btn-danger"
+                <button type="button" class="btn btn-sm btn-icon btn-danger"
                     onclick="elimina('{{ $e->id }}', '{{ $e->nombre }}')">
                     <i class="flaticon2-cross"></i>
                 </button>

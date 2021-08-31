@@ -127,8 +127,8 @@
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
-					<button type="button" class="btn btn-success font-weight-bold" onclick="crear()">Guardar</button>
+					<button type="button" class="btn btn-sm btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
+					<button type="button" class="btn btn-sm btn-success font-weight-bold" onclick="crear()">Guardar</button>
 				</div>
 			</div>
 		</div>
@@ -175,7 +175,7 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<label for="exampleInputPassword1">&nbsp;</label>
-							<button type="button" class="btn btn-success btn-block" onclick="buscarPropietario()">BUSCAR</button>
+							<button type="button" class="btn btn-sm btn-success btn-block" onclick="buscarPropietario()">BUSCAR</button>
 						</div>
 					</div>
 			

@@ -44,8 +44,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-success font-weight-bold" onclick="crear()">Guardar</button>
+                <button type="button" class="btn btn-sm btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-sm btn-success font-weight-bold" onclick="crear()">Guardar</button>
             </div>
         </div>
     </div>
@@ -87,10 +87,10 @@
 								<td>{{ $tu->nombre }}</td>
 								<td>{{ $tu->descripcion }}</td>
 								<td>
-									<button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $tu->id }}', '{{ $tu->nombre }}', '{{ $tu->descripcion }}')">
+									<button type="button" class="btn btn-sm btn-icon btn-warning" onclick="edita('{{ $tu->id }}', '{{ $tu->nombre }}', '{{ $tu->descripcion }}')">
 										<i class="flaticon2-edit"></i>
 									</button>
-									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $tu->id }}', '{{ $tu->nombre }}')">
+									<button type="button" class="btn btn-sm btn-icon btn-danger" onclick="elimina('{{ $tu->id }}', '{{ $tu->nombre }}')">
 										<i class="flaticon2-cross"></i>
 									</button>
 								</td>

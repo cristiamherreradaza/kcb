@@ -32,12 +32,12 @@
     function selecciona(id, kcb, nombre_completo, sexo)
     {
         if(sexo == 'Macho'){
-            var boton = '<button type="button" class="btn btn-primary btn-block" onclick="seleccionaPadre()">'+'KCB: '+kcb+' NOMBRE: '+nombre_completo+'</button>';
+            var boton = '<button type="button" class="btn btn-sm btn-primary btn-block" onclick="seleccionaPadre()">'+'KCB: '+kcb+' NOMBRE: '+nombre_completo+'</button>';
             $("#btn-padre").html(boton);
             $("#modal-padres").modal('hide');
             $("#padre_id").val(id);
         }else{
-            var boton = '<button type="button" class="btn btn-info btn-block" onclick="seleccionaMadre()">'+'KCB: '+kcb+' NOMBRE: '+nombre_completo+'</button>';
+            var boton = '<button type="button" class="btn btn-sm btn-info btn-block" onclick="seleccionaMadre()">'+'KCB: '+kcb+' NOMBRE: '+nombre_completo+'</button>';
             $("#btn-madre").html(boton);
             $("#modal-padres").modal('hide');
             $("#madre_id").val(id);

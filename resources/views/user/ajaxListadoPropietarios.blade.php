@@ -28,13 +28,13 @@
                 @endphp
             </td>
             <td>
-                <button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $p->id }}')">
+                <button type="button" class="btn btn-sm btn-icon btn-warning" onclick="edita('{{ $p->id }}')">
                     <i class="flaticon2-edit"></i>
                 </button>
-                <button type="button" class="btn btn-icon btn-success" onclick="listaCriadero('{{ $p->id }}')">
+                <button type="button" class="btn btn-sm btn-icon btn-success" onclick="listaCriadero('{{ $p->id }}')">
                     <i class="fas fa-dog"></i>
                 </button>
-                <button type="button" class="btn btn-icon btn-danger"
+                <button type="button" class="btn btn-sm btn-icon btn-danger"
                     onclick="elimina('{{ $p->id }}', '{{ $p->name }}')">
                     <i class="flaticon2-cross"></i>
                 </button>

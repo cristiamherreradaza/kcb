@@ -51,7 +51,7 @@
                     
                         <div class="row">
                             <div class="col-md-6">
-                                <button type="button" class="btn btn-success mr-2 btn-block" onclick="guarda();">Guardar</button>
+                                <button type="button" class="btn btn-sm btn-success mr-2 btn-block" onclick="guarda();">Guardar</button>
                             </div>
                             <div class="col-md-6">
                                 <button type="reset" class="btn btn-secondary btn-block" data-dismiss="modal">Cancelar</button>

@@ -160,8 +160,8 @@
                 </div> --}}
             </div>
             <div class="row">
-                <div class="col-md-6"><button type="button" class="btn btn-success btn-block" onclick="crear()">GUARDAR</button></div>
-                <div class="col-md-6"><button type="button" class="btn btn-dark btn-block">VOLVER</button></div>
+                <div class="col-md-6"><button type="button" class="btn btn-sm btn-success btn-block" onclick="crear()">GUARDAR</button></div>
+                <div class="col-md-6"><button type="button" class="btn btn-sm btn-dark btn-block">VOLVER</button></div>
             </div>
         </form>
     </div>

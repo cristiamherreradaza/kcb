@@ -73,7 +73,7 @@
 					<div class="col-md-3">
 						<div class="form-group">
 							<label for="exampleInputPassword1">&nbsp;</label>
-							<button type="button" class="btn btn-success btn-block" onclick="bucarCriadero()">BUSCAR</button>
+							<button type="button" class="btn btn-sm btn-success btn-block" onclick="bucarCriadero()">BUSCAR</button>
 						</div>
 					</div>
 			

@@ -1128,7 +1128,7 @@
 							<div class="text-left flex-grow-1">
 								<!--begin::Dropdown Menu-->
 								<div class="dropdown dropdown-inline">
-									<button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-md" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<button type="button" class="btn btn-sm btn-clean btn-sm btn-icon btn-icon-md" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 										<span class="svg-icon svg-icon-lg">
 											<!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Add-user.svg-->
 											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -1221,7 +1221,7 @@
 								</div>
 							</div>
 							<div class="text-right flex-grow-1">
-								<button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-md" data-dismiss="modal">
+								<button type="button" class="btn btn-sm btn-clean btn-sm btn-icon btn-icon-md" data-dismiss="modal">
 									<i class="ki ki-close icon-1x"></i>
 								</button>
 							</div>
@@ -1366,7 +1366,7 @@
 									</a>
 								</div>
 								<div>
-									<button type="button" class="btn btn-primary btn-md text-uppercase font-weight-bold chat-send py-2 px-6">Send</button>
+									<button type="button" class="btn btn-sm btn-primary btn-md text-uppercase font-weight-bold chat-send py-2 px-6">Send</button>
 								</div>
 							</div>
 							<!--begin::Compose-->
