@@ -215,7 +215,6 @@ class EjemplarController extends Controller
 
     }
 
-
     // TRANSFERENCIAS
 
     public function ajaxGuardaTransferencia(request $request){
@@ -288,5 +287,11 @@ class EjemplarController extends Controller
                                             ->get();
 
         return view('ejemplar.ajaxGuardaTitulo')->with(compact('titulosEjemplares'));
+    }
+
+    public function informacion(Request $request)
+    {
+        $ejemplar = Ejemplar::find($request->idEjemplar);
+        return view('ejemplar.informacion')->with(compact('titulosEjemplares'));
     }
 }
