@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use App\Raza;
 use App\User;
 
+use App\Examen;
 use App\Titulo;
 use App\Ejemplar;
 use App\ExamenMascota;
-use App\TituloEjemplar;
 use App\Transferencia;
+use App\TituloEjemplar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +29,9 @@ class EjemplarController extends Controller
 
         $titulos = Titulo::all();
 
-        return view('ejemplar.formulario')->with(compact('ejemplar', 'razas', 'titulos'));
+        $examenes = Examen::all();
+
+        return view('ejemplar.formulario')->with(compact('ejemplar', 'razas', 'titulos', 'examenes'));
     }
 
     public function ajaxBuscaEjemplar(Request $request)
@@ -179,12 +182,14 @@ class EjemplarController extends Controller
     public function ajaxGuardaExamen(Request $request){
         // dd($request->all());
 
-        $nuevoExamen               = new ExamenMascota();
-        $nuevoExamen->user_id      = 1;
-        $nuevoExamen->ejemplar_id  = $request->input('ejemplar_examen_id');
-        $nuevoExamen->examen_id    = 1;
-        $nuevoExamen->fecha_examen = $request->input('fecha_examen');
-        $nuevoExamen->resultado    = $request->input('resultado');
+        $nuevoExamen                    = new ExamenMascota();
+        $nuevoExamen->user_id           = Auth::user()->id;
+        $nuevoExamen->ejemplar_id       = $request->input('ejemplar_examen_id');
+        $nuevoExamen->examen_id         = $request->input('nombre_examen');
+        $nuevoExamen->fecha_examen      = $request->input('fecha_examen');
+        $nuevoExamen->dcf               = $request->input('examen_dcf');
+        $nuevoExamen->resultado         = $request->input('resultado');
+        $nuevoExamen->numero_formulario = $request->input('examen_num_formulario');
         $nuevoExamen->save();
 
         $examenesEjemplar = ExamenMascota::where('ejemplar_id', $request->input('ejemplar_examen_id'))

@@ -177,7 +177,17 @@
                                 <div class="form-group">
                                     <label for="kcb">Examen
                                     </label>
-                                    <input type="text" class="form-control" name="nombre_examen" id="nombre_examen" required>
+                                    {{--  <input type="text" class="form-control" name="nombre_examen" id="nombre_examen" required>  --}}
+                                    <select class="form-control select2" id="nombre_examen" name="nombre_examen">
+                                        {{--  @if ($ejemplar != null && $ejemplar->raza_id != null)
+                                            <option value="{{ $ejemplar->raza->id }}"> {{ $ejemplar->raza->id }} {{ $ejemplar->raza->nombre }} {{ $ejemplar->raza->descripcion }}</option>
+                                        @endif  --}}
+                                        @forelse ($examenes as $ex)
+                                            <option value="{{ $ex->id }}">{{ $ex->nombre }} {{ $ex->descripcion }}</option>                                    
+                                        @empty
+                                            
+                                        @endforelse
+                                    </select>
                                 </div>
                             </div>
 
@@ -218,7 +228,7 @@
                                 <div class="form-group">
                                     <label for="kcb">Num. Formulario
                                     </label>
-                                    <input type="text" class="form-control" name="resultado" id="resultado">
+                                    <input type="text" class="form-control" name="examen_num_formulario" id="examen_num_formulario">
                                 </div>
                             </div>
 
@@ -226,7 +236,7 @@
                                 <div class="form-group">
                                     <label for="nombre">Codigo DFC
                                     </label>
-                                    <input type="text" class="form-control" id="obserbacion" name="obserbacion" autocomplete="off" />
+                                    <input type="text" class="form-control" id="examen_dcf" name="examen_dcf" autocomplete="off" />
                                 </div>
                             </div>
                         </div>
@@ -911,6 +921,13 @@
     function nuevoExamen(){
         $("#modal-examen").modal('show');
     }
+
+    {{--  EXAMNES  --}}
+    $(function(){
+        $('#nombre_examen').select2({
+            placeholder: "Select a state"
+        });
+    });
 
     function guardaExamen(){
         // $("#formulario-examen")
