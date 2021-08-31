@@ -13,6 +13,7 @@ use App\Ejemplar;
 use App\GrupoRaza;
 use App\ExamenMascota;
 use App\Transferencia;
+use App\TituloEjemplar;
 use App\PropietarioCriadero;
 use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\Foreach_;
@@ -660,6 +661,35 @@ class MigracionController extends Controller
 
     // MIGRACIUON DE MASCOTAS TITULOS
     public function mascotas_titulos(){
-        
+        $titulos_mascotas = DB::table('amascotas_titulos')->get();
+
+        foreach ($titulos_mascotas as $ti) {
+            echo "ID => ".$ti->id."<br>";
+
+            $tituloEjemplar = new TituloEjemplar();
+            $tituloEjemplar->codigo_anterior        = $ti->id;
+            $tituloEjemplar->user_id                = 1;
+            $titulo = Titulo::where('codigo_anterior', $ti->titulo_id)->first();
+            if($titulo){
+                $tituloEjemplar->titulo_id          = $titulo->id;
+            }else{
+                $tituloEjemplar->titulo_id          = null;
+            }
+            $mascota = Ejemplar::where('codigo_anterior', $ti->mascota_id)->first();
+            if($mascota){
+                $tituloEjemplar->ejemplar_id        = $mascota->id;
+            }else{
+                $tituloEjemplar->ejemplar_id        = null;
+            }
+            if($ti->fecha_obtencion == '0000-00-00'){
+                $tituloEjemplar->fecha_obtencion    = now();
+            }else{
+                $tituloEjemplar->fecha_obtencion    = $ti->fecha_obtencion;
+            }
+
+            $tituloEjemplar->save();
+        }
+
+        echo "<h1 class='text-success'>SUCCESSFUL</h1>";
     }
 }

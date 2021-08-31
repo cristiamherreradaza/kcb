@@ -167,3 +167,7 @@ Route::get('Migracion/padres_madres', 'MigracionController@padres_madres');
 
 /* Migracion de TRAMSFERENCIA */
 Route::get('Migracion/tramsferencia', 'MigracionController@tramsferencia');
+
+
+/* Migracion de MASCOTAS TITULOS */
+Route::get('Migracion/mascotas_titulos', 'MigracionController@mascotas_titulos');
