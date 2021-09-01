@@ -25,8 +25,12 @@
                 <button type="button" class="btn btn-sm btn-icon btn-warning" onclick="edita('{{ $e->id }}')">
                     <i class="flaticon2-edit"></i>
                 </button>
-                <button type="button" class="btn btn-sm btn-icon btn-danger"
-                    onclick="elimina('{{ $e->id }}', '{{ $e->nombre }}')">
+
+                <button type="button" class="btn btn-sm btn-icon btn-info" onclick="informacion('{{ $e->id }}')">
+                    <i class="far fa-file-alt"></i>
+                </button>
+
+                <button type="button" class="btn btn-sm btn-icon btn-danger" onclick="elimina('{{ $e->id }}', '{{ $e->nombre }}')">
                     <i class="flaticon2-cross"></i>
                 </button>
             </td>

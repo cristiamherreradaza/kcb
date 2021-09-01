@@ -289,9 +289,11 @@ class EjemplarController extends Controller
         return view('ejemplar.ajaxGuardaTitulo')->with(compact('titulosEjemplares'));
     }
 
-    public function informacion(Request $request)
+    public function informacion(Request $request, $ejemplarId)
     {
-        $ejemplar = Ejemplar::find($request->idEjemplar);
-        return view('ejemplar.informacion')->with(compact('titulosEjemplares'));
+        // dd($id);
+        $ejemplar = Ejemplar::find($ejemplarId);
+        // dd($ejemplar);
+        return view('ejemplar.informacion')->with(compact('ejemplar'));
     }
 }

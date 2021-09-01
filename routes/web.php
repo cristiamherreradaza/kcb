@@ -130,6 +130,7 @@ Route::post('Ejemplar/ajaxGuardaTransferencia', 'EjemplarController@ajaxGuardaTr
 Route::post('Ejemplar/ajaxEliminaTransferencia', 'EjemplarController@ajaxEliminaTransferencia');
 Route::post('Ejemplar/ajaxGuardaTitulo', 'EjemplarController@ajaxGuardaTitulo');
 Route::post('Ejemplar/ajaxEliminaTitulo', 'EjemplarController@ajaxEliminaTitulo');
+Route::get('Ejemplar/informacion/{ejamplarId}', 'EjemplarController@informacion');
 
 
 

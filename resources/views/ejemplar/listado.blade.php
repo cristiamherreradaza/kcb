@@ -225,5 +225,11 @@
 			alert("funcion en construccion");
 		}
 
+		function informacion(ejemplarId)
+		{
+			// console.log(ejemplarId);
+			window.location = "{{ url('Ejemplar/informacion') }}/"+ejemplarId;
+		}
+
     </script>
 @endsection
