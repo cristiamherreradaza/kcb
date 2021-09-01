@@ -64,7 +64,7 @@ class EjemplarController extends Controller
         $propietarios = User::where('perfil_id', 4)
                             ->get();
 
-        return view('ejemplar.listado')->with(compact('ejemplares', 'razas', 'propietarios'));
+        return view('ejemplar.listado')->with(compact('razas', 'propietarios'));
     }
 
     public function ajaxListado(Request $request)
