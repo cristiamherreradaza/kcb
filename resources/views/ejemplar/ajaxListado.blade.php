@@ -19,8 +19,16 @@
             <td>{{ $e->kcb }}</td>
             <td>{{ $e->nombre_completo }}</td>
             <td>{{ $e->chip }}</td>
-            <td>{{ $e->raza['nombre'] }}</td>
-            <td>{{ $e->propietario['name'] }}</td>
+            <td>
+                @if ($e->raza_id != null)
+                    {{ $e->raza['nombre'] }}
+                @endif
+            </td>
+            <td>
+                @if ($e->propietario_id != null)
+                    {{ $e->propietario['name'] }}
+                @endif
+            </td>
             <td style="width: 10%">
                 <button type="button" class="btn btn-sm btn-icon btn-warning" onclick="edita('{{ $e->id }}')">
                     <i class="flaticon2-edit"></i>
