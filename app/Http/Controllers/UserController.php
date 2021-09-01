@@ -166,7 +166,7 @@ class UserController extends Controller
         $sucursales = Sucursal::all();
         $perfiles = Perfil::all();
 
-        return view('propietarios.listado')->with(compact('usuarios', 'sucursales', 'perfiles'));
+        return view('propietarios.listado')->with(compact('sucursales', 'perfiles'));
     }
 
     public function eliminaPropietario(Request $request)
