@@ -190,6 +190,7 @@ class EjemplarController extends Controller
         $nuevoExamen->dcf               = $request->input('examen_dcf');
         $nuevoExamen->resultado         = $request->input('resultado');
         $nuevoExamen->numero_formulario = $request->input('examen_num_formulario');
+        $nuevoExamen->revisor           = $request->input('doctor_examen');
         $nuevoExamen->save();
 
         $examenesEjemplar = ExamenMascota::where('ejemplar_id', $request->input('ejemplar_examen_id'))

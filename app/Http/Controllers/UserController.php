@@ -224,4 +224,26 @@ class UserController extends Controller
         return view('user.ajaxListadoPropietarios')->with(compact('datosPropietarios'));
     }
 
+    public function ajaxBuscaPropietarioTransferencia(Request $request){
+        // dd($request->all());
+        $queryPropietarios = User::query();
+
+
+        if($request->filled('cedula')){
+            $cedula = $request->input('cedula');
+            $queryPropietarios->where('ci', 'like', "%$cedula%");
+        }
+
+        if($request->filled('nombre')){
+            $nombre = $request->input('nombre');
+            $queryPropietarios->where('name', 'like', "%$nombre%");
+        }
+
+        $queryPropietarios->limit(8);
+
+        $propietarios = $queryPropietarios->get();
+
+        return view('user.ajaxBuscaPropietario')->with(compact('propietarios'));
+    }
+
 }

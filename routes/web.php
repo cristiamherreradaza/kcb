@@ -47,6 +47,7 @@ Route::get('User/cambiaPago/{id}/{estado}', 'UserController@cambiaPago');
 Route::get('User/formulario/{id}', 'UserController@formulario');
 Route::post('User/validaEmail', 'UserController@validaEmail');
 Route::post('User/ajaxBuscaPropietario', 'UserController@ajaxBuscaPropietario');
+Route::post('User/ajaxBuscaPropietarioTransferencia', 'UserController@ajaxBuscaPropietarioTransferencia');
 
 //PROPIETARIOS
 Route::get('User/listadoPropietario', 'UserController@listadoPropietario');

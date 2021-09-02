@@ -414,6 +414,7 @@ class MigracionController extends Controller
             $examenMascota->resultado             = $em->resultado;
             $examenMascota->observacion           = $em->observacion;
             $examenMascota->numero_formulario     = $em->numero_formulario;
+            $examenMascota->revisor               = $em->revisor;
 
             $examenMascota->save();
         }

@@ -28,6 +28,7 @@ class CreateExamenesMascotasTable extends Migration
             $table->string('resultado',500)->nullable();
             $table->string('observacion',500)->nullable();
             $table->string('numero_formulario')->nullable();
+            $table->string('revisor')->nullable();
             $table->string('estado')->nullable();
             $table->datetime('deleted_at')->nullable();
             $table->timestamps();

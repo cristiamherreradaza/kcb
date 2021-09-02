@@ -10,57 +10,53 @@
 
 @section('content')
 
+{{-- Modal busca propietario --}}
 
-{{--  modal Titulo  --}}
-@if ($ejemplar != null)
-    <div class="modal fade" id="modal-titulo" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">NUEVO TITULO</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <i aria-hidden="true" class="ki ki-close"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="" method="POST" id="formulario-titulo">
-                        @csrf
-                        <input type="hidden" name="titulo_ejemplar_id" value="{{ $ejemplar->id }}">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">TITULO
-                                    </label><br>
-                                    <select class="form-control select2" id="titulo_titulo_id" name="titulo_titulo_id">
-                                        {{--  @if ($ejemplar != null && $ejemplar->raza_id != null)
-                                            <option value="{{ $ejemplar->raza->id }}"> {{ $ejemplar->raza->id }} {{ $ejemplar->raza->nombre }} {{ $ejemplar->raza->descripcion }}</option>
-                                        @endif  --}}
-                                        @forelse ($titulos as $ti)
-                                            <option value="{{ $ti->id }}">{{ $ti->nombre }} {{ $ti->descripcion }}</option>                                    
-                                        @empty
-                                            
-                                        @endforelse
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="nombre">Fecha de Obtencion
-                                    </label>
-                                    <input type="date" class="form-control" id="titulo_fecha_obtencion" name="titulo_fecha_obtencion" autocomplete="off" />
-                                </div>
+<div class="modal fade" id="modal-propietario" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true" style="position: fixed;">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">BUSQUEDA DE PROPIETARIOS</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="#" method="POST" id="formulario-padres">
+                    @csrf
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="kcb">Cedula
+                                </label>
+                                {{-- <input type="hidden" name="sexo-modal" id="sexo-modal" value="macho"> --}}
+                                <input type="text" class="form-control" id="busca-ci" name="busca-ci" autocomplete="off" />
                             </div>
                         </div>
-                        <div class="row">
-                            <button type="button" class="btn btn-sm btn-success btn-block" onclick="guardarTitulo();">Guardar</button>
+
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="nombre">Nombre
+                                </label>
+                                <input type="text" class="form-control" id="busca-nombre" name="busca-nombre" autocomplete="off" />
+                            </div>
                         </div>
-                    </form>
+                    </div>
+                </form>
+                <div class="row">
+                    {{-- <div class="col-md-12" id="ajaxEjemplar"> --}}
+                    <div class="col-md-12" id="ajaxPropietario">
+
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    {{--  end modal Titulo  --}}
+{{-- End busca propietario --}}
+
 
 
     {{--  modal Transferencia  --}}
@@ -83,12 +79,13 @@
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">PROPIETARIO
                                     </label><br>
-                                    <select class="form-control select2" id="transferencia_propietario_id" name="transferencia_propietario_id">
-                                        {{-- @if ($ejemplar != null && $ejemplar->propietario_id != null)
-                                            <option value="{{ $ejemplar->propietario->id }}">{{ $ejemplar->propietario->name }}</option>
-                                        @endif --}}
+                                    {{-- <select class="form-control select2" id="transferencia_propietario_id" name="transferencia_propietario_id">
                                         <option label="Label"></option>
-                                    </select>
+                                    </select> --}}
+                                    <input type="hidden" name="transferencia_propietario_id" id="transferencia_propietario_id">
+                                    <div id="transferencia_propietario">
+                                        <button class="btn btn-primary btn-block" type="button" onclick="BuscaPropietario()">Propietario</button>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -157,6 +154,59 @@
 
     {{--  end modal Transferencia  --}}
 
+
+{{--  modal Titulo  --}}
+@if ($ejemplar != null)
+    <div class="modal fade" id="modal-titulo" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">NUEVO TITULO</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="POST" id="formulario-titulo">
+                        @csrf
+                        <input type="hidden" name="titulo_ejemplar_id" value="{{ $ejemplar->id }}">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">TITULO
+                                    </label><br>
+                                    <select class="form-control select2" id="titulo_titulo_id" name="titulo_titulo_id">
+                                        {{--  @if ($ejemplar != null && $ejemplar->raza_id != null)
+                                            <option value="{{ $ejemplar->raza->id }}"> {{ $ejemplar->raza->id }} {{ $ejemplar->raza->nombre }} {{ $ejemplar->raza->descripcion }}</option>
+                                        @endif  --}}
+                                        @forelse ($titulos as $ti)
+                                            <option value="{{ $ti->id }}">{{ $ti->nombre }} {{ $ti->descripcion }}</option>                                    
+                                        @empty
+                                            
+                                        @endforelse
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="nombre">Fecha de Obtencion
+                                    </label>
+                                    <input type="date" class="form-control" id="titulo_fecha_obtencion" name="titulo_fecha_obtencion" autocomplete="off" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <button type="button" class="btn btn-sm btn-success btn-block" onclick="guardarTitulo();">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{--  end modal Titulo  --}}
+
+
     {{--  modal Examen  --}}
 
     <div class="modal fade" id="modal-examen" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
@@ -176,7 +226,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="kcb">Examen
-                                    </label>
+                                    </label><br>
                                     {{--  <input type="text" class="form-control" name="nombre_examen" id="nombre_examen" required>  --}}
                                     <select class="form-control select2" id="nombre_examen" name="nombre_examen">
                                         {{--  @if ($ejemplar != null && $ejemplar->raza_id != null)
@@ -203,7 +253,7 @@
                             <div class="col-md-12">
                                 <label for="nombre">Doctor
                                 </label>
-                                <input type="text" class="form-control" id="doctor" name="doctor" autocomplete="off" />
+                                <input type="text" class="form-control" id="doctor_examen" name="doctor_examen" autocomplete="off" />
                             </div>
                         </div>
                         <div class="row">
@@ -758,7 +808,7 @@
 
             <div class="row">
                 <div class="col-md-6"><button type="button" class="btn btn-sm btn-success btn-block" onclick="guardar()">GUARDAR</button></div>
-                <div class="col-md-6"><button type="button" class="btn btn-sm btn-dark btn-block">VOLVER</button></div>
+                <div class="col-md-6"><button type="button" class="btn btn-sm btn-dark btn-block" onclick="volver()" >VOLVER</button></div>
             </div>
         </form>
     </div>
@@ -1001,7 +1051,7 @@
         $("#modal-tramsferencia").modal('show');
     }
 
-    $("#transferencia_propietario_id").select2({
+    {{-- $("#transferencia_propietario_id").select2({
         placeholder: "Busca por nombre",
         allowClear: true,
         ajax: {
@@ -1023,7 +1073,7 @@
             cache: true
         },
         minimumInputLength: 1,
-    });
+    }); --}}
 
     function guardaTransferencia(){
         // $("#formulario-examen")
@@ -1163,5 +1213,33 @@
             }
         });
     }
+    function volver(){
+        alert('Volver');
+    }
+
+    {{-- BUSCA PROPIETARIO --}}
+    function BuscaPropietario(){
+        $("#modal-tramsferencia").modal('hide');
+        $("#modal-propietario").modal('show');
+        $("#busca-ci").val('')
+    }
+
+    $("#busca-ci, #busca-nombre").on("change paste keyup", function() {
+
+        let cedula = $("#busca-ci").val();
+        let nombre = $("#busca-nombre").val();
+
+        $.ajax({
+            url: "{{ url('User/ajaxBuscaPropietarioTransferencia') }}",
+            data: {
+                cedula: cedula,
+                nombre: nombre
+            },
+            type: "POST",
+            success: function(data) {
+                $("#ajaxPropietario").html(data);
+            }
+        });
+    });
 </script>
 @endsection
