@@ -77,7 +77,9 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">PROPIETARIO <button type="button" class="btn-success btn-xs">Nuevo</button>
+                                    <label for="exampleInputPassword1">
+                                        PROPIETARIO 
+                                        <span class="label label-success label-inline font-weight-normal mr-2" onclick="ajaxNuevoPropietario();">NUEVO</span>
                                     </label><br>
                                     {{-- <select class="form-control select2" id="transferencia_propietario_id" name="transferencia_propietario_id">
                                         <option label="Label"></option>
@@ -1241,5 +1243,9 @@
             }
         });
     });
+
+    function ajaxPropietario(){
+        
+    }
 </script>
 @endsection
