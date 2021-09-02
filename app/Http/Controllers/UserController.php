@@ -246,4 +246,30 @@ class UserController extends Controller
         return view('user.ajaxBuscaPropietario')->with(compact('propietarios'));
     }
 
+    function ajaxGuardaNuevoPropietario(request $request){
+
+        $persona = new User();
+
+        $persona->user_id          = Auth::user()->id;
+        $persona->name             = $request->input('nombre');
+        $persona->email            = $request->input('email');
+        $persona->perfil_id        = "4";
+        $persona->departamento     = $request->input('departamento');
+        $persona->direccion        = $request->input('direccion');
+        $persona->fecha_nacimiento = $request->input('fecha_nacimiento');
+        $persona->ci               = $request->input('cedula');
+        $persona->genero           = $request->input('genero');
+        $persona->celulares        = $request->input('celular');
+        $persona->tipo             = $request->input('tipo');
+        $persona->password         = Hash::make($request->input('cedula'));
+
+        
+        $persona->save();
+        
+        $ultimaPersona = User::find($persona->id);
+
+        return view('user.ajaxNuevoPropietario')->with(compact('ultimaPersona'));
+        // return redirect('User/listadoPropietario');
+    }
+
 }

@@ -10,54 +10,168 @@
 
 @section('content')
 
-{{-- Modal busca propietario --}}
+    {{-- Modal busca propietario --}}
 
-<div class="modal fade" id="modal-propietario" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true" style="position: fixed;">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">BUSQUEDA DE PROPIETARIOS</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <i aria-hidden="true" class="ki ki-close"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="#" method="POST" id="formulario-padres">
-                    @csrf
+    <div class="modal fade" id="modal-propietario" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true" style="position: fixed;">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">BUSQUEDA DE PROPIETARIOS</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="#" method="POST" id="formulario-padres">
+                        @csrf
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="kcb">Cedula
+                                    </label>
+                                    {{-- <input type="hidden" name="sexo-modal" id="sexo-modal" value="macho"> --}}
+                                    <input type="text" class="form-control" id="busca-ci" name="busca-ci" autocomplete="off" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="nombre">Nombre
+                                    </label>
+                                    <input type="text" class="form-control" id="busca-nombre" name="busca-nombre" autocomplete="off" />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                     <div class="row">
+                        {{-- <div class="col-md-12" id="ajaxEjemplar"> --}}
+                        <div class="col-md-12" id="ajaxPropietario">
 
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="kcb">Cedula
-                                </label>
-                                {{-- <input type="hidden" name="sexo-modal" id="sexo-modal" value="macho"> --}}
-                                <input type="text" class="form-control" id="busca-ci" name="busca-ci" autocomplete="off" />
-                            </div>
                         </div>
-
-                        <div class="col-md-8">
-                            <div class="form-group">
-                                <label for="nombre">Nombre
-                                </label>
-                                <input type="text" class="form-control" id="busca-nombre" name="busca-nombre" autocomplete="off" />
-                            </div>
-                        </div>
-                    </div>
-                </form>
-                <div class="row">
-                    {{-- <div class="col-md-12" id="ajaxEjemplar"> --}}
-                    <div class="col-md-12" id="ajaxPropietario">
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-{{-- End busca propietario --}}
+    {{-- End busca propietario --}}
 
+    {{-- Modal Nuevo Propietario --}}
 
+    <div class="modal fade" id="modal-nuevo-propietario" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true" style="position: fixed;">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">NUEVO PROPIETARIO</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="#" method="POST" id="formulario-padres">
+                        @csrf
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="kcb">Nombre de Usuario
+                                    </label>
+                                    <input type="text" class="form-control" id="nuevo_propietario_nombre" name="nuevo_propietario_nombre" autocomplete="off" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="kcb">Correo
+                                    </label>
+                                    <input type="text" class="form-control" id="nuevo_propietario_email" name="nuevo_propietario_correo" autocomplete="off" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="kcb">Fecha de Nacimiento
+                                    </label>
+                                    <input type="date" class="form-control" id="nuevo_propietario_fecha_nacimiento" name="nuevo_propietario_fecha_nacimiento" autocomplete="off" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="kcb">Cedula
+                                    </label>
+                                    <input type="text" class="form-control" id="nuevo_propietario_cedula" name="nuevo_propietario_cedula" autocomplete="off" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="kcb">Genero
+                                    </label>
+                                    <select class="form-control" id="nuevo_propietario_genero" name="nuevo_propietario_genero">
+                                        <option value="Masculino">Masculino</option>
+                                        <option value="Femenino">Femenino</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="kcb">Celular
+                                    </label>
+                                    <input type="text" class="form-control" id="nuevo_propietario_fecha_celular" name="nuevo_propietario_fecha_celular" autocomplete="off" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <div class="form-group">
+                                    <label for="kcb">Direccion
+                                    </label>
+                                    <input type="text" class="form-control" id="nuevo_propietario_direccion" name="nuevo_propietario_direccion" autocomplete="off" />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="kcb">Departamento
+                                    </label>
+                                    <select class="form-control" id="nuevo_propietario_departamento" name="nuevo_propietario_departamento">
+                                        <option value="La paz">La paz</option>
+                                        <option value="Oruro">Oruro</option>
+                                        <option value="Potosi">Potosi</option>
+                                        <option value="Cochabamba">Cochabamba</option>
+                                        <option value="Chuquisaca">Chuquisaca</option>
+                                        <option value="Tarija">Tarija</option>
+                                        <option value="Pando">Pando</option>
+                                        <option value="Beni">Beni</option>
+                                        <option value="Santa Cruz">Santa Cruz</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="kcb">Tipo
+                                    </label>
+                                    <select class="form-control" name="nuevo_propietario_tipo" id="nuevo_propietario_tipo">
+                                        <option value="Socio">Socio</option>
+                                        <option value="Criador">Criador</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <button type="button" class="btn btn-success btn-block" onclick="guardarPropietario()">Guardar</button>
+                        </div>
+                    </form>
+                    <div class="row">
+                        {{-- <div class="col-md-12" id="ajaxEjemplar"> --}}
+                        <div class="col-md-12" id="ajaxPropietario">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- End modal Nuevo Propietario --}}
 
     {{--  modal Transferencia  --}}
 
@@ -1244,8 +1358,48 @@
         });
     });
 
-    function ajaxPropietario(){
-        
+    function ajaxNuevoPropietario(){
+        //alert('hola');
+
+        $("#modal-tramsferencia").modal('hide');
+        $('#modal-nuevo-propietario').modal('show');
+
+    }
+
+    function guardarPropietario(){
+        //alert('Guardar Propietario en procedimiento');
+        let nombre              = $('#nuevo_propietario_nombre').val();
+        let email               = $('#nuevo_propietario_email').val();
+        let fecha_nacimiento    = $('#nuevo_propietario_fecha_nacimiento').val();
+        let cedula              = $('#nuevo_propietario_cedula').val();
+        let genero              = $('#nuevo_propietario_genero').val();
+        let celular             = $('#nuevo_propietario_celular').val();
+        let direccion           = $('#nuevo_propietario_direccion').val();
+        let departamento        = $('#nuevo_propietario_departamento').val();
+        let tipo                = $('#nuevo_propietario_tipo').val();
+
+        let datosFormularioNuevoPropietario = {
+            nombre: nombre,
+            email: email,
+            fecha_nacimiento: fecha_nacimiento,
+            cedula: cedula,
+            genero: genero,
+            celular: celular,
+            direccion: direccion,
+            departamento: departamento,
+            tipo: tipo
+        }
+        //console.log(datosFormularioNuevoPropietario);
+        $.ajax({
+            url: "{{ url('User/ajaxGuardaNuevoPropietario') }}",
+            data: datosFormularioNuevoPropietario,
+            type: "post",
+            success: function(data){
+                $("#transferencia_propietario").html(data);
+                $("#modal-tramsferencia").modal('show');
+                $('#modal-nuevo-propietario').modal('hide');
+            }
+        });
     }
 </script>
 @endsection

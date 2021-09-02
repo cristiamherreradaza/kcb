@@ -48,6 +48,8 @@ Route::get('User/formulario/{id}', 'UserController@formulario');
 Route::post('User/validaEmail', 'UserController@validaEmail');
 Route::post('User/ajaxBuscaPropietario', 'UserController@ajaxBuscaPropietario');
 Route::post('User/ajaxBuscaPropietarioTransferencia', 'UserController@ajaxBuscaPropietarioTransferencia');
+Route::post('User/ajaxGuardaNuevoPropietario', 'UserController@ajaxGuardaNuevoPropietario');
+
 
 //PROPIETARIOS
 Route::get('User/listadoPropietario', 'UserController@listadoPropietario');
