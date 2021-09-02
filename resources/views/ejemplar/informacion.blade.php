@@ -16,6 +16,156 @@
 
 <!--begin::Card-->
 
+<div class="card card-custom gutter-b">
+    <div class="card-body">
+        <!--begin::Details-->
+        <div class="d-flex mb-9">
+            <!--begin: Pic-->
+            <div class="flex-shrink-0 mr-7 mt-lg-0 mt-3">
+
+                <img src="{{ asset('assets/media/logoKensi.png') }}" height="110" alt="image">
+                
+                <div class="symbol symbol-50 symbol-lg-120 symbol-primary d-none">
+                    <span class="font-size-h3 symbol-label font-weight-boldest">JM</span>
+                </div>
+            </div>
+            <!--end::Pic-->
+            <!--begin::Info-->
+            <div class="flex-grow-1">
+                <!--begin::Title-->
+                <div class="d-flex justify-content-between flex-wrap mt-1">
+                    <div class="d-flex mr-3">
+                        <h2><span class="text-primary">NOMBRE: </span> {{ $ejemplar->nombre_completo }}</h2>
+                    </div>
+                </div>
+
+                <hr />
+                <!--end::Title-->
+                <!--begin::Content-->
+                <div class="row">
+                    <div class="col-md-3">
+                        <h6><span class="text-primary">RAZA: </span> {{ $ejemplar->raza->nombre }}</h6>
+                    </div>
+
+                    <div class="col-md-9">
+                        <h6><span class="text-primary">GRUPO: </span> {{ $ejemplar->raza->descripcion }}</h6>
+                    </div>
+                </div>
+
+                <hr />
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <h6><span class="text-primary">PADRE: </span> {{ $ejemplar->padre->nombre }}</h6>
+                    </div>
+                
+                    <div class="col-md-3">
+                        <h6><span class="text-primary">MADRE: </span> {{ $ejemplar->madre->nombre }}</h6>
+                    </div>
+
+                    <div class="col-md-6">
+                        <h6><span class="text-primary">PROPIETARIO: </span> {{ $ejemplar->propietario->name }}</h6>
+                    </div>
+                </div>
+
+                <hr />
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <h6><span class="text-primary">SEXO: </span> {{ $ejemplar->sexo }}</h6>
+                    </div>
+                
+                    <div class="col-md-3">
+                        <h6><span class="text-primary">AFIJO: </span> 
+                            @if ($ejemplar->criadero_id != null)
+                                {{ $ejemplar->criadero->nombre }}
+                            @endif
+                        </h6>
+                    </div>
+
+                    <div class="col-md-3">
+                        <h6><span class="text-primary">COLOR: </span> 
+                            {{ $ejemplar->color }}
+                        </h6>
+                    </div>
+                
+                    <div class="col-md-3">
+                        <h6><span class="text-primary">SEÑAS: </span> {{ $ejemplar->senas }}</h6>
+                    </div>
+                </div>
+                <!--end::Content-->
+            </div>
+            <!--end::Info-->
+        </div>
+        <!--end::Details-->
+        <div class="separator separator-solid"></div>
+        <!--begin::Items-->
+        <div class="d-flex align-items-center flex-wrap mt-8">
+            <!--begin::Item-->
+            <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
+                <span class="mr-4">
+                    <i class="icon-xl-3x fas fa-dog"></i>
+                </span>
+                <div class="d-flex flex-column text-dark-75">
+                    <span class="font-weight-bolder font-size-sm text-primary">KCB</span>
+                    <span class="font-weight-bolder font-size-h5">
+                        <span class="text-dark-50 font-weight-bold"></span>{{ $ejemplar->kcb }}</span>
+                </div>
+            </div>
+            <!--end::Item-->
+            <!--begin::Item-->
+            <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
+                <span class="mr-4">
+                    <i class="icon-xl-3x fas fa-barcode"></i>
+                </span>
+                <div class="d-flex flex-column text-dark-75">
+                    <span class="font-weight-bolder font-size-sm text-primary">CHIP</span>
+                    <span class="font-weight-bolder font-size-h5">
+                        <span class="text-dark-50 font-weight-bold"></span>{{ $ejemplar->chip }}</span>
+                </div>
+            </div>
+            <!--end::Item-->
+            <!--begin::Item-->
+            <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
+                <span class="mr-4">
+                    <i class="icon-xl-3x fas fa-democrat"></i>
+                </span>
+                <div class="d-flex flex-column text-dark-75">
+                    <span class="font-weight-bolder font-size-sm text-primary">TATUAJE</span>
+                    <span class="font-weight-bolder font-size-h5">
+                        <span class="text-dark-50 font-weight-bold"></span>{{ $ejemplar->num_tatuaje }}</span>
+                </div>
+            </div>
+            <!--end::Item-->
+            <!--begin::Item-->
+            <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
+                <span class="mr-4">
+                    <i class="icon-xl-3x fas fa-list-alt"></i>
+                </span>
+                <div class="d-flex flex-column text-dark-75">
+                    <span class="font-weight-bolder font-size-sm text-primary">LECHIGADA</span>
+                    <span class="font-weight-bolder font-size-h5">
+                        <span class="text-dark-50 font-weight-bold"></span>{{ $ejemplar->lechigada }}</span>
+                </div>
+            </div>
+            <!--end::Item-->
+            <!--begin::Item-->
+            <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
+                <span class="mr-4">
+                    <i class="icon-xl-3x fas fa-calendar-day"></i>
+                </span>
+                <div class="d-flex flex-column text-dark-75">
+                    <span class="font-weight-bolder font-size-sm text-primary">F. NACIMIENTO</span>
+                    <span class="font-weight-bolder font-size-h5">
+                        <span class="text-dark-50 font-weight-bold"></span>{{ $ejemplar->fecha_nacimiento }}</span>
+                </div>
+            </div>
+            <!--end::Item-->
+        </div>
+        <!--begin::Items-->
+    </div>
+</div>
+
 <div class="row">
     <div class="col-xl-4">
         <!--begin::Engage Widget 9-->
