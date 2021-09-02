@@ -116,7 +116,7 @@
                                 <div class="form-group">
                                     <label for="kcb">Celular
                                     </label>
-                                    <input type="text" class="form-control" id="nuevo_propietario_fecha_celular" name="nuevo_propietario_fecha_celular" autocomplete="off" />
+                                    <input type="text" class="form-control" id="nuevo_propietario_celular" name="nuevo_propietario_celular" autocomplete="off" />
                                 </div>
                             </div>
                         </div>
@@ -1164,7 +1164,17 @@
     // TRAMSFERENCIAS
 
     function nuevaTransferencia() {
+        //mostramos el modal
         $("#modal-tramsferencia").modal('show');
+
+        //limpiamos el formulario de transferencias
+        $("#transferencia_fecha_transferencia").val('');
+        $("#transferencia_fecha_exportacion").val('');
+        $("#transferencia_estado").val('Actual')
+        $("#transferencia_pais_destino").val('');
+        $("#transferencia_pedigree").prop("checked", false);
+        boton = '<button class="btn btn-primary btn-block" type="button" onclick="BuscaPropietario()">Propietario</button>';
+        $("#transferencia_propietario").html(boton);
     }
 
     {{-- $("#transferencia_propietario_id").select2({
@@ -1363,6 +1373,17 @@
 
         $("#modal-tramsferencia").modal('hide');
         $('#modal-nuevo-propietario').modal('show');
+
+        //limpiamos el formulario de nuevo propietario
+        $('#nuevo_propietario_nombre').val('');
+        $('#nuevo_propietario_email').val('');
+        $('#nuevo_propietario_fecha_nacimiento').val('');
+        $('#nuevo_propietario_cedula').val('');
+        $('#nuevo_propietario_genero').val('Masculino');
+        $('#nuevo_propietario_celular').val('');
+        $('#nuevo_propietario_direccion').val('');
+        $('#nuevo_propietario_departamento').val('La paz');
+        $('#nuevo_propietario_tipo').val('Socio');
 
     }
 
