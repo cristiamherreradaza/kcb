@@ -75,9 +75,9 @@
                         @csrf
                         <input type="hidden" name="transferencia_ejemplar_id" value="{{ $ejemplar->id }}">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-8">
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">PROPIETARIO
+                                    <label for="exampleInputPassword1">PROPIETARIO <button type="button" class="btn-success btn-xs">Nuevo</button>
                                     </label><br>
                                     {{-- <select class="form-control select2" id="transferencia_propietario_id" name="transferencia_propietario_id">
                                         <option label="Label"></option>
@@ -88,7 +88,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="nombre">Fecha de Transferencia
                                     </label>
