@@ -213,7 +213,7 @@
     <div class="card-body">
         @php
             $padres = EjemplarController::consultaPadres($ejemplar->id);
-            echo $padres->padre->nombre;
+            // echo $padres->padre->nombre;
         @endphp        
         <center>
         <div id="chart-container"></div>
