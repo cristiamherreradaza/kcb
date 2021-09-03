@@ -297,4 +297,10 @@ class EjemplarController extends Controller
         // dd($ejemplar);
         return view('ejemplar.informacion')->with(compact('ejemplar'));
     }
+
+    public static function consultaPadres($ejemplarId)
+    {
+        $padres = Ejemplar::find($ejemplarId);
+        return $padres;
+    }
 }

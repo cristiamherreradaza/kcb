@@ -6,9 +6,14 @@
 
 @section('css')
 <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('assets/css/jquery.orgchart.css') }}">
 @endsection
 
 @section('content')
+
+@php
+    use App\Http\Controllers\EjemplarController;
+@endphp
 {{-- inicio modal  --}}
 <!-- Modal-->
 
@@ -198,7 +203,7 @@
     <div class="card-header flex-wrap py-3">
         <div class="card-title">
             <h3 class="card-label">
-                <span class="text-primary">NOMBRE: </span>{{ $ejemplar->nombre }} 
+                GENERACIONES 
             </h3>
         </div>
         <div class="card-toolbar">
@@ -206,116 +211,13 @@
     </div>
 
     <div class="card-body">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
-                    <span class="mr-4">
-                        <i class="icon-xl-3x fas fa-clipboard-list"></i>
-                    </span>
-                    <div class="d-flex flex-column text-dark-75">
-                        <span class="font-weight-bolder font-size-sm"><span class="text-primary">RAZA</span></span>
-                        <span class="font-weight-bolder font-size-h5">
-                            <span class="text-dark-50 font-weight-bold"></span>{{ $ejemplar->raza->nombre }}</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
-                    <span class="mr-4">
-                        <i class="icon-xl-3x fas fa-clipboard-list"></i>
-                    </span>
-                    <div class="d-flex flex-column text-dark-75">
-                        <span class="font-weight-bolder font-size-sm"><span class="text-primary">GRUPO</span></span>
-                        <span class="font-weight-bolder font-size-h5">
-                            <span class="text-dark-50 font-weight-bold"></span>{{ $ejemplar->raza->descripcion }}</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-4">
-                <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
-                    <span class="mr-4">
-                        <i class="icon-xl-3x fas fa-dog"></i>
-                    </span>
-                    <div class="d-flex flex-column text-dark-75">
-                        <span class="font-weight-bolder font-size-sm"><span class="text-primary">PADRE</span></span>
-                        <span class="font-weight-bolder font-size-h5">
-                            <span class="text-dark-50 font-weight-bold"></span>{{ $ejemplar->padre['nombre'] }}</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
-                    <span class="mr-4">
-                        <i class="icon-xl-3x fas fa-dog"></i>
-                    </span>
-                    <div class="d-flex flex-column text-dark-75">
-                        <span class="font-weight-bolder font-size-sm"><span class="text-primary">MADRE</span></span>
-                        <span class="font-weight-bolder font-size-h5">
-                            <span class="text-dark-50 font-weight-bold"></span>{{ $ejemplar->madre['nombre'] }}</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
-                    <span class="mr-4">
-                        <i class="icon-xl-3x fas fa-user-alt"></i>
-                    </span>
-                    <div class="d-flex flex-column text-dark-75">
-                        <span class="font-weight-bolder font-size-sm"><span class="text-primary">PROPIETARIO</span></span>
-                        <span class="font-weight-bolder font-size-h5">
-                            <span class="text-dark-50 font-weight-bold"></span>{{ $ejemplar->propietario['name'] }}</span>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="row">
-            <div class="col-md-4">
-                <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
-                    <span class="mr-4">
-                        <i class="icon-xl-3x fas fa-dog"></i>
-                    </span>
-                    <div class="d-flex flex-column text-dark-75">
-                        <span class="font-weight-bolder font-size-sm"><span class="text-primary">PADRE</span></span>
-                        <span class="font-weight-bolder font-size-h5">
-                            <span class="text-dark-50 font-weight-bold"></span>{{ $ejemplar->padre['nombre'] }}</span>
-                    </div>
-                </div>
-            </div>
-        
-            <div class="col-md-4">
-                <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
-                    <span class="mr-4">
-                        <i class="icon-xl-3x fas fa-dog"></i>
-                    </span>
-                    <div class="d-flex flex-column text-dark-75">
-                        <span class="font-weight-bolder font-size-sm"><span class="text-primary">MADRE</span></span>
-                        <span class="font-weight-bolder font-size-h5">
-                            <span class="text-dark-50 font-weight-bold"></span>{{ $ejemplar->madre['nombre'] }}</span>
-                    </div>
-                </div>
-            </div>
-        
-            <div class="col-md-4">
-                <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
-                    <span class="mr-4">
-                        <i class="icon-xl-3x fas fa-user-alt"></i>
-                    </span>
-                    <div class="d-flex flex-column text-dark-75">
-                        <span class="font-weight-bolder font-size-sm"><span class="text-primary">PROPIETARIO</span></span>
-                        <span class="font-weight-bolder font-size-h5">
-                            <span class="text-dark-50 font-weight-bold"></span>{{ $ejemplar->propietario['name'] }}</span>
-                    </div>
-                </div>
-            </div>
-        
-        </div>
+        @php
+            $padres = EjemplarController::consultaPadres($ejemplar->id);
+            echo $padres->padre->nombre;
+        @endphp        
+        <center>
+        <div id="chart-container"></div>
+        </center>
     </div>
 </div>
 <!--end::Card-->
@@ -325,12 +227,63 @@
 <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
 <script src="{{ asset('assets/js/pages/crud/forms/widgets/select2.js') }} "></script>
 <script src="{{ asset('assets/js/qrcode.min.js') }}"></script>
+<script src="{{ asset('assets/js/jquery.orgchart.min.js') }}"></script>
+<script src="{{ asset('assets/js/html2canvas.js') }}"></script>
+
 <script type="text/javascript">
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+
+    (function($){
+
+  $(function() {
+
+    var datascource = {
+      'id': '1',
+      'name': '{{ $ejemplar->kcb }}',
+      'title': '{{ $ejemplar->nombre }}',
+      'relationship': { 'children_num': 2 },
+      'children': [
+        { 'id': '2', 'name': 'Bo Miao', 'title': 'department manager', 'relationship': { 'children_num': 0, 'parent_num': 1,'sibling_num': 7 }},
+        { 'id': '3', 'name': 'Su Miao', 'title': 'department manager', 'relationship': { 'children_num': 2, 'parent_num': 1,'sibling_num': 7 },
+          'children': [
+            { 'id': '4', 'name': 'Tie Hua', 'title': 'senior engineer', 'relationship': { 'children_num': 0, 'parent_num': 1,'sibling_num': 1 }},
+            { 'id': '5', 'name': 'Hei Hei', 'title': 'senior engineer', 'relationship': { 'children_num': 2, 'parent_num': 1,'sibling_num': 1 },
+              'children': [
+                { 'id': '6', 'name': 'Pang Pang', 'title': 'engineer', 'relationship': { 'children_num': 0, 'parent_num': 1,'sibling_num': 1 }},
+                { 'id': '7', 'name': 'Xiang Xiang', 'title': 'UE engineer', 'relationship': { 'children_num': 0, 'parent_num': 1,'sibling_num': 1 }}
+              ]
+            }
+          ]
+        }
+        
+      ]
+    };
+
+    $('#chart-container').orgchart({
+      'data' : datascource,
+      'depth': 2,
+      'nodeTitle': 'name',
+      'nodeContent': 'title',
+      'nodeID': 'id',
+      'createNode': function($node, data) {
+        var nodePrompt = $('<i>', {
+          'class': 'fa fa-info-circle second-menu-icon',
+          click: function() {
+            $(this).siblings('.second-menu').toggle();
+          }
+        });
+        var secondMenu = '<div class="second-menu"><img class="avatar" src="img/avatar/' + data.id + '.jpg"></div>';
+        // $node.append(nodePrompt).append(secondMenu);
+      }
+    });
+
+  });
+
+})(jQuery);
 
     let cadenaQr = "178436029";
 		// console.log(cadenaQr);
