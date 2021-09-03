@@ -637,14 +637,9 @@
 
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="exampleInputPassword1">AFIJO
-                        </label>
-                        <select class="form-control select2" id="criadero_id" name="criadero_id" required>
-                            @if ($ejemplar != null && $ejemplar->criadero_id != null)
-                                <option value="{{ $ejemplar->criadero->id }}">{{ $ejemplar->criadero->nombre }}</option>
-                            @endif
-                            <option label="Label"></option>
-                        </select>
+                        <label for="color">Consanguinidad
+                            <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="consanguinidad" name="consanguinidad" value="{{ ($ejemplar != null)? $ejemplar->consanguinidad:'' }}" placeholder="4:2:4" />
                     </div>
                 </div>
 
@@ -685,9 +680,14 @@
 
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label for="color">Consanguinidad
-                            <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="consanguinidad" name="consanguinidad" value="{{ ($ejemplar != null)? $ejemplar->consanguinidad:'' }}" placeholder="4:2:4" />
+                        <label for="exampleInputPassword1">AFIJO
+                        </label>
+                        <select class="form-control select2" id="criadero_id" name="criadero_id" required>
+                            @if ($ejemplar != null && $ejemplar->criadero_id != null)
+                                <option value="{{ $ejemplar->criadero->id }}">{{ $ejemplar->criadero->nombre }}</option>
+                            @endif
+                            <option label="Label"></option>
+                        </select>
                     </div>
                 </div>
 
