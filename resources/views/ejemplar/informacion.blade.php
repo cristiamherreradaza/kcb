@@ -24,10 +24,11 @@
             <div class="flex-shrink-0 mr-7 mt-lg-0 mt-3">
 
                 <img src="{{ asset('assets/media/logoKensi.png') }}" height="110" alt="image">
+                <hr/>
+                <center>
+                    <div id="qrcode"></div>
+                </center>
                 
-                <div class="symbol symbol-50 symbol-lg-120 symbol-primary d-none">
-                    <span class="font-size-h3 symbol-label font-weight-boldest">JM</span>
-                </div>
             </div>
             <!--end::Pic-->
             <!--begin::Info-->
@@ -43,12 +44,20 @@
                 <!--end::Title-->
                 <!--begin::Content-->
                 <div class="row">
-                    <div class="col-md-3">
-                        <h6><span class="text-primary">RAZA: </span> {{ $ejemplar->raza->nombre }}</h6>
+                    <div class="col-md-4">
+                        <h6><span class="text-primary">RAZA: </span>
+                            @if ($ejemplar->raza_id != null)
+                                {{ $ejemplar->raza->nombre }}
+                            @endif
+                        </h6>
                     </div>
 
-                    <div class="col-md-9">
-                        <h6><span class="text-primary">GRUPO: </span> {{ $ejemplar->raza->descripcion }}</h6>
+                    <div class="col-md-8">
+                        <h6><span class="text-primary">GRUPO: </span>
+                            @if ($ejemplar->raza_id != null)
+                                {{ $ejemplar->raza->descripcion }}
+                            @endif
+                        </h6>
                     </div>
                 </div>
 
@@ -56,11 +65,19 @@
 
                 <div class="row">
                     <div class="col-md-3">
-                        <h6><span class="text-primary">PADRE: </span> {{ $ejemplar->padre->nombre }}</h6>
+                        <h6><span class="text-primary">PADRE: </span>
+                            @if ($ejemplar->padre_id != null)
+                                {{ $ejemplar->padre->nombre }}
+                            @endif
+                        </h6>
                     </div>
                 
                     <div class="col-md-3">
-                        <h6><span class="text-primary">MADRE: </span> {{ $ejemplar->madre->nombre }}</h6>
+                        <h6><span class="text-primary">MADRE: </span>
+                            @if ($ejemplar->madre_id != null)
+                                {{ $ejemplar->madre->nombre }}
+                            @endif
+                        </h6>
                     </div>
 
                     <div class="col-md-6">
@@ -91,6 +108,16 @@
                 
                     <div class="col-md-3">
                         <h6><span class="text-primary">SEÑAS: </span> {{ $ejemplar->senas }}</h6>
+                    </div>
+                </div>
+
+                <hr />
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <h6><span class="text-primary">HERMANOS: </span>
+                            {{ $ejemplar->hermanos }}
+                        </h6>
                     </div>
                 </div>
                 <!--end::Content-->
@@ -164,56 +191,6 @@
         </div>
         <!--begin::Items-->
     </div>
-</div>
-
-<div class="row">
-    <div class="col-xl-4">
-        <!--begin::Engage Widget 9-->
-        <div class="card card-custom card-stretch gutter-b">
-            <div class="card-body d-flex p-0">
-                <div class="flex-grow-1 p-20 pb-40 card-rounded flex-grow-1 bgi-no-repeat"
-                    style="background-color: #1B283F; background-position: calc(100% + 0.5rem) bottom; background-size: 50% auto; background-image: url(assets/media/svg/humans/custom-10.svg)">
-                    <h2 class="text-white pb-5 font-weight-bolder">NOMBRE: {{ $ejemplar->nombre_completo }}</h2>
-
-                    <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
-                        <span class="mr-4">
-                            <i class="icon-xl-2x fas fa-clipboard-list"></i>
-                        </span>
-                        <div class="d-flex flex-column text-white">
-                            <span class="font-weight-bolder font-size-sm"><span class="text-primary">KCB</span></span>
-                            <span class="font-weight-bolder font-size-h5">
-                                <span class="text-dark-50 font-weight-bold"></span>{{ $ejemplar->kcb }}</span>
-                        </div>
-                    </div>
-
-                    <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
-                        <span class="mr-4">
-                            <i class="icon-xl-2x fas fa-clipboard-list"></i>
-                        </span>
-                        <div class="d-flex flex-column text-white">
-                            <span class="font-weight-bolder font-size-sm"><span class="text-primary">TATUAJE</span></span>
-                            <span class="font-weight-bolder font-size-h5">
-                                <span class="text-dark-50 font-weight-bold"></span>{{ $ejemplar->num_tatuaje }}</span>
-                        </div>
-                    </div>
-
-                    <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
-                        <span class="mr-4">
-                            <i class="icon-xl-2x fas fa-clipboard-list"></i>
-                        </span>
-                        <div class="d-flex flex-column text-white">
-                            <span class="font-weight-bolder font-size-sm"><span class="text-primary">CHIP</span></span>
-                            <span class="font-weight-bolder font-size-h5">
-                                <span class="text-dark-50 font-weight-bold"></span>{{ $ejemplar->chip }}</span>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <!--end::Engage Widget 9-->
-    </div>
-    <div class="col-md-9"></div>
 </div>
 
 
@@ -347,11 +324,24 @@
 @section('js')
 <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
 <script src="{{ asset('assets/js/pages/crud/forms/widgets/select2.js') }} "></script>
+<script src="{{ asset('assets/js/qrcode.min.js') }}"></script>
 <script type="text/javascript">
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+
+    let cadenaQr = "178436029";
+		// console.log(cadenaQr);
+		var qrcode = new QRCode("qrcode", {
+			text: cadenaQr,
+			width: 120,
+			height: 120,
+			colorDark : "#000000",
+			colorLight : "#ffffff",
+			correctLevel : QRCode.CorrectLevel.H
+		});
+    
 </script>
 @endsection
