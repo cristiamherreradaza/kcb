@@ -37,12 +37,11 @@
                         <input type="text" class="form-control" id="name" name="name" value="{{ ($user!=null)?$user->name:'' }}" required />
                     </div>
                 </div>
-        
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="exampleInputPassword1">Correo
                             <span class="text-danger">*</span></label>
-                        <input type="email" class="form-control" id="email" name="email" value="{{ ($user!=null)?$user->email:'' }}" required />
+                        <input type="email" class="form-control" id="email" name="email" value="{{ ($user!=null)?$user->email:'' }}" onfocusout="validaEmail()" required />
                         <span class="form-text text-danger" id="msg-error-email" style="display: none;">Correo duplicado, cambielo!!!</span>
                     </div>
                 </div>
@@ -54,13 +53,6 @@
                         <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" value="{{ ($user!=null)?$user->fecha_nacimiento:'' }}" required />
                     </div>
                 </div>
-                {{--  <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Contraseña</label>
-                        <input type="password" class="form-control" id="password" name="password" {{ ($user==null)?'required':'' }} />
-                        <span class="form-text text-info">Si desea cambiar o crear llenar</span>
-                    </div>
-                </div>  --}}
             </div>
             <div class="row">
                 <div class="col-md-4">
@@ -68,7 +60,8 @@
                         <label for="exampleInputPassword1">Cedula
                             <span class="text-danger">*</span></label>
                         <input type="number" class="form-control" id="ci" name="ci"
-                            title="El numero no puede exeder mas de 15 digitos" value="{{ ($user!=null)?$user->ci:'' }}" required />
+                            title="El numero no puede exeder mas de 15 digitos" value="{{ ($user!=null)?$user->ci:'' }}" onfocusout="validaCedula()" required />
+                            <span class="form-text text-danger" id="msg-error-cedula" style="display: none;">Cedula duplicado, cambielo!!!</span>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -176,6 +169,10 @@
         }
     }
 
+    function volver(){
+        window.location.href = "{{ url('User/listadoPropietario') }}";
+    }
+
     function validaEmail()
     {
         let email = $("#email").val();
@@ -194,8 +191,23 @@
             }
         });
     }
-    function volver(){
-        window.location.href = "{{ url('User/listadoPropietario') }}";
+
+    function validaCedula(){
+        let cedula = $("#ci").val();
+
+        $.ajax({
+            url: "{{ url('User/validaCedula') }}",
+            data: {cedula: cedula},
+            type: 'POST',
+            success: function(data) {
+                // console.log(data.vEmail);     
+                if(data.vCedula > 0){
+                    $("#msg-error-cedula").show();
+                }else{
+                    $("#msg-error-cedula").hide();
+                }
+            }
+        });
     }
 </script>
 @endsection

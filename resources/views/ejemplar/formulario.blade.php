@@ -83,7 +83,8 @@
                                 <div class="form-group">
                                     <label for="kcb">Correo
                                     </label>
-                                    <input type="text" class="form-control" id="nuevo_propietario_email" name="nuevo_propietario_correo" autocomplete="off" />
+                                    <input type="text" class="form-control" id="nuevo_propietario_email" name="nuevo_propietario_correo" onfocusout="validaEmail()" autocomplete="off" />
+                                    <span class="form-text text-danger" id="msg-error-email" style="display: none;">Correo duplicado, cambielo!!!</span>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -99,7 +100,8 @@
                                 <div class="form-group">
                                     <label for="kcb">Cedula
                                     </label>
-                                    <input type="text" class="form-control" id="nuevo_propietario_cedula" name="nuevo_propietario_cedula" autocomplete="off" />
+                                    <input type="text" class="form-control" id="nuevo_propietario_cedula" name="nuevo_propietario_cedula" onfocusout="validaCedula()" autocomplete="off" />
+                                    <span class="form-text text-danger" id="msg-error-cedula" style="display: none;">Cedula duplicado, cambielo!!!</span>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -116,7 +118,7 @@
                                 <div class="form-group">
                                     <label for="kcb">Celular
                                     </label>
-                                    <input type="text" class="form-control" id="nuevo_propietario_fecha_celular" name="nuevo_propietario_fecha_celular" autocomplete="off" />
+                                    <input type="text" class="form-control" id="nuevo_propietario_celular" name="nuevo_propietario_celular" autocomplete="off" />
                                 </div>
                             </div>
                         </div>
@@ -1164,7 +1166,17 @@
     // TRAMSFERENCIAS
 
     function nuevaTransferencia() {
+        //mostramos el modal
         $("#modal-tramsferencia").modal('show');
+
+        //limpiamos el formulario de transferencias
+        $("#transferencia_fecha_transferencia").val('');
+        $("#transferencia_fecha_exportacion").val('');
+        $("#transferencia_estado").val('Actual')
+        $("#transferencia_pais_destino").val('');
+        $("#transferencia_pedigree").prop("checked", false);
+        boton = '<button class="btn btn-primary btn-block" type="button" onclick="BuscaPropietario()">Propietario</button>';
+        $("#transferencia_propietario").html(boton);
     }
 
     {{-- $("#transferencia_propietario_id").select2({
@@ -1364,6 +1376,17 @@
         $("#modal-tramsferencia").modal('hide');
         $('#modal-nuevo-propietario').modal('show');
 
+        //limpiamos el formulario de nuevo propietario
+        $('#nuevo_propietario_nombre').val('');
+        $('#nuevo_propietario_email').val('');
+        $('#nuevo_propietario_fecha_nacimiento').val('');
+        $('#nuevo_propietario_cedula').val('');
+        $('#nuevo_propietario_genero').val('Masculino');
+        $('#nuevo_propietario_celular').val('');
+        $('#nuevo_propietario_direccion').val('');
+        $('#nuevo_propietario_departamento').val('La paz');
+        $('#nuevo_propietario_tipo').val('Socio');
+
     }
 
     function guardarPropietario(){
@@ -1398,6 +1421,43 @@
                 $("#transferencia_propietario").html(data);
                 $("#modal-tramsferencia").modal('show');
                 $('#modal-nuevo-propietario').modal('hide');
+            }
+        });
+    }
+
+    function validaEmail()
+    {
+        let email = $("#nuevo_propietario_email").val();
+
+        $.ajax({
+            url: "{{ url('User/validaEmail') }}",
+            data: {email: email},
+            type: 'POST',
+            success: function(data) {
+                // console.log(data.vEmail);     
+                if(data.vEmail > 0){
+                    $("#msg-error-email").show();
+                }else{
+                    $("#msg-error-email").hide();
+                }
+            }
+        });
+    }
+
+    function validaCedula(){
+        let cedula = $("#nuevo_propietario_cedula").val();
+
+        $.ajax({
+            url: "{{ url('User/validaCedula') }}",
+            data: {cedula: cedula},
+            type: 'POST',
+            success: function(data) {
+                // console.log(data.vEmail);     
+                if(data.vCedula > 0){
+                    $("#msg-error-cedula").show();
+                }else{
+                    $("#msg-error-cedula").hide();
+                }
             }
         });
     }

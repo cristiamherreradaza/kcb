@@ -49,6 +49,8 @@ Route::post('User/validaEmail', 'UserController@validaEmail');
 Route::post('User/ajaxBuscaPropietario', 'UserController@ajaxBuscaPropietario');
 Route::post('User/ajaxBuscaPropietarioTransferencia', 'UserController@ajaxBuscaPropietarioTransferencia');
 Route::post('User/ajaxGuardaNuevoPropietario', 'UserController@ajaxGuardaNuevoPropietario');
+Route::post('User/validaCedula', 'UserController@validaCedula');
+
 
 
 //PROPIETARIOS

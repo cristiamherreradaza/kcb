@@ -272,4 +272,13 @@ class UserController extends Controller
         // return redirect('User/listadoPropietario');
     }
 
+    public function validaCedula(Request $request)
+    {
+        // dd($request->all());
+        $verificaCedula = User::where('CI', $request->cedula)
+                            ->count();
+
+        return response()->json(['vCedula'=>$verificaCedula]);
+    }
+
 }
