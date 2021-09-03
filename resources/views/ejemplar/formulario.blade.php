@@ -83,7 +83,8 @@
                                 <div class="form-group">
                                     <label for="kcb">Correo
                                     </label>
-                                    <input type="text" class="form-control" id="nuevo_propietario_email" name="nuevo_propietario_correo" autocomplete="off" />
+                                    <input type="text" class="form-control" id="nuevo_propietario_email" name="nuevo_propietario_correo" onfocusout="validaEmail()" autocomplete="off" />
+                                    <span class="form-text text-danger" id="msg-error-email" style="display: none;">Correo duplicado, cambielo!!!</span>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -99,7 +100,8 @@
                                 <div class="form-group">
                                     <label for="kcb">Cedula
                                     </label>
-                                    <input type="text" class="form-control" id="nuevo_propietario_cedula" name="nuevo_propietario_cedula" autocomplete="off" />
+                                    <input type="text" class="form-control" id="nuevo_propietario_cedula" name="nuevo_propietario_cedula" onfocusout="validaCedula()" autocomplete="off" />
+                                    <span class="form-text text-danger" id="msg-error-cedula" style="display: none;">Cedula duplicado, cambielo!!!</span>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -1419,6 +1421,43 @@
                 $("#transferencia_propietario").html(data);
                 $("#modal-tramsferencia").modal('show');
                 $('#modal-nuevo-propietario').modal('hide');
+            }
+        });
+    }
+
+    function validaEmail()
+    {
+        let email = $("#nuevo_propietario_email").val();
+
+        $.ajax({
+            url: "{{ url('User/validaEmail') }}",
+            data: {email: email},
+            type: 'POST',
+            success: function(data) {
+                // console.log(data.vEmail);     
+                if(data.vEmail > 0){
+                    $("#msg-error-email").show();
+                }else{
+                    $("#msg-error-email").hide();
+                }
+            }
+        });
+    }
+
+    function validaCedula(){
+        let cedula = $("#nuevo_propietario_cedula").val();
+
+        $.ajax({
+            url: "{{ url('User/validaCedula') }}",
+            data: {cedula: cedula},
+            type: 'POST',
+            success: function(data) {
+                // console.log(data.vEmail);     
+                if(data.vCedula > 0){
+                    $("#msg-error-cedula").show();
+                }else{
+                    $("#msg-error-cedula").hide();
+                }
             }
         });
     }
