@@ -9,9 +9,11 @@ class AlquilerController extends Controller
 {
     public function listado()
     {
-        $alquileres = Alquiler::all()
-                                ->orderBy('id', 'desc')
-                                ->limit(200);
+        $alquileres = Alquiler::query()
+                                // ->orderBy('id', 'desc')
+                                ->limit(200)
+                                ->get();
+                                
 
         return view('alquileres.listado')->with(compact('alquileres'));
     }

@@ -21,4 +21,23 @@ class Alquiler extends Model
         'estado',
         'deleted_at',
     ];
+
+    public function criadero()
+    {
+        return $this->belongsTo('App\Criadero', 'criadero_id');
+    }
+
+    public function propietario_antiguo()
+    {
+        return $this->belongsTo('App\user', 'propietario_original_id');
+    }
+
+    public function propietario_alquilado()
+    {
+        return $this->belongsTo('App\user', 'propietario_alquilado_id');
+    }
+    public function ejemplar()
+    {
+        return $this->belongsTo('App\Ejemplar', 'ejemplar_id');
+    }
 }

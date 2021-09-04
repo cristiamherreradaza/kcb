@@ -136,9 +136,12 @@ Route::post('Ejemplar/ajaxEliminaTransferencia', 'EjemplarController@ajaxElimina
 Route::post('Ejemplar/ajaxGuardaTitulo', 'EjemplarController@ajaxGuardaTitulo');
 Route::post('Ejemplar/ajaxEliminaTitulo', 'EjemplarController@ajaxEliminaTitulo');
 Route::get('Ejemplar/informacion/{ejamplarId}', 'EjemplarController@informacion');
+Route::get('Ejemplar/formularioCamada', 'EjemplarController@formularioCamada');
+Route::post('Ejemplar/guardaCamada', 'EjemplarController@guardaCamada');
 
 // ALQUILERES
 Route::get('Alquiler/listado', 'AlquilerController@listado');
+
 
 
 

@@ -13,7 +13,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">FORMULARIO DE TITULO</h5>
+                <h5 class="modal-title" id="exampleModalLabel">FORMULARIO DE ALQUILER</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <i aria-hidden="true" class="ki ki-close"></i>
                 </button>
@@ -22,21 +22,42 @@
                 <form action="{{ url('Titulo/guarda') }}" method="POST" id="formulario-tipos">
                 	@csrf
                 	<div class="row">
-
                 		<div class="col-md-4">
                 			<div class="form-group">
-                			    <label for="exampleInputPassword1">Nombre del Titulo
+                			    <label for="exampleInputPassword1">AFIJO
                 			    <span class="text-danger">*</span></label>
                 			    <input type="hidden" class="form-control" id="titulo_id" name="titulo_id" />
-                			    <input type="text" class="form-control" id="nombre" name="nombre" required />
+                			    <input type="text" class="form-control" id="criadero_id" name="criadero_id" required />
                 			</div>
                 		</div>
-
-                		<div class="col-md-8">
+                		<div class="col-md-4">
                 			<div class="form-group">
-                			    <label for="exampleInputPassword1">Descripcion
+                			    <label for="exampleInputPassword1">EJEMPLAR
                 			    <span class="text-danger">*</span></label>
-                			    <input type="text" class="form-control" id="descripcion" name="descripcion" required />
+                			    <input type="text" class="form-control" id="ejemplar_id" name="ejemplar_id" required />
+                			</div>
+                		</div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                			    <label for="exampleInputPassword1">PROPIETARIO ACTUAL
+                			    <span class="text-danger">*</span></label>
+                			    <input type="text" class="form-control" id="propietario_original_id" name="propietario_original_id" required />
+                			</div>
+                        </div>
+                	</div>
+                    <div class="row">
+                		<div class="col-md-6">
+                			<div class="form-group">
+                			    <label for="exampleInputPassword1">PROPIETARIO A ALQUILAR
+                			    <span class="text-danger">*</span></label>
+                			    <input type="text" class="form-control" id="propietario_alquilado_id" name="propietario_alquilado_id" required />
+                			</div>
+                		</div>
+                		<div class="col-md-6">
+                			<div class="form-group">
+                			    <label for="exampleInputPassword1">FECHA
+                			    <span class="text-danger">*</span></label>
+                			    <input type="date" class="form-control" id="fecha" name="fecha" required />
                 			</div>
                 		</div>
                 	</div>
@@ -56,13 +77,13 @@
 	<div class="card card-custom gutter-b">
 		<div class="card-header flex-wrap py-3">
 			<div class="card-title">
-				<h3 class="card-label">TIPOS DE TITULOS
+				<h3 class="card-label">ALQUILERES
 				</h3>
 			</div>
 			<div class="card-toolbar">
 				<!--begin::Button-->
 				<a href="#" class="btn btn-primary font-weight-bolder" onclick="nuevo()">
-					<i class="fa fa-plus-square"></i> NUEVO TITULO
+					<i class="fa fa-plus-square"></i> NUEVO ALQUILER
 				</a>
 				<!--end::Button-->
 			</div>
@@ -75,8 +96,10 @@
 					<thead>
 						<tr>
 							<th>ID</th>
-							<th>Nombre</th>
-							<th>Descripcion</th>
+							<th>Nombre criadero</th>
+							<th>Propietario Antiguo</th>
+							<th>Propietario Alquilado</th>
+							<th>Ejemplar</th>
 							<th>Acciones</th>
 						</tr>
 					</thead>
@@ -84,12 +107,14 @@
 						@forelse ($alquileres as $a)
 							<tr>
 								<td>{{ $a->id }}</td>
-								<td>{{ $a->nombre }}</td>
-								<td>{{ $a->descripcion }}</td>
+								<td>{{ $a->criadero->nombre }}</td>
+								<td>{{ $a->propietario_antiguo->name }}</td>
+								<td>{{ $a->propietario_alquilado->name }}</td>
+								<td>{{ $a->ejemplar->nombre_completo }}</td>
 								<td>
-									<button type="button" class="btn btn-sm btn-icon btn-warning" onclick="edita('{{ $a->id }}', '{{ $a->nombre }}', '{{ $a->descripcion }}')">
+									{{--  <button type="button" class="btn btn-sm btn-icon btn-warning" onclick="edita('{{ $a->id }}', '{{ $a->nombre }}', '{{ $a->descripcion }}')">
 										<i class="flaticon2-edit"></i>
-									</button>
+									</button>  --}}
 									<button type="button" class="btn btn-sm btn-icon btn-danger" onclick="elimina('{{ $a->id }}', '{{ $a->nombre }}')">
 										<i class="flaticon2-cross"></i>
 									</button>
