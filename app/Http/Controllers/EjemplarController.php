@@ -7,6 +7,7 @@ use App\User;
 
 use App\Examen;
 use App\Titulo;
+use App\Alquiler;
 use App\Ejemplar;
 use App\ExamenMascota;
 use App\Transferencia;
@@ -173,6 +174,39 @@ class EjemplarController extends Controller
 
         // sacamos el id para mostrar el registro
         $ejemplarId = $ejemplar->id;
+
+        // agregar un nuevo alquiler de camadas
+        if($request->input('alquiler_value')){
+            // dd("si");
+            $alquiler = new Alquiler();
+
+            $alquiler->user_id                      = Auth::user()->id;
+            $alquiler->criadero_id                  = $request->input('criadero_id');
+            $alquiler->ejemplar_id                  = $ejemplarId;
+            $alquiler->propietario_original_id      = $request->input('propietario_id');
+            $alquiler->propietario_alquilado_id     = $request->input('alquiler_propietario_id');
+            $ultimoNumero                           = Alquiler::where("criadero_id",$request->input('criadero_id'))
+                                                    ->latest()
+                                                    ->first();
+            if($ultimoNumero){
+                // sacamos el ultimo registro
+                $alquiler->numero                   = $ultimoNumero->numero + 1;
+                // dd($ultimoNumero);
+            }else{
+                // no existe el alquilados de este criadero asi que comenzamos de 1
+                $alquiler->numero                   = 1;
+                // dd('no hay registros todavia de este criadero');
+            }
+            $alquiler->fecha                        = $request->input('alquiler_propietario_fecha');
+            
+            // proseguimos al guardado del nuevo alquiler
+
+            $alquiler->save();
+            // $alquiler->numero
+        }else{
+            // dd("no");
+
+        }
 
         // redirigimos a la vista
         return redirect("Ejemplar/formulario/$ejemplarId");

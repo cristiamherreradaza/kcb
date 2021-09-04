@@ -5,13 +5,13 @@
 @endsection
 
 @section('css')
-<link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet">
+
 @endsection
 
 @section('content')
 
+@if ($ejemplar != null)
     {{-- Modal busca propietario --}}
-
     <div class="modal fade" id="modal-propietario" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true" style="position: fixed;">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -54,11 +54,9 @@
             </div>
         </div>
     </div>
-
     {{-- End busca propietario --}}
 
     {{-- Modal Nuevo Propietario --}}
-
     <div class="modal fade" id="modal-nuevo-propietario" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true" style="position: fixed;">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -172,11 +170,9 @@
             </div>
         </div>
     </div>
-
     {{-- End modal Nuevo Propietario --}}
 
     {{--  modal Transferencia  --}}
-
     <div class="modal fade" id="modal-tramsferencia" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -269,12 +265,10 @@
             </div>
         </div>
     </div>
-
     {{--  end modal Transferencia  --}}
 
 
 {{--  modal Titulo  --}}
-@if ($ejemplar != null)
     <div class="modal fade" id="modal-titulo" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -621,7 +615,6 @@
             </div>
             <br />
             <div class="row">
-            
                 <div class="col-md-5">
                     <div class="form-group">
                         <label for="exampleInputPassword1">PROPIETARIO
@@ -672,13 +665,11 @@
                                 Santa Cruz</option>
                         </select>
                     </div>
-                </div>
-            
+                </div>         
             </div>
 
             <div class="row">                
-
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="exampleInputPassword1">AFIJO
                         </label>
@@ -690,16 +681,46 @@
                         </select>
                     </div>
                 </div>
-
-                <div class="col-md-3">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="exampleInputPassword1">
+                        Alquiler</label>
+                        <div class="">
+                            <input id='check_alquiler' data-switch="true" type="checkbox" data-on-color="primary"  onchange="mostrarAlquiler()"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group" style="display: none;" id="bloque_alquiler_propietario">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="">Propietario Alquilado
+                                    <span class="text-danger">*</span></label>
+                                    <select class="form-control select2" id="alquiler_propietario_id" name="alquiler_propietario_id">
+                                        @if ($ejemplar != null && $ejemplar->propietario_id != null)
+                                            <option value="{{ $ejemplar->propietario->id }}">{{ $ejemplar->propietario->name }}</option>
+                                        @endif
+                                        <option label="Label"></option>
+                                    </select>
+                                    <input type="hidden" id="alquiler_value" name="alquiler_value">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="">Fecha Alquilado</label>
+                                <input type="date" class="form-control" id="alquiler_propietario_fecha" name="alquiler_propietario_fecha">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="color">Hermano
                             <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="hermano" name="hermano" value="{{ ($ejemplar != null)? $ejemplar->hermano:'' }}" placeholder="CAIN, CANDY, CIRA, CONY" />
                     </div>
                 </div>
-
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="color">Lechigada
                             <span class="text-danger">*</span></label>
@@ -707,8 +728,7 @@
                             value="{{ ($ejemplar != null)? $ejemplar->lechigada:'' }}" placeholder="CBBA/RW-028/C - REG 27/06/21" />
                     </div>
                 </div>
-
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="color">Fecha Emision
                             <span class="text-danger">*</span></label>
@@ -716,7 +736,6 @@
                             value="{{ ($ejemplar != null)? $ejemplar->fecha_emision:date('Y-m-d') }}" />
                     </div>
                 </div>
-
             </div>
 
             <div class="row">
@@ -937,6 +956,7 @@
 @section('js')
 <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
 <script src="{{ asset('assets/js/pages/crud/forms/widgets/select2.js') }} "></script>
+<script src="{{ asset('assets/js/pages/crud/forms/widgets/bootstrap-switch.js') }}"></script>
 <script type="text/javascript">
 
     $.ajaxSetup({
@@ -1461,5 +1481,63 @@
             }
         });
     }
+    
+    // Class definition
+
+    var KTBootstrapSwitch = function() {
+        // Private functions
+        var demos = function() {
+        // minimum setup
+            $('[data-switch=true]').bootstrapSwitch();
+        };
+    
+        return {
+            // public functions
+            init: function() {
+                demos();
+            },
+        };
+    }();
+    
+    jQuery(document).ready(function() {
+        KTBootstrapSwitch.init();
+    });
+    
+    function mostrarAlquiler() {
+        var c = document.getElementById('check_alquiler').checked;
+        if(c){
+            $("#bloque_alquiler_propietario").toggle('slow');
+            $("#alquiler_value").val(1);
+            //alert("si");
+        }else{
+            $("#bloque_alquiler_propietario").toggle('slow');
+            $("#alquiler_value").val(0);
+            //alert("no");
+        }
+    }
+
+    $("#alquiler_propietario_id").select2({
+        placeholder: "Busca por nombre",
+        allowClear: true,
+        ajax: {
+            url: "{{ url('User/ajaxBuscaPropietario') }}",
+            dataType: 'json',
+            method: 'POST',
+            delay: 250,
+            data: function (params) {
+                return {
+                    search: params.term,
+                };
+            },
+            processResults: function (response) {
+
+                return {
+                    results: response
+                };
+            },
+            cache: true
+        },
+        minimumInputLength: 1,
+    });
 </script>
 @endsection
