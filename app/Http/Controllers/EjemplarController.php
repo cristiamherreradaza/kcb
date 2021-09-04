@@ -191,11 +191,9 @@ class EjemplarController extends Controller
             if($ultimoNumero){
                 // sacamos el ultimo registro
                 $alquiler->numero                   = $ultimoNumero->numero + 1;
-                // dd($ultimoNumero);
             }else{
                 // no existe el alquilados de este criadero asi que comenzamos de 1
                 $alquiler->numero                   = 1;
-                // dd('no hay registros todavia de este criadero');
             }
             $alquiler->fecha                        = $request->input('alquiler_propietario_fecha');
             
@@ -203,9 +201,6 @@ class EjemplarController extends Controller
 
             $alquiler->save();
             // $alquiler->numero
-        }else{
-            // dd("no");
-
         }
 
         // redirigimos a la vista

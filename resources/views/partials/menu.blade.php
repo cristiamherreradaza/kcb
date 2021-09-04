@@ -211,6 +211,14 @@
 								<span class="menu-text">Criaderos</span>
 							</a>
 						</li>
+						<li class="menu-item" aria-haspopup="true">
+							<a href="{{ url('Criadero/listado') }}" class="menu-link">
+								<i class="menu-bullet menu-bullet-dot">
+									<span></span>
+								</i>
+								<span class="menu-text">Alquileres</span>
+							</a>
+						</li>
 					</ul>
 				</div>
 			</li>
