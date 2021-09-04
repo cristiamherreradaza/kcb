@@ -303,4 +303,20 @@ class EjemplarController extends Controller
         $padres = Ejemplar::find($ejemplarId);
         return $padres;
     }
+
+    public function formularioCamada()
+    {
+        $razas = Raza::all();
+
+        return view('ejemplar.formularioCamada')->with(compact('razas'));
+    }
+
+    public function guardaCamada(Request $request)
+    {
+        // echo $_POST["[0][nombre]"];
+        echo $request->input();
+        dd($request->input());
+        dd($request->input("0.*"));
+
+    }
 }
