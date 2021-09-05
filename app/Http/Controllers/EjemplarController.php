@@ -343,9 +343,15 @@ class EjemplarController extends Controller
     public function guardaCamada(Request $request)
     {
         // echo $_POST["[0][nombre]"];
-        echo $request->input();
-        dd($request->input());
-        dd($request->input("0.*"));
+        // echo $request->input();
+        // dd($request->input());
+        // dd($request->input("ejemplar.0.nombre"));
+        $cantidadEjemplares = count($request->input("ejemplar"));
+        for ($i=0; $i < $cantidadEjemplares; $i++) { 
+            echo $request->input("ejemplar.$i.nombre"). "<br />";
+        }
+        
+        dd(count($request->input("ejemplar")));
 
     }
 }

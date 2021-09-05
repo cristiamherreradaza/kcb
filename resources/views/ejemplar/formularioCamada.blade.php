@@ -164,7 +164,7 @@
     
             <div id="ejemplares_1">
                 <div class="form-group row" id="ejemplares_1">
-                    <div data-repeater-list="" class="col-lg-12">
+                    <div data-repeater-list="ejemplar" class="col-lg-12">
                         <div data-repeater-item class="form-group row align-items-center">
                             <div class="col-md-3">
                                 <label>Nombre:</label>
