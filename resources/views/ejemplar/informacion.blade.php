@@ -86,7 +86,11 @@
                     </div>
 
                     <div class="col-md-6">
-                        <h6><span class="text-primary">PROPIETARIO: </span> {{ $ejemplar->propietario->name }}</h6>
+                        <h6><span class="text-primary">PROPIETARIO: </span>
+                            @if ($ejemplar->propietario_id != null)
+                                {{ $ejemplar->propietario->name }}
+                            @endif
+                        </h6>
                     </div>
                 </div>
 
@@ -210,17 +214,130 @@
         </div>
     </div>
 
-    <div class="card-body">
-        @php
-            $padres = EjemplarController::consultaPadres($ejemplar->id);
-            // echo $padres->padre->nombre;
-        @endphp        
-        <center>
-        <div id="chart-container"></div>
-        </center>
+    <div class="card-body" id="chart-container" style="height: 320px;">
     </div>
 </div>
 <!--end::Card-->
+
+@php
+    // sacamos las generaciones
+    $ejemplarOrigen = App\Ejemplar::find($ejemplar->id);
+    // definimos las variables
+    $kcbAbuelo = '';
+    $nombreAbuelo = '';
+    $kcbAbuela = '';
+    $nombreAbuela = '';
+    $kcbTGPadre = '';
+    $nombreTGPadre = '';
+    $kcbTGMadre = '';
+    $nombreTGMadre = '';
+    $kcbCGPadre = '';
+    $nombreCGPadre = '';
+    $kcbCGMadre = '';
+    $nombreCGMadre = '';
+
+    if($ejemplarOrigen->padre_id != null){
+        $papa = App\Ejemplar::find($ejemplarOrigen->padre_id);
+
+        $kcbPapa = ($papa)?$papa->kcb:'';
+        $nombrePapa = ($papa != null)?$papa->nombre_completo:'';
+        
+        // preguntamos si el papa tiene padre
+        // para sacar al abuelo
+        if($papa->padre_id != null){
+
+            $abuelo = App\Ejemplar::find($papa->padre_id);
+
+            $kcbAbuelo = ($abuelo)?$abuelo->kcb:'';
+            $nombreAbuelo = ($abuelo != null)?$abuelo->nombre_completo:'';
+
+            // preguntamos si el abuelo tiene padre
+            // para sacar al tecera generacion padre
+            if($abuelo->padre_id != null){
+
+                $tGPadre = App\Ejemplar::find($abuelo->padre_id);
+
+                $kcbTGPadre = ($tGPadre)?$tGPadre->kcb:'';
+                $nombreTGPadre = ($tGPadre != null)?$tGPadre->nombre_completo:'';
+
+                // preguntamos si la tercera generacion tiene padre
+                // para sacar al cuarta generacion padre
+                if($tGPadre->padre_id != null){
+
+                    $cGPadre = App\Ejemplar::find($tGPadre->padre_id);
+                    
+                    $kcbCGPadre = ($cGPadre)?$cGPadre->kcb:'';
+                    $nombreCGPadre = ($cGPadre != null)?$cGPadre->nombre_completo:'';
+                }else{
+                    $kcbCGPadre = '';
+                    $nombreCGPadre = '';
+                }
+
+                // preguntamos si la tercera generacion tiene madre
+                // para sacar al cuarta generacion madre
+                if($tGPadre->madre_id != null){
+
+                    $cGMadre = App\Ejemplar::find($tGPadre->madre_id);
+                    
+                    $kcbCGMadre = ($cGMadre)?$cGMadre->kcb:'';
+                    $nombreCGMadre = ($cGMadre != null)?$cGMadre->nombre_completo:'';
+                }else{
+                    $kcbCGMadre = '';
+                    $nombreCGMadre = '';
+                }
+
+            }else{
+                $kcbTGPadre = '';
+                $nombreTGPadre = '';
+            }
+
+            // preguntamos si el abuelo tiene madre
+            // para sacar al tecera generacion madre
+            if($abuelo->madre_id != null){
+
+                $tGMadre = App\Ejemplar::find($abuelo->madre_id);
+
+                $kcbTGMadre = ($tGMadre)?$tGMadre->kcb:'';
+                $nombreTGMadre = ($tGMadre != null)?$tGMadre->nombre_completo:'';
+
+            }else{
+                $kcbtGMadre = '';
+                $nombretGMadre = '';
+            }
+
+        }else{
+            $kcbAbuelo = '';
+            $nombreAbuelo = '';
+        }
+
+        // preguntamos si el papa tiene madre
+        // para sacar al abuela
+        if($papa->madre_id != null){
+
+            $abuela = App\Ejemplar::find($papa->madre_id);
+
+            $kcbAbuela = ($abuela)?$abuela->kcb:'';
+            $nombreAbuela = ($abuela != null)?$abuela->nombre_completo:'';
+
+        }else{
+            $kcbAbuela = '';
+            $nombreAbuela = '';
+        }
+
+    }else{
+        $kcbPapa = '';
+        $nombrePapa = '';        
+    }
+    if($ejemplarOrigen->madre_id != null){
+        $mama = App\Ejemplar::find($ejemplarOrigen->madre_id);
+
+        $kcbMama = ($mama != null)?$mama->kcb:'';
+        $nombreMama = ($mama != null)?$mama->nombre_completo:'';
+    }else{
+        $kcbMama = '';
+        $nombreMama = '';
+    }
+@endphp
 @stop
 
 @section('js')
@@ -241,31 +358,51 @@
 
   $(function() {
 
+    /*
+    'children': [
+        { 'name': 'Bo Miao', 'title': 'department manager' },
+        { 'name': 'Su Miao', 'title': 'department manager',
+          'children': [
+            { 'name': 'Tie Hua', 'title': 'senior engineer' },
+            { 'name': 'Hei Hei', 'title': 'senior engineer' }
+          ]
+        },
+        { 'name': 'Hong Miao', 'title': 'department manager' },
+        { 'name': 'Chun Miao', 'title': 'department manager' }
+      ]
+    */
     var datascource = {
       'id': '1',
       'name': '{{ $ejemplar->kcb }}',
       'title': '{{ $ejemplar->nombre }}',
       'relationship': { 'children_num': 2 },
       'children': [
-        { 'id': '2', 'name': 'Bo Miao', 'title': 'department manager', 'relationship': { 'children_num': 0, 'parent_num': 1,'sibling_num': 7 }},
-        { 'id': '3', 'name': 'Su Miao', 'title': 'department manager', 'relationship': { 'children_num': 2, 'parent_num': 1,'sibling_num': 7 },
+        { 'name': '{{ $kcbPapa }}', 'title': '{{ $nombrePapa }}',
           'children': [
-            { 'id': '4', 'name': 'Tie Hua', 'title': 'senior engineer', 'relationship': { 'children_num': 0, 'parent_num': 1,'sibling_num': 1 }},
-            { 'id': '5', 'name': 'Hei Hei', 'title': 'senior engineer', 'relationship': { 'children_num': 2, 'parent_num': 1,'sibling_num': 1 },
-              'children': [
-                { 'id': '6', 'name': 'Pang Pang', 'title': 'engineer', 'relationship': { 'children_num': 0, 'parent_num': 1,'sibling_num': 1 }},
-                { 'id': '7', 'name': 'Xiang Xiang', 'title': 'UE engineer', 'relationship': { 'children_num': 0, 'parent_num': 1,'sibling_num': 1 }}
-              ]
-            }
+            { 'name': '{{ $kcbAbuelo }}', 'title': '{{ $nombreAbuelo }}',
+                'children': [
+                    {'name': '{{ $kcbTGPadre }}', 'title': '{{ $nombreTGPadre }}',
+                        'children': [
+                            {'name': '{{ $kcbCGPadre }}', 'title': '{{ $nombreCGPadre }}'},
+                            {'name': '{{ $kcbCGMadre }}', 'title': '{{ $nombreCGMadre }}'}
+                        ],
+                    },
+                    {'name': '{{ $kcbTGMadre }}', 'title': '{{ $nombreTGMadre }}'}
+                ],
+            },
+            { 'name': '{{ $kcbAbuela }}', 'title': '{{ $nombreAbuela }}' }
           ]
-        }
-        
+        },
+        { 'name': '{{ $kcbMama }}', 'title': '{{ $nombreMama }}' }
       ]
     };
 
     $('#chart-container').orgchart({
       'data' : datascource,
       'depth': 2,
+      'pan': true,
+      'zoom': true,
+      'direction': 'l2r',
       'nodeTitle': 'name',
       'nodeContent': 'title',
       'nodeID': 'id',
