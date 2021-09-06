@@ -18,7 +18,7 @@
                     @endif
                 </td>
                 <td>
-                    <a href="#" class="btn btn-icon btn-success" onclick="selecciona(`{{ $e->id }}`, '{{ $e->kcb }}', `{{ trim($e->nombre_completo) }}` ,`{{ $e->sexo }}`);">
+                    <a href="#" class="btn btn-icon btn-success" onclick="selecciona(`{{ $e->id }}`, '{{ $e->kcb }}', `{{ trim($e->nombre_completo) }}` ,`{{ $e->sexo }}`, `{{ $camada }}`);">
                         <i class="fas fa-check"></i>
                     </a>
                 </td>
@@ -29,18 +29,24 @@
     </tbody>
 </table>
 <script type="text/javascript">
-    function selecciona(id, kcb, nombre_completo, sexo)
+    function selecciona(id, kcb, nombre_completo, sexo, camada)
     {
-        if(sexo == 'Macho'){
-            var boton = '<button type="button" class="btn btn-sm btn-primary btn-block" onclick="seleccionaPadre()">'+'KCB: '+kcb+' NOMBRE: '+nombre_completo+'</button>';
-            $("#btn-padre").html(boton);
-            $("#modal-padres").modal('hide');
-            $("#padre_id").val(id);
+        if(camada) {
+            //console.log(camada);
+            let camda_id = $('#add_camada_id').val();
+            window.location.href = "{{ url('Ejemplar/guardaEjemplarCamada') }}/"+camda_id+"/"+id;         
         }else{
-            var boton = '<button type="button" class="btn btn-sm btn-info btn-block" onclick="seleccionaMadre()">'+'KCB: '+kcb+' NOMBRE: '+nombre_completo+'</button>';
-            $("#btn-madre").html(boton);
-            $("#modal-padres").modal('hide');
-            $("#madre_id").val(id);
+            if(sexo == 'Macho'){
+                var boton = '<button type="button" class="btn btn-sm btn-primary btn-block" onclick="seleccionaPadre()">'+'KCB: '+kcb+' NOMBRE: '+nombre_completo+'</button>';
+                $("#btn-padre").html(boton);
+                $("#modal-padres").modal('hide');
+                $("#padre_id").val(id);
+            }else{
+                var boton = '<button type="button" class="btn btn-sm btn-info btn-block" onclick="seleccionaMadre()">'+'KCB: '+kcb+' NOMBRE: '+nombre_completo+'</button>';
+                $("#btn-madre").html(boton);
+                $("#modal-padres").modal('hide');
+                $("#madre_id").val(id);
+            }
         }
     }
 </script>

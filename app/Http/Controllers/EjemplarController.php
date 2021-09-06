@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Raza;
 use App\User;
 
+use App\Camada;
 use App\Examen;
 use App\Titulo;
 use App\Alquiler;
+use App\Criadero;
 use App\Ejemplar;
 use App\ExamenMascota;
 use App\Transferencia;
@@ -40,7 +42,12 @@ class EjemplarController extends Controller
         // dd($request->all());
         $queryEjemplares = Ejemplar::query();
 
-        $queryEjemplares->where('sexo', $request->input('sexo'));
+        if($request->input('sexo') != "todos"){
+            $queryEjemplares->where('sexo', $request->input('sexo'));
+            $camada = false;
+        }else{
+            $camada = true;
+        }
 
         if($request->filled('kcb')){
             $kcb = $request->input('kcb');
@@ -56,7 +63,7 @@ class EjemplarController extends Controller
 
         $ejemplares = $queryEjemplares->get();
 
-        return view('ejemplar.ajaxBuscaEjemplar')->with(compact('ejemplares'));
+        return view('ejemplar.ajaxBuscaEjemplar')->with(compact('ejemplares', 'camada'));
     }
 
     public function listado(Request $request)
@@ -149,7 +156,7 @@ class EjemplarController extends Controller
         $ejemplar->fecha_fallecido      = $request->input('fecha_fallecido');
         $ejemplar->fecha_emision        = $request->input('fecha_emision');
         $ejemplar->fecha_nacionalizado  = $request->input('fecha_nacionalizado');
-        $criadero = Ejemplar::find($request->input('criadero_id'));
+        $criadero = Criadero::find($request->input('criadero_id'));
         if($request->input('primero_mostrar') == "Nombre"){
             $nombreCompleto = $ejemplar->nombre;
             if($request->input('prefijo') == ""){
@@ -342,16 +349,122 @@ class EjemplarController extends Controller
 
     public function guardaCamada(Request $request)
     {
+        // registramos a la camada
+
+        $camada = new Camada();
+
+        $camada->user_id            = Auth::user()->id;
+        $camada->padre_id           = $request->input('padre_id');
+        $camada->madre_id           = $request->input('madre_id');
+        $camada->criadero_id        = $request->input('criadero_id'); 
+        $camada->raza_id            = $request->input('raza_id');
+        $camada->lechigada          = $request->input('lechigada');
+        $camada->fecha_nacimiento   = $request->input('fecha_nacimiento');
+        $camada->lechigada          = $request->input('lechigada');
+        $numeroCamadasMadre         = Camada::where('id',$request->input('madre_id'))->count();
+        $camada->num_parto_madre    = $numeroCamadasMadre + 1;
+        $camada->departamento       = $request->input('departamento');
+        $camada->fecha_registro     = now();
+
+        // guradamos el registro de camada en
+        $camada->save();
+
+        // sacamos el id de la camda
+
+        $IdCamada = $camada->id;
+
+
+
         // echo $_POST["[0][nombre]"];
         // echo $request->input();
         // dd($request->input());
         // dd($request->input("ejemplar.0.nombre"));
         $cantidadEjemplares = count($request->input("ejemplar"));
         for ($i=0; $i < $cantidadEjemplares; $i++) { 
-            echo $request->input("ejemplar.$i.nombre"). "<br />";
+            $ejemplar = new Ejemplar();
+
+            $ejemplar->user_id          = Auth::user()->id;
+            $ejemplar->madre_id         = $request->input('madre_id');
+            $ejemplar->padre_id         = $request->input('padre_id');
+            $ejemplar->raza_id          = $request->input('raza_id');
+            $ejemplar->criadero_id      = $request->input('criadero_id');
+            $ejemplar->propietario_id   = $request->input('propietario_id');
+            $ejemplar->camada_id        = $IdCamada;
+            $ejemplar->kcb              = $request->input("ejemplar.$i.kcb");
+            $ejemplar->num_tatuaje      = $request->input("ejemplar.$i.num_tatuaje");
+            $ejemplar->chip             = $request->input("ejemplar.$i.chip");
+            $ejemplar->fecha_nacimiento = $request->input('fecha_nacimiento');
+            $ejemplar->color            = $request->input("ejemplar.$i.color");
+            $ejemplar->senas            = $request->input("ejemplar.$i.senas");
+            $ejemplar->nombre           = $request->input("ejemplar.$i.nombre");
+             
+            $criadero = Criadero::find($request->input('criadero_id'));
+            if($request->input('primero_mostrar') == "Nombre"){
+                $nombreCompleto         = $ejemplar->nombre;
+                if($request->input('prefijo') == ""){
+                    $nombreCompleto     = $nombreCompleto." ";
+                }else{
+                    $nombreCompleto     = $nombreCompleto." ".$request->input('prefijo')." ";
+                }
+                $nombreCompleto         = $nombreCompleto.$criadero->nombre;
+            }else{
+                $nombreCompleto         = $criadero->nombre;
+                if($request->input('prefijo') == ""){
+                    $nombreCompleto     = $nombreCompleto." ";
+                }else{
+                    $nombreCompleto     = $nombreCompleto." ".$request->input('prefijo')." "; 
+                }
+                $nombreCompleto         = $nombreCompleto." ".$ejemplar->nombre;
+            }
+            $ejemplar->nombre_completo  = $nombreCompleto;
+
+            $ejemplar->primero_mostrar  = $request->input('primero_mostrar');
+            $ejemplar->prefijo          = $request->input('prefijo');
+            $ejemplar->lechigada        = $request->input('lechigada');
+            $ejemplar->sexo             = $request->input("ejemplar.$i.sexo");
+            $ejemplar->departamento     = $request->input("departamento");
+            $ejemplar->fecha_emision    = $request->input("fecha_emision");
+
+            // guardamos el ejemplar
+            $ejemplar->save();
+            // echo $request->input("ejemplar.$i.nombre"). "<br />";
         }
         
-        dd(count($request->input("ejemplar")));
+        return redirect("Ejemplar/listadoCamada/$IdCamada");
+        // dd(count($request->input("ejemplar")));
 
+    }
+
+    public function listadoCamada(Request $request, $camada_id) {
+        
+        $ejemplaresCamada = Ejemplar::where('camada_id',$camada_id)->get();
+        $camada = Camada::where('id',$camada_id)->first();
+        return view('ejemplar.listadoCamada')->with(compact('ejemplaresCamada', 'camada'));
+    }
+
+    public function eliminaEjemplarCamada(Request $request, $ejemplar_id) {
+        
+        // buscamos el ejemplar a eliminar de la camada
+        $ejemplar = Ejemplar::where('id',$ejemplar_id)->first(); 
+
+        // rescatamos el id de la camda
+        $camadaId           = $ejemplar->camada_id;
+
+        // seteamos el campo camda_id para que no pertenesca a la camada
+        $ejemplar->camada_id = null;
+
+        $ejemplar->save();
+
+        return redirect("Ejemplar/listadoCamada/$camadaId");
+    }
+
+    public function guardaEjemplarCamada(request $request,$camada_id,$ejemplar_id){
+        $ejemplar = Ejemplar::where('id',$ejemplar_id)->first();
+
+        $ejemplar->camada_id = $camada_id;
+
+        $ejemplar->save();
+
+        return redirect("Ejemplar/listadoCamada/$camada_id");
     }
 }

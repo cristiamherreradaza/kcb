@@ -9,6 +9,53 @@
 @endsection
 
 @section('content')
+
+{{-- inicio modal padres --}}
+<div class="modal fade" id="modal-padres" data-backdrop="static" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdrop" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">BUSQUEDA DE EJEMPLARES</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="#" method="POST" id="formulario-padres">
+                    @csrf
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="kcb">KCB
+                                </label>
+                                <input type="hidden" name="sexo-modal" id="sexo-modal" value="macho">
+                                <input type="text" class="form-control" id="busqueda-kcb" name="busqueda-kcb" autocomplete="off" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="nombre">Nombre
+                                </label>
+                                <input type="text" class="form-control" id="busqueda-nombre" name="busqueda-nombre" autocomplete="off" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="row">
+                    <div class="col-md-12" id="ajaxEjemplar">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- fin inicio modal padre  --}}
+
+
 {{-- inicio modal  --}}
 <!-- Modal-->
 
@@ -50,9 +97,7 @@
                         <label for="exampleInputPassword1">PROPIETARIO
                         </label>
                         <select class="form-control select2" id="propietario_id" name="propietario_id">
-                            
                             <option value=""></option>
-                            
                         </select>
                     </div>
                 </div>
@@ -126,8 +171,8 @@
                     <div class="form-group">
                         <label for="kcb">Fecha de Nacimiento
                         </label>
-                        <input type="date" class="form-control" id="nuevo_propietario_fecha_nacimiento"
-                            name="nuevo_propietario_fecha_nacimiento" autocomplete="off" />
+                        <input type="date" class="form-control" id="fecha_nacimiento"
+                            name="fecha_nacimiento" autocomplete="off" />
                     </div>
                 </div>
 
@@ -363,5 +408,46 @@
             }
         });
     }
+
+    {{--  busqueda de padre --}}
+    function seleccionaPadre()
+    {
+        $("#modal-padres").modal('show');        
+        $("#sexo-modal").val('macho');
+        $("#ajaxEjemplar").html('');
+        $("#busqueda-kcb").val('');
+        $("#busqueda-nombre").val('');
+    }
+
+    {{--  busqueda de madre  --}}
+    function seleccionaMadre()
+    {
+        $("#modal-padres").modal('show');
+        $("#sexo-modal").val('hembra');
+        $("#ajaxEjemplar").html('');
+        $("#busqueda-kcb").val('');
+        $("#busqueda-nombre").val('');
+    }
+
+    $("#busqueda-kcb, #busqueda-nombre").on("change paste keyup", function() {
+
+        let kcb = $("#busqueda-kcb").val();
+        let nombre = $("#busqueda-nombre").val();
+        let sexo = $("#sexo-modal").val();
+
+        $.ajax({
+            url: "{{ url('Ejemplar/ajaxBuscaEjemplar') }}",
+            data: {
+                kcb: kcb, 
+                nombre: nombre,
+                sexo: sexo
+            },
+            type: 'POST',
+            success: function(data) {
+                $("#ajaxEjemplar").html(data);
+            }
+        });
+
+    });
 </script>
 @endsection

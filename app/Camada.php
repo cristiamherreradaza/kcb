@@ -35,4 +35,19 @@ class Camada extends Model
     {
         return $this->belongsTo('App\User', 'user_id');
     }
+
+    public function padre()
+    {
+        return $this->belongsTo('App\Ejemplar', 'padre_id');
+    }
+
+    public function madre()
+    {
+        return $this->belongsTo('App\Ejemplar', 'madre_id');
+    }
+
+    public function raza()
+    {
+        return $this->belongsTo('App\Raza', 'raza_id');
+    }
 }
