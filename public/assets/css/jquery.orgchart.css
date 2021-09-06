@@ -236,7 +236,7 @@
     padding: 2px;
     width: 130px;
     text-align: center;
-    font-size: 0.75rem;
+    font-size: 0.95rem;
     font-weight: bold;
     height: 20px;
     overflow: hidden;
@@ -281,7 +281,7 @@
     box-sizing: border-box;
     padding: 2px;
     height: 20px;
-    font-size: 0.625rem;
+    font-size: 0.85rem;
     border: 1px solid rgba(217, 83, 79, 0.8);
     border-radius: 0 0 4px 4px;
     text-align: center;

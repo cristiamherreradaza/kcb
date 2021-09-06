@@ -947,6 +947,122 @@
                 <div class="col-md-6"><button type="button" class="btn btn-sm btn-success btn-block" onclick="guardar()">GUARDAR</button></div>
                 <div class="col-md-6"><button type="button" class="btn btn-sm btn-dark btn-block" onclick="volver()" >VOLVER</button></div>
             </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <br />
+                    <div class="separator separator-dashed separator-border-2 separator-primary"></div>
+                    <br />
+                    <h2 class="text-center text-primary">GENEALOGIA</h2>
+                    <table class="table table-bordered table-dark">
+                        <thead>
+                            <tr>
+                                <th class="text-primary">
+                                    <h4>PADRES</h4>
+                                </th>
+                                <th class="text-primary">
+                                    <h4>ABUELOS</h4>
+                                </th>
+                                <th class="text-primary">
+                                    <h4>TERCERA GENERACION</h4>
+                                </th>
+                                <th class="text-primary">
+                                    <h4>CUARTA GENERACION</h4>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="8">
+                                    COLOMBIAN BULLDOG'S BECKENBAUER
+                                    <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2">
+                                        PADRES
+                                    </span>
+                                </td>
+                                <td rowspan="4"> REMBOMBORY EL CUATRO </td>
+                                <td rowspan="2">SAN SIMON BULLE QUICSILVER </td>
+                                <td>REMBOMBORY BOY </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    REMBOMBORY TRINITRI </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2"> REMBOMBORY CHULA </td>
+                                <td>
+                                    REMBOMBORY TRICHET </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    REMBOMBORY PINK PANTER </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="4"> VON DOGERS MANUELITA DEL OCHO </td>
+                                <td rowspan="2">LC GOLD COCOLO'S RONALDINHO </td>
+                                <td>
+                                    SAN SIMON BULLS INOCENT </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    JLUZE DANRENUS </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2"> ROTTBULLCAN BLONDY </td>
+                                <td>
+                                    FANATA KELLER ARGENTO BIG GLADIATOR </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    LESABULLDOG'S MONSERRAT </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="8">
+                                    LAURA'S DIVA 
+                                    <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2">
+                                        PADRES
+                                    </span>
+                                </td>
+                                <td rowspan="4">LAURA'S DIABLO </td>
+                                <td rowspan="2">STARRYNIGHT ARCTURUS </td>
+                                <td>
+                                    NOBOZZ STASR BOY </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    STARRYNIGHT ALHENA </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2">MACKBULL SAMANTA </td>
+                                <td>
+                                    MYSTYLE BINGO OCOBO </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    MACKBULL JUST WHITE </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="4">LAURA'S TANNIA </td>
+                                <td rowspan="2">SMACKERJACKS RICHIE RICH </td>
+                                <td>
+                                    BEAUDIDDLEY MISTER HANKEY </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    SMACKERJACK MISS SUNSHINE </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2">ETTNA BULL VON FARLEY </td>
+                                <td>
+                                    LA MARGY'S CARLOS MONZON </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    LAS MARGY'S JACQUIFRAZIER </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </form>
     </div>
 </div>

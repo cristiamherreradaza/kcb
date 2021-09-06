@@ -38,20 +38,31 @@
 								<span class="menu-text">Ejemplares</span>
 							</span>
 						</li>
+
 						<li class="menu-item" aria-haspopup="true">
 							<a href="{{ url('Ejemplar/listado') }}" class="menu-link">
 								<i class="menu-bullet menu-bullet-dot">
 									<span></span>
 								</i>
-								<span class="menu-text">Listado</span>
+								<span class="menu-text">Listado Ejemplares</span>
 							</a>
 						</li>
+
 						<li class="menu-item" aria-haspopup="true">
 							<a href="{{ url('Ejemplar/formulario/0') }}" class="menu-link">
 								<i class="menu-bullet menu-bullet-dot">
 									<span></span>
 								</i>
-								<span class="menu-text">Nuevo</span>
+								<span class="menu-text">Nuevo Ejemplar</span>
+							</a>
+						</li>
+
+						<li class="menu-item" aria-haspopup="true">
+							<a href="{{ url('Ejemplar/formularioCamada') }}" class="menu-link">
+								<i class="menu-bullet menu-bullet-dot">
+									<span></span>
+								</i>
+								<span class="menu-text">Nueva Camada</span>
 							</a>
 						</li>
 			

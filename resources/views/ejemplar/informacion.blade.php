@@ -20,6 +20,12 @@
 {{-- fin inicio modal  --}}
 
 <!--begin::Card-->
+<style type="text/css">
+    .orgchart {
+        background: white;
+        /* font-size: 14pt; */
+    }
+</style>
 
 <div class="card card-custom gutter-b">
     <div class="card-body">
@@ -372,9 +378,8 @@
       ]
     */
     var datascource = {
-      'id': '1',
       'name': '{{ $ejemplar->kcb }}',
-      'title': '{{ $ejemplar->nombre }}',
+      'title': '{{ $ejemplar->nombre_completo }}',
       'relationship': { 'children_num': 2 },
       'children': [
         { 'name': '{{ $kcbPapa }}', 'title': '{{ $nombrePapa }}',
@@ -400,12 +405,14 @@
     $('#chart-container').orgchart({
       'data' : datascource,
       'depth': 2,
-      'pan': true,
-      'zoom': true,
+      'draggable':false,
+    //   'parentNodeSymbol':'fa-users',
+    //   'pan': true,
+    //   'zoom': true,
       'direction': 'l2r',
       'nodeTitle': 'name',
       'nodeContent': 'title',
-      'nodeID': 'id',
+    //   'nodeID': 'id',
       'createNode': function($node, data) {
         var nodePrompt = $('<i>', {
           'class': 'fa fa-info-circle second-menu-icon',
