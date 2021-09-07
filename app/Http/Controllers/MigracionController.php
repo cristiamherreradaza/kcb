@@ -534,9 +534,18 @@ class MigracionController extends Controller
     // MIGRACION DE PADRES MADRES
     public function padres_madres(){
         $mascotas = DB::table('amascotas')
-                            // ->orderBy('id', 'asc')
-                            // ->limit(5000)
+                            // ->orderBy('id', 'desc')
+                            // ->limit(4000)
                             ->get();
+        // $mascotas = DB::table('amascotas')->where('id',42218)->first();
+        // dd($mascotas);
+
+        // $mascota = Ejemplar::where('codigo_anterior',$mascotas->id)->first();
+        // dd($mascota);
+
+        // $padre = DB::table('ejemplares')->where('codigo_anterior',$mascotas->reproductor_id)->first();
+        // dd($padre);
+
         // dd($mascotas);
 
         foreach ($mascotas as $m) {

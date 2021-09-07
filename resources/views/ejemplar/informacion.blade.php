@@ -227,7 +227,7 @@
 @php
     // sacamos las generaciones
     $ejemplarOrigen = App\Ejemplar::find($ejemplar->id);
-    // definimos las variables
+    // definimos las variables del padre
     $kcbAbuelo = '';
     $nombreAbuelo = '';
     $kcbAbuela = '';
@@ -333,11 +333,130 @@
         $kcbPapa = '';
         $nombrePapa = '';        
     }
+    // definimos las variables de la madre
+    $kcbAbueloM = '';
+    $nombreAbueloM = '';
+    $kcbAbuelaM = '';
+    $nombreAbuelaM = '';
+    $kcbTGPadreM = '';
+    $nombreTGPadreM = '';
+    $kcbTGMadreM = '';
+    $nombreTGMadreM = '';
+    $kcbCGPadreM = '';
+    $nombreCGPadreM = '';
+    $kcbCGMadreM = '';
+    $nombreCGMadreM = '';
+    
+    $kcbCGPadreM1 = '';
+    $nombreCGPadreM1 = '';
+    $kcbCGPadreM2 = '';
+    $nombreCGPadreM2 = '';
     if($ejemplarOrigen->madre_id != null){
         $mama = App\Ejemplar::find($ejemplarOrigen->madre_id);
 
         $kcbMama = ($mama != null)?$mama->kcb:'';
         $nombreMama = ($mama != null)?$mama->nombre:'';
+
+        if($mama->padre_id != null){
+
+            $abueloM = App\Ejemplar::find($mama->padre_id);
+
+            $kcbAbueloM     = ($abueloM)? $abueloM->kcb: '';
+            $nombreAbueloM  = ($abueloM)? $abueloM->nombre: '';
+
+            if($abueloM->padre_id != null){
+                
+                $tGPadreM = App\Ejemplar::find($abueloM->padre_id);
+
+                $kcbTGPadreM = ($tGPadreM)?$tGPadreM->kcb:'';
+                $nombreTGPadreM = ($tGPadreM)?$tGPadreM->nombre:'';
+
+                if($tGPadreM->padre_id != null){
+
+                    $CGPadreM1 = App\Ejemplar::find($tGPadreM->padre_id);
+
+                    $kcbCGPadreM1 = ($CGPadreM1)?$CGPadreM1->kcb:'';
+                    $nombreCGPadreM1 = ($CGPadreM1)?$CGPadreM1->nombre:'';
+                }else{
+                    $kcbCGPadreM1 = '';
+                    $nombreCGPadreM1 = '';
+                }
+                if($tGPadreM->madre_id != null){
+
+                    $CGPadreM2 = App\Ejemplar::find($tGPadreM->madre_id);
+
+                    $kcbCGPadreM2 = ($CGPadreM2)?$CGPadreM2->kcb:'';
+                    $nombreCGPadreM2 = ($CGPadreM2)?$CGPadreM2->nombre:'';
+                }else{
+                    $kcbCGPadreM2 = '';
+                    $nombreCGPadreM2 = '';
+                }
+
+            }else{
+                $kcbTGPadreM = '';
+                $nombreTGPadreM = '';
+            }
+
+            if($abueloM->madre_id != null){
+
+                $tGMadreM = App\Ejemplar::find($abueloM->madre_id);
+
+                $kcbTGMadreM = ($tGMadreM)?$tGMadreM->kcb:'';
+                $nombreTGMadreM = ($tGMadreM)?$tGMadreM->nombre:'';
+
+                if($tGMadreM->padre_id != null){
+
+                    $CGPadreM = App\Ejemplar::find($tGMadreM->padre_id);
+
+                    $kcbCGPadreM = ($CGPadreM)? $CGPadreM->kcb:'';                   
+                    $nombreCGPadreM = ($CGPadreM)? $CGPadreM->nombre:'';                   
+
+                }else{
+
+                    $kcbCGPadreM = '';                   
+                    $nombreCGPadreM = '';                   
+                }
+                if($tGMadreM->madre_id != null){
+
+                    $CGMadreM = App\Ejemplar::find($tGMadreM->madre_id);
+
+                    $kcbCGMadreM = ($CGMadreM)? $CGMadreM->kcb:'';                   
+                    $nombreCGMadreM = ($CGMadreM)? $CGMadreM->nombre:'';                   
+                }else{
+                    $kcbCGMadreM = '';                   
+                    $nombreCGPadreM = '';                   
+                }
+            }else{
+                $kcbTGMadreM = '';
+                $nombreTGMadreM = '';
+            }
+
+        }else{
+
+            $kcbAbueloM     = '';
+            $nombreAbueloM  = '';
+        }
+
+        if($mama->madre_id != null){
+
+            $abuelaM = App\Ejemplar::find($mama->madre_id);
+
+            $kcbAbuelaM     = ($abuelaM)?$abuelaM->kcb:'';
+            $nombreAbuelaM  = ($abuelaM)?$abuelaM->nombre:'';
+
+            // if($abuelaM->padre_id != null){
+                
+            //     $abuelaM = App\Ejemplar::find($abuelaM->padre_id);
+
+            //     $kcbAbuelaM     = ($abuelaM)?$abuelaM->kcb:'';
+            //     $nombreAbuelaM  = ($abuelaM)?$abuelaM->nombre:'';
+            // }else{
+
+            // }
+        }else{
+
+        }
+
     }else{
         $kcbMama = '';
         $nombreMama = '';
@@ -397,7 +516,30 @@
             { 'name': '{{ $kcbAbuela }}', 'title': '{{ trim($nombreAbuela) }}', 'className': 'kennel'}
           ]
         },
-        { 'name': '{{ $kcbMama }}', 'title': '{{ trim($nombreMama) }}', 'className': 'kennel'}
+        //de aqui comienza las madres
+        { 'name': '{{ $kcbMama }}', 'title': '{{ trim($nombreMama) }}', 'className': 'kennel',
+            'children':[
+                {'name': '{{ $kcbAbueloM }}', 'title': '{{ trim($nombreAbueloM) }}', 'className': 'kennel',
+                    'children' : [
+                        {'name': '{{ $kcbTGPadreM }}', 'title': '{{ trim($nombreTGPadreM) }}', 'className': 'kennel',
+                            'children': [
+                                {'name': '{{ $kcbCGPadreM1 }}', 'title': '{{ trim($nombreCGPadreM1) }}', 'className': 'kennel'},
+                                {'name': '{{ $kcbCGPadreM2 }}', 'title': '{{ trim($nombreCGPadreM2) }}', 'className': 'kennel'}
+                            ],
+                        },
+                        {'name': '{{ $kcbTGMadreM }}', 'title': '{{ trim($nombreTGMadreM) }}', 'className': 'kennel',
+                            'children': [
+                                {'name': '{{ $kcbCGPadreM }}', 'title': '{{ trim($nombreCGPadreM) }}', 'className': 'kennel'},
+                                {'name': '{{ $kcbCGMadreM }}', 'title': '{{ trim($nombreCGMadreM) }}', 'className': 'kennel'}
+                            ],
+                        }
+                    ],
+                },
+                {'name': '{{ $kcbAbuelaM }}', 'title': '{{ trim($nombreAbuelaM) }}', 'className': 'kennel'}
+
+            ],
+                
+        }
       ]
     };
 
