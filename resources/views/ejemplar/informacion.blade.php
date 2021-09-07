@@ -21,10 +21,9 @@
 
 <!--begin::Card-->
 <style type="text/css">
-    .orgchart {
-        background: white;
-        /* font-size: 14pt; */
-    }
+    .orgchart { background: white; }
+    .orgchart .kennel .title { background-color: #3699FF; };
+    .orgchart .kennel .content { border-color: #000000; };
 </style>
 
 <div class="card card-custom gutter-b">
@@ -246,7 +245,7 @@
         $papa = App\Ejemplar::find($ejemplarOrigen->padre_id);
 
         $kcbPapa = ($papa)?$papa->kcb:'';
-        $nombrePapa = ($papa != null)?$papa->nombre_completo:'';
+        $nombrePapa = ($papa != null)?$papa->nombre:'';
         
         // preguntamos si el papa tiene padre
         // para sacar al abuelo
@@ -255,7 +254,7 @@
             $abuelo = App\Ejemplar::find($papa->padre_id);
 
             $kcbAbuelo = ($abuelo)?$abuelo->kcb:'';
-            $nombreAbuelo = ($abuelo != null)?$abuelo->nombre_completo:'';
+            $nombreAbuelo = ($abuelo != null)?$abuelo->nombre:'';
 
             // preguntamos si el abuelo tiene padre
             // para sacar al tecera generacion padre
@@ -264,7 +263,7 @@
                 $tGPadre = App\Ejemplar::find($abuelo->padre_id);
 
                 $kcbTGPadre = ($tGPadre)?$tGPadre->kcb:'';
-                $nombreTGPadre = ($tGPadre != null)?$tGPadre->nombre_completo:'';
+                $nombreTGPadre = ($tGPadre != null)?$tGPadre->nombre:'';
 
                 // preguntamos si la tercera generacion tiene padre
                 // para sacar al cuarta generacion padre
@@ -273,7 +272,7 @@
                     $cGPadre = App\Ejemplar::find($tGPadre->padre_id);
                     
                     $kcbCGPadre = ($cGPadre)?$cGPadre->kcb:'';
-                    $nombreCGPadre = ($cGPadre != null)?$cGPadre->nombre_completo:'';
+                    $nombreCGPadre = ($cGPadre != null)?$cGPadre->nombre:'';
                 }else{
                     $kcbCGPadre = '';
                     $nombreCGPadre = '';
@@ -286,7 +285,7 @@
                     $cGMadre = App\Ejemplar::find($tGPadre->madre_id);
                     
                     $kcbCGMadre = ($cGMadre)?$cGMadre->kcb:'';
-                    $nombreCGMadre = ($cGMadre != null)?$cGMadre->nombre_completo:'';
+                    $nombreCGMadre = ($cGMadre != null)?$cGMadre->nombre:'';
                 }else{
                     $kcbCGMadre = '';
                     $nombreCGMadre = '';
@@ -304,7 +303,7 @@
                 $tGMadre = App\Ejemplar::find($abuelo->madre_id);
 
                 $kcbTGMadre = ($tGMadre)?$tGMadre->kcb:'';
-                $nombreTGMadre = ($tGMadre != null)?$tGMadre->nombre_completo:'';
+                $nombreTGMadre = ($tGMadre != null)?$tGMadre->nombre:'';
 
             }else{
                 $kcbtGMadre = '';
@@ -323,7 +322,7 @@
             $abuela = App\Ejemplar::find($papa->madre_id);
 
             $kcbAbuela = ($abuela)?$abuela->kcb:'';
-            $nombreAbuela = ($abuela != null)?$abuela->nombre_completo:'';
+            $nombreAbuela = ($abuela != null)?$abuela->nombre:'';
 
         }else{
             $kcbAbuela = '';
@@ -338,7 +337,7 @@
         $mama = App\Ejemplar::find($ejemplarOrigen->madre_id);
 
         $kcbMama = ($mama != null)?$mama->kcb:'';
-        $nombreMama = ($mama != null)?$mama->nombre_completo:'';
+        $nombreMama = ($mama != null)?$mama->nombre:'';
     }else{
         $kcbMama = '';
         $nombreMama = '';
@@ -379,26 +378,26 @@
     */
     var datascource = {
       'name': '{{ $ejemplar->kcb }}',
-      'title': '{{ $ejemplar->nombre_completo }}',
+      'title': '{{ $ejemplar->nombre }}',
       'relationship': { 'children_num': 2 },
       'children': [
-        { 'name': '{{ $kcbPapa }}', 'title': '{{ $nombrePapa }}',
+        { 'name': '{{ trim($kcbPapa) }}', 'title': '{{ trim($nombrePapa) }}', 'className': 'kennel',
           'children': [
-            { 'name': '{{ $kcbAbuelo }}', 'title': '{{ $nombreAbuelo }}',
+            { 'name': '{{ $kcbAbuelo }}', 'title': '{{ $nombreAbuelo }}', 'className': 'kennel',
                 'children': [
-                    {'name': '{{ $kcbTGPadre }}', 'title': '{{ $nombreTGPadre }}',
+                    {'name': '{{ $kcbTGPadre }}', 'title': '{{ trim($nombreTGPadre) }}', 'className': 'kennel',
                         'children': [
-                            {'name': '{{ $kcbCGPadre }}', 'title': '{{ $nombreCGPadre }}'},
-                            {'name': '{{ $kcbCGMadre }}', 'title': '{{ $nombreCGMadre }}'}
+                            {'name': '{{ $kcbCGPadre }}', 'title': '{{ trim($nombreCGPadre) }}', 'className': 'kennel'},
+                            {'name': '{{ $kcbCGMadre }}', 'title': '{{ trim($nombreCGMadre) }}', 'className': 'kennel'}
                         ],
                     },
-                    {'name': '{{ $kcbTGMadre }}', 'title': '{{ $nombreTGMadre }}'}
+                    {'name': '{{ $kcbTGMadre }}', 'title': '{{ trim($nombreTGMadre) }}', 'className': 'kennel'}
                 ],
             },
-            { 'name': '{{ $kcbAbuela }}', 'title': '{{ $nombreAbuela }}' }
+            { 'name': '{{ $kcbAbuela }}', 'title': '{{ trim($nombreAbuela) }}', 'className': 'kennel'}
           ]
         },
-        { 'name': '{{ $kcbMama }}', 'title': '{{ $nombreMama }}' }
+        { 'name': '{{ $kcbMama }}', 'title': '{{ trim($nombreMama) }}', 'className': 'kennel'}
       ]
     };
 

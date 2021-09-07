@@ -951,9 +951,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <br />
-                    <div class="separator separator-dashed separator-border-2 separator-primary"></div>
-                    <br />
                     <h2 class="text-center text-primary">GENEALOGIA</h2>
+                    {{-- <br /> --}}
                     <table class="table table-bordered table-dark">
                         <thead>
                             <tr>
