@@ -240,6 +240,31 @@
     $nombreCGPadre = '';
     $kcbCGMadre = '';
     $nombreCGMadre = '';
+    
+    $kcbTGMadreP1 = '';
+    $nombreTGMadreP1 = '';  
+    
+    $kcbTGMadreM2 = '';
+    $nombreTGMadreM2 = '';
+
+    
+    $kcbAbueloTG1 = '';
+    $nombreAbueloTG1 = '';
+
+    $kcbAbuelaTG1 = '';
+    $nombreAbuelaTG1 = '';
+   
+    $kcbAbueloCG1 = '';
+    $nombreAbueloCG1 = '';
+
+    $kcbAbueloCG1M = '';
+    $nombreAbueloCG1M = '';
+
+    $kcbAbueloTG1M1 = '';
+    $nombreAbueloTG1M1 = '';
+    
+    $kcbAbuelaTG1M1 = '';
+    $nombreAbuelaTG1M1 = '';
 
     if($ejemplarOrigen->padre_id != null){
         $papa = App\Ejemplar::find($ejemplarOrigen->padre_id);
@@ -305,6 +330,29 @@
                 $kcbTGMadre = ($tGMadre)?$tGMadre->kcb:'';
                 $nombreTGMadre = ($tGMadre != null)?$tGMadre->nombre:'';
 
+                if($tGMadre->padre_id != null){
+
+                    $CGMadreP = App\Ejemplar::find($tGMadre->padre_id);
+
+                    $kcbTGMadreP1 = ($CGMadreP)?$CGMadreP->kcb:'';
+                    $nombreTGMadreP1 = ($CGMadreP)?$CGMadreP->nombre:'';    
+                }else{
+                    $kcbTGMadreP1 = '';
+                    $nombreTGMadreP1 = '';    
+                }
+
+                // para la madre de del atercera generacion
+                if($tGMadre->madre_id != null){
+
+                    $CGMadreM2 = App\Ejemplar::find($tGMadre->madre_id);
+
+                    $kcbTGMadreM2 = ($CGMadreM2)?$CGMadreM2->kcb:'';
+                    $nombreTGMadreM2 = ($CGMadreM2)?$CGMadreM2->nombre:'';    
+                }else{
+                    $kcbTGMadreM2 = '';
+                    $nombreTGMadreM2 = '';    
+                }
+
             }else{
                 $kcbtGMadre = '';
                 $nombretGMadre = '';
@@ -324,6 +372,72 @@
             $kcbAbuela = ($abuela)?$abuela->kcb:'';
             $nombreAbuela = ($abuela != null)?$abuela->nombre:'';
 
+            if($abuela->padre_id != null){
+
+                $abueloTG = App\Ejemplar::find($abuela->padre_id);
+
+                $kcbAbueloTG1 = ($abueloTG)?$abueloTG->kcb:'';
+                $nombreAbueloTG1 = ($abueloTG)?$abueloTG->nombre:'';
+
+                if($abueloTG->padre_id != null){
+
+                    $abueloCG = App\Ejemplar::find($abueloTG->padre_id);
+
+                    $kcbAbueloCG1 = ($abueloCG)?$abueloCG->kcb:'';
+                    $nombreAbueloCG1 = ($abueloCG)?$abueloCG->nombre:'';
+                }else{
+                    $kcbAbueloCG1 = '';
+                    $nombreAbueloCG1 = '';
+                }
+
+                if($abueloTG->madre_id != null){
+
+                    $abueloCGM = App\Ejemplar::find($abueloTG->madre_id);
+
+                    $kcbAbueloCG1M = ($abueloCGM)?$abueloCGM->kcb:'';
+                    $nombreAbueloCG1M = ($abueloCGM)?$abueloCGM->nombre:'';
+                }else{
+                    $kcbAbueloCG1M = '';
+                    $nombreAbueloCG1M = '';
+                }
+            }else{
+                $kcbAbueloTG1 = '';
+                $nombreAbueloTG1 = '';
+            }
+
+            // hacemos para su mama de la abuela
+            if($abuela->madre_id != null){
+
+                $abuelaTG = App\Ejemplar::find($abuela->madre_id);
+
+                $kcbAbuelaTG1 = ($abuelaTG)?$abuelaTG->kcb:'';
+                $nombreAbuelaTG1 = ($abuelaTG)?$abuelaTG->nombre:'';
+
+                // aqui hay que hacer para la cuarte generracion tanto como padre y madres
+                if($abuelaTG->padre_id != null){
+
+                    $abueloTGM1 = App\Ejemplar::find($abuelaTG->padre_id);
+
+                    $kcbAbueloTG1M1 = ($abueloTGM1)?$abueloTGM1->kcb:'';
+                    $nombreAbueloTG1M1 = ($abueloTGM1)?$abueloTGM1->nombre:'';
+                }else{
+                    $kcbAbueloTG1M1 = '';
+                    $nombreAbueloTG1M1 = '';
+                }
+                if($abuelaTG->madre_id != null){
+
+                    $abuelaTGM1 = App\Ejemplar::find($abuelaTG->madre_id);
+
+                    $kcbAbuelaTG1M1 = ($abuelaTGM1)?$abuelaTGM1->kcb:'';
+                    $nombreAbuelaTG1M1 = ($abuelaTGM1)?$abuelaTGM1->nombre:'';
+                }else{
+                    $kcbAbuelaTG1M1 = '';
+                    $nombreAbuelaTG1M1 = '';
+                }
+            }else{
+                $kcbAbuelaTG1 = '';
+                $nombreAbuelaTG1 = '';
+            }
         }else{
             $kcbAbuela = '';
             $nombreAbuela = '';
@@ -351,6 +465,23 @@
     $nombreCGPadreM1 = '';
     $kcbCGPadreM2 = '';
     $nombreCGPadreM2 = '';
+    $kcbabueloMSG  = '' ;
+    $nombreabueloMSG  = '' ;
+    
+    $kcbabueloMSG2  = '' ;
+    $nombreabueloMSG2  = '' ;
+    
+    $kcbabueloMTG1  = '' ;
+    $nombreabueloMTG1  = '' ;
+    
+    $kcbabueloMTG11  = '' ;
+    $nombreabueloMTG11  = '' ;
+    
+    $kcbabueloMSG22  = '' ;
+    $nombreabueloMSG22  = '' ;
+
+    $kcbabueloMSG222  = '' ;
+    $nombreabueloMSG222  = '' ;
     if($ejemplarOrigen->madre_id != null){
         $mama = App\Ejemplar::find($ejemplarOrigen->madre_id);
 
@@ -444,17 +575,74 @@
             $kcbAbuelaM     = ($abuelaM)?$abuelaM->kcb:'';
             $nombreAbuelaM  = ($abuelaM)?$abuelaM->nombre:'';
 
-            // if($abuelaM->padre_id != null){
-                
-            //     $abuelaM = App\Ejemplar::find($abuelaM->padre_id);
+            if($abuelaM->padre_id != null){
 
-            //     $kcbAbuelaM     = ($abuelaM)?$abuelaM->kcb:'';
-            //     $nombreAbuelaM  = ($abuelaM)?$abuelaM->nombre:'';
-            // }else{
+                $abueloSG   =App\Ejemplar::find($abuelaM->padre_id);
 
-            // }
+                $kcbabueloMSG  = ($abueloSG)? $abueloSG->kcb:'' ;
+                $nombreabueloMSG  = ($abueloSG)? $abueloSG->nombre:'' ;
+
+                if($abueloSG->padre_id){
+
+                    $abueloTG1   =App\Ejemplar::find($abueloSG->padre_id);
+
+                    $kcbabueloMTG1  = ($abueloTG1)? $abueloTG1->kcb:'' ;
+                    $nombreabueloMTG1  = ($abueloTG1)? $abueloTG1->nombre:'' ;
+                }else{
+                    $kcbabueloMTG1  = '' ;
+                    $nombreabueloMTG1  = '' ;
+                }
+                // la madre de la cuarta generacion
+                if($abueloSG->madre_id != null){
+
+                    $abueloTG11   =App\Ejemplar::find($abueloSG->madre_id);
+
+                    $kcbabueloMTG11  = ($abueloTG11)? $abueloTG11->kcb:'' ;
+                    $nombreabueloMTG11  = ($abueloTG11)? $abueloTG11->nombre:'' ;
+                }else{
+                    $kcbabueloMTG11  = '' ;
+                    $nombreabueloMTG11  = '' ;
+                }
+            }else{
+                $kcbabueloMSG  = '' ;
+                $nombreabueloMSG  = '' ;
+            }
+            // de aqui comienza las madres de la abuela
+            if($abuelaM->madre_id != null){
+
+                $abueloSGM2   =App\Ejemplar::find($abuelaM->madre_id);
+
+                $kcbabueloMSG2  = ($abueloSGM2)? $abueloSGM2->kcb:'' ;
+                $nombreabueloMSG2  = ($abueloSGM2)? $abueloSGM2->nombre:'' ;
+
+                if($abueloSGM2->padre_id != null){
+
+                    $abueloSGM22   =App\Ejemplar::find($abueloSGM2->padre_id);
+
+                    $kcbabueloMSG22  = ($abueloSGM22)? $abueloSGM22->kcb:'' ;
+                    $nombreabueloMSG22  = ($abueloSGM22)? $abueloSGM22->nombre:'' ;
+                }else{
+
+                    $kcbabueloMSG22  = '' ;
+                    $nombreabueloMSG22  = '' ;  
+                }
+                if($abueloSGM2->madre_id != null){
+
+                    $abueloSGM222   =App\Ejemplar::find($abueloSGM2->madre_id);
+
+                    $kcbabueloMSG222  = ($abueloSGM222)? $abueloSGM222->kcb:'' ;
+                    $nombreabueloMSG222  = ($abueloSGM222)? $abueloSGM222->nombre:'' ;
+                }else{
+                    $kcbabueloMSG222  = '' ;
+                    $nombreabueloMSG222  = '' ;
+                }
+            }else{
+                $kcbabueloMSG2  = '' ;
+                $nombreabueloMSG2  = '' ;
+            }
         }else{
-
+            $kcbAbuelaM     = '';
+            $nombreAbuelaM  = '';
         }
 
     }else{
@@ -510,10 +698,30 @@
                             {'name': '{{ $kcbCGMadre }}', 'title': '{{ trim($nombreCGMadre) }}', 'className': 'kennel'}
                         ],
                     },
-                    {'name': '{{ $kcbTGMadre }}', 'title': '{{ trim($nombreTGMadre) }}', 'className': 'kennel'}
+                    {'name': '{{ $kcbTGMadre }}', 'title': '{{ trim($nombreTGMadre) }}', 'className': 'kennel',
+                        'children': [
+                            {'name': '{{ $kcbTGMadreP1 }}', 'title': '{{ trim($nombreTGMadreP1) }}', 'className': 'kennel'},
+                            {'name': '{{ $kcbTGMadreM2 }}', 'title': '{{ trim($nombreTGMadreM2) }}', 'className': 'kennel'}
+                        ],
+                    }
                 ],
             },
-            { 'name': '{{ $kcbAbuela }}', 'title': '{{ trim($nombreAbuela) }}', 'className': 'kennel'}
+            { 'name': '{{ $kcbAbuela }}', 'title': '{{ trim($nombreAbuela) }}', 'className': 'kennel',
+                'children': [
+                    {'name': '{{ $kcbAbueloTG1 }}', 'title': '{{ trim($nombreAbueloTG1) }}', 'className': 'kennel',
+                        'children': [
+                            {'name': '{{ $kcbAbueloCG1 }}', 'title': '{{ trim($nombreAbueloCG1) }}', 'className': 'kennel'},
+                            {'name': '{{ $kcbAbueloCG1M }}', 'title': '{{ trim($nombreAbueloCG1M) }}', 'className': 'kennel'}
+                        ],
+                    },
+                    {'name': '{{ $kcbAbuelaTG1 }}', 'title': '{{ trim($nombreAbuelaTG1) }}', 'className': 'kennel',
+                        'children': [
+                            {'name': '{{ $kcbAbueloTG1M1 }}', 'title': '{{ trim($nombreAbueloTG1M1) }}', 'className': 'kennel'},
+                            {'name': '{{ $kcbAbuelaTG1M1 }}', 'title': '{{ trim($nombreAbuelaTG1M1) }}', 'className': 'kennel'}
+                        ],
+                    }
+                ],
+            }
           ]
         },
         //de aqui comienza las madres
@@ -535,7 +743,22 @@
                         }
                     ],
                 },
-                {'name': '{{ $kcbAbuelaM }}', 'title': '{{ trim($nombreAbuelaM) }}', 'className': 'kennel'}
+                {'name': '{{ $kcbAbuelaM }}', 'title': '{{ trim($nombreAbuelaM) }}', 'className': 'kennel',
+                    'children' : [
+                        {'name': '{{ $kcbabueloMSG }}', 'title': '{{ trim($nombreabueloMSG) }}', 'className': 'kennel',
+                            'children': [
+                                {'name': '{{ $kcbabueloMTG1 }}', 'title': '{{ trim($nombreabueloMTG1) }}', 'className': 'kennel'},
+                                {'name': '{{ $kcbabueloMTG11 }}', 'title': '{{ trim($nombreabueloMTG11) }}', 'className': 'kennel'}
+                            ],
+                        },
+                        {'name': '{{ $kcbabueloMSG2 }}', 'title': '{{ trim($nombreabueloMSG2) }}', 'className': 'kennel',
+                            'children': [
+                                {'name': '{{ $kcbabueloMSG22 }}', 'title': '{{ trim($nombreabueloMSG22) }}', 'className': 'kennel'},
+                                {'name': '{{ $kcbabueloMSG222 }}', 'title': '{{ trim($nombreabueloMSG222) }}', 'className': 'kennel'}
+                            ],
+                        }
+                    ],
+                }
 
             ],
                 
