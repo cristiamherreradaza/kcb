@@ -10,6 +10,51 @@
 
 @section('content')
 
+{{-- Modal de registro de padres genealogico --}}
+<div class="modal fade" id="modal-edicion-de-padres" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true" style="position: fixed;">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">EJEMPLAR</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="#" method="POST" id="formulario-padres">
+                    @csrf
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                        </div>
+                        {{-- <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="kcb">Cedula
+                                </label>
+                                <input type="text" class="form-control" id="busca-ci" name="busca-ci" autocomplete="off" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="nombre">Nombre
+                                </label>
+                                <input type="text" class="form-control" id="busca-nombre" name="busca-nombre" autocomplete="off" />
+                            </div>
+                        </div> --}}
+                    </div>
+                </form>
+                {{-- <div class="row">
+                    <div class="col-md-12" id="ajaxPropietario">
+
+                    </div>
+                </div> --}}
+            </div>
+        </div>
+    </div>
+</div>
+{{-- End Modal de registro de padres genealogico --}}
+
 @if ($ejemplar != null)
     {{-- Modal busca propietario --}}
     <div class="modal fade" id="modal-propietario" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true" style="position: fixed;">
@@ -411,6 +456,438 @@
         </div>
     </div>
     {{--  end modal Examen  --}}
+
+    {{-- HACEMOS LA CONSULTA PARA EL ARBOL DE GENEALOGIA --}}
+
+    @php
+        // sacamos las generaciones
+        $ejemplarOrigen = App\Ejemplar::find($ejemplar->id);
+        // definimos las variables del padre
+        $kcbAbuelo = '';
+        $nombreAbuelo = '';
+        $kcbAbuela = '';
+        $nombreAbuela = '';
+        $kcbTGPadre = '';
+        $nombreTGPadre = '';
+        $kcbTGMadre = '';
+        $nombreTGMadre = '';
+        $kcbCGPadre = '';
+        $nombreCGPadre = '';
+        $kcbCGMadre = '';
+        $nombreCGMadre = '';
+        
+        $kcbTGMadreP1 = '';
+        $nombreTGMadreP1 = '';  
+        
+        $kcbTGMadreM2 = '';
+        $nombreTGMadreM2 = '';
+
+        
+        $kcbAbueloTG1 = '';
+        $nombreAbueloTG1 = '';
+
+        $kcbAbuelaTG1 = '';
+        $nombreAbuelaTG1 = '';
+    
+        $kcbAbueloCG1 = '';
+        $nombreAbueloCG1 = '';
+
+        $kcbAbueloCG1M = '';
+        $nombreAbueloCG1M = '';
+
+        $kcbAbueloTG1M1 = '';
+        $nombreAbueloTG1M1 = '';
+        
+        $kcbAbuelaTG1M1 = '';
+        $nombreAbuelaTG1M1 = '';
+
+        if($ejemplarOrigen->padre_id != null){
+            $papa = App\Ejemplar::find($ejemplarOrigen->padre_id);
+
+            $kcbPapa = ($papa)?$papa->kcb:'';
+            $nombrePapa = ($papa != null)?$papa->nombre:'';
+            
+            // preguntamos si el papa tiene padre
+            // para sacar al abuelo
+            if($papa->padre_id != null){
+
+                $abuelo = App\Ejemplar::find($papa->padre_id);
+
+                $kcbAbuelo = ($abuelo)?$abuelo->kcb:'';
+                $nombreAbuelo = ($abuelo != null)?$abuelo->nombre:'';
+
+                // preguntamos si el abuelo tiene padre
+                // para sacar al tecera generacion padre
+                if($abuelo->padre_id != null){
+
+                    $tGPadre = App\Ejemplar::find($abuelo->padre_id);
+
+                    $kcbTGPadre = ($tGPadre)?$tGPadre->kcb:'';
+                    $nombreTGPadre = ($tGPadre != null)?$tGPadre->nombre:'';
+
+                    // preguntamos si la tercera generacion tiene padre
+                    // para sacar al cuarta generacion padre
+                    if($tGPadre->padre_id != null){
+
+                        $cGPadre = App\Ejemplar::find($tGPadre->padre_id);
+                        
+                        $kcbCGPadre = ($cGPadre)?$cGPadre->kcb:'';
+                        $nombreCGPadre = ($cGPadre != null)?$cGPadre->nombre:'';
+                    }else{
+                        $kcbCGPadre = '';
+                        $nombreCGPadre = '';
+                    }
+
+                    // preguntamos si la tercera generacion tiene madre
+                    // para sacar al cuarta generacion madre
+                    if($tGPadre->madre_id != null){
+
+                        $cGMadre = App\Ejemplar::find($tGPadre->madre_id);
+                        
+                        $kcbCGMadre = ($cGMadre)?$cGMadre->kcb:'';
+                        $nombreCGMadre = ($cGMadre != null)?$cGMadre->nombre:'';
+                    }else{
+                        $kcbCGMadre = '';
+                        $nombreCGMadre = '';
+                    }
+
+                }else{
+                    $kcbTGPadre = '';
+                    $nombreTGPadre = '';
+                }
+
+                // preguntamos si el abuelo tiene madre
+                // para sacar al tecera generacion madre
+                if($abuelo->madre_id != null){
+
+                    $tGMadre = App\Ejemplar::find($abuelo->madre_id);
+
+                    $kcbTGMadre = ($tGMadre)?$tGMadre->kcb:'';
+                    $nombreTGMadre = ($tGMadre != null)?$tGMadre->nombre:'';
+
+                    if($tGMadre->padre_id != null){
+
+                        $CGMadreP = App\Ejemplar::find($tGMadre->padre_id);
+
+                        $kcbTGMadreP1 = ($CGMadreP)?$CGMadreP->kcb:'';
+                        $nombreTGMadreP1 = ($CGMadreP)?$CGMadreP->nombre:'';    
+                    }else{
+                        $kcbTGMadreP1 = '';
+                        $nombreTGMadreP1 = '';    
+                    }
+
+                    // para la madre de del atercera generacion
+                    if($tGMadre->madre_id != null){
+
+                        $CGMadreM2 = App\Ejemplar::find($tGMadre->madre_id);
+
+                        $kcbTGMadreM2 = ($CGMadreM2)?$CGMadreM2->kcb:'';
+                        $nombreTGMadreM2 = ($CGMadreM2)?$CGMadreM2->nombre:'';    
+                    }else{
+                        $kcbTGMadreM2 = '';
+                        $nombreTGMadreM2 = '';    
+                    }
+
+                }else{
+                    $kcbtGMadre = '';
+                    $nombretGMadre = '';
+                }
+
+            }else{
+                $kcbAbuelo = '';
+                $nombreAbuelo = '';
+            }
+
+            // preguntamos si el papa tiene madre
+            // para sacar al abuela
+            if($papa->madre_id != null){
+
+                $abuela = App\Ejemplar::find($papa->madre_id);
+
+                $kcbAbuela = ($abuela)?$abuela->kcb:'';
+                $nombreAbuela = ($abuela != null)?$abuela->nombre:'';
+
+                if($abuela->padre_id != null){
+
+                    $abueloTG = App\Ejemplar::find($abuela->padre_id);
+
+                    $kcbAbueloTG1 = ($abueloTG)?$abueloTG->kcb:'';
+                    $nombreAbueloTG1 = ($abueloTG)?$abueloTG->nombre:'';
+
+                    if($abueloTG->padre_id != null){
+
+                        $abueloCG = App\Ejemplar::find($abueloTG->padre_id);
+
+                        $kcbAbueloCG1 = ($abueloCG)?$abueloCG->kcb:'';
+                        $nombreAbueloCG1 = ($abueloCG)?$abueloCG->nombre:'';
+                    }else{
+                        $kcbAbueloCG1 = '';
+                        $nombreAbueloCG1 = '';
+                    }
+
+                    if($abueloTG->madre_id != null){
+
+                        $abueloCGM = App\Ejemplar::find($abueloTG->madre_id);
+
+                        $kcbAbueloCG1M = ($abueloCGM)?$abueloCGM->kcb:'';
+                        $nombreAbueloCG1M = ($abueloCGM)?$abueloCGM->nombre:'';
+                    }else{
+                        $kcbAbueloCG1M = '';
+                        $nombreAbueloCG1M = '';
+                    }
+                }else{
+                    $kcbAbueloTG1 = '';
+                    $nombreAbueloTG1 = '';
+                }
+
+                // hacemos para su mama de la abuela
+                if($abuela->madre_id != null){
+
+                    $abuelaTG = App\Ejemplar::find($abuela->madre_id);
+
+                    $kcbAbuelaTG1 = ($abuelaTG)?$abuelaTG->kcb:'';
+                    $nombreAbuelaTG1 = ($abuelaTG)?$abuelaTG->nombre:'';
+
+                    // aqui hay que hacer para la cuarte generracion tanto como padre y madres
+                    if($abuelaTG->padre_id != null){
+
+                        $abueloTGM1 = App\Ejemplar::find($abuelaTG->padre_id);
+
+                        $kcbAbueloTG1M1 = ($abueloTGM1)?$abueloTGM1->kcb:'';
+                        $nombreAbueloTG1M1 = ($abueloTGM1)?$abueloTGM1->nombre:'';
+                    }else{
+                        $kcbAbueloTG1M1 = '';
+                        $nombreAbueloTG1M1 = '';
+                    }
+                    if($abuelaTG->madre_id != null){
+
+                        $abuelaTGM1 = App\Ejemplar::find($abuelaTG->madre_id);
+
+                        $kcbAbuelaTG1M1 = ($abuelaTGM1)?$abuelaTGM1->kcb:'';
+                        $nombreAbuelaTG1M1 = ($abuelaTGM1)?$abuelaTGM1->nombre:'';
+                    }else{
+                        $kcbAbuelaTG1M1 = '';
+                        $nombreAbuelaTG1M1 = '';
+                    }
+                }else{
+                    $kcbAbuelaTG1 = '';
+                    $nombreAbuelaTG1 = '';
+                }
+            }else{
+                $kcbAbuela = '';
+                $nombreAbuela = '';
+            }
+
+        }else{
+            $kcbPapa = '';
+            $nombrePapa = '';        
+        }
+        // definimos las variables de la madre
+        $kcbAbueloM = '';
+        $nombreAbueloM = '';
+        $kcbAbuelaM = '';
+        $nombreAbuelaM = '';
+        $kcbTGPadreM = '';
+        $nombreTGPadreM = '';
+        $kcbTGMadreM = '';
+        $nombreTGMadreM = '';
+        $kcbCGPadreM = '';
+        $nombreCGPadreM = '';
+        $kcbCGMadreM = '';
+        $nombreCGMadreM = '';
+        
+        $kcbCGPadreM1 = '';
+        $nombreCGPadreM1 = '';
+        $kcbCGPadreM2 = '';
+        $nombreCGPadreM2 = '';
+        $kcbabueloMSG  = '' ;
+        $nombreabueloMSG  = '' ;
+        
+        $kcbabueloMSG2  = '' ;
+        $nombreabueloMSG2  = '' ;
+        
+        $kcbabueloMTG1  = '' ;
+        $nombreabueloMTG1  = '' ;
+        
+        $kcbabueloMTG11  = '' ;
+        $nombreabueloMTG11  = '' ;
+        
+        $kcbabueloMSG22  = '' ;
+        $nombreabueloMSG22  = '' ;
+
+        $kcbabueloMSG222  = '' ;
+        $nombreabueloMSG222  = '' ;
+        if($ejemplarOrigen->madre_id != null){
+            $mama = App\Ejemplar::find($ejemplarOrigen->madre_id);
+
+            $kcbMama = ($mama != null)?$mama->kcb:'';
+            $nombreMama = ($mama != null)?$mama->nombre:'';
+
+            if($mama->padre_id != null){
+
+                $abueloM = App\Ejemplar::find($mama->padre_id);
+
+                $kcbAbueloM     = ($abueloM)? $abueloM->kcb: '';
+                $nombreAbueloM  = ($abueloM)? $abueloM->nombre: '';
+
+                if($abueloM->padre_id != null){
+                    
+                    $tGPadreM = App\Ejemplar::find($abueloM->padre_id);
+
+                    $kcbTGPadreM = ($tGPadreM)?$tGPadreM->kcb:'';
+                    $nombreTGPadreM = ($tGPadreM)?$tGPadreM->nombre:'';
+
+                    if($tGPadreM->padre_id != null){
+
+                        $CGPadreM1 = App\Ejemplar::find($tGPadreM->padre_id);
+
+                        $kcbCGPadreM1 = ($CGPadreM1)?$CGPadreM1->kcb:'';
+                        $nombreCGPadreM1 = ($CGPadreM1)?$CGPadreM1->nombre:'';
+                    }else{
+                        $kcbCGPadreM1 = '';
+                        $nombreCGPadreM1 = '';
+                    }
+                    if($tGPadreM->madre_id != null){
+
+                        $CGPadreM2 = App\Ejemplar::find($tGPadreM->madre_id);
+
+                        $kcbCGPadreM2 = ($CGPadreM2)?$CGPadreM2->kcb:'';
+                        $nombreCGPadreM2 = ($CGPadreM2)?$CGPadreM2->nombre:'';
+                    }else{
+                        $kcbCGPadreM2 = '';
+                        $nombreCGPadreM2 = '';
+                    }
+
+                }else{
+                    $kcbTGPadreM = '';
+                    $nombreTGPadreM = '';
+                }
+
+                if($abueloM->madre_id != null){
+
+                    $tGMadreM = App\Ejemplar::find($abueloM->madre_id);
+
+                    $kcbTGMadreM = ($tGMadreM)?$tGMadreM->kcb:'';
+                    $nombreTGMadreM = ($tGMadreM)?$tGMadreM->nombre:'';
+
+                    if($tGMadreM->padre_id != null){
+
+                        $CGPadreM = App\Ejemplar::find($tGMadreM->padre_id);
+
+                        $kcbCGPadreM = ($CGPadreM)? $CGPadreM->kcb:'';                   
+                        $nombreCGPadreM = ($CGPadreM)? $CGPadreM->nombre:'';                   
+
+                    }else{
+
+                        $kcbCGPadreM = '';                   
+                        $nombreCGPadreM = '';                   
+                    }
+                    if($tGMadreM->madre_id != null){
+
+                        $CGMadreM = App\Ejemplar::find($tGMadreM->madre_id);
+
+                        $kcbCGMadreM = ($CGMadreM)? $CGMadreM->kcb:'';                   
+                        $nombreCGMadreM = ($CGMadreM)? $CGMadreM->nombre:'';                   
+                    }else{
+                        $kcbCGMadreM = '';                   
+                        $nombreCGPadreM = '';                   
+                    }
+                }else{
+                    $kcbTGMadreM = '';
+                    $nombreTGMadreM = '';
+                }
+
+            }else{
+
+                $kcbAbueloM     = '';
+                $nombreAbueloM  = '';
+            }
+
+            if($mama->madre_id != null){
+
+                $abuelaM = App\Ejemplar::find($mama->madre_id);
+
+                $kcbAbuelaM     = ($abuelaM)?$abuelaM->kcb:'';
+                $nombreAbuelaM  = ($abuelaM)?$abuelaM->nombre:'';
+
+                if($abuelaM->padre_id != null){
+
+                    $abueloSG   =App\Ejemplar::find($abuelaM->padre_id);
+
+                    $kcbabueloMSG  = ($abueloSG)? $abueloSG->kcb:'' ;
+                    $nombreabueloMSG  = ($abueloSG)? $abueloSG->nombre:'' ;
+
+                    if($abueloSG->padre_id){
+
+                        $abueloTG1   =App\Ejemplar::find($abueloSG->padre_id);
+
+                        $kcbabueloMTG1  = ($abueloTG1)? $abueloTG1->kcb:'' ;
+                        $nombreabueloMTG1  = ($abueloTG1)? $abueloTG1->nombre:'' ;
+                    }else{
+                        $kcbabueloMTG1  = '' ;
+                        $nombreabueloMTG1  = '' ;
+                    }
+                    // la madre de la cuarta generacion
+                    if($abueloSG->madre_id != null){
+
+                        $abueloTG11   =App\Ejemplar::find($abueloSG->madre_id);
+
+                        $kcbabueloMTG11  = ($abueloTG11)? $abueloTG11->kcb:'' ;
+                        $nombreabueloMTG11  = ($abueloTG11)? $abueloTG11->nombre:'' ;
+                    }else{
+                        $kcbabueloMTG11  = '' ;
+                        $nombreabueloMTG11  = '' ;
+                    }
+                }else{
+                    $kcbabueloMSG  = '' ;
+                    $nombreabueloMSG  = '' ;
+                }
+                // de aqui comienza las madres de la abuela
+                if($abuelaM->madre_id != null){
+
+                    $abueloSGM2   =App\Ejemplar::find($abuelaM->madre_id);
+
+                    $kcbabueloMSG2  = ($abueloSGM2)? $abueloSGM2->kcb:'' ;
+                    $nombreabueloMSG2  = ($abueloSGM2)? $abueloSGM2->nombre:'' ;
+
+                    if($abueloSGM2->padre_id != null){
+
+                        $abueloSGM22   =App\Ejemplar::find($abueloSGM2->padre_id);
+
+                        $kcbabueloMSG22  = ($abueloSGM22)? $abueloSGM22->kcb:'' ;
+                        $nombreabueloMSG22  = ($abueloSGM22)? $abueloSGM22->nombre:'' ;
+                    }else{
+
+                        $kcbabueloMSG22  = '' ;
+                        $nombreabueloMSG22  = '' ;  
+                    }
+                    if($abueloSGM2->madre_id != null){
+
+                        $abueloSGM222   =App\Ejemplar::find($abueloSGM2->madre_id);
+
+                        $kcbabueloMSG222  = ($abueloSGM222)? $abueloSGM222->kcb:'' ;
+                        $nombreabueloMSG222  = ($abueloSGM222)? $abueloSGM222->nombre:'' ;
+                    }else{
+                        $kcbabueloMSG222  = '' ;
+                        $nombreabueloMSG222  = '' ;
+                    }
+                }else{
+                    $kcbabueloMSG2  = '' ;
+                    $nombreabueloMSG2  = '' ;
+                }
+            }else{
+                $kcbAbuelaM     = '';
+                $nombreAbuelaM  = '';
+            }
+
+        }else{
+            $kcbMama = '';
+            $nombreMama = '';
+        }
+    @endphp
+
+    {{-- END HACEMOS LA CONSULTA PARA EL ARBOL DE GENEALOGIA --}}
+
 @endif
 {{-- inicio modal  --}}
 <div class="modal fade" id="modal-padres" data-backdrop="static" tabindex="-1" role="dialog"
@@ -973,90 +1450,75 @@
                         <tbody>
                             <tr>
                                 <td rowspan="8">
-                                    COLOMBIAN BULLDOG'S BECKENBAUER
-                                    <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2">
+                                    {{ $nombrePapa }}
+                                    <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre()">
                                         PADRES
                                     </span>
                                 </td>
-                                <td rowspan="4"> REMBOMBORY EL CUATRO </td>
-                                <td rowspan="2">SAN SIMON BULLE QUICSILVER </td>
-                                <td>REMBOMBORY BOY </td>
+                                <td rowspan="4"> {{  $nombreAbuelo }} </td>
+                                <td rowspan="2">{{ $nombreTGPadre }} </td>
+                                <td>{{ $nombreCGPadre }}</td>
                             </tr>
                             <tr>
-                                <td>
-                                    REMBOMBORY TRINITRI </td>
+                                <td>{{ $nombreCGMadre }}</td>
                             </tr>
                             <tr>
-                                <td rowspan="2"> REMBOMBORY CHULA </td>
-                                <td>
-                                    REMBOMBORY TRICHET </td>
+                                <td rowspan="2"> {{ $nombreTGMadre }} </td>
+                                <td>{{ $nombreTGMadreP1 }} </td>
                             </tr>
                             <tr>
-                                <td>
-                                    REMBOMBORY PINK PANTER </td>
+                                <td>{{ $nombreTGMadreM2 }} </td>
                             </tr>
                             <tr>
-                                <td rowspan="4"> VON DOGERS MANUELITA DEL OCHO </td>
-                                <td rowspan="2">LC GOLD COCOLO'S RONALDINHO </td>
-                                <td>
-                                    SAN SIMON BULLS INOCENT </td>
+                                <td rowspan="4"> {{ $nombreAbuela }} </td>
+                                <td rowspan="2">{{ $nombreAbueloTG1 }}</td>
+                                <td>{{ $nombreAbueloCG1 }} </td>
                             </tr>
                             <tr>
-                                <td>
-                                    JLUZE DANRENUS </td>
+                                <td>{{ $nombreAbueloCG1M }}</td>
                             </tr>
                             <tr>
-                                <td rowspan="2"> ROTTBULLCAN BLONDY </td>
-                                <td>
-                                    FANATA KELLER ARGENTO BIG GLADIATOR </td>
+                                <td rowspan="2"> {{ $nombreAbuelaTG1 }} </td>
+                                <td>{{ $nombreAbueloTG1M1 }} </td>
                             </tr>
                             <tr>
-                                <td>
-                                    LESABULLDOG'S MONSERRAT </td>
+                                <td>{{ $nombreAbuelaTG1M1 }} </td>
                             </tr>
                             <tr>
                                 <td rowspan="8">
-                                    LAURA'S DIVA 
+                                    {{ $nombreMama }}
                                     <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2">
                                         PADRES
                                     </span>
                                 </td>
-                                <td rowspan="4">LAURA'S DIABLO </td>
-                                <td rowspan="2">STARRYNIGHT ARCTURUS </td>
-                                <td>
-                                    NOBOZZ STASR BOY </td>
+                                <td rowspan="4">{{ $nombreAbueloM }} </td>
+                                <td rowspan="2">{{ $nombreTGPadreM }} </td>
+                                <td>{{ $nombreCGPadreM1 }} </td>
                             </tr>
                             <tr>
-                                <td>
-                                    STARRYNIGHT ALHENA </td>
+                                <td>{{ $nombreCGPadreM2 }}</td>
                             </tr>
                             <tr>
-                                <td rowspan="2">MACKBULL SAMANTA </td>
-                                <td>
-                                    MYSTYLE BINGO OCOBO </td>
+                                <td rowspan="2">{{ $nombreTGMadreM }}</td>
+                                <td>{{ $nombreCGPadreM }} </td>
                             </tr>
                             <tr>
-                                <td>
-                                    MACKBULL JUST WHITE </td>
+                                <td>{{ $nombreCGMadreM }}</td>
                             </tr>
                             <tr>
-                                <td rowspan="4">LAURA'S TANNIA </td>
-                                <td rowspan="2">SMACKERJACKS RICHIE RICH </td>
-                                <td>
-                                    BEAUDIDDLEY MISTER HANKEY </td>
+                                <td rowspan="4">{{ $nombreAbuelaM }}</td>
+                                <td rowspan="2">{{ $nombreabueloMSG  }}</td>
+                                <td>{{ $nombreabueloMTG1  }}</td>
                             </tr>
                             <tr>
-                                <td>
-                                    SMACKERJACK MISS SUNSHINE </td>
+                                <td>{{ $nombreabueloMTG11 }} </td>
                             </tr>
                             <tr>
-                                <td rowspan="2">ETTNA BULL VON FARLEY </td>
-                                <td>
-                                    LA MARGY'S CARLOS MONZON </td>
+                                <td rowspan="2">{{ $nombreabueloMSG2 }} </td>
+                                <td>{{ $nombreabueloMSG22 }}</td>
                             </tr>
                             <tr>
-                                <td>
-                                    LAS MARGY'S JACQUIFRAZIER </td>
+                                <td>{{ $nombreabueloMSG222 }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -1654,5 +2116,11 @@
         },
         minimumInputLength: 1,
     });
+
+    // edicion de padres de ejemplares
+    function edicionPadre(){
+        // alert("hola");
+        $('#modal-edicion-de-padres').modal('show');
+    }
 </script>
 @endsection
