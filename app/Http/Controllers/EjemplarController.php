@@ -42,6 +42,11 @@ class EjemplarController extends Controller
         // dd($request->all());
         $queryEjemplares = Ejemplar::query();
 
+        if($request->filled('raza')){
+            $raza = $request->input('raza');
+            $queryEjemplares->where('raza_id', 'like', "%$raza%");
+        }
+
         if($request->input('sexo') != "todos"){
             $queryEjemplares->where('sexo', $request->input('sexo'));
             $camada = false;
@@ -63,7 +68,11 @@ class EjemplarController extends Controller
 
         $ejemplares = $queryEjemplares->get();
 
-        return view('ejemplar.ajaxBuscaEjemplar')->with(compact('ejemplares', 'camada'));
+        if($request->filled('raza')){
+            return view('ejemplar.ajaxBuscaEjemplarEdita')->with(compact('ejemplares'));
+        }else{
+            return view('ejemplar.ajaxBuscaEjemplar')->with(compact('ejemplares', 'camada'));
+        }
     }
 
     public function listado(Request $request)
@@ -466,5 +475,19 @@ class EjemplarController extends Controller
         $ejemplar->save();
 
         return redirect("Ejemplar/listadoCamada/$camada_id");
+    }
+
+    public function guardaEjemplarEdita(Request $request){
+
+        $idEjemplar = $request->input("edicion_ejemplar_id");
+        
+        $ejemplar = Ejemplar::find($idEjemplar); 
+
+        $ejemplar->madre_id = $request->input("edicion_madre_id");
+        $ejemplar->padre_id = $request->input("edicion_padre_id");
+
+        $ejemplar->save();
+
+        return redirect("Ejemplar/formulario/$idEjemplar");
     }
 }

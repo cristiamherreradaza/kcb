@@ -141,6 +141,7 @@ Route::post('Ejemplar/guardaCamada', 'EjemplarController@guardaCamada');
 Route::get('Ejemplar/listadoCamada/{camada_id}', 'EjemplarController@listadoCamada');
 Route::get('Ejemplar/eliminaEjemplarCamada/{ejemplar_id}', 'EjemplarController@eliminaEjemplarCamada');
 Route::get('Ejemplar/guardaEjemplarCamada/{camada_id}/{ejemplar_id}', 'EjemplarController@guardaEjemplarCamada');
+Route::post('Ejemplar/guardaEjemplarEdita', 'EjemplarController@guardaEjemplarEdita');
 
 // ALQUILERES
 Route::get('Alquiler/listado', 'AlquilerController@listado');

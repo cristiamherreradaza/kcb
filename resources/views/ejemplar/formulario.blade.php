@@ -21,28 +21,49 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="#" method="POST" id="formulario-padres">
+                <form action="{{ url('Ejemplar/guardaEjemplarEdita') }}" method="POST" id="edita-formulario-padres">
                     @csrf
                     <div class="row">
-                        <div class="col-md-12">
-                            
-                        </div>
-                        {{-- <div class="col-md-4">
+                        <div class="col-md-12" >
                             <div class="form-group">
-                                <label for="kcb">Cedula
+                                <label for="kcb">Seleccione el Padre del Ejemplar
                                 </label>
-                                <input type="text" class="form-control" id="busca-ci" name="busca-ci" autocomplete="off" />
-                            </div>
-                        </div>
+                                <input type="text" id="edicion_ejemplar_id" name="edicion_ejemplar_id" value="{{ $ejemplar->id }}">
+                                <input type="text" id="edicion_raza_id" name="edicion_raza_id">
+                                <input type="text" id="edicion_padre_id" name="edicion_padre_id">
+                                <div id="bloque-edita-padre">
 
-                        <div class="col-md-8">
-                            <div class="form-group">
-                                <label for="nombre">Nombre
-                                </label>
-                                <input type="text" class="form-control" id="busca-nombre" name="busca-nombre" autocomplete="off" />
+                                </div>
+                                <br>
+                                <label for="exampleInputPassword1">
+                                    Registrar 
+                                    <span class="label label-success label-inline font-weight-normal mr-2" onclick="">Nuevo Ejemplar</span>
+                                </label><br>
                             </div>
-                        </div> --}}
+                        </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-12" >
+                            <div class="form-group">
+                                <label for="kcb">Seleccione el Madre del Ejemplar
+                                </label>
+                                <input type="text" id="edicion_madre_id" name="edicion_madre_id">
+                                <div id="bloque-edita-madre">
+
+                                </div>
+                                <br>
+                                <label for="exampleInputPassword1">
+                                    Registrar 
+                                    <span class="label label-success label-inline font-weight-normal mr-2" onclick="">Nuevo Ejemplar</span>
+                                </label><br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-success btn-block" onclick="guardarEjemplarEditado()">Guardar</button>
+                        </div>
+                    </div>                    
                 </form>
                 {{-- <div class="row">
                     <div class="col-md-12" id="ajaxPropietario">
@@ -56,6 +77,53 @@
 {{-- End Modal de registro de padres genealogico --}}
 
 @if ($ejemplar != null)
+    {{-- Moodal Edita padres  --}}
+    <div class="modal fade" id="edita-modal-padres" data-backdrop="static" tabindex="-1" role="dialog"
+        aria-labelledby="staticBackdrop" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">BUSQUEDA DE EJEMPLARES</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="#" method="POST" id="formulario-padres">
+                        @csrf
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="kcb">KCB
+                                    </label>
+                                    <input type="text" name="edita-sexo-modal" id="edita-sexo-modal" value="macho">
+                                    <input type="text" name="edita-raza-modal" id="edita-raza-modal" value="{{  $ejemplar->raza_id }}">
+                                    <input type="text" class="form-control" id="edita-busqueda-kcb" name="edita-busqueda-kcb" autocomplete="off" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="nombre">Nombre
+                                    </label>
+                                    <input type="text" class="form-control" id="edita-busqueda-nombre" name="edita-busqueda-nombre" autocomplete="off" />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row">
+                        <div class="col-md-12" id="EdicionajaxEjemplar">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- fin inicio modal  --}}
+
+
     {{-- Modal busca propietario --}}
     <div class="modal fade" id="modal-propietario" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true" style="position: fixed;">
         <div class="modal-dialog modal-lg" role="document">
@@ -462,6 +530,10 @@
     @php
         // sacamos las generaciones
         $ejemplarOrigen = App\Ejemplar::find($ejemplar->id);
+
+        // defiunimos la raza del ejemplar origen_nacionalizado
+
+        $edicion_raza_id = $ejemplarOrigen->raza_id;
         // definimos las variables del padre
         $kcbAbuelo = '';
         $nombreAbuelo = '';
@@ -506,6 +578,7 @@
 
             $kcbPapa = ($papa)?$papa->kcb:'';
             $nombrePapa = ($papa != null)?$papa->nombre:'';
+            $IdPapa = ($papa != null)?$papa->id:null;
             
             // preguntamos si el papa tiene padre
             // para sacar al abuelo
@@ -515,6 +588,7 @@
 
                 $kcbAbuelo = ($abuelo)?$abuelo->kcb:'';
                 $nombreAbuelo = ($abuelo != null)?$abuelo->nombre:'';
+                $IdAbuelo = ($abuelo != null)?$abuelo->id:null;
 
                 // preguntamos si el abuelo tiene padre
                 // para sacar al tecera generacion padre
@@ -524,6 +598,7 @@
 
                     $kcbTGPadre = ($tGPadre)?$tGPadre->kcb:'';
                     $nombreTGPadre = ($tGPadre != null)?$tGPadre->nombre:'';
+                    $IdTGPadre = ($tGPadre != null)?$tGPadre->id:null;
 
                     // preguntamos si la tercera generacion tiene padre
                     // para sacar al cuarta generacion padre
@@ -533,9 +608,11 @@
                         
                         $kcbCGPadre = ($cGPadre)?$cGPadre->kcb:'';
                         $nombreCGPadre = ($cGPadre != null)?$cGPadre->nombre:'';
+                        $IdCGPadre = ($cGPadre != null)?$cGPadre->id:null;
                     }else{
                         $kcbCGPadre = '';
                         $nombreCGPadre = '';
+                        $IdCGPadre = null;
                     }
 
                     // preguntamos si la tercera generacion tiene madre
@@ -546,14 +623,17 @@
                         
                         $kcbCGMadre = ($cGMadre)?$cGMadre->kcb:'';
                         $nombreCGMadre = ($cGMadre != null)?$cGMadre->nombre:'';
+                        $IdCGMadre = ($cGMadre != null)?$cGMadre->id:null;
                     }else{
                         $kcbCGMadre = '';
                         $nombreCGMadre = '';
+                        $IdCGMadre = null;
                     }
 
                 }else{
                     $kcbTGPadre = '';
                     $nombreTGPadre = '';
+                    $IdTGPadre = null;
                 }
 
                 // preguntamos si el abuelo tiene madre
@@ -564,6 +644,7 @@
 
                     $kcbTGMadre = ($tGMadre)?$tGMadre->kcb:'';
                     $nombreTGMadre = ($tGMadre != null)?$tGMadre->nombre:'';
+                    $IdTGMadre = ($tGMadre != null)?$tGMadre->id:null;
 
                     if($tGMadre->padre_id != null){
 
@@ -571,9 +652,11 @@
 
                         $kcbTGMadreP1 = ($CGMadreP)?$CGMadreP->kcb:'';
                         $nombreTGMadreP1 = ($CGMadreP)?$CGMadreP->nombre:'';    
+                        $IdTGMadreP1 = ($CGMadreP)?$CGMadreP->id:null;    
                     }else{
                         $kcbTGMadreP1 = '';
                         $nombreTGMadreP1 = '';    
+                        $IdTGMadreP1 = null;    
                     }
 
                     // para la madre de del atercera generacion
@@ -583,19 +666,23 @@
 
                         $kcbTGMadreM2 = ($CGMadreM2)?$CGMadreM2->kcb:'';
                         $nombreTGMadreM2 = ($CGMadreM2)?$CGMadreM2->nombre:'';    
+                        $IdTGMadreM2 = ($CGMadreM2)?$CGMadreM2->id:null;    
                     }else{
                         $kcbTGMadreM2 = '';
                         $nombreTGMadreM2 = '';    
+                        $IdTGMadreM2 = null;    
                     }
 
                 }else{
                     $kcbtGMadre = '';
                     $nombretGMadre = '';
+                    $IdTGMadre = null;
                 }
 
             }else{
                 $kcbAbuelo = '';
                 $nombreAbuelo = '';
+                $IdAbuelo = null;
             }
 
             // preguntamos si el papa tiene madre
@@ -606,6 +693,7 @@
 
                 $kcbAbuela = ($abuela)?$abuela->kcb:'';
                 $nombreAbuela = ($abuela != null)?$abuela->nombre:'';
+                $IdAbuela = ($abuela != null)?$abuela->id:null;
 
                 if($abuela->padre_id != null){
 
@@ -613,6 +701,7 @@
 
                     $kcbAbueloTG1 = ($abueloTG)?$abueloTG->kcb:'';
                     $nombreAbueloTG1 = ($abueloTG)?$abueloTG->nombre:'';
+                    $IdAbueloTG1 = ($abueloTG)?$abueloTG->id:null;
 
                     if($abueloTG->padre_id != null){
 
@@ -620,9 +709,11 @@
 
                         $kcbAbueloCG1 = ($abueloCG)?$abueloCG->kcb:'';
                         $nombreAbueloCG1 = ($abueloCG)?$abueloCG->nombre:'';
+                        $IdAbueloCG1 = ($abueloCG)?$abueloCG->id:null;
                     }else{
                         $kcbAbueloCG1 = '';
                         $nombreAbueloCG1 = '';
+                        $IdAbueloCG1 = null;
                     }
 
                     if($abueloTG->madre_id != null){
@@ -631,13 +722,16 @@
 
                         $kcbAbueloCG1M = ($abueloCGM)?$abueloCGM->kcb:'';
                         $nombreAbueloCG1M = ($abueloCGM)?$abueloCGM->nombre:'';
+                        $IdAbueloCG1M = ($abueloCGM)?$abueloCGM->id:null;
                     }else{
                         $kcbAbueloCG1M = '';
                         $nombreAbueloCG1M = '';
+                        $IdAbueloCG1M = null;
                     }
                 }else{
                     $kcbAbueloTG1 = '';
                     $nombreAbueloTG1 = '';
+                    $IdAbueloTG1 = null;
                 }
 
                 // hacemos para su mama de la abuela
@@ -647,6 +741,7 @@
 
                     $kcbAbuelaTG1 = ($abuelaTG)?$abuelaTG->kcb:'';
                     $nombreAbuelaTG1 = ($abuelaTG)?$abuelaTG->nombre:'';
+                    $IdAbuelaTG1 = ($abuelaTG)?$abuelaTG->id:null;
 
                     // aqui hay que hacer para la cuarte generracion tanto como padre y madres
                     if($abuelaTG->padre_id != null){
@@ -655,9 +750,11 @@
 
                         $kcbAbueloTG1M1 = ($abueloTGM1)?$abueloTGM1->kcb:'';
                         $nombreAbueloTG1M1 = ($abueloTGM1)?$abueloTGM1->nombre:'';
+                        $IdAbueloTG1M1 = ($abueloTGM1)?$abueloTGM1->id:null;
                     }else{
                         $kcbAbueloTG1M1 = '';
                         $nombreAbueloTG1M1 = '';
+                        $IdAbueloTG1M1 = null;
                     }
                     if($abuelaTG->madre_id != null){
 
@@ -665,22 +762,27 @@
 
                         $kcbAbuelaTG1M1 = ($abuelaTGM1)?$abuelaTGM1->kcb:'';
                         $nombreAbuelaTG1M1 = ($abuelaTGM1)?$abuelaTGM1->nombre:'';
+                        $IdAbuelaTG1M1 = ($abuelaTGM1)?$abuelaTGM1->id:null;
                     }else{
                         $kcbAbuelaTG1M1 = '';
                         $nombreAbuelaTG1M1 = '';
+                        $IdAbuelaTG1M1 = null;
                     }
                 }else{
                     $kcbAbuelaTG1 = '';
                     $nombreAbuelaTG1 = '';
+                    $IdAbuelaTG1 = null;
                 }
             }else{
                 $kcbAbuela = '';
                 $nombreAbuela = '';
+                $IdAbuela = null;
             }
 
         }else{
             $kcbPapa = '';
-            $nombrePapa = '';        
+            $nombrePapa = '';    
+            $IdPapa = null;
         }
         // definimos las variables de la madre
         $kcbAbueloM = '';
@@ -717,11 +819,29 @@
 
         $kcbabueloMSG222  = '' ;
         $nombreabueloMSG222  = '' ;
+
+        $IdTGPadreM = '';
+        $IdTGMadreM = '';
+        $IdCGPadreM1 = '';
+        $IdCGPadreM1 = '';
+        $IdCGPadreM2 = '';
+        $IdCGPadreM = '';
+        $IdCGMadreM = '';
+        $IdabueloMSG = '';
+        $IdabueloMSG2 = '';
+        $IdabueloMTG1 = '';
+        $IdabueloMTG1 = '';
+        $IdabueloMTG11 = '';
+        $IdabueloMSG22 = '';
+        $IdabueloMSG222 = '';
+
+
         if($ejemplarOrigen->madre_id != null){
             $mama = App\Ejemplar::find($ejemplarOrigen->madre_id);
 
             $kcbMama = ($mama != null)?$mama->kcb:'';
             $nombreMama = ($mama != null)?$mama->nombre:'';
+            $IdMama = ($mama != null)?$mama->id:null;
 
             if($mama->padre_id != null){
 
@@ -729,6 +849,7 @@
 
                 $kcbAbueloM     = ($abueloM)? $abueloM->kcb: '';
                 $nombreAbueloM  = ($abueloM)? $abueloM->nombre: '';
+                $IdAbueloM  = ($abueloM)? $abueloM->id: null;
 
                 if($abueloM->padre_id != null){
                     
@@ -736,6 +857,7 @@
 
                     $kcbTGPadreM = ($tGPadreM)?$tGPadreM->kcb:'';
                     $nombreTGPadreM = ($tGPadreM)?$tGPadreM->nombre:'';
+                    $IdTGPadreM = ($tGPadreM)?$tGPadreM->id:null;
 
                     if($tGPadreM->padre_id != null){
 
@@ -743,9 +865,11 @@
 
                         $kcbCGPadreM1 = ($CGPadreM1)?$CGPadreM1->kcb:'';
                         $nombreCGPadreM1 = ($CGPadreM1)?$CGPadreM1->nombre:'';
+                        $IdCGPadreM1 = ($CGPadreM1)?$CGPadreM1->id:null;
                     }else{
                         $kcbCGPadreM1 = '';
                         $nombreCGPadreM1 = '';
+                        $IdCGPadreM1 = null;
                     }
                     if($tGPadreM->madre_id != null){
 
@@ -753,14 +877,17 @@
 
                         $kcbCGPadreM2 = ($CGPadreM2)?$CGPadreM2->kcb:'';
                         $nombreCGPadreM2 = ($CGPadreM2)?$CGPadreM2->nombre:'';
+                        $IdCGPadreM2 = ($CGPadreM2)?$CGPadreM2->id:null;
                     }else{
                         $kcbCGPadreM2 = '';
                         $nombreCGPadreM2 = '';
+                        $IdCGPadreM2 = null;
                     }
 
                 }else{
                     $kcbTGPadreM = '';
                     $nombreTGPadreM = '';
+                    $IdTGPadreM = null;
                 }
 
                 if($abueloM->madre_id != null){
@@ -769,6 +896,7 @@
 
                     $kcbTGMadreM = ($tGMadreM)?$tGMadreM->kcb:'';
                     $nombreTGMadreM = ($tGMadreM)?$tGMadreM->nombre:'';
+                    $IdTGMadreM = ($tGMadreM)?$tGMadreM->id:null;
 
                     if($tGMadreM->padre_id != null){
 
@@ -776,11 +904,13 @@
 
                         $kcbCGPadreM = ($CGPadreM)? $CGPadreM->kcb:'';                   
                         $nombreCGPadreM = ($CGPadreM)? $CGPadreM->nombre:'';                   
+                        $IdCGPadreM = ($CGPadreM)? $CGPadreM->id:null;                   
 
                     }else{
 
                         $kcbCGPadreM = '';                   
-                        $nombreCGPadreM = '';                   
+                        $nombreCGPadreM = '';   
+                        $IdCGPadreM = null;                   
                     }
                     if($tGMadreM->madre_id != null){
 
@@ -788,19 +918,23 @@
 
                         $kcbCGMadreM = ($CGMadreM)? $CGMadreM->kcb:'';                   
                         $nombreCGMadreM = ($CGMadreM)? $CGMadreM->nombre:'';                   
+                        $IdCGMadreM = ($CGMadreM)? $CGMadreM->id:null;                   
                     }else{
                         $kcbCGMadreM = '';                   
                         $nombreCGPadreM = '';                   
+                        $IdCGMadreM = null;                   
                     }
                 }else{
                     $kcbTGMadreM = '';
                     $nombreTGMadreM = '';
+                    $IdTGMadreM = null;
                 }
 
             }else{
 
                 $kcbAbueloM     = '';
                 $nombreAbueloM  = '';
+                $IdAbueloM  = null;
             }
 
             if($mama->madre_id != null){
@@ -809,6 +943,7 @@
 
                 $kcbAbuelaM     = ($abuelaM)?$abuelaM->kcb:'';
                 $nombreAbuelaM  = ($abuelaM)?$abuelaM->nombre:'';
+                $IdAbuelaM  = ($abuelaM)?$abuelaM->id:null;
 
                 if($abuelaM->padre_id != null){
 
@@ -816,6 +951,7 @@
 
                     $kcbabueloMSG  = ($abueloSG)? $abueloSG->kcb:'' ;
                     $nombreabueloMSG  = ($abueloSG)? $abueloSG->nombre:'' ;
+                    $IdabueloMSG  = ($abueloSG)? $abueloSG->id:null ;
 
                     if($abueloSG->padre_id){
 
@@ -823,9 +959,11 @@
 
                         $kcbabueloMTG1  = ($abueloTG1)? $abueloTG1->kcb:'' ;
                         $nombreabueloMTG1  = ($abueloTG1)? $abueloTG1->nombre:'' ;
+                        $IdabueloMTG1  = ($abueloTG1)? $abueloTG1->id:null ;
                     }else{
                         $kcbabueloMTG1  = '' ;
                         $nombreabueloMTG1  = '' ;
+                        $IdabueloMTG1  = null ;
                     }
                     // la madre de la cuarta generacion
                     if($abueloSG->madre_id != null){
@@ -834,13 +972,16 @@
 
                         $kcbabueloMTG11  = ($abueloTG11)? $abueloTG11->kcb:'' ;
                         $nombreabueloMTG11  = ($abueloTG11)? $abueloTG11->nombre:'' ;
+                        $IdabueloMTG11  = ($abueloTG11)? $abueloTG11->id:null ;
                     }else{
                         $kcbabueloMTG11  = '' ;
                         $nombreabueloMTG11  = '' ;
+                        $IdabueloMTG11  = null ;
                     }
                 }else{
                     $kcbabueloMSG  = '' ;
                     $nombreabueloMSG  = '' ;
+                    $IdabueloMSG  = null ;
                 }
                 // de aqui comienza las madres de la abuela
                 if($abuelaM->madre_id != null){
@@ -849,6 +990,7 @@
 
                     $kcbabueloMSG2  = ($abueloSGM2)? $abueloSGM2->kcb:'' ;
                     $nombreabueloMSG2  = ($abueloSGM2)? $abueloSGM2->nombre:'' ;
+                    $IdabueloMSG2  = ($abueloSGM2)? $abueloSGM2->id:null ;
 
                     if($abueloSGM2->padre_id != null){
 
@@ -856,10 +998,12 @@
 
                         $kcbabueloMSG22  = ($abueloSGM22)? $abueloSGM22->kcb:'' ;
                         $nombreabueloMSG22  = ($abueloSGM22)? $abueloSGM22->nombre:'' ;
+                        $IdabueloMSG22  = ($abueloSGM22)? $abueloSGM22->id:null ;
                     }else{
 
                         $kcbabueloMSG22  = '' ;
                         $nombreabueloMSG22  = '' ;  
+                        $IdabueloMSG22  = null ;
                     }
                     if($abueloSGM2->madre_id != null){
 
@@ -867,22 +1011,27 @@
 
                         $kcbabueloMSG222  = ($abueloSGM222)? $abueloSGM222->kcb:'' ;
                         $nombreabueloMSG222  = ($abueloSGM222)? $abueloSGM222->nombre:'' ;
+                        $IdabueloMSG222  = ($abueloSGM222)? $abueloSGM222->id:null ;
                     }else{
                         $kcbabueloMSG222  = '' ;
                         $nombreabueloMSG222  = '' ;
+                        $IdabueloMSG222  = null ;
                     }
                 }else{
                     $kcbabueloMSG2  = '' ;
                     $nombreabueloMSG2  = '' ;
+                    $IdabueloMSG2  = null ;
                 }
             }else{
                 $kcbAbuelaM     = '';
                 $nombreAbuelaM  = '';
+                $IdAbuelaM  = null;
             }
 
         }else{
             $kcbMama = '';
             $nombreMama = '';
+            $IdMama = null;
         }
     @endphp
 
@@ -1417,113 +1566,253 @@
                     </div>
                 </div>
                 <br />
-            @endif
 
 
-            <div class="row">
-                <div class="col-md-6"><button type="button" class="btn btn-sm btn-success btn-block" onclick="guardar()">GUARDAR</button></div>
-                <div class="col-md-6"><button type="button" class="btn btn-sm btn-dark btn-block" onclick="volver()" >VOLVER</button></div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <br />
-                    <h2 class="text-center text-primary">GENEALOGIA</h2>
-                    {{-- <br /> --}}
-                    <table class="table table-bordered table-dark">
-                        <thead>
-                            <tr>
-                                <th class="text-primary">
-                                    <h4>PADRES</h4>
-                                </th>
-                                <th class="text-primary">
-                                    <h4>ABUELOS</h4>
-                                </th>
-                                <th class="text-primary">
-                                    <h4>TERCERA GENERACION</h4>
-                                </th>
-                                <th class="text-primary">
-                                    <h4>CUARTA GENERACION</h4>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td rowspan="8">
-                                    {{ $nombrePapa }}
-                                    <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre()">
-                                        PADRES
-                                    </span>
-                                </td>
-                                <td rowspan="4"> {{  $nombreAbuelo }} </td>
-                                <td rowspan="2">{{ $nombreTGPadre }} </td>
-                                <td>{{ $nombreCGPadre }}</td>
-                            </tr>
-                            <tr>
-                                <td>{{ $nombreCGMadre }}</td>
-                            </tr>
-                            <tr>
-                                <td rowspan="2"> {{ $nombreTGMadre }} </td>
-                                <td>{{ $nombreTGMadreP1 }} </td>
-                            </tr>
-                            <tr>
-                                <td>{{ $nombreTGMadreM2 }} </td>
-                            </tr>
-                            <tr>
-                                <td rowspan="4"> {{ $nombreAbuela }} </td>
-                                <td rowspan="2">{{ $nombreAbueloTG1 }}</td>
-                                <td>{{ $nombreAbueloCG1 }} </td>
-                            </tr>
-                            <tr>
-                                <td>{{ $nombreAbueloCG1M }}</td>
-                            </tr>
-                            <tr>
-                                <td rowspan="2"> {{ $nombreAbuelaTG1 }} </td>
-                                <td>{{ $nombreAbueloTG1M1 }} </td>
-                            </tr>
-                            <tr>
-                                <td>{{ $nombreAbuelaTG1M1 }} </td>
-                            </tr>
-                            <tr>
-                                <td rowspan="8">
-                                    {{ $nombreMama }}
-                                    <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2">
-                                        PADRES
-                                    </span>
-                                </td>
-                                <td rowspan="4">{{ $nombreAbueloM }} </td>
-                                <td rowspan="2">{{ $nombreTGPadreM }} </td>
-                                <td>{{ $nombreCGPadreM1 }} </td>
-                            </tr>
-                            <tr>
-                                <td>{{ $nombreCGPadreM2 }}</td>
-                            </tr>
-                            <tr>
-                                <td rowspan="2">{{ $nombreTGMadreM }}</td>
-                                <td>{{ $nombreCGPadreM }} </td>
-                            </tr>
-                            <tr>
-                                <td>{{ $nombreCGMadreM }}</td>
-                            </tr>
-                            <tr>
-                                <td rowspan="4">{{ $nombreAbuelaM }}</td>
-                                <td rowspan="2">{{ $nombreabueloMSG  }}</td>
-                                <td>{{ $nombreabueloMTG1  }}</td>
-                            </tr>
-                            <tr>
-                                <td>{{ $nombreabueloMTG11 }} </td>
-                            </tr>
-                            <tr>
-                                <td rowspan="2">{{ $nombreabueloMSG2 }} </td>
-                                <td>{{ $nombreabueloMSG22 }}</td>
-                            </tr>
-                            <tr>
-                                <td>{{ $nombreabueloMSG222 }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="row">
+                    <div class="col-md-6"><button type="button" class="btn btn-sm btn-success btn-block" onclick="guardar()">GUARDAR</button></div>
+                    <div class="col-md-6"><button type="button" class="btn btn-sm btn-dark btn-block" onclick="volver()" >VOLVER</button></div>
                 </div>
-            </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <br />
+                        <h2 class="text-center text-primary">GENEALOGIA</h2>
+                        {{-- <br /> --}}
+                        <table class="table table-bordered table-dark">
+                            <thead>
+                                <tr>
+                                    <th class="text-primary">
+                                        <h4>PADRES</h4>
+                                    </th>
+                                    <th class="text-primary">
+                                        <h4>ABUELOS</h4>
+                                    </th>
+                                    <th class="text-primary">
+                                        <h4>TERCERA GENERACION</h4>
+                                    </th>
+                                    <th class="text-primary">
+                                        <h4>CUARTA GENERACION</h4>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td rowspan="8">
+                                        {{ $nombrePapa }}
+                                        <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ addslashes($nombreAbuelo) }}','{{ $IdAbuelo }}','{{ addslashes($nombreAbuela) }}','{{ $IdAbuela }}','{{ $edicion_raza_id }}')">
+                                            PADRESp1
+                                        </span>
+                                    </td>
+                                    <td rowspan="4">
+                                        {{  $nombreAbuelo }}
+                                        <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ addslashes($nombreTGPadre) }}','{{ $IdTGPadre }}','{{ addslashes($nombreTGMadre) }}','{{ $IdTGMadre }}','{{ $edicion_raza_id }}')">
+                                            PADRESa1
+                                        </span>
+                                    </td>
+                                    <td rowspan="2">
+                                        {{ $nombreTGPadre }}
+                                        <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ addslashes($nombreCGPadre) }}','{{ $IdCGPadre }}','{{ addslashes($nombreCGMadre) }}','{{ $IdCGMadre }}','{{ $edicion_raza_id }}')">
+                                            PADRESt1
+                                        </span>
+                                    </td>
+                                    <td>
+                                        {{ $nombreCGPadre }}
+                                        {{-- <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
+                                            PADRES
+                                        </span> --}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        {{ $nombreCGMadre }}
+                                        {{-- <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
+                                            PADRES
+                                        </span> --}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2">
+                                        {{ $nombreTGMadre }}
+                                        <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ addslashes($nombreTGMadreP1) }}','{{ $IdTGMadreP1 }}','{{ addslashes($nombreTGMadreM2) }}','{{ $IdTGMadreM2 }}','{{ $edicion_raza_id }}')">
+                                            PADRESt2
+                                        </span>
+                                    </td>
+                                    <td>
+                                        {{ $nombreTGMadreP1 }}
+                                        {{-- <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
+                                            PADRES
+                                        </span> --}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        {{ $nombreTGMadreM2 }}
+                                        {{-- <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
+                                            PADRES
+                                        </span> --}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="4">
+                                        {{ $nombreAbuela }}
+                                        <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ addslashes($nombreAbueloTG1) }}','{{ $IdAbueloTG1 }}','{{ addslashes($nombreAbuelaTG1) }}','{{  $IdAbuelaTG1  }}','{{ $edicion_raza_id }}')">
+                                            PADRESa2
+                                        </span>
+                                    </td>
+                                    <td rowspan="2">
+                                        {{ $nombreAbueloTG1 }}
+                                        <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ addslashes($nombreAbueloCG1) }}','{{ $IdAbueloCG1 }}','{{ addslashes($nombreAbueloCG1M) }}','{{  $IdAbueloCG1M  }}','{{ $edicion_raza_id }}')">
+                                            PADRESt3
+                                        </span>
+                                    </td>
+                                    <td>
+                                        {{ $nombreAbueloCG1 }}
+                                        {{-- <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
+                                            PADRES
+                                        </span> --}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        {{ $nombreAbueloCG1M }}
+                                        {{-- <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
+                                            PADRES
+                                        </span> --}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2">
+                                        {{ $nombreAbuelaTG1 }}
+                                        <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ addslashes($nombreAbueloTG1M1) }}','{{ $IdAbueloTG1M1 }}','{{ addslashes($nombreAbuelaTG1M1) }}','{{  $IdAbuelaTG1M1  }}','{{ $edicion_raza_id }}')">
+                                            PADRESt4
+                                        </span>
+                                    </td>
+                                    <td>
+                                        {{ $nombreAbueloTG1M1 }}
+                                        {{-- <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
+                                            PADRES
+                                        </span> --}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        {{ $nombreAbuelaTG1M1 }}
+                                        {{-- <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
+                                            PADRES
+                                        </span> --}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="8">
+                                        {{ $nombreMama }}
+                                        <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ addslashes($nombreAbueloM) }}','{{ $IdAbueloM }}','{{ addslashes($nombreAbuelaM) }}','{{  $IdAbuelaM  }}','{{ $edicion_raza_id }}')">
+                                            PADRESp2
+                                        </span>
+                                    </td>
+                                    <td rowspan="4">
+                                        {{ $nombreAbueloM }}
+                                        <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ addslashes($nombreTGPadreM) }}','{{ $IdTGPadreM }}','{{ addslashes($nombreTGMadreM) }}','{{  $IdTGMadreM  }}','{{ $edicion_raza_id }}')">
+                                            PADRESa3
+                                        </span>
+                                    </td>
+                                    <td rowspan="2">
+                                        {{ $nombreTGPadreM }}
+                                        <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ addslashes($nombreCGPadreM1) }}','{{ $IdCGPadreM1 }}','{{ addslashes($nombreCGPadreM2) }}','{{  $IdCGPadreM2  }}','{{ $edicion_raza_id }}')">
+                                            PADRESt5
+                                        </span>
+                                    </td>
+                                    <td>
+                                        {{ $nombreCGPadreM1 }}
+                                        {{-- <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
+                                            PADRES
+                                        </span> --}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        {{ $nombreCGPadreM2 }}
+                                        {{-- <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
+                                            PADRES
+                                        </span> --}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2">
+                                        {{ $nombreTGMadreM }}
+                                        <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ addslashes($nombreCGPadreM) }}','{{ $IdCGPadreM }}','{{ addslashes($nombreCGMadreM) }}','{{  $IdCGMadreM  }}','{{ $edicion_raza_id }}')">
+                                            PADRESt6
+                                        </span>
+                                    </td>
+                                    <td>
+                                        {{ $nombreCGPadreM }}
+                                        {{-- <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
+                                            PADRES
+                                        </span> --}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        {{ $nombreCGMadreM }}
+                                        {{-- <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
+                                            PADRES
+                                        </span> --}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="4">
+                                        {{ $nombreAbuelaM }}
+                                        <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ addslashes($nombreabueloMSG) }}','{{ $IdabueloMSG }}','{{ addslashes($nombreabueloMSG2) }}','{{  $IdabueloMSG2  }}','{{ $edicion_raza_id }}')">
+                                            PADRESa4
+                                        </span>
+                                    </td>
+                                    <td rowspan="2">
+                                        {{ $nombreabueloMSG  }}
+                                        <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ addslashes($nombreabueloMTG1) }}','{{ $IdabueloMTG1 }}','{{ addslashes($nombreabueloMTG11) }}','{{  $IdabueloMTG11  }}','{{ $edicion_raza_id }}')">
+                                            PADRESt7
+                                        </span>
+                                    </td>
+                                    <td>
+                                        {{ $nombreabueloMTG1  }}
+                                        {{-- <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
+                                            PADRES
+                                        </span> --}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        {{ $nombreabueloMTG11 }}
+                                        {{-- <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
+                                            PADRES
+                                        </span> --}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2">
+                                        {{ $nombreabueloMSG2 }}
+                                        <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ addslashes($nombreabueloMSG22) }}','{{ $IdabueloMSG22 }}','{{ addslashes($nombreabueloMSG222) }}','{{  $IdabueloMSG222  }}','{{ $edicion_raza_id }}')">
+                                            PADRESt8
+                                        </span>
+                                    </td>
+                                    <td>
+                                        {{ $nombreabueloMSG22 }}
+                                        {{-- <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
+                                            PADRES
+                                        </span> --}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        {{ $nombreabueloMSG222 }}
+                                        {{-- <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
+                                            PADRES
+                                        </span> --}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            @endif
         </form>
     </div>
 </div>
@@ -2118,9 +2407,67 @@
     });
 
     // edicion de padres de ejemplares
-    function edicionPadre(){
-        // alert("hola");
+    function edicionPadre(nom_papa, padre_id, nom_mama, madre_id, raza_id){
+        // let haber = "Id Padre => "+padre_id+" nombre => "+nom_papa+"Id Madre => "+madre_id+" nombre =>"+nom_mama;
+        // alert(haber);
+        let botonPadre,botonMadre;
+        let Macho = "Macho";
+        let Hembra = "Hembra";
+
+        if(nom_papa != null && padre_id != null){
+            botonPadre = "<button type='button' onclick='edicionAjaxBuscaEjemplar("+'"Macho"'+")' class='btn btn-block btn-primary'>"+nom_papa+"</button>";
+            $("#edicion_padre_id").val(padre_id);
+            $("#edicion_raza_id").val(raza_id);
+        }else{
+            botonPadre = "<button type='button' onclick='edicionAjaxBuscaEjemplar("+'"Macho"'+")' class='btn btn-block btn-primary'>PADRE</button>";
+        }
+        if(nom_mama != null && madre_id != null){
+            botonMadre = "<button type='button' onclick='edicionAjaxBuscaEjemplar("+'"Hembra"'+")' class='btn btn-block btn-info'>"+nom_mama+"</button>";
+            $("#edicion_madre_id").val(madre_id);
+        }else{
+            botonMadre = "<button type='button' onclick='edicionAjaxBuscaEjemplar("+'"Hembra"'+")' class='btn btn-block btn-info'>PADRE</button>";
+        }
+
+
+        $('#bloque-edita-padre').html(botonPadre);
+        $('#bloque-edita-madre').html(botonMadre);
+
         $('#modal-edicion-de-padres').modal('show');
+    }
+
+    $("#edita-busqueda-kcb, #edita-busqueda-nombre").on("change paste keyup", function() {
+
+        let kcb = $("#edita-busqueda-kcb").val();
+        let nombre = $("#edita-busqueda-nombre").val();
+        let sexo = $("#edita-sexo-modal").val();
+        let raza = $("#edita-raza-modal").val();
+
+        $.ajax({
+            url: "{{ url('Ejemplar/ajaxBuscaEjemplar') }}",
+            data: {
+                kcb: kcb, 
+                nombre: nombre,
+                sexo: sexo,
+                raza: raza
+            },
+            type: 'POST',
+            success: function(data) {
+                $("#EdicionajaxEjemplar").html(data);
+            }
+        });
+
+    });
+
+    function edicionAjaxBuscaEjemplar(sexo){
+        // alert(sexo);
+        $('#modal-edicion-de-padres').modal('hide');
+        $("#edita-sexo-modal").val(sexo);
+
+        $('#edita-modal-padres').modal('show');
+    }
+
+    function guardarEjemplarEditado(){
+        $("#edita-formulario-padres").submit();
     }
 </script>
 @endsection
