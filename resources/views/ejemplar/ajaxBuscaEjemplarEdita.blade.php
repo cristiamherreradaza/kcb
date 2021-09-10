@@ -32,12 +32,12 @@
     function selecciona(id, kcb, nombre_completo, sexo)
     {
         if(sexo == 'Macho'){
-            var boton = '<button type="button" class="btn btn-sm btn-primary btn-block" onclick="edicionAjaxBuscaEjemplar('+"'Macho'"+')">'+'KCB: '+kcb+' NOMBRE: '+nombre_completo+'</button>';
+            var boton = '<button type="button" id="btn-padre" class="btn btn-sm btn-primary btn-block" onclick="edicionAjaxBuscaEjemplar('+"'Macho'"+')">'+'KCB: '+kcb+' NOMBRE: '+nombre_completo+'</button>';
             $("#bloque-edita-padre").html(boton);
             $("#edita-modal-padres").modal('hide');
             $("#edicion_padre_id").val(id);
         }else{
-            var boton = '<button type="button" class="btn btn-sm btn-info btn-block" onclick="edicionAjaxBuscaEjemplar('+"'Hembra'"+')">'+'KCB: '+kcb+' NOMBRE: '+nombre_completo+'</button>';
+            var boton = '<button type="button" id="btn-madre" class="btn btn-sm btn-info btn-block" onclick="edicionAjaxBuscaEjemplar('+"'Hembra'"+')">'+'KCB: '+kcb+' NOMBRE: '+nombre_completo+'</button>';
             $("#bloque-edita-madre").html(boton);
             $("#edita-modal-padres").modal('hide');
             $("#edicion_madre_id").val(id);

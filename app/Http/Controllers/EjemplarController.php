@@ -42,11 +42,6 @@ class EjemplarController extends Controller
         // dd($request->all());
         $queryEjemplares = Ejemplar::query();
 
-        if($request->filled('raza')){
-            $raza = $request->input('raza');
-            $queryEjemplares->where('raza_id', 'like', "%$raza%");
-        }
-
         if($request->input('sexo') != "todos"){
             $queryEjemplares->where('sexo', $request->input('sexo'));
             $camada = false;
@@ -68,11 +63,36 @@ class EjemplarController extends Controller
 
         $ejemplares = $queryEjemplares->get();
 
-        if($request->filled('raza')){
-            return view('ejemplar.ajaxBuscaEjemplarEdita')->with(compact('ejemplares'));
-        }else{
-            return view('ejemplar.ajaxBuscaEjemplar')->with(compact('ejemplares', 'camada'));
+        
+        return view('ejemplar.ajaxBuscaEjemplar')->with(compact('ejemplares', 'camada'));
+    }
+
+
+    public function ajaxBuscaEjemplarEdita(Request $request)
+    {
+        // dd($request->all());
+        $queryEjemplares = Ejemplar::query();
+
+        $raza = $request->input('raza');
+        $queryEjemplares->where('raza_id', '=', "$raza");
+
+        $queryEjemplares->where('sexo', $request->input('sexo'));
+
+        if($request->filled('kcb')){
+            $kcb = $request->input('kcb');
+            $queryEjemplares->where('kcb', 'like', "%$kcb%");
         }
+
+        if($request->filled('nombre')){
+            $nombre = $request->input('nombre');
+            $queryEjemplares->where('nombre', 'like', "%$nombre%");
+        }
+
+        $queryEjemplares->limit(8);
+
+        $ejemplares = $queryEjemplares->get();
+
+        return view('ejemplar.ajaxBuscaEjemplarEdita')->with(compact('ejemplares'));
     }
 
     public function listado(Request $request)
@@ -479,12 +499,24 @@ class EjemplarController extends Controller
 
     public function guardaEjemplarEdita(Request $request){
 
+        // dd($request->all());
+
+        $idEjemplarEditar = $request->input('edicion_ejemplar_id_editar');
+
         $idEjemplar = $request->input("edicion_ejemplar_id");
         
-        $ejemplar = Ejemplar::find($idEjemplar); 
+        $ejemplar = Ejemplar::find($idEjemplarEditar); 
 
-        $ejemplar->madre_id = $request->input("edicion_madre_id");
-        $ejemplar->padre_id = $request->input("edicion_padre_id");
+        if($request->input("edicion_madre_id")){
+            $ejemplar->madre_id = $request->input("edicion_madre_id");
+        }else{
+            $ejemplar->madre_id = null;
+        }
+        if($request->input("edicion_padre_id")){
+            $ejemplar->padre_id = $request->input("edicion_padre_id");
+        }else{
+            $ejemplar->padre_id = null;
+        }
 
         $ejemplar->save();
 
