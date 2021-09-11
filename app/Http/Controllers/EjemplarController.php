@@ -18,6 +18,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 class EjemplarController extends Controller
 {
     public function formulario(Request $request, $id)
@@ -521,5 +524,26 @@ class EjemplarController extends Controller
         $ejemplar->save();
 
         return redirect("Ejemplar/formulario/$idEjemplar");
+    }
+
+    public function generaExcelPedigree(Request $request, $ejemplarId)
+    {
+        // dd($ejemplarId);
+        $ejemplar = Ejemplar::find($ejemplarId);
+        // generacion del excel
+        $fileName = 'pedigree.xlsx';
+        // return Excel::download(new CertificadoExport($carrera_persona_id), 'certificado.xlsx');
+        $spreadsheet = new Spreadsheet();
+        // activamos la hoja en la que trabajaremos
+        $sheet = $spreadsheet->getActiveSheet();
+        // asignamos el primer valor a la celda C3
+        $sheet->setCellValue('C3', "$ejemplar->nombre_completo");
+
+        // exportamos el excel
+        $writer = new Xlsx($spreadsheet);
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="'. urlencode($fileName).'"');
+        $writer->save('php://output');
+
     }
 }

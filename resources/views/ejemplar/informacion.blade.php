@@ -204,6 +204,16 @@
             <!--end::Item-->
         </div>
         <!--begin::Items-->
+
+        <br />
+        {{-- inicio de lo botones de impresion --}}
+        <div class="row">
+            <div class="col-md-6">
+                <a href="{{ url('Ejemplar/generaExcelPedigree') }}/{{ $ejemplar->id }}" class="btn btn-sm btn-success btn-block">GENERAR EXCEL PEEDEGRE</a></div>
+            <div class="col-md-6"><button type="button" class="btn btn-sm btn-dark btn-block">VOLVER</button></div>
+        </div>
+        {{-- fin inicio de lo botones de impresion --}}        
+
     </div>
 </div>
 
