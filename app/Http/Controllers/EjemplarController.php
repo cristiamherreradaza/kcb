@@ -546,4 +546,24 @@ class EjemplarController extends Controller
         $writer->save('php://output');
 
     }
+
+    public function ajaxGuardaEjemplar(Request $request){
+        
+        $ejemplar = new Ejemplar();
+        
+        $ejemplar->user_id              = Auth::user()->id;
+        $ejemplar->nombre_completo      = $request->input('edita_nuevo_nombre');
+        $ejemplar->raza_id              = $request->input('edita_nuevo_raza');       
+        $ejemplar->sexo                 = $request->input('edita_nuevo_sexo');
+        $ejemplar->codigo_nacionalizado = $request->input('edita_nuevo_codigo');
+        $ejemplar->color                = $request->input('edita_nuevo_color');
+        $ejemplar->senas                = $request->input('edita_nuevo_senas');
+        $ejemplar->origen               = $request->input('edita_nuevo_origen');
+        $ejemplar->lugar_extranjero     = $request->input('edita_nuevo_lugar');
+        $ejemplar->fecha_nacimiento     = $request->input('edita_nuevo_fecha_nacimiento');
+        $ejemplar->titulos_extranjeros  = $request->input('edita_nuevo_titulos');
+
+        $ejemplar->extranjero           = "si";
+        
+    }
 }

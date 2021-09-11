@@ -44,7 +44,7 @@ class CreateEjemplaresTable extends Migration
 
             $table->string('kcb', 150)->nullable();
             $table->string('codigo_nacionalizado', 150)->nullable();
-            $table->string('extranjero')->nullable();
+            $table->string('extranjero',5)->nullable();
             $table->string('num_tatuaje', 150)->nullable();
             $table->string('chip', 150)->nullable();
             $table->date('fecha_nacimiento')->nullable();
@@ -61,6 +61,7 @@ class CreateEjemplaresTable extends Migration
             $table->string('propietario_extranjero', 300)->nullable();
             $table->string('afijo_extranjero', 200)->nullable();
             $table->string('lugar_extranjero', 200)->nullable();
+            $table->string('titulos_extranjeros', 200)->nullable();
             $table->string('consanguinidad', 50)->nullable();
             $table->string('hermano', 255)->nullable();
             $table->string('departamento', 50)->nullable();
