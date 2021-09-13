@@ -196,8 +196,8 @@ class MigracionController extends Controller
     public function mascotas()
     {
         $mascotas = DB::table('amascotas')
-                            // ->orderBy('id', 'desc')
-                            // ->limit(50)
+                            ->orderBy('id', 'desc')
+                            ->limit(2000)
                             ->get();
         // dd($razasAnterior);
 
@@ -534,8 +534,8 @@ class MigracionController extends Controller
     // MIGRACION DE PADRES MADRES
     public function padres_madres(){
         $mascotas = DB::table('amascotas')
-                            // ->orderBy('id', 'desc')
-                            // ->limit(4000)
+                            ->orderBy('id', 'desc')
+                            ->limit(2000)
                             ->get();
         // $mascotas = DB::table('amascotas')->where('id',42218)->first();
         // dd($mascotas);
