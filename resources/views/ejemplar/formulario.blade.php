@@ -25,6 +25,7 @@
                 <form action="" method="POST" id="edita-formulario-nuevo-ejemplar">
                     @csrf
                     <div class="row">
+                        <input type="text" id="edita_ejemplar_id" name="edita_ejemplar_id">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="kcb">Nombre Completo del ejemplar </label>
@@ -41,7 +42,7 @@
                                 </label>
                                 <span class="text-danger">*</span></label>
                                 {{-- <input type="hidden" name="sexo-modal" id="sexo-modal" value="macho"> --}}
-                                <select name="edita_nuevo_raza" id="edita_nuevo_raza" class="form-control" disabled>
+                                <select name="edita_nuevo_raza" id="edita_nuevo_raza" class="form-control" >
                                     <option value="{{ $ejemplar->raza->id }}">{{ $ejemplar->raza->nombre }}</option>
                                 </select>
                                 {{-- <input type="text" disabled class="form-control" id="edita_nuevo_raza" name="edita_nuevo_raza" autocomplete="off" value="{{ $ejemplar->raza->nombre }}"/> --}}
@@ -52,7 +53,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Sexo</label>
-                                <select class="form-control" disabled name="edita_nuevo_sexo" id="edita_nuevo_sexo" name="edita_nuevo_sexo">
+                                <select class="form-control" id="edita_nuevo_sexo" name="edita_nuevo_sexo">
                                     <option value="Macho">Macho</option>
                                     <option value="Hembra">Hembra</option>
                                 </select>
@@ -137,10 +138,18 @@
                             <div class="form-group">
                                 <label for="kcb">Seleccione el Padre del Ejemplar
                                 </label>
-                                <input type="hidden" id="edicion_ejemplar_id" name="edicion_ejemplar_id" value="{{ $ejemplar->id }}">
-                                <input type="hidden" id="edicion_raza_id" name="edicion_raza_id">
-                                <input type="hidden" id="edicion_padre_id" name="edicion_padre_id">
-                                <input type="hidden" id="edicion_ejemplar_id_editar" name="edicion_ejemplar_id_editar">
+                                <br>
+                                id ejempalr:
+                                <input type="text" id="edicion_ejemplar_id" name="edicion_ejemplar_id" value="{{ $ejemplar->id }}">
+                                <br>
+                                id raza
+                                <input type="text" id="edicion_raza_id" name="edicion_raza_id">
+                                <br>
+                                id padre
+                                <input type="text" id="edicion_padre_id" name="edicion_padre_id">
+                                <br>
+                                id ejemplar a editar
+                                <input type="text" id="edicion_ejemplar_id_editar" name="edicion_ejemplar_id_editar">
                                 <div id="bloque-edita-padre">
                                     {{-- <button type='button' id='btn-padre' onclick='edicionAjaxBuscaEjemplar("Macho")' class='btn btn-block btn-primary'>PADRE</button> --}}
                                 </div>
@@ -157,7 +166,7 @@
                             <div class="form-group">
                                 <label for="kcb">Seleccione el Madre del Ejemplar
                                 </label>
-                                <input type="hidden" id="edicion_madre_id" name="edicion_madre_id">
+                                <input type="text" id="edicion_madre_id" name="edicion_madre_id">
                                 <div id="bloque-edita-madre">
                                     {{-- <button type='button' id='btn-madre' onclick='edicionAjaxBuscaEjemplar("Hembra")' class='btn btn-block btn-info'>MADRE</button> --}}
                                 </div>
@@ -684,6 +693,9 @@
         $nombreAbuelaTG1M1 = '';
 
         $IdPapa = '';
+        $IdAbuelo = '';
+        $IdAbueloM = '';
+        $IdAbuelaM = '';
         $IdTGPadre = '';
         $IdTGMadre = '';
         $IdCGPadre = '';
@@ -945,6 +957,7 @@
         $kcbabueloMSG222  = '' ;
         $nombreabueloMSG222  = '' ;
 
+        $IdAbuela = '';
         $IdTGPadreM = '';
         $IdTGMadreM = '';
         $IdCGPadreM1 = '';
@@ -2609,6 +2622,9 @@
     function registro_nuevo_ejemplar(sexo){
         // alert(sexo);
         $("#edita_nuevo_sexo option[value="+ sexo +"]").attr("selected",true);
+        let ejemplar_editar = $("#edicion_ejemplar_id_editar").val();
+        $("#edita_ejemplar_id").val(ejemplar_editar);
+        // alert(ejemplar_editar);
         // if(sexo == "Macho"){
 
         // }else{
@@ -2619,10 +2635,10 @@
     }
 
     function guardaEjemplar(){
-        // alert("funcion en proceso");
+        // alert($("#edita_nuevo_sexo").val());
 
         if($("#edita-formulario-nuevo-ejemplar")[0].checkValidity()){
-            // alert('bien');
+            let sexo = $("#edita_nuevo_sexo").val();
 
             $("#modal-registro-nuevo-ejemplar").modal('hide');
             Swal.fire("Excelente!", "Titulo Guardado!", "success");
@@ -2632,13 +2648,19 @@
 				data: datosFormularioNuevoEjemplar,
 				type: 'POST',
 				success: function(data) {
-					$('#').html(data);
+                    if(sexo == "Macho"){
+                        $('#bloque-edita-padre').html(data);
+                    }else{
+                        $('#bloque-edita-madre').html(data);
+                    }
+                    $("#modal-registro-nuevo-ejemplar").modal("hide");
+                    $("#modal-edicion-de-padres").modal("show");
 				}
 			});
         }else{
             $("#edita-formulario-nuevo-ejemplar")[0].reportValidity();
         }
-        // $("#modal-registro-nuevo-ejemplar").modal("hide");
+        $("#modal-registro-nuevo-ejemplar").modal("hide");
     }
 </script>
 @endsection

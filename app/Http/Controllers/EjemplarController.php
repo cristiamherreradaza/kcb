@@ -549,10 +549,12 @@ class EjemplarController extends Controller
 
     public function ajaxGuardaEjemplar(Request $request){
         
+        // dd($request->all());
+
         $ejemplar = new Ejemplar();
         
         $ejemplar->user_id              = Auth::user()->id;
-        $ejemplar->nombre_completo      = $request->input('edita_nuevo_nombre');
+        $ejemplar->nombre               = $request->input('edita_nuevo_nombre');
         $ejemplar->raza_id              = $request->input('edita_nuevo_raza');       
         $ejemplar->sexo                 = $request->input('edita_nuevo_sexo');
         $ejemplar->codigo_nacionalizado = $request->input('edita_nuevo_codigo');
@@ -562,8 +564,18 @@ class EjemplarController extends Controller
         $ejemplar->lugar_extranjero     = $request->input('edita_nuevo_lugar');
         $ejemplar->fecha_nacimiento     = $request->input('edita_nuevo_fecha_nacimiento');
         $ejemplar->titulos_extranjeros  = $request->input('edita_nuevo_titulos');
-
         $ejemplar->extranjero           = "si";
-        
+
+        $ejemplar->save();
+
+        // $ejemplarEditar = Ejemplar::find($request->input('edita_ejemplar_id'));
+
+        // if($request->input('edita_nuevo_sexo') == "Macho"){
+        //     $ejemplarEditar->padre_id = $ejemplar->id;
+        // }else{
+        //     $ejemplarEditar->madre_id = $ejemplar->id;
+        // }
+
+        return view('ejemplar.ajaxGuardaEjemplar')->with(compact('ejemplar'));
     }
 }
