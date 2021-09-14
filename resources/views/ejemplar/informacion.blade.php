@@ -217,6 +217,122 @@
     </div>
 </div>
 
+<div class="card card-custom gutter-b">
+    <div class="card-header flex-wrap py-3">
+        <div class="card-title">
+            <h3 class="card-label">
+                TRAMSFERENCIAS
+            </h3>
+            <br>
+        </div>
+        <div class="card-toolbar">
+        </div>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <tr>
+                <th>
+                    FECHA
+                </th>
+                <th>
+                    PROPIETARIO
+                </th>
+            </tr>
+            @forelse ( $transferencia as $t)
+                <tr>
+                    <td>{{ $t->fecha_transferencia }}</td>
+                    <td>{{ $t->propietario->name }}</td>
+                </tr>
+            @empty
+                <h5 class="text-danger">
+                    No tiene Tramsferencias
+                </h5>
+            @endforelse
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card card-custom gutter-b">
+            <div class="card-header flex-wrap py-3">
+                <div class="card-title">
+                    <h3 class="card-label">
+                        CAMADAS DEL PADRE
+                    </h3>
+                    <br>
+                </div>
+                <div class="card-toolbar">
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <tr>
+                        <th>
+                            FECHA
+                        </th>
+                        <th>
+                            REPRODUCTOR
+                        </th>
+                        <th>
+                            # CACHORROS
+                        </th>
+                    </tr>
+                    @forelse ( $transferencia as $t)
+                        <tr>
+                            <td>{{ $t->fecha_transferencia }}</td>
+                            <td>{{ $t->propietario->name }}</td>
+                        </tr>
+                    @empty
+                        <h5 class="text-danger">
+                            No tiene Camadas
+                        </h5>
+                    @endforelse
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card card-custom gutter-b">
+            <div class="card-header flex-wrap py-3">
+                <div class="card-title">
+                    <h3 class="card-label">
+                        CAMADAS DE LA MADRE
+                    </h3>
+                    <br>
+                </div>
+                <div class="card-toolbar">
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <tr>
+                        <th>
+                            FECHA
+                        </th>
+                        <th>
+                            REPRODUCTOR
+                        </th>
+                        <th>
+                            # CACHORROS
+                        </th>
+                    </tr>
+                    @forelse ( $transferencia as $t)
+                        <tr>
+                            <td>{{ $t->fecha_transferencia }}</td>
+                            <td>{{ $t->propietario->name }}</td>
+                        </tr>
+                    @empty
+                        <h5 class="text-danger">
+                            No tiene Camadas
+                        </h5>
+                    @endforelse
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div class="card card-custom gutter-b">
     <div class="card-header flex-wrap py-3">

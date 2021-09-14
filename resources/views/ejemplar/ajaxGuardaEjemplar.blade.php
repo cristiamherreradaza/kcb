@@ -5,10 +5,10 @@
 @endif
 
 <script type="text/javascript">
-        if('{{ $ejemplar->sexo }}' == "Macho"){
-            $("#edicion_padre_id").val({{ $ejemplar->id }});
-        }else{
-            $("#edicion_madre_id").val({{ $ejemplar->id }});
-        }
-        // $("#edicion_ejemplar_id_editar").val({{ $ejemplar->id }});
+    if('{{ $ejemplar->sexo }}' == "Macho"){
+        $("#edicion_padre_id").val({{ $ejemplar->id }});
+    }else{
+        $("#edicion_madre_id").val({{ $ejemplar->id }});
+    }
+    // $("#edicion_ejemplar_id_editar").val({{ $ejemplar->id }});
 </script>

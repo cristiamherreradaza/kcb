@@ -363,7 +363,15 @@ class EjemplarController extends Controller
         // dd($id);
         $ejemplar = Ejemplar::find($ejemplarId);
         // dd($ejemplar);
-        return view('ejemplar.informacion')->with(compact('ejemplar'));
+
+        $transferencia = TRansferencia::where('ejemplar_id',$ejemplarId)
+                                        -> get();
+
+        // $camadasPadre = Ejemplar::where('padre_id',$ejemplar->padre_id)
+        //                             ->count();
+
+        // dd($camadasPadre);
+        return view('ejemplar.informacion')->with(compact('ejemplar','transferencia'));
     }
 
     public static function consultaPadres($ejemplarId)
