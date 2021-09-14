@@ -278,10 +278,16 @@
                             # CACHORROS
                         </th>
                     </tr>
-                    @forelse ( $transferencia as $t)
+                    @forelse ( $camadasPadre as $cp)
                         <tr>
-                            <td>{{ $t->fecha_transferencia }}</td>
-                            <td>{{ $t->propietario->name }}</td>
+                            <td>{{ $cp->fecha_nacimiento }}</td>
+                            <td>
+                                @php
+                                    $madre = App\Ejemplar::find($cp->madre_id);
+                                    echo $madre->nombre_completo;
+                                @endphp
+                            </td>
+                            <td>{{ $cp->num_cachorros }}</td>
                         </tr>
                     @empty
                         <h5 class="text-danger">
@@ -317,10 +323,16 @@
                             # CACHORROS
                         </th>
                     </tr>
-                    @forelse ( $transferencia as $t)
+                    @forelse ( $camadasMadre as $cm)
                         <tr>
-                            <td>{{ $t->fecha_transferencia }}</td>
-                            <td>{{ $t->propietario->name }}</td>
+                            <td>{{ $cm->fecha_nacimiento }}</td>
+                            <td>
+                                @php
+                                    $padre = App\Ejemplar::find($cm->padre_id);
+                                    echo $padre->nombre_completo;
+                                @endphp
+                            </td>
+                            <td>{{ $cm->num_cachorros }}</td>
                         </tr>
                     @empty
                         <h5 class="text-danger">

@@ -211,7 +211,7 @@ class MigracionController extends Controller
             $ejemplar->codigo_anterior  = $mascota->id;
             $ejemplar->num_tatuaje      = $mascota->num_tatuaje;
 
-            if($mascota->fecha_nacimiento = '0000-00-00'){
+            if($mascota->fecha_nacimiento == '0000-00-00'){
                 $fecha_nac = null;
             }else{
                 $fecha_nac = $mascota->fecha_nacimiento;
@@ -701,5 +701,28 @@ class MigracionController extends Controller
         }
 
         echo "<h1 class='text-success'>SUCCESSFUL</h1>";
+    }
+
+    public function corregirFechaEjemplares(){
+        $mascotas = DB::table('amascotas')
+                        ->orderBy('id', 'desc')
+                        ->get();
+
+        foreach ($mascotas as $m) {
+            echo "Id =-> ".$m->id." Nombre => ".$m->nombre_completo."<br>";
+            $ejemplar = Ejemplar::where('codigo_anterior',$m->id)->first();
+            
+            if($ejemplar){
+                if($m->fecha_nacimiento == '0000-00-00'){
+                    $ejemplar->fecha_nacimiento = null;
+                }else{
+                    $ejemplar->fecha_nacimiento = $m->fecha_nacimiento;
+                }
+    
+                $ejemplar->save();
+            }
+        }
+        echo "<h1 class='text-success'>SUCCESSFUL</h1>";
+        
     }
 }

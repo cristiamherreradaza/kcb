@@ -193,3 +193,6 @@ Route::get('Migracion/tramsferencia', 'MigracionController@tramsferencia');
 
 /* Migracion de MASCOTAS TITULOS */
 Route::get('Migracion/mascotas_titulos', 'MigracionController@mascotas_titulos');
+
+// corriccion de fecha de ejemplares 
+ Route::get('Migracion/corregirFechaEjemplares', 'MigracionController@corregirFechaEjemplares');
