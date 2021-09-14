@@ -130,7 +130,7 @@
                 <div class="row">
                     <div class="col-md-3">
                         <h6><span class="text-primary">HERMANOS: </span>
-                            {{ $ejemplar->hermanos }}
+                            {{ $ejemplar->hermano }}
                         </h6>
                     </div>
                 </div>

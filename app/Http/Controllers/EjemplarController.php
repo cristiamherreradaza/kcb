@@ -561,8 +561,583 @@ class EjemplarController extends Controller
         // activamos la hoja en la que trabajaremos
         $sheet = $spreadsheet->getActiveSheet();
         // asignamos el primer valor a la celda C3
-        $sheet->setCellValue('C3', "$ejemplar->nombre_completo");
 
+        // *************   cabecera *****************
+        $sheet->setCellValue('C3', "$ejemplar->nombre_completo");
+        $sheet->setCellValue('L3', $ejemplar->criadero->nombre." FCI: ".$ejemplar->criadero->registro_fci);
+        $sheet->setCellValue('L4', $ejemplar->propietario->name);
+        $sheet->setCellValue('C5', $ejemplar->raza->nombre);
+        $sheet->setCellValue('H5', $ejemplar->color);
+        $sheet->setCellValue('L5', $ejemplar->propietario->direccion." - ".$ejemplar->propietario->departamento);
+        $sheet->setCellValue('C6', $ejemplar->sexo);
+        $sheet->setCellValue('E6', $ejemplar->fecha_nacimiento);
+        $sheet->setCellValue('H6', "-------------------");
+        $sheet->setCellValue('L6', $ejemplar->propietario->celulares);
+        $sheet->setCellValue('C7', $ejemplar->kcb);
+        $sheet->setCellValue('E7', $ejemplar->num_tatuaje);
+        $sheet->setCellValue('H7', $ejemplar->chip);
+        $sheet->setCellValue('C8', $ejemplar->hermano);
+
+        // padres
+        $sheet->mergeCells('C11:E18');
+        $sheet->mergeCells('F11:H14');
+        $sheet->mergeCells('F15:H18');
+        $sheet->mergeCells('I11:K12');
+        $sheet->mergeCells('I13:K14');
+        $sheet->mergeCells('I15:K16');
+        $sheet->mergeCells('I17:K18');
+        $sheet->mergeCells('L11:N11');
+        $sheet->mergeCells('L12:N12');
+        $sheet->mergeCells('L13:N13');
+        $sheet->mergeCells('L14:N14');
+        $sheet->mergeCells('L15:N15');
+        $sheet->mergeCells('L16:N16');
+        $sheet->mergeCells('L17:N17');
+        $sheet->mergeCells('L18:N18');
+
+        // madres
+        $sheet->mergeCells('C19:E26');
+        $sheet->mergeCells('F19:H22');
+        $sheet->mergeCells('F23:H26');
+        $sheet->mergeCells('I19:K20');
+        $sheet->mergeCells('I21:K22');
+        $sheet->mergeCells('I23:K24');
+        $sheet->mergeCells('I25:K26');
+        $sheet->mergeCells('L19:N19');
+        $sheet->mergeCells('L20:N20');
+        $sheet->mergeCells('L21:N21');
+        $sheet->mergeCells('L22:N22');
+        $sheet->mergeCells('L23:N23');
+        $sheet->mergeCells('L24:N24');
+        $sheet->mergeCells('L25:N25');
+        $sheet->mergeCells('L26:N26');
+
+        // $sheet->setCellValue('C11', "Este esta comvinado");
+
+            // sacamos las generaciones
+        $ejemplarOrigen = Ejemplar::find($ejemplar->id);
+        // definimos las variables del padre
+        $kcbAbuelo = '';
+        $nombreAbuelo = '';
+        $kcbAbuela = '';
+        $nombreAbuela = '';
+        $kcbTGPadre = '';
+        $nombreTGPadre = '';
+        $kcbTGMadre = '';
+        $nombreTGMadre = '';
+        $kcbCGPadre = '';
+        $nombreCGPadre = '';
+        $kcbCGMadre = '';
+        $nombreCGMadre = '';
+        
+        $kcbTGMadreP1 = '';
+        $nombreTGMadreP1 = '';  
+        
+        $kcbTGMadreM2 = '';
+        $nombreTGMadreM2 = '';
+
+        
+        $kcbAbueloTG1 = '';
+        $nombreAbueloTG1 = '';
+
+        $kcbAbuelaTG1 = '';
+        $nombreAbuelaTG1 = '';
+    
+        $kcbAbueloCG1 = '';
+        $nombreAbueloCG1 = '';
+
+        $kcbAbueloCG1M = '';
+        $nombreAbueloCG1M = '';
+
+        $kcbAbueloTG1M1 = '';
+        $nombreAbueloTG1M1 = '';
+        
+        $kcbAbuelaTG1M1 = '';
+        $nombreAbuelaTG1M1 = '';
+
+        if($ejemplarOrigen->padre_id != null){
+            $papa = Ejemplar::find($ejemplarOrigen->padre_id);
+
+            $kcbPapa = ($papa)?$papa->kcb:'';
+            $nombrePapa = ($papa != null)?$papa->nombre_completo:'';
+            
+            // preguntamos si el papa tiene padre
+            // para sacar al abuelo
+            if($papa->padre_id != null){
+
+                $abuelo = Ejemplar::find($papa->padre_id);
+
+                $kcbAbuelo = ($abuelo)?$abuelo->kcb:'';
+                $nombreAbuelo = ($abuelo != null)?$abuelo->nombre_completo:'';
+
+                // preguntamos si el abuelo tiene padre
+                // para sacar al tecera generacion padre
+                if($abuelo->padre_id != null){
+
+                    $tGPadre = Ejemplar::find($abuelo->padre_id);
+
+                    $kcbTGPadre = ($tGPadre)?$tGPadre->kcb:'';
+                    $nombreTGPadre = ($tGPadre != null)?$tGPadre->nombre_completo:'';
+
+                    // preguntamos si la tercera generacion tiene padre
+                    // para sacar al cuarta generacion padre
+                    if($tGPadre->padre_id != null){
+
+                        $cGPadre = Ejemplar::find($tGPadre->padre_id);
+                        
+                        $kcbCGPadre = ($cGPadre)?$cGPadre->kcb:'';
+                        $nombreCGPadre = ($cGPadre != null)?$cGPadre->nombre_completo:'';
+                    }else{
+                        $kcbCGPadre = '';
+                        $nombreCGPadre = '';
+                    }
+
+                    // preguntamos si la tercera generacion tiene madre
+                    // para sacar al cuarta generacion madre
+                    if($tGPadre->madre_id != null){
+
+                        $cGMadre = Ejemplar::find($tGPadre->madre_id);
+                        
+                        $kcbCGMadre = ($cGMadre)?$cGMadre->kcb:'';
+                        $nombreCGMadre = ($cGMadre != null)?$cGMadre->nombre_completo:'';
+                    }else{
+                        $kcbCGMadre = '';
+                        $nombreCGMadre = '';
+                    }
+
+                }else{
+                    $kcbTGPadre = '';
+                    $nombreTGPadre = '';
+                }
+
+                // preguntamos si el abuelo tiene madre
+                // para sacar al tecera generacion madre
+                if($abuelo->madre_id != null){
+
+                    $tGMadre = Ejemplar::find($abuelo->madre_id);
+
+                    $kcbTGMadre = ($tGMadre)?$tGMadre->kcb:'';
+                    $nombreTGMadre = ($tGMadre != null)?$tGMadre->nombre_completo:'';
+
+                    if($tGMadre->padre_id != null){
+
+                        $CGMadreP = Ejemplar::find($tGMadre->padre_id);
+
+                        $kcbTGMadreP1 = ($CGMadreP)?$CGMadreP->kcb:'';
+                        $nombreTGMadreP1 = ($CGMadreP)?$CGMadreP->nombre_completo:'';    
+                    }else{
+                        $kcbTGMadreP1 = '';
+                        $nombreTGMadreP1 = '';    
+                    }
+
+                    // para la madre de del atercera generacion
+                    if($tGMadre->madre_id != null){
+
+                        $CGMadreM2 = Ejemplar::find($tGMadre->madre_id);
+
+                        $kcbTGMadreM2 = ($CGMadreM2)?$CGMadreM2->kcb:'';
+                        $nombreTGMadreM2 = ($CGMadreM2)?$CGMadreM2->nombre_completo:'';    
+                    }else{
+                        $kcbTGMadreM2 = '';
+                        $nombreTGMadreM2 = '';    
+                    }
+
+                }else{
+                    $kcbtGMadre = '';
+                    $nombretGMadre = '';
+                }
+
+            }else{
+                $kcbAbuelo = '';
+                $nombreAbuelo = '';
+            }
+
+            // preguntamos si el papa tiene madre
+            // para sacar al abuela
+            if($papa->madre_id != null){
+
+                $abuela = Ejemplar::find($papa->madre_id);
+
+                $kcbAbuela = ($abuela)?$abuela->kcb:'';
+                $nombreAbuela = ($abuela != null)?$abuela->nombre_completo:'';
+
+                if($abuela->padre_id != null){
+
+                    $abueloTG = Ejemplar::find($abuela->padre_id);
+
+                    $kcbAbueloTG1 = ($abueloTG)?$abueloTG->kcb:'';
+                    $nombreAbueloTG1 = ($abueloTG)?$abueloTG->nombre_completo:'';
+
+                    if($abueloTG->padre_id != null){
+
+                        $abueloCG = Ejemplar::find($abueloTG->padre_id);
+
+                        $kcbAbueloCG1 = ($abueloCG)?$abueloCG->kcb:'';
+                        $nombreAbueloCG1 = ($abueloCG)?$abueloCG->nombre_completo:'';
+                    }else{
+                        $kcbAbueloCG1 = '';
+                        $nombreAbueloCG1 = '';
+                    }
+
+                    if($abueloTG->madre_id != null){
+
+                        $abueloCGM = Ejemplar::find($abueloTG->madre_id);
+
+                        $kcbAbueloCG1M = ($abueloCGM)?$abueloCGM->kcb:'';
+                        $nombreAbueloCG1M = ($abueloCGM)?$abueloCGM->nombre_completo:'';
+                    }else{
+                        $kcbAbueloCG1M = '';
+                        $nombreAbueloCG1M = '';
+                    }
+                }else{
+                    $kcbAbueloTG1 = '';
+                    $nombreAbueloTG1 = '';
+                }
+
+                // hacemos para su mama de la abuela
+                if($abuela->madre_id != null){
+
+                    $abuelaTG = Ejemplar::find($abuela->madre_id);
+
+                    $kcbAbuelaTG1 = ($abuelaTG)?$abuelaTG->kcb:'';
+                    $nombreAbuelaTG1 = ($abuelaTG)?$abuelaTG->nombre_completo:'';
+
+                    // aqui hay que hacer para la cuarte generracion tanto como padre y madres
+                    if($abuelaTG->padre_id != null){
+
+                        $abueloTGM1 = Ejemplar::find($abuelaTG->padre_id);
+
+                        $kcbAbueloTG1M1 = ($abueloTGM1)?$abueloTGM1->kcb:'';
+                        $nombreAbueloTG1M1 = ($abueloTGM1)?$abueloTGM1->nombre_completo:'';
+                    }else{
+                        $kcbAbueloTG1M1 = '';
+                        $nombreAbueloTG1M1 = '';
+                    }
+                    if($abuelaTG->madre_id != null){
+
+                        $abuelaTGM1 = Ejemplar::find($abuelaTG->madre_id);
+
+                        $kcbAbuelaTG1M1 = ($abuelaTGM1)?$abuelaTGM1->kcb:'';
+                        $nombreAbuelaTG1M1 = ($abuelaTGM1)?$abuelaTGM1->nombre_completo:'';
+                    }else{
+                        $kcbAbuelaTG1M1 = '';
+                        $nombreAbuelaTG1M1 = '';
+                    }
+                }else{
+                    $kcbAbuelaTG1 = '';
+                    $nombreAbuelaTG1 = '';
+                }
+            }else{
+                $kcbAbuela = '';
+                $nombreAbuela = '';
+            }
+
+        }else{
+            $kcbPapa = '';
+            $nombrePapa = '';        
+        }
+        // definimos las variables de la madre
+        $kcbAbueloM = '';
+        $nombreAbueloM = '';
+        $kcbAbuelaM = '';
+        $nombreAbuelaM = '';
+        $kcbTGPadreM = '';
+        $nombreTGPadreM = '';
+        $kcbTGMadreM = '';
+        $nombreTGMadreM = '';
+        $kcbCGPadreM = '';
+        $nombreCGPadreM = '';
+        $kcbCGMadreM = '';
+        $nombreCGMadreM = '';
+        
+        $kcbCGPadreM1 = '';
+        $nombreCGPadreM1 = '';
+        $kcbCGPadreM2 = '';
+        $nombreCGPadreM2 = '';
+        $kcbabueloMSG  = '' ;
+        $nombreabueloMSG  = '' ;
+        
+        $kcbabueloMSG2  = '' ;
+        $nombreabueloMSG2  = '' ;
+        
+        $kcbabueloMTG1  = '' ;
+        $nombreabueloMTG1  = '' ;
+        
+        $kcbabueloMTG11  = '' ;
+        $nombreabueloMTG11  = '' ;
+        
+        $kcbabueloMSG22  = '' ;
+        $nombreabueloMSG22  = '' ;
+
+        $kcbabueloMSG222  = '' ;
+        $nombreabueloMSG222  = '' ;
+        if($ejemplarOrigen->madre_id != null){
+            $mama = Ejemplar::find($ejemplarOrigen->madre_id);
+
+            $kcbMama = ($mama != null)?$mama->kcb:'';
+            $nombreMama = ($mama != null)?$mama->nombre_completo:'';
+
+            if($mama->padre_id != null){
+
+                $abueloM = Ejemplar::find($mama->padre_id);
+
+                $kcbAbueloM     = ($abueloM)? $abueloM->kcb: '';
+                $nombreAbueloM  = ($abueloM)? $abueloM->nombre_completo: '';
+
+                if($abueloM->padre_id != null){
+                    
+                    $tGPadreM = Ejemplar::find($abueloM->padre_id);
+
+                    $kcbTGPadreM = ($tGPadreM)?$tGPadreM->kcb:'';
+                    $nombreTGPadreM = ($tGPadreM)?$tGPadreM->nombre_completo:'';
+
+                    if($tGPadreM->padre_id != null){
+
+                        $CGPadreM1 = Ejemplar::find($tGPadreM->padre_id);
+
+                        $kcbCGPadreM1 = ($CGPadreM1)?$CGPadreM1->kcb:'';
+                        $nombreCGPadreM1 = ($CGPadreM1)?$CGPadreM1->nombre_completo:'';
+                    }else{
+                        $kcbCGPadreM1 = '';
+                        $nombreCGPadreM1 = '';
+                    }
+                    if($tGPadreM->madre_id != null){
+
+                        $CGPadreM2 = Ejemplar::find($tGPadreM->madre_id);
+
+                        $kcbCGPadreM2 = ($CGPadreM2)?$CGPadreM2->kcb:'';
+                        $nombreCGPadreM2 = ($CGPadreM2)?$CGPadreM2->nombre_completo:'';
+                    }else{
+                        $kcbCGPadreM2 = '';
+                        $nombreCGPadreM2 = '';
+                    }
+
+                }else{
+                    $kcbTGPadreM = '';
+                    $nombreTGPadreM = '';
+                }
+
+                if($abueloM->madre_id != null){
+
+                    $tGMadreM = Ejemplar::find($abueloM->madre_id);
+
+                    $kcbTGMadreM = ($tGMadreM)?$tGMadreM->kcb:'';
+                    $nombreTGMadreM = ($tGMadreM)?$tGMadreM->nombre_completo:'';
+
+                    if($tGMadreM->padre_id != null){
+
+                        $CGPadreM = Ejemplar::find($tGMadreM->padre_id);
+
+                        $kcbCGPadreM = ($CGPadreM)? $CGPadreM->kcb:'';                   
+                        $nombreCGPadreM = ($CGPadreM)? $CGPadreM->nombre_completo:'';                   
+
+                    }else{
+
+                        $kcbCGPadreM = '';                   
+                        $nombreCGPadreM = '';                   
+                    }
+                    if($tGMadreM->madre_id != null){
+
+                        $CGMadreM = Ejemplar::find($tGMadreM->madre_id);
+
+                        $kcbCGMadreM = ($CGMadreM)? $CGMadreM->kcb:'';                   
+                        $nombreCGMadreM = ($CGMadreM)? $CGMadreM->nombre_completo:'';                   
+                    }else{
+                        $kcbCGMadreM = '';                   
+                        $nombreCGPadreM = '';                   
+                    }
+                }else{
+                    $kcbTGMadreM = '';
+                    $nombreTGMadreM = '';
+                }
+
+            }else{
+
+                $kcbAbueloM     = '';
+                $nombreAbueloM  = '';
+            }
+
+            if($mama->madre_id != null){
+
+                $abuelaM = Ejemplar::find($mama->madre_id);
+
+                $kcbAbuelaM     = ($abuelaM)?$abuelaM->kcb:'';
+                $nombreAbuelaM  = ($abuelaM)?$abuelaM->nombre_completo:'';
+
+                if($abuelaM->padre_id != null){
+
+                    $abueloSG   =Ejemplar::find($abuelaM->padre_id);
+
+                    $kcbabueloMSG  = ($abueloSG)? $abueloSG->kcb:'' ;
+                    $nombreabueloMSG  = ($abueloSG)? $abueloSG->nombre_completo:'' ;
+
+                    if($abueloSG->padre_id){
+
+                        $abueloTG1   =Ejemplar::find($abueloSG->padre_id);
+
+                        $kcbabueloMTG1  = ($abueloTG1)? $abueloTG1->kcb:'' ;
+                        $nombreabueloMTG1  = ($abueloTG1)? $abueloTG1->nombre_completo:'' ;
+                    }else{
+                        $kcbabueloMTG1  = '' ;
+                        $nombreabueloMTG1  = '' ;
+                    }
+                    // la madre de la cuarta generacion
+                    if($abueloSG->madre_id != null){
+
+                        $abueloTG11   =Ejemplar::find($abueloSG->madre_id);
+
+                        $kcbabueloMTG11  = ($abueloTG11)? $abueloTG11->kcb:'' ;
+                        $nombreabueloMTG11  = ($abueloTG11)? $abueloTG11->nombre_completo:'' ;
+                    }else{
+                        $kcbabueloMTG11  = '' ;
+                        $nombreabueloMTG11  = '' ;
+                    }
+                }else{
+                    $kcbabueloMSG  = '' ;
+                    $nombreabueloMSG  = '' ;
+                }
+                // de aqui comienza las madres de la abuela
+                if($abuelaM->madre_id != null){
+
+                    $abueloSGM2   =Ejemplar::find($abuelaM->madre_id);
+
+                    $kcbabueloMSG2  = ($abueloSGM2)? $abueloSGM2->kcb:'' ;
+                    $nombreabueloMSG2  = ($abueloSGM2)? $abueloSGM2->nombre_completo:'' ;
+
+                    if($abueloSGM2->padre_id != null){
+
+                        $abueloSGM22   =Ejemplar::find($abueloSGM2->padre_id);
+
+                        $kcbabueloMSG22  = ($abueloSGM22)? $abueloSGM22->kcb:'' ;
+                        $nombreabueloMSG22  = ($abueloSGM22)? $abueloSGM22->nombre_completo:'' ;
+                    }else{
+
+                        $kcbabueloMSG22  = '' ;
+                        $nombreabueloMSG22  = '' ;  
+                    }
+                    if($abueloSGM2->madre_id != null){
+
+                        $abueloSGM222   =Ejemplar::find($abueloSGM2->madre_id);
+
+                        $kcbabueloMSG222  = ($abueloSGM222)? $abueloSGM222->kcb:'' ;
+                        $nombreabueloMSG222  = ($abueloSGM222)? $abueloSGM222->nombre_completo:'' ;
+                    }else{
+                        $kcbabueloMSG222  = '' ;
+                        $nombreabueloMSG222  = '' ;
+                    }
+                }else{
+                    $kcbabueloMSG2  = '' ;
+                    $nombreabueloMSG2  = '' ;
+                }
+            }else{
+                $kcbAbuelaM     = '';
+                $nombreAbuelaM  = '';
+            }
+
+        }else{
+            $kcbMama = '';
+            $nombreMama = '';
+        }
+
+        // ************** Curpo Arbol gernealogico ***************
+
+                // ****************** PADRE *****************************
+        $sheet->setCellValue('C11', $nombrePapa.PHP_EOL."K.C.B. ".$kcbPapa.PHP_EOL."No. x Raza ".$papa->num_tatuaje.PHP_EOL."Chip ".$papa->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$papa->color);
+        $sheet->getStyle('C11')->getAlignment()->setWrapText(true);
+
+        $sheet->setCellValue('F11', $nombreAbuelo.PHP_EOL."K.C.B. ".$kcbAbuelo.PHP_EOL."No. x Raza ".$abuelo->num_tatuaje.PHP_EOL."Chip ".$abuelo->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$abuelo->color);
+        $sheet->getStyle('F11')->getAlignment()->setWrapText(true);
+        
+        $sheet->setCellValue('I11', $nombreTGPadre.PHP_EOL."K.C.B. ".$kcbTGPadre.PHP_EOL."No. x Raza ".$tGPadre->num_tatuaje.PHP_EOL."Chip ".$tGPadre->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$tGPadre->color);
+        $sheet->getStyle('I11')->getAlignment()->setWrapText(true);
+
+        $sheet->setCellValue('L11', $nombreCGPadre.PHP_EOL."K.C.B. ".$kcbCGPadre.PHP_EOL."No. x Raza ".$cGPadre->num_tatuaje.PHP_EOL."Chip ".$cGPadre->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$cGPadre->color);
+        $sheet->getStyle('L11')->getAlignment()->setWrapText(true);
+
+        $sheet->setCellValue('L12', $nombreCGMadre.PHP_EOL."K.C.B. ".$kcbCGMadre.PHP_EOL."No. x Raza ".$cGMadre->num_tatuaje.PHP_EOL."Chip ".$cGMadre->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$cGMadre->color);
+        $sheet->getStyle('L12')->getAlignment()->setWrapText(true);
+
+        $sheet->setCellValue('I13', $nombreTGMadre.PHP_EOL."K.C.B. ".$kcbTGMadre.PHP_EOL."No. x Raza ".$tGMadre->num_tatuaje.PHP_EOL."Chip ".$tGMadre->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$tGMadre->color);
+        $sheet->getStyle('I13')->getAlignment()->setWrapText(true);
+
+        $sheet->setCellValue('L13', $nombreTGMadreP1.PHP_EOL."K.C.B. ".$kcbTGMadreP1.PHP_EOL."No. x Raza ".$CGMadreP->num_tatuaje.PHP_EOL."Chip ".$CGMadreP->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$CGMadreP->color);
+        $sheet->getStyle('L13')->getAlignment()->setWrapText(true);
+
+        $sheet->setCellValue('L14', $nombreTGMadreM2.PHP_EOL."K.C.B. ".$kcbTGMadreM2.PHP_EOL."No. x Raza ".$CGMadreM2->num_tatuaje.PHP_EOL."Chip ".$CGMadreM2->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$CGMadreM2->color);
+        $sheet->getStyle('L14')->getAlignment()->setWrapText(true);
+
+        $sheet->setCellValue('F15', $nombreAbuela.PHP_EOL."K.C.B. ".$kcbAbuela.PHP_EOL."No. x Raza ".$abuela->num_tatuaje.PHP_EOL."Chip ".$abuela->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$abuela->color);
+        $sheet->getStyle('F15')->getAlignment()->setWrapText(true);
+
+        $sheet->setCellValue('I15', $nombreAbueloTG1.PHP_EOL."K.C.B. ".$kcbAbueloTG1.PHP_EOL."No. x Raza ".$abueloTG->num_tatuaje.PHP_EOL."Chip ".$abueloTG->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$abueloTG->color);
+        $sheet->getStyle('I15')->getAlignment()->setWrapText(true);
+
+        $sheet->setCellValue('L15', $nombreAbueloCG1.PHP_EOL."K.C.B. ".$kcbAbueloCG1.PHP_EOL."No. x Raza ".$abueloCG->num_tatuaje.PHP_EOL."Chip ".$abueloCG->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$abueloCG->color);
+        $sheet->getStyle('L15')->getAlignment()->setWrapText(true);
+
+        $sheet->setCellValue('L16', $nombreAbueloCG1M.PHP_EOL."K.C.B. ".$kcbAbueloCG1M.PHP_EOL."No. x Raza ".$abueloCGM->num_tatuaje.PHP_EOL."Chip ".$abueloCGM->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$abueloCGM->color);
+        $sheet->getStyle('L16')->getAlignment()->setWrapText(true);
+
+        $sheet->setCellValue('I17', $nombreAbuelaTG1.PHP_EOL."K.C.B. ".$kcbAbuelaTG1.PHP_EOL."No. x Raza ".$abuelaTG->num_tatuaje.PHP_EOL."Chip ".$abuelaTG->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$abuelaTG->color);
+        $sheet->getStyle('I17')->getAlignment()->setWrapText(true);
+
+        $sheet->setCellValue('L17', $nombreAbueloTG1M1.PHP_EOL."K.C.B. ".$kcbAbueloTG1M1.PHP_EOL."No. x Raza ".$abueloTGM1->num_tatuaje.PHP_EOL."Chip ".$abueloTGM1->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$abueloTGM1->color);
+        $sheet->getStyle('L17')->getAlignment()->setWrapText(true);
+
+        $sheet->setCellValue('L18', $nombreAbuelaTG1M1.PHP_EOL."K.C.B. ".$kcbAbuelaTG1M1.PHP_EOL."No. x Raza ".$abuelaTGM1->num_tatuaje.PHP_EOL."Chip ".$abuelaTGM1->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$abuelaTGM1->color);
+        $sheet->getStyle('L18')->getAlignment()->setWrapText(true);
+
+
+        // ****************** MADRE *****************************
+
+        $sheet->setCellValue('C19', $nombreMama.PHP_EOL."K.C.B. ".$kcbMama.PHP_EOL."No. x Raza ".$mama->num_tatuaje.PHP_EOL."Chip ".$mama->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$mama->color);
+        $sheet->getStyle('C19')->getAlignment()->setWrapText(true);
+
+        $sheet->setCellValue('F19', $nombreAbueloM.PHP_EOL."K.C.B. ".$kcbAbueloM.PHP_EOL."No. x Raza ".$abueloM->num_tatuaje.PHP_EOL."Chip ".$abueloM->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$abueloM->color);
+        $sheet->getStyle('F19')->getAlignment()->setWrapText(true);
+
+        $sheet->setCellValue('I19', $nombreTGPadreM.PHP_EOL."K.C.B. ".$kcbTGPadreM.PHP_EOL."No. x Raza ".$tGPadreM->num_tatuaje.PHP_EOL."Chip ".$tGPadreM->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$tGPadreM->color);
+        $sheet->getStyle('I19')->getAlignment()->setWrapText(true);
+
+        $sheet->setCellValue('L19', $nombreCGPadreM1.PHP_EOL."K.C.B. ".$kcbCGPadreM1.PHP_EOL."No. x Raza ".$CGPadreM1->num_tatuaje.PHP_EOL."Chip ".$CGPadreM1->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$CGPadreM1->color);
+        $sheet->getStyle('L19')->getAlignment()->setWrapText(true);
+
+        $sheet->setCellValue('L20', $nombreCGPadreM2.PHP_EOL."K.C.B. ".$kcbCGPadreM2.PHP_EOL."No. x Raza ".$CGPadreM2->num_tatuaje.PHP_EOL."Chip ".$CGPadreM2->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$CGPadreM2->color);
+        $sheet->getStyle('L20')->getAlignment()->setWrapText(true);
+
+        $sheet->setCellValue('I21', $nombreTGMadreM.PHP_EOL."K.C.B. ".$kcbTGMadreM.PHP_EOL."No. x Raza ".$tGMadreM->num_tatuaje.PHP_EOL."Chip ".$tGMadreM->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$tGMadreM->color);
+        $sheet->getStyle('I21')->getAlignment()->setWrapText(true);
+
+        $sheet->setCellValue('L21', $nombreCGPadreM.PHP_EOL."K.C.B. ".$kcbCGPadreM.PHP_EOL."No. x Raza ".$CGPadreM->num_tatuaje.PHP_EOL."Chip ".$CGPadreM->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$CGPadreM->color);
+        $sheet->getStyle('L21')->getAlignment()->setWrapText(true);
+
+        $sheet->setCellValue('L22', $nombreCGMadreM.PHP_EOL."K.C.B. ".$kcbCGMadreM.PHP_EOL."No. x Raza ".$CGMadreM->num_tatuaje.PHP_EOL."Chip ".$CGMadreM->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$CGMadreM->color);
+        $sheet->getStyle('L22')->getAlignment()->setWrapText(true);
+
+        $sheet->setCellValue('F23', $nombreAbuelaM.PHP_EOL."K.C.B. ".$kcbAbuelaM.PHP_EOL."No. x Raza ".$abuelaM->num_tatuaje.PHP_EOL."Chip ".$abuelaM->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$abuelaM->color);
+        $sheet->getStyle('F23')->getAlignment()->setWrapText(true);
+
+        $sheet->setCellValue('I23', $nombreabueloMSG.PHP_EOL."K.C.B. ".$kcbabueloMSG.PHP_EOL."No. x Raza ".$abueloSG->num_tatuaje.PHP_EOL."Chip ".$abueloSG->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$abueloSG->color);
+        $sheet->getStyle('I23')->getAlignment()->setWrapText(true);
+
+        $sheet->setCellValue('L23', $nombreabueloMTG1.PHP_EOL."K.C.B. ".$kcbabueloMTG1.PHP_EOL."No. x Raza ".$abueloTG1->num_tatuaje.PHP_EOL."Chip ".$abueloTG1->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$abueloTG1->color);
+        $sheet->getStyle('L23')->getAlignment()->setWrapText(true);
+
+        $sheet->setCellValue('L24', $nombreabueloMTG11.PHP_EOL."K.C.B. ".$kcbabueloMTG11.PHP_EOL."No. x Raza ".$abueloTG11->num_tatuaje.PHP_EOL."Chip ".$abueloTG11->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$abueloTG11->color);
+        $sheet->getStyle('L24')->getAlignment()->setWrapText(true);
+
+        $sheet->setCellValue('I25', $nombreabueloMSG2.PHP_EOL."K.C.B. ".$kcbabueloMSG2.PHP_EOL."No. x Raza ".$abueloSGM2->num_tatuaje.PHP_EOL."Chip ".$abueloSGM2->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$abueloSGM2->color);
+        $sheet->getStyle('I25')->getAlignment()->setWrapText(true);
+
+        $sheet->setCellValue('L25', $nombreabueloMSG22.PHP_EOL."K.C.B. ".$kcbabueloMSG22.PHP_EOL."No. x Raza ".$abueloSGM22->num_tatuaje.PHP_EOL."Chip ".$abueloSGM22->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$abueloSGM22->color);
+        $sheet->getStyle('L25')->getAlignment()->setWrapText(true);
+
+        $sheet->setCellValue('L26', $nombreabueloMSG222.PHP_EOL."K.C.B. ".$kcbabueloMSG222.PHP_EOL."No. x Raza ".$abueloSGM222->num_tatuaje.PHP_EOL."Chip ".$abueloSGM222->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$abueloSGM222->color);
+        $sheet->getStyle('L26')->getAlignment()->setWrapText(true);
+
+
+        $sheet->setCellValue('E29', "  CBBA/BDF-035/G - REG 14/06/21       ");
+        $sheet->setCellValue('E31', "          La Paz 16/Junio/2021");
         // exportamos el excel
         $writer = new Xlsx($spreadsheet);
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
