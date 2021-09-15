@@ -434,7 +434,6 @@ class EjemplarController extends Controller
         // echo $_POST["[0][nombre]"];
         // echo $request->input();
         // dd($request->input());
-        // dd($request->input("ejemplar.0.nombre"));
         $cantidadEjemplares = count($request->input("ejemplar"));
         for ($i=0; $i < $cantidadEjemplares; $i++) { 
             $ejemplar = new Ejemplar();
