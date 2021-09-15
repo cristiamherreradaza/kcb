@@ -10,192 +10,191 @@
 
 @section('content')
 
-
-{{-- Modal de registro de nuevo ejemplar --}}
-<div class="modal fade" id="modal-registro-nuevo-ejemplar" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true" style="position: fixed;">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">REGISTRO DE NUEVO EJEMPLAR</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <i aria-hidden="true" class="ki ki-close"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="" method="POST" id="edita-formulario-nuevo-ejemplar">
-                    @csrf
-                    <div class="row">
-                        <input type="text" id="edita_ejemplar_id" name="edita_ejemplar_id">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="kcb">Nombre Completo del ejemplar </label>
-                                <span  pan class="text-danger">*</span>
-                                {{-- <input type="hidden" name="sexo-modal" id="sexo-modal" value="macho"> --}}
-                                <input type="text" class="form-control" id="edita_nuevo_nombre" name="edita_nuevo_nombre" autocomplete="off" required />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="kcb">Raza 
-                                </label>
-                                <span class="text-danger">*</span></label>
-                                {{-- <input type="hidden" name="sexo-modal" id="sexo-modal" value="macho"> --}}
-                                <select name="edita_nuevo_raza" id="edita_nuevo_raza" class="form-control" >
-                                    <option value="{{ $ejemplar->raza->id }}">{{ $ejemplar->raza->nombre }}</option>
-                                </select>
-                                {{-- <input type="text" disabled class="form-control" id="edita_nuevo_raza" name="edita_nuevo_raza" autocomplete="off" value="{{ $ejemplar->raza->nombre }}"/> --}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="">Sexo</label>
-                                <select class="form-control" id="edita_nuevo_sexo" name="edita_nuevo_sexo">
-                                    <option value="Macho">Macho</option>
-                                    <option value="Hembra">Hembra</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="">Codigo</label>
-                                <input type="text" class="form-control" id="edita_nuevo_codigo" name="edita_nuevo_codigo">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="">Color</label>
-                                <input type="text" class="form-control" id="edita_nuevo_color" name="edita_nuevo_color">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="">Señas o Marcas</label>
-                                <input type="text" class="form-control" id="edita_nuevo_senas" name="edita_nuevo_senas">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="">Origen</label>
-                                <input type="text" class="form-control" id="edita_nuevo_origen" name="edita_nuevo_origen">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="">Ciudad/Pais (Lugar)</label>
-                                <input type="text" class="form-control" id="edita_nuevo_lugar" name="edita_nuevo_lugar">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="">Fecha de Nacimiento</label>
-                                <input type="date" class="form-control" id="edita_nuevo_fecha_nacimiento" name="edita_nuevo_fecha_nacimiento">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="">Titulos</label>
-                                <input type="text" class="form-control" id="edita_nuevo_titulos" name="edita_nuevo_titulos">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <button type="button" class="btn btn-success btn-block" onclick="guardaEjemplar()">Guardar</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-{{-- End Modal de registro de nuevo ejemplar --}}
-
-{{-- Modal de registro de padres genealogico --}}
-<div class="modal fade" id="modal-edicion-de-padres" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true" style="position: fixed;">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">EJEMPLAR</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <i aria-hidden="true" class="ki ki-close"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="{{ url('Ejemplar/guardaEjemplarEdita') }}" method="POST" id="edita-formulario-padres">
-                    @csrf
-                    <div class="row">
-                        <div class="col-md-12" >
-                            <div class="form-group">
-                                <label for="kcb">Seleccione el Padre del Ejemplar
-                                </label>
-                                <br>
-                                id ejempalr:
-                                <input type="text" id="edicion_ejemplar_id" name="edicion_ejemplar_id" value="{{ $ejemplar->id }}">
-                                <br>
-                                id raza
-                                <input type="text" id="edicion_raza_id" name="edicion_raza_id">
-                                <br>
-                                id padre
-                                <input type="text" id="edicion_padre_id" name="edicion_padre_id">
-                                <br>
-                                id ejemplar a editar
-                                <input type="text" id="edicion_ejemplar_id_editar" name="edicion_ejemplar_id_editar">
-                                <div id="bloque-edita-padre">
-                                    {{-- <button type='button' id='btn-padre' onclick='edicionAjaxBuscaEjemplar("Macho")' class='btn btn-block btn-primary'>PADRE</button> --}}
-                                </div>
-                                <br>
-                                <label for="exampleInputPassword1">
-                                    Registrar 
-                                    <span class="label label-success label-inline font-weight-normal mr-2" onclick="registro_nuevo_ejemplar('Macho')">Nuevo Ejemplar</span>
-                                </label><br>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12" >
-                            <div class="form-group">
-                                <label for="kcb">Seleccione el Madre del Ejemplar
-                                </label>
-                                <input type="text" id="edicion_madre_id" name="edicion_madre_id">
-                                <div id="bloque-edita-madre">
-                                    {{-- <button type='button' id='btn-madre' onclick='edicionAjaxBuscaEjemplar("Hembra")' class='btn btn-block btn-info'>MADRE</button> --}}
-                                </div>
-                                <br>
-                                <label for="exampleInputPassword1">
-                                    Registrar 
-                                    <span class="label label-success label-inline font-weight-normal mr-2" onclick="registro_nuevo_ejemplar('Hembra')">Nuevo Ejemplar</span>
-                                </label><br>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <button type="button" id="edita_padres_guarda" class="btn btn-success btn-block" onclick="guardarEjemplarEditado()">Guardar</button>
-                        </div>
-                    </div>                    
-                </form>
-                {{-- <div class="row">
-                    <div class="col-md-12" id="ajaxPropietario">
-
-                    </div>
-                </div> --}}
-            </div>
-        </div>
-    </div>
-</div>
-{{-- End Modal de registro de padres genealogico --}}
-
 @if ($ejemplar != null)
+    {{-- Modal de registro de nuevo ejemplar --}}
+    <div class="modal fade" id="modal-registro-nuevo-ejemplar" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true" style="position: fixed;">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">REGISTRO DE NUEVO EJEMPLAR</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="POST" id="edita-formulario-nuevo-ejemplar">
+                        @csrf
+                        <div class="row">
+                            <input type="text" id="edita_ejemplar_id" name="edita_ejemplar_id">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="kcb">Nombre Completo del ejemplar </label>
+                                    <span  pan class="text-danger">*</span>
+                                    {{-- <input type="hidden" name="sexo-modal" id="sexo-modal" value="macho"> --}}
+                                    <input type="text" class="form-control" id="edita_nuevo_nombre" name="edita_nuevo_nombre" autocomplete="off" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="kcb">Raza 
+                                    </label>
+                                    <span class="text-danger">*</span></label>
+                                    {{-- <input type="hidden" name="sexo-modal" id="sexo-modal" value="macho"> --}}
+                                    <select name="edita_nuevo_raza" id="edita_nuevo_raza" class="form-control" >
+                                        <option value="{{ $ejemplar->raza->id }}">{{ $ejemplar->raza->nombre }}</option>
+                                    </select>
+                                    {{-- <input type="text" disabled class="form-control" id="edita_nuevo_raza" name="edita_nuevo_raza" autocomplete="off" value="{{ $ejemplar->raza->nombre }}"/> --}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">Sexo</label>
+                                    <select class="form-control" id="edita_nuevo_sexo" name="edita_nuevo_sexo">
+                                        <option value="Macho">Macho</option>
+                                        <option value="Hembra">Hembra</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">Codigo</label>
+                                    <input type="text" class="form-control" id="edita_nuevo_codigo" name="edita_nuevo_codigo">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">Color</label>
+                                    <input type="text" class="form-control" id="edita_nuevo_color" name="edita_nuevo_color">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">Señas o Marcas</label>
+                                    <input type="text" class="form-control" id="edita_nuevo_senas" name="edita_nuevo_senas">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">Origen</label>
+                                    <input type="text" class="form-control" id="edita_nuevo_origen" name="edita_nuevo_origen">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">Ciudad/Pais (Lugar)</label>
+                                    <input type="text" class="form-control" id="edita_nuevo_lugar" name="edita_nuevo_lugar">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">Fecha de Nacimiento</label>
+                                    <input type="date" class="form-control" id="edita_nuevo_fecha_nacimiento" name="edita_nuevo_fecha_nacimiento">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">Titulos</label>
+                                    <input type="text" class="form-control" id="edita_nuevo_titulos" name="edita_nuevo_titulos">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-success btn-block" onclick="guardaEjemplar()">Guardar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- End Modal de registro de nuevo ejemplar --}}
+
+    {{-- Modal de registro de padres genealogico --}}
+    <div class="modal fade" id="modal-edicion-de-padres" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true" style="position: fixed;">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">EJEMPLAR</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ url('Ejemplar/guardaEjemplarEdita') }}" method="POST" id="edita-formulario-padres">
+                        @csrf
+                        <div class="row">
+                            <div class="col-md-12" >
+                                <div class="form-group">
+                                    <label for="kcb">Seleccione el Padre del Ejemplar
+                                    </label>
+                                    <br>
+                                    id ejempalr:
+                                    <input type="text" id="edicion_ejemplar_id" name="edicion_ejemplar_id" value="{{ $ejemplar->id }}">
+                                    <br>
+                                    id raza
+                                    <input type="text" id="edicion_raza_id" name="edicion_raza_id">
+                                    <br>
+                                    id padre
+                                    <input type="text" id="edicion_padre_id" name="edicion_padre_id">
+                                    <br>
+                                    id ejemplar a editar
+                                    <input type="text" id="edicion_ejemplar_id_editar" name="edicion_ejemplar_id_editar">
+                                    <div id="bloque-edita-padre">
+                                        {{-- <button type='button' id='btn-padre' onclick='edicionAjaxBuscaEjemplar("Macho")' class='btn btn-block btn-primary'>PADRE</button> --}}
+                                    </div>
+                                    <br>
+                                    <label for="exampleInputPassword1">
+                                        Registrar 
+                                        <span class="label label-success label-inline font-weight-normal mr-2" onclick="registro_nuevo_ejemplar('Macho')">Nuevo Ejemplar</span>
+                                    </label><br>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12" >
+                                <div class="form-group">
+                                    <label for="kcb">Seleccione el Madre del Ejemplar
+                                    </label>
+                                    <input type="text" id="edicion_madre_id" name="edicion_madre_id">
+                                    <div id="bloque-edita-madre">
+                                        {{-- <button type='button' id='btn-madre' onclick='edicionAjaxBuscaEjemplar("Hembra")' class='btn btn-block btn-info'>MADRE</button> --}}
+                                    </div>
+                                    <br>
+                                    <label for="exampleInputPassword1">
+                                        Registrar 
+                                        <span class="label label-success label-inline font-weight-normal mr-2" onclick="registro_nuevo_ejemplar('Hembra')">Nuevo Ejemplar</span>
+                                    </label><br>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="button" id="edita_padres_guarda" class="btn btn-success btn-block" onclick="guardarEjemplarEditado()">Guardar</button>
+                            </div>
+                        </div>                    
+                    </form>
+                    {{-- <div class="row">
+                        <div class="col-md-12" id="ajaxPropietario">
+
+                        </div>
+                    </div> --}}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- End Modal de registro de padres genealogico --}}
+
     {{-- Moodal Edita padres  --}}
     <div class="modal fade" id="edita-modal-padres" data-backdrop="static" tabindex="-1" role="dialog"
         aria-labelledby="staticBackdrop" aria-hidden="true">

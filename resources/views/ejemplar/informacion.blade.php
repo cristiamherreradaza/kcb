@@ -130,7 +130,7 @@
                 <div class="row">
                     <div class="col-md-3">
                         <h6><span class="text-primary">HERMANOS: </span>
-                            {{ $ejemplar->hermanos }}
+                            {{ $ejemplar->hermano }}
                         </h6>
                     </div>
                 </div>
@@ -214,6 +214,134 @@
         </div>
         {{-- fin inicio de lo botones de impresion --}}        
 
+    </div>
+</div>
+
+<div class="card card-custom gutter-b">
+    <div class="card-header flex-wrap py-3">
+        <div class="card-title">
+            <h3 class="card-label">
+                TRAMSFERENCIAS
+            </h3>
+            <br>
+        </div>
+        <div class="card-toolbar">
+        </div>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <tr>
+                <th>
+                    FECHA
+                </th>
+                <th>
+                    PROPIETARIO
+                </th>
+            </tr>
+            @forelse ( $transferencia as $t)
+                <tr>
+                    <td>{{ $t->fecha_transferencia }}</td>
+                    <td>{{ $t->propietario->name }}</td>
+                </tr>
+            @empty
+                <h5 class="text-danger">
+                    No tiene Tramsferencias
+                </h5>
+            @endforelse
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card card-custom gutter-b">
+            <div class="card-header flex-wrap py-3">
+                <div class="card-title">
+                    <h3 class="card-label">
+                        CAMADAS DEL PADRE
+                    </h3>
+                    <br>
+                </div>
+                <div class="card-toolbar">
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <tr>
+                        <th>
+                            FECHA
+                        </th>
+                        <th>
+                            REPRODUCTOR
+                        </th>
+                        <th>
+                            # CACHORROS
+                        </th>
+                    </tr>
+                    @forelse ( $camadasPadre as $cp)
+                        <tr>
+                            <td>{{ $cp->fecha_nacimiento }}</td>
+                            <td>
+                                @php
+                                    $madre = App\Ejemplar::find($cp->madre_id);
+                                    echo $madre->nombre_completo;
+                                @endphp
+                            </td>
+                            <td>{{ $cp->num_cachorros }}</td>
+                        </tr>
+                    @empty
+                        <h5 class="text-danger">
+                            No tiene Camadas
+                        </h5>
+                    @endforelse
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card card-custom gutter-b">
+            <div class="card-header flex-wrap py-3">
+                <div class="card-title">
+                    <h3 class="card-label">
+                        CAMADAS DE LA MADRE
+                    </h3>
+                    <br>
+                </div>
+                <div class="card-toolbar">
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <tr>
+                        <th>
+                            FECHA
+                        </th>
+                        <th>
+                            REPRODUCTOR
+                        </th>
+                        <th>
+                            # CACHORROS
+                        </th>
+                    </tr>
+                    @forelse ( $camadasMadre as $cm)
+                        <tr>
+                            <td>{{ $cm->fecha_nacimiento }}</td>
+                            <td>
+                                @php
+                                    $padre = App\Ejemplar::find($cm->padre_id);
+                                    echo $padre->nombre_completo;
+                                @endphp
+                            </td>
+                            <td>{{ $cm->num_cachorros }}</td>
+                        </tr>
+                    @empty
+                        <h5 class="text-danger">
+                            No tiene Camadas
+                        </h5>
+                    @endforelse
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 
