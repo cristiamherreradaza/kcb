@@ -217,6 +217,13 @@ class MigracionController extends Controller
                 $fecha_nac = $mascota->fecha_nacimiento;
             }
 
+            if($mascota->fecha_emision == '0000-00-00'){
+                $fecha_emi = null;
+            }else{
+                $fecha_emi = $mascota->fecha_emision;
+            }
+
+            $ejemplar->fecha_emision    = $fecha_emi;
             $ejemplar->fecha_nacimiento = $fecha_nac;
             $ejemplar->chip             = $mascota->chip;
             $ejemplar->color            = $mascota->color;
@@ -712,13 +719,24 @@ class MigracionController extends Controller
             echo "Id =-> ".$m->id." Nombre => ".$m->nombre_completo."<br>";
             $ejemplar = Ejemplar::where('codigo_anterior',$m->id)->first();
             
-            if($ejemplar){
-                if($m->fecha_nacimiento == '0000-00-00'){
-                    $ejemplar->fecha_nacimiento = null;
-                }else{
-                    $ejemplar->fecha_nacimiento = $m->fecha_nacimiento;
-                }
+            // if($ejemplar){
+            //     if($m->fecha_nacimiento == '0000-00-00'){
+            //         $ejemplar->fecha_nacimiento = null;
+            //     }else{
+            //         $ejemplar->fecha_nacimiento = $m->fecha_nacimiento;
+            //     }
     
+            //     $ejemplar->save();
+            // }
+            if($ejemplar){
+                if($m->fecha_emision == '0000-00-00'){
+                    $fecha_emi = null;
+                }else{
+                    $fecha_emi = $m->fecha_emision;
+                }
+
+                $ejemplar->fecha_emision = $fecha_emi;
+
                 $ejemplar->save();
             }
         }

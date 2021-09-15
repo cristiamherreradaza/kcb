@@ -560,18 +560,37 @@ class EjemplarController extends Controller
         // activamos la hoja en la que trabajaremos
         $sheet = $spreadsheet->getActiveSheet();
         // asignamos el primer valor a la celda C3
+        if($ejemplar->criadero){
+            $nom_criadero   = $ejemplar->criadero->nombre;
+            $num_fci        = $ejemplar->criadero->registro_fci;
+        }else{
+            $num_fci        = '';
+            $nom_criadero = '';
+        }
 
+        if($ejemplar->propietario){
+            $nom_propietario        = $ejemplar->propietario->name;
+            $pro_direccion          = $ejemplar->propietario->direccion;
+            $pro_departamento       = $ejemplar->propietario->departamento;
+            $pro_celulares          = $ejemplar->propietario->celulares;
+        }else{
+            $nom_propietario = '';
+            $pro_direccion          = '';
+            $pro_departamento       = '';
+            $pro_celulares          = '';
+        }
+        // dd($ejemplar->criadero);
         // *************   cabecera *****************
         $sheet->setCellValue('C3', "$ejemplar->nombre_completo");
-        $sheet->setCellValue('L3', $ejemplar->criadero->nombre." FCI: ".$ejemplar->criadero->registro_fci);
-        $sheet->setCellValue('L4', $ejemplar->propietario->name);
+        $sheet->setCellValue('L3', $nom_criadero." FCI: ".$num_fci);
+        $sheet->setCellValue('L4', $nom_propietario);
         $sheet->setCellValue('C5', $ejemplar->raza->nombre);
         $sheet->setCellValue('H5', $ejemplar->color);
-        $sheet->setCellValue('L5', $ejemplar->propietario->direccion." - ".$ejemplar->propietario->departamento);
+        $sheet->setCellValue('L5', $pro_direccion." - ".$pro_departamento);
         $sheet->setCellValue('C6', $ejemplar->sexo);
         $sheet->setCellValue('E6', $ejemplar->fecha_nacimiento);
         $sheet->setCellValue('H6', "-------------------");
-        $sheet->setCellValue('L6', $ejemplar->propietario->celulares);
+        $sheet->setCellValue('L6', $pro_celulares);
         $sheet->setCellValue('C7', $ejemplar->kcb);
         $sheet->setCellValue('E7', $ejemplar->num_tatuaje);
         $sheet->setCellValue('H7', $ejemplar->chip);
@@ -613,6 +632,9 @@ class EjemplarController extends Controller
 
         // $sheet->setCellValue('C11', "Este esta comvinado");
 
+        // ************** Curpo Arbol gernealogico ***************
+
+                // ****************** PADRE *****************************
             // sacamos las generaciones
         $ejemplarOrigen = Ejemplar::find($ejemplar->id);
         // definimos las variables del padre
@@ -659,6 +681,20 @@ class EjemplarController extends Controller
 
             $kcbPapa = ($papa)?$papa->kcb:'';
             $nombrePapa = ($papa != null)?$papa->nombre_completo:'';
+
+            $examenMascotaPapa = ExamenMascota::where('ejemplar_id','=',$papa->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+            if($examenMascotaPapa){
+                $examenPapa = $examenMascotaPapa->examen->nombre;
+                $resultadoPapa = $examenMascotaPapa->resultado;
+            }else{
+                $examenPapa = "";
+                $resultadoPapa = "";
+            }
+
+            $sheet->setCellValue('C11', $nombrePapa.PHP_EOL."K.C.B. ".$kcbPapa.PHP_EOL."No. x Raza ".$papa->num_tatuaje.PHP_EOL."Chip ".$papa->chip.PHP_EOL."$examenPapa".PHP_EOL."$resultadoPapa".PHP_EOL."Color: ".$papa->color);
+            $sheet->getStyle('C11')->getAlignment()->setWrapText(true);
             
             // preguntamos si el papa tiene padre
             // para sacar al abuelo
@@ -668,6 +704,20 @@ class EjemplarController extends Controller
 
                 $kcbAbuelo = ($abuelo)?$abuelo->kcb:'';
                 $nombreAbuelo = ($abuelo != null)?$abuelo->nombre_completo:'';
+                
+                $examenMascotaAbuelo = ExamenMascota::where('ejemplar_id','=',$abuelo->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                if($examenMascotaAbuelo){
+                    $examenAbuelo = $examenMascotaAbuelo->examen->nombre;
+                    $resultadoAbuelo = $examenMascotaAbuelo->resultado;
+                }else{
+                    $examenAbuelo = "";
+                    $resultadoAbuelo = "";
+                }
+
+                $sheet->setCellValue('F11', $nombreAbuelo.PHP_EOL."K.C.B. ".$kcbAbuelo.PHP_EOL."No. x Raza ".$abuelo->num_tatuaje.PHP_EOL."Chip ".$abuelo->chip.PHP_EOL."$examenAbuelo".PHP_EOL."$resultadoAbuelo".PHP_EOL."Color: ".$abuelo->color);
+                $sheet->getStyle('F11')->getAlignment()->setWrapText(true);
 
                 // preguntamos si el abuelo tiene padre
                 // para sacar al tecera generacion padre
@@ -678,6 +728,20 @@ class EjemplarController extends Controller
                     $kcbTGPadre = ($tGPadre)?$tGPadre->kcb:'';
                     $nombreTGPadre = ($tGPadre != null)?$tGPadre->nombre_completo:'';
 
+                    $examenMascotatGPadre = ExamenMascota::where('ejemplar_id','=',$tGPadre->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                    if($examenMascotatGPadre){
+                        $examentGPadre = $examenMascotatGPadre->examen->nombre;
+                        $resultadotGPadre = $examenMascotatGPadre->resultado;
+                    }else{
+                        $examentGPadre = "";
+                        $resultadotGPadre = "";
+                    }
+
+                    $sheet->setCellValue('I11', $nombreTGPadre.PHP_EOL."K.C.B. ".$kcbTGPadre.PHP_EOL."No. x Raza ".$tGPadre->num_tatuaje.PHP_EOL."Chip ".$tGPadre->chip.PHP_EOL."$examentGPadre".PHP_EOL."$resultadotGPadre".PHP_EOL."Color: ".$tGPadre->color);
+                    $sheet->getStyle('I11')->getAlignment()->setWrapText(true);
+
                     // preguntamos si la tercera generacion tiene padre
                     // para sacar al cuarta generacion padre
                     if($tGPadre->padre_id != null){
@@ -686,6 +750,20 @@ class EjemplarController extends Controller
                         
                         $kcbCGPadre = ($cGPadre)?$cGPadre->kcb:'';
                         $nombreCGPadre = ($cGPadre != null)?$cGPadre->nombre_completo:'';
+
+                        $examenMascotacGPadre = ExamenMascota::where('ejemplar_id','=',$cGPadre->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                        if($examenMascotacGPadre){
+                            $examencGPadre = $examenMascotacGPadre->examen->nombre;
+                            $resultadocGPadre = $examenMascotacGPadre->resultado;
+                        }else{
+                            $examencGPadre = "";
+                            $resultadocGPadre = "";
+                        }
+
+                        $sheet->setCellValue('L11', $nombreCGPadre.PHP_EOL."K.C.B. ".$kcbCGPadre.PHP_EOL."No. x Raza ".$cGPadre->num_tatuaje.PHP_EOL."Chip ".$cGPadre->chip.PHP_EOL."$examencGPadre".PHP_EOL."$resultadocGPadre".PHP_EOL."Color: ".$cGPadre->color);
+                        $sheet->getStyle('L11')->getAlignment()->setWrapText(true);
                     }else{
                         $kcbCGPadre = '';
                         $nombreCGPadre = '';
@@ -699,6 +777,20 @@ class EjemplarController extends Controller
                         
                         $kcbCGMadre = ($cGMadre)?$cGMadre->kcb:'';
                         $nombreCGMadre = ($cGMadre != null)?$cGMadre->nombre_completo:'';
+
+                        $examenMascotacGMadre = ExamenMascota::where('ejemplar_id','=',$cGMadre->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                        if($examenMascotacGMadre){
+                            $examencGMadre = $examenMascotacGMadre->examen->nombre;
+                            $resultadocGMadre = $examenMascotacGMadre->resultado;
+                        }else{
+                            $examencGMadre = "";
+                            $resultadocGMadre = "";
+                        }
+
+                        $sheet->setCellValue('L12', $nombreCGMadre.PHP_EOL."K.C.B. ".$kcbCGMadre.PHP_EOL."No. x Raza ".$cGMadre->num_tatuaje.PHP_EOL."Chip ".$cGMadre->chip.PHP_EOL."$examencGMadre".PHP_EOL."$resultadocGMadre".PHP_EOL."Color: ".$cGMadre->color);
+                        $sheet->getStyle('L12')->getAlignment()->setWrapText(true);
                     }else{
                         $kcbCGMadre = '';
                         $nombreCGMadre = '';
@@ -718,12 +810,40 @@ class EjemplarController extends Controller
                     $kcbTGMadre = ($tGMadre)?$tGMadre->kcb:'';
                     $nombreTGMadre = ($tGMadre != null)?$tGMadre->nombre_completo:'';
 
+                    $examenMascotatGMadre = ExamenMascota::where('ejemplar_id','=',$tGMadre->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                    if($examenMascotatGMadre){
+                        $examentGMadre = $examenMascotatGMadre->examen->nombre;
+                        $resultadotGMadre = $examenMascotatGMadre->resultado;
+                    }else{
+                        $examentGMadre = "";
+                        $resultadotGMadre = "";
+                    }
+
+                    $sheet->setCellValue('I13', $nombreTGMadre.PHP_EOL."K.C.B. ".$kcbTGMadre.PHP_EOL."No. x Raza ".$tGMadre->num_tatuaje.PHP_EOL."Chip ".$tGMadre->chip.PHP_EOL."$examentGMadre".PHP_EOL."$resultadotGMadre".PHP_EOL."Color: ".$tGMadre->color);
+                    $sheet->getStyle('I13')->getAlignment()->setWrapText(true);
+
                     if($tGMadre->padre_id != null){
 
                         $CGMadreP = Ejemplar::find($tGMadre->padre_id);
 
                         $kcbTGMadreP1 = ($CGMadreP)?$CGMadreP->kcb:'';
-                        $nombreTGMadreP1 = ($CGMadreP)?$CGMadreP->nombre_completo:'';    
+                        $nombreTGMadreP1 = ($CGMadreP)?$CGMadreP->nombre_completo:'';  
+                        
+                        $examenMascotaCGMadreP = ExamenMascota::where('ejemplar_id','=',$CGMadreP->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                        if($examenMascotaCGMadreP){
+                            $examenCGMadreP = $examenMascotaCGMadreP->examen->nombre;
+                            $resultadoCGMadreP = $examenMascotaCGMadreP->resultado;
+                        }else{
+                            $examenCGMadreP = "";
+                            $resultadoCGMadreP = "";
+                        }
+
+                        $sheet->setCellValue('L13', $nombreTGMadreP1.PHP_EOL."K.C.B. ".$kcbTGMadreP1.PHP_EOL."No. x Raza ".$CGMadreP->num_tatuaje.PHP_EOL."Chip ".$CGMadreP->chip.PHP_EOL."$examenCGMadreP".PHP_EOL."$resultadoCGMadreP".PHP_EOL."Color: ".$CGMadreP->color);
+                        $sheet->getStyle('L13')->getAlignment()->setWrapText(true);
                     }else{
                         $kcbTGMadreP1 = '';
                         $nombreTGMadreP1 = '';    
@@ -736,6 +856,20 @@ class EjemplarController extends Controller
 
                         $kcbTGMadreM2 = ($CGMadreM2)?$CGMadreM2->kcb:'';
                         $nombreTGMadreM2 = ($CGMadreM2)?$CGMadreM2->nombre_completo:'';    
+
+                        $examenMascotaCGMadreM2 = ExamenMascota::where('ejemplar_id','=',$CGMadreM2->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                        if($examenMascotaCGMadreM2){
+                            $examenCGMadreM2 = $examenMascotaCGMadreM2->examen->nombre;
+                            $resultadoCGMadreM2 = $examenMascotaCGMadreM2->resultado;
+                        }else{
+                            $examenCGMadreM2 = "";
+                            $resultadoCGMadreM2 = "";
+                        }
+
+                        $sheet->setCellValue('L14', $nombreTGMadreM2.PHP_EOL."K.C.B. ".$kcbTGMadreM2.PHP_EOL."No. x Raza ".$CGMadreM2->num_tatuaje.PHP_EOL."Chip ".$CGMadreM2->chip.PHP_EOL."$examenCGMadreM2".PHP_EOL."$resultadoCGMadreM2".PHP_EOL."Color: ".$CGMadreM2->color);
+                        $sheet->getStyle('L14')->getAlignment()->setWrapText(true);
                     }else{
                         $kcbTGMadreM2 = '';
                         $nombreTGMadreM2 = '';    
@@ -760,6 +894,20 @@ class EjemplarController extends Controller
                 $kcbAbuela = ($abuela)?$abuela->kcb:'';
                 $nombreAbuela = ($abuela != null)?$abuela->nombre_completo:'';
 
+                $examenMascotaabuela = ExamenMascota::where('ejemplar_id','=',$abuela->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                if($examenMascotaabuela){
+                    $examenabuela = $examenMascotaabuela->examen->nombre;
+                    $resultadoabuela = $examenMascotaabuela->resultado;
+                }else{
+                    $examenabuela = "";
+                    $resultadoabuela = "";
+                }
+
+                $sheet->setCellValue('F15', $nombreAbuela.PHP_EOL."K.C.B. ".$kcbAbuela.PHP_EOL."No. x Raza ".$abuela->num_tatuaje.PHP_EOL."Chip ".$abuela->chip.PHP_EOL."$examenabuela".PHP_EOL."$resultadoabuela".PHP_EOL."Color: ".$abuela->color);
+                $sheet->getStyle('F15')->getAlignment()->setWrapText(true);
+
                 if($abuela->padre_id != null){
 
                     $abueloTG = Ejemplar::find($abuela->padre_id);
@@ -767,12 +915,40 @@ class EjemplarController extends Controller
                     $kcbAbueloTG1 = ($abueloTG)?$abueloTG->kcb:'';
                     $nombreAbueloTG1 = ($abueloTG)?$abueloTG->nombre_completo:'';
 
+                    $examenMascotaabueloTG = ExamenMascota::where('ejemplar_id','=',$abueloTG->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                    if($examenMascotaabueloTG){
+                        $examenabueloTG = $examenMascotaabueloTG->examen->nombre;
+                        $resultadoabueloTG = $examenMascotaabueloTG->resultado;
+                    }else{
+                        $examenabueloTG = "";
+                        $resultadoabueloTG = "";
+                    }
+
+                    $sheet->setCellValue('I15', $nombreAbueloTG1.PHP_EOL."K.C.B. ".$kcbAbueloTG1.PHP_EOL."No. x Raza ".$abueloTG->num_tatuaje.PHP_EOL."Chip ".$abueloTG->chip.PHP_EOL."$examenabueloTG".PHP_EOL."$resultadoabueloTG".PHP_EOL."Color: ".$abueloTG->color);
+                    $sheet->getStyle('I15')->getAlignment()->setWrapText(true);
+
                     if($abueloTG->padre_id != null){
 
                         $abueloCG = Ejemplar::find($abueloTG->padre_id);
 
                         $kcbAbueloCG1 = ($abueloCG)?$abueloCG->kcb:'';
                         $nombreAbueloCG1 = ($abueloCG)?$abueloCG->nombre_completo:'';
+
+                        $examenMascotaabueloCG = ExamenMascota::where('ejemplar_id','=',$abueloCG->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                        if($examenMascotaabueloCG){
+                            $examenabueloCG = $examenMascotaabueloCG->examen->nombre;
+                            $resultadoabueloCG = $examenMascotaabueloCG->resultado;
+                        }else{
+                            $examenabueloCG = "";
+                            $resultadoabueloCG = "";
+                        }
+
+                        $sheet->setCellValue('L15', $nombreAbueloCG1.PHP_EOL."K.C.B. ".$kcbAbueloCG1.PHP_EOL."No. x Raza ".$abueloCG->num_tatuaje.PHP_EOL."Chip ".$abueloCG->chip.PHP_EOL."$examenabueloCG".PHP_EOL."$resultadoabueloCG".PHP_EOL."Color: ".$abueloCG->color);
+                        $sheet->getStyle('L15')->getAlignment()->setWrapText(true);
                     }else{
                         $kcbAbueloCG1 = '';
                         $nombreAbueloCG1 = '';
@@ -784,6 +960,20 @@ class EjemplarController extends Controller
 
                         $kcbAbueloCG1M = ($abueloCGM)?$abueloCGM->kcb:'';
                         $nombreAbueloCG1M = ($abueloCGM)?$abueloCGM->nombre_completo:'';
+
+                        $examenMascotaabueloCGM = ExamenMascota::where('ejemplar_id','=',$abueloCGM->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                        if($examenMascotaabueloCGM){
+                            $examenabueloCGM = $examenMascotaabueloCGM->examen->nombre;
+                            $resultadoabueloCGM = $examenMascotaabueloCGM->resultado;
+                        }else{
+                            $examenabueloCGM = "";
+                            $resultadoabueloCGM = "";
+                        }
+
+                        $sheet->setCellValue('L16', $nombreAbueloCG1M.PHP_EOL."K.C.B. ".$kcbAbueloCG1M.PHP_EOL."No. x Raza ".$abueloCGM->num_tatuaje.PHP_EOL."Chip ".$abueloCGM->chip.PHP_EOL."$examenabueloCGM".PHP_EOL."$resultadoabueloCGM".PHP_EOL."Color: ".$abueloCGM->color);
+                        $sheet->getStyle('L16')->getAlignment()->setWrapText(true);
                     }else{
                         $kcbAbueloCG1M = '';
                         $nombreAbueloCG1M = '';
@@ -801,6 +991,20 @@ class EjemplarController extends Controller
                     $kcbAbuelaTG1 = ($abuelaTG)?$abuelaTG->kcb:'';
                     $nombreAbuelaTG1 = ($abuelaTG)?$abuelaTG->nombre_completo:'';
 
+                    $examenMascotaabuelaTG = ExamenMascota::where('ejemplar_id','=',$abuelaTG->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                    if($examenMascotaabuelaTG){
+                        $examenabuelaTG = $examenMascotaabuelaTG->examen->nombre;
+                        $resultadoabuelaTG = $examenMascotaabuelaTG->resultado;
+                    }else{
+                        $examenabuelaTG = "";
+                        $resultadoabuelaTG = "";
+                    }
+
+                    $sheet->setCellValue('I17', $nombreAbuelaTG1.PHP_EOL."K.C.B. ".$kcbAbuelaTG1.PHP_EOL."No. x Raza ".$abuelaTG->num_tatuaje.PHP_EOL."Chip ".$abuelaTG->chip.PHP_EOL."$examenabuelaTG".PHP_EOL."$resultadoabuelaTG".PHP_EOL."Color: ".$abuelaTG->color);
+                    $sheet->getStyle('I17')->getAlignment()->setWrapText(true);
+
                     // aqui hay que hacer para la cuarte generracion tanto como padre y madres
                     if($abuelaTG->padre_id != null){
 
@@ -808,6 +1012,20 @@ class EjemplarController extends Controller
 
                         $kcbAbueloTG1M1 = ($abueloTGM1)?$abueloTGM1->kcb:'';
                         $nombreAbueloTG1M1 = ($abueloTGM1)?$abueloTGM1->nombre_completo:'';
+
+                        $examenMascotaabueloTGM1 = ExamenMascota::where('ejemplar_id','=',$abueloTGM1->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                        if($examenMascotaabueloTGM1){
+                            $examenabueloTGM1 = $examenMascotaabueloTGM1->examen->nombre;
+                            $resultadoabueloTGM1 = $examenMascotaabueloTGM1->resultado;
+                        }else{
+                            $examenabueloTGM1 = "";
+                            $resultadoabueloTGM1 = "";
+                        }
+
+                        $sheet->setCellValue('L17', $nombreAbueloTG1M1.PHP_EOL."K.C.B. ".$kcbAbueloTG1M1.PHP_EOL."No. x Raza ".$abueloTGM1->num_tatuaje.PHP_EOL."Chip ".$abueloTGM1->chip.PHP_EOL."$examenabueloTGM1".PHP_EOL."$resultadoabueloTGM1".PHP_EOL."Color: ".$abueloTGM1->color);
+                        $sheet->getStyle('L17')->getAlignment()->setWrapText(true);
                     }else{
                         $kcbAbueloTG1M1 = '';
                         $nombreAbueloTG1M1 = '';
@@ -818,6 +1036,20 @@ class EjemplarController extends Controller
 
                         $kcbAbuelaTG1M1 = ($abuelaTGM1)?$abuelaTGM1->kcb:'';
                         $nombreAbuelaTG1M1 = ($abuelaTGM1)?$abuelaTGM1->nombre_completo:'';
+
+                        $examenMascotaabuelaTGM1 = ExamenMascota::where('ejemplar_id','=',$abuelaTGM1->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                        if($examenMascotaabuelaTGM1){
+                            $examenabuelaTGM1 = $examenMascotaabuelaTGM1->examen->nombre;
+                            $resultadoabuelaTGM1 = $examenMascotaabuelaTGM1->resultado;
+                        }else{
+                            $examenabuelaTGM1 = "";
+                            $resultadoabuelaTGM1 = "";
+                        }
+
+                        $sheet->setCellValue('L18', $nombreAbuelaTG1M1.PHP_EOL."K.C.B. ".$kcbAbuelaTG1M1.PHP_EOL."No. x Raza ".$abuelaTGM1->num_tatuaje.PHP_EOL."Chip ".$abuelaTGM1->chip.PHP_EOL."$examenabuelaTGM1".PHP_EOL."$resultadoabuelaTGM1".PHP_EOL."Color: ".$abuelaTGM1->color);
+                        $sheet->getStyle('L18')->getAlignment()->setWrapText(true);
                     }else{
                         $kcbAbuelaTG1M1 = '';
                         $nombreAbuelaTG1M1 = '';
@@ -835,6 +1067,9 @@ class EjemplarController extends Controller
             $kcbPapa = '';
             $nombrePapa = '';        
         }
+
+        // ****************** MADRE *****************************
+
         // definimos las variables de la madre
         $kcbAbueloM = '';
         $nombreAbueloM = '';
@@ -876,12 +1111,40 @@ class EjemplarController extends Controller
             $kcbMama = ($mama != null)?$mama->kcb:'';
             $nombreMama = ($mama != null)?$mama->nombre_completo:'';
 
+            $examenMascotamama = ExamenMascota::where('ejemplar_id','=',$mama->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+            if($examenMascotamama){
+                $examenmama = $examenMascotamama->examen->nombre;
+                $resultadomama = $examenMascotamama->resultado;
+            }else{
+                $examenmama = "";
+                $resultadomama = "";
+            }
+
+            $sheet->setCellValue('C19', $nombreMama.PHP_EOL."K.C.B. ".$kcbMama.PHP_EOL."No. x Raza ".$mama->num_tatuaje.PHP_EOL."Chip ".$mama->chip.PHP_EOL."$examenmama".PHP_EOL."$resultadomama".PHP_EOL."Color: ".$mama->color);
+            $sheet->getStyle('C19')->getAlignment()->setWrapText(true);
+
             if($mama->padre_id != null){
 
                 $abueloM = Ejemplar::find($mama->padre_id);
 
                 $kcbAbueloM     = ($abueloM)? $abueloM->kcb: '';
                 $nombreAbueloM  = ($abueloM)? $abueloM->nombre_completo: '';
+
+                $examenMascotaabueloM = ExamenMascota::where('ejemplar_id','=',$abueloM->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                if($examenMascotaabueloM){
+                    $examenabueloM = $examenMascotaabueloM->examen->nombre;
+                    $resultadoabueloM = $examenMascotaabueloM->resultado;
+                }else{
+                    $examenabueloM = "";
+                    $resultadoabueloM = "";
+                }
+
+                $sheet->setCellValue('F19', $nombreAbueloM.PHP_EOL."K.C.B. ".$kcbAbueloM.PHP_EOL."No. x Raza ".$abueloM->num_tatuaje.PHP_EOL."Chip ".$abueloM->chip.PHP_EOL."$examenabueloM".PHP_EOL."$resultadoabueloM".PHP_EOL."Color: ".$abueloM->color);
+                $sheet->getStyle('F19')->getAlignment()->setWrapText(true);
 
                 if($abueloM->padre_id != null){
                     
@@ -890,12 +1153,40 @@ class EjemplarController extends Controller
                     $kcbTGPadreM = ($tGPadreM)?$tGPadreM->kcb:'';
                     $nombreTGPadreM = ($tGPadreM)?$tGPadreM->nombre_completo:'';
 
+                    $examenMascotatGPadreM = ExamenMascota::where('ejemplar_id','=',$tGPadreM->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                    if($examenMascotatGPadreM){
+                        $examentGPadreM = $examenMascotatGPadreM->examen->nombre;
+                        $resultadotGPadreM = $examenMascotatGPadreM->resultado;
+                    }else{
+                        $examentGPadreM = "";
+                        $resultadotGPadreM = "";
+                    }
+
+                    $sheet->setCellValue('I19', $nombreTGPadreM.PHP_EOL."K.C.B. ".$kcbTGPadreM.PHP_EOL."No. x Raza ".$tGPadreM->num_tatuaje.PHP_EOL."Chip ".$tGPadreM->chip.PHP_EOL."$examentGPadreM".PHP_EOL."$resultadotGPadreM".PHP_EOL."Color: ".$tGPadreM->color);
+                    $sheet->getStyle('I19')->getAlignment()->setWrapText(true);
+
                     if($tGPadreM->padre_id != null){
 
                         $CGPadreM1 = Ejemplar::find($tGPadreM->padre_id);
 
                         $kcbCGPadreM1 = ($CGPadreM1)?$CGPadreM1->kcb:'';
                         $nombreCGPadreM1 = ($CGPadreM1)?$CGPadreM1->nombre_completo:'';
+
+                        $examenMascotaCGPadreM1 = ExamenMascota::where('ejemplar_id','=',$CGPadreM1->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                        if($examenMascotaCGPadreM1){
+                            $examenCGPadreM1 = $examenMascotaCGPadreM1->examen->nombre;
+                            $resultadoCGPadreM1 = $examenMascotaCGPadreM1->resultado;
+                        }else{
+                            $examenCGPadreM1 = "";
+                            $resultadoCGPadreM1 = "";
+                        }
+
+                        $sheet->setCellValue('L19', $nombreCGPadreM1.PHP_EOL."K.C.B. ".$kcbCGPadreM1.PHP_EOL."No. x Raza ".$CGPadreM1->num_tatuaje.PHP_EOL."Chip ".$CGPadreM1->chip.PHP_EOL."$examenCGPadreM1".PHP_EOL."$resultadoCGPadreM1".PHP_EOL."Color: ".$CGPadreM1->color);
+                        $sheet->getStyle('L19')->getAlignment()->setWrapText(true);
                     }else{
                         $kcbCGPadreM1 = '';
                         $nombreCGPadreM1 = '';
@@ -906,6 +1197,20 @@ class EjemplarController extends Controller
 
                         $kcbCGPadreM2 = ($CGPadreM2)?$CGPadreM2->kcb:'';
                         $nombreCGPadreM2 = ($CGPadreM2)?$CGPadreM2->nombre_completo:'';
+
+                        $examenMascotaCGPadreM2 = ExamenMascota::where('ejemplar_id','=',$CGPadreM2->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                        if($examenMascotaCGPadreM2){
+                            $examenCGPadreM2 = $examenMascotaCGPadreM2->examen->nombre;
+                            $resultadoCGPadreM2 = $examenMascotaCGPadreM2->resultado;
+                        }else{
+                            $examenCGPadreM2 = "";
+                            $resultadoCGPadreM2 = "";
+                        }
+
+                        $sheet->setCellValue('L20', $nombreCGPadreM2.PHP_EOL."K.C.B. ".$kcbCGPadreM2.PHP_EOL."No. x Raza ".$CGPadreM2->num_tatuaje.PHP_EOL."Chip ".$CGPadreM2->chip.PHP_EOL."$examenCGPadreM2".PHP_EOL."$resultadoCGPadreM2".PHP_EOL."Color: ".$CGPadreM2->color);
+                        $sheet->getStyle('L20')->getAlignment()->setWrapText(true);
                     }else{
                         $kcbCGPadreM2 = '';
                         $nombreCGPadreM2 = '';
@@ -923,12 +1228,40 @@ class EjemplarController extends Controller
                     $kcbTGMadreM = ($tGMadreM)?$tGMadreM->kcb:'';
                     $nombreTGMadreM = ($tGMadreM)?$tGMadreM->nombre_completo:'';
 
+                    $examenMascotatGMadreM = ExamenMascota::where('ejemplar_id','=',$tGMadreM->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                    if($examenMascotatGMadreM){
+                        $examentGMadreM = $examenMascotatGMadreM->examen->nombre;
+                        $resultadotGMadreM = $examenMascotatGMadreM->resultado;
+                    }else{
+                        $examentGMadreM = "";
+                        $resultadotGMadreM = "";
+                    }
+
+                    $sheet->setCellValue('I21', $nombreTGMadreM.PHP_EOL."K.C.B. ".$kcbTGMadreM.PHP_EOL."No. x Raza ".$tGMadreM->num_tatuaje.PHP_EOL."Chip ".$tGMadreM->chip.PHP_EOL."$examentGMadreM".PHP_EOL."$resultadotGMadreM".PHP_EOL."Color: ".$tGMadreM->color);
+                    $sheet->getStyle('I21')->getAlignment()->setWrapText(true);
+
                     if($tGMadreM->padre_id != null){
 
                         $CGPadreM = Ejemplar::find($tGMadreM->padre_id);
 
                         $kcbCGPadreM = ($CGPadreM)? $CGPadreM->kcb:'';                   
-                        $nombreCGPadreM = ($CGPadreM)? $CGPadreM->nombre_completo:'';                   
+                        $nombreCGPadreM = ($CGPadreM)? $CGPadreM->nombre_completo:'';
+
+                        $examenMascotaCGPadreM = ExamenMascota::where('ejemplar_id','=',$CGPadreM->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                        if($examenMascotaCGPadreM){
+                            $examenCGPadreM = $examenMascotaCGPadreM->examen->nombre;
+                            $resultadoCGPadreM = $examenMascotaCGPadreM->resultado;
+                        }else{
+                            $examenCGPadreM = "";
+                            $resultadoCGPadreM = "";
+                        }
+
+                        $sheet->setCellValue('L21', $nombreCGPadreM.PHP_EOL."K.C.B. ".$kcbCGPadreM.PHP_EOL."No. x Raza ".$CGPadreM->num_tatuaje.PHP_EOL."Chip ".$CGPadreM->chip.PHP_EOL."$examenCGPadreM".PHP_EOL."$resultadoCGPadreM".PHP_EOL."Color: ".$CGPadreM->color);
+                        $sheet->getStyle('L21')->getAlignment()->setWrapText(true);
 
                     }else{
 
@@ -941,6 +1274,20 @@ class EjemplarController extends Controller
 
                         $kcbCGMadreM = ($CGMadreM)? $CGMadreM->kcb:'';                   
                         $nombreCGMadreM = ($CGMadreM)? $CGMadreM->nombre_completo:'';                   
+
+                        $examenMascotaCGMadreM = ExamenMascota::where('ejemplar_id','=',$CGMadreM->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                        if($examenMascotaCGMadreM){
+                            $examenCGMadreM = $examenMascotaCGMadreM->examen->nombre;
+                            $resultadoCGMadreM = $examenMascotaCGMadreM->resultado;
+                        }else{
+                            $examenCGMadreM = "";
+                            $resultadoCGMadreM = "";
+                        }
+
+                        $sheet->setCellValue('L22', $nombreCGMadreM.PHP_EOL."K.C.B. ".$kcbCGMadreM.PHP_EOL."No. x Raza ".$CGMadreM->num_tatuaje.PHP_EOL."Chip ".$CGMadreM->chip.PHP_EOL."$examenCGMadreM".PHP_EOL."$resultadoCGMadreM".PHP_EOL."Color: ".$CGMadreM->color);
+                        $sheet->getStyle('L22')->getAlignment()->setWrapText(true);
                     }else{
                         $kcbCGMadreM = '';                   
                         $nombreCGPadreM = '';                   
@@ -963,6 +1310,20 @@ class EjemplarController extends Controller
                 $kcbAbuelaM     = ($abuelaM)?$abuelaM->kcb:'';
                 $nombreAbuelaM  = ($abuelaM)?$abuelaM->nombre_completo:'';
 
+                $examenMascotaabuelaM = ExamenMascota::where('ejemplar_id','=',$abuelaM->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                if($examenMascotaabuelaM){
+                    $examenabuelaM = $examenMascotaabuelaM->examen->nombre;
+                    $resultadoabuelaM = $examenMascotaabuelaM->resultado;
+                }else{
+                    $examenabuelaM = "";
+                    $resultadoabuelaM = "";
+                }
+
+                $sheet->setCellValue('F23', $nombreAbuelaM.PHP_EOL."K.C.B. ".$kcbAbuelaM.PHP_EOL."No. x Raza ".$abuelaM->num_tatuaje.PHP_EOL."Chip ".$abuelaM->chip.PHP_EOL."$examenabuelaM".PHP_EOL."$resultadoabuelaM".PHP_EOL."Color: ".$abuelaM->color);
+                $sheet->getStyle('F23')->getAlignment()->setWrapText(true);
+
                 if($abuelaM->padre_id != null){
 
                     $abueloSG   =Ejemplar::find($abuelaM->padre_id);
@@ -970,12 +1331,40 @@ class EjemplarController extends Controller
                     $kcbabueloMSG  = ($abueloSG)? $abueloSG->kcb:'' ;
                     $nombreabueloMSG  = ($abueloSG)? $abueloSG->nombre_completo:'' ;
 
+                    $examenMascotaabueloSG = ExamenMascota::where('ejemplar_id','=',$abueloSG->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                    if($examenMascotaabueloSG){
+                        $examenabueloSG = $examenMascotaabueloSG->examen->nombre;
+                        $resultadoabueloSG = $examenMascotaabueloSG->resultado;
+                    }else{
+                        $examenabueloSG = "";
+                        $resultadoabueloSG = "";
+                    }
+                    
+                    $sheet->setCellValue('I23', $nombreabueloMSG.PHP_EOL."K.C.B. ".$kcbabueloMSG.PHP_EOL."No. x Raza ".$abueloSG->num_tatuaje.PHP_EOL."Chip ".$abueloSG->chip.PHP_EOL."$examenabueloSG".PHP_EOL."$resultadoabueloSG".PHP_EOL."Color: ".$abueloSG->color);
+                    $sheet->getStyle('I23')->getAlignment()->setWrapText(true);
+
                     if($abueloSG->padre_id){
 
                         $abueloTG1   =Ejemplar::find($abueloSG->padre_id);
 
                         $kcbabueloMTG1  = ($abueloTG1)? $abueloTG1->kcb:'' ;
                         $nombreabueloMTG1  = ($abueloTG1)? $abueloTG1->nombre_completo:'' ;
+
+                        $examenMascotaabueloTG1 = ExamenMascota::where('ejemplar_id','=',$abueloTG1->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                        if($examenMascotaabueloTG1){
+                            $examenabueloTG1 = $examenMascotaabueloTG1->examen->nombre;
+                            $resultadoabueloTG1 = $examenMascotaabueloTG1->resultado;
+                        }else{
+                            $examenabueloTG1 = "";
+                            $resultadoabueloTG1 = "";
+                        }
+
+                        $sheet->setCellValue('L23', $nombreabueloMTG1.PHP_EOL."K.C.B. ".$kcbabueloMTG1.PHP_EOL."No. x Raza ".$abueloTG1->num_tatuaje.PHP_EOL."Chip ".$abueloTG1->chip.PHP_EOL."$examenabueloTG1".PHP_EOL."$resultadoabueloTG1".PHP_EOL."Color: ".$abueloTG1->color);
+                        $sheet->getStyle('L23')->getAlignment()->setWrapText(true);
                     }else{
                         $kcbabueloMTG1  = '' ;
                         $nombreabueloMTG1  = '' ;
@@ -987,6 +1376,20 @@ class EjemplarController extends Controller
 
                         $kcbabueloMTG11  = ($abueloTG11)? $abueloTG11->kcb:'' ;
                         $nombreabueloMTG11  = ($abueloTG11)? $abueloTG11->nombre_completo:'' ;
+
+                        $examenMascotaabueloTG11 = ExamenMascota::where('ejemplar_id','=',$abueloTG11->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                        if($examenMascotaabueloTG11){
+                            $examenabueloTG11 = $examenMascotaabueloTG11->examen->nombre;
+                            $resultadoabueloTG11 = $examenMascotaabueloTG11->resultado;
+                        }else{
+                            $examenabueloTG11 = "";
+                            $resultadoabueloTG11 = "";
+                        }
+
+                        $sheet->setCellValue('L24', $nombreabueloMTG11.PHP_EOL."K.C.B. ".$kcbabueloMTG11.PHP_EOL."No. x Raza ".$abueloTG11->num_tatuaje.PHP_EOL."Chip ".$abueloTG11->chip.PHP_EOL."$examenabueloTG11".PHP_EOL."$resultadoabueloTG11".PHP_EOL."Color: ".$abueloTG11->color);
+                        $sheet->getStyle('L24')->getAlignment()->setWrapText(true);
                     }else{
                         $kcbabueloMTG11  = '' ;
                         $nombreabueloMTG11  = '' ;
@@ -1003,27 +1406,75 @@ class EjemplarController extends Controller
                     $kcbabueloMSG2  = ($abueloSGM2)? $abueloSGM2->kcb:'' ;
                     $nombreabueloMSG2  = ($abueloSGM2)? $abueloSGM2->nombre_completo:'' ;
 
+                    $examenMascotaabueloSGM2 = ExamenMascota::where('ejemplar_id','=',$abueloSGM2->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                    if($examenMascotaabueloSGM2){
+                        $examenabueloSGM2 = $examenMascotaabueloSGM2->examen->nombre;
+                        $resultadoabueloSGM2 = $examenMascotaabueloSGM2->resultado;
+                    }else{
+                        $examenabueloSGM2 = "";
+                        $resultadoabueloSGM2 = "";
+                    }
+
+                    $sheet->setCellValue('I25', $nombreabueloMSG2.PHP_EOL."K.C.B. ".$kcbabueloMSG2.PHP_EOL."No. x Raza ".$abueloSGM2->num_tatuaje.PHP_EOL."Chip ".$abueloSGM2->chip.PHP_EOL."$examenabueloSGM2".PHP_EOL."$resultadoabueloSGM2".PHP_EOL."Color: ".$abueloSGM2->color);
+                    $sheet->getStyle('I25')->getAlignment()->setWrapText(true);
+
                     if($abueloSGM2->padre_id != null){
 
-                        $abueloSGM22   =Ejemplar::find($abueloSGM2->padre_id);
+                        $abueloSGM22   = Ejemplar::find($abueloSGM2->padre_id);
+
+                        // dd($abueloSGM22);
 
                         $kcbabueloMSG22  = ($abueloSGM22)? $abueloSGM22->kcb:'' ;
                         $nombreabueloMSG22  = ($abueloSGM22)? $abueloSGM22->nombre_completo:'' ;
+
+                        $examenMascotaabueloSGM22 = ExamenMascota::where('ejemplar_id','=',$abueloSGM22->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+
+                                            // dd($examenMascotaabueloSGM22);
+                        if($examenMascotaabueloSGM22){
+                            $examenabueloSGM22 = $examenMascotaabueloSGM22->examen->nombre;
+                            $resultadoabueloSGM22 = $examenMascotaabueloSGM22->resultado;
+                        }else{
+                            $examenabueloSGM22 = '1';
+                            $resultadoabueloSGM22 = '1';
+                        }
+                            // dd($resultadoabueloSGM22." - ".$resultadoabueloSGM22." nombre ".$nombreabueloMSG22." kcb: ".$kcbabueloMSG22." tatu: ".$abueloSGM22->num_tatuaje." chip: ".$abueloSGM22->chip." colo: ".$abueloSGM22->color);
+                        // $sheet->setCellValue('L25', "$nombreabueloMSG22".PHP_EOL."K.C.B. "."$kcbabueloMSG22".PHP_EOL."No. x Raza "."$abueloSGM22->num_tatuaje".PHP_EOL."Chip "."$abueloSGM22->chip".PHP_EOL."$examenabueloSGM22".PHP_EOL."$resultadoabueloSGM22".PHP_EOL."Color: "."$abueloSGM22->color");
+                        dd($nombreabueloMSG22);
+                        $sheet->setCellValue('L25', '$nombreabueloMSG22');
+                        $sheet->getStyle('L25')->getAlignment()->setWrapText(true);
                     }else{
 
                         $kcbabueloMSG22  = '' ;
                         $nombreabueloMSG22  = '' ;  
                     }
-                    if($abueloSGM2->madre_id != null){
+                    // if($abueloSGM2->madre_id != null){
 
-                        $abueloSGM222   =Ejemplar::find($abueloSGM2->madre_id);
+                    //     $abueloSGM222   =Ejemplar::find($abueloSGM2->madre_id);
 
-                        $kcbabueloMSG222  = ($abueloSGM222)? $abueloSGM222->kcb:'' ;
-                        $nombreabueloMSG222  = ($abueloSGM222)? $abueloSGM222->nombre_completo:'' ;
-                    }else{
-                        $kcbabueloMSG222  = '' ;
-                        $nombreabueloMSG222  = '' ;
-                    }
+                    //     $kcbabueloMSG222  = ($abueloSGM222)? $abueloSGM222->kcb:'' ;
+                    //     $nombreabueloMSG222  = ($abueloSGM222)? $abueloSGM222->nombre_completo:'' ;
+
+                    //     $examenMascotaabueloSGM222 = ExamenMascota::where('ejemplar_id','=',$abueloSGM222->id)
+                    //                         ->where('examen_id','=',3)
+                    //                         ->first();
+                    //     if($examenMascotaabueloSGM222){
+                    //         $examenabueloSGM222 = $examenMascotaabueloSGM222->examen->nombre;
+                    //         $resultadoabueloSGM222 = $examenMascotaabueloSGM222->resultado;
+                    //     }else{
+                    //         $examenabueloSGM222 = "";
+                    //         $resultadoabueloSGM222 = "";
+                    //     }
+
+                    //     $sheet->setCellValue('L26', $nombreabueloMSG222.PHP_EOL."K.C.B. ".$kcbabueloMSG222.PHP_EOL."No. x Raza ".$abueloSGM222->num_tatuaje.PHP_EOL."Chip ".$abueloSGM222->chip.PHP_EOL."$examenabueloSGM222".PHP_EOL."$resultadoabueloSGM222".PHP_EOL."Color: ".$abueloSGM222->color);
+                    //     $sheet->getStyle('L26')->getAlignment()->setWrapText(true);
+                    // }else{
+                    //     $kcbabueloMSG222  = '' ;
+                    //     $nombreabueloMSG222  = '' ;
+                    // }
                 }else{
                     $kcbabueloMSG2  = '' ;
                     $nombreabueloMSG2  = '' ;
@@ -1038,105 +1489,9 @@ class EjemplarController extends Controller
             $nombreMama = '';
         }
 
-        // ************** Curpo Arbol gernealogico ***************
-
-                // ****************** PADRE *****************************
-        $sheet->setCellValue('C11', $nombrePapa.PHP_EOL."K.C.B. ".$kcbPapa.PHP_EOL."No. x Raza ".$papa->num_tatuaje.PHP_EOL."Chip ".$papa->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$papa->color);
-        $sheet->getStyle('C11')->getAlignment()->setWrapText(true);
-
-        $sheet->setCellValue('F11', $nombreAbuelo.PHP_EOL."K.C.B. ".$kcbAbuelo.PHP_EOL."No. x Raza ".$abuelo->num_tatuaje.PHP_EOL."Chip ".$abuelo->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$abuelo->color);
-        $sheet->getStyle('F11')->getAlignment()->setWrapText(true);
-        
-        $sheet->setCellValue('I11', $nombreTGPadre.PHP_EOL."K.C.B. ".$kcbTGPadre.PHP_EOL."No. x Raza ".$tGPadre->num_tatuaje.PHP_EOL."Chip ".$tGPadre->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$tGPadre->color);
-        $sheet->getStyle('I11')->getAlignment()->setWrapText(true);
-
-        $sheet->setCellValue('L11', $nombreCGPadre.PHP_EOL."K.C.B. ".$kcbCGPadre.PHP_EOL."No. x Raza ".$cGPadre->num_tatuaje.PHP_EOL."Chip ".$cGPadre->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$cGPadre->color);
-        $sheet->getStyle('L11')->getAlignment()->setWrapText(true);
-
-        $sheet->setCellValue('L12', $nombreCGMadre.PHP_EOL."K.C.B. ".$kcbCGMadre.PHP_EOL."No. x Raza ".$cGMadre->num_tatuaje.PHP_EOL."Chip ".$cGMadre->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$cGMadre->color);
-        $sheet->getStyle('L12')->getAlignment()->setWrapText(true);
-
-        $sheet->setCellValue('I13', $nombreTGMadre.PHP_EOL."K.C.B. ".$kcbTGMadre.PHP_EOL."No. x Raza ".$tGMadre->num_tatuaje.PHP_EOL."Chip ".$tGMadre->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$tGMadre->color);
-        $sheet->getStyle('I13')->getAlignment()->setWrapText(true);
-
-        $sheet->setCellValue('L13', $nombreTGMadreP1.PHP_EOL."K.C.B. ".$kcbTGMadreP1.PHP_EOL."No. x Raza ".$CGMadreP->num_tatuaje.PHP_EOL."Chip ".$CGMadreP->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$CGMadreP->color);
-        $sheet->getStyle('L13')->getAlignment()->setWrapText(true);
-
-        $sheet->setCellValue('L14', $nombreTGMadreM2.PHP_EOL."K.C.B. ".$kcbTGMadreM2.PHP_EOL."No. x Raza ".$CGMadreM2->num_tatuaje.PHP_EOL."Chip ".$CGMadreM2->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$CGMadreM2->color);
-        $sheet->getStyle('L14')->getAlignment()->setWrapText(true);
-
-        $sheet->setCellValue('F15', $nombreAbuela.PHP_EOL."K.C.B. ".$kcbAbuela.PHP_EOL."No. x Raza ".$abuela->num_tatuaje.PHP_EOL."Chip ".$abuela->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$abuela->color);
-        $sheet->getStyle('F15')->getAlignment()->setWrapText(true);
-
-        $sheet->setCellValue('I15', $nombreAbueloTG1.PHP_EOL."K.C.B. ".$kcbAbueloTG1.PHP_EOL."No. x Raza ".$abueloTG->num_tatuaje.PHP_EOL."Chip ".$abueloTG->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$abueloTG->color);
-        $sheet->getStyle('I15')->getAlignment()->setWrapText(true);
-
-        $sheet->setCellValue('L15', $nombreAbueloCG1.PHP_EOL."K.C.B. ".$kcbAbueloCG1.PHP_EOL."No. x Raza ".$abueloCG->num_tatuaje.PHP_EOL."Chip ".$abueloCG->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$abueloCG->color);
-        $sheet->getStyle('L15')->getAlignment()->setWrapText(true);
-
-        $sheet->setCellValue('L16', $nombreAbueloCG1M.PHP_EOL."K.C.B. ".$kcbAbueloCG1M.PHP_EOL."No. x Raza ".$abueloCGM->num_tatuaje.PHP_EOL."Chip ".$abueloCGM->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$abueloCGM->color);
-        $sheet->getStyle('L16')->getAlignment()->setWrapText(true);
-
-        $sheet->setCellValue('I17', $nombreAbuelaTG1.PHP_EOL."K.C.B. ".$kcbAbuelaTG1.PHP_EOL."No. x Raza ".$abuelaTG->num_tatuaje.PHP_EOL."Chip ".$abuelaTG->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$abuelaTG->color);
-        $sheet->getStyle('I17')->getAlignment()->setWrapText(true);
-
-        $sheet->setCellValue('L17', $nombreAbueloTG1M1.PHP_EOL."K.C.B. ".$kcbAbueloTG1M1.PHP_EOL."No. x Raza ".$abueloTGM1->num_tatuaje.PHP_EOL."Chip ".$abueloTGM1->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$abueloTGM1->color);
-        $sheet->getStyle('L17')->getAlignment()->setWrapText(true);
-
-        $sheet->setCellValue('L18', $nombreAbuelaTG1M1.PHP_EOL."K.C.B. ".$kcbAbuelaTG1M1.PHP_EOL."No. x Raza ".$abuelaTGM1->num_tatuaje.PHP_EOL."Chip ".$abuelaTGM1->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$abuelaTGM1->color);
-        $sheet->getStyle('L18')->getAlignment()->setWrapText(true);
-
-
-        // ****************** MADRE *****************************
-
-        $sheet->setCellValue('C19', $nombreMama.PHP_EOL."K.C.B. ".$kcbMama.PHP_EOL."No. x Raza ".$mama->num_tatuaje.PHP_EOL."Chip ".$mama->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$mama->color);
-        $sheet->getStyle('C19')->getAlignment()->setWrapText(true);
-
-        $sheet->setCellValue('F19', $nombreAbueloM.PHP_EOL."K.C.B. ".$kcbAbueloM.PHP_EOL."No. x Raza ".$abueloM->num_tatuaje.PHP_EOL."Chip ".$abueloM->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$abueloM->color);
-        $sheet->getStyle('F19')->getAlignment()->setWrapText(true);
-
-        $sheet->setCellValue('I19', $nombreTGPadreM.PHP_EOL."K.C.B. ".$kcbTGPadreM.PHP_EOL."No. x Raza ".$tGPadreM->num_tatuaje.PHP_EOL."Chip ".$tGPadreM->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$tGPadreM->color);
-        $sheet->getStyle('I19')->getAlignment()->setWrapText(true);
-
-        $sheet->setCellValue('L19', $nombreCGPadreM1.PHP_EOL."K.C.B. ".$kcbCGPadreM1.PHP_EOL."No. x Raza ".$CGPadreM1->num_tatuaje.PHP_EOL."Chip ".$CGPadreM1->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$CGPadreM1->color);
-        $sheet->getStyle('L19')->getAlignment()->setWrapText(true);
-
-        $sheet->setCellValue('L20', $nombreCGPadreM2.PHP_EOL."K.C.B. ".$kcbCGPadreM2.PHP_EOL."No. x Raza ".$CGPadreM2->num_tatuaje.PHP_EOL."Chip ".$CGPadreM2->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$CGPadreM2->color);
-        $sheet->getStyle('L20')->getAlignment()->setWrapText(true);
-
-        $sheet->setCellValue('I21', $nombreTGMadreM.PHP_EOL."K.C.B. ".$kcbTGMadreM.PHP_EOL."No. x Raza ".$tGMadreM->num_tatuaje.PHP_EOL."Chip ".$tGMadreM->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$tGMadreM->color);
-        $sheet->getStyle('I21')->getAlignment()->setWrapText(true);
-
-        $sheet->setCellValue('L21', $nombreCGPadreM.PHP_EOL."K.C.B. ".$kcbCGPadreM.PHP_EOL."No. x Raza ".$CGPadreM->num_tatuaje.PHP_EOL."Chip ".$CGPadreM->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$CGPadreM->color);
-        $sheet->getStyle('L21')->getAlignment()->setWrapText(true);
-
-        $sheet->setCellValue('L22', $nombreCGMadreM.PHP_EOL."K.C.B. ".$kcbCGMadreM.PHP_EOL."No. x Raza ".$CGMadreM->num_tatuaje.PHP_EOL."Chip ".$CGMadreM->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$CGMadreM->color);
-        $sheet->getStyle('L22')->getAlignment()->setWrapText(true);
-
-        $sheet->setCellValue('F23', $nombreAbuelaM.PHP_EOL."K.C.B. ".$kcbAbuelaM.PHP_EOL."No. x Raza ".$abuelaM->num_tatuaje.PHP_EOL."Chip ".$abuelaM->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$abuelaM->color);
-        $sheet->getStyle('F23')->getAlignment()->setWrapText(true);
-
-        $sheet->setCellValue('I23', $nombreabueloMSG.PHP_EOL."K.C.B. ".$kcbabueloMSG.PHP_EOL."No. x Raza ".$abueloSG->num_tatuaje.PHP_EOL."Chip ".$abueloSG->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$abueloSG->color);
-        $sheet->getStyle('I23')->getAlignment()->setWrapText(true);
-
-        $sheet->setCellValue('L23', $nombreabueloMTG1.PHP_EOL."K.C.B. ".$kcbabueloMTG1.PHP_EOL."No. x Raza ".$abueloTG1->num_tatuaje.PHP_EOL."Chip ".$abueloTG1->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$abueloTG1->color);
-        $sheet->getStyle('L23')->getAlignment()->setWrapText(true);
-
-        $sheet->setCellValue('L24', $nombreabueloMTG11.PHP_EOL."K.C.B. ".$kcbabueloMTG11.PHP_EOL."No. x Raza ".$abueloTG11->num_tatuaje.PHP_EOL."Chip ".$abueloTG11->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$abueloTG11->color);
-        $sheet->getStyle('L24')->getAlignment()->setWrapText(true);
-
-        $sheet->setCellValue('I25', $nombreabueloMSG2.PHP_EOL."K.C.B. ".$kcbabueloMSG2.PHP_EOL."No. x Raza ".$abueloSGM2->num_tatuaje.PHP_EOL."Chip ".$abueloSGM2->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$abueloSGM2->color);
-        $sheet->getStyle('I25')->getAlignment()->setWrapText(true);
-
-        $sheet->setCellValue('L25', $nombreabueloMSG22.PHP_EOL."K.C.B. ".$kcbabueloMSG22.PHP_EOL."No. x Raza ".$abueloSGM22->num_tatuaje.PHP_EOL."Chip ".$abueloSGM22->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$abueloSGM22->color);
-        $sheet->getStyle('L25')->getAlignment()->setWrapText(true);
-
-        $sheet->setCellValue('L26', $nombreabueloMSG222.PHP_EOL."K.C.B. ".$kcbabueloMSG222.PHP_EOL."No. x Raza ".$abueloSGM222->num_tatuaje.PHP_EOL."Chip ".$abueloSGM222->chip.PHP_EOL."Apto de Reproduccion".PHP_EOL."R.S.1. (Normal)".PHP_EOL."Color: ".$abueloSGM222->color);
-        $sheet->getStyle('L26')->getAlignment()->setWrapText(true);
-
-
-        $sheet->setCellValue('E29', "  CBBA/BDF-035/G - REG 14/06/21       ");
-        $sheet->setCellValue('E31', "          La Paz 16/Junio/2021");
+        // ********* PIE DE PAGINA *************
+        $sheet->setCellValue('E29', $ejemplar->lechigada);
+        $sheet->setCellValue('E31', $ejemplar->fecha_emision);
         // exportamos el excel
         $writer = new Xlsx($spreadsheet);
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
