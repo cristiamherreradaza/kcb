@@ -310,26 +310,26 @@
                     //convertimos la respuesta para poder trabajar
                     let ejemplar = JSON.parse(data);
                     // let ejemplar = JSON.stringify(data);
-                    console.log(ejemplar[0]);
-                    if(ejemplar[0]){
-                        // console.log("lleno");
-                        $("#nombre").val(ejemplar[0].nombre_completo);
-                        $("#color").val(ejemplar[0].color);
-                        $("#fecha_nacimiento").val(ejemplar[0].fecha_nacimiento);
-                        $("#sexo").val(ejemplar[0].sexo);
-                        $("#registro_extrangero").val(ejemplar[0].codigo_nacionalizado);
-                        $("#tatuaje").val(ejemplar[0].num_tatuaje);
-                        $("#chip").val(ejemplar[0].chip);
-                        $("#kcb_padre").val(ejemplar[0].padre_id);
-                        $("#nom_padre").val(ejemplar[0].padre_id);
-                        $("#kcb_madre").val(ejemplar[0].madre_id);
-                        $("#nom_madre").val(ejemplar[0].madre_id);
-                        $("#raza_id").val(ejemplar[0].raza_id);
-                        $("#msg-good-kcb").show();
-                    }else{
-                        // console.log("vacio");
-                        $("#msg-error-kcb").show();
-                    }
+                    console.log(ejemplar);
+                    // if(ejemplar[0]){
+                    //     // console.log("lleno");
+                    //     $("#nombre").val(ejemplar[0].nombre_completo);
+                    //     $("#color").val(ejemplar[0].color);
+                    //     $("#fecha_nacimiento").val(ejemplar[0].fecha_nacimiento);
+                    //     $("#sexo").val(ejemplar[0].sexo);
+                    //     $("#registro_extrangero").val(ejemplar[0].codigo_nacionalizado);
+                    //     $("#tatuaje").val(ejemplar[0].num_tatuaje);
+                    //     $("#chip").val(ejemplar[0].chip);
+                    //     $("#kcb_padre").val(ejemplar[0].padre_id);
+                    //     $("#nom_padre").val(ejemplar[0].padre_id);
+                    //     $("#kcb_madre").val(ejemplar[0].madre_id);
+                    //     $("#nom_madre").val(ejemplar[0].madre_id);
+                    //     $("#raza_id").val(ejemplar[0].raza_id);
+                    //     $("#msg-good-kcb").show();
+                    // }else{
+                    //     // console.log("vacio");
+                    //     $("#msg-error-kcb").show();
+                    // }
                     // console.log(data);
                     // console.log("===================================");
                     // console.log(ejemplar);

@@ -67,15 +67,12 @@ class EventoController extends Controller
     {
         $ejemplar = Ejemplar::where('kcb', $request->kcb)
                         ->limit(10)
-                        ->get();
-                        // ->toJson();
+                        ->first();
+                        // ->get();
 
-                        // dd($ejemplar);
-                        // $f  = response()->json($ejemplar);
-                        // dd($f);
-                        // json_encode($f);
+                        // dd($ejemplar->padre->nombre);
+                        
 
-        // return response()->json($ejemplar);
         return json_encode($ejemplar);
     }
     
