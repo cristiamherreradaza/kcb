@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Raza;
 use App\Evento;
+use App\Ejemplar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -51,4 +53,31 @@ class EventoController extends Controller
         Evento::destroy($tipo_id);
         return redirect('Evento/listado');
     }
+
+    public function formulario(Request $request)
+    {
+        // dd("hoal");
+        // return redirect('Evento/nuevo');
+        $razas = Raza::all();
+
+        return view('evento.formularioInscripcion')->with(compact('razas'));
+    }
+
+    public function ajaxBuscaEjemplar(Request $request)
+    {
+        $ejemplar = Ejemplar::where('kcb', $request->kcb)
+                        ->limit(10)
+                        ->get();
+                        // ->toJson();
+
+                        // dd($ejemplar);
+                        // $f  = response()->json($ejemplar);
+                        // dd($f);
+                        // json_encode($f);
+
+        // return response()->json($ejemplar);
+        return json_encode($ejemplar);
+    }
+    
+
 }

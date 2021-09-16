@@ -89,6 +89,8 @@ Route::get('Grupo/eliminaGrupoRaza/{raza_id}/{grupo_id}', 'GrupoController@elimi
 Route::get('Evento/listado', 'EventoController@listado');
 Route::post('Evento/guarda', 'EventoController@guarda');
 Route::get('Evento/elimina/{tipo_id}', 'EventoController@elimina');
+Route::get('Evento/formulario', 'EventoController@formulario');
+Route::post('Evento/ajaxBuscaEjemplar', 'EventoController@ajaxBuscaEjemplar');
 
 // PISTAS
 Route::get('Pista/listado', 'PistaController@listado');
