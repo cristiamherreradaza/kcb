@@ -1442,39 +1442,42 @@ class EjemplarController extends Controller
                             $resultadoabueloSGM22 = '1';
                         }
                             // dd($resultadoabueloSGM22." - ".$resultadoabueloSGM22." nombre ".$nombreabueloMSG22." kcb: ".$kcbabueloMSG22." tatu: ".$abueloSGM22->num_tatuaje." chip: ".$abueloSGM22->chip." colo: ".$abueloSGM22->color);
-                        // $sheet->setCellValue('L25', "$nombreabueloMSG22".PHP_EOL."K.C.B. "."$kcbabueloMSG22".PHP_EOL."No. x Raza "."$abueloSGM22->num_tatuaje".PHP_EOL."Chip "."$abueloSGM22->chip".PHP_EOL."$examenabueloSGM22".PHP_EOL."$resultadoabueloSGM22".PHP_EOL."Color: "."$abueloSGM22->color");
-                        dd($nombreabueloMSG22);
-                        $sheet->setCellValue('L25', '$nombreabueloMSG22');
-                        $sheet->getStyle('L25')->getAlignment()->setWrapText(true);
+                        // dd($nombreabueloMSG22);
+                        if (!strstr($nombreabueloMSG22, '=')){
+                            $sheet->setCellValue('L25', "$nombreabueloMSG22".PHP_EOL."K.C.B. "."$kcbabueloMSG22".PHP_EOL."No. x Raza "."$abueloSGM22->num_tatuaje".PHP_EOL."Chip "."$abueloSGM22->chip".PHP_EOL."$examenabueloSGM22".PHP_EOL."$resultadoabueloSGM22".PHP_EOL."Color: "."$abueloSGM22->color");
+                            $sheet->getStyle('L25')->getAlignment()->setWrapText(true);
+                        }
+                        // $sheet->setCellValue('L25', "===");
                     }else{
 
                         $kcbabueloMSG22  = '' ;
                         $nombreabueloMSG22  = '' ;  
                     }
-                    // if($abueloSGM2->madre_id != null){
+                    if($abueloSGM2->madre_id != null){
 
-                    //     $abueloSGM222   =Ejemplar::find($abueloSGM2->madre_id);
+                        $abueloSGM222   =Ejemplar::find($abueloSGM2->madre_id);
 
-                    //     $kcbabueloMSG222  = ($abueloSGM222)? $abueloSGM222->kcb:'' ;
-                    //     $nombreabueloMSG222  = ($abueloSGM222)? $abueloSGM222->nombre_completo:'' ;
+                        $kcbabueloMSG222  = ($abueloSGM222)? $abueloSGM222->kcb:'' ;
+                        $nombreabueloMSG222  = ($abueloSGM222)? $abueloSGM222->nombre_completo:'' ;
 
-                    //     $examenMascotaabueloSGM222 = ExamenMascota::where('ejemplar_id','=',$abueloSGM222->id)
-                    //                         ->where('examen_id','=',3)
-                    //                         ->first();
-                    //     if($examenMascotaabueloSGM222){
-                    //         $examenabueloSGM222 = $examenMascotaabueloSGM222->examen->nombre;
-                    //         $resultadoabueloSGM222 = $examenMascotaabueloSGM222->resultado;
-                    //     }else{
-                    //         $examenabueloSGM222 = "";
-                    //         $resultadoabueloSGM222 = "";
-                    //     }
-
-                    //     $sheet->setCellValue('L26', $nombreabueloMSG222.PHP_EOL."K.C.B. ".$kcbabueloMSG222.PHP_EOL."No. x Raza ".$abueloSGM222->num_tatuaje.PHP_EOL."Chip ".$abueloSGM222->chip.PHP_EOL."$examenabueloSGM222".PHP_EOL."$resultadoabueloSGM222".PHP_EOL."Color: ".$abueloSGM222->color);
-                    //     $sheet->getStyle('L26')->getAlignment()->setWrapText(true);
-                    // }else{
-                    //     $kcbabueloMSG222  = '' ;
-                    //     $nombreabueloMSG222  = '' ;
-                    // }
+                        $examenMascotaabueloSGM222 = ExamenMascota::where('ejemplar_id','=',$abueloSGM222->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                        if($examenMascotaabueloSGM222){
+                            $examenabueloSGM222 = $examenMascotaabueloSGM222->examen->nombre;
+                            $resultadoabueloSGM222 = $examenMascotaabueloSGM222->resultado;
+                        }else{
+                            $examenabueloSGM222 = "";
+                            $resultadoabueloSGM222 = "";
+                        }
+                        if(!strstr($nombreabueloMSG222, '=')){
+                            $sheet->setCellValue('L26', $nombreabueloMSG222.PHP_EOL."K.C.B. ".$kcbabueloMSG222.PHP_EOL."No. x Raza ".$abueloSGM222->num_tatuaje.PHP_EOL."Chip ".$abueloSGM222->chip.PHP_EOL."$examenabueloSGM222".PHP_EOL."$resultadoabueloSGM222".PHP_EOL."Color: ".$abueloSGM222->color);
+                            $sheet->getStyle('L26')->getAlignment()->setWrapText(true);
+                        }
+                    }else{
+                        $kcbabueloMSG222  = '' ;
+                        $nombreabueloMSG222  = '' ;
+                    }
                 }else{
                     $kcbabueloMSG2  = '' ;
                     $nombreabueloMSG2  = '' ;
