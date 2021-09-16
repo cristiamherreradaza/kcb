@@ -65,15 +65,20 @@ class EventoController extends Controller
 
     public function ajaxBuscaEjemplar(Request $request)
     {
+        $arrayEjemplar = array();
+
         $ejemplar = Ejemplar::where('kcb', $request->kcb)
                         ->limit(10)
                         ->first();
                         // ->get();
 
                         // dd($ejemplar->padre->nombre);
-                        
 
-        return json_encode($ejemplar);
+        $arrayEjemplar['kcb'] = $ejemplar->kcb;
+        $arrayEjemplar['padre'] = $ejemplar->padre->nombre;
+        $arrayEjemplar['madre'] = $ejemplar->madre->nombre;                        
+
+        return json_encode($arrayEjemplar);
     }
     
 
