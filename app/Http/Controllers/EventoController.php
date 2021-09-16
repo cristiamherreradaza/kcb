@@ -77,6 +77,8 @@ class EventoController extends Controller
         $arrayEjemplar['kcb'] = $ejemplar->kcb;
         $arrayEjemplar['padre'] = $ejemplar->padre->nombre;
         $arrayEjemplar['madre'] = $ejemplar->madre->nombre;                        
+        $arrayEjemplar['raza'] = $ejemplar->raza->nombre;                        
+        $arrayEjemplar['raza_id'] = $ejemplar->raza->id;                        
 
         return json_encode($arrayEjemplar);
     }
