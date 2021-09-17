@@ -18,11 +18,16 @@
                 <h3 class="card-title">FORMULARIO DE INSCRIPCION (EPOSICION "SOL DEL ORIENTE")</h3>
             </div>
             <!--begin::Form-->
-            <form action="" method="POST" id="" enctype="multipart/form-data">
+            <form action="{{ url('Evento/inscribirEvento') }}" method="POST" id="formulario-inscripcion-evento" >
                 @csrf
                 <div class="card-body">
+                    evento id:
                     <input type="text" name="evento_id" id="evento_id" value="{{ $evento->id }}">
+                    <br>                    
+                    edad ejemplar:
                     <input type="text" name="ejemplar_meses" id="ejemplar_meses" >
+                    <br>
+                    ejemplar_id:
                     <input type="text" name="ejemplar_id" id="ejemplar_id">
                     <div class="row">
                         <div class="col-md-6">
@@ -63,7 +68,7 @@
                                                 <div class="form-group">
                                                     <label class="exampleInputPassword1">
                                                     Codigo Extrangero</label>
-                                                    <input type="text" class="form-control" id="cod_extrangero" name="cod_extrangero" />
+                                                    <input type="text" class="form-control" id="cod_extrangero" name="cod_extrangero"/>
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
@@ -79,7 +84,7 @@
                             <div class="form-group">
                                 <label class="exampleInputPassword1">
                                 Raza</label>
-                                <select class="form-control select2" id="raza_id" name="raza_id">
+                                <select class="form-control select2" id="raza_id" name="raza_id"  required >
                                     <option value=""></option>
                                     {{-- @if ($ejemplar != null && $ejemplar->raza_id != null)
                                         <option value="{{ $ejemplar->raza->id }}"> {{ $ejemplar->raza->id }} {{ $ejemplar->raza->nombre }} {{ $ejemplar->raza->descripcion }}</option>
@@ -134,21 +139,21 @@
                             <div class="form-group">
                                 <label class="exampleInputPassword1">
                                 Registro de Extrangero</label>
-                                <input type="text" class="form-control" id="registro_extrangero" name="registro_extrangero" required />
+                                <input type="text" class="form-control" id="registro_extrangero" name="registro_extrangero"/>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="exampleInputPassword1">
                                 Tatuaje</label>
-                                <input type="text" class="form-control" id="tatuaje" name="tatuaje" required />
+                                <input type="text" class="form-control" id="tatuaje" name="tatuaje" />
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="exampleInputPassword1">
                                 Microchip</label>
-                                <input type="text" class="form-control" id="chip" name="chip" required />
+                                <input type="text" class="form-control" id="chip" name="chip"/>
                             </div>
                         </div>
                     </div>
@@ -157,14 +162,14 @@
                             <div class="form-group">
                                 <label class="exampleInputPassword1">
                                 KCB del Padre</label>
-                                <input type="text" class="form-control" id="kcb_padre" name="kcb_padre" required />
+                                <input type="text" class="form-control" id="kcb_padre" name="kcb_padre"/>
                             </div>
                         </div>
                         <div class="col-md-8">
                             <div class="form-group">
                                 <label class="exampleInputPassword1">
                                 Nombre del Padre</label>
-                                <input type="text" class="form-control" id="nom_padre" name="nom_padre" required />
+                                <input type="text" class="form-control" id="nom_padre" name="nom_padre" />
                             </div>
                         </div>
                     </div>
@@ -173,14 +178,14 @@
                             <div class="form-group">
                                 <label class="exampleInputPassword1">
                                 KCB del Madre</label>
-                                <input type="text" class="form-control" id="kcb_madre" name="kcb_madre" required />
+                                <input type="text" class="form-control" id="kcb_madre" name="kcb_madre" />
                             </div>
                         </div>
                         <div class="col-md-8">
                             <div class="form-group">
                                 <label class="exampleInputPassword1">
                                 Nombre del Madre</label>
-                                <input type="text" class="form-control" id="nom_madre" name="nom_madre" required />
+                                <input type="text" class="form-control" id="nom_madre" name="nom_madre"/>
                             </div>
                         </div>
                     </div>
@@ -190,7 +195,7 @@
                                 <label class="exampleInputPassword1">
                                 Categorias</label>
                                 <h4 id="msjEdad" class="text-success"></h4>
-                                <select class="form-control select2" id="categoria_pista" name="categoria_pista">
+                                <select class="form-control select2" id="categoria_pista" name="categoria_pista" required >
                                     <option value=""></option>
                                     {{-- @if ($ejemplar != null && $ejemplar->raza_id != null)
                                         <option value="{{ $ejemplar->raza->id }}"> {{ $ejemplar->raza->id }} {{ $ejemplar->raza->nombre }} {{ $ejemplar->raza->descripcion }}</option>
@@ -207,7 +212,7 @@
                             <div class="form-group">
                                 <label class="exampleInputPassword1">
                                 Criador</label>
-                                <input type="text" class="form-control" id="criador" name="criador" required />
+                                <input type="text" class="form-control" id="criador" name="criador"/>
                             </div>
                         </div>
                     </div>
@@ -239,13 +244,13 @@
                             <div class="form-group">
                                 <label class="exampleInputPassword1">
                                 Email</label>
-                                <input type="text" class="form-control" id="email" name="email" required />
+                                <input type="email" class="form-control" id="email" name="email" required />
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-success btn-block">INSCRIBRI EJEMPLAR</button>    
+                            <button type="button" class="btn btn-success btn-block" onclick="inscribir()">INSCRIBRI EJEMPLAR</button>    
                         </div>    
                     </div>                    
                 </div>
@@ -302,12 +307,7 @@
             // alert("holas");
             $("#bloque-nacional").toggle('slow');
             $("#bloque-extrangero").toggle('slow');
-            var c = document.getElementById('check_busca').checked;
-            if(c){
-                // alert("nacional");
-            }else{
-                // alert("extragero");
-            }                
+                         
         }
 
         function buscaKcb(){
@@ -347,6 +347,20 @@
                             $("#msg-vacio-kcb").hide();
                             calcular_fecha();
                         }else{
+                            $("#ejemplar_id").val('');
+                            $("#nombre").val('');
+                            $("#color").val('');
+                            $("#fecha_nacimiento").val('');
+                            $("#sexo").val('');
+                            $("#registro_extrangero").val('');
+                            $("#tatuaje").val('');
+                            $("#chip").val('');
+                            $("#kcb_padre").val('');
+                            $("#nom_padre").val('');
+                            $("#kcb_madre").val('');
+                            $("#nom_madre").val('');
+                            $("#raza_id").val('');
+                            $('#raza_id').trigger('change');
                             // console.log("vacio");
                             $("#msg-error-kcb").show();
                         }
@@ -395,6 +409,28 @@
             var diff =(dt2.getTime() - dt1.getTime()) / 1000;
             diff /= (60 * 60 * 24 * 30);
             return Math.abs(Math.round(diff));
+        }
+
+        function inscribir(){
+
+            // var c = document.getElementById('check_busca').checked;
+            // if(c){
+            if($('#formulario-inscripcion-evento')[0].checkValidity()){
+                $('#formulario-inscripcion-evento').submit();
+                Swal.fire("Excelente!", "Registro Guardado!", "success");
+            }else{
+                $('#formulario-inscripcion-evento')[0].reportValidity();
+            }
+                // if($("#kcb_busca").val() != ''){
+                //     alert("kcb lleno");
+                // }else{
+                //     alert("kcb vacio");
+                // }
+                // alert("nacional");
+            // }else{
+                // alert("extragero");
+            // }   
+            // alert("como s4e");
         }
 
         // $("#fecha_nacimiento").on("change paste keyup", function() {

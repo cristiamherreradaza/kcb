@@ -108,5 +108,13 @@ class EventoController extends Controller
         return json_encode($arrayEjemplar);
     }
     
+    public function inscribirEvento(Request $request){
+        dd($request->all());
+        if($request->kcb_busca){
+
+        }else{
+
+        }
+    }
 
 }
