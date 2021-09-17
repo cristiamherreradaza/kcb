@@ -13,6 +13,7 @@ class Evento extends Model
         'nombre',
         'fecha_inicio',
         'fecha_fin',
+        'hora',
         'direccion',
         'departamento',
         'numero_pista',

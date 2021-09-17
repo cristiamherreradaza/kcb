@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Raza;
 use App\Evento;
 use App\Ejemplar;
+use App\CategoriasPista;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -54,13 +55,17 @@ class EventoController extends Controller
         return redirect('Evento/listado');
     }
 
-    public function formulario(Request $request)
+    public function formulario(Request $request, $evento_id)
     {
         // dd("hoal");
         // return redirect('Evento/nuevo');
+        $evento = Evento::find($evento_id);
+
         $razas = Raza::all();
 
-        return view('evento.formularioInscripcion')->with(compact('razas'));
+        $categorias_pistas = CategoriasPista::all();
+
+        return view('evento.formularioInscripcion')->with(compact('razas', 'categorias_pistas', 'evento'));
     }
 
     public function ajaxBuscaEjemplar(Request $request)
@@ -71,14 +76,34 @@ class EventoController extends Controller
                         ->limit(10)
                         ->first();
                         // ->get();
+        if($ejemplar){
+            $arrayEjemplar['id'] = $ejemplar->id;
+            $arrayEjemplar['nombre_completo'] = $ejemplar->nombre_completo;
+            $arrayEjemplar['color'] = $ejemplar->color;
+            $arrayEjemplar['fecha_nacimiento'] = $ejemplar->fecha_nacimiento;
+            $arrayEjemplar['sexo'] = $ejemplar->sexo;
+            $arrayEjemplar['codigo_nacionalizado'] = $ejemplar->codigo_nacionalizado;
+            $arrayEjemplar['num_tatuaje'] = $ejemplar->num_tatuaje;
+            $arrayEjemplar['chip'] = $ejemplar->chip;
+            // dd($ejemplar->madre);
+            if($ejemplar->padre){
+                $arrayEjemplar['kcb_padre'] = $ejemplar->padre->kcb;
+                $arrayEjemplar['nombre_padre'] = $ejemplar->padre->nombre_completo;
+            }else{
+                $arrayEjemplar['kcb_padre'] = null;
+                $arrayEjemplar['nombre_padre'] = null;
+            }
+            if($ejemplar->madre){
+                $arrayEjemplar['kcb_madre'] = $ejemplar->madre->kcb;
+                $arrayEjemplar['nombre_madre'] = $ejemplar->madre->nombre_completo;
+            }else{
+                $arrayEjemplar['kcb_madre'] = null;
+                $arrayEjemplar['nombre_madre'] = null;
+            }
+            $arrayEjemplar['raza_id'] = $ejemplar->raza->id;                   
+        }
+        // dd($ejemplar->padre->nombre);
 
-                        // dd($ejemplar->padre->nombre);
-
-        $arrayEjemplar['kcb'] = $ejemplar->kcb;
-        $arrayEjemplar['padre'] = $ejemplar->padre->nombre;
-        $arrayEjemplar['madre'] = $ejemplar->madre->nombre;                        
-        $arrayEjemplar['raza'] = $ejemplar->raza->nombre;                        
-        $arrayEjemplar['raza_id'] = $ejemplar->raza->id;                        
 
         return json_encode($arrayEjemplar);
     }

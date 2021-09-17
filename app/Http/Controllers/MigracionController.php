@@ -6,6 +6,7 @@ use App\Raza;
 use App\User;
 use App\Grupo;
 use App\Camada;
+use App\Evento;
 use App\Examen;
 use App\Titulo;
 use App\Criadero;
@@ -14,6 +15,7 @@ use App\GrupoRaza;
 use App\ExamenMascota;
 use App\Transferencia;
 use App\TituloEjemplar;
+use App\CategoriasPista;
 use App\PropietarioCriadero;
 use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\Foreach_;
@@ -742,5 +744,52 @@ class MigracionController extends Controller
         }
         echo "<h1 class='text-success'>SUCCESSFUL</h1>";
         
+    }
+
+    public function categorias_pistas(){
+        $categorias = DB::table('acategoriaspistas')->get();
+
+        foreach ($categorias as $c){
+            echo "ID => ".$c->id." Nombre ".$c->nombre."<br>";
+            
+            $categoria = new CategoriasPista();
+
+            $categoria->codigo_anterior = $c->id;
+            $categoria->user_id         = 1;
+            $categoria->nombre          = $c->nombre;
+            $categoria->desde           = $c->desde;
+            $categoria->hasta           = $c->hasta;
+            $categoria->tipo            = $c->tipo;
+            $categoria->orden           = $c->orden;
+            // $categoria->descripcion     = $c->descripcion;
+
+            $categoria->save();
+        }
+        echo "<h1 class='text-success'>SUCCESSFUL</h1>";
+    }
+
+    public function eventos(){
+        $eventos = DB::table('aeventos')->get();
+
+        foreach ($eventos as $e){
+            echo "ID => ".$e->id." Nombre ".$e->nombre."<br>";
+            
+            $evento = new Evento();
+
+            $evento->codigo_anterior = $e->id;
+            $evento->user_id         = 1;
+            $evento->nombre          = $e->nombre;
+            $evento->fecha_inicio    = $e->fecha_inicio;
+            $evento->fecha_fin       = $e->fecha_fin;
+            $evento->hora            = $e->hora;
+            $evento->direccion       = $e->direccion;
+            $evento->departamento    = $e->ciudad;
+            $evento->numero_pista    = $e->numero_pista;
+            $evento->circuito        = $e->circuito;
+            $evento->estado          = $e->estado;
+
+            $evento->save();
+        }
+        echo "<h1 class='text-success'>SUCCESSFUL</h1>";
     }
 }

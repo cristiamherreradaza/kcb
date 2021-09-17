@@ -18,8 +18,9 @@ class CreateEventosTable extends Migration
             $table->string('codigo_anterior',11)->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->string('nombre', 500)->nullable();
-            $table->datetime('fecha_inicio')->nullable();
-            $table->datetime('fecha_fin')->nullable();
+            $table->date('fecha_inicio')->nullable();
+            $table->date('fecha_fin')->nullable();
+            $table->time('hora')->nullable();
             $table->string('direccion', 600)->nullable();
             $table->string('departamento', 30)->nullable();
             $table->string('numero_pista', 3)->nullable();

@@ -11,6 +11,10 @@ class CategoriasPista extends Model
     protected $fillable = [
         'user_id',
         'nombre',
+        'desde',
+        'hasta',
+        'tipo',
+        'orden',
         'descripcion',
         'estado',
         'deleted_at',

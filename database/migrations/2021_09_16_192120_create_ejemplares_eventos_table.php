@@ -15,6 +15,32 @@ class CreateEjemplaresEventosTable extends Migration
     {
         Schema::create('ejemplares_eventos', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('evento_id')->nullable();
+            $table->foreign('evento_id')->references('id')->on('eventos');
+            $table->unsignedBigInteger('ejemplar_id')->nullable();
+            $table->foreign('ejemplar_id')->references('id')->on('ejemplares');
+            $table->unsignedBigInteger('raza_id')->nullable();
+            $table->foreign('raza_id')->references('id')->on('razas');
+            $table->unsignedBigInteger('categoria_pista_id')->nullable();
+            $table->foreign('categoria_pista_id')->references('id')->on('categorias_pistas');
+            // $table->string('kcb')->nullable();
+            $table->string('codigo_nacionalizado')->nullable();
+            $table->string('nombre_compleot')->nullable();
+            $table->string('color')->nullable();
+            $table->date('fecha_nacimiento')->nullable();
+            $table->string('sexo')->nullable();
+            $table->string('chip')->nullable();
+            $table->string('kcb_padre')->nullable();
+            $table->string('nombre_padre')->nullable();
+            $table->string('kcb_madre')->nullable();
+            $table->string('nombre_madre')->nullable();
+            $table->string('criador')->nullable();
+            $table->string('propietario')->nullable();
+            $table->string('ciudad')->nullable();
+            $table->string('telefono')->nullable();
+            $table->string('email')->nullable();
+            $table->string('estado')->nullable();
+            $table->datetime('deleted_at')->nullable();
             $table->timestamps();
         });
     }

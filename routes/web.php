@@ -89,7 +89,7 @@ Route::get('Grupo/eliminaGrupoRaza/{raza_id}/{grupo_id}', 'GrupoController@elimi
 Route::get('Evento/listado', 'EventoController@listado');
 Route::post('Evento/guarda', 'EventoController@guarda');
 Route::get('Evento/elimina/{tipo_id}', 'EventoController@elimina');
-Route::get('Evento/formulario', 'EventoController@formulario');
+Route::get('Evento/formulario/{evento_id}', 'EventoController@formulario');
 Route::post('Evento/ajaxBuscaEjemplar', 'EventoController@ajaxBuscaEjemplar');
 
 // PISTAS
@@ -195,6 +195,13 @@ Route::get('Migracion/tramsferencia', 'MigracionController@tramsferencia');
 
 /* Migracion de MASCOTAS TITULOS */
 Route::get('Migracion/mascotas_titulos', 'MigracionController@mascotas_titulos');
+
+
+/* Migracion de CATEGORIAS PISTAS */
+Route::get('Migracion/categorias_pistas', 'MigracionController@categorias_pistas');
+
+/* Migracion de EVENTOS */
+Route::get('Migracion/eventos', 'MigracionController@eventos');
 
 // corriccion de fecha de ejemplares 
  Route::get('Migracion/corregirFechaEjemplares', 'MigracionController@corregirFechaEjemplares');
