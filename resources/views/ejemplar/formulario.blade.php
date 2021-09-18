@@ -1704,12 +1704,13 @@
                 </div>
                 <br />
 
-
+            @endif
+                
                 <div class="row">
                     <div class="col-md-6"><button type="button" class="btn btn-sm btn-success btn-block" onclick="guardar()">GUARDAR</button></div>
                     <div class="col-md-6"><button type="button" class="btn btn-sm btn-dark btn-block" onclick="volver()" >VOLVER</button></div>
                 </div>
-
+            @if($ejemplar != null)
                 <div class="row">
                     <div class="col-md-12">
                         <br />
