@@ -357,7 +357,7 @@
         </div>
     </div>
 
-    <div class="card-body" id="chart-container" style="height: 320px;">
+    <div class="card-body text-center" id="chart-container" style="height: 420px;">
     </div>
 </div>
 <!--end::Card-->
@@ -906,12 +906,13 @@
 
     $('#chart-container').orgchart({
       'data' : datascource,
-      'depth': 2,
+    //   'depth': 2,
+      'visibleLevel': 4,
       'draggable':false,
     //   'parentNodeSymbol':'fa-users',
-    //   'pan': true,
-    //   'zoom': true,
-      'direction': 'l2r',
+      'pan': true,
+      'zoom': true,
+    //   'direction': 'l2r',
       'nodeTitle': 'name',
       'nodeContent': 'title',
     //   'nodeID': 'id',
