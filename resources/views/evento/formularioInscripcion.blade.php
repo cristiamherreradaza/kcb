@@ -58,7 +58,7 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <br>
-                                                <button type="button" class="btn btn-success btn-block" onclick="buscaKcb()">B</button>
+                                                <button type="button" class="btn btn-success btn-block" onclick="buscaKcb()"><i class="fa fa-search"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -69,11 +69,12 @@
                                                     <label class="exampleInputPassword1">
                                                     Codigo Extrangero</label>
                                                     <input type="text" class="form-control" id="cod_extrangero" name="cod_extrangero"/>
+                                                    <span class="form-text text-danger" id="msg-vacio-cod" style="display: none;">Digitar un Codigo de Extranjero</span>
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
                                                 <br>
-                                                <button type="button" class="btn btn-success">B</button>
+                                                <button type="button" class="btn btn-success btn-block" onclick="buscaCodigo()" ><i class="fa fa-search"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -340,6 +341,10 @@
                             $("#nom_padre").val(ejemplar.nombre_padre);
                             $("#kcb_madre").val(ejemplar.kcb_madre);
                             $("#nom_madre").val(ejemplar.nombre_madre);
+                            $("#propietario").val(ejemplar.nom_propietario);
+                            $("#ciudad").val(ejemplar.departamento);
+                            $("#telefono").val(ejemplar.celulares);
+                            $("#email").val(ejemplar.email);
                             $("#raza_id").val(ejemplar.raza_id);
                             $('#raza_id').trigger('change');
                             $("#msg-good-kcb").show();
@@ -357,17 +362,21 @@
                             $("#chip").val('');
                             $("#kcb_padre").val('');
                             $("#nom_padre").val('');
+                            $("#propietario").val(ejemplar.nom_propietario);
+                            $("#ciudad").val(ejemplar.departamento);
+                            $("#telefono").val(ejemplar.celulares);
+                            $("#email").val(ejemplar.email);
                             $("#kcb_madre").val('');
                             $("#nom_madre").val('');
                             $("#raza_id").val('');
                             $('#raza_id').trigger('change');
+
                             // console.log("vacio");
                             $("#msg-error-kcb").show();
                         }
                     }
                 });
             }else{
-                // alert("tien");
                 $("#msg-vacio-kcb").show();
             }
             
@@ -431,6 +440,79 @@
                 // alert("extragero");
             // }   
             // alert("como s4e");
+        }
+
+        function buscaCodigo(){
+            //alert("busqueda por codigo extrangero en desarrolo :)");
+            let cod_ex = $("#cod_extrangero").val();
+            //alert(cod_ex);
+            if(cod_ex != ''){
+                // alert("vacio");
+                $.ajax({
+                    url: "{{ url('Evento/ajaxBuscaExtranjero') }}",
+                    data: {
+                        cod_ex: cod_ex
+                    },
+                    type: "POST",
+                    success: function(data) {
+                        //convertimos la respuesta para poder trabajar
+                        let ejemplar = JSON.parse(data);
+                        // let ejemplar = JSON.stringify(data);
+                        //console.log(ejemplar);
+                        if(ejemplar.id){
+                            // console.log("lleno");
+                            //$("#ejemplar_id").val(ejemplar.id);
+                            $("#nombre").val(ejemplar.nombre_completo);
+                            $("#color").val(ejemplar.color);
+                            $("#fecha_nacimiento").val(ejemplar.fecha_nacimiento);
+                            $("#sexo").val(ejemplar.sexo);
+                            $("#registro_extrangero").val(ejemplar.codigo_nacionalizado);
+                            $("#criador").val(ejemplar.criador);
+                            $("#tatuaje").val(ejemplar.num_tatuaje);
+                            $("#chip").val(ejemplar.chip);
+                            $("#kcb_padre").val(ejemplar.kcb_padre);
+                            $("#nom_padre").val(ejemplar.nombre_padre);
+                            $("#kcb_madre").val(ejemplar.kcb_madre);
+                            $("#nom_madre").val(ejemplar.nombre_madre);
+                            $("#propietario").val(ejemplar.propietario);
+                            $("#ciudad").val(ejemplar.ciudad);
+                            $("#telefono").val(ejemplar.telefono);
+                            $("#email").val(ejemplar.email);
+                            $("#raza_id").val(ejemplar.raza_id);
+                            $('#raza_id').trigger('change');
+                            $("#msg-good-kcb").show();
+                            $("#msg-error-kcb").hide();
+                            $("#msg-vacio-kcb").hide();
+                            calcular_fecha();
+                        }else{
+                            $("#ejemplar_id").val('');
+                            $("#nombre").val('');
+                            $("#color").val('');
+                            $("#fecha_nacimiento").val('');
+                            $("#sexo").val('');
+                            $("#registro_extrangero").val('');
+                            $("#tatuaje").val('');
+                            $("#chip").val('');
+                            $("#kcb_padre").val('');
+                            $("#nom_padre").val('');
+                            $("#propietario").val(ejemplar.nom_propietario);
+                            $("#ciudad").val(ejemplar.departamento);
+                            $("#telefono").val(ejemplar.celulares);
+                            $("#email").val(ejemplar.email);
+                            $("#kcb_madre").val('');
+                            $("#nom_madre").val('');
+                            $("#raza_id").val('');
+                            $('#raza_id').trigger('change');
+
+                            // console.log("vacio");
+                            $("#msg-error-kcb").show();
+                        }
+                    }
+                });
+            }else{
+                $("#msg-vacio-cod").show();
+            }
+            
         }
 
         // $("#fecha_nacimiento").on("change paste keyup", function() {

@@ -92,6 +92,7 @@ Route::get('Evento/elimina/{tipo_id}', 'EventoController@elimina');
 Route::get('Evento/formulario/{evento_id}', 'EventoController@formulario');
 Route::post('Evento/ajaxBuscaEjemplar', 'EventoController@ajaxBuscaEjemplar');
 Route::post('Evento/inscribirEvento', 'EventoController@inscribirEvento');
+Route::post('Evento/ajaxBuscaExtranjero', 'EventoController@ajaxBuscaExtranjero');
 
 // PISTAS
 Route::get('Pista/listado', 'PistaController@listado');

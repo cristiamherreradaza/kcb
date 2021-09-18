@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class EjemplarEvento extends Model
 {
     use SoftDeletes;
+    protected $table = "ejemplares_eventos";
+
     protected $fillable = [
         'user_id',
         'evento_id',
@@ -28,10 +30,15 @@ class EjemplarEvento extends Model
         'criador',
         'propietario',
         'ciudad',
+        'tatuaje',
         'telefono',
         'email',
         'estado',
         'deleted_at',
     ];
-    
+
+    public function raza()
+    {
+        return $this->belongsTo('App\Raza', 'raza_id');
+    }
 }

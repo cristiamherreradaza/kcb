@@ -6,6 +6,7 @@ use App\Raza;
 use App\Evento;
 use App\Ejemplar;
 use App\CategoriasPista;
+use App\EjemplarEvento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -100,7 +101,49 @@ class EventoController extends Controller
                 $arrayEjemplar['kcb_madre'] = null;
                 $arrayEjemplar['nombre_madre'] = null;
             }
+            $arrayEjemplar['nom_propietario'] = $ejemplar->propietario->name;    
+            $arrayEjemplar['departamento'] = $ejemplar->propietario->departamento;    
+            $arrayEjemplar['celulares'] = $ejemplar->propietario->celulares;    
+            $arrayEjemplar['email'] = $ejemplar->propietario->email;    
+
             $arrayEjemplar['raza_id'] = $ejemplar->raza->id;                   
+        }
+        // dd($ejemplar->padre->nombre);
+
+
+        return json_encode($arrayEjemplar);
+    }
+
+    public function ajaxBuscaExtranjero(Request $request){
+        // dd($request->all());
+        $arrayEjemplar = array();
+
+        $ejemplarEvento = EjemplarEvento::where('codigo_nacionalizado', $request->cod_ex)
+                        ->limit(10)
+                        ->first();
+                        // ->get();
+                        // dd($ejemplarEvento);
+                        // dd(json_encode($arrayEjemplar));
+        if($ejemplarEvento){
+
+            $arrayEjemplar['id']                        = $ejemplarEvento->id;
+            $arrayEjemplar['raza_id']                   = $ejemplarEvento->raza->id;
+            $arrayEjemplar['codigo_nacionalizado']      = $ejemplarEvento->codigo_nacionalizado;
+            $arrayEjemplar['nombre_completo']           = $ejemplarEvento->nombre_completo;
+            $arrayEjemplar['color']                     = $ejemplarEvento->color;
+            $arrayEjemplar['fecha_nacimiento']          = $ejemplarEvento->fecha_nacimiento;
+            $arrayEjemplar['sexo']                      = $ejemplarEvento->sexo;
+            $arrayEjemplar['chip']                      = $ejemplarEvento->chip;
+            $arrayEjemplar['kcb_padre']                 = $ejemplarEvento->kcb_padre;
+            $arrayEjemplar['nombre_padre']              = $ejemplarEvento->nombre_padre;
+            $arrayEjemplar['kcb_madre']                 = $ejemplarEvento->kcb_madre;
+            $arrayEjemplar['nombre_madre']              = $ejemplarEvento->nombre_madre;
+            $arrayEjemplar['criador']                   = $ejemplarEvento->criador;
+            $arrayEjemplar['propietario']               = $ejemplarEvento->propietario;
+            $arrayEjemplar['ciudad']                    = $ejemplarEvento->ciudad;
+            $arrayEjemplar['telefono']                  = $ejemplarEvento->telefono;
+            $arrayEjemplar['email']                     = $ejemplarEvento->email;
+            $arrayEjemplar['num_tatuaje']               = $ejemplarEvento->tatuaje;
         }
         // dd($ejemplar->padre->nombre);
 
@@ -109,12 +152,46 @@ class EventoController extends Controller
     }
     
     public function inscribirEvento(Request $request){
-        dd($request->all());
-        if($request->kcb_busca){
+        // dd($request->all());
+        $ejemplarEvento = new EjemplarEvento();
 
-        }else{
+        if($request->kcb_busca && $request->ejemplar_id){
 
+            $ejemplarEvento->user_id                    = Auth::user()->id;
+            $ejemplarEvento->evento_id                  = $request->input('evento_id');
+            $ejemplarEvento->ejemplar_id                = $request->input('ejemplar_id');      
+            $ejemplarEvento->categoria_pista_id         = $request->input('categoria_pista');
+            $ejemplarEvento->extrangero                 = 'no';
+            $ejemplarEvento->criador                    = $request->input('criador');
+            $ejemplarEvento->telefono                   = $request->input('telefono');
+            $ejemplarEvento->email                      = $request->input('email');
+
+        }elseif($request->cod_extrangero && $request->ejemplar_id == null){
+            $ejemplarEvento->user_id                    = Auth::user()->id;
+            $ejemplarEvento->evento_id                  = $request->input('evento_id');
+            $ejemplarEvento->raza_id                    = $request->input('raza_id');
+            $ejemplarEvento->categoria_pista_id         = $request->input('categoria_pista');
+            $ejemplarEvento->extrangero                 = 'si';
+            $ejemplarEvento->codigo_nacionalizado       = $request->input('cod_extrangero');
+            $ejemplarEvento->nombre_completo            = $request->input('nombre');
+            $ejemplarEvento->color                      = $request->input('color');
+            $ejemplarEvento->fecha_nacimiento           = $request->input('fecha_nacimiento');
+            $ejemplarEvento->chip                       = $request->input('chip');
+            $ejemplarEvento->kcb_padre                  = $request->input('kcb_padre');
+            $ejemplarEvento->nombre_padre               = $request->input('nom_padre');
+            $ejemplarEvento->kcb_madre                  = $request->input('kcb_madre');
+            $ejemplarEvento->nombre_madre               = $request->input('nom_madre');
+            $ejemplarEvento->criador                    = $request->input('criador');
+            $ejemplarEvento->propietario                = $request->input('propietario');
+            $ejemplarEvento->ciudad                     = $request->input('ciudad');
+            $ejemplarEvento->sexo                       = $request->input('sexo');
+            $ejemplarEvento->telefono                   = $request->input('telefono');
+            $ejemplarEvento->email                      = $request->input('email');
         }
+
+        $ejemplarEvento->save();
+
+        echo  'se registro';
     }
 
 }

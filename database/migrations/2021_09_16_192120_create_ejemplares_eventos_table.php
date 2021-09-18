@@ -25,9 +25,11 @@ class CreateEjemplaresEventosTable extends Migration
             $table->unsignedBigInteger('categoria_pista_id')->nullable();
             $table->foreign('categoria_pista_id')->references('id')->on('categorias_pistas');
             // $table->string('kcb')->nullable();
+            $table->string('extrangero')->nullable();
             $table->string('codigo_nacionalizado')->nullable();
             $table->string('nombre_completo')->nullable();
             $table->string('color')->nullable();
+            $table->string('tatuaje')->nullable();
             $table->date('fecha_nacimiento')->nullable();
             $table->string('sexo')->nullable();
             $table->string('chip')->nullable();
