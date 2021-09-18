@@ -1449,7 +1449,7 @@
                         <label class="exampleInputPassword1">
                         Alquiler</label>
                         <div class="">
-                            <input id='check_alquiler' data-switch="true" type="checkbox" data-on-color="primary"  onchange="mostrarAlquiler()"/>
+                            <input id='check_alquiler' data-switch="true" data-on-text="SI" data-off-text="NO" type="checkbox" data-on-color="primary"  onchange="mostrarAlquiler()"/>
                         </div>
                     </div>
                 </div>
@@ -1458,7 +1458,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="">Propietario Alquilado
-                                    <span class="text-danger">*</span></label>
+                                    <span class="text-danger">*</span></label><br />
                                     <select class="form-control select2" id="alquiler_propietario_id" name="alquiler_propietario_id">
                                         @if ($ejemplar != null && $ejemplar->propietario_id != null)
                                             <option value="{{ $ejemplar->propietario->id }}">{{ $ejemplar->propietario->name }}</option>
