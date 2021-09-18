@@ -198,7 +198,7 @@ class UserController extends Controller
     public function ajaxListadoPropietarios(Request $request)
     {
 
-        $propietarios = User::query();
+        $propietarios = User::orderBy('id', 'desc');
         
         if($request->filled('nombre_buscar')){
             $nombre = $request->input('nombre_buscar');
