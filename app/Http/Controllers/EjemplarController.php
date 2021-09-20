@@ -1534,4 +1534,58 @@ class EjemplarController extends Controller
 
         return view('ejemplar.ajaxGuardaEjemplar')->with(compact('ejemplar'));
     }
+
+    public function registroNuevoEjemplarCamada(Request $request){
+        // dd($request->all());
+        $ejemplarHermano = Ejemplar::where('camada_id',$request->input('registro-nuevo-camada_id'))->first();
+
+        $ejemplar = new Ejemplar();
+
+        $ejemplar->user_id                  = Auth::user()->id;
+        $ejemplar->madre_id                 = $ejemplarHermano->madre_id;
+        $ejemplar->padre_id                 = $ejemplarHermano->padre_id;
+        $ejemplar->raza_id                  = $ejemplarHermano->raza_id;
+        $ejemplar->camada_id                = $ejemplarHermano->camada_id;
+        $ejemplar->criadero_id              = $ejemplarHermano->criadero_id;
+        $ejemplar->propietario_id           = $ejemplarHermano->propietario_id;
+        $ejemplar->kcb                      = $request->input('registro-nuevo-kcb');                    
+        $ejemplar->num_tatuaje              = $request->input('registro-nuevo-tatuaje');                    
+        $ejemplar->chip                     = $request->input('registro-nuevo-chip');                    
+        $ejemplar->fecha_nacimiento         = $ejemplarHermano->fecha_nacimiento;                    
+        $ejemplar->color                    = $request->input('registro-nuevo-color');                    
+        $ejemplar->senas                    = $request->input('registro-nuevo-senas');                    
+        $ejemplar->nombre                   = $request->input('registro-nuevo-nombre');                    
+        $ejemplar->primero_mostrar          = $ejemplarHermano->primero_mostrar;                    
+        $ejemplar->prefijo                  = $ejemplarHermano->prefijo;                    
+        $ejemplar->lechigada                = $ejemplarHermano->lechigada;                    
+        $ejemplar->sexo                     = $request->input('registro-nuevo-sexo');
+        $ejemplar->departamento             = $ejemplarHermano->departamento;                    
+        $ejemplar->fecha_emision            = $ejemplarHermano->fecha_emision;                    
+
+        $criadero = Criadero::find($ejemplarHermano->criadero_id);
+
+        if($ejemplar->primero_mostrar == "Nombre"){
+            $nombreCompleto         = $ejemplar->nombre;
+            if($ejemplar->prefijo == ""){
+                $nombreCompleto     = $nombreCompleto." ";
+            }else{
+                $nombreCompleto     = $nombreCompleto." ".$ejemplar->prefijo." ";
+            }
+            $nombreCompleto         = $nombreCompleto.$criadero->nombre;
+        }else{
+            $nombreCompleto         = $criadero->nombre;
+            if($ejemplar->prefijo == ""){
+                $nombreCompleto     = $nombreCompleto." ";
+            }else{
+                $nombreCompleto     = $nombreCompleto." ".$ejemplar->prefijo." "; 
+            }
+            $nombreCompleto         = $nombreCompleto." ".$ejemplar->nombre;
+        }
+
+        $ejemplar->nombre_completo  = $nombreCompleto;
+
+        $ejemplar->save();
+
+        return redirect("Ejemplar/listadoCamada/$ejemplarHermano->camada_id");
+    }
 }

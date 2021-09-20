@@ -13,6 +13,89 @@
 {{-- inicio modal busqueda de ejemplar --}}
 
 <!-- Modal-->
+<div class="modal fade" id="modal-registro-nuevo-ejemplar" data-backdrop="static" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdrop" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">REGISTRO DE UN NUEVO EJEMPLAR</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ url('Ejemplar/registroNuevoEjemplarCamada') }}" method="POST" id="formulario-registro-nuevo-ejemplar">
+                    @csrf
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="kcb">Nombre:</label>
+                                <input type="text" name="registro-nuevo-camada_id" id="registro-nuevo-camada_id" value="{{ $camada->id }}">
+                                {{-- <input type="text" name="registro-nuevo-madre_id" id="registro-nuevo-madre_id" value="{{ $camada->madre->id }}">
+                                <input type="text" name="registro-nuevo-padre_id" id="registro-nuevo-padre_id" value="{{ $camada->padre->id }}">
+                                <input type="text" name="registro-nuevo-raza_id" id="registro-nuevo-raza_id" value="{{ $camada->raza->id }}"> --}}
+                                <input type="text" class="form-control" id="registro-nuevo-nombre" name="registro-nuevo-nombre" autocomplete="off" required />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="kcb">KCB:</label>
+                                <input type="text" class="form-control" id="registro-nuevo-kcb" name="registro-nuevo-kcb">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="kcb">Chip:</label>
+                                <input type="text" class="form-control" id="registro-nuevo-chip" name="registro-nuevo-chip" autocomplete="off" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="kcb">Color:</label>
+                                <input type="text" class="form-control" id="registro-nuevo-color" name="registro-nuevo-color">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="kcb">Señas:</label>
+                                <input type="text" class="form-control" id="registro-nuevo-senas" name="registro-nuevo-senas">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="kcb">No. Tatuaje:</label>
+                                <input type="text" class="form-control" id="registro-nuevo-tatuaje" name="registro-nuevo-tatuaje">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="kcb">Sexo:</label>
+                                <select class="form-control" name="registro-nuevo-sexo" id="registro-nuevo-sexo">
+                                    <option value="Macho">Macho</option>
+                                    <option value="Hembra">Hembra</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-success btn-block" onclick="registrarEjemplar()">GUARDAR</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- fin inicio modal busqueda de ejemplar  --}}
+
+{{-- inicio modal busqueda de ejemplar --}}
+
+<!-- Modal-->
 <div class="modal fade" id="modal-padres" data-backdrop="static" tabindex="-1" role="dialog"
     aria-labelledby="staticBackdrop" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -66,11 +149,22 @@
                 <input type="hidden" id="add_camada_id" value="{{ $camada->id }}">
 			</div>
 			<div class="card-toolbar">
-				<!--begin::Button-->
-				<a href="#" class="btn btn-primary font-weight-bolder" onclick="nuevo()">
-					<i class="fa fa-plus-square"></i> NUEVO EJEMPLAR
-				</a>
-				<!--end::Button-->
+                <div class="row">
+                    <div class="col-md-6">
+                        <!--begin::Button-->
+                        <a href="#" class="btn btn-primary font-weight-bolder" onclick="nuevoEjemplar()">
+                            <i class="fa fa-plus-square"></i> REGISTRO NUEVO EJEMPLAR
+                        </a>
+                        <!--end::Button-->    
+                    </div>
+                    <div class="col-md-6">
+                        <!--begin::Button-->
+                        <a href="#" class="btn btn-primary font-weight-bolder" onclick="nuevo()">
+                            <i class="fa fa-plus-square"></i> AGREGAR NUEVO EJEMPLAR
+                        </a>
+                        <!--end::Button-->
+                    </div>
+                </div>
 			</div>
 		</div>
 		
@@ -252,6 +346,35 @@
             });
     
         });
+
+        function nuevoEjemplar(){
+            $("#registro-nuevo-nombre").val('');
+            $("#registro-nuevo-kcb").val('');
+            $("#registro-nuevo-chip").val('');
+            $("#registro-nuevo-color").val('');
+            $("#registro-nuevo-senas").val('');
+            $("#registro-nuevo-tatuaje").val('');
+            $("#registro-nuevo-sexo").val('Macho');
+
+            $("#modal-registro-nuevo-ejemplar").modal('show');
+        }
+        
+        function registrarEjemplar(){
+
+            // verificamos que el formulario este correcto
+    		if($("#formulario-registro-nuevo-ejemplar")[0].checkValidity()){
+				// enviamos el formulario
+    			$("#formulario-registro-nuevo-ejemplar").submit();
+				// mostramos la alerta
+				Swal.fire("Excelente!", "Registro Guardado!", "success");
+    		}else{
+				// de lo contrario mostramos los errores
+				// del formulario
+    			$("#formulario-registro-nuevo-ejemplar")[0].reportValidity()
+    		}
+            // alert("Funion en procedimiento");
+
+        }
 
     </script>
 @endsection

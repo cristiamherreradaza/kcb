@@ -543,7 +543,7 @@ class MigracionController extends Controller
     // MIGRACION DE PADRES MADRES
     public function padres_madres(){
         $mascotas = DB::table('amascotas')
-                            // ->orderBy('id', 'desc')
+                            ->orderBy('id', 'desc')
                             // ->limit(2000)
                             ->get();
         // $mascotas = DB::table('amascotas')->where('id',42218)->first();
@@ -558,43 +558,46 @@ class MigracionController extends Controller
         // dd($mascotas);
 
         foreach ($mascotas as $m) {
-            echo  "ID => ".$m->id." Nombre => ".$m->nombre."<br>";
+            echo  "ID => ".$m->id." Nombre => ".$m->nombre."Id Camada => ".$m->camada_id."<br>";
 
             $mascota = Ejemplar::where('codigo_anterior',$m->id)->first();
-            // dd($mascota);
+            if($mascota){
 
-            $padre = DB::table('ejemplares')->where('codigo_anterior',$m->reproductor_id)->first();
-            if($padre){
-                $mascota->padre_id = $padre->id;
-            }else{
-                $mascota->padre_id = null;
+                // dd($mascota);
+
+                // $padre = DB::table('ejemplares')->where('codigo_anterior',$m->reproductor_id)->first();
+                // if($padre){
+                //     $mascota->padre_id = $padre->id;
+                // }else{
+                //     $mascota->padre_id = null;
+                // }
+                // $madre = DB::table('ejemplares')->where('codigo_anterior',$m->reproductora_id)->first();
+                // if($madre){
+                //     $mascota->madre_id = $madre->id;
+                // }else{
+                //     $mascota->madre_id = null;
+                // }
+                $camada = DB::table('camadas')->where('codigo_anterior',$m->camada_id)->first();
+                if($camada){
+                    $mascota->camada_id = $camada->id;
+                }else{
+                    $mascota->camada_id = null;
+                }
+                // $criadero = DB::table('criaderos')->where('codigo_anterior',$m->criadero_id)->first();
+                // if($criadero){
+                //     $mascota->criadero_id = $criadero->id;
+                // }else{
+                //     $mascota->criadero_id = null;
+                // }
+                // $propietario = DB::table('criaderos')->where('codigo_anterior',$m->criadero_id)->first();
+                // if($propietario){
+                //     $mascota->criadero_id = $criadero->id;
+                // }else{
+                //     $mascota->criadero_id = null;
+                // }
+                // dd($mascota);
+                $mascota->save();
             }
-            $madre = DB::table('ejemplares')->where('codigo_anterior',$m->reproductora_id)->first();
-            if($madre){
-                $mascota->madre_id = $madre->id;
-            }else{
-                $mascota->madre_id = null;
-            }
-            $camada = DB::table('camadas')->where('codigo_anterior',$m->camada_id)->first();
-            if($camada){
-                $mascota->camada_id = $camada->id;
-            }else{
-                $mascota->camada_id = null;
-            }
-            $criadero = DB::table('criaderos')->where('codigo_anterior',$m->criadero_id)->first();
-            if($criadero){
-                $mascota->criadero_id = $criadero->id;
-            }else{
-                $mascota->criadero_id = null;
-            }
-            $propietario = DB::table('criaderos')->where('codigo_anterior',$m->criadero_id)->first();
-            if($propietario){
-                $mascota->criadero_id = $criadero->id;
-            }else{
-                $mascota->criadero_id = null;
-            }
-            // dd($mascota);
-            $mascota->save();
         }
 
         echo "<h1 class='text-success'>SUCCESSFUL</h1>";

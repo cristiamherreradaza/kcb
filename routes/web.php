@@ -149,6 +149,7 @@ Route::post('Ejemplar/guardaEjemplarEdita', 'EjemplarController@guardaEjemplarEd
 Route::post('Ejemplar/ajaxBuscaEjemplarEdita', 'EjemplarController@ajaxBuscaEjemplarEdita');
 Route::get('Ejemplar/generaExcelPedigree/{ejemplarId}', 'EjemplarController@generaExcelPedigree');
 Route::post('Ejemplar/ajaxGuardaEjemplar', 'EjemplarController@ajaxGuardaEjemplar');
+Route::post('Ejemplar/registroNuevoEjemplarCamada', 'EjemplarController@registroNuevoEjemplarCamada');
 
 
 // ALQUILERES
