@@ -157,6 +157,9 @@
 									<button type="button" class="btn btn-sm btn-icon btn-warning" onclick="edita('{{ $even->id }}', '{{ $even->nombre }}', '{{ $even->fecha_inicio }}', '{{ $even->fecha_fin }}', '{{ $even->direccion }}', '{{ $even->departamento }}', '{{ $even->numero_pista }}', '{{ $even->circuito }}')">
 										<i class="flaticon2-edit"></i>
 									</button>
+									<button type="button" class="btn btn-sm btn-icon btn-info" onclick="listaInscritos('{{ $even->id }}')">
+										<i class="far fa-list-alt"></i>
+									</button>
 									<button type="button" class="btn btn-sm btn-icon btn-danger" onclick="elimina('{{ $even->id }}', '{{ $even->nombre }}')">
 										<i class="flaticon2-cross"></i>
 									</button>
@@ -271,6 +274,10 @@
                 }
             });
         }
+
+		function listaInscritos(id){
+			window.location.href = "{{ url('Evento/listadoInscritos') }}/"+id;
+		}
 
     </script>
 @endsection

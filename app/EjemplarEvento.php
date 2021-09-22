@@ -41,4 +41,14 @@ class EjemplarEvento extends Model
     {
         return $this->belongsTo('App\Raza', 'raza_id');
     }
+
+    public function ejemplar()
+    {
+        return $this->belongsTo('App\Ejemplar', 'ejemplar_id');
+    }
+
+    public function categoriaPista()
+    {
+        return $this->belongsTo('App\CategoriasPista', 'categoria_pista_id');
+    }
 }

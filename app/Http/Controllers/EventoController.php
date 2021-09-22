@@ -194,4 +194,37 @@ class EventoController extends Controller
         echo  'se registro';
     }
 
+    public function listadoInscritos(Request $request, $evento_id){
+        // dd($evento_id);
+
+        $ejemplaresEventos = EjemplarEvento::where('evento_id',$evento_id)
+                                            ->get();
+
+        $evento = Evento::find($evento_id);
+
+        $razas = Raza::all();
+
+        $categoriasPista = CategoriasPista::all();
+
+        return view('evento.listadoInscritos')->with(compact('ejemplaresEventos', 'evento', 'razas', 'categoriasPista'));
+                                            
+    }
+
+    public function editaInscripcionEjemplarEvento(Request $request){
+        
+        $ejemplarEvento = EjemplarEvento::find($request->input('ejemplarEvento'));
+
+        if($request->input('extranjero') == 'si'){
+            $ejemplarEvento->nombre_completo        = $request->input('nombre');
+            $ejemplarEvento->raza_id                = $request->input('raza_id');
+            $ejemplarEvento->color                  = $request->input('color');
+            $ejemplarEvento->fecha_nacimiento       = $request->input('fecha_nacimiento');
+            $ejemplarEvento->sexo                   = $request->input('sexo');
+            $ejemplarEvento->codigo_nacionalizado   = $request->input('cod_extranjero');
+            $ejemplarEvento->tatuaje                = $request->input('num_tatuaje');
+        }else{
+
+        }
+    }
+
 }
