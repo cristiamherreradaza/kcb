@@ -449,5 +449,9 @@
         });
 
     });
+    
+    function volver(){
+        window.location.href = "{{ url('Ejemplar/listado')}}"
+    }
 </script>
 @endsection

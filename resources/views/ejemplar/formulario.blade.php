@@ -2366,7 +2366,7 @@
         });
     }
     function volver(){
-        alert('Volver');
+        window.location.href = "{{ url('Ejemplar/listado')}}"
     }
 
     {{-- BUSCA PROPIETARIO --}}
