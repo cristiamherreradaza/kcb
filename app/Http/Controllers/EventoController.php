@@ -222,9 +222,31 @@ class EventoController extends Controller
             $ejemplarEvento->sexo                   = $request->input('sexo');
             $ejemplarEvento->codigo_nacionalizado   = $request->input('cod_extranjero');
             $ejemplarEvento->tatuaje                = $request->input('num_tatuaje');
-        }else{
-
+            $ejemplarEvento->chip                   = $request->input('chip');
+            $ejemplarEvento->kcb_padre              = $request->input('kcb_padre');
+            $ejemplarEvento->nombre_padre           = $request->input('nom_padre');
+            $ejemplarEvento->kcb_madre              = $request->input('kcb_madre');
+            $ejemplarEvento->nombre_madre           = $request->input('nom_madre');
+            $ejemplarEvento->criador                = $request->input('criador');
+            $ejemplarEvento->propietario            = $request->input('propietario');
+            $ejemplarEvento->ciudad                 = $request->input('ciudad');
         }
+
+        $ejemplarEvento->telefono               = $request->input('telefono');
+        $ejemplarEvento->categoria_pista_id     = $request->input('categoria_pista_id');
+        $ejemplarEvento->email                  = $request->input('email');
+        $ejemplarEvento->estado                 = $request->input('estado');
+
+        $ejemplarEvento->save();
+
+        return redirect('Evento/listadoInscritos/'.$ejemplarEvento->evento_id);
+    }
+
+    public function eliminaInscripcion(Request $request, $inscripcion_id){
+        $ejemplarEventoId = (EjemplarEvento::find($inscripcion_id))->evento_id;
+        // dd($ejemplarEventoId);
+        EjemplarEvento::destroy($inscripcion_id);
+        return redirect('Evento/listadoInscritos/'.$ejemplarEventoId);
     }
 
 }

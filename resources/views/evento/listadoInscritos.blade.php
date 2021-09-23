@@ -28,12 +28,8 @@
                 			    <label for="exampleInputPassword1">Nombre Ejemplar
                 			    <span class="text-danger">*</span></label>
                 			    <input type="text" class="form-control" id="nombre" name="nombre" required />
-								<br>
-								ejempalr evento id
-                			    <input type="text" id="ejemplarEvento" name="ejemplarEvento"/>
-								<br>
-								extranjero
-                			    <input type="text" id="extranjero" name="extranjero"/>
+                			    <input type="hidden" id="ejemplarEvento" name="ejemplarEvento"/>
+                			    <input type="hidden" id="extranjero" name="extranjero"/>
                 			</div>
                 		</div>
 
@@ -55,7 +51,7 @@
                 			<div class="form-group">
                 			    <label for="exampleInputPassword1">KCB
                 			    <span class="text-danger">*</span></label>
-                			    <input type="text" class="form-control" id="kcb" name="kcb" required />
+                			    <input type="text" class="form-control" id="kcb" name="kcb" />
                 			</div>
                 		</div>
                 	</div>
@@ -65,21 +61,21 @@
 							<div class="form-group">
                 			    <label for="exampleInputPassword1">Color
                 			    <span class="text-danger">*</span></label>
-                			    <input type="text" class="form-control" id="color" name="color" required />
+                			    <input type="text" class="form-control" id="color" name="color"  />
                 			</div>
 						</div>
                         <div class="col-md-4">
 							<div class="form-group">
                 			    <label for="exampleInputPassword1">Fecha Nacimiento
                 			    <span class="text-danger">*</span></label>
-                			    <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required />
+                			    <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" />
                 			</div>
 						</div>
                         <div class="col-md-4">
 							<div class="form-group">
                 			    <label for="exampleInputPassword1">Sexo
                 			    <span class="text-danger">*</span></label>
-                			    <input type="text" class="form-control" id="sexo" name="sexo" required />
+                			    <input type="text" class="form-control" id="sexo" name="sexo" />
                 			</div>
 						</div>
 					</div>
@@ -89,21 +85,21 @@
 							<div class="form-group">
                 			    <label for="exampleInputPassword1">Registro Extranjero
                 			    <span class="text-danger">*</span></label>
-                			    <input type="text" class="form-control" id="cod_extranjero" name="cod_extranjero" required />
+                			    <input type="text" class="form-control" id="cod_extranjero" name="cod_extranjero" />
                 			</div>
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
                 			    <label for="exampleInputPassword1">Numero Tatuaje
                 			    <span class="text-danger">*</span></label>
-                			    <input type="number" class="form-control" id="num_tatuaje" name="num_tatuaje" required />
+                			    <input type="number" class="form-control" id="num_tatuaje" name="num_tatuaje" />
                 			</div>
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
                 			    <label for="exampleInputPassword1">Chip
                 			    <span class="text-danger">*</span></label>
-                			    <input type="number" class="form-control" id="chip" name="chip" required />
+                			    <input type="number" class="form-control" id="chip" name="chip" />
                 			</div>
 						</div>
 					</div>
@@ -113,14 +109,14 @@
 							<div class="form-group">
                 			    <label for="exampleInputPassword1">KCB Padre
                 			    <span class="text-danger">*</span></label>
-                			    <input type="text" class="form-control" id="kcb_padre" name="kcb_padre" required />
+                			    <input type="text" class="form-control" id="kcb_padre" name="kcb_padre" />
                 			</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
                 			    <label for="exampleInputPassword1">Nombre Padre
                 			    <span class="text-danger">*</span></label>
-                			    <input type="text" class="form-control" id="nom_padre" name="nom_padre" required />
+                			    <input type="text" class="form-control" id="nom_padre" name="nom_padre" />
                 			</div>
 						</div>
 					</div>
@@ -130,14 +126,14 @@
 							<div class="form-group">
                 			    <label for="exampleInputPassword1">KCB Madre
                 			    <span class="text-danger">*</span></label>
-                			    <input type="text" class="form-control" id="kcb_madre" name="kcb_madre" required />
+                			    <input type="text" class="form-control" id="kcb_madre" name="kcb_madre" />
                 			</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
                 			    <label for="exampleInputPassword1">Nombre Madre
                 			    <span class="text-danger">*</span></label>
-                			    <input type="text" class="form-control" id="nom_madre" name="nom_madre" required />
+                			    <input type="text" class="form-control" id="nom_madre" name="nom_madre" />
                 			</div>
 						</div>
 					</div>
@@ -159,14 +155,14 @@
 							<div class="form-group">
                 			    <label for="exampleInputPassword1">Criador
                 			    <span class="text-danger">*</span></label>
-                			    <input type="text" class="form-control" id="criador" name="criador" required />
+                			    <input type="text" class="form-control" id="criador" name="criador" />
                 			</div>
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
                 			    <label for="exampleInputPassword1">Propietario
                 			    <span class="text-danger">*</span></label>
-                			    <input type="text" class="form-control" id="propietario" name="propietario" required />
+                			    <input type="text" class="form-control" id="propietario" name="propietario" />
                 			</div>
 						</div>
 					</div>
@@ -176,14 +172,14 @@
 							<div class="form-group">
                 			    <label for="exampleInputPassword1">Ciudad / Pais
                 			    <span class="text-danger">*</span></label>
-                			    <input type="text" class="form-control" id="ciudad" name="ciudad" required />
+                			    <input type="text" class="form-control" id="ciudad" name="ciudad"  />
                 			</div>
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
                 			    <label for="exampleInputPassword1">Telefono
                 			    <span class="text-danger">*</span></label>
-                			    <input type="text" class="form-control" id="telefono" name="telefono" required />
+                			    <input type="text" class="form-control" id="telefono" name="telefono" />
                 			</div>
 						</div>
 						<div class="col-md-4">
@@ -211,7 +207,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-sm btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-sm btn-success font-weight-bold" onclick="crear()">Guardar</button>
+                <button type="button" class="btn btn-sm btn-success font-weight-bold" onclick="editaInscripcion()">Guardar</button>
             </div>
         </div>
     </div>
@@ -262,7 +258,7 @@
                                     <button type="button" class="btn btn-sm btn-icon btn-warning" onclick="edita('{{ $ee->id }}', '{{ ($ee->ejemplar)? addslashes($ee->ejemplar->nombre_completo) : addslashes($ee->nombre_completo) }}', '{{ ($ee->ejemplar)? $ee->ejemplar->raza->id : $ee->raza->id }}', '{{ ($ee->ejemplar)? $ee->ejemplar->kcb: '' }}', '{{ ($ee->ejemplar)? $ee->ejemplar->color: $ee->color }}', '{{ ($ee->ejemplar)? $ee->ejemplar->fecha_nacimiento: $ee->fecha_nacimiento }}', '{{ ($ee->ejemplar)? $ee->ejemplar->sexo : $ee->sexo }}', '{{ $ee->codigo_nacionalizado }}', '{{ ($ee->ejemplar)? $ee->ejemplar->num_tatuaje : $ee->tatuaje }}', '{{ ($ee->ejemplar)? $ee->ejemplar->chip : $ee->chip }}', '{{ ($ee->ejemplar)? $ee->ejemplar->padre->kcb : $ee->kcb_padre }}', '{{ ($ee->ejemplar)? addslashes($ee->ejemplar->padre->nombre) : addslashes($ee->nombre_padre) }}', '{{ ($ee->ejemplar)? $ee->ejemplar->madre->kcb : $ee->kcb_madre }}', '{{ ($ee->ejemplar)? addslashes($ee->ejemplar->madre->nombre) : addslashes($ee->nombre_madre) }}', '{{ $ee->categoria_pista_id }}', '{{ $ee->criador }}', '{{ ($ee->ejemplar)? addslashes($ee->ejemplar->propietario->name) : addslashes($ee->propietario) }}', '{{ ($ee->ejemplar)? $ee->ejemplar->propietario->departamento : $ee->ciudad }}', '{{ ($ee->ejemplar)? $ee->ejemplar->propietario->celulares : $ee->telefono }}', '{{ ($ee->ejemplar)? $ee->ejemplar->propietario->email : $ee->email }}', '{{ $ee->estado }}', '{{ $ee->extrangero }}' )">
                                         <i class="flaticon2-edit"></i>
                                     </button>
-									<button type="button" class="btn btn-sm btn-icon btn-danger" onclick="elimina('{{ $ee->id }}', '{{ $ee->nombre }}')">
+									<button type="button" class="btn btn-sm btn-icon btn-danger" onclick="elimina('{{ $ee->id }}', '{{ ($ee->ejemplar)? addslashes($ee->ejemplar->nombre_completo) : addslashes($ee->nombre_completo) }}')">
 										<i class="flaticon2-cross"></i>
 									</button>
 								</td>
@@ -369,18 +365,18 @@
     		$("#modal-inscripcion-edita").modal('show');
     	}
 
-    	function crear()
+    	function editaInscripcion()
     	{
 			// verificamos que el formulario este correcto
-    		if($("#formulario-tipos")[0].checkValidity()){
+    		if($("#formulario-edita-inscripcion")[0].checkValidity()){
 				// enviamos el formulario
-    			$("#formulario-tipos").submit();
+    			$("#formulario-edita-inscripcion").submit();
 				// mostramos la alerta
 				Swal.fire("Excelente!", "Registro Guardado!", "success");
     		}else{
 				// de lo contrario mostramos los errores
 				// del formulario
-    			$("#formulario-tipos")[0].reportValidity()
+    			$("#formulario-edita-inscripcion")[0].reportValidity()
     		}
 
     	}
@@ -400,7 +396,7 @@
 				// si pulsa boton si
                 if (result.value) {
 
-                    window.location.href = "{{ url('Evento/elimina') }}/"+id;
+                    window.location.href = "{{ url('Evento/eliminaInscripcion') }}/"+id;
 
                     Swal.fire(
                         "Borrado!",
