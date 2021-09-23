@@ -34,7 +34,7 @@
                     <i class="flaticon2-edit"></i>
                 </button>
                 @if ($e->camada_id != null)
-                    <button type="button" class="btn btn-sm btn-icon btn-dark" onclick="edita('{{ $e->id }}')">
+                    <button type="button" class="btn btn-sm btn-icon btn-dark" onclick="camada('{{ $e->camada_id }}')">
                         <i class="fab fa-buromobelexperte"></i>
                     </button>
                 @endif

@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('metadatos')
+	<meta name="csrf-token" content="{{ csrf_token() }}" />
+@endsection
+
 @section('css')
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet">
 @endsection
@@ -7,145 +11,78 @@
 @section('content')
 	{{-- inicio modal  --}}
 	<!-- Modal-->
-	{{--  <div class="modal fade" id="modalGrupo" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+	<div class="modal fade" id="modal-agregar-criadero" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">FORMULARIO DE USUARIOS</h5>
+					<h5 class="modal-title" id="exampleModalLabel">AGREGAR UN NUEVO CRIADERO</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<i aria-hidden="true" class="ki ki-close"></i>
 					</button>
 				</div>
 				<div class="modal-body">
-					<form action="{{ url('User/guarda') }}" method="POST" id="formulario-usuarios">
+					<form action="{{ url('Criadero/guardaCriaderoPropietario') }}" method="POST" id="formulario-agrega-criadero-propietario">
 						@csrf
 						<div class="row">
-							<div class="col-md-4">
+							<div class="col-md-12">
 								<div class="form-group">
-									<label for="exampleInputPassword1">Nombre de Usuario
+									<label for="exampleInputPassword1">Propietario
 									<span class="text-danger">*</span></label>
-									<input type="hidden" class="form-control" id="user_id" name="user_id" />
-									<input type="text" class="form-control" id="name" name="name" required />
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="form-group">
-									<label for="exampleInputPassword1">Correo
-									<span class="text-danger">*</span></label>
-									<input type="email" class="form-control" id="email" name="email" required />
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="form-group">
-									<label for="exampleInputPassword1">Contraseña
-									<span class="text-danger">*</span></label>
-									<input type="password" class="form-control" id="password" name="password" required />
+									<select name="propietario_id" id="propietario_id" class="form-control" required>
+										<option value="{{ $propietario->id }}">{{ $propietario->name }}</option>
+									</select>
 								</div>
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-3">
+							<div class="col-md-6">
 								<div class="form-group">
-									<label for="exampleInputPassword1">Fecha de Nacimiento
+									<label for="exampleInputPassword1">Criadero
 									<span class="text-danger">*</span></label>
-									<input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required />
+									<input type="text" id="criadero_id" name="criadero_id">
+									<input type="text" class="form-control" id="criadero" name="criadero" required disabled/>
 								</div>
 							</div>
-							<div class="col-md-3">
+							<div class="col-md-6">
 								<div class="form-group">
-									<label for="exampleInputPassword1">Cedula
-									<span class="text-danger">*</span></label>
-									<input type="number" class="form-control" id="ci" name="ci" title="El numero no puede exeder mas de 15 digitos" required />
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="form-group">
-									<label for="exampleInputPassword1">Genero
-									<span class="text-danger">*</span></label>
-									<select name="genero" id="genero" class="form-control">
-										<option value="Masculino">Masculino</option>
-										<option value="Femenino">Femenino</option>
-										<option value="Otros">Otros</option>
-									</select>
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="form-group">
-									<label for="exampleInputPassword1">Celular
-									<span class="text-danger">*</span></label>
-									<input type="text" class="form-control" id="celulares" name="celulares" required />
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-4">
-								<div class="form-group">
-									<label for="exampleInputPassword1">Direccion
-									<span class="text-danger">*</span></label>
-									<input type="text" class="form-control" id="direccion" name="direccion" required />
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="form-group">
-									<label for="exampleInputPassword1">Sucursal
-									<span class="text-danger">*</span></label>
-									<select name="sucursal_id" id="sucursal_id" class="form-control">
-										@forelse ($sucursales as $s)
-											<option value="{{ $s->id }}">{{ $s->nombre }}</option>
-										@empty
-											NO existen sucursales	
-										@endforelse
-									</select>
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="form-group">
-									<label for="exampleInputPassword1">Perfil
-									<span class="text-danger">*</span></label>
-									<select name="perfil_id" id="perfil_id" class="form-control">
-										@forelse ($perfiles as $p)
-											<option value="{{ $p->id }}">{{ $p->nombre }}</option>p
-										@empty
-											No existen perfiles											
-										@endforelse
-									</select>
-								</div>
-							</div>
-							<div class="col-md-2">
-								<div class="form-group">
-									<label for="exampleInputPassword1">Socio
-									<span class="text-danger">*</span></label>
-									<select name="socio" id="socio" class="form-control">
-										<option value="Si">Si</option>
-										<option value="No">No</option>
-									</select>
+									<label for="exampleInputPassword1">Buscar Criadero por Nombre
+										<span class="text-danger">*</span>
+										<span class="label label-success label-inline font-weight-normal mr-2" onclick="">NUEVO</span>
+									</label>
+									<input type="text" class="form-control" id="busca-criadero-nombre" name="busca-criadero-nombre" />
+									<span class="form-text text-danger" id="msg-error-criadero" style="display: none;">Debe seleccionar un Criadero</span>
 								</div>
 							</div>
 						</div>
 					</form>
+					<div class="row">
+						<div class="col-md-12">
+							<div id="bloqueCriadero">
+
+							</div>
+						</div>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-sm btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
-					<button type="button" class="btn btn-sm btn-success font-weight-bold" onclick="crear()">Guardar</button>
+					<button type="button" class="btn btn-sm btn-success font-weight-bold" onclick="agregarEjemplarCriadero()">Guardar</button>
 				</div>
 			</div>
 		</div>
-	</div>  --}}
+	</div> 
 	{{-- fin inicio modal  --}}
 
 	<!--begin::Card-->
 	<div class="card card-custom gutter-b">
 		<div class="card-header flex-wrap py-3">
 			<div class="card-title">
-				<h3 class="card-label">LISTA DE USUARIOS
+				<h3 class="card-label">LISTA DE CRIADEROS DEL PROPIETARIO <span class="text-primary">{{ $propietario->name }}</span>
 				</h3>
 			</div>
 			<div class="card-toolbar">
 				<!--begin::Button-->
 				<a href="#" class="btn btn-primary font-weight-bolder" onclick="nuevo()">
-					<i class="fa fa-plus-square"></i> NUEVO USUARIO
+					<i class="fa fa-plus-square"></i> NUEVO CRIADERO
 				</a>
 				<!--end::Button-->
 			</div>
@@ -210,24 +147,20 @@
 			});
 
     	});
-		function crear()
-		{
-			if($('#formulario-usuarios')[0].checkValidity()){
-				$('#formulario-usuarios').submit();
-			}else{
-				$('#formulario-usuarios')[0].reportValidity()
+
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			}
-		}
+		});
 
 		function nuevo()
     	{
-			window.location.href = "{{ url('User/formulario') }}/0";
+
+			$("#modal-agregar-criadero").modal('show');
+			// alert("En desarrollo :v");
+			// window.location.href = "{{ url('User/formulario') }}/0";
     	}
-		
-		function edita(id)
-		{
-			window.location.href = "{{ url('User/formulario') }}/"+id;
-		}
 
 		function elimina(id, nombre)
         {
@@ -258,6 +191,30 @@
                 }
             });
         }
+
+		$("#busca-criadero-nombre").on("paste keyup", function() {
+
+			let nombre = $("#busca-criadero-nombre").val();
+
+			$.ajax({
+				url: "{{ url('Criadero/ajaxBuscaCriaderoPropietario') }}",
+				data:{
+					nombre:nombre
+				},
+				type: 'POST',
+				success: function(data) {
+					$("#bloqueCriadero").html(data);
+				}
+			});
+		});
+
+		function agregarEjemplarCriadero(){
+			if($("#criadero").val() != '' ){
+				$('#formulario-agrega-criadero-propietario').submit();
+			}else{
+				$("#msg-error-criadero").show();
+			}
+		}
 	
     </script>
 @endsection

@@ -168,4 +168,37 @@ class CriaderoController extends Controller
 
         return response()->json($response);
     }
+
+    public function ajaxBuscaCriaderoPropietario(Request $request){
+
+        $queryCriaderos = Criadero::query();
+
+        if($request->filled('nombre')){
+            $nombre = $request->input('nombre');
+            $queryCriaderos->where('nombre','like', "%$nombre%");
+        }
+
+        $queryCriaderos->limit(8);
+
+        $criaderos = $queryCriaderos->get();
+        // dd($criaderos);
+
+        return view('criaderos.ajaxBuscaCriaderoPropietario')->with(compact('criaderos'));
+
+        // dd("en desarrollo :v");
+    }
+
+    public function guardaCriaderoPropietario(Request $request){
+        // dd($request->all());
+
+        $propietarioCriadero = new PropietarioCriadero();
+
+        $propietarioCriadero->user_id               = Auth::user()->id;
+        $propietarioCriadero->propietario_id        = $request->input('propietario_id');
+        $propietarioCriadero->criadero_id           = $request->input('criadero_id');
+
+        $propietarioCriadero->save();
+
+        return redirect('User/listadoCriadero/'.$request->input('propietario_id'));
+    }
 }

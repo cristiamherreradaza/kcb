@@ -30,7 +30,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="kcb">Nombre:</label>
-                                <input type="text" name="registro-nuevo-camada_id" id="registro-nuevo-camada_id" value="{{ $camada->id }}">
+                                <input type="hidden" name="registro-nuevo-camada_id" id="registro-nuevo-camada_id" value="{{ $camada->id }}">
                                 {{-- <input type="text" name="registro-nuevo-madre_id" id="registro-nuevo-madre_id" value="{{ $camada->madre->id }}">
                                 <input type="text" name="registro-nuevo-padre_id" id="registro-nuevo-padre_id" value="{{ $camada->padre->id }}">
                                 <input type="text" name="registro-nuevo-raza_id" id="registro-nuevo-raza_id" value="{{ $camada->raza->id }}"> --}}

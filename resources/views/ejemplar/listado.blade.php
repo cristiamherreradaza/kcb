@@ -231,5 +231,10 @@
 			window.location = "{{ url('Ejemplar/informacion') }}/"+ejemplarId;
 		}
 
+		function camada(id){
+			// alert(id);
+			window.location.href = "{{ url('Ejemplar/listadoCamada')}}/"+id;
+		}
+
     </script>
 @endsection
