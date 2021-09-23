@@ -7,6 +7,8 @@
             <th>Email</th>
             <th>Celular</th>
             <th>Cedula</th>
+            <th>Departamento</th>
+            <th>Tipo</th>
             <th>Criaderos</th>
             <th>Actions</th>
         </tr>
@@ -19,6 +21,8 @@
             <td>{{ $p->email }}</td>
             <td>{{ $p->celulares }}</td>
             <td>{{ $p->ci }}</td>
+            <td>{{ $p->departamento }}</td>
+            <td>{{ $p->tipo }}</td>
             <td>
                 @php
                     $cantidad = App\PropietarioCriadero::where('propietario_id', $p->id)

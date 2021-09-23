@@ -31,7 +31,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Nombre de Usuario
+                        <label for="exampleInputPassword1">Nombre y Apellido Completo
                             <span class="text-danger">*</span></label>
                         <input type="hidden" class="form-control" id="user_id" name="user_id" value="{{ ($user!=null)?$user->id:'' }}" />
                         <input type="text" class="form-control" id="name" name="name" value="{{ ($user!=null)?$user->name:'' }}" required />
