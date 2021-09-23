@@ -61,6 +61,11 @@ class EjemplarController extends Controller
             $nombre = $request->input('nombre');
             $queryEjemplares->where('nombre', 'like', "%$nombre%");
         }
+        
+        if($request->filled('raza')){
+            $raza = $request->input('raza');
+            $queryEjemplares->where('raza_id',$raza);
+        }
 
         $queryEjemplares->limit(8);
 

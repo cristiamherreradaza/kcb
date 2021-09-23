@@ -1196,6 +1196,7 @@
                                 <label for="kcb">KCB
                                 </label>
                                 <input type="hidden" name="sexo-modal" id="sexo-modal" value="macho">
+                                <input type="hidden" name="raza-modal" id="raza-modal">
                                 <input type="text" class="form-control" id="busqueda-kcb" name="busqueda-kcb" autocomplete="off" />
                             </div>
                         </div>
@@ -1342,7 +1343,8 @@
                     <div class="form-group">
                         <label for="exampleInputPassword1">Raza
                             <span class="text-danger">*</span></label>
-                            <select class="form-control select2" id="raza_id" name="raza_id">
+                            <select class="form-control select2" id="raza_id" name="raza_id" required>
+                                <option></option>
                                 @if ($ejemplar != null && $ejemplar->raza_id != null)
                                     <option value="{{ $ejemplar->raza->id }}"> {{ $ejemplar->raza->id }} {{ $ejemplar->raza->nombre }} {{ $ejemplar->raza->descripcion }}</option>
                                 @endif
@@ -2078,13 +2080,15 @@
         let kcb = $("#busqueda-kcb").val();
         let nombre = $("#busqueda-nombre").val();
         let sexo = $("#sexo-modal").val();
+        let raza = $("#raza-modal").val();
 
         $.ajax({
             url: "{{ url('Ejemplar/ajaxBuscaEjemplar') }}",
             data: {
                 kcb: kcb, 
                 nombre: nombre,
-                sexo: sexo
+                sexo: sexo,
+                raza: raza
             },
             type: 'POST',
             success: function(data) {
@@ -2662,5 +2666,10 @@
         }
         $("#modal-registro-nuevo-ejemplar").modal("hide");
     }
+
+    $("#raza_id").on("change paste keyup", function() {
+        $("#raza-modal").val($("#raza_id").val());
+    });
+    
 </script>
 @endsection
