@@ -146,7 +146,8 @@ class CriaderoController extends Controller
             $criaderos->limit(100);
         }
 
-        $datosCriaderos = $criaderos->get();
+        $datosCriaderos = $criaderos
+                            ->get();
 
         return view('criaderos.ajaxListadoCriadero')->with(compact('datosCriaderos'));
     }
@@ -196,6 +197,39 @@ class CriaderoController extends Controller
         $propietarioCriadero->user_id               = Auth::user()->id;
         $propietarioCriadero->propietario_id        = $request->input('propietario_id');
         $propietarioCriadero->criadero_id           = $request->input('criadero_id');
+
+        $propietarioCriadero->save();
+
+        return redirect('User/listadoCriadero/'.$request->input('propietario_id'));
+    }
+
+    public function guardaCriaderoNuevoPropietario(Request $request){
+        // dd($request->all());
+        $criadero = new Criadero();
+
+        $criadero->user_id                      = Auth::user()->id;
+        if($request->filled('copropietario_id')){
+            $criadero->copropietario_id         = $request->input('copropietario_id');
+        }
+        $criadero->nombre                       = $request->input('nombre');
+        $criadero->registro_fci                 = $request->input('registro_fci');
+        $criadero->departamento                 = $request->input('departamento');
+        $criadero->fecha                        = $request->input('fecha');
+        $criadero->modalidad_ingreso            = $request->input('modalidad_ingreso');
+        $criadero->direccion                    = $request->input('direccion');
+        $criadero->celulares                    = $request->input('celulares');
+        $criadero->pagina_web                   = $request->input('pagina_web');
+        $criadero->email                        = $request->input('email');
+
+        $criadero->save();
+
+        // procedemos al guiardado deol id del criadero con el id del propietariuo
+
+        $propietarioCriadero = new PropietarioCriadero();
+
+        $propietarioCriadero->user_id                       = Auth::user()->id;
+        $propietarioCriadero->propietario_id                = $request->input('propietario_id');
+        $propietarioCriadero->criadero_id                   = $criadero->id;
 
         $propietarioCriadero->save();
 

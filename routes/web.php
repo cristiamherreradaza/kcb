@@ -131,6 +131,8 @@ Route::post('Criadero/ajaxListadoCriadero', 'CriaderoController@ajaxListadoCriad
 Route::post('Criadero/ajaxBuscaCriadero', 'CriaderoController@ajaxBuscaCriadero');
 Route::post('Criadero/ajaxBuscaCriaderoPropietario', 'CriaderoController@ajaxBuscaCriaderoPropietario');
 Route::post('Criadero/guardaCriaderoPropietario', 'CriaderoController@guardaCriaderoPropietario');
+Route::post('Criadero/guardaCriaderoNuevoPropietario', 'CriaderoController@guardaCriaderoNuevoPropietario');
+
 
 
 
