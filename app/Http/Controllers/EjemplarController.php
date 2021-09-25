@@ -12,12 +12,13 @@ use App\Alquiler;
 use App\Criadero;
 use App\Ejemplar;
 use App\ExamenMascota;
+use App\Modificacione;
 use App\Transferencia;
 use App\TituloEjemplar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\Auth;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
@@ -1779,4 +1780,49 @@ class EjemplarController extends Controller
 
         return redirect("Ejemplar/listadoCamada/$ejemplarHermano->camada_id");
     }
+
+
+    public function demoModificacion()
+    {
+
+        $arrayOriginal = array();
+
+        $arrayOriginal = [
+                            'nombre'=>'SnoopyMOD',
+                            'kcb'=>'45001',
+        ];
+
+        $arrayModificacion = [
+                            'nombre'=>'Snoopy MOD 2',
+                            'kcb'=>'45001',
+        ];
+
+        $modificacion              = new Modificacione();
+        $modificacion->user_id     = Auth::user()->id;
+        $modificacion->registro_id = 23;
+        $modificacion->tabla       = 'ejemplares';
+        $modificacion->original    = json_encode($arrayOriginal);
+        $modificacion->cambio      = json_encode($arrayModificacion);
+        $modificacion->save();
+        
+        echo 'Se guardo';
+    }
+
+    public function muestraModificacion(Request $request, $tabla, $registro) 
+    {
+        $modificaciones = Modificacione::where('tabla', $tabla)
+                                        ->where('registro_id', $registro)
+                                        ->orderBy('id', 'desc')
+                                        ->get();
+
+        /*foreach($modificaciones as $m){
+            $original = json_decode($m->original, true);
+            dd($original['kcb']);
+            // echo $m->original." - ".$original." - ";
+            // echo $m->cambio."<br />";
+        }*/
+
+        return view('ejemplar.muestraModificacion')->with(compact('modificaciones'));
+    }
+
 }
