@@ -23,9 +23,19 @@
             @php
                 $original = json_decode($m->original, true);
                 $modificacion = json_decode($m->cambio, true);
+                $utilidades = new App\librerias\Utilidades();
+                $fechaHoraEs = $utilidades->fechaHoraCastellano($m->created_at);
             @endphp
-            <h3>Usuario: Administrador</h3>
-            <h3>Fecha Hora: {{ $m->created_at }}</h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <h3><span class="text-primary">Usuario: </span> Administrador</h3>
+                </div>
+                <div class="col-md-8">
+
+                    <h3><span class="text-primary">Fecha Hora: </span> {{ $fechaHoraEs }}</h3>
+                </div>
+            </div>
+            
             <table class="table table-bordered table-hover table-striped" id="tabla_criaderos">
                 <thead>
                     <tr>
@@ -62,6 +72,9 @@
                     </tr>
                 </tbody>
             </table>
+
+            <div class="separator separator-dashed separator-border-2 separator-primary"></div>
+            <h1>&nbsp;</h1>
         @empty
                 
         @endforelse
