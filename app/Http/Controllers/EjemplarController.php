@@ -165,6 +165,15 @@ class EjemplarController extends Controller
             // en el caso que no sea 0 entonces mandara un id del ejemplar
             // buscamos el id del ejemplar para actualizar los datos mandados del formulario
             $ejemplar = Ejemplar::find($request->input('ejemplar_id'));
+            // $datosEjemplarOriginal = Ejemplar::where('id', $request->input('ejemplar_id'))
+                                                // ->get();
+            $datosOriginales = $ejemplar->attributesToArray();
+
+            // dd($datosOriginales);
+
+            //implementar caso para log en la tabla modificaciones
+
+            $this->guardaModificacion('ejemplares', $request->input('ejemplar_id'), $datosOriginales, $request->all());
         }
 
         // Procedemos con el seteo 
@@ -1600,6 +1609,7 @@ class EjemplarController extends Controller
     {
 
         $arrayOriginal = array();
+        $arrayModificacion = array();
 
         $arrayOriginal = [
                             'nombre'=>'SnoopyMOD',
@@ -1637,6 +1647,33 @@ class EjemplarController extends Controller
         }*/
 
         return view('ejemplar.muestraModificacion')->with(compact('modificaciones'));
+    }
+
+    private function guardaModificacion($tabla, $registro_id, $arrayOriginal, $arrayCambio)
+    {
+
+        // $arrayOriginal = array();
+        // $arrayModificacion = array();
+
+        /*$arrayOriginal = [
+                            'nombre'=>'SnoopyMOD',
+                            'kcb'=>'45001',
+        ];
+
+        $arrayModificacion = [
+                            'nombre'=>'Snoopy MOD 2',
+                            'kcb'=>'45001',
+        ];*/
+
+        $modificacion              = new Modificacione();
+        $modificacion->user_id     = Auth::user()->id;
+        $modificacion->registro_id = $registro_id;
+        $modificacion->tabla       = $tabla;
+        $modificacion->original    = json_encode($arrayOriginal);
+        $modificacion->cambio      = json_encode($arrayCambio);
+        $modificacion->save();
+
+
     }
 
 }
