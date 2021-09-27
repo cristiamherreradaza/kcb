@@ -139,6 +139,7 @@
 							<th>departamento</th>
 							<th>Numero Pista</th>
 							<th>Circuito</th>
+							<th>Postulantes</th>
 							<th>Acciones</th>
 						</tr>
 					</thead>
@@ -154,8 +155,17 @@
 								<td>{{ $even->numero_pista }}</td>
 								<td>{{ $even->circuito }}</td>
 								<td>
+									@php
+										$postulantes = App\EjemplarEvento::where('evento_id',$even->id)->count();
+										echo $postulantes;
+									@endphp	
+								</td>
+								<td>
 									<button type="button" class="btn btn-sm btn-icon btn-warning" onclick="edita('{{ $even->id }}', '{{ $even->nombre }}', '{{ $even->fecha_inicio }}', '{{ $even->fecha_fin }}', '{{ $even->direccion }}', '{{ $even->departamento }}', '{{ $even->numero_pista }}', '{{ $even->circuito }}')">
 										<i class="flaticon2-edit"></i>
+									</button>
+									<button type="button" class="btn btn-sm btn-icon btn-primary" onclick="catalogo('{{ $even->id }}')" title="Catalogo">
+										<i class="fas fa-book-open"></i>
 									</button>
 									<button type="button" class="btn btn-sm btn-icon btn-info" onclick="listaInscritos('{{ $even->id }}')">
 										<i class="far fa-list-alt"></i>
@@ -277,6 +287,11 @@
 
 		function listaInscritos(id){
 			window.location.href = "{{ url('Evento/listadoInscritos') }}/"+id;
+		}
+
+		function catalogo(id){
+			// alert("En desarrollo :v");
+			window.location.href = "{{ url('Evento/catalogo') }}/"+id;
 		}
 
     </script>

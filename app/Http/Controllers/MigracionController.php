@@ -14,6 +14,7 @@ use App\Ejemplar;
 use App\GrupoRaza;
 use App\ExamenMascota;
 use App\Transferencia;
+use App\EjemplarEvento;
 use App\TituloEjemplar;
 use App\CategoriasPista;
 use App\PropietarioCriadero;
@@ -792,6 +793,70 @@ class MigracionController extends Controller
             $evento->estado          = $e->estado;
 
             $evento->save();
+        }
+        echo "<h1 class='text-success'>SUCCESSFUL</h1>";
+    }
+
+    public function ejmplares_ventos(){
+        $eventos = DB::table('atemporalmascotas')
+                    ->where('evento_id','>=',68)    
+                    ->get();
+
+        foreach ($eventos as $e){
+            echo "ID => ".$e->id." Nombre ".$e->nombre."<br>";
+            
+            $ejemplarEvento = new EjemplarEvento();
+
+            $evento = Evento::where('codigo_anterior',$e->evento_id)->first();
+            if($evento){
+                $ejemplarEvento->evento_id              = $evento->id;
+            }
+
+            $ejemplar = Ejemplar::where('codigo_anterior',$e->mascota_id)->first();
+            if($ejemplar){
+                $ejemplarEvento->ejemplar_id            = $ejemplar->id;
+            }
+
+            $raza = Raza::where('codigo_anterior',$e->raza_id)->first();
+            if($raza){
+                $ejemplarEvento->raza_id                = $raza->id;
+            }
+
+            $categoria = CategoriasPista::where('codigo_anterior',$e->categoriaspista_id)->first();
+            if($categoria){
+                $ejemplarEvento->categoria_pista_id     = $categoria->id;
+            }
+
+            if($e->kcb == ''){
+                $ejemplarEvento->extrangero     = "si";
+            }else{
+                $ejemplarEvento->extrangero     = "no";
+            }
+
+            $ejemplarEvento->codigo_nacionalizado = $e->codigo;
+            $ejemplarEvento->nombre_completo      = $e->nombre;
+            $ejemplarEvento->color                = $e->color;
+            $ejemplarEvento->tatuaje              = $e->num_tatuaje;
+            $ejemplarEvento->fecha_nacimiento     = $e->fecha_nacimiento;
+            if($e->fecha_nacimiento=='macho'){
+                $ejemplarEvento->sexo             = "Macho";
+            }else{
+                $ejemplarEvento->sexo             = "Hembra";
+            }
+            $ejemplarEvento->chip                = $e->chip;
+            $ejemplarEvento->kcb_padre           = $e->kcb_padre;
+            $ejemplarEvento->kcb_madre           = $e->kcb_madre;
+            $ejemplarEvento->nombre_padre           = $e->nombre_padre;
+            $ejemplarEvento->nombre_madre           = $e->nombre_madre;
+            $ejemplarEvento->criador           = $e->criador;
+            $ejemplarEvento->propietario           = $e->propietario;
+            $ejemplarEvento->ciudad           = $e->ciudad_pais;
+            $ejemplarEvento->telefono           = $e->telefono;
+            $ejemplarEvento->email           = $e->email;
+            $ejemplarEvento->estado           = $e->estado;
+
+
+            $ejemplarEvento->save();
         }
         echo "<h1 class='text-success'>SUCCESSFUL</h1>";
     }

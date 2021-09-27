@@ -96,6 +96,7 @@ Route::post('Evento/ajaxBuscaExtranjero', 'EventoController@ajaxBuscaExtranjero'
 Route::get('Evento/listadoInscritos/{evento_id}', 'EventoController@listadoInscritos');
 Route::post('Evento/editaInscripcionEjemplarEvento', 'EventoController@editaInscripcionEjemplarEvento');
 Route::get('Evento/eliminaInscripcion/{inscripcion_id}', 'EventoController@eliminaInscripcion');
+Route::get('Evento/catalogo/{evento_id}', 'EventoController@catalogo');
 
 // PISTAS
 Route::get('Pista/listado', 'PistaController@listado');
@@ -219,3 +220,6 @@ Route::get('Migracion/eventos', 'MigracionController@eventos');
 
 // corriccion de fecha de ejemplares 
  Route::get('Migracion/corregirFechaEjemplares', 'MigracionController@corregirFechaEjemplares');
+
+ /* Migracion de EVENTOS INSCRIUTOS MASCOTAS TEMPORALES */
+Route::get('Migracion/ejmplares_ventos', 'MigracionController@ejmplares_ventos');

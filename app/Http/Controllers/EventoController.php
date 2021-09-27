@@ -167,6 +167,7 @@ class EventoController extends Controller
             $ejemplarEvento->email                      = $request->input('email');
 
         }elseif($request->cod_extrangero && $request->ejemplar_id == null){
+
             $ejemplarEvento->user_id                    = Auth::user()->id;
             $ejemplarEvento->evento_id                  = $request->input('evento_id');
             $ejemplarEvento->raza_id                    = $request->input('raza_id');
@@ -188,6 +189,8 @@ class EventoController extends Controller
             $ejemplarEvento->telefono                   = $request->input('telefono');
             $ejemplarEvento->email                      = $request->input('email');
         }
+
+        $ejemplarEvento->edad                           = $request->input('ejemplar_meses');
 
         $ejemplarEvento->save();
 
@@ -247,6 +250,22 @@ class EventoController extends Controller
         // dd($ejemplarEventoId);
         EjemplarEvento::destroy($inscripcion_id);
         return redirect('Evento/listadoInscritos/'.$ejemplarEventoId);
+    }
+
+    public function catalogo(Request $request, $evento_id){
+        // dd("En desarrollo :v");
+
+        // $ejemplares = EjemplarEvento::where("evento_id",$evento_id)
+        //                             ->get();
+
+        
+        $ejemplares = EjemplarEvento::where("categoria_pista_id",1)
+                                    ->where("evento_id",$evento_id)
+                                    ->get();
+
+        // dd($ejemplares);                                    
+
+        return view('evento.catalogo')->with(compact('ejemplares'));
     }
 
 }
