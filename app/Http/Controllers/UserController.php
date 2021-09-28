@@ -10,8 +10,11 @@ use DataTables;
 use App\Criadero;
 use App\Sucursal;
 use App\Categoria;
+use App\MenuUsers;
+use App\MenuPerfil;
 use App\PropietarioCriadero;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\Foreach_;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -29,6 +32,7 @@ class UserController extends Controller
                         ->get();
         $sucursales = Sucursal::all();
         $perfiles = Perfil::all();
+        
 
         return view('user.listado')->with(compact('usuarios', 'sucursales', 'perfiles'));
     }
@@ -72,6 +76,20 @@ class UserController extends Controller
         $persona->celulares        = $request->input('celulares');
         
         $persona->save();
+
+        $user_id = $persona->id;
+
+        $menus = MenuPerfil::where('perfil_id',$persona->perfil_id)->get();
+
+        foreach($menus as $m){
+            $menuUser = new MenuUsers();
+
+            $menuUser->user_id      = $user_id;
+            $menuUser->menu_id      = $m->menu_id;
+            $menuUser->estado       = $m->estado;
+
+            $menuUser->save();
+        }     
             
         return redirect('User/listado');
     }
@@ -270,6 +288,29 @@ class UserController extends Controller
                             ->count();
 
         return response()->json(['vCedula'=>$verificaCedula]);
+    }
+
+    public function ajaxPermisos(Request $request){
+        // dd("en desarrollo :v");
+        $menus =  MenuUsers::where('user_id',$request->input('user_id'))->get();
+
+        return view('user.ajaxPermisos')->with(compact('menus'));
+
+    }
+
+    public function guardaPermiso(Request $request){
+        $menu = MenuUsers::find($request->input('user'));
+        if($request->input('valor') == 'true'){
+            $menu->estado = 'Visible';
+        }else{
+            $menu->estado = null;
+        }
+
+        $menu->save();
+    }
+
+    public function listaPermisos(){
+        dd("en desarrollo :v");
     }
 
 }

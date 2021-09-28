@@ -100,7 +100,14 @@
 								<span class="menu-text">Propietario</span>
 							</a>
 						</li>
-						
+						<li class="menu-item" aria-haspopup="true">
+							<a href="{{ url('User/listaPermisos') }}" class="menu-link">
+								<i class="menu-bullet menu-bullet-dot">
+									<span></span>
+								</i>
+								<span class="menu-text">Permisos de Menu</span>
+							</a>
+						</li>
 					</ul>
 				</div>
 			</li>
