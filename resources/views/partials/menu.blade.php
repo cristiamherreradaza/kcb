@@ -64,8 +64,7 @@
 								</i>
 								<span class="menu-text">Nueva Camada</span>
 							</a>
-						</li>
-			
+						</li>		
 					</ul>
 				</div>
 			</li>
@@ -107,7 +106,7 @@
 								</i>
 								<span class="menu-text">Permisos de Menu</span>
 							</a>
-						</li>
+						</li>						
 					</ul>
 				</div>
 			</li>

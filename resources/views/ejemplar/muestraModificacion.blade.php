@@ -11,9 +11,9 @@
         </div>
         <div class="card-toolbar">
             <!--begin::Button-->
-            <a href="{{ url('Ejemplar/formulario/0') }}" class="btn btn-primary font-weight-bolder" onclick="nuevo()">
+            {{-- <a href="{{ url('Ejemplar/formulario/0') }}" class="btn btn-primary font-weight-bolder" onclick="nuevo()">
                 <i class="fa fa-plus-square"></i> NUEVO EJEMPLAR
-            </a>
+            </a> --}}
             <!--end::Button-->
         </div>
     </div>
@@ -47,7 +47,7 @@
                 <tbody>
                     @php
                         if($original['kcb'] == $modificacion['kcb']){
-                            $estilo = '';
+                            $estilo = 'class="table-success"';
                         }else{
                             $estilo = 'class="table-danger"';
                         }

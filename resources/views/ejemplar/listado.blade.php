@@ -236,5 +236,11 @@
 			window.location.href = "{{ url('Ejemplar/listadoCamada')}}/"+id;
 		}
 
+		function logs(id){
+			// alert("En desarrollo :v "+id);
+			// alert(id);
+			window.location.href = "{{ url('Ejemplar/muestraModificacion')}}/ejemplares/"+id;
+		}
+
     </script>
 @endsection
