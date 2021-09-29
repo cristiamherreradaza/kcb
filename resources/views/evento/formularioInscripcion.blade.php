@@ -22,13 +22,13 @@
                 @csrf
                 <div class="card-body">
                     evento id:
-                    <input type="text" name="evento_id" id="evento_id" value="{{ $evento->id }}">
+                    <input type="hidden" name="evento_id" id="evento_id" value="{{ $evento->id }}">
                     <br>                    
                     edad ejemplar:
-                    <input type="text" name="ejemplar_meses" id="ejemplar_meses" >
+                    <input type="hidden" name="ejemplar_meses" id="ejemplar_meses" >
                     <br>
                     ejemplar_id:
-                    <input type="text" name="ejemplar_id" id="ejemplar_id">
+                    <input type="hidden" name="ejemplar_id" id="ejemplar_id">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="row">

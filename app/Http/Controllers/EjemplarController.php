@@ -595,8 +595,161 @@ class EjemplarController extends Controller
             $pro_celulares          = '';
         }
         // dd($ejemplar->criadero);
+
+        // ESTILOS DE LA HOJA 
+
+        /*************** ENCABEZADO ***********************/
+        $cabezera = array(
+            'font'  => array(
+                'bold'  => true,
+                'color' => array('rgb' => '305496'),
+                'size'  => 16,
+                // 'name'  => 'Verdana'
+            )
+        );
+
+        
+        $sheet->getStyle('C3')->applyFromArray($cabezera);
+        $sheet->getStyle('L3')->applyFromArray($cabezera);
+        $sheet->getStyle('C5')->applyFromArray($cabezera);
+        $sheet->getStyle('L4')->applyFromArray($cabezera);
+        
+        /*************** DATOS DEL EJEMPLAR ***********************/
+        $datosEjemplar = array(
+            'font'  => array(
+                'bold'  => true,
+                'color' => array('rgb' => '305496'),
+                'size'  => 11,
+                // 'name'  => 'Verdana'
+            )
+        );
+
+        
+        $sheet->getStyle('C6')->applyFromArray($datosEjemplar);
+        $sheet->getStyle('C7')->applyFromArray($datosEjemplar);
+        $sheet->getStyle('C8')->applyFromArray($datosEjemplar);
+        $sheet->getStyle('E6')->applyFromArray($datosEjemplar);
+        $sheet->getStyle('E7')->applyFromArray($datosEjemplar);
+        $sheet->getStyle('H5')->applyFromArray($datosEjemplar);
+        $sheet->getStyle('H6')->applyFromArray($datosEjemplar);
+        $sheet->getStyle('H7')->applyFromArray($datosEjemplar);
+        $sheet->getStyle('L6')->applyFromArray($datosEjemplar);
+
+        $sheet->getStyle('L5')->applyFromArray(
+            array(
+                'font'  => array(
+                    'bold'  => true,
+                    'color' => array('rgb' => '305496'),
+                    'size'  => 10,
+                    // 'name'  => 'Verdana'
+                )
+            )
+        );
+
+
+        /*************** ARBOL GENEALOGICO "PADRES" ***********************/
+
+        $estilosPadre = array(
+            'font'  => array(
+                'bold'  => true,
+                'color' => array('rgb' => '305496'),
+                'size'  => 11,
+                // 'name'  => 'Verdana'
+            )
+        );
+
+        $sheet->getStyle('B11')->applyFromArray($estilosPadre);
+        $sheet->getStyle('B19')->applyFromArray($estilosPadre);
+
+        /*************** ARBOL GENEALOGICO "ABUELOS" ***********************/
+
+        $estilosAbuelos = array(
+            'font'  => array(
+                'bold'  => true,
+                'color' => array('rgb' => '305496'),
+                'size'  => 10,
+                // 'name'  => 'Verdana'
+            )
+        );
+
+        $sheet->getStyle('F11')->applyFromArray($estilosAbuelos);
+        $sheet->getStyle('F15')->applyFromArray($estilosAbuelos);
+        $sheet->getStyle('F19')->applyFromArray($estilosAbuelos);
+        $sheet->getStyle('F23')->applyFromArray($estilosAbuelos);
+
+        /*************** ARBOL GENEALOGICO "TERCERA GENERACION" ***********************/
+        
+        $estilosTerceraGeneracion = array(
+            'font'  => array(
+                'bold'  => true,
+                'color' => array('rgb' => '305496'),
+                'size'  => 9,
+                // 'name'  => 'Verdana'
+            )
+        );
+
+        $sheet->getStyle('I11')->applyFromArray($estilosTerceraGeneracion);
+        $sheet->getStyle('I13')->applyFromArray($estilosTerceraGeneracion);
+        $sheet->getStyle('I15')->applyFromArray($estilosTerceraGeneracion);
+        $sheet->getStyle('I17')->applyFromArray($estilosTerceraGeneracion);
+        $sheet->getStyle('I19')->applyFromArray($estilosTerceraGeneracion);
+        $sheet->getStyle('I21')->applyFromArray($estilosTerceraGeneracion);
+        $sheet->getStyle('I23')->applyFromArray($estilosTerceraGeneracion);
+        $sheet->getStyle('I25')->applyFromArray($estilosTerceraGeneracion);
+
+        /*************** ARBOL GENEALOGICO "ABUELOS" ***********************/
+
+        $estilosCuartaGeneracion = array(
+            'font'  => array(
+                'bold'  => true,
+                'color' => array('rgb' => '305496'),
+                'size'  => 8,
+                // 'name'  => 'Verdana'
+            )
+        );
+
+        $sheet->getStyle('L11')->applyFromArray($estilosCuartaGeneracion);
+        $sheet->getStyle('L12')->applyFromArray($estilosCuartaGeneracion);
+        $sheet->getStyle('L13')->applyFromArray($estilosCuartaGeneracion);
+        $sheet->getStyle('L14')->applyFromArray($estilosCuartaGeneracion);
+        $sheet->getStyle('L15')->applyFromArray($estilosCuartaGeneracion);
+        $sheet->getStyle('L16')->applyFromArray($estilosCuartaGeneracion);
+        $sheet->getStyle('L17')->applyFromArray($estilosCuartaGeneracion);
+        $sheet->getStyle('L18')->applyFromArray($estilosCuartaGeneracion);
+        $sheet->getStyle('L19')->applyFromArray($estilosCuartaGeneracion);
+        $sheet->getStyle('L20')->applyFromArray($estilosCuartaGeneracion);
+        $sheet->getStyle('L21')->applyFromArray($estilosCuartaGeneracion);
+        $sheet->getStyle('L22')->applyFromArray($estilosCuartaGeneracion);
+        $sheet->getStyle('L23')->applyFromArray($estilosCuartaGeneracion);
+        $sheet->getStyle('L24')->applyFromArray($estilosCuartaGeneracion);
+        $sheet->getStyle('L25')->applyFromArray($estilosCuartaGeneracion);
+        $sheet->getStyle('L26')->applyFromArray($estilosCuartaGeneracion);
+
+
+        /*************** FOOTER ***********************/
+
+        $estilosFooter = array(
+            'font'  => array(
+                'bold'  => true,
+                'color' => array('rgb' => '305496'),
+                'size'  => 11,
+                // 'name'  => 'Verdana'
+            )
+        );
+
+        $sheet->getStyle('E29')->applyFromArray($estilosFooter);
+        $sheet->getStyle('E31')->applyFromArray($estilosFooter);
+
+        // *************   ORIENTACION DE LA HOJA  *****************
+        
+        $sheet->getPageSetup()->setOrientation("landscape");
+
+        // END ESTILOS DE LA HOJA 
+
         // *************   cabecera *****************
         $sheet->setCellValue('C3', "$ejemplar->nombre_completo");
+        // $sheet->setSize(10);
+
         $sheet->setCellValue('L3', $nom_criadero." FCI: ".$num_fci);
         $sheet->setCellValue('L4', $nom_propietario);
         $sheet->setCellValue('C5', $ejemplar->raza->nombre);
@@ -612,40 +765,41 @@ class EjemplarController extends Controller
         $sheet->setCellValue('C8', $ejemplar->hermano);
 
         // padres
-        $sheet->mergeCells('C11:E18');
+        $sheet->mergeCells('C3:H3');
+        $sheet->mergeCells('B11:E18');
         $sheet->mergeCells('F11:H14');
         $sheet->mergeCells('F15:H18');
         $sheet->mergeCells('I11:K12');
         $sheet->mergeCells('I13:K14');
         $sheet->mergeCells('I15:K16');
         $sheet->mergeCells('I17:K18');
-        $sheet->mergeCells('L11:N11');
-        $sheet->mergeCells('L12:N12');
-        $sheet->mergeCells('L13:N13');
-        $sheet->mergeCells('L14:N14');
-        $sheet->mergeCells('L15:N15');
-        $sheet->mergeCells('L16:N16');
-        $sheet->mergeCells('L17:N17');
-        $sheet->mergeCells('L18:N18');
+        $sheet->mergeCells('L11:Q11');
+        $sheet->mergeCells('L12:Q12');
+        $sheet->mergeCells('L13:Q13');
+        $sheet->mergeCells('L14:Q14');
+        $sheet->mergeCells('L15:Q15');
+        $sheet->mergeCells('L16:Q16');
+        $sheet->mergeCells('L17:Q17');
+        $sheet->mergeCells('L18:Q18');
 
         // madres
-        $sheet->mergeCells('C19:E26');
+        $sheet->mergeCells('B19:E26');
         $sheet->mergeCells('F19:H22');
         $sheet->mergeCells('F23:H26');
         $sheet->mergeCells('I19:K20');
         $sheet->mergeCells('I21:K22');
         $sheet->mergeCells('I23:K24');
         $sheet->mergeCells('I25:K26');
-        $sheet->mergeCells('L19:N19');
-        $sheet->mergeCells('L20:N20');
-        $sheet->mergeCells('L21:N21');
-        $sheet->mergeCells('L22:N22');
-        $sheet->mergeCells('L23:N23');
-        $sheet->mergeCells('L24:N24');
-        $sheet->mergeCells('L25:N25');
-        $sheet->mergeCells('L26:N26');
+        $sheet->mergeCells('L19:Q19');
+        $sheet->mergeCells('L20:Q20');
+        $sheet->mergeCells('L21:Q21');
+        $sheet->mergeCells('L22:Q22');
+        $sheet->mergeCells('L23:Q23');
+        $sheet->mergeCells('L24:Q24');
+        $sheet->mergeCells('L25:Q25');
+        $sheet->mergeCells('L26:Q26');
 
-        // $sheet->setCellValue('C11', "Este esta comvinado");
+        // $sheet->setCellValue('B11', "Este esta comvinado");
 
         // ************** Curpo Arbol gernealogico ***************
 
@@ -708,8 +862,8 @@ class EjemplarController extends Controller
                 $resultadoPapa = "";
             }
 
-            $sheet->setCellValue('C11', $nombrePapa.PHP_EOL."K.C.B. ".$kcbPapa.PHP_EOL."No. x Raza ".$papa->num_tatuaje.PHP_EOL."Chip ".$papa->chip.PHP_EOL."$examenPapa".PHP_EOL."$resultadoPapa".PHP_EOL."Color: ".$papa->color);
-            $sheet->getStyle('C11')->getAlignment()->setWrapText(true);
+            $sheet->setCellValue('B11', $nombrePapa.PHP_EOL."K.C.B. ".$kcbPapa.PHP_EOL."No. x Raza ".$papa->num_tatuaje.PHP_EOL."Chip ".$papa->chip.PHP_EOL."$examenPapa".PHP_EOL."$resultadoPapa".PHP_EOL."Color: ".$papa->color);
+            $sheet->getStyle('B11')->getAlignment()->setWrapText(true);
             
             // preguntamos si el papa tiene padre
             // para sacar al abuelo
@@ -777,8 +931,10 @@ class EjemplarController extends Controller
                             $resultadocGPadre = "";
                         }
 
-                        $sheet->setCellValue('L11', $nombreCGPadre.PHP_EOL."K.C.B. ".$kcbCGPadre.PHP_EOL."No. x Raza ".$cGPadre->num_tatuaje.PHP_EOL."Chip ".$cGPadre->chip.PHP_EOL."$examencGPadre".PHP_EOL."$resultadocGPadre".PHP_EOL."Color: ".$cGPadre->color);
-                        $sheet->getStyle('L11')->getAlignment()->setWrapText(true);
+                        $sheet->setCellValue('L11', $nombreCGPadre." K.C.B. ".$kcbCGPadre." No. x Raza ".$cGPadre->num_tatuaje." Chip ".$cGPadre->chip."$examencGPadre "." $resultadocGPadre"." Color: ".$cGPadre->color);
+                        // $sheet->getStyle('L11')->getAlignment()->setWrapText(true);
+                        // $sheet->setCellValue('L11', $nombreCGPadre.PHP_EOL."K.C.B. ".$kcbCGPadre.PHP_EOL."No. x Raza ".$cGPadre->num_tatuaje.PHP_EOL."Chip ".$cGPadre->chip.PHP_EOL."$examencGPadre".PHP_EOL."$resultadocGPadre".PHP_EOL."Color: ".$cGPadre->color);
+                        // $sheet->getStyle('L11')->getAlignment()->setWrapText(true);
                     }else{
                         $kcbCGPadre = '';
                         $nombreCGPadre = '';
@@ -804,8 +960,10 @@ class EjemplarController extends Controller
                             $resultadocGMadre = "";
                         }
 
-                        $sheet->setCellValue('L12', $nombreCGMadre.PHP_EOL."K.C.B. ".$kcbCGMadre.PHP_EOL."No. x Raza ".$cGMadre->num_tatuaje.PHP_EOL."Chip ".$cGMadre->chip.PHP_EOL."$examencGMadre".PHP_EOL."$resultadocGMadre".PHP_EOL."Color: ".$cGMadre->color);
-                        $sheet->getStyle('L12')->getAlignment()->setWrapText(true);
+                        $sheet->setCellValue('L12', $nombreCGMadre." K.C.B. ".$kcbCGMadre." No. x Raza ".$cGMadre->num_tatuaje." Chip ".$cGMadre->chip." $examencGMadre " . " $resultadocGMadre"." Color: ".$cGMadre->color);
+                        // $sheet->getStyle('L12')->getAlignment()->setWrapText(true);
+                        // $sheet->setCellValue('L12', $nombreCGMadre.PHP_EOL."K.C.B. ".$kcbCGMadre.PHP_EOL."No. x Raza ".$cGMadre->num_tatuaje.PHP_EOL."Chip ".$cGMadre->chip.PHP_EOL."$examencGMadre".PHP_EOL."$resultadocGMadre".PHP_EOL."Color: ".$cGMadre->color);
+                        // $sheet->getStyle('L12')->getAlignment()->setWrapText(true);
                     }else{
                         $kcbCGMadre = '';
                         $nombreCGMadre = '';
@@ -856,9 +1014,10 @@ class EjemplarController extends Controller
                             $examenCGMadreP = "";
                             $resultadoCGMadreP = "";
                         }
-
-                        $sheet->setCellValue('L13', $nombreTGMadreP1.PHP_EOL."K.C.B. ".$kcbTGMadreP1.PHP_EOL."No. x Raza ".$CGMadreP->num_tatuaje.PHP_EOL."Chip ".$CGMadreP->chip.PHP_EOL."$examenCGMadreP".PHP_EOL."$resultadoCGMadreP".PHP_EOL."Color: ".$CGMadreP->color);
-                        $sheet->getStyle('L13')->getAlignment()->setWrapText(true);
+                        $sheet->setCellValue('L13', $nombreTGMadreP1." K.C.B. ".$kcbTGMadreP1." No. x Raza ".$CGMadreP->num_tatuaje." Chip ".$CGMadreP->chip."$examenCGMadreP "." $resultadoCGMadreP"."Color: ".$CGMadreP->color);
+                        // $sheet->getStyle('L13')->getAlignment()->setWrapText(true);
+                        // $sheet->setCellValue('L13', $nombreTGMadreP1.PHP_EOL."K.C.B. ".$kcbTGMadreP1.PHP_EOL."No. x Raza ".$CGMadreP->num_tatuaje.PHP_EOL."Chip ".$CGMadreP->chip.PHP_EOL."$examenCGMadreP".PHP_EOL."$resultadoCGMadreP".PHP_EOL."Color: ".$CGMadreP->color);
+                        // $sheet->getStyle('L13')->getAlignment()->setWrapText(true);
                     }else{
                         $kcbTGMadreP1 = '';
                         $nombreTGMadreP1 = '';    
@@ -882,9 +1041,11 @@ class EjemplarController extends Controller
                             $examenCGMadreM2 = "";
                             $resultadoCGMadreM2 = "";
                         }
-
-                        $sheet->setCellValue('L14', $nombreTGMadreM2.PHP_EOL."K.C.B. ".$kcbTGMadreM2.PHP_EOL."No. x Raza ".$CGMadreM2->num_tatuaje.PHP_EOL."Chip ".$CGMadreM2->chip.PHP_EOL."$examenCGMadreM2".PHP_EOL."$resultadoCGMadreM2".PHP_EOL."Color: ".$CGMadreM2->color);
-                        $sheet->getStyle('L14')->getAlignment()->setWrapText(true);
+                        
+                        $sheet->setCellValue('L14', $nombreTGMadreM2." K.C.B. ".$kcbTGMadreM2." No. x Raza ".$CGMadreM2->num_tatuaje." Chip ".$CGMadreM2->chip."$examenCGMadreM2 "." $resultadoCGMadreM2"." Color: ".$CGMadreM2->color);
+                        // $sheet->getStyle('L14')->getAlignment()->setWrapText(true);
+                        // $sheet->setCellValue('L14', $nombreTGMadreM2.PHP_EOL."K.C.B. ".$kcbTGMadreM2.PHP_EOL."No. x Raza ".$CGMadreM2->num_tatuaje.PHP_EOL."Chip ".$CGMadreM2->chip.PHP_EOL."$examenCGMadreM2".PHP_EOL."$resultadoCGMadreM2".PHP_EOL."Color: ".$CGMadreM2->color);
+                        // $sheet->getStyle('L14')->getAlignment()->setWrapText(true);
                     }else{
                         $kcbTGMadreM2 = '';
                         $nombreTGMadreM2 = '';    
@@ -962,8 +1123,10 @@ class EjemplarController extends Controller
                             $resultadoabueloCG = "";
                         }
 
-                        $sheet->setCellValue('L15', $nombreAbueloCG1.PHP_EOL."K.C.B. ".$kcbAbueloCG1.PHP_EOL."No. x Raza ".$abueloCG->num_tatuaje.PHP_EOL."Chip ".$abueloCG->chip.PHP_EOL."$examenabueloCG".PHP_EOL."$resultadoabueloCG".PHP_EOL."Color: ".$abueloCG->color);
-                        $sheet->getStyle('L15')->getAlignment()->setWrapText(true);
+                        $sheet->setCellValue('L15', $nombreAbueloCG1." K.C.B. ".$kcbAbueloCG1." No. x Raza ".$abueloCG->num_tatuaje." Chip ".$abueloCG->chip." $examenabueloCG "." $resultadoabueloCG"." Color: ".$abueloCG->color);
+                        // $sheet->getStyle('L15')->getAlignment()->setWrapText(true);
+                        // $sheet->setCellValue('L15', $nombreAbueloCG1.PHP_EOL."K.C.B. ".$kcbAbueloCG1.PHP_EOL."No. x Raza ".$abueloCG->num_tatuaje.PHP_EOL."Chip ".$abueloCG->chip.PHP_EOL."$examenabueloCG".PHP_EOL."$resultadoabueloCG".PHP_EOL."Color: ".$abueloCG->color);
+                        // $sheet->getStyle('L15')->getAlignment()->setWrapText(true);
                     }else{
                         $kcbAbueloCG1 = '';
                         $nombreAbueloCG1 = '';
@@ -987,8 +1150,10 @@ class EjemplarController extends Controller
                             $resultadoabueloCGM = "";
                         }
 
-                        $sheet->setCellValue('L16', $nombreAbueloCG1M.PHP_EOL."K.C.B. ".$kcbAbueloCG1M.PHP_EOL."No. x Raza ".$abueloCGM->num_tatuaje.PHP_EOL."Chip ".$abueloCGM->chip.PHP_EOL."$examenabueloCGM".PHP_EOL."$resultadoabueloCGM".PHP_EOL."Color: ".$abueloCGM->color);
-                        $sheet->getStyle('L16')->getAlignment()->setWrapText(true);
+                        $sheet->setCellValue('L16', $nombreAbueloCG1M." K.C.B. ".$kcbAbueloCG1M." No. x Raza ".$abueloCGM->num_tatuaje." Chip ".$abueloCGM->chip." $examenabueloCGM "." $resultadoabueloCGM"." Color: ".$abueloCGM->color);
+                        // $sheet->getStyle('L16')->getAlignment()->setWrapText(true);
+                        // $sheet->setCellValue('L16', $nombreAbueloCG1M.PHP_EOL."K.C.B. ".$kcbAbueloCG1M.PHP_EOL."No. x Raza ".$abueloCGM->num_tatuaje.PHP_EOL."Chip ".$abueloCGM->chip.PHP_EOL."$examenabueloCGM".PHP_EOL."$resultadoabueloCGM".PHP_EOL."Color: ".$abueloCGM->color);
+                        // $sheet->getStyle('L16')->getAlignment()->setWrapText(true);
                     }else{
                         $kcbAbueloCG1M = '';
                         $nombreAbueloCG1M = '';
@@ -1039,8 +1204,11 @@ class EjemplarController extends Controller
                             $resultadoabueloTGM1 = "";
                         }
 
-                        $sheet->setCellValue('L17', $nombreAbueloTG1M1.PHP_EOL."K.C.B. ".$kcbAbueloTG1M1.PHP_EOL."No. x Raza ".$abueloTGM1->num_tatuaje.PHP_EOL."Chip ".$abueloTGM1->chip.PHP_EOL."$examenabueloTGM1".PHP_EOL."$resultadoabueloTGM1".PHP_EOL."Color: ".$abueloTGM1->color);
-                        $sheet->getStyle('L17')->getAlignment()->setWrapText(true);
+                        
+                        $sheet->setCellValue('L17', $nombreAbueloTG1M1." K.C.B. ".$kcbAbueloTG1M1." No. x Raza ".$abueloTGM1->num_tatuaje." Chip ".$abueloTGM1->chip." $examenabueloTGM1 "." $resultadoabueloTGM1"." Color: ".$abueloTGM1->color);
+                        // $sheet->getStyle('L17')->getAlignment()->setWrapText(true);
+                        // $sheet->setCellValue('L17', $nombreAbueloTG1M1.PHP_EOL."K.C.B. ".$kcbAbueloTG1M1.PHP_EOL."No. x Raza ".$abueloTGM1->num_tatuaje.PHP_EOL."Chip ".$abueloTGM1->chip.PHP_EOL."$examenabueloTGM1".PHP_EOL."$resultadoabueloTGM1".PHP_EOL."Color: ".$abueloTGM1->color);
+                        // $sheet->getStyle('L17')->getAlignment()->setWrapText(true);
                     }else{
                         $kcbAbueloTG1M1 = '';
                         $nombreAbueloTG1M1 = '';
@@ -1062,9 +1230,11 @@ class EjemplarController extends Controller
                             $examenabuelaTGM1 = "";
                             $resultadoabuelaTGM1 = "";
                         }
-
-                        $sheet->setCellValue('L18', $nombreAbuelaTG1M1.PHP_EOL."K.C.B. ".$kcbAbuelaTG1M1.PHP_EOL."No. x Raza ".$abuelaTGM1->num_tatuaje.PHP_EOL."Chip ".$abuelaTGM1->chip.PHP_EOL."$examenabuelaTGM1".PHP_EOL."$resultadoabuelaTGM1".PHP_EOL."Color: ".$abuelaTGM1->color);
-                        $sheet->getStyle('L18')->getAlignment()->setWrapText(true);
+                        
+                        $sheet->setCellValue('L18', $nombreAbuelaTG1M1." K.C.B. ".$kcbAbuelaTG1M1." No. x Raza ".$abuelaTGM1->num_tatuaje." Chip ".$abuelaTGM1->chip." $examenabuelaTGM1 "." $resultadoabuelaTGM1"." Color: ".$abuelaTGM1->color);
+                        // $sheet->getStyle('L18')->getAlignment()->setWrapText(true);
+                        // $sheet->setCellValue('L18', $nombreAbuelaTG1M1." K.C.B. ".$kcbAbuelaTG1M1.PHP_EOL."No. x Raza ".$abuelaTGM1->num_tatuaje.PHP_EOL."Chip ".$abuelaTGM1->chip.PHP_EOL."$examenabuelaTGM1".PHP_EOL."$resultadoabuelaTGM1".PHP_EOL."Color: ".$abuelaTGM1->color);
+                        // $sheet->getStyle('L18')->getAlignment()->setWrapText(true);
                     }else{
                         $kcbAbuelaTG1M1 = '';
                         $nombreAbuelaTG1M1 = '';
@@ -1137,8 +1307,8 @@ class EjemplarController extends Controller
                 $resultadomama = "";
             }
 
-            $sheet->setCellValue('C19', $nombreMama.PHP_EOL."K.C.B. ".$kcbMama.PHP_EOL."No. x Raza ".$mama->num_tatuaje.PHP_EOL."Chip ".$mama->chip.PHP_EOL."$examenmama".PHP_EOL."$resultadomama".PHP_EOL."Color: ".$mama->color);
-            $sheet->getStyle('C19')->getAlignment()->setWrapText(true);
+            $sheet->setCellValue('B19', $nombreMama.PHP_EOL."K.C.B. ".$kcbMama.PHP_EOL."No. x Raza ".$mama->num_tatuaje.PHP_EOL."Chip ".$mama->chip.PHP_EOL."$examenmama".PHP_EOL."$resultadomama".PHP_EOL."Color: ".$mama->color);
+            $sheet->getStyle('B19')->getAlignment()->setWrapText(true);
 
             if($mama->padre_id != null){
 
@@ -1199,9 +1369,11 @@ class EjemplarController extends Controller
                             $examenCGPadreM1 = "";
                             $resultadoCGPadreM1 = "";
                         }
-
-                        $sheet->setCellValue('L19', $nombreCGPadreM1.PHP_EOL."K.C.B. ".$kcbCGPadreM1.PHP_EOL."No. x Raza ".$CGPadreM1->num_tatuaje.PHP_EOL."Chip ".$CGPadreM1->chip.PHP_EOL."$examenCGPadreM1".PHP_EOL."$resultadoCGPadreM1".PHP_EOL."Color: ".$CGPadreM1->color);
-                        $sheet->getStyle('L19')->getAlignment()->setWrapText(true);
+                        
+                        $sheet->setCellValue('L19', $nombreCGPadreM1." K.C.B. ".$kcbCGPadreM1." No. x Raza ".$CGPadreM1->num_tatuaje." Chip ".$CGPadreM1->chip." $examenCGPadreM1 "." $resultadoCGPadreM1"." Color: ".$CGPadreM1->color);
+                        // $sheet->getStyle('L19')->getAlignment()->setWrapText(true);
+                        // $sheet->setCellValue('L19', $nombreCGPadreM1.PHP_EOL."K.C.B. ".$kcbCGPadreM1.PHP_EOL."No. x Raza ".$CGPadreM1->num_tatuaje.PHP_EOL."Chip ".$CGPadreM1->chip.PHP_EOL."$examenCGPadreM1".PHP_EOL."$resultadoCGPadreM1".PHP_EOL."Color: ".$CGPadreM1->color);
+                        // $sheet->getStyle('L19')->getAlignment()->setWrapText(true);
                     }else{
                         $kcbCGPadreM1 = '';
                         $nombreCGPadreM1 = '';
@@ -1224,8 +1396,10 @@ class EjemplarController extends Controller
                             $resultadoCGPadreM2 = "";
                         }
 
-                        $sheet->setCellValue('L20', $nombreCGPadreM2.PHP_EOL."K.C.B. ".$kcbCGPadreM2.PHP_EOL."No. x Raza ".$CGPadreM2->num_tatuaje.PHP_EOL."Chip ".$CGPadreM2->chip.PHP_EOL."$examenCGPadreM2".PHP_EOL."$resultadoCGPadreM2".PHP_EOL."Color: ".$CGPadreM2->color);
-                        $sheet->getStyle('L20')->getAlignment()->setWrapText(true);
+                        $sheet->setCellValue('L20', $nombreCGPadreM2." K.C.B. ".$kcbCGPadreM2." No. x Raza ".$CGPadreM2->num_tatuaje." Chip ".$CGPadreM2->chip." $examenCGPadreM2 "." $resultadoCGPadreM2"." Color: ".$CGPadreM2->color);
+                        // $sheet->getStyle('L20')->getAlignment()->setWrapText(true);
+                        // $sheet->setCellValue('L20', $nombreCGPadreM2.PHP_EOL."K.C.B. ".$kcbCGPadreM2.PHP_EOL."No. x Raza ".$CGPadreM2->num_tatuaje.PHP_EOL."Chip ".$CGPadreM2->chip.PHP_EOL."$examenCGPadreM2".PHP_EOL."$resultadoCGPadreM2".PHP_EOL."Color: ".$CGPadreM2->color);
+                        // $sheet->getStyle('L20')->getAlignment()->setWrapText(true);
                     }else{
                         $kcbCGPadreM2 = '';
                         $nombreCGPadreM2 = '';
@@ -1275,8 +1449,10 @@ class EjemplarController extends Controller
                             $resultadoCGPadreM = "";
                         }
 
-                        $sheet->setCellValue('L21', $nombreCGPadreM.PHP_EOL."K.C.B. ".$kcbCGPadreM.PHP_EOL."No. x Raza ".$CGPadreM->num_tatuaje.PHP_EOL."Chip ".$CGPadreM->chip.PHP_EOL."$examenCGPadreM".PHP_EOL."$resultadoCGPadreM".PHP_EOL."Color: ".$CGPadreM->color);
-                        $sheet->getStyle('L21')->getAlignment()->setWrapText(true);
+                        $sheet->setCellValue('L21', $nombreCGPadreM." K.C.B. ".$kcbCGPadreM." No. x Raza ".$CGPadreM->num_tatuaje." Chip ".$CGPadreM->chip." $examenCGPadreM "." $resultadoCGPadreM"." Color: ".$CGPadreM->color);
+                        // $sheet->getStyle('L21')->getAlignment()->setWrapText(true);
+                        // $sheet->setCellValue('L21', $nombreCGPadreM.PHP_EOL."K.C.B. ".$kcbCGPadreM.PHP_EOL."No. x Raza ".$CGPadreM->num_tatuaje.PHP_EOL."Chip ".$CGPadreM->chip.PHP_EOL."$examenCGPadreM".PHP_EOL."$resultadoCGPadreM".PHP_EOL."Color: ".$CGPadreM->color);
+                        // $sheet->getStyle('L21')->getAlignment()->setWrapText(true);
 
                     }else{
 
@@ -1301,8 +1477,10 @@ class EjemplarController extends Controller
                             $resultadoCGMadreM = "";
                         }
 
-                        $sheet->setCellValue('L22', $nombreCGMadreM.PHP_EOL."K.C.B. ".$kcbCGMadreM.PHP_EOL."No. x Raza ".$CGMadreM->num_tatuaje.PHP_EOL."Chip ".$CGMadreM->chip.PHP_EOL."$examenCGMadreM".PHP_EOL."$resultadoCGMadreM".PHP_EOL."Color: ".$CGMadreM->color);
-                        $sheet->getStyle('L22')->getAlignment()->setWrapText(true);
+                        $sheet->setCellValue('L22', $nombreCGMadreM." K.C.B. ".$kcbCGMadreM." No. x Raza ".$CGMadreM->num_tatuaje." Chip ".$CGMadreM->chip." $examenCGMadreM "." $resultadoCGMadreM"." Color: ".$CGMadreM->color);
+                        // $sheet->getStyle('L22')->getAlignment()->setWrapText(true);
+                        // $sheet->setCellValue('L22', $nombreCGMadreM.PHP_EOL."K.C.B. ".$kcbCGMadreM.PHP_EOL."No. x Raza ".$CGMadreM->num_tatuaje.PHP_EOL."Chip ".$CGMadreM->chip.PHP_EOL."$examenCGMadreM".PHP_EOL."$resultadoCGMadreM".PHP_EOL."Color: ".$CGMadreM->color);
+                        // $sheet->getStyle('L22')->getAlignment()->setWrapText(true);
                     }else{
                         $kcbCGMadreM = '';                   
                         $nombreCGPadreM = '';                   
@@ -1378,8 +1556,10 @@ class EjemplarController extends Controller
                             $resultadoabueloTG1 = "";
                         }
 
-                        $sheet->setCellValue('L23', $nombreabueloMTG1.PHP_EOL."K.C.B. ".$kcbabueloMTG1.PHP_EOL."No. x Raza ".$abueloTG1->num_tatuaje.PHP_EOL."Chip ".$abueloTG1->chip.PHP_EOL."$examenabueloTG1".PHP_EOL."$resultadoabueloTG1".PHP_EOL."Color: ".$abueloTG1->color);
-                        $sheet->getStyle('L23')->getAlignment()->setWrapText(true);
+                        $sheet->setCellValue('L23', $nombreabueloMTG1." K.C.B. ".$kcbabueloMTG1." No. x Raza ".$abueloTG1->num_tatuaje." Chip ".$abueloTG1->chip." $examenabueloTG1 "." $resultadoabueloTG1"." Color: ".$abueloTG1->color);
+                        // $sheet->getStyle('L23')->getAlignment()->setWrapText(true);
+                        // $sheet->setCellValue('L23', $nombreabueloMTG1.PHP_EOL."K.C.B. ".$kcbabueloMTG1.PHP_EOL."No. x Raza ".$abueloTG1->num_tatuaje.PHP_EOL."Chip ".$abueloTG1->chip.PHP_EOL."$examenabueloTG1".PHP_EOL."$resultadoabueloTG1".PHP_EOL."Color: ".$abueloTG1->color);
+                        // $sheet->getStyle('L23')->getAlignment()->setWrapText(true);
                     }else{
                         $kcbabueloMTG1  = '' ;
                         $nombreabueloMTG1  = '' ;
@@ -1403,8 +1583,10 @@ class EjemplarController extends Controller
                             $resultadoabueloTG11 = "";
                         }
 
-                        $sheet->setCellValue('L24', $nombreabueloMTG11.PHP_EOL."K.C.B. ".$kcbabueloMTG11.PHP_EOL."No. x Raza ".$abueloTG11->num_tatuaje.PHP_EOL."Chip ".$abueloTG11->chip.PHP_EOL."$examenabueloTG11".PHP_EOL."$resultadoabueloTG11".PHP_EOL."Color: ".$abueloTG11->color);
-                        $sheet->getStyle('L24')->getAlignment()->setWrapText(true);
+                        $sheet->setCellValue('L24', $nombreabueloMTG11." K.C.B. ".$kcbabueloMTG11." No. x Raza ".$abueloTG11->num_tatuaje." Chip ".$abueloTG11->chip." $examenabueloTG11 "." $resultadoabueloTG11"." Color: ".$abueloTG11->color);
+                        // $sheet->getStyle('L24')->getAlignment()->setWrapText(true);
+                        // $sheet->setCellValue('L24', $nombreabueloMTG11.PHP_EOL."K.C.B. ".$kcbabueloMTG11.PHP_EOL."No. x Raza ".$abueloTG11->num_tatuaje.PHP_EOL."Chip ".$abueloTG11->chip.PHP_EOL."$examenabueloTG11".PHP_EOL."$resultadoabueloTG11".PHP_EOL."Color: ".$abueloTG11->color);
+                        // $sheet->getStyle('L24')->getAlignment()->setWrapText(true);
                     }else{
                         $kcbabueloMTG11  = '' ;
                         $nombreabueloMTG11  = '' ;
@@ -1459,8 +1641,10 @@ class EjemplarController extends Controller
                             // dd($resultadoabueloSGM22." - ".$resultadoabueloSGM22." nombre ".$nombreabueloMSG22." kcb: ".$kcbabueloMSG22." tatu: ".$abueloSGM22->num_tatuaje." chip: ".$abueloSGM22->chip." colo: ".$abueloSGM22->color);
                         // dd($nombreabueloMSG22);
                         if (!strstr($nombreabueloMSG22, '=')){
-                            $sheet->setCellValue('L25', "$nombreabueloMSG22".PHP_EOL."K.C.B. "."$kcbabueloMSG22".PHP_EOL."No. x Raza "."$abueloSGM22->num_tatuaje".PHP_EOL."Chip "."$abueloSGM22->chip".PHP_EOL."$examenabueloSGM22".PHP_EOL."$resultadoabueloSGM22".PHP_EOL."Color: "."$abueloSGM22->color");
-                            $sheet->getStyle('L25')->getAlignment()->setWrapText(true);
+                            $sheet->setCellValue('L25', "$nombreabueloMSG22"." K.C.B. "."$kcbabueloMSG22"." No. x Raza "."$abueloSGM22->num_tatuaje"." Chip "."$abueloSGM22->chip"." $examenabueloSGM22 "." $resultadoabueloSGM22"." Color: "."$abueloSGM22->color");
+                            // $sheet->getStyle('L25')->getAlignment()->setWrapText(true);
+                            // $sheet->setCellValue('L25', "$nombreabueloMSG22".PHP_EOL."K.C.B. "."$kcbabueloMSG22".PHP_EOL."No. x Raza "."$abueloSGM22->num_tatuaje".PHP_EOL."Chip "."$abueloSGM22->chip".PHP_EOL."$examenabueloSGM22".PHP_EOL."$resultadoabueloSGM22".PHP_EOL."Color: "."$abueloSGM22->color");
+                            // $sheet->getStyle('L25')->getAlignment()->setWrapText(true);
                         }
                         // $sheet->setCellValue('L25', "===");
                     }else{
@@ -1486,8 +1670,10 @@ class EjemplarController extends Controller
                             $resultadoabueloSGM222 = "";
                         }
                         if(!strstr($nombreabueloMSG222, '=')){
-                            $sheet->setCellValue('L26', $nombreabueloMSG222.PHP_EOL."K.C.B. ".$kcbabueloMSG222.PHP_EOL."No. x Raza ".$abueloSGM222->num_tatuaje.PHP_EOL."Chip ".$abueloSGM222->chip.PHP_EOL."$examenabueloSGM222".PHP_EOL."$resultadoabueloSGM222".PHP_EOL."Color: ".$abueloSGM222->color);
-                            $sheet->getStyle('L26')->getAlignment()->setWrapText(true);
+                            $sheet->setCellValue('L26', $nombreabueloMSG222." K.C.B. ".$kcbabueloMSG222." No. x Raza ".$abueloSGM222->num_tatuaje." Chip ".$abueloSGM222->chip." $examenabueloSGM222 "." $resultadoabueloSGM222"." Color: ".$abueloSGM222->color);
+                            // $sheet->getStyle('L26')->getAlignment()->setWrapText(true);
+                            // $sheet->setCellValue('L26', $nombreabueloMSG222.PHP_EOL."K.C.B. ".$kcbabueloMSG222.PHP_EOL."No. x Raza ".$abueloSGM222->num_tatuaje.PHP_EOL."Chip ".$abueloSGM222->chip.PHP_EOL."$examenabueloSGM222".PHP_EOL."$resultadoabueloSGM222".PHP_EOL."Color: ".$abueloSGM222->color);
+                            // $sheet->getStyle('L26')->getAlignment()->setWrapText(true);
                         }
                     }else{
                         $kcbabueloMSG222  = '' ;

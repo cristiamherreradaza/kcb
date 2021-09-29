@@ -42,6 +42,7 @@ class CreateEjemplaresEventosTable extends Migration
             $table->string('ciudad')->nullable();
             $table->string('telefono')->nullable();
             $table->string('email')->nullable();
+            $table->string('edad',5)->nullable();
             $table->string('estado')->nullable();
             $table->datetime('deleted_at')->nullable();
             $table->timestamps();

@@ -33,6 +33,7 @@ class EjemplarEvento extends Model
         'tatuaje',
         'telefono',
         'email',
+        'edad',
         'estado',
         'deleted_at',
     ];
@@ -50,5 +51,9 @@ class EjemplarEvento extends Model
     public function categoriaPista()
     {
         return $this->belongsTo('App\CategoriasPista', 'categoria_pista_id');
+    }
+    public function grupoRaza()
+    {
+        return $this->belongsTo('App\GrupoRaza', 'raza_id');
     }
 }

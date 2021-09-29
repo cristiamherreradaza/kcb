@@ -50,6 +50,14 @@ Route::post('User/ajaxBuscaPropietario', 'UserController@ajaxBuscaPropietario');
 Route::post('User/ajaxBuscaPropietarioTransferencia', 'UserController@ajaxBuscaPropietarioTransferencia');
 Route::post('User/ajaxGuardaNuevoPropietario', 'UserController@ajaxGuardaNuevoPropietario');
 Route::post('User/validaCedula', 'UserController@validaCedula');
+// MENUS
+Route::post('User/ajaxPermisos', 'UserController@ajaxPermisos');
+Route::post('User/guardaPermiso', 'UserController@guardaPermiso');
+Route::get('User/listaPermisos', 'UserController@listaPermisos');
+Route::post('User/ajaxBuscaPermisos', 'UserController@ajaxBuscaPermisos');
+Route::post('User/cambiaEstadoMenuPerfil', 'UserController@cambiaEstadoMenuPerfil');
+
+
 
 
 
@@ -96,6 +104,7 @@ Route::post('Evento/ajaxBuscaExtranjero', 'EventoController@ajaxBuscaExtranjero'
 Route::get('Evento/listadoInscritos/{evento_id}', 'EventoController@listadoInscritos');
 Route::post('Evento/editaInscripcionEjemplarEvento', 'EventoController@editaInscripcionEjemplarEvento');
 Route::get('Evento/eliminaInscripcion/{inscripcion_id}', 'EventoController@eliminaInscripcion');
+Route::get('Evento/catalogo/{evento_id}', 'EventoController@catalogo');
 
 // PISTAS
 Route::get('Pista/listado', 'PistaController@listado');
@@ -166,6 +175,9 @@ Route::get('Ejemplar/muestraModificacion/{tabla}/{registro}', 'EjemplarControlle
 // ALQUILERES
 Route::get('Alquiler/listado', 'AlquilerController@listado');
 
+// MENUS
+Route::get('User/listado', 'UserController@listado');
+
 
 
 
@@ -219,3 +231,6 @@ Route::get('Migracion/eventos', 'MigracionController@eventos');
 
 // corriccion de fecha de ejemplares 
  Route::get('Migracion/corregirFechaEjemplares', 'MigracionController@corregirFechaEjemplares');
+
+ /* Migracion de EVENTOS INSCRIUTOS MASCOTAS TEMPORALES */
+Route::get('Migracion/ejmplares_ventos', 'MigracionController@ejmplares_ventos');
