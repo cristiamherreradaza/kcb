@@ -172,7 +172,7 @@ class EjemplarController extends Controller
             // dd($datosOriginales);
 
             //implementar caso para log en la tabla modificaciones
-
+            // enviamos los valores para el guardado de logs en la tabla
             $this->guardaModificacion('ejemplares', $request->input('ejemplar_id'), $datosOriginales, $request->all());
         }
 
