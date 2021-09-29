@@ -20,4 +20,8 @@ class MenuPerfil extends Model
         'estado',
         'deleted_at',
     ];
+    public function menu()
+    {
+        return $this->belongsTo('App\Menu', 'menu_id');
+    }
 }

@@ -303,14 +303,44 @@ class UserController extends Controller
         if($request->input('valor') == 'true'){
             $menu->estado = 'Visible';
         }else{
-            $menu->estado = null;
+            $menu->estado = 'Oculto';
         }
 
         $menu->save();
     }
 
-    public function listaPermisos(){
-        dd("en desarrollo :v");
+    public function listaPermisos(Request $request){
+        // dd("en desarrollo :v");
+        // $menuPerfiles = MenuPerfil::all();
+        $perfiles = Perfil::all();
+
+        return view('user.listaPermisos')->with(compact('perfiles'));
+        
+    }
+
+    public function ajaxBuscaPermisos(Request $request){
+        
+        $permisos = MenuPerfil::where('perfil_id',$request->input('perfil_id'))->get();
+
+        return view('user.ajaxBuscaPerfil')->with(compact('permisos'));
+    }
+    
+    public function cambiaEstadoMenuPerfil(Request $request){
+
+        $menuPerfil = MenuPerfil::find($request->input('menu_id'));
+
+        if($menuPerfil->estado == 'Visible'){
+            $menuPerfil->estado = 'Oculto' ;
+        }else{
+            $menuPerfil->estado = 'Visible' ;
+        }
+
+        $menuPerfil->save();
+
+        $permisos = MenuPerfil::where('perfil_id',$request->input('perfil_id'))->get();
+
+        return view('user.ajaxBuscaPerfil')->with(compact('permisos'));
+        // return redirect('User/listaPermisos');
     }
 
 }
