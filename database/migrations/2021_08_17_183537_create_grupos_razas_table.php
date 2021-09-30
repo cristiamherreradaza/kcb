@@ -17,6 +17,10 @@ class CreateGruposRazasTable extends Migration
             $table->id();
             $table->string('codigo_anterior',11)->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('modificador_id')->nullable();
+            $table->foreign('modificador_id')->references('id')->on('users');
+            $table->unsignedBigInteger('eliminador_id')->nullable();
+            $table->foreign('eliminador_id')->references('id')->on('users');
             $table->unsignedBigInteger('raza_id')->nullable();
             $table->foreign('raza_id')->references('id')->on('razas');
             $table->unsignedBigInteger('grupo_id')->nullable();

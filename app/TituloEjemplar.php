@@ -13,6 +13,8 @@ class TituloEjemplar extends Model
     protected $fillable = [
         'codigo_anterior',
         'user_id',
+        'modificador_id',
+        'eliminador_id',
         'titulo_id',
         'ejemplar_id',
         'fecha_obtencion',

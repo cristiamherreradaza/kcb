@@ -289,11 +289,15 @@ class EjemplarController extends Controller
 
         $examenEjemplar = ExamenMascota::find($request->idExamen);
 
+        $examenEjemplar->eliminador_id = Auth::user()->id;
+
         $eliminaExamen = ExamenMascota::destroy($request->idExamen);
 
         $examenesEjemplar = ExamenMascota::where('ejemplar_id', $examenEjemplar->ejemplar_id)
                                             ->orderBy('id', 'desc')  
                                             ->get();
+                    
+        $examenEjemplar->save();
 
         return view('ejemplar.ajaxGuardaExamen')->with(compact('examenesEjemplar'));
 
@@ -1825,6 +1829,11 @@ class EjemplarController extends Controller
                                         ->orderBy('id', 'desc')
                                         ->get();
 
+        $examenEjemplar = ExamenMascota::onlyTrashed()
+                                        ->where('ejemplar_id',$registro)
+                                        ->get();
+        // dd($examenEjemplar);
+
         /*foreach($modificaciones as $m){
             $original = json_decode($m->original, true);
             dd($original['kcb']);
@@ -1832,7 +1841,7 @@ class EjemplarController extends Controller
             // echo $m->cambio."<br />";
         }*/
 
-        return view('ejemplar.muestraModificacion')->with(compact('modificaciones'));
+        return view('ejemplar.muestraModificacion')->with(compact('modificaciones', 'examenEjemplar'));
     }
 
     private function guardaModificacion($tabla, $registro_id, $arrayOriginal, $arrayCambio)

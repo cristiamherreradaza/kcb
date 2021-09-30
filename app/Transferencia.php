@@ -11,6 +11,8 @@ class Transferencia extends Model
     protected $fillable = [
         'codigo_anterior',
         'user_id',
+        'modificador_id',
+        'eliminador_id',
         'propietario_id',
         'ejemplar_id',
         'fecha_transferencia',

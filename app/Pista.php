@@ -12,6 +12,8 @@ class Pista extends Model
     
     protected $fillable = [
         'user_id',
+        'modificador_id',
+        'eliminador_id',
         'nombre',
         'estado',
         'deleted_at',

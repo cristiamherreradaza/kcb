@@ -13,6 +13,8 @@ class GrupoRaza extends Model
     protected $fillable = [
         'codigo_anterior',
         'user_id',
+        'modificador_id',
+        'eliminador_id',
         'raza_id',
         'grupo_id',
         'estado',

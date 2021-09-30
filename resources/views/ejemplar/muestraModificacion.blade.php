@@ -421,9 +421,100 @@
                         <td>{{ $original['fecha_nacionalizado'] }}</td>
                         <td>{{ $modificacion['fecha_nacionalizado'] }}</td>
                     </tr>
-                </tbody>
+                </tbody>                
             </table>
-
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1 class="text-center">Examenes</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-striped">
+                                <tr>
+                                    <th>FECHA</th>
+                                    <th>EXAMEN</th>
+                                    <th>ELIMINADO POR</th>
+                                </tr>
+                                @foreach ($examenEjemplar as $e)
+                                    <tr>
+                                        <td>{{ $e->fecha_examen }}</td>
+                                        <td>{{ $e->examen->nombre }}</td>
+                                        <td>
+                                            {{ $e->userEliminador->name }}
+                                            {{-- <button type="button" class="btn btn-sm btn-icon btn-danger" onclick="eliminaExamen('{{ $e->id }}', '{{ $e->examen->nombre }}')">
+                                                <i class="flaticon2-cross"></i>
+                                            </button> --}}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1 class="text-center">Examenes</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-striped">
+                                <tr>
+                                    <th>FECHA</th>
+                                    <th>EXAMEN</th>
+                                    <th>ELIMINADO POR</th>
+                                </tr>
+                                @foreach ($examenEjemplar as $e)
+                                    <tr>
+                                        <td>{{ $e->fecha_examen }}</td>
+                                        <td>{{ $e->examen->nombre }}</td>
+                                        <td>
+                                            {{ $e->userEliminador->name }}
+                                            {{-- <button type="button" class="btn btn-sm btn-icon btn-danger" onclick="eliminaExamen('{{ $e->id }}', '{{ $e->examen->nombre }}')">
+                                                <i class="flaticon2-cross"></i>
+                                            </button> --}}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1 class="text-center">Examenes</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-striped">
+                                <tr>
+                                    <th>FECHA</th>
+                                    <th>EXAMEN</th>
+                                    <th>ELIMINADO POR</th>
+                                </tr>
+                                @foreach ($examenEjemplar as $e)
+                                    <tr>
+                                        <td>{{ $e->fecha_examen }}</td>
+                                        <td>{{ $e->examen->nombre }}</td>
+                                        <td>
+                                            {{ $e->userEliminador->name }}
+                                            {{-- <button type="button" class="btn btn-sm btn-icon btn-danger" onclick="eliminaExamen('{{ $e->id }}', '{{ $e->examen->nombre }}')">
+                                                <i class="flaticon2-cross"></i>
+                                            </button> --}}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="separator separator-dashed separator-border-2 separator-primary"></div>
             <h1>&nbsp;</h1>
         @empty

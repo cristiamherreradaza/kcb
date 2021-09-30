@@ -10,6 +10,8 @@ class Raza extends Model
     use SoftDeletes;
     protected $fillable = [
         'user_id',
+        'modificador_id',
+        'eliminador_id',
         'nombre',
         'descripcion',
         'estado',

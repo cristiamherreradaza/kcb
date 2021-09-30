@@ -12,6 +12,8 @@ class PropietarioCriadero extends Model
     
     protected $fillable = [
         'user_id',
+        'modificador_id',
+        'eliminador_id',
         'propietario_id',
         'criadero_id',
         'estado',

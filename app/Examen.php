@@ -11,6 +11,8 @@ class Examen extends Model
     protected $table = 'examenes';
     protected $fillable = [
         'user_id',
+        'modificador_id',
+        'eliminador_id',
         'nombre',
         'descripcion',
         'estado',

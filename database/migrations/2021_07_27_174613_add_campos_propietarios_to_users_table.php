@@ -15,6 +15,10 @@ class AddCamposPropietariosToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->unsignedBigInteger('user_id')->nullable()->after('id');
+            $table->unsignedBigInteger('modificador_id')->nullable();
+            $table->foreign('modificador_id')->references('id')->on('users');
+            $table->unsignedBigInteger('eliminador_id')->nullable();
+            $table->foreign('eliminador_id')->references('id')->on('users');
             $table->unsignedBigInteger('sucursal_id')->nullable()->after('id');
             $table->foreign('sucursal_id')->references('id')->on('sucursales');
             $table->unsignedBigInteger('perfil_id')->nullable()->after('id');
@@ -41,6 +45,10 @@ class AddCamposPropietariosToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn("user_id");
+            $table->dropForeign(["modificador_id"]);
+            $table->dropColumn("modificador_id");
+            $table->dropForeign(["eliminador_id"]);
+            $table->dropColumn("eliminador_id");
             $table->dropForeign(["sucursal_id"]);
             $table->dropColumn("sucursal_id");
             $table->dropForeign(['perfil_id']);

@@ -17,6 +17,10 @@ class CreateExamenesTable extends Migration
             $table->bigIncrements('id');
             $table->string('codigo_anterior',11)->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('modificador_id')->nullable();
+            $table->foreign('modificador_id')->references('id')->on('users');
+            $table->unsignedBigInteger('eliminador_id')->nullable();
+            $table->foreign('eliminador_id')->references('id')->on('users');
             $table->string('nombre',250)->nullable();
             $table->string('descripcion',250)->nullable();
             $table->string('estado')->nullable();

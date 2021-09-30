@@ -17,6 +17,10 @@ class CreatePropietariosCriaderosTable extends Migration
             $table->id();
             $table->string('codigo_anterior',11)->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('modificador_id')->nullable();
+            $table->foreign('modificador_id')->references('id')->on('users');
+            $table->unsignedBigInteger('eliminador_id')->nullable();
+            $table->foreign('eliminador_id')->references('id')->on('users');
             $table->unsignedBigInteger('propietario_id')->nullable();
             $table->foreign('propietario_id')->references('id')->on('users');
             $table->unsignedBigInteger('criadero_id')->nullable();

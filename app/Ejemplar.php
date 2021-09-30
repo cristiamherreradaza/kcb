@@ -13,6 +13,8 @@ class Ejemplar extends Model
     protected $fillable = [
         'codigo_anterior',
         'user_id',
+        'modificador_id',
+        'eliminador_id',
         'madre_id',
         'padre_id',
         'camada_id',

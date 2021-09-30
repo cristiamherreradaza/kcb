@@ -16,6 +16,10 @@ class CreateEjemplaresEventosTable extends Migration
         Schema::create('ejemplares_eventos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('modificador_id')->nullable();
+            $table->foreign('modificador_id')->references('id')->on('users');
+            $table->unsignedBigInteger('eliminador_id')->nullable();
+            $table->foreign('eliminador_id')->references('id')->on('users');
             $table->unsignedBigInteger('evento_id')->nullable();
             $table->foreign('evento_id')->references('id')->on('eventos');
             $table->unsignedBigInteger('ejemplar_id')->nullable();

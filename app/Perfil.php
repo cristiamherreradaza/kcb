@@ -11,6 +11,8 @@ class Perfil extends Model
     // protected $table = "perfiles";
     protected $fillable = [
         'user_id',
+        'modificador_id',
+        'eliminador_id',
         'nombre',
         'descripcion',
         'estado',

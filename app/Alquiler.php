@@ -12,6 +12,8 @@ class Alquiler extends Model
     
     protected $fillable = [
         'user_id',
+        'modificador_id',
+        'eliminador_id',
         'criadero_id',
         'ejemplar_id',
         'propietario_original_id',

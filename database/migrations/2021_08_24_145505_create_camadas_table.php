@@ -17,6 +17,10 @@ class CreateCamadasTable extends Migration
             $table->id();
             $table->unsignedBigInteger('codigo_anterior')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('modificador_id')->nullable();
+            $table->foreign('modificador_id')->references('id')->on('users');
+            $table->unsignedBigInteger('eliminador_id')->nullable();
+            $table->foreign('eliminador_id')->references('id')->on('users');
             $table->unsignedBigInteger('padre_id')->nullable();
             $table->foreign('padre_id')->references('id')->on('ejemplares');
             $table->unsignedBigInteger('madre_id')->nullable();

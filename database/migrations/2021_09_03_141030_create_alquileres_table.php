@@ -16,6 +16,10 @@ class CreateAlquileresTable extends Migration
         Schema::create('alquileres', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('modificador_id')->nullable();
+            $table->foreign('modificador_id')->references('id')->on('users');
+            $table->unsignedBigInteger('eliminador_id')->nullable();
+            $table->foreign('eliminador_id')->references('id')->on('users');
             $table->unsignedBigInteger('criadero_id')->nullable();
             $table->foreign('criadero_id')->references('id')->on('criaderos');
             $table->unsignedBigInteger('ejemplar_id')->nullable();

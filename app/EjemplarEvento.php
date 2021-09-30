@@ -12,6 +12,8 @@ class EjemplarEvento extends Model
 
     protected $fillable = [
         'user_id',
+        'modificador_id',
+        'eliminador_id',
         'evento_id',
         'ejemplar_id',
         'raza_id',

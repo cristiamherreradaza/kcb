@@ -17,6 +17,10 @@ class CreateTitulosEjemplaresTable extends Migration
             $table->id();
             $table->string('codigo_anterior')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('modificador_id')->nullable();
+            $table->foreign('modificador_id')->references('id')->on('users');
+            $table->unsignedBigInteger('eliminador_id')->nullable();
+            $table->foreign('eliminador_id')->references('id')->on('users');
             $table->unsignedBigInteger('titulo_id')->nullable();
             $table->foreign('titulo_id')->references('id')->on('titulos');
             $table->unsignedBigInteger('ejemplar_id')->nullable();
