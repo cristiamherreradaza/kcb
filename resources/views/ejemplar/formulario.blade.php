@@ -43,7 +43,7 @@
                                     <span class="text-danger">*</span></label>
                                     {{-- <input type="hidden" name="sexo-modal" id="sexo-modal" value="macho"> --}}
                                     <select name="edita_nuevo_raza" id="edita_nuevo_raza" class="form-control" >
-                                        <option value="{{ $ejemplar->raza->id }}">{{ $ejemplar->raza->nombre }}</option>
+                                        <option value="{{ ($ejemplar->raza)? $ejemplar->raza->id:'' }}">{{ ($ejemplar->raza)? $ejemplar->raza->nombre:'' }}</option>
                                     </select>
                                     {{-- <input type="text" disabled class="form-control" id="edita_nuevo_raza" name="edita_nuevo_raza" autocomplete="off" value="{{ $ejemplar->raza->nombre }}"/> --}}
                                 </div>
@@ -1343,11 +1343,12 @@
                     <div class="form-group">
                         <label for="exampleInputPassword1">Raza
                             <span class="text-danger">*</span></label>
+                            <input type="hidden" disabled id="auxiliar_raza" value="{{ ($ejemplar)? $ejemplar->raza_id : ''}}">
                             <select class="form-control select2" id="raza_id" name="raza_id" required>
                                 <option></option>
-                                @if ($ejemplar != null && $ejemplar->raza_id != null)
+                                {{-- @if ($ejemplar != null && $ejemplar->raza_id != null)
                                     <option value="{{ $ejemplar->raza->id }}"> {{ $ejemplar->raza->id }} {{ $ejemplar->raza->nombre }} {{ $ejemplar->raza->descripcion }}</option>
-                                @endif
+                                @endif --}}
                                 @forelse ($razas as $r)
                                     <option value="{{ $r->id }}">{{ $r->nombre }} {{ $r->descripcion }}</option>                                    
                                 @empty
@@ -1360,7 +1361,7 @@
             </div>
 
             <div class="row">
-                <input type="hidden" name="padre_id" id="padre_id">
+                <input type="hidden" name="padre_id" id="padre_id" value="{{ ($ejemplar)? $ejemplar->padre_id:'' }}">
                 <div class="col-md-6" id="btn-padre">
                     @if ($ejemplar != null && $ejemplar->padre_id != null) 
                         <button type="button" class="btn btn-sm btn-primary btn-block" onclick="seleccionaPadre()">KCB: {{ $ejemplar->padre->kcb }} NOMBRE: {{ $ejemplar->padre->nombre }}</button>
@@ -1368,7 +1369,7 @@
                         <button type="button" class="btn btn-sm btn-primary btn-block" onclick="seleccionaPadre()">PADRE</button>
                     @endif
                 </div>
-                <input type="hidden" name="madre_id" id="madre_id">
+                <input type="hidden" name="madre_id" id="madre_id" value="{{ ($ejemplar)? $ejemplar->madre_id:'' }}">
                 <div class="col-md-6" id="btn-madre">
                     @if ($ejemplar != null && $ejemplar->madre_id != null)
                         <button type="button" class="btn btn-sm btn-info btn-block" onclick="seleccionaPadre()">KCB: {{ $ejemplar->madre->kcb }} NOMBRE: {{ $ejemplar->madre->nombre }}</button>
@@ -2670,6 +2671,10 @@
     $("#raza_id").on("change paste keyup", function() {
         $("#raza-modal").val($("#raza_id").val());
     });
-    
+
+    if($("#auxiliar_raza").val()!= ''){
+        $("#raza_id").val($("#auxiliar_raza").val());
+        $("#raza_id").trigger('change');
+    }
 </script>
 @endsection
