@@ -17,7 +17,6 @@
             <!--end::Button-->
         </div>
     </div>
-
     <div class="card-body">
         @forelse ($modificaciones as $m)
             @php
@@ -423,104 +422,97 @@
                     </tr>
                 </tbody>                
             </table>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h1 class="text-center">Examenes</h1>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <table class="table table-striped">
-                                <tr>
-                                    <th>FECHA</th>
-                                    <th>EXAMEN</th>
-                                    <th>ELIMINADO POR</th>
-                                </tr>
-                                @foreach ($examenEjemplar as $e)
-                                    <tr>
-                                        <td>{{ $e->fecha_examen }}</td>
-                                        <td>{{ $e->examen->nombre }}</td>
-                                        <td>
-                                            {{ $e->userEliminador->name }}
-                                            {{-- <button type="button" class="btn btn-sm btn-icon btn-danger" onclick="eliminaExamen('{{ $e->id }}', '{{ $e->examen->nombre }}')">
-                                                <i class="flaticon2-cross"></i>
-                                            </button> --}}
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h1 class="text-center">Examenes</h1>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <table class="table table-striped">
-                                <tr>
-                                    <th>FECHA</th>
-                                    <th>EXAMEN</th>
-                                    <th>ELIMINADO POR</th>
-                                </tr>
-                                @foreach ($examenEjemplar as $e)
-                                    <tr>
-                                        <td>{{ $e->fecha_examen }}</td>
-                                        <td>{{ $e->examen->nombre }}</td>
-                                        <td>
-                                            {{ $e->userEliminador->name }}
-                                            {{-- <button type="button" class="btn btn-sm btn-icon btn-danger" onclick="eliminaExamen('{{ $e->id }}', '{{ $e->examen->nombre }}')">
-                                                <i class="flaticon2-cross"></i>
-                                            </button> --}}
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h1 class="text-center">Examenes</h1>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <table class="table table-striped">
-                                <tr>
-                                    <th>FECHA</th>
-                                    <th>EXAMEN</th>
-                                    <th>ELIMINADO POR</th>
-                                </tr>
-                                @foreach ($examenEjemplar as $e)
-                                    <tr>
-                                        <td>{{ $e->fecha_examen }}</td>
-                                        <td>{{ $e->examen->nombre }}</td>
-                                        <td>
-                                            {{ $e->userEliminador->name }}
-                                            {{-- <button type="button" class="btn btn-sm btn-icon btn-danger" onclick="eliminaExamen('{{ $e->id }}', '{{ $e->examen->nombre }}')">
-                                                <i class="flaticon2-cross"></i>
-                                            </button> --}}
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="separator separator-dashed separator-border-2 separator-primary"></div>
             <h1>&nbsp;</h1>
         @empty
                 
         @endforelse
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="text-center">Examenes Eliminados</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-striped">
+                            <tr>
+                                <th>FECHA</th>
+                                <th>EXAMEN</th>
+                                <th>ELIMINADO POR</th>
+                            </tr>
+                            @foreach ($examenEjemplar as $e)
+                                <tr>
+                                    <td>{{ $e->fecha_examen }}</td>
+                                    <td>{{ $e->examen->nombre }}</td>
+                                    <td>
+                                        {{ $e->userEliminador->name }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="text-center">Tramsferencias Eliminados</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-striped">
+                            <tr>
+                                <th>FECHA</th>
+                                <th>PROPIETARIO</th>
+                                <th>ELIMINADO POR</th>
+                            </tr>
+                            @foreach ($transferenciaEjemplar as $t)
+                                <tr>
+                                    <td>{{ $t->fecha_transferencia }}</td>
+                                    <td>{{ $t->propietario->name }}</td>
+                                    <td>
+                                        {{ $t->userEliminador->name }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="text-center">Titulos Eliminados</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-striped">
+                            <tr>
+                                <th>FECHA</th>
+                                <th>TITULO</th>
+                                <th>ELIMINADO POR</th>
+                            </tr>
+                            @foreach ($tituloEjemplar as $ti)
+                                <tr>
+                                    <td>{{ $ti->fecha_obtencion }}</td>
+                                    <td>{{ $ti->titulo->nombre }}</td>
+                                    <td>
+                                        {{ $ti->userEliminador->name }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    
 </div>
 <!--end::Card-->
 @stop

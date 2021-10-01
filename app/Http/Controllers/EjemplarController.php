@@ -335,11 +335,16 @@ class EjemplarController extends Controller
 
         $transferencia = Transferencia::find($request->idTransferencia);
 
+        $transferencia->eliminador_id = Auth::user()->id;
+
+
         $eliminaTransferencia = Transferencia::destroy($request->idTransferencia);
 
         $ejemplarTransferencias = Transferencia::where('ejemplar_id', $transferencia->ejemplar_id)
                                             ->orderBy('id', 'desc')  
                                             ->get();
+
+        $transferencia->save();
 
         return view('ejemplar.ajaxGuardaTransferencia')->with(compact('ejemplarTransferencias'));
     }
@@ -368,11 +373,16 @@ class EjemplarController extends Controller
 
         $tituloEjemplar = TituloEjemplar::find($request->idTituloEjemplar);
 
+        $tituloEjemplar->eliminador_id = Auth::user()->id;
+
+
         $eliminaTitulo = TituloEjemplar::destroy($request->idTituloEjemplar);
 
         $titulosEjemplares = TituloEjemplar::where('ejemplar_id', $tituloEjemplar->ejemplar_id)
                                             ->orderBy('id', 'desc')  
                                             ->get();
+
+        $tituloEjemplar->save();
 
         return view('ejemplar.ajaxGuardaTitulo')->with(compact('titulosEjemplares'));
     }
@@ -1832,6 +1842,15 @@ class EjemplarController extends Controller
         $examenEjemplar = ExamenMascota::onlyTrashed()
                                         ->where('ejemplar_id',$registro)
                                         ->get();
+
+        $transferenciaEjemplar = Transferencia::onlyTrashed()
+                                        ->where('ejemplar_id',$registro)
+                                        ->get();
+
+
+        $tituloEjemplar = TituloEjemplar::onlyTrashed()
+                                        ->where('ejemplar_id',$registro)
+                                        ->get();
         // dd($examenEjemplar);
 
         /*foreach($modificaciones as $m){
@@ -1841,7 +1860,7 @@ class EjemplarController extends Controller
             // echo $m->cambio."<br />";
         }*/
 
-        return view('ejemplar.muestraModificacion')->with(compact('modificaciones', 'examenEjemplar'));
+        return view('ejemplar.muestraModificacion')->with(compact('modificaciones', 'examenEjemplar', 'transferenciaEjemplar', 'tituloEjemplar'));
     }
 
     private function guardaModificacion($tabla, $registro_id, $arrayOriginal, $arrayCambio)

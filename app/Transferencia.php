@@ -26,5 +26,9 @@ class Transferencia extends Model
     {
         return $this->belongsTo('App\User', 'propietario_id');
     }
+    public function userEliminador()
+    {
+        return $this->belongsTo('App\User', 'eliminador_id');
+    }
     
 }
