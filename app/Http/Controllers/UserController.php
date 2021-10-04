@@ -10,6 +10,7 @@ use DataTables;
 use App\Criadero;
 use App\Sucursal;
 use App\Categoria;
+use App\Menu;
 use App\MenuUsers;
 use App\MenuPerfil;
 use App\PropietarioCriadero;
@@ -299,19 +300,61 @@ class UserController extends Controller
     }
 
     public function guardaPermiso(Request $request){
-        $menu = MenuUsers::find($request->input('user'));
-        if($request->input('valor') == 'true'){
-            $menu->estado = 'Visible';
+        // dd($request->input('user'));s
+        $menuUsers = MenuUsers::find($request->input('user'));
+        $menusEstado       = Menu::find($menuUsers->menu_id);
+
+        if($menusEstado->direccion == '#'){
+            $hijos = Menu::where('padre',$menusEstado->id)
+                                ->get();
+
+            foreach ($hijos as $h){
+                $menusUsuario = MenuUsers::where('user_id',$menuUsers->user_id)
+                                        ->where('menu_id',$h->id)
+                                        ->first();
+                if($request->input('valor') == 'true'){
+                    $menusUsuario->estado = 'Visible';
+                }else{
+                    $menusUsuario->estado = 'Oculto';
+                }
+
+                $menusUsuario->save();
+            }
+
+            if($request->input('valor') == 'true'){
+                $menuUsers->estado = 'Visible';
+            }else{
+                $menuUsers->estado = 'Oculto';
+            }
+
+            $menuUsers->save();
+
         }else{
-            $menu->estado = 'Oculto';
+
+            if($request->input('valor') == 'true'){
+                $menuUsers->estado = 'Visible';
+                $menuPadre = Menu::find($menuUsers->menu_id);
+                $menusUsuarioChek = MenuUsers::where('user_id', $menuUsers->user_id)
+                                            ->where('menu_id',$menuPadre->padre)
+                                            ->first();
+                if($menusUsuarioChek->estado != 'Visible'){
+                    $menusUsuarioChek->estado = 'Visible';
+
+                    $menusUsuarioChek->save();
+                }
+            }else{
+                $menuUsers->estado = 'Oculto';
+            }
+
+            $menuUsers->save();
         }
 
-        $menu->save();
+        $menus =  MenuUsers::where('user_id',$menuUsers->user_id)->get();
+
+        return view('user.ajaxPermisos')->with(compact('menus'));
     }
 
     public function listaPermisos(Request $request){
-        // dd("en desarrollo :v");
-        // $menuPerfiles = MenuPerfil::all();
         $perfiles = Perfil::all();
 
         return view('user.listaPermisos')->with(compact('perfiles'));
@@ -343,4 +386,69 @@ class UserController extends Controller
         // return redirect('User/listaPermisos');
     }
 
+    public function ajaxPermisosPerfil(Request $request){
+        $menusPerfiles =  MenuPerfil::where('perfil_id',$request->input('user_id'))->get();
+
+        return view('user.ajaxPermisosPerfiles')->with(compact('menusPerfiles'));
+    }
+
+    public function guardaPermisoPerfil(Request $request){
+
+        // dd($request->input('valor')." < ----- > ".$request->input('user'));
+        $menuUsers = MenuPerfil::find($request->input('user'));
+        // dd($menuUsers);
+        $menusEstado       = Menu::find($menuUsers->menu_id);
+        // dd($menusEstado);
+
+        if($menusEstado->direccion == '#'){
+            $hijos = Menu::where('padre',$menusEstado->id)
+                                ->get();
+            // dd($hijos);
+
+            foreach ($hijos as $h){
+                $menusUsuario = MenuPerfil::where('perfil_id',$menuUsers->perfil_id)
+                                        ->where('menu_id',$h->id)
+                                        ->first();
+                // dd($menusUsuario);
+                if($request->input('valor') == 'true'){
+                    $menusUsuario->estado = 'Visible';
+                }else{
+                    $menusUsuario->estado = 'Oculto';
+                }
+
+                $menusUsuario->save();
+            }
+
+            if($request->input('valor') == 'true'){
+                $menuUsers->estado = 'Visible';
+            }else{
+                $menuUsers->estado = 'Oculto';
+            }
+
+            $menuUsers->save();
+
+        }else{
+
+            if($request->input('valor') == 'true'){
+                $menuUsers->estado = 'Visible';
+                $menuPadre = Menu::find($menuUsers->menu_id);
+                $menusUsuarioChek = MenuPerfil::where('perfil_id', $menuUsers->perfil_id)
+                                            ->where('menu_id',$menuPadre->padre)
+                                            ->first();
+                if($menusUsuarioChek->estado != 'Visible'){
+                    $menusUsuarioChek->estado = 'Visible';
+
+                    $menusUsuarioChek->save();
+                }
+            }else{
+                $menuUsers->estado = 'Oculto';
+            }
+
+            $menuUsers->save();
+        }
+
+        $menusPerfiles =  MenuPerfil::where('perfil_id',$menuUsers->perfil_id)->get();
+
+        return view('user.ajaxPermisosPerfiles')->with(compact('menusPerfiles'));
+    }
 }

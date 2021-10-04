@@ -138,18 +138,10 @@
                                 <div class="form-group">
                                     <label for="kcb">Seleccione el Padre del Ejemplar
                                     </label>
-                                    <br>
-                                    id ejempalr:
-                                    <input type="text" id="edicion_ejemplar_id" name="edicion_ejemplar_id" value="{{ $ejemplar->id }}">
-                                    <br>
-                                    id raza
-                                    <input type="text" id="edicion_raza_id" name="edicion_raza_id">
-                                    <br>
-                                    id padre
-                                    <input type="text" id="edicion_padre_id" name="edicion_padre_id">
-                                    <br>
-                                    id ejemplar a editar
-                                    <input type="text" id="edicion_ejemplar_id_editar" name="edicion_ejemplar_id_editar">
+                                    <input type="hidden" id="edicion_ejemplar_id" name="edicion_ejemplar_id" value="{{ $ejemplar->id }}">
+                                    <input type="hidden" id="edicion_raza_id" name="edicion_raza_id">
+                                    <input type="hidden" id="edicion_padre_id" name="edicion_padre_id">
+                                    <input type="hidden" id="edicion_ejemplar_id_editar" name="edicion_ejemplar_id_editar">
                                     <div id="bloque-edita-padre">
                                         {{-- <button type='button' id='btn-padre' onclick='edicionAjaxBuscaEjemplar("Macho")' class='btn btn-block btn-primary'>PADRE</button> --}}
                                     </div>
@@ -166,7 +158,7 @@
                                 <div class="form-group">
                                     <label for="kcb">Seleccione el Madre del Ejemplar
                                     </label>
-                                    <input type="text" id="edicion_madre_id" name="edicion_madre_id">
+                                    <input type="hidden" id="edicion_madre_id" name="edicion_madre_id">
                                     <div id="bloque-edita-madre">
                                         {{-- <button type='button' id='btn-madre' onclick='edicionAjaxBuscaEjemplar("Hembra")' class='btn btn-block btn-info'>MADRE</button> --}}
                                     </div>
@@ -1741,19 +1733,19 @@
                                     <td rowspan="8">
                                         {{ $nombrePapa }}
                                         <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdPapa }}','{{ addslashes($nombreAbuelo) }}','{{ $IdAbuelo }}','{{ addslashes($nombreAbuela) }}','{{ $IdAbuela }}','{{ $edicion_raza_id }}')">
-                                            PADRESp1
+                                            PADRES
                                         </span>
                                     </td>
                                     <td rowspan="4">
                                         {{  $nombreAbuelo }}
                                         <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdAbuelo }}','{{ addslashes($nombreTGPadre) }}','{{ $IdTGPadre }}','{{ addslashes($nombreTGMadre) }}','{{ $IdTGMadre }}','{{ $edicion_raza_id }}')">
-                                            PADRESa1
+                                            PADRES
                                         </span>
                                     </td>
                                     <td rowspan="2">
                                         {{ $nombreTGPadre }}
                                         <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdTGPadre }}','{{ addslashes($nombreCGPadre) }}','{{ $IdCGPadre }}','{{ addslashes($nombreCGMadre) }}','{{ $IdCGMadre }}','{{ $edicion_raza_id }}')">
-                                            PADRESt1
+                                            PADRES
                                         </span>
                                     </td>
                                     <td>
@@ -1775,7 +1767,7 @@
                                     <td rowspan="2">
                                         {{ $nombreTGMadre }}
                                         <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdTGMadre }}','{{ addslashes($nombreTGMadreP1) }}','{{ $IdTGMadreP1 }}','{{ addslashes($nombreTGMadreM2) }}','{{ $IdTGMadreM2 }}','{{ $edicion_raza_id }}')">
-                                            PADRESt2
+                                            PADRES
                                         </span>
                                     </td>
                                     <td>
@@ -1797,13 +1789,13 @@
                                     <td rowspan="4">
                                         {{ $nombreAbuela }}
                                         <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdAbuela }}','{{ addslashes($nombreAbueloTG1) }}','{{ $IdAbueloTG1 }}','{{ addslashes($nombreAbuelaTG1) }}','{{  $IdAbuelaTG1  }}','{{ $edicion_raza_id }}')">
-                                            PADRESa2
+                                            PADRES
                                         </span>
                                     </td>
                                     <td rowspan="2">
                                         {{ $nombreAbueloTG1 }}
                                         <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdAbueloTG1 }}','{{ addslashes($nombreAbueloCG1) }}','{{ $IdAbueloCG1 }}','{{ addslashes($nombreAbueloCG1M) }}','{{  $IdAbueloCG1M  }}','{{ $edicion_raza_id }}')">
-                                            PADRESt3
+                                            PADRES
                                         </span>
                                     </td>
                                     <td>
@@ -1825,7 +1817,7 @@
                                     <td rowspan="2">
                                         {{ $nombreAbuelaTG1 }}
                                         <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdAbuelaTG1 }}','{{ addslashes($nombreAbueloTG1M1) }}','{{ $IdAbueloTG1M1 }}','{{ addslashes($nombreAbuelaTG1M1) }}','{{  $IdAbuelaTG1M1  }}','{{ $edicion_raza_id }}')">
-                                            PADRESt4
+                                            PADRES
                                         </span>
                                     </td>
                                     <td>
@@ -1847,19 +1839,19 @@
                                     <td rowspan="8">
                                         {{ $nombreMama }}
                                         <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdMama }}','{{ addslashes($nombreAbueloM) }}','{{ $IdAbueloM }}','{{ addslashes($nombreAbuelaM) }}','{{  $IdAbuelaM  }}','{{ $edicion_raza_id }}')">
-                                            PADRESp2
+                                            PADRES
                                         </span>
                                     </td>
                                     <td rowspan="4">
                                         {{ $nombreAbueloM }}
                                         <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdAbueloM }}','{{ addslashes($nombreTGPadreM) }}','{{ $IdTGPadreM }}','{{ addslashes($nombreTGMadreM) }}','{{  $IdTGMadreM  }}','{{ $edicion_raza_id }}')">
-                                            PADRESa3
+                                            PADRES
                                         </span>
                                     </td>
                                     <td rowspan="2">
                                         {{ $nombreTGPadreM }}
                                         <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdTGPadreM }}','{{ addslashes($nombreCGPadreM1) }}','{{ $IdCGPadreM1 }}','{{ addslashes($nombreCGPadreM2) }}','{{  $IdCGPadreM2  }}','{{ $edicion_raza_id }}')">
-                                            PADRESt5
+                                            PADRES
                                         </span>
                                     </td>
                                     <td>
@@ -1881,7 +1873,7 @@
                                     <td rowspan="2">
                                         {{ $nombreTGMadreM }}
                                         <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdTGMadreM }}','{{ addslashes($nombreCGPadreM) }}','{{ $IdCGPadreM }}','{{ addslashes($nombreCGMadreM) }}','{{  $IdCGMadreM  }}','{{ $edicion_raza_id }}')">
-                                            PADRESt6
+                                            PADRES
                                         </span>
                                     </td>
                                     <td>
@@ -1903,13 +1895,13 @@
                                     <td rowspan="4">
                                         {{ $nombreAbuelaM }}
                                         <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdAbuelaM }}','{{ addslashes($nombreabueloMSG) }}','{{ $IdabueloMSG }}','{{ addslashes($nombreabueloMSG2) }}','{{  $IdabueloMSG2  }}','{{ $edicion_raza_id }}')">
-                                            PADRESa4
+                                            PADRES
                                         </span>
                                     </td>
                                     <td rowspan="2">
                                         {{ $nombreabueloMSG  }}
                                         <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdabueloMSG }}','{{ addslashes($nombreabueloMTG1) }}','{{ $IdabueloMTG1 }}','{{ addslashes($nombreabueloMTG11) }}','{{  $IdabueloMTG11  }}','{{ $edicion_raza_id }}')">
-                                            PADRESt7
+                                            PADRES
                                         </span>
                                     </td>
                                     <td>
@@ -1931,7 +1923,7 @@
                                     <td rowspan="2">
                                         {{ $nombreabueloMSG2 }}
                                         <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdabueloMSG2 }}','{{ addslashes($nombreabueloMSG22) }}','{{ $IdabueloMSG22 }}','{{ addslashes($nombreabueloMSG222) }}','{{  $IdabueloMSG222  }}','{{ $edicion_raza_id }}')">
-                                            PADRESt8
+                                            PADRES
                                         </span>
                                     </td>
                                     <td>

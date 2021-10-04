@@ -1,7 +1,7 @@
 <div class="row">
-    {{-- @dd($menus->count()) --}}
+    {{-- @dd($menusPerfiles->count()) --}}
     @php
-        $cantidadToltal  = $menus->count();
+        $cantidadToltal  = $menusPerfiles->count();
         $columnas = 2;
         $canCol = round($cantidadToltal/$columnas);
         $canRes = $cantidadToltal - $canCol;
@@ -10,7 +10,7 @@
 
     @endphp
 
-    @foreach ($menus as $m )
+    @foreach ($menusPerfiles as $m )
         @if ($contador <= $canCol)
             @if ($contador == 1)
                 <div class="col-md-6">

@@ -110,6 +110,7 @@
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			}
 		});
+		
 		$(function () {
 			$('#tabla_usuarios').DataTable({
 				order: [[ 0, "desc" ]],
@@ -184,6 +185,9 @@
 				},
 				type: 'POST',
 				success: function(data) {
+					// $("#permisos").html('');
+					$("#permisos").html(data);
+
 					Swal.fire(
                         "Guardado!",
                         "Se gurdo con Exito el Permiso.",

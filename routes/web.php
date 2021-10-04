@@ -56,6 +56,10 @@ Route::post('User/guardaPermiso', 'UserController@guardaPermiso');
 Route::get('User/listaPermisos', 'UserController@listaPermisos');
 Route::post('User/ajaxBuscaPermisos', 'UserController@ajaxBuscaPermisos');
 Route::post('User/cambiaEstadoMenuPerfil', 'UserController@cambiaEstadoMenuPerfil');
+Route::post('User/ajaxPermisosPerfil', 'UserController@ajaxPermisosPerfil');
+Route::post('User/guardaPermisoPerfil', 'UserController@guardaPermisoPerfil');
+
+
 
 
 

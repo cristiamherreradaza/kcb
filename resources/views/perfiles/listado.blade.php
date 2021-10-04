@@ -1,10 +1,40 @@
 @extends('layouts.app')
 
+@section('metadatos')
+	<meta name="csrf-token" content="{{ csrf_token() }}" />
+@endsection
+
 @section('css')
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
+
+<!-- Modal-->
+<div class="modal fade" id="modalPermiso" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">PERMISOS DEL USUARIOS <span class="text-primary"></span></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<i aria-hidden="true" class="ki ki-close"></i>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form action="" method="POST" id="formulario-permiso">
+					@csrf
+					<div id="permisos">
+
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-sm btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
+			</div>
+		</div>
+	</div>
+</div>
+{{-- fin inicio modal  --}}
 
 {{-- inicio modal  --}}
 
@@ -90,6 +120,9 @@
 									<button type="button" class="btn btn-sm btn-icon btn-warning" onclick="edita('{{ $per->id }}', '{{ $per->nombre }}', '{{ $per->descripcion }}')">
 										<i class="flaticon2-edit"></i>
 									</button>
+									<button type="button" class="btn btn-sm btn-icon btn-primary" onclick="permisos('{{ $per->id }}')">
+										<i class="far fa-list-alt"></i>
+									</button>
 									<button type="button" class="btn btn-sm btn-icon btn-danger" onclick="elimina('{{ $per->id }}', '{{ $per->nombre }}')">
 										<i class="flaticon2-cross"></i>
 									</button>
@@ -112,6 +145,12 @@
 @section('js')
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script type="text/javascript">
+
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
 
     	$(function () {
     	    $('#tabla-insumos').DataTable({
@@ -193,6 +232,45 @@
                 }
             });
         }
+
+		function permisos(id){
+			let user_id = id;
+
+			$.ajax({
+				url: "{{ url('User/ajaxPermisosPerfil') }}",
+				data: {
+					user_id: user_id
+				},
+				type: 'POST',
+				success: function(data) {
+					$("#permisos").html(data);
+					$("#modalPermiso").modal('show');
+				}
+			});
+		}
+
+		function guarda(id){
+			let user_1 = id;
+			let valor = $("#"+id+"").prop('checked')
+			$.ajax({
+				url: "{{ url('User/guardaPermisoPerfil') }}",
+				data: {
+					user: user_1,
+					valor: valor
+				},
+				type: 'POST',
+				success: function(data) {
+					// $("#permisos").html('');
+					$("#permisos").html(data);
+
+					Swal.fire(
+                        "Guardado!",
+                        "Se gurdo con Exito el Permiso.",
+                        "success"
+                    )
+				}
+			});
+		}
 
     </script>
 @endsection
