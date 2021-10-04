@@ -25,7 +25,7 @@
                     <form action="" method="POST" id="edita-formulario-nuevo-ejemplar">
                         @csrf
                         <div class="row">
-                            <input type="text" id="edita_ejemplar_id" name="edita_ejemplar_id">
+                            <input type="hidden" id="edita_ejemplar_id" name="edita_ejemplar_id">
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="kcb">Nombre Completo del ejemplar </label>
@@ -1507,7 +1507,7 @@
                     <div class="form-group">
                         <label for="nombre">Fecha Fallecido
                             <span class="text-danger">*</span></label>
-                        <input type="date" class="form-control" id="fecha_fallecido" name="fecha_fallecido" value="{{ ($ejemplar != null)? $ejemplar->nombre:'' }}" />
+                        <input type="date" class="form-control" id="fecha_fallecido" name="fecha_fallecido" value="{{ ($ejemplar != null)? $ejemplar->fecha_fallecido:'' }}" />
                         <span class="form-text text-muted">Si fallecio seleccionar fecha</span>
                     </div>
                 </div>
@@ -1516,7 +1516,7 @@
                     <div class="form-group">
                         <label for="prefijo">Fecha Perdido
                             <span class="text-danger">*</span></label>
-                        <input type="date" class="form-control" id="fecha_perdido" name="fecha_perdido" value="{{ ($ejemplar != null)? $ejemplar->prefijo:'' }}" />
+                        <input type="date" class="form-control" id="fecha_perdido" name="fecha_perdido" value="{{ ($ejemplar != null)? $ejemplar->fecha_perdido:'' }}" />
                         <span class="form-text text-muted">Si se extravio seleccionar fecha</span>
                     </div>
                 </div>
@@ -1525,7 +1525,7 @@
                     <div class="form-group">
                         <label for="prefijo">Descripcion de la perdida
                             <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="descripcion_perdido" name="descripcion_perdido" value="{{ ($ejemplar != null)? $ejemplar->prefijo:'' }}" placeholder="Se extravion por la plaza Villaroel a horas 13:00, lleva una chompa color rojo, reponde a nombre Snoopy" />
+                        <input type="text" class="form-control" id="descripcion_perdido" name="descripcion_perdido" value="{{ ($ejemplar != null)? $ejemplar->descripcion_perdido:'' }}" placeholder="Se extravion por la plaza Villaroel a horas 13:00, lleva una chompa color rojo, reponde a nombre Snoopy" />
                     </div>
                 </div>
                 
@@ -1546,7 +1546,7 @@
                         <label for="prefijo">Origen (Ciudad)
                             <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="origen_nacionalizado" name="origen_nacionalizado"
-                            value="{{ ($ejemplar != null)? $ejemplar->prefijo:'' }}" />
+                            value="{{ ($ejemplar != null)? $ejemplar->origen:'' }}" />
                     </div>
                 </div>
 
@@ -1555,7 +1555,7 @@
                         <label for="prefijo">Codigo / Registro
                             <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="codigo_nacionalizado" name="codigo_nacionalizado"
-                            value="{{ ($ejemplar != null)? $ejemplar->prefijo:'' }}" />
+                            value="{{ ($ejemplar != null)? $ejemplar->codigo_nacionalizado:'' }}" />
                     </div>
                 </div>
                 
@@ -1564,7 +1564,7 @@
                         <label for="prefijo">Fecha Nacionalizado
                             <span class="text-danger">*</span></label>
                         <input type="date" class="form-control" id="fecha_nacionalizado" name="fecha_nacionalizado"
-                            value="{{ ($ejemplar != null)? $ejemplar->prefijo:'' }}" />
+                            value="{{ ($ejemplar != null)? $ejemplar->fecha_nacionalizado:'' }}" />
                     </div>
                 </div>
             

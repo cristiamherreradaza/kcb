@@ -201,7 +201,9 @@ class EjemplarController extends Controller
         $ejemplar->hermano              = $request->input('hermano');
         $ejemplar->departamento         = $request->input('departamento');
         $ejemplar->fecha_fallecido      = $request->input('fecha_fallecido');
+        $ejemplar->fecha_perdido        = $request->input('fecha_perdido');
         $ejemplar->fecha_emision        = $request->input('fecha_emision');
+        $ejemplar->descripcion_perdido  = $request->input('descripcion_perdido');
         $ejemplar->fecha_nacionalizado  = $request->input('fecha_nacionalizado');
         $criadero = Criadero::find($request->input('criadero_id'));
         if($request->input('primero_mostrar') == "Nombre"){

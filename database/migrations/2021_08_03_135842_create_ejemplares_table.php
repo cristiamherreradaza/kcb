@@ -73,7 +73,9 @@ class CreateEjemplaresTable extends Migration
             $table->string('departamento', 50)->nullable();
             $table->string('fallecido', 5)->nullable();
             $table->date('fecha_fallecido')->nullable();
+            $table->date('fecha_perdido')->nullable();
             $table->date('fecha_emision')->nullable();
+            $table->string('descripcion_perdido',500)->nullable();
             $table->date('fecha_nacionalizado')->nullable();
 
             $table->string('estado',15)->nullable();

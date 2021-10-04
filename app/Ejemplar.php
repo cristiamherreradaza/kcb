@@ -50,6 +50,8 @@ class Ejemplar extends Model
         'departamento',
         'fallecido',
         'fecha_fallecido',
+        'fecha_perdido',
+        'descripcion_perdido',
         'fecha_emision',
         'fecha_nacionalizado',
         'estado',
