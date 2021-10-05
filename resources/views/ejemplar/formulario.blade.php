@@ -245,7 +245,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="#" method="POST" id="formulario-padres">
+                    <form action="#" method="POST" id="">
                         @csrf
                         <div class="row">
 
@@ -290,21 +290,21 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="#" method="POST" id="formulario-padres">
+                    <form action="#" method="POST" id="formulario-nuevo-propietario">
                         @csrf
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="kcb">Nombre de Usuario
                                     </label>
-                                    <input type="text" class="form-control" id="nuevo_propietario_nombre" name="nuevo_propietario_nombre" autocomplete="off" />
+                                    <input type="text" class="form-control" id="nuevo_propietario_nombre" name="nuevo_propietario_nombre" autocomplete="off" required />
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="kcb">Correo
                                     </label>
-                                    <input type="text" class="form-control" id="nuevo_propietario_email" name="nuevo_propietario_correo" onfocusout="validaEmail()" autocomplete="off" />
+                                    <input type="text" class="form-control" id="nuevo_propietario_email" name="nuevo_propietario_correo" onfocusout="validaEmail()" autocomplete="off" required />
                                     <span class="form-text text-danger" id="msg-error-email" style="display: none;">Correo duplicado, cambielo!!!</span>
                                 </div>
                             </div>
@@ -321,7 +321,7 @@
                                 <div class="form-group">
                                     <label for="kcb">Cedula
                                     </label>
-                                    <input type="text" class="form-control" id="nuevo_propietario_cedula" name="nuevo_propietario_cedula" onfocusout="validaCedula()" autocomplete="off" />
+                                    <input type="text" class="form-control" id="nuevo_propietario_cedula" name="nuevo_propietario_cedula" onfocusout="validaCedula()" autocomplete="off" required />
                                     <span class="form-text text-danger" id="msg-error-cedula" style="display: none;">Cedula duplicado, cambielo!!!</span>
                                 </div>
                             </div>
@@ -2412,38 +2412,43 @@
 
     function guardarPropietario(){
         //alert('Guardar Propietario en procedimiento');
-        let nombre              = $('#nuevo_propietario_nombre').val();
-        let email               = $('#nuevo_propietario_email').val();
-        let fecha_nacimiento    = $('#nuevo_propietario_fecha_nacimiento').val();
-        let cedula              = $('#nuevo_propietario_cedula').val();
-        let genero              = $('#nuevo_propietario_genero').val();
-        let celular             = $('#nuevo_propietario_celular').val();
-        let direccion           = $('#nuevo_propietario_direccion').val();
-        let departamento        = $('#nuevo_propietario_departamento').val();
-        let tipo                = $('#nuevo_propietario_tipo').val();
+        if($("#formulario-nuevo-propietario")[0].checkValidity()){
+            let nombre              = $('#nuevo_propietario_nombre').val();
+            let email               = $('#nuevo_propietario_email').val();
+            let fecha_nacimiento    = $('#nuevo_propietario_fecha_nacimiento').val();
+            let cedula              = $('#nuevo_propietario_cedula').val();
+            let genero              = $('#nuevo_propietario_genero').val();
+            let celular             = $('#nuevo_propietario_celular').val();
+            let direccion           = $('#nuevo_propietario_direccion').val();
+            let departamento        = $('#nuevo_propietario_departamento').val();
+            let tipo                = $('#nuevo_propietario_tipo').val();
 
-        let datosFormularioNuevoPropietario = {
-            nombre: nombre,
-            email: email,
-            fecha_nacimiento: fecha_nacimiento,
-            cedula: cedula,
-            genero: genero,
-            celular: celular,
-            direccion: direccion,
-            departamento: departamento,
-            tipo: tipo
-        }
-        //console.log(datosFormularioNuevoPropietario);
-        $.ajax({
-            url: "{{ url('User/ajaxGuardaNuevoPropietario') }}",
-            data: datosFormularioNuevoPropietario,
-            type: "post",
-            success: function(data){
-                $("#transferencia_propietario").html(data);
-                $("#modal-tramsferencia").modal('show');
-                $('#modal-nuevo-propietario').modal('hide');
+            let datosFormularioNuevoPropietario = {
+                nombre: nombre,
+                email: email,
+                fecha_nacimiento: fecha_nacimiento,
+                cedula: cedula,
+                genero: genero,
+                celular: celular,
+                direccion: direccion,
+                departamento: departamento,
+                tipo: tipo
             }
-        });
+            //console.log(datosFormularioNuevoPropietario);
+            $.ajax({
+                url: "{{ url('User/ajaxGuardaNuevoPropietario') }}",
+                data: datosFormularioNuevoPropietario,
+                type: "post",
+                success: function(data){
+                    $("#transferencia_propietario").html(data);
+                    $("#modal-tramsferencia").modal('show');
+                    $('#modal-nuevo-propietario').modal('hide');
+                }
+            });
+        }else{
+            $("#formulario-nuevo-propietario")[0].reportValidity();
+        }
+        
     }
 
     function validaEmail()
