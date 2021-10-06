@@ -164,7 +164,7 @@
                 reverseButtons: true
             }).then(function(result) {
                 if (result.value) {
-                    window.location.href = "{{ url('Criadero/elimina') }}/"+id;
+                    window.location.href = "{{ url('Ejemplar/eliminaEjemplar') }}/"+id;
                     Swal.fire(
                         "Borrado!",
                         "El registro fue eliminado.",

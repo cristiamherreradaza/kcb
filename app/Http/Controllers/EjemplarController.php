@@ -1899,4 +1899,17 @@ class EjemplarController extends Controller
 
         return response()->json(['vKcb'=>$verificaKcb]);
     }
+
+    public function eliminaEjemplar(Request $request, $ejemplar_id){
+        
+        $ejemplar = Ejemplar::find($ejemplar_id);
+
+        $ejemplar->eliminador_id    = Auth::user()->id;
+
+        Ejemplar::destroy($ejemplar_id);
+        
+        $ejemplar->save();
+
+        return redirect("Ejemplar/listado");
+    }
 }

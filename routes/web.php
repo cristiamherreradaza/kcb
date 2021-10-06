@@ -175,6 +175,8 @@ Route::post('Ejemplar/registroNuevoEjemplarCamada', 'EjemplarController@registro
 Route::get('Ejemplar/demoModificacion', 'EjemplarController@demoModificacion');
 Route::get('Ejemplar/muestraModificacion/{tabla}/{registro}', 'EjemplarController@muestraModificacion');
 Route::post('Ejemplar/validaKcb', 'EjemplarController@validaKcb');
+Route::get('Ejemplar/eliminaEjemplar/{ejemplar_id}', 'EjemplarController@eliminaEjemplar');
+
 
 
 

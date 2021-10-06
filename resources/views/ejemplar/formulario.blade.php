@@ -436,7 +436,26 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="nombre">En caso de ser Pedigree
+                                    <label for="nombre">Estado
+                                    </label>
+                                    <select class="form-control" name="transferencia_estado" id="transferencia_estado">
+                                        <option value="Actual">Propietario Actual</option>
+                                        <option value="Anterior">Propietario Anterior</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="kcb">Pais Destino
+                                    </label>
+                                    <input type="text" class="form-control" name="transferencia_pais_destino" id="transferencia_pais_destino">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="nombre">En caso de ser Pedigree de exportacion
                                     </label>
                                     <div class="form-group row">
                                         {{-- <label class="col-3 col-form-label">Success State</label> --}}
@@ -458,25 +477,6 @@
                                     <label for="nombre">Fecha de Exportacion
                                     </label>
                                     <input type="date" class="form-control" id="transferencia_fecha_exportacion" name="transferencia_fecha_exportacion" autocomplete="off" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="nombre">Estado
-                                    </label>
-                                    <select class="form-control" name="transferencia_estado" id="transferencia_estado">
-                                        <option value="Actual">Propietario Actual</option>
-                                        <option value="Anterior">Propietario Anterior</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="kcb">Pais Destino
-                                    </label>
-                                    <input type="text" class="form-control" name="transferencia_pais_destino" id="transferencia_pais_destino">
                                 </div>
                             </div>
                         </div>
