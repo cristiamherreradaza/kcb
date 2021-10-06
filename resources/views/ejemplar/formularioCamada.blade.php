@@ -134,7 +134,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-8">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="exampleInputPassword1">Raza
                             <span class="text-danger">*</span></label>
@@ -147,10 +147,18 @@
                             </select>
                     </div>
                 </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="kcb">Fecha de Nacimiento
+                        </label>
+                        <input type="date" class="form-control" id="fecha_nacimiento"
+                            name="fecha_nacimiento" autocomplete="off" />
+                    </div>
+                </div>
             </div>
 
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="color">Lechigada
                             <span class="text-danger">*</span></label>
@@ -159,7 +167,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="color">Fecha Emision
                             <span class="text-danger">*</span></label>
@@ -167,16 +175,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="kcb">Fecha de Nacimiento
-                        </label>
-                        <input type="date" class="form-control" id="fecha_nacimiento"
-                            name="fecha_nacimiento" autocomplete="off" />
-                    </div>
-                </div>
-
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="exampleInputPassword1">Departamento
                             <span class="text-danger">*</span></label>
@@ -219,7 +218,8 @@
 
                             <div class="col-md-2">
                                 <label>Kcb:</label>
-                                <input type="text" class="form-control" placeholder="457854" name="kcb" />
+                                <input type="text" class="form-control" placeholder="457854" name="kcb" onfocusout="validaKcb(this.data-repeater-list)"/>
+                                <span class="form-text text-danger" id="msg-error-email" style="display: none;">KCB duplicado, cambielo!!!</span>
                                 <div class="d-md-none mb-2"></div>
                             </div>
 
@@ -453,5 +453,30 @@
     function volver(){
         window.location.href = "{{ url('Ejemplar/listado')}}"
     }
+
+    function validaKcb(id){
+
+            // alert(valor);
+            let kcb = $("[name='ejemplar[0][kcb]']").val();
+            // alert(kcb);
+            console.log(id);
+
+            // $.ajax({
+            //     url: "{{ url('Ejemplar/validaKcb') }}",
+            //     data: {kcb: kcb},
+            //     type: 'POST',
+            //     success: function(data) {
+            //         // console.log(data.vEmail);     
+            //         if(data.vKcb > 0){
+            //             $("#msg-error-email").show();
+            //             jQuery('#boton-regitrar-nuevo-ejemplar').prop("disabled", true);  // true para desactivarlo o false para volverlo a activar
+            //             // document.getElementById("registro-nuevo-kcb").attributes["required"] = "";   
+            //         }else{
+            //             $("#msg-error-email").hide();
+            //             jQuery('#boton-regitrar-nuevo-ejemplar').prop("disabled", false);  // true para desactivarlo o false para volverlo a activar
+            //         }
+            //     }
+            // });
+        }
 </script>
 @endsection
