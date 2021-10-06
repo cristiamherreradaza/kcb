@@ -1891,5 +1891,12 @@ class EjemplarController extends Controller
 
 
     }
+    
+    public function validaKcb(Request $request){
+        // dd($request->all());
+        $verificaKcb = Ejemplar::where('kcb', $request->kcb)
+                            ->count();
 
+        return response()->json(['vKcb'=>$verificaKcb]);
+    }
 }

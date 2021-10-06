@@ -31,44 +31,42 @@
                             <div class="form-group">
                                 <label for="kcb">Nombre:</label>
                                 <input type="hidden" name="registro-nuevo-camada_id" id="registro-nuevo-camada_id" value="{{ $camada->id }}">
-                                {{-- <input type="text" name="registro-nuevo-madre_id" id="registro-nuevo-madre_id" value="{{ $camada->madre->id }}">
-                                <input type="text" name="registro-nuevo-padre_id" id="registro-nuevo-padre_id" value="{{ $camada->padre->id }}">
-                                <input type="text" name="registro-nuevo-raza_id" id="registro-nuevo-raza_id" value="{{ $camada->raza->id }}"> --}}
                                 <input type="text" class="form-control" id="registro-nuevo-nombre" name="registro-nuevo-nombre" autocomplete="off" required />
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="kcb">KCB:</label>
-                                <input type="text" class="form-control" id="registro-nuevo-kcb" name="registro-nuevo-kcb">
+                                <input type="text" class="form-control" id="registro-nuevo-kcb" name="registro-nuevo-kcb" onfocusout="validaKcb()">
+                                <span class="form-text text-danger" id="msg-error-email" style="display: none;">KCB duplicado, cambielo!!!</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="kcb">No. Tatuaje:</label>
+                                <input type="text" class="form-control" id="registro-nuevo-tatuaje" name="registro-nuevo-tatuaje">
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="kcb">Chip:</label>
                                 <input type="text" class="form-control" id="registro-nuevo-chip" name="registro-nuevo-chip" autocomplete="off" />
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="kcb">Color:</label>
                                 <input type="text" class="form-control" id="registro-nuevo-color" name="registro-nuevo-color">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="kcb">Señas:</label>
-                                <input type="text" class="form-control" id="registro-nuevo-senas" name="registro-nuevo-senas">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="kcb">No. Tatuaje:</label>
-                                <input type="text" class="form-control" id="registro-nuevo-tatuaje" name="registro-nuevo-tatuaje">
+                                <label for="kcb">Señas:</label>
+                                <input type="text" class="form-control" id="registro-nuevo-senas" name="registro-nuevo-senas">
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -83,7 +81,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-success btn-block" onclick="registrarEjemplar()">GUARDAR</button>
+                            <button type="button" id="boton-regitrar-nuevo-ejemplar" class="btn btn-success btn-block" onclick="registrarEjemplar()">GUARDAR</button>
                         </div>
                     </div>
                 </form>
@@ -374,6 +372,28 @@
     		}
             // alert("Funion en procedimiento");
 
+        }
+
+        function validaKcb(){
+            // alert("Ene desarrollo :v");
+            let kcb = $("#registro-nuevo-kcb").val();
+
+            $.ajax({
+                url: "{{ url('Ejemplar/validaKcb') }}",
+                data: {kcb: kcb},
+                type: 'POST',
+                success: function(data) {
+                    // console.log(data.vEmail);     
+                    if(data.vKcb > 0){
+                        $("#msg-error-email").show();
+                        jQuery('#boton-regitrar-nuevo-ejemplar').prop("disabled", true);  // true para desactivarlo o false para volverlo a activar
+                        // document.getElementById("registro-nuevo-kcb").attributes["required"] = "";   
+                    }else{
+                        $("#msg-error-email").hide();
+                        jQuery('#boton-regitrar-nuevo-ejemplar').prop("disabled", false);  // true para desactivarlo o false para volverlo a activar
+                    }
+                }
+            });
         }
 
     </script>
