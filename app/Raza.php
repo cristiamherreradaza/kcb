@@ -27,4 +27,9 @@ class Raza extends Model
     {
         return $this->hasMany('App\Ejemplar');
     }
+
+    public function grupo()
+    {
+        return $this->belongsTo('App\GrupoRaza', 'id');
+    }
 }
