@@ -26,8 +26,14 @@ class TituloEjemplar extends Model
     {
         return $this->belongsTo('App\Titulo', 'titulo_id');
     }
+
     public function userEliminador()
     {
         return $this->belongsTo('App\User', 'eliminador_id');
+    }
+
+    public function asignador()
+    {
+        return $this->belongsTo('App\User', 'user_id');
     }
 }

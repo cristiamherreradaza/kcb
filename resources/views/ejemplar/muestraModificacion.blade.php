@@ -18,6 +18,98 @@
         </div>
     </div>
     <div class="card-body">
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="text-center">Examenes Asignados</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-striped">
+                            <tr>
+                                <th>FECHA</th>
+                                <th>EXAMEN</th>
+                                <th>ASIGNADO POR</th>
+                            </tr>
+                            @foreach ($examenEjemplarAsignacion as $ea)
+                                <tr>
+                                    <td>{{ $ea->fecha_examen }}</td>
+                                    <td>{{ $ea->examen->nombre }}</td>
+                                    <td>
+                                        {{ $ea->asignador->name }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="text-center">Tramsferencias Asignados</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-striped">
+                            <tr>
+                                <th>FECHA</th>
+                                <th>PROPIETARIO</th>
+                                <th>ASIGNADO POR</th>
+                            </tr>
+                            @foreach ($transferenciaEjemplarAsignacion as $ta)
+                                <tr>
+                                    <td>{{ $ta->fecha_transferencia }}</td>
+                                    <td>{{ $ta->propietario->name }}</td>
+                                    <td>
+                                        {{ $ta->asignador->name }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="text-center">Titulos Asignados</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-striped">
+                            <tr>
+                                <th>FECHA</th>
+                                <th>TITULO</th>
+                                <th>ASIGNADO POR</th>
+                            </tr>
+                            @foreach ($tituloEjemplarAsignacion as $tia)
+                                <tr>
+                                    <td>{{ $tia->fecha_obtencion }}</td>
+                                    <td>{{ $tia->titulo->nombre }}</td>
+                                    <td>
+                                        {{ $tia->asignador->name }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="separator separator-dashed separator-border-2 separator-primary"></div>
+        <h1>&nbsp;</h1>
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-center">Listado de Modificaiones</h1>
+            </div>
+        </div>
+        <br>
         @forelse ($modificaciones as $m)
             @php
                 $original = json_decode($m->original, true);

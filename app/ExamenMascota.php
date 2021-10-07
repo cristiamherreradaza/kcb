@@ -36,4 +36,9 @@ class ExamenMascota extends Model
     {
         return $this->belongsTo('App\User', 'eliminador_id');
     }
+
+    public function asignador()
+    {
+        return $this->belongsTo('App\User', 'user_id');
+    }
 }

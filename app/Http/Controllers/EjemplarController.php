@@ -1728,6 +1728,7 @@ class EjemplarController extends Controller
         
         $ejemplar->user_id              = Auth::user()->id;
         $ejemplar->nombre               = $request->input('edita_nuevo_nombre');
+        $ejemplar->nombre_completo      = $request->input('edita_nuevo_nombre');
         $ejemplar->raza_id              = $request->input('edita_nuevo_raza');       
         $ejemplar->sexo                 = $request->input('edita_nuevo_sexo');
         $ejemplar->codigo_nacionalizado = $request->input('edita_nuevo_codigo');
@@ -1853,6 +1854,20 @@ class EjemplarController extends Controller
         $tituloEjemplar = TituloEjemplar::onlyTrashed()
                                         ->where('ejemplar_id',$registro)
                                         ->get();
+
+        $examenEjemplarAsignacion = ExamenMascota::withTrashed()
+                                        ->where('ejemplar_id',$registro)
+                                        ->get();
+
+        $transferenciaEjemplarAsignacion = Transferencia::withTrashed()
+                                        ->where('ejemplar_id',$registro)
+                                        ->get();
+
+
+        $tituloEjemplarAsignacion = TituloEjemplar::withTrashed()
+                                        ->where('ejemplar_id',$registro)
+                                        ->get();
+                                        
         // dd($examenEjemplar);
 
         /*foreach($modificaciones as $m){
@@ -1862,7 +1877,7 @@ class EjemplarController extends Controller
             // echo $m->cambio."<br />";
         }*/
 
-        return view('ejemplar.muestraModificacion')->with(compact('modificaciones', 'examenEjemplar', 'transferenciaEjemplar', 'tituloEjemplar'));
+        return view('ejemplar.muestraModificacion')->with(compact('modificaciones', 'examenEjemplar', 'transferenciaEjemplar', 'tituloEjemplar', 'examenEjemplarAsignacion', 'transferenciaEjemplarAsignacion', 'tituloEjemplarAsignacion'));
     }
 
     private function guardaModificacion($tabla, $registro_id, $arrayOriginal, $arrayCambio)
@@ -1901,11 +1916,41 @@ class EjemplarController extends Controller
     }
 
     public function eliminaEjemplar(Request $request, $ejemplar_id){
-        
+
+        // actualizamos el campo eliminador 
         $ejemplar = Ejemplar::find($ejemplar_id);
 
         $ejemplar->eliminador_id    = Auth::user()->id;
 
+        if($ejemplar->sexo == 'Macho'){
+            $hijos = Ejemplar::where('padre_id',$ejemplar_id)->get();
+
+            if($hijos){
+
+                foreach ($hijos as $h){
+    
+                    $h->padre_id = null;
+    
+                    $h->save();
+                }
+    
+            }
+        }else{
+            $hijos = Ejemplar::where('madre_id',$ejemplar_id)->get();
+
+            if($hijos){
+
+                foreach ($hijos as $h){
+    
+                    $h->madre_id = null;
+    
+                    $h->save();
+                }
+    
+            }
+        }
+
+        // eliminamos al ejemplar como tal
         Ejemplar::destroy($ejemplar_id);
         
         $ejemplar->save();

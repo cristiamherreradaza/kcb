@@ -702,6 +702,7 @@
         $IdAbuelaTG1M1 = '';
 
         if($ejemplarOrigen->padre_id != null){
+
             $papa = App\Ejemplar::find($ejemplarOrigen->padre_id);
 
             $kcbPapa = ($papa)?$papa->kcb:'';
@@ -713,6 +714,8 @@
             if($papa->padre_id != null){
 
                 $abuelo = App\Ejemplar::find($papa->padre_id);
+
+                // dd($abuelo);
 
                 $kcbAbuelo = ($abuelo)?$abuelo->kcb:'';
                 $nombreAbuelo = ($abuelo != null)?$abuelo->nombre:'';
