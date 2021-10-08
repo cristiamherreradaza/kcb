@@ -1975,4 +1975,9 @@ class EjemplarController extends Controller
         // siqueremos que el pdf se muestre
         return $pdf->stream('boletinInscripcion_'.date('Y-m-d H:i:s').'.pdf');        
     }
+
+    public function certificadoRosado(Request $request, $ejemplar_id){
+
+        return view('certificado.certificadoRosado')/*->with(compact('modificaciones', 'examenEjemplar', 'transferenciaEjemplar', 'tituloEjemplar', 'examenEjemplarAsignacion', 'transferenciaEjemplarAsignacion', 'tituloEjemplarAsignacion'))*/;
+    }
 }

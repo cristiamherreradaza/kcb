@@ -177,6 +177,7 @@ Route::get('Ejemplar/muestraModificacion/{tabla}/{registro}', 'EjemplarControlle
 Route::post('Ejemplar/validaKcb', 'EjemplarController@validaKcb');
 Route::get('Ejemplar/eliminaEjemplar/{ejemplar_id}', 'EjemplarController@eliminaEjemplar');
 Route::get('Ejemplar/generaPdf', 'EjemplarController@generaPdf');
+Route::get('Ejemplar/certificadoRosado/{ejemplar_id}', 'EjemplarController@certificadoRosado');
 
 
 
