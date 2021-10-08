@@ -22,6 +22,8 @@ use Illuminate\Support\Facades\Auth;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+use Barryvdh\DomPDF\Facade as PDF;
+
 class EjemplarController extends Controller
 {
     public function formulario(Request $request, $id)
@@ -1956,5 +1958,21 @@ class EjemplarController extends Controller
         $ejemplar->save();
 
         return redirect("Ejemplar/listado");
+    }
+
+    public function generaPdf(){
+        $miNombre = "Cristiam Herrera Daza";
+
+        // se carga la vista como se llama a cualquier vista para
+        // se ha creado una carpeta en views/pdf para los archivos
+        // de plantillas html, estan son como una pagina en blanco 
+        // sin heredar ningun template
+        $pdf    = PDF::loadView('pdf.pedigree', compact('miNombre'))->setPaper('letter');
+
+        // si queremos que el pdf se descargue
+        // return $pdf->download('boletinInscripcion_'.date('Y-m-d H:i:s').'.pdf');
+
+        // siqueremos que el pdf se muestre
+        return $pdf->stream('boletinInscripcion_'.date('Y-m-d H:i:s').'.pdf');        
     }
 }
