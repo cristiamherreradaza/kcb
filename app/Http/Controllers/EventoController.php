@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use App\Raza;
 use App\Evento;
 use App\Ejemplar;
-use App\CategoriasPista;
 use App\EjemplarEvento;
+use App\CategoriasPista;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class EventoController extends Controller
@@ -257,15 +258,145 @@ class EventoController extends Controller
 
         // $ejemplares = EjemplarEvento::where("evento_id",$evento_id)
         //                             ->get();
+        $evento = Evento::find($evento_id);
 
         
         $ejemplares = EjemplarEvento::where("categoria_pista_id",1)
                                     ->where("evento_id",$evento_id)
                                     ->get();
 
-        // dd($ejemplares);                                    
+        $ejemplaresAbsolutos = EjemplarEvento::where("evento_id",$evento_id)
+                                    ->where(function($query){
+                                        $query->orwhere("categoria_pista_id",11)
+                                              ->orwhere("categoria_pista_id",2);
+                                    })
+                                    ->get();
 
-        return view('evento.catalogo')->with(compact('ejemplares'));
+        $ejemplaresJoveAdulto = EjemplarEvento::where("evento_id",$evento_id)
+                                    ->whereIn("categoria_pista_id",[3,4,5,6,7,8,9,10,14,15])
+                                    // ->where(function($query){
+                                    //     $query->orwhere("categoria_pista_id",3)
+                                    //           ->orwhere("categoria_pista_id",4)
+                                    //           ->orwhere("categoria_pista_id",5)
+                                    //           ->orwhere("categoria_pista_id",6);
+                                    // })
+                                    ->get();
+
+        // dd($ejemplaresJoveAdulto);                                    
+
+        return view('evento.catalogo')->with(compact('ejemplares', 'evento','ejemplaresAbsolutos', 'ejemplaresJoveAdulto'));
+    }
+
+    public static function armaCatalogo($arrayGrupo, $evento_id, $grupo, $categoria){
+        // dd($arrayGrupo);
+        // dd($evento_id."<----->".$grupo."<----->".$categoria1."<----->".$categoria2);
+        $g2machos = array();
+        $g2hembras = array();
+        foreach ($arrayGrupo as $g2){
+            $eje = Ejemplar::find($g2);
+            if($eje){
+                if($eje->sexo == 'Macho'){
+                    array_push($g2machos, "$eje->id");
+                }else{
+                    array_push($g2hembras, "$eje->id");
+                }    
+            }
+            
+        }
+            $razas1 = EjemplarEvento::query();
+
+                  $razas1->join('razas', 'ejemplares_eventos.raza_id', '=', 'razas.id')
+                        ->join('grupos_razas', 'grupos_razas.raza_id', '=', 'razas.id')
+                        ->join('grupos', 'grupos.id', '=', 'grupos_razas.grupo_id')
+                        ->where('ejemplares_eventos.evento_id',$evento_id);
+                        if($categoria == 1){
+                            $razas1->where('ejemplares_eventos.categoria_pista_id',1);
+                        }elseif($categoria == 2){
+                            $razas1->whereIn('ejemplares_eventos.categoria_pista_id', [11,2]);
+                        }else{
+                            $razas1->whereIn('ejemplares_eventos.categoria_pista_id', [3,4,5,6,7,8,9,10,14,15]);
+                        }
+                  $razas1->where('grupos.id',$grupo)
+                        ->groupBy('razas.id')
+                        ->orderBy('razas.nombre','asc')
+                        ->select('razas.*');
+                        // ->toSql();
+                // $razas = $razas1->toSql();
+                $razas = $razas1->get();
+            // echo $razas;
+            // dd($razas);
+        $swm = true;
+        $swh = true;
+
+        foreach ($razas as $r){
+            echo '<h5 class="text-primary"> - '. $r->nombre. '</h5>';
+            // <h5 class="text-primary"> - {{ $r->nombre }}</h5>
+            if (!empty($g2machos)){
+                $swm = true;
+                EventoController::catalogoDevuelveEjemplar($g2machos,$swm,$r);
+            }
+            if (!empty($g2hembras)){
+                $swh = true;
+                EventoController::catalogoDevuelveEjemplar($g2hembras,$swh,$r);
+            }
+        }
+    }
+
+    // public static function catalogoDevuelveEjemplar($arrayEjemplares, $sw, $raza){
+    public static function catalogoDevuelveEjemplar($arrayEjemplares, $sw, $raza){
+        // dd($sexo);
+        foreach ($arrayEjemplares as $g2h){
+            $eje = Ejemplar::find($g2h);
+            if($eje){
+                if($eje->raza_id == $raza->id){
+                    if($sw){
+                        // if($eje->kcb){
+                        //     $evento = EjemplarEvento::where('kcb',$eje->kcb)->first();
+                        // }else{
+                        //     $evento = EjemplarEvento::where('codigo_nacionalizado',$eje->codigo_nacionalizado);
+                        // }
+                        $evento = EjemplarEvento::where('ejemplar_id',$eje->id)->first();
+                        echo '<h6> <span class="text-danger">'.$evento->categoriaPista->nombre.'</span>'.$eje->sexo.'s</h6>';
+                        $sw = false;
+                    }
+
+                    if($eje->kcb == null && ($eje->codigo_nacionalizado != '' || $eje->codigo_nacionalizado != null)){
+                        $nacionalidad = '(Extranjero)';
+                        $kcb =  $eje->codigo_nacionalizado; 
+                    }else{
+                        $nacionalidad = '(Nacional)';
+                        $kcb =  $eje->kcb; 
+                    }
+
+                    if($eje->padre){
+                        $padre = $eje->padre->nombre_completo;
+                    }else{
+                        $padre = '';
+                    }
+
+                    if($eje->madre){
+                        $madre = $eje->madre->nombre_completo;
+                    }else{
+                        $madre = '';
+                    }
+
+                    if($eje->propietario){
+                        $nombre_propietario         = $eje->propietario->name;
+                        $departamento_propietario   = $eje->propietario->departamento;
+                        $celulares_propietario      = $eje->propietario->celulares;
+                        $email_propietario          = $eje->propietario->email;
+                    }else{
+                        $nombre_propietario         = '';
+                        $departamento_propietario   = '';
+                        $celulares_propietario      = '';
+                        $email_propietario          = '';
+                    }
+                    echo '<b>'.$eje->nombre_completo.'</b><span class="text-danger">'.$nacionalidad."</span><br>" ;
+                    echo '<b>KCB: </b>'.$kcb.' - <b> FECHA NACIMIENTO: </b>'.date('d/m/Y',strtotime($eje->fecha_nacimiento)).' - <b> POR: </b>'.$padre.' y '.$madre.'<br>';
+                    echo '<b> PROPIETARIO: </b>'.$nombre_propietario.' - <b> CIUDAD/PAIS: </b>'.$departamento_propietario.' - <b> TELEFONOS: </b>'.$celulares_propietario.' - <b> EMAIL: </b>'.$email_propietario.'<br><br>';
+                }
+            }
+        }
     }
 
 }
