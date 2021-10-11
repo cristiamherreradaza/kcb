@@ -1978,6 +1978,8 @@ class EjemplarController extends Controller
 
     public function certificadoRosado(Request $request, $ejemplar_id){
 
-        return view('certificado.certificadoRosado')/*->with(compact('modificaciones', 'examenEjemplar', 'transferenciaEjemplar', 'tituloEjemplar', 'examenEjemplarAsignacion', 'transferenciaEjemplarAsignacion', 'tituloEjemplarAsignacion'))*/;
+        $ejemplar = Ejemplar::find($ejemplar_id);
+
+        return view('certificado.certificadoRosado')->with(compact('ejemplar'/*, 'examenEjemplar', 'transferenciaEjemplar', 'tituloEjemplar', 'examenEjemplarAsignacion', 'transferenciaEjemplarAsignacion', 'tituloEjemplarAsignacion'*/));
     }
 }
