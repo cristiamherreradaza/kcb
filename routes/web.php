@@ -194,7 +194,7 @@ Route::get('User/listado', 'UserController@listado');
 // ---------- MIGRACIONES ----------
 Route::get('Migracion/razas', 'MigracionController@razas');
 /* Migracion de Propietarios */
-Route::get('Migracion/propietarios', 'MigracionController@propietarios');
+Route::get('Migracion/propietarios_1', 'MigracionController@propietarios');
 /* Migracion de Criaderos */
 Route::get('Migracion/criaderos', 'MigracionController@criaderos');
 /* Migracion de Criaderos */

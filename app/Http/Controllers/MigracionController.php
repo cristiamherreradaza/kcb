@@ -43,6 +43,7 @@ class MigracionController extends Controller
 
     }
     function propietarios(){
+        // echo "holas";
         $propietarios = DB::table('apropietarios')->get();
         $contador = 1;
         $cuantos = 1;
