@@ -137,6 +137,16 @@
         /* height: 10px; */
 
     }
+
+    #padre_2{
+        position: absolute;
+        top: 300px;
+        /* background-color:red; */
+        width:275px;
+        font-size: 18px;
+        /* height: 10px; */
+
+    }
     #abuelo_1{
         position: absolute;
         left: 280px;
@@ -145,6 +155,22 @@
         height: 135px;
     }
     #abuelo_2{
+        position: absolute;
+        left: 280px;
+        top: 135px;
+        width:287px;
+        font-size: 12px;
+        height: 135px;
+    }
+    #abuelo_3{
+        position: absolute;
+        top: 280px;
+        left: 280px;
+        width:287px;
+        font-size: 12px;
+        height: 135px;
+    }
+    #abuelo_4{
         position: absolute;
         left: 280px;
         top: 135px;
@@ -181,6 +207,45 @@
         height: 60px;
     }
     #tg_4{
+        position: absolute;
+        left: 570px;
+        top:210px;
+        /* background-color:orange; */
+        width:329px;
+        font-size: 11px;
+        height: 60px;
+    }
+
+    #tg_5{
+        position: absolute;
+        left: 570px;
+        top: 280px;
+        /* background-color:orange; */
+        width:329px;
+        font-size: 11px;
+        height: 60px;
+
+    }
+    #tg_6{
+        position: absolute;
+        left: 570px;
+        top:63px;
+        /* background-color:orange; */
+        width:329px;
+        font-size: 11px;
+        height: 60px;
+    }
+
+    #tg_7{
+        position: absolute;
+        left: 570px;
+        top:135px;
+        /* background-color:orange; */
+        width:329px;
+        font-size: 11px;
+        height: 60px;
+    }
+    #tg_8{
         position: absolute;
         left: 570px;
         top:210px;
@@ -801,6 +866,33 @@
                         }
                     @endphp
                 </div>
+
+                <div id="padre_2">
+                    
+                    @php
+                        if(isset($mama)){
+                            echo $mama->nombre_completo."<br>";
+                            echo "K.C.B. ".$mama->kcb."<br>";
+                            echo "No. x Raza ".$mama->num_tatuaje."<br>";
+                            echo "Chip ".$mama->chip."<br>";
+
+                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$mama->id)
+                                        ->where('examen_id','=',3)
+                                        ->first();
+                            if($examenMascotaPapa){
+                                $examenPapa = $examenMascotaPapa->examen->nombre;
+                                $resultadoPapa = $examenMascotaPapa->resultado;
+                            }else{
+                                $examenPapa = "";
+                                $resultadoPapa = "";
+                            }
+
+                            echo $examenPapa."<br>";
+                            echo $resultadoPapa."<br>";
+                            echo "Color: ".$mama->color."<br>";
+                        }
+                    @endphp
+                </div>
             </section>
             <section id="bloque-abuelos">
                 <div id="abuelo_1">
@@ -853,6 +945,35 @@
                             echo "Color: ".$abuela->color."<br>";
                         }
                     @endphp
+                </div>
+
+                <div id="abuelo_3">
+                    @php
+                        if(isset($abueloM)){
+                            echo $abueloM->nombre_completo."<br>";
+                            echo "K.C.B. ".$abueloM->kcb."<br>";
+                            echo "No. x Raza ".$abueloM->num_tatuaje."<br>";
+                            echo "Chip ".$abueloM->chip."<br>";
+
+                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloM->id)
+                                        ->where('examen_id','=',3)
+                                        ->first();
+                            if($examenMascotaPapa){
+                                $examenPapa = $examenMascotaPapa->examen->nombre;
+                                $resultadoPapa = $examenMascotaPapa->resultado;
+                            }else{
+                                $examenPapa = "";
+                                $resultadoPapa = "";
+                            }
+
+                            echo $examenPapa."<br>";
+                            echo $resultadoPapa."<br>";
+                            echo "Color: ".$abueloM->color."<br>";
+                        }
+                    @endphp
+                </div>
+                <div id="abuelo_4">
+
                 </div>
             </section>
 
@@ -959,6 +1080,41 @@
                             echo "Color: ".$abuelaTG->color;
                         }
                     @endphp
+                </div>
+
+                <div id="tg_5">
+                    @php
+                        if(isset($tGPadreM)){
+                            echo $tGPadreM->nombre_completo." ";
+                            echo "K.C.B. ".$tGPadreM->kcb."<br>";
+                            echo "No. x Raza ".$tGPadreM->num_tatuaje." ";
+                            echo "Chip ".$tGPadreM->chip."<br>";
+
+                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$tGPadreM->id)
+                                        ->where('examen_id','=',3)
+                                        ->first();
+                            if($examenMascotaPapa){
+                                $examenPapa = $examenMascotaPapa->examen->nombre;
+                                $resultadoPapa = $examenMascotaPapa->resultado;
+                            }else{
+                                $examenPapa = "";
+                                $resultadoPapa = "";
+                            }
+
+                            echo $examenPapa." ";
+                            echo $resultadoPapa."<br>";
+                            echo "Color: ".$tGPadreM->color;
+                        }
+                    @endphp
+                </div>
+                <div id="tg_6">
+
+                </div>
+                <div id="tg_7">
+
+                </div>
+                <div id="tg_8">
+
                 </div>
                 
                 
