@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Document</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
@@ -29,17 +31,17 @@
         margin: 0;
     }
     .certificado{
-        width: 100%;
-        background-color: red;
+        /* width: 100%;
+        background-color: red; */
         /* height: 100%; */
     }
     #bloque-certificado{
         /* width: 70%;  */
         /* display:flex; */
-        position: relative;
+        /* position: relative;
         display: inline-block;
-        text-align: center;
-        background-color:red;
+        text-align: center; */
+        /* background-color:red; */
         /* margin-top: 100px; */
     }
     #enlaces a{
@@ -47,34 +49,237 @@
         /* right: 500px; */
         background-color:yellow;
     }
-    table{
+    /* #table-datos{
+        height: 100px;
+    } */
+    #datos-ejemplar-1{
         position: absolute;
-        /* margin-top: 10px; */
-        top: 45px;
-        left: 110px;
-        /* width: 80%; */
-        /* position: relative; */
+        top: 65px;
+        left: 140px;
         color: #0414ff;
         font-weight: bold;
-        padding:0%;
-
+        width: 700px;
+        /* padding:0%; */
+    }
+    #table-datos-1{
+        width: 100%;
+    }
+    #color{
+        width: 150px;
+    }
+    #fecha-naciento{
+        width: 100px;
+    }
+    #consagnidad{
+        width: 80px;
+    }
+    #propietario{
+        width: 400px;
+        font-size: 15px;
+        /* padding: 5px; */
+        padding: 5px 0px 5px 0px;
+    }
+    #direccion{
+        /* padding: 5px; */
+        padding: 5px 0px 5px 0px;
+    }
+    #telefono{
+        padding: 3px 0px 3px 0px;
+    }
+    #email{
+        padding: 3px 0px 3px 60px;
     }
     table tr td{
         border: solid 1px #000000;
         text-align: left;
     }
     td{
+        /* height: 10px; */
         /* padding: 5px; */
         /* margin */
+        font-size: 13px;
+        padding: 0;
+        margin: 0;
     }
-    .afijo{
+    .impor-1{
+        font-size: 22px;
+    }
+    #datos-ejemplar-2{
+        position: absolute;
+        top: 65px;
+        left: 910px;
+        color: #0414ff;
+        font-weight: bold;
+        width: 550px;
+        /* height: 500px; */
+        padding:0%;
+    }
+    #arbol-genealogio{
+        position: absolute;
+        top: 270px;
+        left: 80px;
+        color: #0414ff;
+        font-weight: bold;
         /* background-color:red; */
-        /* text-align:center; */
-        /* position: absolute; */
-        margin-left: 10px;
-        
-        /* margin-right: 1000px; */
+        /* opacity: 0.8; */
+        width:1340px;   
+        height: 560px;   
     }
+    #tabla-genealogio{
+        width:100%;
+    }
+
+    #padre_1{
+        position: absolute;
+        /* background-color:red; */
+        width:275px;
+        font-size: 18px;
+        /* height: 10px; */
+
+    }
+    #abuelo_1{
+        position: absolute;
+        left: 280px;
+        width:287px;
+        font-size: 12px;
+        height: 135px;
+    }
+    #abuelo_2{
+        position: absolute;
+        left: 280px;
+        top: 135px;
+        width:287px;
+        font-size: 12px;
+        height: 135px;
+    }
+    #tg_1{
+        position: absolute;
+        left: 570px;
+        /* background-color:orange; */
+        width:329px;
+        font-size: 11px;
+        height: 60px;
+
+    }
+    #tg_2{
+        position: absolute;
+        left: 570px;
+        top:63px;
+        /* background-color:orange; */
+        width:329px;
+        font-size: 11px;
+        height: 60px;
+    }
+
+    #tg_3{
+        position: absolute;
+        left: 570px;
+        top:135px;
+        /* background-color:orange; */
+        width:329px;
+        font-size: 11px;
+        height: 60px;
+    }
+    #tg_4{
+        position: absolute;
+        left: 570px;
+        top:210px;
+        /* background-color:orange; */
+        width:329px;
+        font-size: 11px;
+        height: 60px;
+    }
+    #cg_1{
+        position: absolute;
+        left: 900px;
+        /* background-color:yellow; */
+        padding:0;
+        /* padding: 0px 0px 0px 0px; */
+        /* height: 10px; */
+        font-size: 12px;
+        margin: 0;
+        word-wrap: break-word;
+    }
+    #cg_2{
+        position: absolute;
+        left: 900px;
+        top: 40px;
+        /* background-color:yellow; */
+        padding:0;
+        /* padding: 0px 0px 0px 0px; */
+        /* height: 10px; */
+        font-size: 12px;
+        margin: 0;
+        word-wrap: break-word;
+    }
+    #cg_3{
+        
+        position: absolute;
+        left: 900px;
+        top: 70px;
+        padding:0;
+        font-size: 12px;
+        margin: 0;
+        word-wrap: break-word;
+    }
+    #cg_4{
+        
+        position: absolute;
+        left: 900px;
+        top: 105px;
+        padding:0;
+        font-size: 12px;
+        margin: 0;
+        word-wrap: break-word;
+    }
+    #cg_5{
+        
+        position: absolute;
+        left: 900px;
+        top: 140px;
+        padding:0;
+        font-size: 12px;
+        margin: 0;
+        word-wrap: break-word;
+    }
+    #cg_6{
+        
+        position: absolute;
+        left: 900px;
+        top: 175px;
+        padding:0;
+        font-size: 12px;
+        margin: 0;
+        word-wrap: break-word;
+    }
+
+    #cg_7{
+        
+        position: absolute;
+        left: 900px;
+        top: 215px;
+        padding:0;
+        font-size: 12px;
+        margin: 0;
+        word-wrap: break-word;
+    }
+
+    #cg_8{
+        
+        position: absolute;
+        left: 900px;
+        top: 250px;
+        padding:0;
+        font-size: 12px;
+        margin: 0;
+        word-wrap: break-word;
+    }
+    /* #contenedor-abuelo_1{
+        height: 100%;
+        background-color:pink;
+        word-wrap: break-word;
+
+    } */
 </style>
 @php
     // sacamos las generaciones
@@ -504,58 +709,1039 @@
 @endphp
 <body>
     <div id="bloque-certificado">
-        <img src="{{ url('img/certificado.jpg') }}" width="100%" id="certificado" alt="No hay imagen">
-        <table id="table-datos">
-            <tr>
-                <td colspan="4"  style="width: 600px" >{{ $ejemplar->nombre_completo }}</td>
-                <td colspan="3" class="afijo">{{ $ejemplar->criadero->nombre }}</td>
-                <td rowspan="5" style="margin-right: 50px" >
-                    <div id="qrcode"></div>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="4">
+        <img src="{{ url('img/certificado.jpg') }}" width="77%" id="certificado" alt="No hay imagen">
+        <div id="datos-ejemplar-1">
+            <table id="table-datos-1" cellspacing="0">
+                <tr>
+                    <td class="impor-1" colspan="5">{{ $ejemplar->nombre_completo }}</td>
+                </tr>
+                <tr>
+                    <td class="impor-1" colspan="5">
+                        @php
+                            $titulos = App\TituloEjemplar::where('ejemplar_id',$ejemplar->id)->get();
+                            foreach ($titulos as $t){
+                                echo $t->titulo->nombre ;
+                            }
+                        @endphp
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="impor-1">{{ $ejemplar->raza->nombre }}</td>
+                    <td id="color">{{ $ejemplar->color }}</td>
+                </tr>
+                <tr>
+                    <td>{{ $ejemplar->sexo }}</td>
+                    <td id="fecha-naciento"></td>
+                    <td>{{ $ejemplar->fecha_nacimiento }}</td>
+                    <td id="consagnidad"></td>
+                    <td>{{ ($ejemplar->consanguinidad!=null)? $ejemplar->consanguinidad :'--------'}}</td>
+                </tr>
+                <tr>
+                    <td>{{ $ejemplar->kcb }}</td>
+                    <td id="fecha-naciento"></td>
+                    <td>{{ ($ejemplar->num_tatuaje != null)? $ejemplar->num_tatuaje:'--------'}}</td>
+                    <td id="consagnidad"></td>
+                    <td>{{ $ejemplar->chip }}</td>
+                </tr>
+                <tr>
+                    <td colspan="5">{{ $ejemplar->hermano }}</td>
+                </tr>
+            </table>
+        </div>
+        <div id="datos-ejemplar-2">
+            <table id="table-datos-2">
+                <tr>
+                    <td colspan="2" class="impor-1">{{ $ejemplar->criadero->nombre }}</td>
+                    <td rowspan="5"> <div id="qrcode"></div></td>
+                </tr>
+                <tr>
+                    <td colspan="2"  id="propietario">{{ $ejemplar->propietario->name }}</td>
+                </tr>
+                <tr>
+                    <td colspan="2" id="direccion" >{{ $ejemplar->propietario->direccion }}</td>
+                </tr>
+                <tr>
+                    <td colspan="2" id="telefono"  >{{ $ejemplar->propietario->celulares }}</td>
+                </tr>
+                <tr>
+                    <td colspan="2"  id="email" >{{ $ejemplar->propietario->email }}</td>
+                    <td></td>
+                </tr>
+                {{-- <tr>
+                    <td id="telefono"></td>
+                    <td></td>
+                    <td></td>
+                </tr> --}}
+            </table>
+        </div>
+        <div id="arbol-genealogio">
+            <section id="bloque-padres" >
+                <div id="padre_1">
                     @php
-                        $titulos = App\TituloEjemplar::where('ejemplar_id',$ejemplar->id)->get();
-                        foreach ($titulos as $t){
-                            echo $t->titulo->nombre ;
+                        if(isset($papa)){
+                            echo $papa->nombre_completo."<br>";
+                            echo "K.C.B. ".$papa->kcb."<br>";
+                            echo "No. x Raza ".$papa->num_tatuaje."<br>";
+                            echo "Chip ".$papa->chip."<br>";
+
+                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$papa->id)
+                                        ->where('examen_id','=',3)
+                                        ->first();
+                            if($examenMascotaPapa){
+                                $examenPapa = $examenMascotaPapa->examen->nombre;
+                                $resultadoPapa = $examenMascotaPapa->resultado;
+                            }else{
+                                $examenPapa = "";
+                                $resultadoPapa = "";
+                            }
+
+                            echo $examenPapa."<br>";
+                            echo $resultadoPapa."<br>";
+                            echo "Color: ".$papa->color."<br>";
                         }
                     @endphp
-                </td>
-                <td colspan="3" style="font-size: 13px" >{{ $ejemplar->propietario->name }}</td>
-            </tr>
-            <tr>
-                <td colspan="3">{{ $ejemplar->raza->nombre }}</td>
-                <td>{{ $ejemplar->color }}</td>
-                <td colspan="3" style="font-size: 13px">{{ $ejemplar->propietario->direccion }}</td>
-            </tr>
-            <tr>
-                <td>{{ $ejemplar->sexo }}</td>
-                <td></td>
-                <td>{{ $ejemplar->fecha_nacimiento }}</td>
-                <td></td>
-                <td>{{ ($ejemplar->consanguinidad!=null)? $ejemplar->consanguinidad :'--------'}}</td>
-                <td></td>
-                <td style="font-size: 13px">{{ $ejemplar->propietario->celulares }}</td>
+                </div>
+            </section>
+            <section id="bloque-abuelos">
+                <div id="abuelo_1">
+                    @php
+                        if(isset($abuelo)){
+                            echo $abuelo->nombre_completo."<br>";
+                            echo "K.C.B. ".$abuelo->kcb."<br>";
+                            echo "No. x Raza ".$abuelo->num_tatuaje."<br>";
+                            echo "Chip ".$abuelo->chip."<br>";
 
-            </tr>
-            <tr>
-                <td>{{ $ejemplar->kcb }}</td>
-                <td></td>
-                <td>{{ ($ejemplar->num_tatuaje != null)? $ejemplar->num_tatuaje:'--------'}}</td>
-                <td></td>
-                <td>{{ $ejemplar->chip }}</td>
-                <td></td>
-                <td>{{ $ejemplar->propietario->email }}</td>
+                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abuelo->id)
+                                        ->where('examen_id','=',3)
+                                        ->first();
+                            if($examenMascotaPapa){
+                                $examenPapa = $examenMascotaPapa->examen->nombre;
+                                $resultadoPapa = $examenMascotaPapa->resultado;
+                            }else{
+                                $examenPapa = "";
+                                $resultadoPapa = "";
+                            }
 
-            </tr>
-            <tr>
-                <td colspan="6">{{ $ejemplar->hermano }}</td>
-                <td></td>
-                <td></td>
+                            echo $examenPapa."<br>";
+                            echo $resultadoPapa."<br>";
+                            echo "Color: ".$abuelo->color."<br>";
+                        }
+                    @endphp
+                </div>
 
-            </tr>
-        </table>
+                <div id="abuelo_2">
+                    @php
+                        if(isset($abuela)){
+                            echo $abuela->nombre_completo."<br>";
+                            echo "K.C.B. ".$abuela->kcb."<br>";
+                            echo "No. x Raza ".$abuela->num_tatuaje."<br>";
+                            echo "Chip ".$abuela->chip."<br>";
+
+                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abuela->id)
+                                        ->where('examen_id','=',3)
+                                        ->first();
+                            if($examenMascotaPapa){
+                                $examenPapa = $examenMascotaPapa->examen->nombre;
+                                $resultadoPapa = $examenMascotaPapa->resultado;
+                            }else{
+                                $examenPapa = "";
+                                $resultadoPapa = "";
+                            }
+
+                            echo $examenPapa."<br>";
+                            echo $resultadoPapa."<br>";
+                            echo "Color: ".$abuela->color."<br>";
+                        }
+                    @endphp
+                </div>
+            </section>
+
+            <section id="bloque-tg">
+                <div  id="tg_1">
+                    @php
+                        if(isset($tGPadre)){
+                            echo $tGPadre->nombre_completo." ";
+                            echo "K.C.B. ".$tGPadre->kcb."<br>";
+                            echo "No. x Raza ".$tGPadre->num_tatuaje." ";
+                            echo "Chip ".$tGPadre->chip."<br>";
+
+                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$tGPadre->id)
+                                        ->where('examen_id','=',3)
+                                        ->first();
+                            if($examenMascotaPapa){
+                                $examenPapa = $examenMascotaPapa->examen->nombre;
+                                $resultadoPapa = $examenMascotaPapa->resultado;
+                            }else{
+                                $examenPapa = "";
+                                $resultadoPapa = "";
+                            }
+
+                            echo $examenPapa." ";
+                            echo $resultadoPapa."<br>";
+                            echo "Color: ".$tGPadre->color."<br>";
+                        }
+                    @endphp
+                </div>
+
+                <div  id="tg_2">
+                    @php
+                        if(isset($tGMadre)){
+                            echo $tGMadre->nombre_completo." ";
+                            echo "K.C.B. ".$tGMadre->kcb."<br>";
+                            echo "No. x Raza ".$tGMadre->num_tatuaje." ";
+                            echo "Chip ".$tGMadre->chip."<br>";
+
+                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$tGMadre->id)
+                                        ->where('examen_id','=',3)
+                                        ->first();
+                            if($examenMascotaPapa){
+                                $examenPapa = $examenMascotaPapa->examen->nombre;
+                                $resultadoPapa = $examenMascotaPapa->resultado;
+                            }else{
+                                $examenPapa = "";
+                                $resultadoPapa = "";
+                            }
+
+                            echo $examenPapa." ";
+                            echo $resultadoPapa."<br>";
+                            echo "Color: ".$tGMadre->color."<br>";
+                        }
+                    @endphp
+                </div>
+
+                <div  id="tg_3">
+                    @php
+                        if(isset($abueloTG)){
+                            echo $abueloTG->nombre_completo." ";
+                            echo "K.C.B. ".$abueloTG->kcb."<br>";
+                            echo "No. x Raza ".$abueloTG->num_tatuaje." ";
+                            echo "Chip ".$abueloTG->chip."<br>";
+
+                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloTG->id)
+                                        ->where('examen_id','=',3)
+                                        ->first();
+                            if($examenMascotaPapa){
+                                $examenPapa = $examenMascotaPapa->examen->nombre;
+                                $resultadoPapa = $examenMascotaPapa->resultado;
+                            }else{
+                                $examenPapa = "";
+                                $resultadoPapa = "";
+                            }
+
+                            echo $examenPapa." ";
+                            echo $resultadoPapa."<br>";
+                            echo "Color: ".$abueloTG->color;
+                        }
+                    @endphp
+                </div>
+
+                <div  id="tg_4">
+                    @php
+                        if(isset($abuelaTG)){
+                            echo $abuelaTG->nombre_completo." ";
+                            echo "K.C.B. ".$abuelaTG->kcb."<br>";
+                            echo "No. x Raza ".$abuelaTG->num_tatuaje." ";
+                            echo "Chip ".$abuelaTG->chip."<br>";
+
+                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abuelaTG->id)
+                                        ->where('examen_id','=',3)
+                                        ->first();
+                            if($examenMascotaPapa){
+                                $examenPapa = $examenMascotaPapa->examen->nombre;
+                                $resultadoPapa = $examenMascotaPapa->resultado;
+                            }else{
+                                $examenPapa = "";
+                                $resultadoPapa = "";
+                            }
+
+                            echo $examenPapa." ";
+                            echo $resultadoPapa."<br>";
+                            echo "Color: ".$abuelaTG->color;
+                        }
+                    @endphp
+                </div>
+                
+                
+            </section>
+            
+            <section id="bloque-cg">
+                <div  id="cg_1">
+                    @php
+                        if(isset($cGPadre)){
+                            echo $cGPadre->nombre_completo." ";
+                            echo "K.C.B. ".$cGPadre->kcb." ";
+                            echo "No. x Raza ".$cGPadre->num_tatuaje." ";
+                            echo "Chip ".$cGPadre->chip." ";
+
+                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$cGPadre->id)
+                                        ->where('examen_id','=',3)
+                                        ->first();
+                            if($examenMascotaPapa){
+                                $examenPapa = $examenMascotaPapa->examen->nombre;
+                                $resultadoPapa = $examenMascotaPapa->resultado;
+                            }else{
+                                $examenPapa = "";
+                                $resultadoPapa = "";
+                            }
+
+                            echo $examenPapa." ";
+                            echo $resultadoPapa." ";
+                            echo "Color: ".$cGPadre->color." ";
+                        }
+                    @endphp
+                </div>
+                <div  id="cg_2">
+                    @php
+                        if(isset($cGMadre)){
+                            echo $cGMadre->nombre_completo." ";
+                            echo "K.C.B. ".$cGMadre->kcb." ";
+                            echo "No. x Raza ".$cGMadre->num_tatuaje." ";
+                            echo "Chip ".$cGMadre->chip." ";
+
+                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$cGMadre->id)
+                                        ->where('examen_id','=',3)
+                                        ->first();
+                            if($examenMascotaPapa){
+                                $examenPapa = $examenMascotaPapa->examen->nombre;
+                                $resultadoPapa = $examenMascotaPapa->resultado;
+                            }else{
+                                $examenPapa = "";
+                                $resultadoPapa = "";
+                            }
+
+                            echo $examenPapa." ";
+                            echo $resultadoPapa." ";
+                            echo "Color: ".$cGMadre->color." ";
+                        }
+                    @endphp
+                </div>
+
+                <div  id="cg_3">
+                    @php
+                        if(isset($CGMadreP)){
+                            echo $CGMadreP->nombre_completo." ";
+                            echo "K.C.B. ".$CGMadreP->kcb." ";
+                            echo "No. x Raza ".$CGMadreP->num_tatuaje." ";
+                            echo "Chip ".$CGMadreP->chip." ";
+
+                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$CGMadreP->id)
+                                        ->where('examen_id','=',3)
+                                        ->first();
+                            if($examenMascotaPapa){
+                                $examenPapa = $examenMascotaPapa->examen->nombre;
+                                $resultadoPapa = $examenMascotaPapa->resultado;
+                            }else{
+                                $examenPapa = "";
+                                $resultadoPapa = "";
+                            }
+
+                            echo $examenPapa." ";
+                            echo $resultadoPapa." ";
+                            echo "Color: ".$CGMadreP->color." ";
+                        }
+                    @endphp
+                </div>
+
+                <div  id="cg_4">
+                    @php
+                        if(isset($CGMadreM2)){
+                            echo $CGMadreM2->nombre_completo." ";
+                            echo "K.C.B. ".$CGMadreM2->kcb." ";
+                            echo "No. x Raza ".$CGMadreM2->num_tatuaje." ";
+                            echo "Chip ".$CGMadreM2->chip." ";
+
+                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$CGMadreM2->id)
+                                        ->where('examen_id','=',3)
+                                        ->first();
+                            if($examenMascotaPapa){
+                                $examenPapa = $examenMascotaPapa->examen->nombre;
+                                $resultadoPapa = $examenMascotaPapa->resultado;
+                            }else{
+                                $examenPapa = "";
+                                $resultadoPapa = "";
+                            }
+
+                            echo $examenPapa." ";
+                            echo $resultadoPapa." ";
+                            echo "Color: ".$CGMadreM2->color." ";
+                        }
+                    @endphp
+                </div>
+
+                <div  id="cg_5">
+                    @php
+                        if(isset($abueloCG)){
+                            echo $abueloCG->nombre_completo." ";
+                            echo "K.C.B. ".$abueloCG->kcb." ";
+                            echo "No. x Raza ".$abueloCG->num_tatuaje." ";
+                            echo "Chip ".$abueloCG->chip." ";
+        
+                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloCG->id)
+                                        ->where('examen_id','=',3)
+                                        ->first();
+                            if($examenMascotaPapa){
+                                $examenPapa = $examenMascotaPapa->examen->nombre;
+                                $resultadoPapa = $examenMascotaPapa->resultado;
+                            }else{
+                                $examenPapa = "";
+                                $resultadoPapa = "";
+                            }
+        
+                            echo $examenPapa." ";
+                            echo $resultadoPapa." ";
+                            echo "Color: ".$abueloCG->color." ";
+                        }
+                    @endphp
+                </div>
+
+                <div  id="cg_6">
+                    @php
+                        if(isset($abueloCGM)){
+                            echo $abueloCGM->nombre_completo." ";
+                            echo "K.C.B. ".$abueloCGM->kcb." ";
+                            echo "No. x Raza ".$abueloCGM->num_tatuaje." ";
+                            echo "Chip ".$abueloCGM->chip." ";
+
+                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloCGM->id)
+                                        ->where('examen_id','=',3)
+                                        ->first();
+                            if($examenMascotaPapa){
+                                $examenPapa = $examenMascotaPapa->examen->nombre;
+                                $resultadoPapa = $examenMascotaPapa->resultado;
+                            }else{
+                                $examenPapa = "";
+                                $resultadoPapa = "";
+                            }
+
+                            echo $examenPapa." ";
+                            echo $resultadoPapa." ";
+                            echo "Color: ".$abueloCGM->color." ";
+                        }
+                    @endphp
+                </div>
+
+                <div  id="cg_7">
+                    @php
+                        if(isset($abueloTGM1)){
+                            echo $abueloTGM1->nombre_completo." ";
+                            echo "K.C.B. ".$abueloTGM1->kcb." ";
+                            echo "No. x Raza ".$abueloTGM1->num_tatuaje." ";
+                            echo "Chip ".$abueloTGM1->chip." ";
+
+                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloTGM1->id)
+                                        ->where('examen_id','=',3)
+                                        ->first();
+                            if($examenMascotaPapa){
+                                $examenPapa = $examenMascotaPapa->examen->nombre;
+                                $resultadoPapa = $examenMascotaPapa->resultado;
+                            }else{
+                                $examenPapa = "";
+                                $resultadoPapa = "";
+                            }
+
+                            echo $examenPapa." ";
+                            echo $resultadoPapa." ";
+                            echo "Color: ".$abueloTGM1->color." ";
+                        }
+                    @endphp
+                </div>
+
+                <div  id="cg_8">
+                    @php
+                        if(isset($abuelaTGM1)){
+                            echo $abuelaTGM1->nombre_completo." ";
+                            echo "K.C.B. ".$abuelaTGM1->kcb." ";
+                            echo "No. x Raza ".$abuelaTGM1->num_tatuaje." ";
+                            echo "Chip ".$abuelaTGM1->chip." ";
+
+                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abuelaTGM1->id)
+                                        ->where('examen_id','=',3)
+                                        ->first();
+                            if($examenMascotaPapa){
+                                $examenPapa = $examenMascotaPapa->examen->nombre;
+                                $resultadoPapa = $examenMascotaPapa->resultado;
+                            }else{
+                                $examenPapa = "";
+                                $resultadoPapa = "";
+                            }
+
+                            echo $examenPapa." ";
+                            echo $resultadoPapa." ";
+                            echo "Color: ".$abuelaTGM1->color." ";
+                        }
+                    @endphp
+                </div>
+                
+                
+            </section>
+            {{-- <table id="tabla-genealogio">
+                <tr>
+                    <td rowspan="8" width="100px">
+                        <div id="padre_1">
+                            @php
+                                if(isset($papa)){
+                                    echo $papa->nombre_completo."<br>";
+                                    echo "K.C.B. ".$papa->kcb."<br>";
+                                    echo "No. x Raza ".$papa->num_tatuaje."<br>";
+                                    echo "Chip ".$papa->chip."<br>";
+
+                                    $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$papa->id)
+                                                ->where('examen_id','=',3)
+                                                ->first();
+                                    if($examenMascotaPapa){
+                                        $examenPapa = $examenMascotaPapa->examen->nombre;
+                                        $resultadoPapa = $examenMascotaPapa->resultado;
+                                    }else{
+                                        $examenPapa = "";
+                                        $resultadoPapa = "";
+                                    }
+
+                                    echo $examenPapa."<br>";
+                                    echo $resultadoPapa."<br>";
+                                    echo "Color: ".$papa->color."<br>";
+                                }
+                            @endphp
+                        </div>
+                    </td>
+                    <td rowspan="4" width="100px">
+                        <div id="abuelo_1">
+                            @php
+                                if(isset($abuelo)){
+                                    echo $abuelo->nombre_completo."<br>";
+                                    echo "K.C.B. ".$abuelo->kcb."<br>";
+                                    echo "No. x Raza ".$abuelo->num_tatuaje."<br>";
+                                    echo "Chip ".$abuelo->chip."<br>";
+
+                                    $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abuelo->id)
+                                                ->where('examen_id','=',3)
+                                                ->first();
+                                    if($examenMascotaPapa){
+                                        $examenPapa = $examenMascotaPapa->examen->nombre;
+                                        $resultadoPapa = $examenMascotaPapa->resultado;
+                                    }else{
+                                        $examenPapa = "";
+                                        $resultadoPapa = "";
+                                    }
+
+                                    echo $examenPapa."<br>";
+                                    echo $resultadoPapa."<br>";
+                                    echo "Color: ".$abuelo->color."<br>";
+                                }
+                            @endphp
+                        </div>
+                    </td>
+                    <td rowspan="2">
+                        <div  id="tg_1" width="90px">
+                            @php
+                                if(isset($tGPadre)){
+                                    echo $tGPadre->nombre_completo."<br>";
+                                    echo "K.C.B. ".$tGPadre->kcb."<br>";
+                                    echo "No. x Raza ".$tGPadre->num_tatuaje."<br>";
+                                    echo "Chip ".$tGPadre->chip."<br>";
+
+                                    $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$tGPadre->id)
+                                                ->where('examen_id','=',3)
+                                                ->first();
+                                    if($examenMascotaPapa){
+                                        $examenPapa = $examenMascotaPapa->examen->nombre;
+                                        $resultadoPapa = $examenMascotaPapa->resultado;
+                                    }else{
+                                        $examenPapa = "";
+                                        $resultadoPapa = "";
+                                    }
+
+                                    echo $examenPapa."<br>";
+                                    echo $resultadoPapa."<br>";
+                                    echo "Color: ".$tGPadre->color."<br>";
+                                }
+                            @endphp
+                        </div>
+                    </td>
+                    <td>
+                        <div  id="cg_1">
+                            @php
+                                if(isset($cGPadre)){
+                                    echo $cGPadre->nombre_completo." ";
+                                    echo "K.C.B. ".$cGPadre->kcb." ";
+                                    echo "No. x Raza ".$cGPadre->num_tatuaje." ";
+                                    echo "Chip ".$cGPadre->chip." ";
+
+                                    $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$cGPadre->id)
+                                                ->where('examen_id','=',3)
+                                                ->first();
+                                    if($examenMascotaPapa){
+                                        $examenPapa = $examenMascotaPapa->examen->nombre;
+                                        $resultadoPapa = $examenMascotaPapa->resultado;
+                                    }else{
+                                        $examenPapa = "";
+                                        $resultadoPapa = "";
+                                    }
+
+                                    echo $examenPapa." ";
+                                    echo $resultadoPapa." ";
+                                    echo "Color: ".$cGPadre->color." ";
+                                }
+                            @endphp
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @php
+                            if(isset($cGMadre)){
+                                echo $cGMadre->nombre_completo." ";
+                                echo "K.C.B. ".$cGMadre->kcb." ";
+                                echo "No. x Raza ".$cGMadre->num_tatuaje." ";
+                                echo "Chip ".$cGMadre->chip." ";
+
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$cGMadre->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa." ";
+                                echo $resultadoPapa." ";
+                                echo "Color: ".$cGMadre->color." ";
+                            }
+                        @endphp
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="2">
+                        @php
+                            if(isset($tGMadre)){
+                                echo $tGMadre->nombre_completo."<br>";
+                                echo "K.C.B. ".$tGMadre->kcb."<br>";
+                                echo "No. x Raza ".$tGMadre->num_tatuaje."<br>";
+                                echo "Chip ".$tGMadre->chip."<br>";
+
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$tGMadre->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa."<br>";
+                                echo $resultadoPapa."<br>";
+                                echo "Color: ".$tGMadre->color."<br>";
+                            }
+                        @endphp
+                    </td>
+                    <td>
+                        @php
+                            if(isset($CGMadreP)){
+                                echo $CGMadreP->nombre_completo." ";
+                                echo "K.C.B. ".$CGMadreP->kcb." ";
+                                echo "No. x Raza ".$CGMadreP->num_tatuaje." ";
+                                echo "Chip ".$CGMadreP->chip." ";
+
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$CGMadreP->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa." ";
+                                echo $resultadoPapa." ";
+                                echo "Color: ".$CGMadreP->color." ";
+                            }
+                        @endphp
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @php
+                            if(isset($CGMadreM2)){
+                                echo $CGMadreM2->nombre_completo." ";
+                                echo "K.C.B. ".$CGMadreM2->kcb." ";
+                                echo "No. x Raza ".$CGMadreM2->num_tatuaje." ";
+                                echo "Chip ".$CGMadreM2->chip." ";
+
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$CGMadreM2->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa." ";
+                                echo $resultadoPapa." ";
+                                echo "Color: ".$CGMadreM2->color." ";
+                            }
+                        @endphp
+                    </td>
+                </tr>
+                <tr>
+                    <td  rowspan="4">
+                        @php
+                            if(isset($abuela)){
+                                echo $abuela->nombre_completo."<br>";
+                                echo "K.C.B. ".$abuela->kcb."<br>";
+                                echo "No. x Raza ".$abuela->num_tatuaje."<br>";
+                                echo "Chip ".$abuela->chip."<br>";
+
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abuela->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa."<br>";
+                                echo $resultadoPapa."<br>";
+                                echo "Color: ".$abuela->color."<br>";
+                            }
+                        @endphp
+                    </td>
+                    <td  rowspan="2">
+                        @php
+                            if(isset($abueloTG)){
+                                echo $abueloTG->nombre_completo."<br>";
+                                echo "K.C.B. ".$abueloTG->kcb."<br>";
+                                echo "No. x Raza ".$abueloTG->num_tatuaje."<br>";
+                                echo "Chip ".$abueloTG->chip."<br>";
+
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloTG->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa."<br>";
+                                echo $resultadoPapa."<br>";
+                                echo "Color: ".$abueloTG->color."<br>";
+                            }
+                        @endphp
+                    </td>
+                    <td>
+                        @php
+                            if(isset($abueloCG)){
+                                echo $abueloCG->nombre_completo." ";
+                                echo "K.C.B. ".$abueloCG->kcb." ";
+                                echo "No. x Raza ".$abueloCG->num_tatuaje." ";
+                                echo "Chip ".$abueloCG->chip." ";
+
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloCG->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa." ";
+                                echo $resultadoPapa." ";
+                                echo "Color: ".$abueloCG->color." ";
+                            }
+                        @endphp
+                    </td>
+                </tr>
+                <tr>
+                    <td >
+                        @php
+                            if(isset($abueloCGM)){
+                                echo $abueloCGM->nombre_completo." ";
+                                echo "K.C.B. ".$abueloCGM->kcb." ";
+                                echo "No. x Raza ".$abueloCGM->num_tatuaje." ";
+                                echo "Chip ".$abueloCGM->chip." ";
+
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloCGM->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa." ";
+                                echo $resultadoPapa." ";
+                                echo "Color: ".$abueloCGM->color." ";
+                            }
+                        @endphp
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="2">
+                        @php
+                            if(isset($abuelaTG)){
+                                echo $abuelaTG->nombre_completo."<br>";
+                                echo "K.C.B. ".$abuelaTG->kcb."<br>";
+                                echo "No. x Raza ".$abuelaTG->num_tatuaje."<br>";
+                                echo "Chip ".$abuelaTG->chip."<br>";
+
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abuelaTG->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa."<br>";
+                                echo $resultadoPapa."<br>";
+                                echo "Color: ".$abuelaTG->color."<br>";
+                            }
+                        @endphp
+                    </td>
+                    <td>
+                        @php
+                            if(isset($abueloTGM1)){
+                                echo $abueloTGM1->nombre_completo." ";
+                                echo "K.C.B. ".$abueloTGM1->kcb." ";
+                                echo "No. x Raza ".$abueloTGM1->num_tatuaje." ";
+                                echo "Chip ".$abueloTGM1->chip." ";
+
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloTGM1->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa." ";
+                                echo $resultadoPapa." ";
+                                echo "Color: ".$abueloTGM1->color." ";
+                            }
+                        @endphp
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @php
+                            if(isset($abuelaTGM1)){
+                                echo $abuelaTGM1->nombre_completo." ";
+                                echo "K.C.B. ".$abuelaTGM1->kcb." ";
+                                echo "No. x Raza ".$abuelaTGM1->num_tatuaje." ";
+                                echo "Chip ".$abuelaTGM1->chip." ";
+
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abuelaTGM1->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa." ";
+                                echo $resultadoPapa." ";
+                                echo "Color: ".$abuelaTGM1->color." ";
+                            }
+                        @endphp
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="8">
+                        holas
+                    </td>
+                    <td rowspan="4">
+                        holas
+                    </td>
+                    <td rowspan="2">
+                        holas
+                    </td>
+                    <td>
+                        holas
+                    </td>
+                </tr>
+                <tr>
+                    <td  >
+                        holas
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="2">
+                        holas
+                    </td>
+                    <td>
+                        holas
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        holas
+                    </td>
+                </tr>
+                <tr>
+                    <td  rowspan="4">
+                        holas
+                    </td>
+                    <td  rowspan="2">
+                        holas
+                    </td>
+                    <td>
+                        holas
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        holas
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="2">
+                        holas
+                    </td>
+                    <td>
+                        holas
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        holas
+                    </td>
+                </tr>
+
+
+ --}}
+
+
+
+
+                
+                {{-- <tr>
+                    <td rowspan="8">
+                        
+                    </td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr> --}}
+            {{-- </table> --}}
+        </div>
     </div>
     <div id="enlaces">
         <a href="{{ url('Ejemplar/informacion') }}/{{ $ejemplar->id }}">Volver</a>
@@ -573,26 +1759,27 @@
         // alert('en desarrollo :v');
 
         /*prueba*/
-        var x = document.getElementById("enlaces");
-        // alert(x);
-        if (x.style.display == "none") {
-            x.style.display = "block";
-        } else {
-            x.style.display = "none";
-        }
+        // var x = document.getElementById("enlaces");
+        // // alert(x);
+        // if (x.style.display == "none") {
+        //     x.style.display = "block";
+        // } else {
+        //     x.style.display = "none";
+        // }
 
-        // var certificado  = document.getElementById("certificado");
+        var certificado  = document.getElementById("certificado");
 
-        // certificado.style.width = "100%";
-        $('#bloque-certificado').css('width', '100%');
+        certificado.style.width = "100%";
+        // $('#bloque-certificado').css('width', '100%');
         // $('#table-datos').css('width','90%');
         // $('#certificado').hide();
 
         window.print();
 
+        certificado.style.width = "77%";
         // $('#certificado').show();
-        $('#bloque-certificado').css('width', '60%');
-        x.style.display = "block";
+        // $('#bloque-certificado').css('width', '60%');
+        // x.style.display = "block";
 
 
     }
@@ -600,8 +1787,8 @@
     // console.log(cadenaQr);
     var qrcode = new QRCode("qrcode", {
         text: cadenaQr,
-        width: 90,
-        height: 90,
+        width: 110,
+        height: 110,
         colorDark : "#000000",
         colorLight : "#ffffff",
         correctLevel : QRCode.CorrectLevel.H
@@ -612,4 +1799,18 @@
     //         event.preventDefault();
     //     }   
     // });
+    $(window).keydown(function(event) { 
+        if(event.ctrlKey && event.keyCode == 80) { 
+            // console.log("Hey! Ctrl+T event captured!"); 
+            var certificado  = document.getElementById("certificado");
+            certificado.style.width = "100%";
+            window.print();
+            certificado.style.width = "77%";
+            event.preventDefault(); 
+        } 
+        // if(event.ctrlKey && event.keyCode == 83) {
+        //      console.log("Hey! Ctrl+S event captured!");
+        //       event.preventDefault(); } 
+    });
+
 </script>
