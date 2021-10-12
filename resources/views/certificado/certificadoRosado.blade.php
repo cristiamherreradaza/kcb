@@ -14,10 +14,10 @@
 
     /* @page port {size: portrait;} */
     @page {
-        size: 21cm 29.7cm;
+        /* size: 21cm 29.7cm; */
     /* margin: 30mm 45mm 30mm 45mm; */
-        /* size: landscape;
-        size:A4; */
+        size: landscape;
+        /* size:A4; */
         margin: 0;
     }
 
@@ -26,6 +26,7 @@
     .landscape {page: land;} */
     body{
         width: 100%;
+        margin: 0;
     }
     .certificado{
         width: 100%;
@@ -33,11 +34,12 @@
         /* height: 100%; */
     }
     #bloque-certificado{
-        width: 70%; 
+        /* width: 70%;  */
         /* display:flex; */
         position: relative;
         display: inline-block;
         text-align: center;
+        background-color:red;
         /* margin-top: 100px; */
     }
     #enlaces a{
@@ -50,13 +52,29 @@
         /* margin-top: 10px; */
         top: 45px;
         left: 110px;
-        width: 80%;
+        /* width: 80%; */
+        /* position: relative; */
+        color: #0414ff;
+        font-weight: bold;
+        padding:0%;
+
     }
     table tr td{
         border: solid 1px #000000;
         text-align: left;
     }
-    
+    td{
+        /* padding: 5px; */
+        /* margin */
+    }
+    .afijo{
+        /* background-color:red; */
+        /* text-align:center; */
+        /* position: absolute; */
+        margin-left: 10px;
+        
+        /* margin-right: 1000px; */
+    }
 </style>
 @php
     // sacamos las generaciones
@@ -487,16 +505,16 @@
 <body>
     <div id="bloque-certificado">
         <img src="{{ url('img/certificado.jpg') }}" width="100%" id="certificado" alt="No hay imagen">
-        <table>
+        <table id="table-datos">
             <tr>
-                <td colspan="6" >{{ $ejemplar->nombre_completo }}</td>
-                <td>{{ $ejemplar->criadero->nombre }}</td>
-                <td rowspan="5">
+                <td colspan="4"  style="width: 600px" >{{ $ejemplar->nombre_completo }}</td>
+                <td colspan="3" class="afijo">{{ $ejemplar->criadero->nombre }}</td>
+                <td rowspan="5" style="margin-right: 50px" >
                     <div id="qrcode"></div>
                 </td>
             </tr>
             <tr>
-                <td colspan="6" >
+                <td colspan="4">
                     @php
                         $titulos = App\TituloEjemplar::where('ejemplar_id',$ejemplar->id)->get();
                         foreach ($titulos as $t){
@@ -504,35 +522,38 @@
                         }
                     @endphp
                 </td>
-                <td>{{ $ejemplar->propietario->name }}</td>
+                <td colspan="3" style="font-size: 13px" >{{ $ejemplar->propietario->name }}</td>
             </tr>
             <tr>
-                <td colspan="5">{{ $ejemplar->raza->nombre }}</td>
+                <td colspan="3">{{ $ejemplar->raza->nombre }}</td>
                 <td>{{ $ejemplar->color }}</td>
-                <td>{{ $ejemplar->propietario->direccion }}</td>
+                <td colspan="3" style="font-size: 13px">{{ $ejemplar->propietario->direccion }}</td>
             </tr>
             <tr>
                 <td>{{ $ejemplar->sexo }}</td>
                 <td></td>
                 <td>{{ $ejemplar->fecha_nacimiento }}</td>
                 <td></td>
-                <td>{{ $ejemplar->consanguinidad }}</td>
+                <td>{{ ($ejemplar->consanguinidad!=null)? $ejemplar->consanguinidad :'--------'}}</td>
                 <td></td>
-                <td>{{ $ejemplar->propietario->celulares }}</td>
+                <td style="font-size: 13px">{{ $ejemplar->propietario->celulares }}</td>
+
             </tr>
             <tr>
                 <td>{{ $ejemplar->kcb }}</td>
                 <td></td>
-                <td>{{ $ejemplar->num_tatuaje }}</td>
+                <td>{{ ($ejemplar->num_tatuaje != null)? $ejemplar->num_tatuaje:'--------'}}</td>
                 <td></td>
                 <td>{{ $ejemplar->chip }}</td>
                 <td></td>
                 <td>{{ $ejemplar->propietario->email }}</td>
+
             </tr>
             <tr>
                 <td colspan="6">{{ $ejemplar->hermano }}</td>
                 <td></td>
                 <td></td>
+
             </tr>
         </table>
     </div>
@@ -564,6 +585,7 @@
 
         // certificado.style.width = "100%";
         $('#bloque-certificado').css('width', '100%');
+        // $('#table-datos').css('width','90%');
         // $('#certificado').hide();
 
         window.print();
@@ -578,10 +600,16 @@
     // console.log(cadenaQr);
     var qrcode = new QRCode("qrcode", {
         text: cadenaQr,
-        width: 120,
-        height: 120,
+        width: 90,
+        height: 90,
         colorDark : "#000000",
         colorLight : "#ffffff",
         correctLevel : QRCode.CorrectLevel.H
     });
+
+    // document.addEventListener("keydown", function (event) {
+    //     if (event.ctrlKey) {
+    //         event.preventDefault();
+    //     }   
+    // });
 </script>
