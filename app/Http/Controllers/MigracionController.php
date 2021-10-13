@@ -299,6 +299,7 @@ class MigracionController extends Controller
                     break;
             }
             $ejemplar->departamento = $departamento;
+
             $propietario = User::where('codigo_anterior', $mascota->propietario_id)->first();
 
             if($propietario && $mascota->propietario_id != null){
@@ -719,12 +720,50 @@ class MigracionController extends Controller
 
     public function corregirFechaEjemplares(){
         $mascotas = DB::table('amascotas')
-                        ->orderBy('id', 'desc')
+                        // ->orderBy('id', 'desc')
                         ->get();
 
         foreach ($mascotas as $m) {
             echo "Id =-> ".$m->id." Nombre => ".$m->nombre_completo."<br>";
+
             $ejemplar = Ejemplar::where('codigo_anterior',$m->id)->first();
+
+            switch ($m->departamento_id) {
+                case 1:
+                    $departamento = "La Paz";
+                    break;
+                case 2:
+                    $departamento = "Cochabamba";
+                    break;
+                case 3:                    
+                    $departamento = "Santa Cruz";
+                    break;
+                case 4:
+                    $departamento = "Oruro";
+                    break;
+                case 5:
+                    $departamento = "Potosi";
+                break;
+                case 6:
+                    $departamento = "Tarija";
+                    break;
+                case 7:
+                    $departamento = "Beni";
+                    break;
+                case 8:
+                    $departamento = "Pando";
+                    break;
+                case 9:
+                    $departamento = "Sucre";
+                    break;
+                case null:
+                    $departamento = "Extranjero";
+                    break;
+            }
+
+            $ejemplar->departamento = $departamento;
+
+            $ejemplar->save();
             
             // if($ejemplar){
             //     if($m->fecha_nacimiento == '0000-00-00'){
@@ -735,17 +774,18 @@ class MigracionController extends Controller
     
             //     $ejemplar->save();
             // }
-            if($ejemplar){
-                if($m->fecha_emision == '0000-00-00'){
-                    $fecha_emi = null;
-                }else{
-                    $fecha_emi = $m->fecha_emision;
-                }
 
-                $ejemplar->fecha_emision = $fecha_emi;
+            // if($ejemplar){
+            //     if($m->fecha_emision == '0000-00-00'){
+            //         $fecha_emi = null;
+            //     }else{
+            //         $fecha_emi = $m->fecha_emision;
+            //     }
 
-                $ejemplar->save();
-            }
+            //     $ejemplar->fecha_emision = $fecha_emi;
+
+            //     $ejemplar->save();
+            // }
         }
         echo "<h1 class='text-success'>SUCCESSFUL</h1>";
         
