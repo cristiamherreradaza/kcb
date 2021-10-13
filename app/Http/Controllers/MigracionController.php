@@ -298,7 +298,7 @@ class MigracionController extends Controller
                     $departamento = "Extranjero";
                     break;
             }
-
+            $ejemplar->departamento = $departamento;
             $propietario = User::where('codigo_anterior', $mascota->propietario_id)->first();
 
             if($propietario && $mascota->propietario_id != null){
