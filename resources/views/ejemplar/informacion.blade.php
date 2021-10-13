@@ -295,7 +295,9 @@
                             <td>
                                 @php
                                     $madre = App\Ejemplar::find($cp->madre_id);
-                                    echo $madre->nombre_completo;
+                                    if($madre){
+                                        echo $madre->nombre_completo;
+                                    }
                                 @endphp
                             </td>
                             <td>{{ $cp->num_cachorros }}</td>
@@ -340,7 +342,9 @@
                             <td>
                                 @php
                                     $padre = App\Ejemplar::find($cm->padre_id);
-                                    echo $padre->nombre_completo;
+                                    if($padre){
+                                        echo $padre->nombre_completo;
+                                    }
                                 @endphp
                             </td>
                             <td>{{ $cm->num_cachorros }}</td>
