@@ -104,6 +104,11 @@
     .impor-1{
         font-size: 22px;
     }
+    .titulos{
+        /* background-color:red; */
+        /* padding: 15px 0px 15px 0px; */
+        height: 33px;
+    }
     #datos-ejemplar-2{
         position: absolute;
         top: 65px;
@@ -416,12 +421,6 @@
         margin: 0;
         word-wrap: break-word;
     }
-    /* #contenedor-abuelo_1{
-        height: 100%;
-        background-color:pink;
-        word-wrap: break-word;
-
-    } */
 </style>
 @php
     // sacamos las generaciones
@@ -858,7 +857,7 @@
                     <td class="impor-1" colspan="5">{{ $ejemplar->nombre_completo }}</td>
                 </tr>
                 <tr>
-                    <td class="impor-1" colspan="5">
+                    <td class="impor-1 titulos" colspan="5">
                         @php
                             $titulos = App\TituloEjemplar::where('ejemplar_id',$ejemplar->id)->get();
                             foreach ($titulos as $t){
@@ -893,20 +892,20 @@
         <div id="datos-ejemplar-2">
             <table id="table-datos-2">
                 <tr>
-                    <td colspan="2" class="impor-1">{{ $ejemplar->criadero->nombre }}</td>
+                    <td colspan="2" class="impor-1">{{ ($ejemplar->criadero)? $ejemplar->criadero->nombre." FCI: ".$ejemplar->criadero->registro_fci : '' }}</td>
                     <td rowspan="5"> <div id="qrcode"></div></td>
                 </tr>
                 <tr>
-                    <td colspan="2"  id="propietario">{{ $ejemplar->propietario->name }}</td>
+                    <td colspan="2"  id="propietario">{{ ($ejemplar->propietario)? $ejemplar->propietario->name : '' }}</td>
                 </tr>
                 <tr>
-                    <td colspan="2" id="direccion" >{{ $ejemplar->propietario->direccion }}</td>
+                    <td colspan="2" id="direccion" >{{ ($ejemplar->propietario)?  $ejemplar->propietario->direccion : ''}}</td>
                 </tr>
                 <tr>
-                    <td colspan="2" id="telefono"  >{{ $ejemplar->propietario->celulares }}</td>
+                    <td colspan="2" id="telefono"  >{{  ($ejemplar->propietario)? $ejemplar->propietario->celulares : ''}}</td>
                 </tr>
                 <tr>
-                    <td colspan="2"  id="email" >{{ $ejemplar->propietario->email }}</td>
+                    <td colspan="2"  id="email" >{{ ($ejemplar->propietario)? $ejemplar->propietario->email :'' }}</td>
                     <td></td>
                 </tr>
                 {{-- <tr>
