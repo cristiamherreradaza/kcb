@@ -8,6 +8,7 @@ class PanelController extends Controller
 {
     public function __construct()
     {
+        // solicita login de ingreso
         $this->middleware('auth');
     }
 

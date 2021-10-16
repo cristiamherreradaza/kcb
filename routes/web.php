@@ -28,7 +28,7 @@ Auth::routes();
 
 // PANEL DE CONTROL
 Route::get('/home', 'PanelController@inicio');
-Route::get('Panel/inicio', 'PanelController@inicio');
+Route::get('panel/inicio', 'PanelController@inicio');
 
 // RED SOCIAL
 Route::get('Social/inicio', 'SocialController@inicio');
