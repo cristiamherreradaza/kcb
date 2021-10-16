@@ -209,7 +209,18 @@
         {{-- inicio de lo botones de impresion --}}
         <div class="row">
             <div class="col-md-6">
-                <a href="{{ url('Ejemplar/generaExcelPedigree') }}/{{ $ejemplar->id }}" class="btn btn-sm btn-success btn-block">GENERAR EXCEL PEEDEGRE</a></div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <a href="{{ url('Ejemplar/generaExcelPedigree') }}/{{ $ejemplar->id }}" class="btn btn-sm btn-success btn-block"><i class="far fa-file-excel"></i> EXCEL PEEDEGRE</a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="{{ url('Ejemplar/certificadoRosado') }}/{{ $ejemplar->id }}" class="btn btn-sm btn-danger btn-block"><i class="far fa-file-pdf"></i> PDF PEEDEGRE</a>
+                    </div>
+                    <div class="col-md-4">
+
+                    </div>
+                </div>
+            </div>
             <div class="col-md-6"><button type="button" class="btn btn-sm btn-dark btn-block">VOLVER</button></div>
         </div>
         {{-- fin inicio de lo botones de impresion --}}        
@@ -278,22 +289,28 @@
                             # CACHORROS
                         </th>
                     </tr>
-                    @forelse ( $camadasPadre as $cp)
-                        <tr>
-                            <td>{{ $cp->fecha_nacimiento }}</td>
-                            <td>
-                                @php
-                                    $madre = App\Ejemplar::find($cp->madre_id);
-                                    echo $madre->nombre_completo;
-                                @endphp
-                            </td>
-                            <td>{{ $cp->num_cachorros }}</td>
-                        </tr>
-                    @empty
-                        <h5 class="text-danger">
-                            No tiene Camadas
-                        </h5>
-                    @endforelse
+                    {{-- @dd($camadasPadre) --}}
+                    @if($camadasPadre != null)
+                        @forelse ( $camadasPadre as $cp)
+                            <tr>
+                                <td>{{ $cp->fecha_nacimiento }}</td>
+                                <td>
+                                    @php
+                                        $madre = App\Ejemplar::find($cp->madre_id);
+                                        if($madre){
+                                            echo $madre->nombre_completo;
+                                        }
+                                    @endphp
+                                </td>
+                                <td>{{ $cp->num_cachorros }}</td>
+                            </tr>
+                        @empty
+                            <h5 class="text-danger">
+                                No tiene Camadas
+                            </h5>
+                        @endforelse
+                    @endif
+                    
                 </table>
             </div>
         </div>
@@ -323,22 +340,26 @@
                             # CACHORROS
                         </th>
                     </tr>
-                    @forelse ( $camadasMadre as $cm)
-                        <tr>
-                            <td>{{ $cm->fecha_nacimiento }}</td>
-                            <td>
-                                @php
-                                    $padre = App\Ejemplar::find($cm->padre_id);
-                                    echo $padre->nombre_completo;
-                                @endphp
-                            </td>
-                            <td>{{ $cm->num_cachorros }}</td>
-                        </tr>
-                    @empty
-                        <h5 class="text-danger">
-                            No tiene Camadas
-                        </h5>
-                    @endforelse
+                    @if($camadasMadre != null)
+                        @forelse ( $camadasMadre as $cm)
+                            <tr>
+                                <td>{{ $cm->fecha_nacimiento }}</td>
+                                <td>
+                                    @php
+                                        $padre = App\Ejemplar::find($cm->padre_id);
+                                        if($padre){
+                                            echo $padre->nombre_completo;
+                                        }
+                                    @endphp
+                                </td>
+                                <td>{{ $cm->num_cachorros }}</td>
+                            </tr>
+                        @empty
+                            <h5 class="text-danger">
+                                No tiene Camadas
+                            </h5>
+                        @endforelse    
+                    @endif
                 </table>
             </div>
         </div>

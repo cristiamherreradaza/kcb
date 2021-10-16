@@ -399,26 +399,35 @@ class EjemplarController extends Controller
 
         $transferencia = TRansferencia::where('ejemplar_id',$ejemplarId)
                                         -> get();
+        if($ejemplar->padre_id){
+            $camadasPadre = DB::table('ejemplares')
+                        ->select('padre_id', DB::raw('COUNT(padre_id) as num_cachorros'), 'fecha_nacimiento', 'madre_id')
+                        ->groupBy('padre_id', 'fecha_nacimiento', 'madre_id')
+                        // ->join('ejemplares', 'users.id', '=', 'contacts.user_id')
+                        // ->havingRaw('SUM(price) > ?', [2500])
+                        ->where('padre_id', '=', $ejemplar->padre_id)
+                        ->orderBy('fecha_nacimiento', 'desc')
+                        // ->where('padre_id', '=', $ejemplar->padre_id)
+                        ->get();   
+        }else{
+            $camadasPadre = null;
+        }
+                                    // ->toSql();
+        // dd($camadasPadre);
 
-        $camadasPadre = DB::table('ejemplares')
-                                    ->select('padre_id', DB::raw('COUNT(padre_id) as num_cachorros'), 'fecha_nacimiento', 'madre_id')
-                                    ->groupBy('padre_id', 'fecha_nacimiento', 'madre_id')
-                                    // ->join('ejemplares', 'users.id', '=', 'contacts.user_id')
-                                    // ->havingRaw('SUM(price) > ?', [2500])
-                                    ->where('padre_id', '=', $ejemplar->padre_id)
-                                    ->orderBy('fecha_nacimiento', 'desc')
-                                    // ->where('padre_id', '=', $ejemplar->padre_id)
-                                    ->get();
+        if($ejemplar->madre_id){
+            $camadasMadre = DB::table('ejemplares')
+                        ->select('madre_id', DB::raw('COUNT(madre_id) as num_cachorros'), 'fecha_nacimiento', 'padre_id')
+                        ->groupBy('madre_id', 'fecha_nacimiento', 'padre_id')
+                        // ->havingRaw('SUM(price) > ?', [2500])
+                        ->where('madre_id', '=', $ejemplar->madre_id)
+                        ->orderBy('fecha_nacimiento', 'desc')
+                        // ->where('padre_id', '=', $ejemplar->padre_id)
+                        ->get();   
+        }else{
+            $camadasMadre = null;
+        }
 
-
-        $camadasMadre = DB::table('ejemplares')
-                                    ->select('madre_id', DB::raw('COUNT(madre_id) as num_cachorros'), 'fecha_nacimiento', 'padre_id')
-                                    ->groupBy('madre_id', 'fecha_nacimiento', 'padre_id')
-                                    // ->havingRaw('SUM(price) > ?', [2500])
-                                    ->where('madre_id', '=', $ejemplar->madre_id)
-                                    ->orderBy('fecha_nacimiento', 'desc')
-                                    // ->where('padre_id', '=', $ejemplar->padre_id)
-                                    ->get();
         // dd($camadasMadre);
         return view('ejemplar.informacion')->with(compact('ejemplar','transferencia','camadasPadre','camadasMadre'));
     }
@@ -1974,5 +1983,12 @@ class EjemplarController extends Controller
 
         // siqueremos que el pdf se muestre
         return $pdf->stream('boletinInscripcion_'.date('Y-m-d H:i:s').'.pdf');        
+    }
+
+    public function certificadoRosado(Request $request, $ejemplar_id){
+
+        $ejemplar = Ejemplar::find($ejemplar_id);
+
+        return view('certificado.certificadoRosado')->with(compact('ejemplar'/*, 'examenEjemplar', 'transferenciaEjemplar', 'tituloEjemplar', 'examenEjemplarAsignacion', 'transferenciaEjemplarAsignacion', 'tituloEjemplarAsignacion'*/));
     }
 }

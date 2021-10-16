@@ -177,6 +177,7 @@ Route::get('Ejemplar/muestraModificacion/{tabla}/{registro}', 'EjemplarControlle
 Route::post('Ejemplar/validaKcb', 'EjemplarController@validaKcb');
 Route::get('Ejemplar/eliminaEjemplar/{ejemplar_id}', 'EjemplarController@eliminaEjemplar');
 Route::get('Ejemplar/generaPdf', 'EjemplarController@generaPdf');
+Route::get('Ejemplar/certificadoRosado/{ejemplar_id}', 'EjemplarController@certificadoRosado');
 
 
 
@@ -193,7 +194,7 @@ Route::get('User/listado', 'UserController@listado');
 // ---------- MIGRACIONES ----------
 Route::get('Migracion/razas', 'MigracionController@razas');
 /* Migracion de Propietarios */
-Route::get('Migracion/propietarios', 'MigracionController@propietarios');
+Route::get('Migracion/propietarios_1', 'MigracionController@propietarios');
 /* Migracion de Criaderos */
 Route::get('Migracion/criaderos', 'MigracionController@criaderos');
 /* Migracion de Criaderos */
