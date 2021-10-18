@@ -88,7 +88,7 @@
         <div class="card card-custom gutter-b">
             <div class="card-header">
                 <div class="card-title">
-                    <h3 class="card-label">Proteccion Legal</h3>
+                    <h3 class="card-label">Procentaje de Ejemplares Nacionales y Extranjeros</h3>
                 </div>
             </div>
             <div class="card-body">
@@ -105,7 +105,7 @@
         <div class="card card-custom gutter-b">
             <div class="card-header">
                 <div class="card-title">
-                    <h3 class="card-label">Estado de Conservacion</h3>
+                    <h3 class="card-label">Usuarios Registrados pro Tipo</h3>
                 </div>
             </div>
             <div class="card-body">
@@ -225,12 +225,13 @@
 
         // grafico pie
         var options = {
-          series: [44, 55],
+          // series: [44, 55],
+          series: @json($ejemplarExNa),
           chart: {
           width: 480,
           type: 'pie',
         },
-        labels: ['Patrimonio Nacional', 'De Conjunto'],
+        labels: ['Ejemplares Nacionales', 'Ejemplares Extranjeros'],
         responsive: [{
           breakpoint: 480,
           options: {
@@ -249,12 +250,13 @@
 
         // grafico dona
          var options = {
-          series: [44, 55],
+          // series: [44, 55,10],
+          series: @json($usuariosDona),
           chart: {
           width: 480,
           type: 'donut',
         },
-        labels: ['Bueno', 'Regular'],	
+        labels: ['Criador', 'Socio', 'indefinido'],	
         responsive: [{
           breakpoint: 480,
           options: {
