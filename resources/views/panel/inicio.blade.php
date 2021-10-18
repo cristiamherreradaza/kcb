@@ -10,9 +10,9 @@
             <!--begin::Body-->
             <div class="card-body my-4">
                 <a href="#"
-                    class="card-title font-weight-bolder text-info font-size-h6 mb-4 text-hover-state-dark d-block">REGISTROS</a>
+                    class="card-title font-weight-bolder text-info font-size-h6 mb-4 text-hover-state-dark d-block">PROPIETARIOS</a>
                 <div class="font-weight-bold text-muted font-size-sm">
-                    <span class="text-dark-75 font-weight-bolder font-size-h2 mr-2">98</span>Patrimonios
+                    <span class="text-dark-75 font-weight-bolder font-size-h2 mr-2">{{ $propietarios }}</span>Registrados
                 </div>
                 <div class="progress progress-xs mt-7 bg-info-o-60">
                     <div class="progress-bar bg-info" role="progressbar" style="width: 22%;" aria-valuenow="50"
@@ -48,9 +48,9 @@
             <!--begin::Body-->
             <div class="card-body my-4">
                 <a href="#"
-                    class="card-title font-weight-bolder text-white font-size-h6 mb-4 text-hover-state-dark d-block">Restaurados</a>
+                    class="card-title font-weight-bolder text-white font-size-h6 mb-4 text-hover-state-dark d-block">Ejemplares</a>
                 <div class="font-weight-bold text-white font-size-sm">
-                    <span class="font-size-h2 mr-2">560</span>Patrimonios Restaurados
+                    <span class="font-size-h2 mr-2">{{ $ejemplares }}</span>Registrados
                 </div>
                 <div class="progress progress-xs mt-7 bg-white-o-90">
                     <div class="progress-bar bg-white" role="progressbar" style="width: 52%;" aria-valuenow="50"
@@ -69,7 +69,7 @@
         <div class="card card-custom gutter-b">
             <div class="card-header">
                 <div class="card-title">
-                    <h3 class="card-label">Restauraciones de la gestion 2021</h3>
+                    <h3 class="card-label">Registro de Ejemplares de la gestion {{ date('Y') }}</h3>
                 </div>
             </div>
             <div class="card-body">
@@ -123,11 +123,27 @@
 @section('js')
     {{-- <script src="{{ asset('assets/js/pages/features/charts/apexcharts.js') }}"></script> --}}
     <script>
+
+      // @if (false)
+      //   console.log('true');
+      // @else
+      //   console.log('false');
+      // @endif
+      const $array1;
+      $array1 = @json($registrosEjemplares);
+      console.log($array1);
+
+      for($i=0; $i < $array1.length ; $i++){
+        console.log($array1[$i]);
+      }
       // grafico de barras
         var options = {
           series: [{
-          name: 'Patrimonios',
-          data: [2, 3, 4, 10, 4, 5, 3, 2, 1, 3, 5, 2] //valores del grafico
+          name: 'Ejemplares',
+          // data: [5000, 3, 4, 10, 4, 5, 3, 2, 1, 3, 5, 2] //valores del grafico
+          // data: ['50', 3, 4, 10, 4, 5, 3, 2, 1, 3, 5, 2] //valores del grafico
+          data: @json($registrosEjemplares) //valores del grafico
+
         }],
           chart: {
           height: 350,
@@ -194,7 +210,7 @@
         
         },
         title: {
-          text: 'Cantidad de patrimonios restaurados de esta gestion',
+          text: 'Cantidad de ejemplares registrados de esta gestion',
           floating: true,
           offsetY: 330,
           align: 'center',
