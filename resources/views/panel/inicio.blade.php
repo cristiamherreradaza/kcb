@@ -105,7 +105,7 @@
         <div class="card card-custom gutter-b">
             <div class="card-header">
                 <div class="card-title">
-                    <h3 class="card-label">Usuarios Registrados pro Tipo</h3>
+                    <h3 class="card-label">Usuarios Registrados por Tipo</h3>
                 </div>
             </div>
             <div class="card-body">
