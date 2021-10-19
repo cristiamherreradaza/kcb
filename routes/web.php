@@ -189,6 +189,12 @@ Route::get('Alquiler/listado', 'AlquilerController@listado');
 Route::get('User/listado', 'UserController@listado');
 
 
+// REPORTES
+Route::get('Reporte/ejemplarporraza', 'ReporteController@ejemplarporRaza');
+Route::post('Reporte/ejemplarporrazaPdf', 'ReporteController@ejemplarporRazaPdf');
+
+
+
 
 
 // ---------- MIGRACIONES ----------

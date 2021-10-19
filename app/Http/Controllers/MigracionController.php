@@ -720,7 +720,8 @@ class MigracionController extends Controller
 
     public function corregirFechaEjemplares(){
         $mascotas = DB::table('amascotas')
-                        // ->orderBy('id', 'desc')
+                        ->where('id','<=', 5741 )
+                        ->orderBy('id', 'desc')
                         ->get();
 
         foreach ($mascotas as $m) {
@@ -762,6 +763,10 @@ class MigracionController extends Controller
             }
 
             $ejemplar->departamento = $departamento;
+
+            // if($m->created_at != null && $m->created_at != ''){
+            $ejemplar->created_at = $m->created;
+            // }
 
             $ejemplar->save();
             
