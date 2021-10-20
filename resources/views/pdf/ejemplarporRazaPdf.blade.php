@@ -276,8 +276,8 @@
                 </tfoot>
 
             </table> --}}
-            
-            {{-- <table class="table">
+            <br>
+            <table class="table">
                 <thead class="thead-light">
                     <tr>
                     <th scope="col">#</th>
@@ -306,7 +306,7 @@
                     <td>@twitter</td>
                     </tr>
                 </tbody>
-            </table> --}}
+            </table>
         {{-- </div>
     </div> --}}
 </body>
