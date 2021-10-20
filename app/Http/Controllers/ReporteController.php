@@ -24,6 +24,8 @@ class ReporteController extends Controller
                         ->orderBy('razas.nombre', 'asc')
                         ->get();
 
+        // return view('pdf.ejemplarporRazaPdf')->with(compact('anio','ejemplares'));
+
         $pdf    = PDF::loadView('pdf.ejemplarporRazaPdf', compact('anio','ejemplares'))->setPaper('letter');
 
         return $pdf->stream('boletinInscripcion_'.date('Y-m-d H:i:s').'.pdf');        
