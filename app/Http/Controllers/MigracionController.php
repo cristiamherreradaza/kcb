@@ -545,7 +545,7 @@ class MigracionController extends Controller
     // MIGRACION DE PADRES MADRES
     public function padres_madres(){
         $mascotas = DB::table('amascotas')
-                            ->orderBy('id', 'desc')
+                            // ->orderBy('id', 'desc')
                             // ->limit(2000)
                             ->get();
         // $mascotas = DB::table('amascotas')->where('id',42218)->first();
@@ -567,36 +567,36 @@ class MigracionController extends Controller
 
                 // dd($mascota);
 
-                // $padre = DB::table('ejemplares')->where('codigo_anterior',$m->reproductor_id)->first();
-                // if($padre){
-                //     $mascota->padre_id = $padre->id;
-                // }else{
-                //     $mascota->padre_id = null;
-                // }
-                // $madre = DB::table('ejemplares')->where('codigo_anterior',$m->reproductora_id)->first();
-                // if($madre){
-                //     $mascota->madre_id = $madre->id;
-                // }else{
-                //     $mascota->madre_id = null;
-                // }
+                $padre = DB::table('ejemplares')->where('codigo_anterior',$m->reproductor_id)->first();
+                if($padre){
+                    $mascota->padre_id = $padre->id;
+                }else{
+                    $mascota->padre_id = null;
+                }
+                $madre = DB::table('ejemplares')->where('codigo_anterior',$m->reproductora_id)->first();
+                if($madre){
+                    $mascota->madre_id = $madre->id;
+                }else{
+                    $mascota->madre_id = null;
+                }
                 $camada = DB::table('camadas')->where('codigo_anterior',$m->camada_id)->first();
                 if($camada){
                     $mascota->camada_id = $camada->id;
                 }else{
                     $mascota->camada_id = null;
                 }
-                // $criadero = DB::table('criaderos')->where('codigo_anterior',$m->criadero_id)->first();
-                // if($criadero){
-                //     $mascota->criadero_id = $criadero->id;
-                // }else{
-                //     $mascota->criadero_id = null;
-                // }
-                // $propietario = DB::table('criaderos')->where('codigo_anterior',$m->criadero_id)->first();
-                // if($propietario){
-                //     $mascota->criadero_id = $criadero->id;
-                // }else{
-                //     $mascota->criadero_id = null;
-                // }
+                $criadero = DB::table('criaderos')->where('codigo_anterior',$m->criadero_id)->first();
+                if($criadero){
+                    $mascota->criadero_id = $criadero->id;
+                }else{
+                    $mascota->criadero_id = null;
+                }
+                $propietario = DB::table('criaderos')->where('codigo_anterior',$m->criadero_id)->first();
+                if($propietario){
+                    $mascota->criadero_id = $criadero->id;
+                }else{
+                    $mascota->criadero_id = null;
+                }
                 // dd($mascota);
                 $mascota->save();
             }
@@ -800,7 +800,7 @@ class MigracionController extends Controller
 
     public function ejmplares_ventos(){
         $eventos = DB::table('atemporalmascotas')
-                    ->where('evento_id','>=',68)    
+                    // ->where('evento_id','>=',68)    
                     ->get();
 
         foreach ($eventos as $e){
