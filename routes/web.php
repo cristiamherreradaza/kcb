@@ -21,14 +21,15 @@ use Illuminate\Support\Facades\Route;
 });*/
 
 // Route::get('/', 'SocialController@inicio');
-Route::get('/', 'UserController@listado');
+// Route::get('/', 'UserController@listado');
+Route::get('/', 'PanelController@inicio');
 // Route::get('/', 'home');
 
 Auth::routes();
 
 // PANEL DE CONTROL
 Route::get('/home', 'PanelController@inicio');
-Route::get('Panel/inicio', 'PanelController@inicio');
+Route::get('panel/inicio', 'PanelController@inicio');
 
 // RED SOCIAL
 Route::get('Social/inicio', 'SocialController@inicio');
@@ -187,6 +188,12 @@ Route::get('Alquiler/listado', 'AlquilerController@listado');
 
 // MENUS
 Route::get('User/listado', 'UserController@listado');
+
+
+// REPORTES
+Route::get('Reporte/ejemplarporraza', 'ReporteController@ejemplarporRaza');
+Route::post('Reporte/ejemplarporrazaPdf', 'ReporteController@ejemplarporRazaPdf');
+
 
 
 

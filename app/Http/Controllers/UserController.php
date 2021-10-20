@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Menu;
 use App\Pago;
 use App\User;
 use App\Perfil;
@@ -10,7 +11,6 @@ use DataTables;
 use App\Criadero;
 use App\Sucursal;
 use App\Categoria;
-use App\Menu;
 use App\MenuUsers;
 use App\MenuPerfil;
 use App\PropietarioCriadero;

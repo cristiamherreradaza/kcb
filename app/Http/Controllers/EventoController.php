@@ -203,6 +203,8 @@ class EventoController extends Controller
 
         $ejemplaresEventos = EjemplarEvento::where('evento_id',$evento_id)
                                             ->get();
+                                            // ->toSql();
+                                            // dd($ejemplaresEventos);
 
         $evento = Evento::find($evento_id);
 

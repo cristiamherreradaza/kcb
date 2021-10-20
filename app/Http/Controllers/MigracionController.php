@@ -227,6 +227,7 @@ class MigracionController extends Controller
                 $fecha_emi = $mascota->fecha_emision;
             }
 
+            $ejemplar->fecha_nacionalizado = $mascota->f_nacionalizado;
             $ejemplar->fecha_emision    = $fecha_emi;
             $ejemplar->fecha_nacimiento = $fecha_nac;
             $ejemplar->chip             = $mascota->chip;
@@ -298,6 +299,7 @@ class MigracionController extends Controller
                     $departamento = "Extranjero";
                     break;
             }
+            $ejemplar->departamento = $departamento;
 
             $propietario = User::where('codigo_anterior', $mascota->propietario_id)->first();
 
@@ -719,12 +721,58 @@ class MigracionController extends Controller
 
     public function corregirFechaEjemplares(){
         $mascotas = DB::table('amascotas')
+                        // ->where('id','<=', 5741 )
                         ->orderBy('id', 'desc')
                         ->get();
 
         foreach ($mascotas as $m) {
             echo "Id =-> ".$m->id." Nombre => ".$m->nombre_completo."<br>";
+
             $ejemplar = Ejemplar::where('codigo_anterior',$m->id)->first();
+
+            $ejemplar->fecha_nacionalizado = $m->f_nacionalizado;
+
+
+            // switch ($m->departamento_id) {
+            //     case 1:
+            //         $departamento = "La Paz";
+            //         break;
+            //     case 2:
+            //         $departamento = "Cochabamba";
+            //         break;
+            //     case 3:                    
+            //         $departamento = "Santa Cruz";
+            //         break;
+            //     case 4:
+            //         $departamento = "Oruro";
+            //         break;
+            //     case 5:
+            //         $departamento = "Potosi";
+            //     break;
+            //     case 6:
+            //         $departamento = "Tarija";
+            //         break;
+            //     case 7:
+            //         $departamento = "Beni";
+            //         break;
+            //     case 8:
+            //         $departamento = "Pando";
+            //         break;
+            //     case 9:
+            //         $departamento = "Sucre";
+            //         break;
+            //     case null:
+            //         $departamento = "Extranjero";
+            //         break;
+            // }
+
+            // $ejemplar->departamento = $departamento;
+
+            // if($m->created_at != null && $m->created_at != ''){
+            // $ejemplar->created_at = $m->created;
+            // }
+
+            $ejemplar->save();
             
             // if($ejemplar){
             //     if($m->fecha_nacimiento == '0000-00-00'){
@@ -735,17 +783,18 @@ class MigracionController extends Controller
     
             //     $ejemplar->save();
             // }
-            if($ejemplar){
-                if($m->fecha_emision == '0000-00-00'){
-                    $fecha_emi = null;
-                }else{
-                    $fecha_emi = $m->fecha_emision;
-                }
 
-                $ejemplar->fecha_emision = $fecha_emi;
+            // if($ejemplar){
+            //     if($m->fecha_emision == '0000-00-00'){
+            //         $fecha_emi = null;
+            //     }else{
+            //         $fecha_emi = $m->fecha_emision;
+            //     }
 
-                $ejemplar->save();
-            }
+            //     $ejemplar->fecha_emision = $fecha_emi;
+
+            //     $ejemplar->save();
+            // }
         }
         echo "<h1 class='text-success'>SUCCESSFUL</h1>";
         

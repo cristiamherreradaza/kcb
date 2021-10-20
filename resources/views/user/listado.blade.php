@@ -188,11 +188,11 @@
 					// $("#permisos").html('');
 					$("#permisos").html(data);
 
-					Swal.fire(
-                        "Guardado!",
-                        "Se gurdo con Exito el Permiso.",
-                        "success"
-                    )
+					// Swal.fire(
+                    //     "Guardado!",
+                    //     "Se gurdo con Exito el Permiso.",
+                    //     "success"
+                    // )
 				}
 			});
 		}

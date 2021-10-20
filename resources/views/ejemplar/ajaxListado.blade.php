@@ -8,6 +8,7 @@
             <th>CHIP</th>
             <th>RAZA</th>
             <th>PROPIETARIO</th>
+            <th>DEPARTAMENTO</th>
             {{-- <th>Criaderos</th> --}}
             <th></th>
         </tr>
@@ -29,6 +30,7 @@
                     {{ $e->propietario['name'] }}
                 @endif
             </td>
+            <td>{{ $e->departamento }}</td>
             <td style="width: 10%">
                 <button type="button" class="btn btn-sm btn-icon btn-warning" onclick="edita('{{ $e->id }}')">
                     <i class="flaticon2-edit"></i>

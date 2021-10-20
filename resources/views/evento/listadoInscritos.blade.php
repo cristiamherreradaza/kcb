@@ -253,12 +253,26 @@
 								<td>{{ ($ee->ejemplar)? $ee->ejemplar->nombre_completo : $ee->nombre_completo}}</td>
 								<td>{{ ($ee->ejemplar)? $ee->ejemplar->raza->nombre : $ee->raza->nombre}}</td>
 								<td>{{ $ee->categoriaPista->nombre }}</td>
-								<td>{{ ($ee->ejemplar)? $ee->ejemplar->propietario->name : $ee->propietario}}</td>
+								
 								<td>
-                                    <button type="button" class="btn btn-sm btn-icon btn-warning" onclick="edita('{{ $ee->id }}', '{{ ($ee->ejemplar)? addslashes($ee->ejemplar->nombre_completo) : addslashes($ee->nombre_completo) }}', '{{ ($ee->ejemplar)? $ee->ejemplar->raza->id : $ee->raza->id }}', '{{ ($ee->ejemplar)? $ee->ejemplar->kcb: '' }}', '{{ ($ee->ejemplar)? $ee->ejemplar->color: $ee->color }}', '{{ ($ee->ejemplar)? $ee->ejemplar->fecha_nacimiento: $ee->fecha_nacimiento }}', '{{ ($ee->ejemplar)? $ee->ejemplar->sexo : $ee->sexo }}', '{{ $ee->codigo_nacionalizado }}', '{{ ($ee->ejemplar)? $ee->ejemplar->num_tatuaje : $ee->tatuaje }}', '{{ ($ee->ejemplar)? $ee->ejemplar->chip : $ee->chip }}', '{{ ($ee->ejemplar)? $ee->ejemplar->padre->kcb : $ee->kcb_padre }}', '{{ ($ee->ejemplar)? addslashes($ee->ejemplar->padre->nombre) : addslashes($ee->nombre_padre) }}', '{{ ($ee->ejemplar)? $ee->ejemplar->madre->kcb : $ee->kcb_madre }}', '{{ ($ee->ejemplar)? addslashes($ee->ejemplar->madre->nombre) : addslashes($ee->nombre_madre) }}', '{{ $ee->categoria_pista_id }}', '{{ $ee->criador }}', '{{ ($ee->ejemplar)? addslashes($ee->ejemplar->propietario->name) : addslashes($ee->propietario) }}', '{{ ($ee->ejemplar)? $ee->ejemplar->propietario->departamento : $ee->ciudad }}', '{{ ($ee->ejemplar)? $ee->ejemplar->propietario->celulares : $ee->telefono }}', '{{ ($ee->ejemplar)? $ee->ejemplar->propietario->email : $ee->email }}', '{{ $ee->estado }}', '{{ $ee->extrangero }}' )">
+									@php
+										if($ee->ejemplar){
+											if($ee->ejemplar->propietario != null){
+												echo $ee->ejemplar->propietario->name;
+											}else{
+												echo '';
+											}
+										}else{
+											echo $ee->propietario;
+										}
+									@endphp
+								</td>
+								<td>
+                                    {{-- <button type="button" class="btn btn-sm btn-icon btn-warning" onclick="edita('{{ $ee->id }}', '{{ ($ee->ejemplar)? addslashes($ee->ejemplar->nombre_completo) : addslashes($ee->nombre_completo) }}', '{{ ($ee->ejemplar)? $ee->ejemplar->raza->id : $ee->raza->id }}', '{{ ($ee->ejemplar)? $ee->ejemplar->kcb: '' }}', '{{ ($ee->ejemplar)? $ee->ejemplar->color: $ee->color }}', '{{ ($ee->ejemplar)? $ee->ejemplar->fecha_nacimiento: $ee->fecha_nacimiento }}', '{{ ($ee->ejemplar)? $ee->ejemplar->sexo : $ee->sexo }}', '{{ $ee->codigo_nacionalizado }}', '{{ ($ee->ejemplar)? $ee->ejemplar->num_tatuaje : $ee->tatuaje }}', '{{ ($ee->ejemplar)? $ee->ejemplar->chip : $ee->chip }}', '{{ ($ee->ejemplar)? $ee->ejemplar->padre->kcb : $ee->kcb_padre }}', '{{ ($ee->ejemplar)? addslashes($ee->ejemplar->padre->nombre) : addslashes($ee->nombre_padre) }}', '{{ ($ee->ejemplar)? $ee->ejemplar->madre->kcb : $ee->kcb_madre }}', '{{ ($ee->ejemplar)? addslashes($ee->ejemplar->madre->nombre) : addslashes($ee->nombre_madre) }}', '{{ $ee->categoria_pista_id }}', '{{ $ee->criador }}', '{{ ($ee->ejemplar)? addslashes($ee->ejemplar->propietario->name) : addslashes($ee->propietario) }}', '{{ ($ee->ejemplar)? $ee->ejemplar->propietario->departamento : $ee->ciudad }}', '{{ ($ee->ejemplar)? $ee->ejemplar->propietario->celulares : $ee->telefono }}', '{{ ($ee->ejemplar)? $ee->ejemplar->propietario->email : $ee->email }}', '{{ $ee->estado }}', '{{ $ee->extrangero }}' )"> --}}
+									<button type="button" class="btn btn-sm btn-icon btn-warning" onclick="edita('{{ $ee->id }}', '{{ ($ee->ejemplar)? trim(addslashes($ee->ejemplar->nombre_completo)): trim(addslashes($ee->nombre_completo)) }}', '{{ ($ee->ejemplar)? $ee->ejemplar->raza->id : $ee->raza->id }}', '{{ ($ee->ejemplar)? $ee->ejemplar->kcb: '' }}', '{{ ($ee->ejemplar)? $ee->ejemplar->color: $ee->color }}', '{{ ($ee->ejemplar)? $ee->ejemplar->fecha_nacimiento: $ee->fecha_nacimiento }}', '{{ ($ee->ejemplar)? $ee->ejemplar->sexo : $ee->sexo }}', '{{ $ee->codigo_nacionalizado }}', '{{ ($ee->ejemplar)? $ee->ejemplar->num_tatuaje : $ee->tatuaje }}', '{{ ($ee->ejemplar)? $ee->ejemplar->chip : $ee->chip }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->padre)? $ee->ejemplar->padre->kcb : '') : $ee->kcb_padre }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->padre)? addslashes($ee->ejemplar->padre->nombre) : '') : addslashes($ee->nombre_padre) }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->madre)? $ee->ejemplar->madre->kcb : '') : $ee->kcb_madre }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->madre)?  addslashes($ee->ejemplar->madre->nombre) : '') : addslashes($ee->nombre_madre) }}', '{{ $ee->categoria_pista_id }}', '{{ $ee->criador }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->propietario)? addslashes($ee->ejemplar->propietario->name) : '' ) : addslashes($ee->propietario) }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->propietario)? $ee->ejemplar->propietario->departamento : '') : $ee->ciudad }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->propietario)? $ee->ejemplar->propietario->celulares : '') : $ee->telefono }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->propietario)? $ee->ejemplar->propietario->email : '') : $ee->email }}', '{{ $ee->estado }}', '{{ $ee->extrangero }}' )">
                                         <i class="flaticon2-edit"></i>
                                     </button>
-									<button type="button" class="btn btn-sm btn-icon btn-danger" onclick="elimina('{{ $ee->id }}', '{{ ($ee->ejemplar)? addslashes($ee->ejemplar->nombre_completo) : addslashes($ee->nombre_completo) }}')">
+									<button type="button" class="btn btn-sm btn-icon btn-danger" onclick="elimina('{{ $ee->id }}', '{{ ($ee->ejemplar)? trim(addslashes($ee->ejemplar->nombre_completo)) :  trim(addslashes($ee->nombre_completo)) }}')">
 										<i class="flaticon2-cross"></i>
 									</button>
 								</td>
@@ -293,30 +307,30 @@
 
 		function edita(id, nombre, raza, kcb, color, fecha_nacimiento, sexo, cod_extrangero, tatuaje, chip, kcb_padre, nom_padre, kcb_madre, nom_madre, cat_pista_id, criador, propietario, ciudad, telefono, email, estado, extranjero)
     	{
-			$("#ejemplarEvento").val(id);
-			$("#nombre").val(nombre);
-			$("#raza_id").val(raza);
-			$("#raza_id").trigger('change');
-			$("#kcb").val(kcb);
-			$("#color").val(color);
-			$("#fecha_nacimiento").val(fecha_nacimiento);
-			$("#sexo").val(sexo);
-			$("#cod_extranjero").val(cod_extrangero);
-			$("#num_tatuaje").val(tatuaje);
-			$("#chip").val(chip);
-			$("#kcb_padre").val(kcb_padre);
-			$("#nom_padre").val(nom_padre);
-			$("#kcb_madre").val(kcb_madre);
-			$("#nom_madre").val(nom_madre);
-			$("#categoria_pista_id").val(cat_pista_id);
-			$("#categoria_pista_id").trigger('change');
-			$("#criador").val(criador);
-			$("#propietario").val(propietario);
-			$("#ciudad").val(ciudad);
-			$("#telefono").val(telefono);
-			$("#email").val(email);
-			$("#estado").val(estado);
-			$("#extranjero").val(extranjero);
+			$('#ejemplarEvento').val(id);
+			$('#nombre').val(nombre);
+			$('#raza_id').val(raza);
+			$('#raza_id').trigger('change');
+			$('#kcb').val(kcb);
+			$('#color').val(color);
+			$('#fecha_nacimiento').val(fecha_nacimiento);
+			$('#sexo').val(sexo);
+			$('#cod_extranjero').val(cod_extrangero);
+			$('#num_tatuaje').val(tatuaje);
+			$('#chip').val(chip);
+			$('#kcb_padre').val(kcb_padre);
+			$('#nom_padre').val(nom_padre);
+			$('#kcb_madre').val(kcb_madre);
+			$('#nom_madre').val(nom_madre);
+			$('#categoria_pista_id').val(cat_pista_id);
+			$('#categoria_pista_id').trigger('change');
+			$('#criador').val(criador);
+			$('#propietario').val(propietario);
+			$('#ciudad').val(ciudad);
+			$('#telefono').val(telefono);
+			$('#email').val(email);
+			$('#estado').val(estado);
+			$('#extranjero').val(extranjero);
 
             if(kcb != '' && cod_extrangero == ''){
 				$("#nombre").prop('disabled', true);
