@@ -43,7 +43,7 @@
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <button class="btn btn-danger btn-block" onclick="generar()"><i class="far fa-file-pdf"></i>Generar</button>
+                            <button class="btn btn-danger btn-block"  onclick="generar()"><i class="far fa-file-pdf"></i>Generar</button>
                         </div>
                     </div>
                 </form>

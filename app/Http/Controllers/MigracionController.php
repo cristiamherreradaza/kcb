@@ -227,6 +227,7 @@ class MigracionController extends Controller
                 $fecha_emi = $mascota->fecha_emision;
             }
 
+            $ejemplar->fecha_nacionalizado = $mascota->f_nacionalizado;
             $ejemplar->fecha_emision    = $fecha_emi;
             $ejemplar->fecha_nacimiento = $fecha_nac;
             $ejemplar->chip             = $mascota->chip;
@@ -720,7 +721,7 @@ class MigracionController extends Controller
 
     public function corregirFechaEjemplares(){
         $mascotas = DB::table('amascotas')
-                        ->where('id','<=', 5741 )
+                        // ->where('id','<=', 5741 )
                         ->orderBy('id', 'desc')
                         ->get();
 
@@ -729,43 +730,46 @@ class MigracionController extends Controller
 
             $ejemplar = Ejemplar::where('codigo_anterior',$m->id)->first();
 
-            switch ($m->departamento_id) {
-                case 1:
-                    $departamento = "La Paz";
-                    break;
-                case 2:
-                    $departamento = "Cochabamba";
-                    break;
-                case 3:                    
-                    $departamento = "Santa Cruz";
-                    break;
-                case 4:
-                    $departamento = "Oruro";
-                    break;
-                case 5:
-                    $departamento = "Potosi";
-                break;
-                case 6:
-                    $departamento = "Tarija";
-                    break;
-                case 7:
-                    $departamento = "Beni";
-                    break;
-                case 8:
-                    $departamento = "Pando";
-                    break;
-                case 9:
-                    $departamento = "Sucre";
-                    break;
-                case null:
-                    $departamento = "Extranjero";
-                    break;
-            }
+            $ejemplar->fecha_nacionalizado = $m->f_nacionalizado;
 
-            $ejemplar->departamento = $departamento;
+
+            // switch ($m->departamento_id) {
+            //     case 1:
+            //         $departamento = "La Paz";
+            //         break;
+            //     case 2:
+            //         $departamento = "Cochabamba";
+            //         break;
+            //     case 3:                    
+            //         $departamento = "Santa Cruz";
+            //         break;
+            //     case 4:
+            //         $departamento = "Oruro";
+            //         break;
+            //     case 5:
+            //         $departamento = "Potosi";
+            //     break;
+            //     case 6:
+            //         $departamento = "Tarija";
+            //         break;
+            //     case 7:
+            //         $departamento = "Beni";
+            //         break;
+            //     case 8:
+            //         $departamento = "Pando";
+            //         break;
+            //     case 9:
+            //         $departamento = "Sucre";
+            //         break;
+            //     case null:
+            //         $departamento = "Extranjero";
+            //         break;
+            // }
+
+            // $ejemplar->departamento = $departamento;
 
             // if($m->created_at != null && $m->created_at != ''){
-            $ejemplar->created_at = $m->created;
+            // $ejemplar->created_at = $m->created;
             // }
 
             $ejemplar->save();

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\DB;
     // 'PDF' => Barryvdh\DomPDF\Facade::class;
 
 class ReporteController extends Controller
@@ -14,9 +15,16 @@ class ReporteController extends Controller
     }
 
     public function ejemplarporRazaPdf(Request $request){
-        $miNombre = $request->input('anio');
 
-        $pdf    = PDF::loadView('pdf.ejemplarporRazaPdf', compact('miNombre'))->setPaper('letter');
+        $anio = $request->input('anio');
+
+        $ejemplares = DB::table('ejemplares')
+                        ->join('razas', 'ejemplares.raza_id', '=', 'razas.id')
+                        ->groupBy('ejemplares.raza_id')
+                        ->orderBy('razas.nombre', 'asc')
+                        ->get();
+
+        $pdf    = PDF::loadView('pdf.ejemplarporRazaPdf', compact('anio','ejemplares'))->setPaper('letter');
 
         return $pdf->stream('boletinInscripcion_'.date('Y-m-d H:i:s').'.pdf');        
 
