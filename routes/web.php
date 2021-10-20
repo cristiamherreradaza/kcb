@@ -16,13 +16,13 @@ use Illuminate\Support\Facades\Route;
 // Route::get('home', 'SocialController@inicio')->name('home');
 
 
-/*Route::get('/home', function () {
-    return view('home');
-});*/
+// Route::get('/', function () {
+//     return view('home');
+// });
 
 // Route::get('/', 'SocialController@inicio');
-// Route::get('/', 'UserController@listado');
-Route::get('/', 'PanelController@inicio');
+Route::get('/', 'UserController@listado');
+// Route::get('/', 'PanelController@inicio');
 // Route::get('/', 'home');
 
 Auth::routes();
