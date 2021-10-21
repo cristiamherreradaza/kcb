@@ -21,15 +21,15 @@ use Illuminate\Support\Facades\Route;
 // });
 
 // Route::get('/', 'SocialController@inicio');
-// Route::get('/', 'UserController@listado');
+Route::get('/', 'UserController@listado');
 // Route::get('/', 'PanelController@inicio');
 // Route::get('/', 'home');
 
 Auth::routes();
 
 // PANEL DE CONTROL
-// Route::get('/home', 'PanelController@inicio');
-Route::get('/', 'PanelController@inicio');
+Route::get('/home', 'PanelController@inicio');
+// Route::get('/', 'PanelController@inicio');
 Route::get('panel/inicio', 'PanelController@inicio');
 
 // RED SOCIAL
