@@ -29,6 +29,7 @@ Auth::routes();
 
 // PANEL DE CONTROL
 Route::get('/home', 'PanelController@inicio');
+// Route::get('/', 'PanelController@inicio');
 Route::get('panel/inicio', 'PanelController@inicio');
 
 // RED SOCIAL
@@ -179,6 +180,7 @@ Route::post('Ejemplar/validaKcb', 'EjemplarController@validaKcb');
 Route::get('Ejemplar/eliminaEjemplar/{ejemplar_id}', 'EjemplarController@eliminaEjemplar');
 Route::get('Ejemplar/generaPdf', 'EjemplarController@generaPdf');
 Route::get('Ejemplar/certificadoRosado/{ejemplar_id}', 'EjemplarController@certificadoRosado');
+Route::get('Ejemplar/certificadoRosadoAdelante/{ejemplar_id}', 'EjemplarController@certificadoRosadoAdelante');
 
 
 
