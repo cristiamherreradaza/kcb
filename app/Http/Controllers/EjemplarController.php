@@ -1991,4 +1991,13 @@ class EjemplarController extends Controller
 
         return view('certificado.certificadoRosado')->with(compact('ejemplar'/*, 'examenEjemplar', 'transferenciaEjemplar', 'tituloEjemplar', 'examenEjemplarAsignacion', 'transferenciaEjemplarAsignacion', 'tituloEjemplarAsignacion'*/));
     }
+
+    public function certificadoRosadoAdelante(Request $request,$ejemplar_id){
+        
+        $examenAptoCria = ExamenMascota::where('ejemplar_id',$ejemplar_id)
+                                        ->where('examen_id',2)
+                                        ->first();
+                                    
+        return view('certificado.certificadoRosadoAdelante')->with(compact('ejemplar'/*, 'examenEjemplar', 'transferenciaEjemplar', 'tituloEjemplar', 'examenEjemplarAsignacion', 'transferenciaEjemplarAsignacion', 'tituloEjemplarAsignacion'*/));
+    }
 }
