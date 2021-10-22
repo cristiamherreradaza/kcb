@@ -209,7 +209,17 @@
             <div id="ejemplares_1">
                 <div class="form-group row" id="ejemplares_1">
                     <div data-repeater-list="ejemplar" class="col-lg-12">
+                        
                         <div data-repeater-item class="form-group row align-items-center">
+                            {{-- <div class="row"> --}}
+                                <div class="col-md-12">
+                                    <div style="padding: 20px;">
+                                        <hr style='background-color: #79E9E6 ; height: 5px; opacity: 0.5;'>
+                                    </div>
+                                    {{-- <input type="button" class="form-control btn-primary" value="Ejemplares">
+                                    <hr> --}}
+                                </div>
+                            {{-- </div> --}}
                             <div class="col-md-3">
                                 <label>Nombre:</label>
                                 <input type="text" class="form-control" placeholder="Snoopy" name="nombre" />
