@@ -1232,7 +1232,7 @@
             @csrf
 
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div class="form-group">
                         <label for="nombre">Nombre
                             <span class="text-danger">*</span></label>
@@ -1257,6 +1257,14 @@
                             <option value="Nombre" {{ ($ejemplar!=null)? ($ejemplar->primero_mostrar=="Nombre")?"selected":'':'' }}>Nombre</option>
                             <option value="Afijo" {{ ($ejemplar!=null)? ($ejemplar->primero_mostrar=="Afijo")?"selected":'':'' }}>Afijo</option>
                         </select>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label for="primero_mostrar">Extranjero
+                            {{-- <span class="text-danger">*</span> --}}
+                        </label> <br>
+                        <input name="extranjero" data-switch="true" data-on-text="SI" data-off-text="NO" type="checkbox" data-on-color="success" {{ ($ejemplar != null)? (($ejemplar->extranjero == 'Si')? 'checked': ''):'' }} />
                     </div>
                 </div>
             </div>

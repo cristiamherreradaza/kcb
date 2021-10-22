@@ -158,6 +158,7 @@ class EjemplarController extends Controller
 
     public function guarda(Request $request)
     {
+        // dd($request->input('extranjero'));
         // preguntamos si existe el ejemplar
         if($request->input('ejemplar_id') == 0){
             // en caso que sea nuevo el formulariuo mandara 0
@@ -187,6 +188,11 @@ class EjemplarController extends Controller
         $ejemplar->criadero_id          = $request->input('criadero_id');
         $ejemplar->propietario_id       = $request->input('propietario_id');
         $ejemplar->kcb                  = $request->input('kcb');
+        if($request->input('extranjero')){
+            $ejemplar->extranjero       = 'si';
+        }else{
+            $ejemplar->extranjero       = null;
+        }
         $ejemplar->codigo_nacionalizado = $request->input('codigo_nacionalizado');
         $ejemplar->num_tatuaje          = $request->input('num_tatuaje');
         $ejemplar->chip                 = $request->input('chip');
