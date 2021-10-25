@@ -484,6 +484,7 @@ class EjemplarController extends Controller
         $camada->criadero_id        = $request->input('criadero_id'); 
         $camada->raza_id            = $request->input('raza_id');
         $camada->lechigada          = $request->input('lechigada');
+        $camada->camada             = $request->input('camada');
         $camada->fecha_nacimiento   = $request->input('fecha_nacimiento');
         $camada->lechigada          = $request->input('lechigada');
         $numeroCamadasMadre         = Camada::where('id',$request->input('madre_id'))->count();
@@ -2218,5 +2219,13 @@ class EjemplarController extends Controller
         $modificaionEspecifica->accion              = $accion;
 
         $modificaionEspecifica->save();
+    }
+
+    public function listaCamadasPadres(Request $request, $ejemplar_id, $padre ){
+        $camada = Camada::where(($padre==1)?'padre_id':'madre_id',$ejemplar_id)
+                            ->orderBy('id','desc')
+                            ->get();
+
+        return view('ejemplar.listaCamadasPadres')->with(compact('camada'));
     }
 }

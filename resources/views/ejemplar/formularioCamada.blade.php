@@ -92,7 +92,7 @@
             <br />
 
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div class="form-group">
                         <label for="exampleInputPassword1">PROPIETARIO
                         </label>
@@ -102,7 +102,7 @@
                     </div>
                 </div>
                 
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div class="form-group">
                         <label for="exampleInputPassword1">AFIJO
                         </label>
@@ -111,7 +111,13 @@
                         </select>
                     </div>
                 </div>
-
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">CAMADA
+                        </label>
+                        <input class="form-control" type="text" id="camada" name="camada" placeholder="A,B,C">
+                    </div>
+                </div>
             </div>
 
             <div class="row">
