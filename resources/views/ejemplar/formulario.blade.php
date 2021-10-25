@@ -1264,7 +1264,7 @@
                         <label for="primero_mostrar">Extranjero
                             {{-- <span class="text-danger">*</span> --}}
                         </label> <br>
-                        <input name="extranjero" data-switch="true" data-on-text="SI" data-off-text="NO" type="checkbox" data-on-color="success" {{ ($ejemplar != null)? (($ejemplar->extranjero == 'Si')? 'checked': ''):'' }} />
+                        <input name="extranjero" data-switch="true" data-on-text="SI" data-off-text="NO" type="checkbox" data-on-color="success" {{ ($ejemplar != null)? (($ejemplar->extranjero == 'si')? 'checked': ''):'' }} />
                     </div>
                 </div>
             </div>
@@ -1407,7 +1407,11 @@
 
                 <div class="col-md-3">
                 @php
-                    $var = "";
+                    if($ejemplar != null){
+                        $var = $ejemplar->departamento;
+                    }else{
+                        $var = "";
+                    }
                 @endphp
 
                     <div class="form-group">
@@ -1420,7 +1424,7 @@
                                 Oruro</option>
                             <option value="Potosi" {{ ($var!=null)? ($var=="Potosi")?"selected":'':'' }}>
                                 Potosi</option>
-                            <option value="Cochabamba" {{ ($var!=null)? ($var=="Cochabamba")?"selected":'':'' }}>
+                            <option value="Cochabamba" {{ ($var!=null)? (($var=="Cochabamba")?"selected":''):'' }}>
                                 Cochabamba</option>
                             <option value="Chuquisaca" {{ ($var!=null)? ($var=="Chuquisaca")?"selected":'':'' }}>
                                 Chuquisaca</option>
