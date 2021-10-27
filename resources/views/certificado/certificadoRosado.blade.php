@@ -2043,7 +2043,7 @@
 
     // let cadenaQr = holas;
     // let cadenaQr = "KCB: {{ $ejemplar->kcb }}\nNombre: {{trim($ejemplar->nombre_completo)}}\nRaza: {{trim($ejemplar->raza->nombre)}}\nN. Tatuaje: {{$ejemplar->num_tatuaje}}\nChip: {{ $ejemplar->chip }}\nSexo: {{ $ejemplar->sexo }}\nF. Nacimeinto: {{ $ejemplar->fecha_nacimiento }}\n";
-    let cadenaQr = "KCB: {{ $ejemplar->kcb }}\nNombre: {{trim($ejemplar->nombre_completo)}}\nRaza: {{trim($ejemplar->raza->nombre)}}\nN. Tatuaje: {{$ejemplar->num_tatuaje}}\nChip: {{ $ejemplar->chip }}\nSexo: {{ $ejemplar->sexo }}\nF. Nacimeinto: {{ $ejemplar->fecha_nacimiento }}\ncomo es";
+    let cadenaQr = "KCB: {{ $ejemplar->kcb }}\nNombre: {{trim($ejemplar->nombre_completo)}}\nRaza: {{trim($ejemplar->raza->nombre)}}\nN. Tatuaje: {{$ejemplar->num_tatuaje}}\nChip: {{ $ejemplar->chip }}\nSexo: {{ $ejemplar->sexo }}\n https://kcb.org.bo/";
 
     var qrcode = new QRCode("qrcode", {
         text: cadenaQr,
