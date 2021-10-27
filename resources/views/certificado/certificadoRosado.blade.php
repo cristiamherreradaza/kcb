@@ -1,74 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
+{{-- <!DOCTYPE html> --}}
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Document</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 @section('css')
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet">
 @endsection
-<style>
-
-    /* @page port {size: portrait;} */
+<style type="text/css">
     @page {
-        /* size: 21cm 29.7cm; */
-    /* margin: 30mm 45mm 30mm 45mm; */
         size: landscape;
-        /* size:A4; */
         margin: 0;
     }
-
-    /* .portrait {page: port;}
-
-    .landscape {page: land;} */
     body{
         width: 100%;
         margin: 0;
-    }
-    .certificado{
-        /* width: 100%;
-        background-color: red; */
-        /* height: 100%; */
-    }
-    #bloque-certificado{
-        /* width: 70%;  */
-        /* display:flex; */
-        /* position: relative;
-        display: inline-block;
-        text-align: center; */
-        /* background-color:red; */
-        /* margin-top: 100px; */
+        font-family: Arial, Helvetica, sans-serif;
     }
     #enlaces a{
-        /* left: 100px; */
-        /* right: 500px; */
         background-color:yellow;
     }
-    /* #table-datos{
-        height: 100px;
-    } */
     #datos-ejemplar-1{
+        /* background-color: yellow;
+        opacity: 0.5; */
         position: absolute;
-        top: 65px;
-        left: 140px;
-        color: #0414ff;
-        font-weight: bold;
+        top: 90px;
+        left: 310px;
+        /* color: #eeff00; */
+        /* font-weight: bold; */
         width: 700px;
-        /* padding:0%; */
     }
+    /* #kcb-ejemplar-master{
+        padding: 10px 0px 9px 0px;
+    } */
     #table-datos-1{
         width: 100%;
     }
     #color{
-        width: 150px;
+        width: 180px;
     }
     #fecha-naciento{
-        width: 100px;
+        width: 150px;
     }
     #consagnidad{
         width: 80px;
@@ -76,221 +48,188 @@
     #propietario{
         width: 400px;
         font-size: 15px;
-        /* padding: 5px; */
         padding: 5px 0px 5px 0px;
     }
     #direccion{
-        /* padding: 5px; */
-        padding: 5px 0px 5px 0px;
+        padding: 10px 0px 7px 0px;
     }
     #telefono{
-        padding: 3px 0px 3px 0px;
+        padding: 3px 0px 0px 0px;
     }
     #email{
-        padding: 3px 0px 3px 60px;
+        padding: 0px 0px 0px 60px;
     }
     table tr td{
-        /* border: solid 1px #000000; */
         text-align: left;
     }
     td{
-        /* height: 10px; */
-        /* padding: 5px; */
-        /* margin */
-        font-size: 13px;
+        /* background-color:red; */
+        font-size: 17px;
         padding: 0;
         margin: 0;
+        color: #0414ff;
+        font-weight: bold;
     }
     .impor-1{
         font-size: 22px;
     }
     .titulos{
-        /* background-color:red; */
-        /* padding: 15px 0px 15px 0px; */
         height: 33px;
     }
     #datos-ejemplar-2{
+        /* background-color: green;
+        opacity: 0.5; */
         position: absolute;
-        top: 65px;
-        left: 910px;
+        top: 90px;
+        left: 1060px;
         color: #0414ff;
         font-weight: bold;
         width: 550px;
-        /* height: 500px; */
         padding:0%;
     }
     #arbol-genealogio{
         position: absolute;
         top: 270px;
-        left: 80px;
+        left: 220px;
         color: #0414ff;
         font-weight: bold;
-        /* background-color:red; */
-        /* opacity: 0.8; */
         width:1340px;   
         height: 560px;   
     }
     #tabla-genealogio{
         width:100%;
     }
-
-    #padre_1{
+    .padres{
+        /* background-color: yellow; */
         position: absolute;
-        /* background-color:red; */
         width:275px;
+        height: 275px;
         font-size: 18px;
-        /* height: 10px; */
-
+    }
+    .padre_1{
+        top:0px;
     }
 
-    #padre_2{
-        position: absolute;
-        top: 300px;
-        /* background-color:red; */
-        width:275px;
-        font-size: 18px;
-        /* height: 10px; */
-
-    }
-    #abuelo_1{
-        position: absolute;
-        left: 280px;
-        width:287px;
-        font-size: 12px;
-        height: 135px;
-    }
-    #abuelo_2{
-        position: absolute;
-        left: 280px;
-        top: 135px;
-        width:287px;
-        font-size: 12px;
-        height: 135px;
-    }
-    #abuelo_3{
-        position: absolute;
+    .padre_2{
         top: 280px;
-        left: 280px;
-        width:287px;
-        font-size: 12px;
-        height: 135px;
     }
-    #abuelo_4{
+    .abuelos{
         position: absolute;
-        left: 280px;
-        top: 425px;
-        width:287px;
         font-size: 12px;
+        left: 280px;
+        width:287px;
         height: 135px;
     }
-    #tg_1,#tg_2,#tg_3,#tg_4,#tg_5,#tg_6,#tg_7,#tg_8{
+    .abuelo_1{
+        top:0px;
+    }
+    .abuelo_2{
+        top: 135px;
+    }
+    .abuelo_3{
+        top: 280px;
+    }
+    .abuelo_4{
+        top: 425px;
+    }
+    .tercera_generaciones{
         position: absolute;
         font-size: 11px;
         height: 60px;
         width:329px;
-    }
-    #tg_1{
         left: 570px;
-        width:329px;
     }
-    #tg_2{
-        left: 570px;
+    .tg_1{
+        top:0px;
+    }
+    .tg_2{
         top:63px;
     }
 
-    #tg_3{
-        left: 570px;
+    .tg_3{
         top:135px;
     }
-    #tg_4{
-        left: 570px;
+    .tg_4{
         top:210px;
     }
-    #tg_5{
-        left: 570px;
+    .tg_5{
         top: 280px;
     }
-    #tg_6{
-        left: 570px;
+    .tg_6{
         top:350px;
     }
-    #tg_7{
-        left: 570px;
+    .tg_7{
         top:423px;
     }
-    #tg_8{
-        left: 570px;
+    .tg_8{
         top:495px;
     }
-
-    #cg_1,#cg_2,#cg_3,#cg_4,#cg_5,#cg_6,#cg_7,#cg_8,#cg_9,#cg_10,#cg_11,#cg_12,#cg_13,#cg_14,#cg_15,#cg_16{
+    
+    .cuarta_generaciones{
+        /* background-color: yellowgreen; */
+        position: absolute;
+        width: 450px;
+        height: 32px;
+        font-size: 10px;
+        /* padding:0;
+        margin: 0; */
+        left: 900px;
+        /* word-wrap: break-word; */
+    }
+    /* .cg_1,.cg_2,.cg_3,.cg_4,#cg_5,#cg_6,#cg_7,#cg_8,#cg_9,#cg_10,#cg_11,#cg_12,#cg_13,#cg_14,#cg_15,#cg_16{
         position: absolute;
         font-size: 10px;
         padding:0;
         margin: 0;
+        left: 900px;
         word-wrap: break-word;
+    } */
+    .cg_1{
+        top: -5px;
     }
-    #cg_1{
-        left: 900px;
+    .cg_2{
+        top: 30px;
     }
-    #cg_2{
-        left: 900px;
-        top: 40px;
+    .cg_3{
+        top: 65px;
     }
-    #cg_3{
-        left: 900px;
-        top: 70px;
+    .cg_4{
+        top: 100px;
     }
-    #cg_4{
-        left: 900px;
-        top: 105px;
+    .cg_5{
+        top: 135px;
     }
-    #cg_5{
-        left: 900px;
-        top: 140px;
+    .cg_6{
+        top: 170px;
     }
-    #cg_6{
-        left: 900px;
-        top: 175px;
+    .cg_7{
+        top: 205px;
     }
-    #cg_7{
-        left: 900px;
-        top: 215px;
+    .cg_8{
+        top: 242px;
     }
-    #cg_8{
-        left: 900px;
-        top: 250px;
+    .cg_9{
+        top: 279px;
     }
-    #cg_9{
-        left: 900px;
-        top: 285px;
+    .cg_10{
+        top: 314px;
     }
-    #cg_10{
-        left: 900px;
-        top: 320px;
+    .cg_11{
+        top: 350px;
     }
-    #cg_11{
-        left: 900px;
-        top: 355px;
+    .cg_12{
+        top: 385px;
     }
-    #cg_12{
-        left: 900px;
-        top: 390px;
+    .cg_13{
+        top: 422px;
     }
-    #cg_13{
-        left: 900px;
-        top: 426px;
+    .cg_14{
+        top: 457px;
     }
-    #cg_14{
-        left: 900px;
-        top: 461px;
-    }
-    #cg_15{
-        left: 900px;
+    .cg_15{
         top: 492px;
     }
-    #cg_16{
-        left: 900px;
+    .cg_16{
         top: 526px;
     }
 </style>
@@ -720,9 +659,9 @@
         $nombreMama = '';
     }
 @endphp
-<body>
+<body onload="shrink()">
     <div id="bloque-certificado">
-        <img src="{{ url('img/certificado.jpg') }}" width="77%" id="certificado" alt="No hay imagen">
+        <img src="{{ url('img/certificado_1.jpg') }}" width="77%" id="certificado" alt="No hay imagen">
         <div id="datos-ejemplar-1">
             <table id="table-datos-1" cellspacing="0">
                 <tr>
@@ -750,7 +689,7 @@
                     <td>{{ ($ejemplar->consanguinidad!=null)? $ejemplar->consanguinidad :'--------'}}</td>
                 </tr>
                 <tr>
-                    <td>{{ $ejemplar->kcb }}</td>
+                    <td id="kcb-ejemplar-master">{{ $ejemplar->kcb }}</td>
                     <td id="fecha-naciento"></td>
                     <td>{{ ($ejemplar->num_tatuaje != null)? $ejemplar->num_tatuaje:'--------'}}</td>
                     <td id="consagnidad"></td>
@@ -789,790 +728,1287 @@
         </div>
         <div id="arbol-genealogio">
             <section id="bloque-padres" >
-                <div id="padre_1">
-                    @php
-                        if(isset($papa)){
-                            echo $papa->nombre_completo."<br>";
-                            echo "K.C.B. ".$papa->kcb."<br>";
-                            echo "No. x Raza ".$papa->num_tatuaje."<br>";
-                            echo "Chip ".$papa->chip."<br>";
+                <div class="padre_1 padres">
+                    <span class="padres1">
+                        @php
+                            if(isset($papa)){
+                                $titulo = App\TituloEjemplar::where('ejemplar_id',$papa->id)->get();
+                                if($titulo){
+                                    foreach ($titulo as $t){
+                                        echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                                    }
+                                    echo "<br>";
+                                }
+                                echo $papa->nombre_completo."<br>";
+                                echo "K.C.B. ".$papa->kcb."<br>";
+                                echo "No. x Raza ".$papa->num_tatuaje."<br>";
+                                echo "Chip ".$papa->chip."<br>";
 
-                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$papa->id)
-                                        ->where('examen_id','=',3)
-                                        ->first();
-                            if($examenMascotaPapa){
-                                $examenPapa = $examenMascotaPapa->examen->nombre;
-                                $resultadoPapa = $examenMascotaPapa->resultado;
-                            }else{
-                                $examenPapa = "";
-                                $resultadoPapa = "";
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$papa->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa."<br>";
+                                echo $resultadoPapa."<br>";
+                                echo "Color: ".$papa->color."<br>";
                             }
-
-                            echo $examenPapa."<br>";
-                            echo $resultadoPapa."<br>";
-                            echo "Color: ".$papa->color."<br>";
-                        }
-                    @endphp
+                        @endphp
+                    </span>
                 </div>
 
-                <div id="padre_2">
-                    
-                    @php
-                        if(isset($mama)){
-                            echo $mama->nombre_completo."<br>";
-                            echo "K.C.B. ".$mama->kcb."<br>";
-                            echo "No. x Raza ".$mama->num_tatuaje."<br>";
-                            echo "Chip ".$mama->chip."<br>";
+                <div class="padre_2 padres">
+                    <span class="padres1">
+                        @php
+                            if(isset($mama)){
+                                $titulo = App\TituloEjemplar::where('ejemplar_id',$mama->id)->get();
+                                if($titulo){
+                                    foreach ($titulo as $t){
+                                        echo "<span class='text-danger'>".$t->titulo->nombre." </span>";
+                                    }
+                                    echo "<br>";
+                                }
+                                echo $mama->nombre_completo."<br>";
+                                echo "K.C.B. ".$mama->kcb."<br>";
+                                echo "No. x Raza ".$mama->num_tatuaje."<br>";
+                                echo "Chip ".$mama->chip."<br>";
 
-                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$mama->id)
-                                        ->where('examen_id','=',3)
-                                        ->first();
-                            if($examenMascotaPapa){
-                                $examenPapa = $examenMascotaPapa->examen->nombre;
-                                $resultadoPapa = $examenMascotaPapa->resultado;
-                            }else{
-                                $examenPapa = "";
-                                $resultadoPapa = "";
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$mama->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa."<br>";
+                                echo $resultadoPapa."<br>";
+                                echo "Color: ".$mama->color."<br>";
                             }
-
-                            echo $examenPapa."<br>";
-                            echo $resultadoPapa."<br>";
-                            echo "Color: ".$mama->color."<br>";
-                        }
-                    @endphp
+                        @endphp
+                    </span>
                 </div>
             </section>
             <section id="bloque-abuelos">
-                <div id="abuelo_1">
-                    @php
-                        if(isset($abuelo)){
-                            echo $abuelo->nombre_completo."<br>";
-                            echo "K.C.B. ".$abuelo->kcb."<br>";
-                            echo "No. x Raza ".$abuelo->num_tatuaje."<br>";
-                            echo "Chip ".$abuelo->chip."<br>";
+                <div class="abuelo_1 abuelos">
+                    <span class="abuelos1">
+                        @php
+                            if(isset($abuelo)){
+                                $titulosw = App\TituloEjemplar::where('ejemplar_id',$abuelo->id)->count();
+                                if($titulosw != 0){
+                                    $titulo = App\TituloEjemplar::where('ejemplar_id',$abuelo->id)->get();
+                                    $i = 1;
+                                    foreach ($titulo as $t){
+                                        if($i <= 5){
+                                            echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                                            $i++;
+                                        }else{
+                                            $i = 1;
+                                            echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
+                                        }
+                                    }
+                                    echo "<br>";
+                                }
+                                echo $abuelo->nombre_completo."<br>";
+                                echo "K.C.B. ".$abuelo->kcb."<br>";
+                                echo "No. x Raza ".$abuelo->num_tatuaje."<br>";
+                                echo "Chip ".$abuelo->chip."<br>";
 
-                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abuelo->id)
-                                        ->where('examen_id','=',3)
-                                        ->first();
-                            if($examenMascotaPapa){
-                                $examenPapa = $examenMascotaPapa->examen->nombre;
-                                $resultadoPapa = $examenMascotaPapa->resultado;
-                            }else{
-                                $examenPapa = "";
-                                $resultadoPapa = "";
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abuelo->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa."<br>";
+                                echo $resultadoPapa."<br>";
+                                echo "Color: ".$abuelo->color;
                             }
-
-                            echo $examenPapa."<br>";
-                            echo $resultadoPapa."<br>";
-                            echo "Color: ".$abuelo->color."<br>";
-                        }
-                    @endphp
+                        @endphp
+                    </span>
                 </div>
 
-                <div id="abuelo_2">
-                    @php
-                        if(isset($abuela)){
-                            echo $abuela->nombre_completo."<br>";
-                            echo "K.C.B. ".$abuela->kcb."<br>";
-                            echo "No. x Raza ".$abuela->num_tatuaje."<br>";
-                            echo "Chip ".$abuela->chip."<br>";
+                <div class="abuelo_2 abuelos">
+                    <span class="abuelos1">
+                        @php
+                            if(isset($abuela)){
+                                $titulosw = App\TituloEjemplar::where('ejemplar_id',$abuela->id)->count();
+                                if($titulosw != 0){
+                                    $titulo = App\TituloEjemplar::where('ejemplar_id',$abuela->id)->get();
+                                    $i = 1;
+                                    foreach ($titulo as $t){
+                                        if($i <= 5){
+                                            echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                                            $i++;
+                                        }else{
+                                            $i = 1;
+                                            echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
+                                        }
+                                    }
+                                    echo "<br>";
+                                }
+                                echo $abuela->nombre_completo."<br>";
+                                echo "K.C.B. ".$abuela->kcb."<br>";
+                                echo "No. x Raza ".$abuela->num_tatuaje."<br>";
+                                echo "Chip ".$abuela->chip."<br>";
 
-                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abuela->id)
-                                        ->where('examen_id','=',3)
-                                        ->first();
-                            if($examenMascotaPapa){
-                                $examenPapa = $examenMascotaPapa->examen->nombre;
-                                $resultadoPapa = $examenMascotaPapa->resultado;
-                            }else{
-                                $examenPapa = "";
-                                $resultadoPapa = "";
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abuela->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa."<br>";
+                                echo $resultadoPapa."<br>";
+                                echo "Color: ".$abuela->color;
                             }
-
-                            echo $examenPapa."<br>";
-                            echo $resultadoPapa."<br>";
-                            echo "Color: ".$abuela->color."<br>";
-                        }
-                    @endphp
+                        @endphp
+                    </span>
                 </div>
 
-                <div id="abuelo_3">
-                    @php
-                        if(isset($abueloM)){
-                            echo $abueloM->nombre_completo."<br>";
-                            echo "K.C.B. ".$abueloM->kcb."<br>";
-                            echo "No. x Raza ".$abueloM->num_tatuaje."<br>";
-                            echo "Chip ".$abueloM->chip."<br>";
+                <div class="abuelo_3 abuelos">
+                    <span class="abuelos1">
+                        @php
+                            if(isset($abueloM)){
+                                $titulosw = App\TituloEjemplar::where('ejemplar_id',$abueloM->id)->count();
+                                if($titulosw != 0){
+                                    $titulo = App\TituloEjemplar::where('ejemplar_id',$abueloM->id)->get();
+                                    $i = 1;
+                                    foreach ($titulo as $t){
+                                        if($i <= 5){
+                                            echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                                            $i++;
+                                        }else{
+                                            $i = 1;
+                                            echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
+                                        }
+                                    }
+                                    echo $titulosw."<br>";
+                                }
+                                echo $abueloM->nombre_completo."<br>";
+                                echo "K.C.B. ".$abueloM->kcb."<br>";
+                                echo "No. x Raza ".$abueloM->num_tatuaje."<br>";
+                                echo "Chip ".$abueloM->chip."<br>";
 
-                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloM->id)
-                                        ->where('examen_id','=',3)
-                                        ->first();
-                            if($examenMascotaPapa){
-                                $examenPapa = $examenMascotaPapa->examen->nombre;
-                                $resultadoPapa = $examenMascotaPapa->resultado;
-                            }else{
-                                $examenPapa = "";
-                                $resultadoPapa = "";
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloM->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa."<br>";
+                                echo $resultadoPapa."<br>";
+                                echo "Color: ".$abueloM->color;
                             }
-
-                            echo $examenPapa."<br>";
-                            echo $resultadoPapa."<br>";
-                            echo "Color: ".$abueloM->color."<br>";
-                        }
-                    @endphp
+                        @endphp
+                    </span>
                 </div>
-                <div id="abuelo_4">
-                    @php
-                        if(isset($abuelaM)){
-                            echo $abuelaM->nombre_completo."<br>";
-                            echo "K.C.B. ".$abuelaM->kcb."<br>";
-                            echo "No. x Raza ".$abuelaM->num_tatuaje."<br>";
-                            echo "Chip ".$abuelaM->chip."<br>";
+                <div class="abuelo_4 abuelos">
+                    <span class="abuelos1">
+                        @php
+                            if(isset($abuelaM)){
+                                $titulosw = App\TituloEjemplar::where('ejemplar_id',$abuelaM->id)->count();
+                                if($titulosw != 0){
+                                    $titulo = App\TituloEjemplar::where('ejemplar_id',$abuelaM->id)->get();
+                                    $i = 1;
+                                    foreach ($titulo as $t){
+                                        if($i <= 5){
+                                            echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                                            $i++;
+                                        }else{
+                                            $i = 1;
+                                            echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
+                                        }
+                                    }
+                                    echo "<br>";
+                                }
+                                echo $abuelaM->nombre_completo."<br>";
+                                echo "K.C.B. ".$abuelaM->kcb."<br>";
+                                echo "No. x Raza ".$abuelaM->num_tatuaje."<br>";
+                                echo "Chip ".$abuelaM->chip."<br>";
 
-                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abuelaM->id)
-                                        ->where('examen_id','=',3)
-                                        ->first();
-                            if($examenMascotaPapa){
-                                $examenPapa = $examenMascotaPapa->examen->nombre;
-                                $resultadoPapa = $examenMascotaPapa->resultado;
-                            }else{
-                                $examenPapa = "";
-                                $resultadoPapa = "";
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abuelaM->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa."<br>";
+                                echo $resultadoPapa."<br>";
+                                echo "Color: ".$abuelaM->color;
                             }
-
-                            echo $examenPapa."<br>";
-                            echo $resultadoPapa."<br>";
-                            echo "Color: ".$abuelaM->color."<br>";
-                        }
-                    @endphp
+                        @endphp
+                    </span>
                 </div>
             </section>
 
             <section id="bloque-tg">
-                <div  id="tg_1">
-                    @php
-                        if(isset($tGPadre)){
-                            echo $tGPadre->nombre_completo." ";
-                            echo "K.C.B. ".$tGPadre->kcb."<br>";
-                            echo "No. x Raza ".$tGPadre->num_tatuaje." ";
-                            echo "Chip ".$tGPadre->chip."<br>";
+                <div  class="tg_1 tercera_generaciones">
+                    <span class="tercera_generaciones1">
+                        @php
+                            if(isset($tGPadre)){
+                                $titulosw = App\TituloEjemplar::where('ejemplar_id',$tGPadre->id)->count();
+                                if($titulosw != 0){
+                                    $titulo = App\TituloEjemplar::where('ejemplar_id',$tGPadre->id)->get();
+                                    $i = 1;
+                                    foreach ($titulo as $t){
+                                        if($i <= 9){
+                                            echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                                            $i++;
+                                        }else{
+                                            $i = 1;
+                                            echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
+                                        }
+                                    }
+                                    echo "<br>";
+                                }
+                                echo $tGPadre->nombre_completo." ";
+                                echo "K.C.B. ".$tGPadre->kcb."<br>";
+                                echo "No. x Raza ".$tGPadre->num_tatuaje." ";
+                                echo "Chip ".$tGPadre->chip."<br>";
 
-                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$tGPadre->id)
-                                        ->where('examen_id','=',3)
-                                        ->first();
-                            if($examenMascotaPapa){
-                                $examenPapa = $examenMascotaPapa->examen->nombre;
-                                $resultadoPapa = $examenMascotaPapa->resultado;
-                            }else{
-                                $examenPapa = "";
-                                $resultadoPapa = "";
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$tGPadre->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa." ";
+                                echo $resultadoPapa."<br>";
+                                echo "Color: ".$tGPadre->color;
                             }
-
-                            echo $examenPapa." ";
-                            echo $resultadoPapa."<br>";
-                            echo "Color: ".$tGPadre->color."<br>";
-                        }
-                    @endphp
+                        @endphp
+                    </span>
                 </div>
 
-                <div  id="tg_2">
-                    @php
-                        if(isset($tGMadre)){
-                            echo $tGMadre->nombre_completo." ";
-                            echo "K.C.B. ".$tGMadre->kcb."<br>";
-                            echo "No. x Raza ".$tGMadre->num_tatuaje." ";
-                            echo "Chip ".$tGMadre->chip."<br>";
+                <div  class="tg_2 tercera_generaciones">
+                    <span class="tercera_generaciones1">
+                        @php
+                            if(isset($tGMadre)){
+                                $titulosw = App\TituloEjemplar::where('ejemplar_id',$tGMadre->id)->count();
+                                if($titulosw != 0){
+                                    $titulo = App\TituloEjemplar::where('ejemplar_id',$tGMadre->id)->get();
+                                    $i = 1;
+                                    foreach ($titulo as $t){
+                                        if($i <= 9){
+                                            echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                                            $i++;
+                                        }else{
+                                            $i = 1;
+                                            echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
+                                        }
+                                    }
+                                    echo "<br>";
+                                }
+                                echo $tGMadre->nombre_completo." ";
+                                echo "K.C.B. ".$tGMadre->kcb."<br>";
+                                echo "No. x Raza ".$tGMadre->num_tatuaje." ";
+                                echo "Chip ".$tGMadre->chip."<br>";
 
-                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$tGMadre->id)
-                                        ->where('examen_id','=',3)
-                                        ->first();
-                            if($examenMascotaPapa){
-                                $examenPapa = $examenMascotaPapa->examen->nombre;
-                                $resultadoPapa = $examenMascotaPapa->resultado;
-                            }else{
-                                $examenPapa = "";
-                                $resultadoPapa = "";
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$tGMadre->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa." ";
+                                echo $resultadoPapa."<br>";
+                                echo "Color: ".$tGMadre->color;
                             }
-
-                            echo $examenPapa." ";
-                            echo $resultadoPapa."<br>";
-                            echo "Color: ".$tGMadre->color."<br>";
-                        }
-                    @endphp
+                        @endphp
+                    </span>
                 </div>
 
-                <div  id="tg_3">
-                    @php
-                        if(isset($abueloTG)){
-                            echo $abueloTG->nombre_completo." ";
-                            echo "K.C.B. ".$abueloTG->kcb."<br>";
-                            echo "No. x Raza ".$abueloTG->num_tatuaje." ";
-                            echo "Chip ".$abueloTG->chip."<br>";
+                <div  class="tg_3 tercera_generaciones">
+                    <span class="tercera_generaciones1">
+                        @php
+                            if(isset($abueloTG)){
+                                $titulosw = App\TituloEjemplar::where('ejemplar_id',$abueloTG->id)->count();
+                                if($titulosw != 0){
+                                    $titulo = App\TituloEjemplar::where('ejemplar_id',$abueloTG->id)->get();
+                                    $i = 1;
+                                    foreach ($titulo as $t){
+                                        if($i <= 9){
+                                            echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                                            $i++;
+                                        }else{
+                                            $i = 1;
+                                            echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
+                                        }
+                                    }
+                                    echo "<br>";
+                                }
+                                echo $abueloTG->nombre_completo." ";
+                                echo "K.C.B. ".$abueloTG->kcb."<br>";
+                                echo "No. x Raza ".$abueloTG->num_tatuaje." ";
+                                echo "Chip ".$abueloTG->chip."<br>";
 
-                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloTG->id)
-                                        ->where('examen_id','=',3)
-                                        ->first();
-                            if($examenMascotaPapa){
-                                $examenPapa = $examenMascotaPapa->examen->nombre;
-                                $resultadoPapa = $examenMascotaPapa->resultado;
-                            }else{
-                                $examenPapa = "";
-                                $resultadoPapa = "";
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloTG->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa." ";
+                                echo $resultadoPapa."<br>";
+                                echo "Color: ".$abueloTG->color;
                             }
-
-                            echo $examenPapa." ";
-                            echo $resultadoPapa."<br>";
-                            echo "Color: ".$abueloTG->color;
-                        }
-                    @endphp
+                        @endphp
+                    </span>
                 </div>
 
-                <div  id="tg_4">
-                    @php
-                        if(isset($abuelaTG)){
-                            echo $abuelaTG->nombre_completo." ";
-                            echo "K.C.B. ".$abuelaTG->kcb."<br>";
-                            echo "No. x Raza ".$abuelaTG->num_tatuaje." ";
-                            echo "Chip ".$abuelaTG->chip."<br>";
+                <div  class="tg_4 tercera_generaciones">
+                    <span class="tercera_generaciones1">
+                        @php
+                            if(isset($abuelaTG)){
+                                $titulosw = App\TituloEjemplar::where('ejemplar_id',$abuelaTG->id)->count();
+                                if($titulosw != 0){
+                                    $titulo = App\TituloEjemplar::where('ejemplar_id',$abuelaTG->id)->get();
+                                    $i = 1;
+                                    foreach ($titulo as $t){
+                                        if($i <= 9){
+                                            echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                                            $i++;
+                                        }else{
+                                            $i = 1;
+                                            echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
+                                        }
+                                    }
+                                    echo "<br>";
+                                }
+                                echo $abuelaTG->nombre_completo." ";
+                                echo "K.C.B. ".$abuelaTG->kcb."<br>";
+                                echo "No. x Raza ".$abuelaTG->num_tatuaje." ";
+                                echo "Chip ".$abuelaTG->chip."<br>";
 
-                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abuelaTG->id)
-                                        ->where('examen_id','=',3)
-                                        ->first();
-                            if($examenMascotaPapa){
-                                $examenPapa = $examenMascotaPapa->examen->nombre;
-                                $resultadoPapa = $examenMascotaPapa->resultado;
-                            }else{
-                                $examenPapa = "";
-                                $resultadoPapa = "";
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abuelaTG->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa." ";
+                                echo $resultadoPapa."<br>";
+                                echo "Color: ".$abuelaTG->color;
                             }
-
-                            echo $examenPapa." ";
-                            echo $resultadoPapa."<br>";
-                            echo "Color: ".$abuelaTG->color;
-                        }
-                    @endphp
+                        @endphp
+                    </span>
                 </div>
 
-                <div id="tg_5">
-                    @php
-                        if(isset($tGPadreM)){
-                            echo $tGPadreM->nombre_completo." ";
-                            echo "K.C.B. ".$tGPadreM->kcb."<br>";
-                            echo "No. x Raza ".$tGPadreM->num_tatuaje." ";
-                            echo "Chip ".$tGPadreM->chip."<br>";
+                <div class="tg_5 tercera_generaciones">
+                    <span class="tercera_generaciones1">
+                        @php
+                            if(isset($tGPadreM)){
+                                $titulosw = App\TituloEjemplar::where('ejemplar_id',$tGPadreM->id)->count();
+                                if($titulosw != 0){
+                                    $titulo = App\TituloEjemplar::where('ejemplar_id',$tGPadreM->id)->get();
+                                    $i = 1;
+                                    foreach ($titulo as $t){
+                                        if($i <= 9){
+                                            echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                                            $i++;
+                                        }else{
+                                            $i = 1;
+                                            echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
+                                        }
+                                    }
+                                    echo "<br>";
+                                }
+                                echo $tGPadreM->nombre_completo." ";
+                                echo "K.C.B. ".$tGPadreM->kcb."<br>";
+                                echo "No. x Raza ".$tGPadreM->num_tatuaje." ";
+                                echo "Chip ".$tGPadreM->chip."<br>";
 
-                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$tGPadreM->id)
-                                        ->where('examen_id','=',3)
-                                        ->first();
-                            if($examenMascotaPapa){
-                                $examenPapa = $examenMascotaPapa->examen->nombre;
-                                $resultadoPapa = $examenMascotaPapa->resultado;
-                            }else{
-                                $examenPapa = "";
-                                $resultadoPapa = "";
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$tGPadreM->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa." ";
+                                echo $resultadoPapa."<br>";
+                                echo "Color: ".$tGPadreM->color;
                             }
-
-                            echo $examenPapa." ";
-                            echo $resultadoPapa."<br>";
-                            echo "Color: ".$tGPadreM->color;
-                        }
-                    @endphp
+                        @endphp
+                    </span>
                 </div>
-                <div id="tg_6">
-                    @php
-                        if(isset($tGMadreM)){
-                            echo $tGMadreM->nombre_completo." ";
-                            echo "K.C.B. ".$tGMadreM->kcb."<br>";
-                            echo "No. x Raza ".$tGMadreM->num_tatuaje." ";
-                            echo "Chip ".$tGMadreM->chip."<br>";
+                <div class="tg_6 tercera_generaciones">
+                    <span class="tercera_generaciones1">
+                        @php
+                            if(isset($tGMadreM)){
+                                $titulosw = App\TituloEjemplar::where('ejemplar_id',$tGMadreM->id)->count();
+                                if($titulosw != 0){
+                                    $titulo = App\TituloEjemplar::where('ejemplar_id',$tGMadreM->id)->get();
+                                    $i = 1;
+                                    foreach ($titulo as $t){
+                                        if($i <= 9){
+                                            echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                                            $i++;
+                                        }else{
+                                            $i = 1;
+                                            echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
+                                        }
+                                    }
+                                    echo "<br>";
+                                }
+                                echo $tGMadreM->nombre_completo." ";
+                                echo "K.C.B. ".$tGMadreM->kcb."<br>";
+                                echo "No. x Raza ".$tGMadreM->num_tatuaje." ";
+                                echo "Chip ".$tGMadreM->chip."<br>";
 
-                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$tGMadreM->id)
-                                        ->where('examen_id','=',3)
-                                        ->first();
-                            if($examenMascotaPapa){
-                                $examenPapa = $examenMascotaPapa->examen->nombre;
-                                $resultadoPapa = $examenMascotaPapa->resultado;
-                            }else{
-                                $examenPapa = "";
-                                $resultadoPapa = "";
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$tGMadreM->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa." ";
+                                echo $resultadoPapa."<br>";
+                                echo "Color: ".$tGMadreM->color;
                             }
-
-                            echo $examenPapa." ";
-                            echo $resultadoPapa."<br>";
-                            echo "Color: ".$tGMadreM->color;
-                        }
-                    @endphp
+                        @endphp
+                    </span>
                 </div>
-                <div id="tg_7">
-                    @php
-                        if(isset($abueloSG)){
-                            echo $abueloSG->nombre_completo." ";
-                            echo "K.C.B. ".$abueloSG->kcb."<br>";
-                            echo "No. x Raza ".$abueloSG->num_tatuaje." ";
-                            echo "Chip ".$abueloSG->chip."<br>";
+                <div class="tg_7 tercera_generaciones">
+                    <span class="tercera_generaciones1">
+                        @php
+                            if(isset($abueloSG)){
+                                $titulosw = App\TituloEjemplar::where('ejemplar_id',$abueloSG->id)->count();
+                                if($titulosw != 0){
+                                    $titulo = App\TituloEjemplar::where('ejemplar_id',$abueloSG->id)->get();
+                                    $i = 1;
+                                    foreach ($titulo as $t){
+                                        if($i <= 9){
+                                            echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                                            $i++;
+                                        }else{
+                                            $i = 1;
+                                            echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
+                                        }
+                                    }
+                                    echo "<br>";
+                                }
+                                echo $abueloSG->nombre_completo." ";
+                                echo "K.C.B. ".$abueloSG->kcb."<br>";
+                                echo "No. x Raza ".$abueloSG->num_tatuaje." ";
+                                echo "Chip ".$abueloSG->chip."<br>";
 
-                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloSG->id)
-                                        ->where('examen_id','=',3)
-                                        ->first();
-                            if($examenMascotaPapa){
-                                $examenPapa = $examenMascotaPapa->examen->nombre;
-                                $resultadoPapa = $examenMascotaPapa->resultado;
-                            }else{
-                                $examenPapa = "";
-                                $resultadoPapa = "";
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloSG->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa." ";
+                                echo $resultadoPapa."<br>";
+                                echo "Color: ".$abueloSG->color;
                             }
-
-                            echo $examenPapa." ";
-                            echo $resultadoPapa."<br>";
-                            echo "Color: ".$abueloSG->color;
-                        }
-                    @endphp
+                        @endphp
+                    </span>
                 </div>
-                <div id="tg_8">
-                    @php
-                        if(isset($abueloSGM2)){
-                            echo $abueloSGM2->nombre_completo." ";
-                            echo "K.C.B. ".$abueloSGM2->kcb."<br>";
-                            echo "No. x Raza ".$abueloSGM2->num_tatuaje." ";
-                            echo "Chip ".$abueloSGM2->chip."<br>";
+                <div class="tg_8 tercera_generaciones">
+                    <span class="tercera_generaciones1">
+                        @php
+                            if(isset($abueloSGM2)){
+                                $titulosw = App\TituloEjemplar::where('ejemplar_id',$abueloSGM2->id)->count();
+                                if($titulosw != 0){
+                                    $titulo = App\TituloEjemplar::where('ejemplar_id',$abueloSGM2->id)->get();
+                                    $i = 1;
+                                    foreach ($titulo as $t){
+                                        if($i <= 9){
+                                            echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                                            $i++;
+                                        }else{
+                                            $i = 1;
+                                            echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
+                                        }
+                                    }
+                                    echo "<br>";
+                                }
+                                echo $abueloSGM2->nombre_completo." ";
+                                echo "K.C.B. ".$abueloSGM2->kcb."<br>";
+                                echo "No. x Raza ".$abueloSGM2->num_tatuaje." ";
+                                echo "Chip ".$abueloSGM2->chip."<br>";
 
-                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloSGM2->id)
-                                        ->where('examen_id','=',3)
-                                        ->first();
-                            if($examenMascotaPapa){
-                                $examenPapa = $examenMascotaPapa->examen->nombre;
-                                $resultadoPapa = $examenMascotaPapa->resultado;
-                            }else{
-                                $examenPapa = "";
-                                $resultadoPapa = "";
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloSGM2->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa." ";
+                                echo $resultadoPapa."<br>";
+                                echo "Color: ".$abueloSGM2->color;
                             }
-
-                            echo $examenPapa." ";
-                            echo $resultadoPapa."<br>";
-                            echo "Color: ".$abueloSGM2->color;
-                        }
-                    @endphp
+                        @endphp
+                    </span>
                 </div>
                 
                 
             </section>
             
             <section id="bloque-cg">
-                <div  id="cg_1">
-                    @php
-                        if(isset($cGPadre)){
-                            echo $cGPadre->nombre_completo." ";
-                            echo "K.C.B. ".$cGPadre->kcb." ";
-                            echo "No. x Raza ".$cGPadre->num_tatuaje." ";
-                            echo "Chip ".$cGPadre->chip." ";
+                <div  class="cg_1 cuarta_generaciones">
+                    <span class="cuarta_generaciones1">
+                        @php
+                            if(isset($cGPadre)){
+                                $titulosw = App\TituloEjemplar::where('ejemplar_id',$cGPadre->id)->count();
+                                    if($titulosw != 0){
+                                        $titulo = App\TituloEjemplar::where('ejemplar_id',$cGPadre->id)->get();
+                                        $i = 1;
+                                        foreach ($titulo as $t){
+                                            if($i <= 12){
+                                                echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                                                $i++;
+                                            }else{
+                                                $i = 1;
+                                                echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
+                                            }
+                                        }
+                                        echo "<br>";
+                                    }
+                                echo $cGPadre->nombre_completo." ";
+                                echo "K.C.B. ".$cGPadre->kcb." ";
+                                echo "No. x Raza ".$cGPadre->num_tatuaje." ";
+                                echo "Chip ".$cGPadre->chip." ";
 
-                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$cGPadre->id)
-                                        ->where('examen_id','=',3)
-                                        ->first();
-                            if($examenMascotaPapa){
-                                $examenPapa = $examenMascotaPapa->examen->nombre;
-                                $resultadoPapa = $examenMascotaPapa->resultado;
-                            }else{
-                                $examenPapa = "";
-                                $resultadoPapa = "";
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$cGPadre->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa." ";
+                                echo $resultadoPapa." ";
+                                echo "Color: ".$cGPadre->color." ";
                             }
-
-                            echo $examenPapa." ";
-                            echo $resultadoPapa." ";
-                            echo "Color: ".$cGPadre->color." ";
-                        }
-                    @endphp
+                        @endphp
+                    </span>
                 </div>
-                <div  id="cg_2">
-                    @php
-                        if(isset($cGMadre)){
-                            echo $cGMadre->nombre_completo." ";
-                            echo "K.C.B. ".$cGMadre->kcb." ";
-                            echo "No. x Raza ".$cGMadre->num_tatuaje." ";
-                            echo "Chip ".$cGMadre->chip." ";
+                <div  class="cg_2 cuarta_generaciones">
+                    <span class="cuarta_generaciones1">
+                        @php
+                            if(isset($cGMadre)){
+                                $titulosw = App\TituloEjemplar::where('ejemplar_id',$cGMadre->id)->count();
+                                    if($titulosw != 0){
+                                        $titulo = App\TituloEjemplar::where('ejemplar_id',$cGMadre->id)->get();
+                                        $i = 1;
+                                        foreach ($titulo as $t){
+                                            if($i <= 12){
+                                                echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                                                $i++;
+                                            }else{
+                                                $i = 1;
+                                                echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
+                                            }
+                                        }
+                                        echo "<br>";
+                                    }
+                                echo $cGMadre->nombre_completo." ";
+                                echo "K.C.B. ".$cGMadre->kcb." ";
+                                echo "No. x Raza ".$cGMadre->num_tatuaje." ";
+                                echo "Chip ".$cGMadre->chip." ";
 
-                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$cGMadre->id)
-                                        ->where('examen_id','=',3)
-                                        ->first();
-                            if($examenMascotaPapa){
-                                $examenPapa = $examenMascotaPapa->examen->nombre;
-                                $resultadoPapa = $examenMascotaPapa->resultado;
-                            }else{
-                                $examenPapa = "";
-                                $resultadoPapa = "";
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$cGMadre->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa." ";
+                                echo $resultadoPapa." ";
+                                echo "Color: ".$cGMadre->color." ";
                             }
-
-                            echo $examenPapa." ";
-                            echo $resultadoPapa." ";
-                            echo "Color: ".$cGMadre->color." ";
-                        }
-                    @endphp
-                </div>
-
-                <div  id="cg_3">
-                    @php
-                        if(isset($CGMadreP)){
-                            echo $CGMadreP->nombre_completo." ";
-                            echo "K.C.B. ".$CGMadreP->kcb." ";
-                            echo "No. x Raza ".$CGMadreP->num_tatuaje." ";
-                            echo "Chip ".$CGMadreP->chip." ";
-
-                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$CGMadreP->id)
-                                        ->where('examen_id','=',3)
-                                        ->first();
-                            if($examenMascotaPapa){
-                                $examenPapa = $examenMascotaPapa->examen->nombre;
-                                $resultadoPapa = $examenMascotaPapa->resultado;
-                            }else{
-                                $examenPapa = "";
-                                $resultadoPapa = "";
-                            }
-
-                            echo $examenPapa." ";
-                            echo $resultadoPapa." ";
-                            echo "Color: ".$CGMadreP->color." ";
-                        }
-                    @endphp
-                </div>
-
-                <div  id="cg_4">
-                    @php
-                        if(isset($CGMadreM2)){
-                            echo $CGMadreM2->nombre_completo." ";
-                            echo "K.C.B. ".$CGMadreM2->kcb." ";
-                            echo "No. x Raza ".$CGMadreM2->num_tatuaje." ";
-                            echo "Chip ".$CGMadreM2->chip." ";
-
-                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$CGMadreM2->id)
-                                        ->where('examen_id','=',3)
-                                        ->first();
-                            if($examenMascotaPapa){
-                                $examenPapa = $examenMascotaPapa->examen->nombre;
-                                $resultadoPapa = $examenMascotaPapa->resultado;
-                            }else{
-                                $examenPapa = "";
-                                $resultadoPapa = "";
-                            }
-
-                            echo $examenPapa." ";
-                            echo $resultadoPapa." ";
-                            echo "Color: ".$CGMadreM2->color." ";
-                        }
-                    @endphp
+                        @endphp
+                    </span>
                 </div>
 
-                <div  id="cg_5">
-                    @php
-                        if(isset($abueloCG)){
-                            echo $abueloCG->nombre_completo." ";
-                            echo "K.C.B. ".$abueloCG->kcb." ";
-                            echo "No. x Raza ".$abueloCG->num_tatuaje." ";
-                            echo "Chip ".$abueloCG->chip." ";
-        
-                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloCG->id)
-                                        ->where('examen_id','=',3)
-                                        ->first();
-                            if($examenMascotaPapa){
-                                $examenPapa = $examenMascotaPapa->examen->nombre;
-                                $resultadoPapa = $examenMascotaPapa->resultado;
-                            }else{
-                                $examenPapa = "";
-                                $resultadoPapa = "";
+                <div  class="cg_3 cuarta_generaciones">
+                    <span class="cuarta_generaciones1">
+                        @php
+                            if(isset($CGMadreP)){
+                                $titulosw = App\TituloEjemplar::where('ejemplar_id',$CGMadreP->id)->count();
+                                    if($titulosw != 0){
+                                        $titulo = App\TituloEjemplar::where('ejemplar_id',$CGMadreP->id)->get();
+                                        $i = 1;
+                                        foreach ($titulo as $t){
+                                            if($i <= 12){
+                                                echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                                                $i++;
+                                            }else{
+                                                $i = 1;
+                                                echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
+                                            }
+                                        }
+                                        echo "<br>";
+                                    }
+                                echo $CGMadreP->nombre_completo." ";
+                                echo "K.C.B. ".$CGMadreP->kcb." ";
+                                echo "No. x Raza ".$CGMadreP->num_tatuaje." ";
+                                echo "Chip ".$CGMadreP->chip." ";
+
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$CGMadreP->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa." ";
+                                echo $resultadoPapa." ";
+                                echo "Color: ".$CGMadreP->color." ";
                             }
-        
-                            echo $examenPapa." ";
-                            echo $resultadoPapa." ";
-                            echo "Color: ".$abueloCG->color." ";
-                        }
-                    @endphp
+                        @endphp
+                    </span>
                 </div>
 
-                <div  id="cg_6">
-                    @php
-                        if(isset($abueloCGM)){
-                            echo $abueloCGM->nombre_completo." ";
-                            echo "K.C.B. ".$abueloCGM->kcb." ";
-                            echo "No. x Raza ".$abueloCGM->num_tatuaje." ";
-                            echo "Chip ".$abueloCGM->chip." ";
+                <div  class="cg_4 cuarta_generaciones">
+                    <span class="cuarta_generaciones1">
+                        @php
+                            if(isset($CGMadreM2)){
+                                $titulosw = App\TituloEjemplar::where('ejemplar_id',$CGMadreM2->id)->count();
+                                    if($titulosw != 0){
+                                        $titulo = App\TituloEjemplar::where('ejemplar_id',$CGMadreM2->id)->get();
+                                        $i = 1;
+                                        foreach ($titulo as $t){
+                                            if($i <= 12){
+                                                echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                                                $i++;
+                                            }else{
+                                                $i = 1;
+                                                echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
+                                            }
+                                        }
+                                        echo "<br>";
+                                    }
+                                echo $CGMadreM2->nombre_completo." ";
+                                echo "K.C.B. ".$CGMadreM2->kcb." ";
+                                echo "No. x Raza ".$CGMadreM2->num_tatuaje." ";
+                                echo "Chip ".$CGMadreM2->chip." ";
 
-                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloCGM->id)
-                                        ->where('examen_id','=',3)
-                                        ->first();
-                            if($examenMascotaPapa){
-                                $examenPapa = $examenMascotaPapa->examen->nombre;
-                                $resultadoPapa = $examenMascotaPapa->resultado;
-                            }else{
-                                $examenPapa = "";
-                                $resultadoPapa = "";
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$CGMadreM2->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa." ";
+                                echo $resultadoPapa." ";
+                                echo "Color: ".$CGMadreM2->color." ";
                             }
-
-                            echo $examenPapa." ";
-                            echo $resultadoPapa." ";
-                            echo "Color: ".$abueloCGM->color." ";
-                        }
-                    @endphp
+                        @endphp
+                    </span>
                 </div>
 
-                <div  id="cg_7">
-                    @php
-                        if(isset($abueloTGM1)){
-                            echo $abueloTGM1->nombre_completo." ";
-                            echo "K.C.B. ".$abueloTGM1->kcb." ";
-                            echo "No. x Raza ".$abueloTGM1->num_tatuaje." ";
-                            echo "Chip ".$abueloTGM1->chip." ";
-
-                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloTGM1->id)
-                                        ->where('examen_id','=',3)
-                                        ->first();
-                            if($examenMascotaPapa){
-                                $examenPapa = $examenMascotaPapa->examen->nombre;
-                                $resultadoPapa = $examenMascotaPapa->resultado;
-                            }else{
-                                $examenPapa = "";
-                                $resultadoPapa = "";
+                <div  class="cg_5 cuarta_generaciones">
+                    <span class="cuarta_generaciones1">
+                        @php
+                            if(isset($abueloCG)){
+                                $titulosw = App\TituloEjemplar::where('ejemplar_id',$abueloCG->id)->count();
+                                    if($titulosw != 0){
+                                        $titulo = App\TituloEjemplar::where('ejemplar_id',$abueloCG->id)->get();
+                                        $i = 1;
+                                        foreach ($titulo as $t){
+                                            if($i <= 12){
+                                                echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                                                $i++;
+                                            }else{
+                                                $i = 1;
+                                                echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
+                                            }
+                                        }
+                                        echo "<br>";
+                                    }
+                                echo $abueloCG->nombre_completo." ";
+                                echo "K.C.B. ".$abueloCG->kcb." ";
+                                echo "No. x Raza ".$abueloCG->num_tatuaje." ";
+                                echo "Chip ".$abueloCG->chip." ";
+            
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloCG->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+            
+                                echo $examenPapa." ";
+                                echo $resultadoPapa." ";
+                                echo "Color: ".$abueloCG->color." ";
                             }
-
-                            echo $examenPapa." ";
-                            echo $resultadoPapa." ";
-                            echo "Color: ".$abueloTGM1->color." ";
-                        }
-                    @endphp
+                        @endphp
+                    </span>
                 </div>
 
-                <div  id="cg_8">
-                    @php
-                        if(isset($abuelaTGM1)){
-                            echo $abuelaTGM1->nombre_completo." ";
-                            echo "K.C.B. ".$abuelaTGM1->kcb." ";
-                            echo "No. x Raza ".$abuelaTGM1->num_tatuaje." ";
-                            echo "Chip ".$abuelaTGM1->chip." ";
+                <div  class="cg_6 cuarta_generaciones">
+                    <span class="cuarta_generaciones1">
+                        @php
+                            if(isset($abueloCGM)){
+                                $titulosw = App\TituloEjemplar::where('ejemplar_id',$abueloCGM->id)->count();
+                                    if($titulosw != 0){
+                                        $titulo = App\TituloEjemplar::where('ejemplar_id',$abueloCGM->id)->get();
+                                        $i = 1;
+                                        foreach ($titulo as $t){
+                                            if($i <= 12){
+                                                echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                                                $i++;
+                                            }else{
+                                                $i = 1;
+                                                echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
+                                            }
+                                        }
+                                        echo "<br>";
+                                    }
+                                echo $abueloCGM->nombre_completo." ";
+                                echo "K.C.B. ".$abueloCGM->kcb." ";
+                                echo "No. x Raza ".$abueloCGM->num_tatuaje." ";
+                                echo "Chip ".$abueloCGM->chip." ";
 
-                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abuelaTGM1->id)
-                                        ->where('examen_id','=',3)
-                                        ->first();
-                            if($examenMascotaPapa){
-                                $examenPapa = $examenMascotaPapa->examen->nombre;
-                                $resultadoPapa = $examenMascotaPapa->resultado;
-                            }else{
-                                $examenPapa = "";
-                                $resultadoPapa = "";
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloCGM->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa." ";
+                                echo $resultadoPapa." ";
+                                echo "Color: ".$abueloCGM->color." ";
                             }
-
-                            echo $examenPapa." ";
-                            echo $resultadoPapa." ";
-                            echo "Color: ".$abuelaTGM1->color." ";
-                        }
-                    @endphp
+                        @endphp
+                    </span>
                 </div>
 
-                <div  id="cg_9">
-                    @php
-                        if(isset($CGPadreM1)){
-                            echo $CGPadreM1->nombre_completo." ";
-                            echo "K.C.B. ".$CGPadreM1->kcb." ";
-                            echo "No. x Raza ".$CGPadreM1->num_tatuaje." ";
-                            echo "Chip ".$CGPadreM1->chip." ";
+                <div  class="cg_7 cuarta_generaciones">
+                    <span class="cuarta_generaciones1">
+                        @php
+                            if(isset($abueloTGM1)){
+                                $titulosw = App\TituloEjemplar::where('ejemplar_id',$abueloTGM1->id)->count();
+                                    if($titulosw != 0){
+                                        $titulo = App\TituloEjemplar::where('ejemplar_id',$abueloTGM1->id)->get();
+                                        $i = 1;
+                                        foreach ($titulo as $t){
+                                            if($i <= 12){
+                                                echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                                                $i++;
+                                            }else{
+                                                $i = 1;
+                                                echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
+                                            }
+                                        }
+                                        echo "<br>";
+                                    }
+                                echo $abueloTGM1->nombre_completo." ";
+                                echo "K.C.B. ".$abueloTGM1->kcb." ";
+                                echo "No. x Raza ".$abueloTGM1->num_tatuaje." ";
+                                echo "Chip ".$abueloTGM1->chip." ";
 
-                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$CGPadreM1->id)
-                                        ->where('examen_id','=',3)
-                                        ->first();
-                            if($examenMascotaPapa){
-                                $examenPapa = $examenMascotaPapa->examen->nombre;
-                                $resultadoPapa = $examenMascotaPapa->resultado;
-                            }else{
-                                $examenPapa = "";
-                                $resultadoPapa = "";
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloTGM1->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa." ";
+                                echo $resultadoPapa." ";
+                                echo "Color: ".$abueloTGM1->color." ";
                             }
-
-                            echo $examenPapa." ";
-                            echo $resultadoPapa." ";
-                            echo "Color: ".$CGPadreM1->color." ";
-                        }
-                    @endphp
+                        @endphp
+                    </span>
                 </div>
 
-                <div  id="cg_10">
-                    @php
-                        if(isset($CGPadreM2)){
-                            echo $CGPadreM2->nombre_completo." ";
-                            echo "K.C.B. ".$CGPadreM2->kcb." ";
-                            echo "No. x Raza ".$CGPadreM2->num_tatuaje." ";
-                            echo "Chip ".$CGPadreM2->chip." ";
+                <div  class="cg_8 cuarta_generaciones">
+                    <span class="cuarta_generaciones1">
+                        @php
+                            if(isset($abuelaTGM1)){
+                                $titulosw = App\TituloEjemplar::where('ejemplar_id',$abuelaTGM1->id)->count();
+                                    if($titulosw != 0){
+                                        $titulo = App\TituloEjemplar::where('ejemplar_id',$abuelaTGM1->id)->get();
+                                        $i = 1;
+                                        foreach ($titulo as $t){
+                                            if($i <= 12){
+                                                echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                                                $i++;
+                                            }else{
+                                                $i = 1;
+                                                echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
+                                            }
+                                        }
+                                        echo "<br>";
+                                    }
+                                echo $abuelaTGM1->nombre_completo." ";
+                                echo "K.C.B. ".$abuelaTGM1->kcb." ";
+                                echo "No. x Raza ".$abuelaTGM1->num_tatuaje." ";
+                                echo "Chip ".$abuelaTGM1->chip." ";
 
-                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$CGPadreM2->id)
-                                        ->where('examen_id','=',3)
-                                        ->first();
-                            if($examenMascotaPapa){
-                                $examenPapa = $examenMascotaPapa->examen->nombre;
-                                $resultadoPapa = $examenMascotaPapa->resultado;
-                            }else{
-                                $examenPapa = "";
-                                $resultadoPapa = "";
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abuelaTGM1->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa." ";
+                                echo $resultadoPapa." ";
+                                echo "Color: ".$abuelaTGM1->color." ";
                             }
-
-                            echo $examenPapa." ";
-                            echo $resultadoPapa." ";
-                            echo "Color: ".$CGPadreM2->color." ";
-                        }
-                    @endphp
+                        @endphp
+                    </span>
                 </div>
 
-                <div id="cg_11">
-                    @php
-                        if(isset($CGPadreM)){
-                            echo $CGPadreM->nombre_completo." ";
-                            echo "K.C.B. ".$CGPadreM->kcb." ";
-                            echo "No. x Raza ".$CGPadreM->num_tatuaje." ";
-                            echo "Chip ".$CGPadreM->chip." ";
+                <div  class="cg_9 cuarta_generaciones">
+                    <span class="cuarta_generaciones1">
+                        @php
+                            if(isset($CGPadreM1)){
+                                $titulosw = App\TituloEjemplar::where('ejemplar_id',$CGPadreM1->id)->count();
+                                    if($titulosw != 0){
+                                        $titulo = App\TituloEjemplar::where('ejemplar_id',$CGPadreM1->id)->get();
+                                        $i = 1;
+                                        foreach ($titulo as $t){
+                                            if($i <= 12){
+                                                echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                                                $i++;
+                                            }else{
+                                                $i = 1;
+                                                echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
+                                            }
+                                        }
+                                        echo "<br>";
+                                    }
+                                echo $CGPadreM1->nombre_completo." ";
+                                echo "K.C.B. ".$CGPadreM1->kcb." ";
+                                echo "No. x Raza ".$CGPadreM1->num_tatuaje." ";
+                                echo "Chip ".$CGPadreM1->chip." ";
 
-                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$CGPadreM->id)
-                                        ->where('examen_id','=',3)
-                                        ->first();
-                            if($examenMascotaPapa){
-                                $examenPapa = $examenMascotaPapa->examen->nombre;
-                                $resultadoPapa = $examenMascotaPapa->resultado;
-                            }else{
-                                $examenPapa = "";
-                                $resultadoPapa = "";
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$CGPadreM1->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa." ";
+                                echo $resultadoPapa." ";
+                                echo "Color: ".$CGPadreM1->color." ";
                             }
-
-                            echo $examenPapa." ";
-                            echo $resultadoPapa." ";
-                            echo "Color: ".$CGPadreM->color." ";
-                        }
-                    @endphp
+                        @endphp
+                    </span>
                 </div>
-                <div id="cg_12">
-                    @php
-                        if(isset($CGMadreM)){
-                            echo $CGMadreM->nombre_completo." ";
-                            echo "K.C.B. ".$CGMadreM->kcb." ";
-                            echo "No. x Raza ".$CGMadreM->num_tatuaje." ";
-                            echo "Chip ".$CGMadreM->chip." ";
 
-                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$CGMadreM->id)
-                                        ->where('examen_id','=',3)
-                                        ->first();
-                            if($examenMascotaPapa){
-                                $examenPapa = $examenMascotaPapa->examen->nombre;
-                                $resultadoPapa = $examenMascotaPapa->resultado;
-                            }else{
-                                $examenPapa = "";
-                                $resultadoPapa = "";
+                <div  class="cg_10 cuarta_generaciones">
+                    <span class="cuarta_generaciones1">
+                        @php
+                            if(isset($CGPadreM2)){
+                                $titulosw = App\TituloEjemplar::where('ejemplar_id',$CGPadreM2->id)->count();
+                                    if($titulosw != 0){
+                                        $titulo = App\TituloEjemplar::where('ejemplar_id',$CGPadreM2->id)->get();
+                                        $i = 1;
+                                        foreach ($titulo as $t){
+                                            if($i <= 12){
+                                                echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                                                $i++;
+                                            }else{
+                                                $i = 1;
+                                                echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
+                                            }
+                                        }
+                                        echo "<br>";
+                                    }
+                                echo $CGPadreM2->nombre_completo." ";
+                                echo "K.C.B. ".$CGPadreM2->kcb." ";
+                                echo "No. x Raza ".$CGPadreM2->num_tatuaje." ";
+                                echo "Chip ".$CGPadreM2->chip." ";
+
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$CGPadreM2->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa." ";
+                                echo $resultadoPapa." ";
+                                echo "Color: ".$CGPadreM2->color." ";
                             }
-
-                            echo $examenPapa." ";
-                            echo $resultadoPapa." ";
-                            echo "Color: ".$CGMadreM->color." ";
-                        }
-                    @endphp
+                        @endphp
+                    </span>
                 </div>
-                <div id="cg_13">
-                    @php
-                        if(isset($abueloTG1)){
-                            echo $abueloTG1->nombre_completo." ";
-                            echo "K.C.B. ".$abueloTG1->kcb." ";
-                            echo "No. x Raza ".$abueloTG1->num_tatuaje." ";
-                            echo "Chip ".$abueloTG1->chip." ";
 
-                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloTG1->id)
-                                        ->where('examen_id','=',3)
-                                        ->first();
-                            if($examenMascotaPapa){
-                                $examenPapa = $examenMascotaPapa->examen->nombre;
-                                $resultadoPapa = $examenMascotaPapa->resultado;
-                            }else{
-                                $examenPapa = "";
-                                $resultadoPapa = "";
+                <div class="cg_11 cuarta_generaciones">
+                    <span class="cuarta_generaciones1">
+                        @php
+                            if(isset($CGPadreM)){
+                                $titulosw = App\TituloEjemplar::where('ejemplar_id',$CGPadreM->id)->count();
+                                    if($titulosw != 0){
+                                        $titulo = App\TituloEjemplar::where('ejemplar_id',$CGPadreM->id)->get();
+                                        $i = 1;
+                                        foreach ($titulo as $t){
+                                            if($i <= 12){
+                                                echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                                                $i++;
+                                            }else{
+                                                $i = 1;
+                                                echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
+                                            }
+                                        }
+                                        echo "<br>";
+                                    }
+                                echo $CGPadreM->nombre_completo." ";
+                                echo "K.C.B. ".$CGPadreM->kcb." ";
+                                echo "No. x Raza ".$CGPadreM->num_tatuaje." ";
+                                echo "Chip ".$CGPadreM->chip." ";
+
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$CGPadreM->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa." ";
+                                echo $resultadoPapa." ";
+                                echo "Color: ".$CGPadreM->color." ";
                             }
-
-                            echo $examenPapa." ";
-                            echo $resultadoPapa." ";
-                            echo "Color: ".$abueloTG1->color." ";
-                        }
-                    @endphp
+                        @endphp
+                    </span>
                 </div>
-                <div id="cg_14">
-                    @php
-                        if(isset($abueloTG11)){
-                            echo $abueloTG11->nombre_completo." ";
-                            echo "K.C.B. ".$abueloTG11->kcb." ";
-                            echo "No. x Raza ".$abueloTG11->num_tatuaje." ";
-                            echo "Chip ".$abueloTG11->chip." ";
+                <div class="cg_12 cuarta_generaciones">
+                    <span class="cuarta_generaciones1">
+                        @php
+                            if(isset($CGMadreM)){
+                                $titulosw = App\TituloEjemplar::where('ejemplar_id',$CGMadreM->id)->count();
+                                    if($titulosw != 0){
+                                        $titulo = App\TituloEjemplar::where('ejemplar_id',$CGMadreM->id)->get();
+                                        $i = 1;
+                                        foreach ($titulo as $t){
+                                            if($i <= 12){
+                                                echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                                                $i++;
+                                            }else{
+                                                $i = 1;
+                                                echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
+                                            }
+                                        }
+                                        echo "<br>";
+                                    }
+                                echo $CGMadreM->nombre_completo." ";
+                                echo "K.C.B. ".$CGMadreM->kcb." ";
+                                echo "No. x Raza ".$CGMadreM->num_tatuaje." ";
+                                echo "Chip ".$CGMadreM->chip." ";
 
-                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloTG11->id)
-                                        ->where('examen_id','=',3)
-                                        ->first();
-                            if($examenMascotaPapa){
-                                $examenPapa = $examenMascotaPapa->examen->nombre;
-                                $resultadoPapa = $examenMascotaPapa->resultado;
-                            }else{
-                                $examenPapa = "";
-                                $resultadoPapa = "";
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$CGMadreM->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa." ";
+                                echo $resultadoPapa." ";
+                                echo "Color: ".$CGMadreM->color." ";
                             }
-
-                            echo $examenPapa." ";
-                            echo $resultadoPapa." ";
-                            echo "Color: ".$abueloTG11->color." ";
-                        }
-                    @endphp
+                        @endphp
+                    </span>
                 </div>
-                <div id="cg_15">
-                    @php
-                        if(isset($abueloSGM22)){
-                            echo $abueloSGM22->nombre_completo." ";
-                            echo "K.C.B. ".$abueloSGM22->kcb." ";
-                            echo "No. x Raza ".$abueloSGM22->num_tatuaje." ";
-                            echo "Chip ".$abueloSGM22->chip." ";
+                <div class="cg_13 cuarta_generaciones">
+                    <span class="cuarta_generaciones1">
+                        @php
+                            if(isset($abueloTG1)){
+                                $titulosw = App\TituloEjemplar::where('ejemplar_id',$abueloTG1->id)->count();
+                                    if($titulosw != 0){
+                                        $titulo = App\TituloEjemplar::where('ejemplar_id',$abueloTG1->id)->get();
+                                        $i = 1;
+                                        foreach ($titulo as $t){
+                                            if($i <= 12){
+                                                echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                                                $i++;
+                                            }else{
+                                                $i = 1;
+                                                echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
+                                            }
+                                        }
+                                        echo "<br>";
+                                    }
+                                echo $abueloTG1->nombre_completo." ";
+                                echo "K.C.B. ".$abueloTG1->kcb." ";
+                                echo "No. x Raza ".$abueloTG1->num_tatuaje." ";
+                                echo "Chip ".$abueloTG1->chip." ";
 
-                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloSGM22->id)
-                                        ->where('examen_id','=',3)
-                                        ->first();
-                            if($examenMascotaPapa){
-                                $examenPapa = $examenMascotaPapa->examen->nombre;
-                                $resultadoPapa = $examenMascotaPapa->resultado;
-                            }else{
-                                $examenPapa = "";
-                                $resultadoPapa = "";
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloTG1->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa." ";
+                                echo $resultadoPapa." ";
+                                echo "Color: ".$abueloTG1->color." ";
                             }
-
-                            echo $examenPapa." ";
-                            echo $resultadoPapa." ";
-                            echo "Color: ".$abueloSGM22->color." ";
-                        }
-                    @endphp
+                        @endphp
+                    </span>
                 </div>
-                <div id="cg_16">
-                    @php
-                        if(isset($abueloSGM222)){
-                            echo $abueloSGM222->nombre_completo." ";
-                            echo "K.C.B. ".$abueloSGM222->kcb." ";
-                            echo "No. x Raza ".$abueloSGM222->num_tatuaje." ";
-                            echo "Chip ".$abueloSGM222->chip." ";
+                <div class="cg_14 cuarta_generaciones">
+                    <span class="cuarta_generaciones1">
+                        @php
+                            if(isset($abueloTG11)){
+                                $titulosw = App\TituloEjemplar::where('ejemplar_id',$abueloTG11->id)->count();
+                                    if($titulosw != 0){
+                                        $titulo = App\TituloEjemplar::where('ejemplar_id',$abueloTG11->id)->get();
+                                        $i = 1;
+                                        foreach ($titulo as $t){
+                                            if($i <= 12){
+                                                echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                                                $i++;
+                                            }else{
+                                                $i = 1;
+                                                echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
+                                            }
+                                        }
+                                        echo "<br>";
+                                    }
+                                echo $abueloTG11->nombre_completo." ";
+                                echo "K.C.B. ".$abueloTG11->kcb." ";
+                                echo "No. x Raza ".$abueloTG11->num_tatuaje." ";
+                                echo "Chip ".$abueloTG11->chip." ";
 
-                            $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloSGM222->id)
-                                        ->where('examen_id','=',3)
-                                        ->first();
-                            if($examenMascotaPapa){
-                                $examenPapa = $examenMascotaPapa->examen->nombre;
-                                $resultadoPapa = $examenMascotaPapa->resultado;
-                            }else{
-                                $examenPapa = "";
-                                $resultadoPapa = "";
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloTG11->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa." ";
+                                echo $resultadoPapa." ";
+                                echo "Color: ".$abueloTG11->color." ";
                             }
+                        @endphp
+                    </span>
+                </div>
+                <div class="cg_15 cuarta_generaciones">
+                    <span class="cuarta_generaciones1">
+                        @php
+                            if(isset($abueloSGM22)){
+                                $titulosw = App\TituloEjemplar::where('ejemplar_id',$abueloSGM22->id)->count();
+                                    if($titulosw != 0){
+                                        $titulo = App\TituloEjemplar::where('ejemplar_id',$abueloSGM22->id)->get();
+                                        $i = 1;
+                                        foreach ($titulo as $t){
+                                            if($i <= 12){
+                                                echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                                                $i++;
+                                            }else{
+                                                $i = 1;
+                                                echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
+                                            }
+                                        }
+                                        echo "<br>";
+                                    }
+                                echo $abueloSGM22->nombre_completo." ";
+                                echo "K.C.B. ".$abueloSGM22->kcb." ";
+                                echo "No. x Raza ".$abueloSGM22->num_tatuaje." ";
+                                echo "Chip ".$abueloSGM22->chip." ";
 
-                            echo $examenPapa." ";
-                            echo $resultadoPapa." ";
-                            echo "Color: ".$abueloSGM222->color." ";
-                        }
-                    @endphp
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloSGM22->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa." ";
+                                echo $resultadoPapa." ";
+                                echo "Color: ".$abueloSGM22->color." ";
+                            }
+                        @endphp
+                    </span>
+                </div>
+                <div class="cg_16 cuarta_generaciones">
+                    <span class="cuarta_generaciones1">
+                        @php
+                            if(isset($abueloSGM222)){
+                                $titulosw = App\TituloEjemplar::where('ejemplar_id',$abueloSGM222                                                                                                                                          ->id)->count();
+                                    if($titulosw != 0){
+                                        $titulo = App\TituloEjemplar::where('ejemplar_id',$abueloSGM222                                                                                                                                          ->id)->get();
+                                        $i = 1;
+                                        foreach ($titulo as $t){
+                                            if($i <= 12){
+                                                echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                                                $i++;
+                                            }else{
+                                                $i = 1;
+                                                echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
+                                            }
+                                        }
+                                        echo "<br>";
+                                    }
+                                echo $abueloSGM222->nombre_completo." ";
+                                echo "K.C.B. ".$abueloSGM222->kcb." ";
+                                echo "No. x Raza ".$abueloSGM222->num_tatuaje." ";
+                                echo "Chip ".$abueloSGM222->chip." ";
+
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloSGM222->id)
+                                            ->where('examen_id','=',3)
+                                            ->first();
+                                if($examenMascotaPapa){
+                                    $examenPapa = $examenMascotaPapa->examen->nombre;
+                                    $resultadoPapa = $examenMascotaPapa->resultado;
+                                }else{
+                                    $examenPapa = "";
+                                    $resultadoPapa = "";
+                                }
+
+                                echo $examenPapa." ";
+                                echo $resultadoPapa." ";
+                                echo "Color: ".$abueloSGM222->color." ";
+                            }
+                        @endphp
+                    </span>
                 </div>
             </section>
         </div>
     </div>
     <div id="enlaces">
+        <form action="">
+            <input type="text" id="nombre-completo-ejemplar-qr" value="{{ $ejemplar->nombre_completo }}">
+        </form>
         <a href="{{ url('Ejemplar/informacion') }}/{{ $ejemplar->id }}">Volver</a>
         <a href="#" onclick="imprimir()">Imprimir</a>
         <a href="{{ url('Ejemplar/certificadoRosadoAdelante') }}/{{ $ejemplar->id }}">Siguiente</a>
+        {{-- <button onclick="shrink()" class="btn btn-success">haner</button> --}}
     </div>
 </body>
 </html>
@@ -1592,11 +2028,26 @@
         $('#enlaces').show();
         $('#certificado').show();
     }
+    var holas = document.getElementById("nombre-completo-ejemplar-qr").value;
+    // alert(holas);
+    // let cadenaQr = "BEGIN:VCALENDAR"+"%0D%0A"+
+    //                    "VERSION:1.0"+"%0D%0A"+
+    //                    "BEGIN:VEVENT"+"%0D%0A"+
+    //                    "DTSTART:" + "19960401T090000" +"%0D%0A"+
+    //                    "DTEND:" + "19960401T043000" +"%0D%0A"+
+    //                    "SUMMARY:" + "Your Proposal Review"+"%0D%0A"+
+    //                    "DESCRIPTION:" + "Steve and John to review newest proposal material"+"%0D%0A"+
+    //                    "END:VEVENT"+"%0D%0A"+
+    //                    "END:VCALENDAR"+"%0D%0A";
+    // cadenaQr = decodeURIComponent(cadenaQr);
 
-    let cadenaQr = "178436029";
-    // console.log(cadenaQr);
+    // let cadenaQr = holas;
+    // let cadenaQr = "KCB: {{ $ejemplar->kcb }}\nNombre: {{trim($ejemplar->nombre_completo)}}\nRaza: {{trim($ejemplar->raza->nombre)}}\nN. Tatuaje: {{$ejemplar->num_tatuaje}}\nChip: {{ $ejemplar->chip }}\nSexo: {{ $ejemplar->sexo }}\nF. Nacimeinto: {{ $ejemplar->fecha_nacimiento }}\n";
+    let cadenaQr = "KCB: {{ $ejemplar->kcb }}\nNombre: {{trim($ejemplar->nombre_completo)}}\nRaza: {{trim($ejemplar->raza->nombre)}}\nN. Tatuaje: {{$ejemplar->num_tatuaje}}\nChip: {{ $ejemplar->chip }}\nSexo: {{ $ejemplar->sexo }}\nF. Nacimeinto: {{ $ejemplar->fecha_nacimiento }}\ncomo es";
+
     var qrcode = new QRCode("qrcode", {
         text: cadenaQr,
+        // size: 500,
         width: 110,
         height: 110,
         colorDark : "#000000",
@@ -1617,8 +2068,193 @@
         } 
     });
 
-    // function suguiente(){
-    //     alert('en desarrollo :v');
-    // }
+    // padres
+    function shrink()
+    {
+        /*******************  PADRES  *************************/
 
+        var textDivs = document.getElementsByClassName("padres");
+        var textDivsLength = textDivs.length;
+        // console.log(textDivsLength);
+
+        // Recorre todos los divs dinámicos de la página.
+        for(var i=0; i<textDivsLength; i++) {
+
+            var textDiv = textDivs[i];
+
+            // Recorre todos los tramos dinámicos dentro del div
+            var textSpan = textDiv.getElementsByClassName("padres1")[0];
+
+            // console.log(textSpan);
+            // console.log(textSpan.style);
+            
+            // Use la misma lógica de bucle que antes
+            textSpan.style.fontSize = 18;
+
+            // console.log(textSpan.style.fontSize);
+            // var i = 1 ;
+            // console.log(textSpan.offsetWidth);
+            // console.log(textDiv.offsetWidth);
+            while(textSpan.offsetHeight > textDiv.offsetHeight)
+            {
+                textSpan.style.fontSize = parseInt(textSpan.style.fontSize) - 1;
+                // i++;
+                // console.log(textSpan.style.fontSize);
+                // console.log(i);
+            }
+
+            while(textSpan.offsetWidth > textDiv.offsetWidth)
+            {
+                textSpan.style.fontSize = parseInt(textSpan.style.fontSize) - 1;
+                // i++;
+                // console.log(textSpan.style.fontSize);
+                // console.log(i);
+            }
+
+        }
+
+
+        /*******************  ABUELOS  *************************/
+        var AbuelotextDivs = document.getElementsByClassName("abuelos");
+        var AbuelotextDivsLength = AbuelotextDivs.length;
+
+        for(var i=0; i<AbuelotextDivsLength; i++) {
+
+            var AbuelotextDiv = AbuelotextDivs[i];
+
+            var AbuelotextSpan = AbuelotextDiv.getElementsByClassName("abuelos1")[0];
+
+            AbuelotextSpan.style.fontSize = 18;
+
+            while(AbuelotextSpan.offsetHeight > AbuelotextDiv.offsetHeight)
+            {
+                AbuelotextSpan.style.fontSize = parseInt(AbuelotextSpan.style.fontSize) - 1;
+            }
+
+            while(AbuelotextSpan.offsetWidth > AbuelotextDiv.offsetWidth)
+            {
+                AbuelotextSpan.style.fontSize = parseInt(AbuelotextSpan.style.fontSize) - 1;
+            }
+
+        }
+
+
+        /*******************  TERCERA GENERACION  *************************/
+        var AbuelotextDivs = document.getElementsByClassName("tercera_generaciones");
+        var AbuelotextDivsLength = AbuelotextDivs.length;
+
+        for(var i=0; i<AbuelotextDivsLength; i++) {
+
+            var AbuelotextDiv = AbuelotextDivs[i];
+
+            var AbuelotextSpan = AbuelotextDiv.getElementsByClassName("tercera_generaciones1")[0];
+
+            AbuelotextSpan.style.fontSize = 18;
+
+            while(AbuelotextSpan.offsetHeight > AbuelotextDiv.offsetHeight)
+            {
+                AbuelotextSpan.style.fontSize = parseInt(AbuelotextSpan.style.fontSize) - 1;
+            }
+
+            while(AbuelotextSpan.offsetWidth > AbuelotextDiv.offsetWidth)
+            {
+                AbuelotextSpan.style.fontSize = parseInt(AbuelotextSpan.style.fontSize) - 1;
+            }
+
+        }
+
+
+        /*******************  CUARTA GENERACION  *************************/
+        var AbuelotextDivs = document.getElementsByClassName("cuarta_generaciones");
+        var AbuelotextDivsLength = AbuelotextDivs.length;
+
+        for(var i=0; i<AbuelotextDivsLength; i++) {
+
+            var AbuelotextDiv = AbuelotextDivs[i];
+
+            var AbuelotextSpan = AbuelotextDiv.getElementsByClassName("cuarta_generaciones1")[0];
+
+            AbuelotextSpan.style.fontSize = 18;
+
+            while(AbuelotextSpan.offsetHeight > AbuelotextDiv.offsetHeight)
+            {
+                AbuelotextSpan.style.fontSize = parseInt(AbuelotextSpan.style.fontSize) - 1;
+            }
+
+            // while(AbuelotextSpan.offsetWidth > AbuelotextDiv.offsetWidth)
+            // {
+            //     AbuelotextSpan.style.fontSize = parseInt(AbuelotextSpan.style.fontSize) - 1;
+            // }
+
+        }
+
+    }
+
+    // abuelos
+    // function shrink()
+    // {
+        
+
+    // }
 </script>
+
+
+
+
+{{-- <html>
+<head>
+<style type="text/css">
+.dynamicDiv
+{
+    background: #CCCCCC;
+    width: 300px;
+    height: 100px;
+    font-size: 64px;
+    overflow: hidden;
+}
+</style>
+
+<script type="text/javascript">
+    function shrink()
+    {
+        var textDivs = document.getElementsByClassName("dynamicDiv");
+        var textDivsLength = textDivs.length;
+        console.log(textDivsLength);
+
+        // Loop through all of the dynamic divs on the page
+        for(var i=0; i<textDivsLength; i++) {
+
+            var textDiv = textDivs[i];
+
+            // Loop through all of the dynamic spans within the div
+            var textSpan = textDiv.getElementsByClassName("dynamicSpan")[0];
+
+            console.log(textSpan);
+            console.log(textSpan.style.fontSize);
+            // Use the same looping logic as before
+            textSpan.style.fontSize = 64;
+
+            // textSpan.css('font-size', 64);
+            console.log(textSpan.style);
+            console.log(textSpan.style.fontSize);
+
+
+            console.log(textSpan.offsetHeight);
+            console.log(textDiv.offsetHeight);
+            while(textSpan.offsetHeight > textDiv.offsetHeight)
+            {
+                textSpan.style.fontSize = parseInt(textSpan.style.fontSize) - 1;
+            }
+
+        }
+
+    }
+</script>
+
+</head>
+<body onload="shrink()">
+    <div class="dynamicDiv"><span class="dynamicSpan">DYNAMIC FONT <br> <br> <br> <br> como es  <br> <br> a toso</span></div> <br>
+    <div class="dynamicDiv"><span class="dynamicSpan">ANOTHER DYNAMIC FONT</span></div> <br>
+    <div class="dynamicDiv"><span class="dynamicSpan">AND YET ANOTHER DYNAMIC FONT</span></div>
+</body>
+</html> --}}
