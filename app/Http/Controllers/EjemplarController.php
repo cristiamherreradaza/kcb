@@ -16,13 +16,14 @@ use App\Modificacione;
 use App\Transferencia;
 use App\TituloEjemplar;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-
-use Illuminate\Support\Facades\Auth;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use App\ModificacionEspecifico;
 
 use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class EjemplarController extends Controller
 {
@@ -158,6 +159,7 @@ class EjemplarController extends Controller
 
     public function guarda(Request $request)
     {
+        // dd($request->input('extranjero'));
         // preguntamos si existe el ejemplar
         if($request->input('ejemplar_id') == 0){
             // en caso que sea nuevo el formulariuo mandara 0
@@ -187,6 +189,11 @@ class EjemplarController extends Controller
         $ejemplar->criadero_id          = $request->input('criadero_id');
         $ejemplar->propietario_id       = $request->input('propietario_id');
         $ejemplar->kcb                  = $request->input('kcb');
+        if($request->input('extranjero')){
+            $ejemplar->extranjero       = 'si';
+        }else{
+            $ejemplar->extranjero       = null;
+        }
         $ejemplar->codigo_nacionalizado = $request->input('codigo_nacionalizado');
         $ejemplar->num_tatuaje          = $request->input('num_tatuaje');
         $ejemplar->chip                 = $request->input('chip');
@@ -284,9 +291,9 @@ class EjemplarController extends Controller
                             ->orderBy('id', 'desc')  
                             ->get();
 
-        return view('ejemplar.ajaxGuardaExamen')->with(compact('examenesEjemplar'));
+        $this->addbitacora($request->input('ejemplar_examen_id'), 'EXAMEN', '',$nuevoExamen->examen->nombre, 'Agregado');
 
-        
+        return view('ejemplar.ajaxGuardaExamen')->with(compact('examenesEjemplar'));
     }
 
     public function ajaxEliminaExamen(Request $request){
@@ -302,6 +309,15 @@ class EjemplarController extends Controller
                                             ->get();
                     
         $examenEjemplar->save();
+
+        // dd($examenEjemplar->nombre);
+
+        // de aqui guardamos en la tabnla modificaiones especificas
+
+        $this->addbitacora($examenEjemplar->ejemplar_id, 'EXAMEN', '',$examenEjemplar->examen->nombre, 'Eliminado');
+
+
+
 
         return view('ejemplar.ajaxGuardaExamen')->with(compact('examenesEjemplar'));
 
@@ -332,6 +348,9 @@ class EjemplarController extends Controller
                                         ->orderBy('id', 'desc')  
                                         ->get();
 
+        $this->addbitacora($request->input('transferencia_ejemplar_id'), 'TRAMSFERENCIA', '',$transferencia->propietario->name, 'Agregado');
+
+
         return view('ejemplar.ajaxGuardaTransferencia')->with(compact('ejemplarTransferencias'));
     }
 
@@ -349,6 +368,8 @@ class EjemplarController extends Controller
                                             ->get();
 
         $transferencia->save();
+
+        $this->addbitacora($transferencia->ejemplar_id, 'TRAMSFERENCIA', '',$transferencia->propietario->name, 'Eliminado');
 
         return view('ejemplar.ajaxGuardaTransferencia')->with(compact('ejemplarTransferencias'));
     }
@@ -369,6 +390,9 @@ class EjemplarController extends Controller
         $titulosEjemplares                  = TituloEjemplar::where('ejemplar_id', $request->input('titulo_ejemplar_id'))
                                                             ->orderBy('id', 'desc')
                                                             ->get();
+
+        $this->addbitacora($request->input('titulo_ejemplar_id'), 'TITULO', '',$titulosEjemplar->titulo->nombre, 'Agregado');
+
         
         return view('ejemplar.ajaxGuardaTitulo')->with(compact('titulosEjemplares'));
     }
@@ -387,6 +411,9 @@ class EjemplarController extends Controller
                                             ->get();
 
         $tituloEjemplar->save();
+
+        $this->addbitacora($tituloEjemplar->ejemplar_id, 'TITULO', '',$tituloEjemplar->titulo->nombre, 'Eliminado');
+
 
         return view('ejemplar.ajaxGuardaTitulo')->with(compact('titulosEjemplares'));
     }
@@ -457,6 +484,7 @@ class EjemplarController extends Controller
         $camada->criadero_id        = $request->input('criadero_id'); 
         $camada->raza_id            = $request->input('raza_id');
         $camada->lechigada          = $request->input('lechigada');
+        $camada->camada             = $request->input('camada');
         $camada->fecha_nacimiento   = $request->input('fecha_nacimiento');
         $camada->lechigada          = $request->input('lechigada');
         $numeroCamadasMadre         = Camada::where('id',$request->input('madre_id'))->count();
@@ -1916,6 +1944,176 @@ class EjemplarController extends Controller
         $modificacion->save();
 
 
+        // $arrayOriginal1 = json_encode($arrayOriginal);
+        // $arrayCambio1   = json_encode($arrayCambio);
+
+        
+        $arrayOriginal1 = $arrayOriginal;
+        $arrayCambio1   = $arrayCambio;
+
+        if($arrayOriginal1['kcb'] != $arrayCambio1['kcb']){
+
+            $this->addbitacora($registro_id, 'KCB', $arrayOriginal1['kcb'],$arrayCambio1['kcb'], 'Modificado');
+
+        }
+
+        if($arrayOriginal1['nombre'] != $arrayCambio1['nombre']){
+
+            $this->addbitacora($registro_id, 'NOMBRE', $arrayOriginal1['nombre'],$arrayCambio1['nombre'], 'Modificado');
+
+        }
+
+        if($arrayOriginal1['padre_id'] != $arrayCambio1['padre_id']){
+
+            $padreOrigen = Ejemplar::find($arrayOriginal1['padre_id']);
+            $padreCambio = Ejemplar::find($arrayCambio1['padre_id']);
+
+            $this->addbitacora($registro_id, 'PADRE', $padreOrigen->nombre, $padreCambio->nombre, 'Modificado');
+
+        }
+
+        if($arrayOriginal1['madre_id'] != $arrayCambio1['madre_id']){
+
+            $madreOrigen = Ejemplar::find($arrayOriginal1['madre_id']);
+            $madreCambio = Ejemplar::find($arrayCambio1['madre_id']);
+
+            $this->addbitacora($registro_id, 'MADRE', $madreOrigen->nombre, $madreCambio->nombre, 'Modificado');
+
+        }
+
+        if($arrayOriginal1['raza_id'] != $arrayCambio1['raza_id']){
+
+            $razaOrigen = Raza::find($arrayOriginal1['raza_id']);
+            $razaCambio = Raza::find($arrayCambio1['raza_id']);
+
+            $this->addbitacora($registro_id, 'RAZA', $razaOrigen->nombre, $razaCambio->nombre, 'Modificado');
+
+        }
+
+        if($arrayOriginal1['criadero_id'] != $arrayCambio1['criadero_id']){
+
+            if($arrayOriginal1['criadero_id']){
+                $criaderoOrigen1 = Criadero::find($arrayOriginal1['criadero_id']);
+                $criaderoOrigen = $criaderoOrigen1->nombre;
+            }else{
+                $criaderoOrigen = null;
+            }
+
+            if($arrayCambio1['criadero_id']){
+                $criaderoCambio1 = Criadero::find($arrayCambio1['criadero_id']);
+                $criaderoCambio  = $criaderoCambio1->nombre;
+            }else{
+                $criaderoCambio = null;
+            }
+
+            $this->addbitacora($registro_id, 'CRIADERO', $criaderoOrigen, $criaderoCambio, 'Modificado');
+
+        }
+
+        if($arrayOriginal1['propietario_id'] != $arrayCambio1['propietario_id']){
+
+            if($arrayOriginal1['propietario_id']){
+                $propietarioOrigen1 = User::find($arrayOriginal1['propietario_id']);
+                $propietarioOrigen  = $propietarioOrigen1->name;
+            }else{
+                $propietarioOrigen = null;
+            }
+
+            if($arrayCambio1['propietario_id']){
+                $propietarioCambio1 = User::find($arrayCambio1['propietario_id']);
+                $propietarioCambio  = $propietarioCambio1->nombre;
+            }else{
+                $propietarioCambio = null;
+            }
+
+            $this->addbitacora($registro_id, 'PROPIETARIO', $propietarioOrigen, $propietarioCambio, 'Modificado');
+
+        }
+
+        if($arrayOriginal1['codigo_nacionalizado'] != $arrayCambio1['codigo_nacionalizado']){
+
+            $this->addbitacora($registro_id, 'CODIGO NACIONALIZADO', $arrayOriginal1['codigo_nacionalizado'], $arrayCambio1['codigo_nacionalizado'], 'Modificado');
+
+        }
+
+        if($arrayOriginal1['num_tatuaje'] != $arrayCambio1['num_tatuaje']){
+
+            $this->addbitacora($registro_id, 'TATUAJE', $arrayOriginal1['num_tatuaje'], $arrayCambio1['num_tatuaje'], 'Modificado');
+
+        }
+
+        if($arrayOriginal1['chip'] != $arrayCambio1['chip']){
+
+            $this->addbitacora($registro_id, 'CHIP', $arrayOriginal1['chip'], $arrayCambio1['chip'], 'Modificado');
+
+        }
+
+        if($arrayOriginal1['fecha_nacimiento'] != $arrayCambio1['fecha_nacimiento']){
+
+            $this->addbitacora($registro_id, 'FECHA DE NACIMIENTO', $arrayOriginal1['fecha_nacimiento'], $arrayCambio1['fecha_nacimiento'], 'Modificado');
+
+        }
+
+        if($arrayOriginal1['color'] != $arrayCambio1['color']){
+
+            $this->addbitacora($registro_id, 'COLOR', $arrayOriginal1['color'], $arrayCambio1['color'], 'Modificado');
+
+        }
+
+        if($arrayOriginal1['senas'] != $arrayCambio1['senas']){
+
+            $this->addbitacora($registro_id, 'SENAS', $arrayOriginal1['senas'], $arrayCambio1['senas'], 'Modificado');
+
+        }
+        
+        if($arrayOriginal1['lechigada'] != $arrayCambio1['lechigada']){
+
+            $this->addbitacora($registro_id, 'LECHIGADA', $arrayOriginal1['lechigada'], $arrayCambio1['lechigada'], 'Modificado');
+
+        }
+
+        if($arrayOriginal1['sexo'] != $arrayCambio1['sexo']){
+
+            $this->addbitacora($registro_id, 'SEXO', $arrayOriginal1['sexo'], $arrayCambio1['sexo'], 'Modificado');
+
+        }
+
+        if($arrayOriginal1['consanguinidad'] != $arrayCambio1['consanguinidad']){
+
+            $this->addbitacora($registro_id, 'CONSANGUINIDAD', $arrayOriginal1['consanguinidad'], $arrayCambio1['consanguinidad'], 'Modificado');
+
+        }
+
+        if($arrayOriginal1['hermano'] != $arrayCambio1['hermano']){
+
+            $this->addbitacora($registro_id, 'HERMANO', $arrayOriginal1['hermano'], $arrayCambio1['hermano'], 'Modificado');
+
+        }
+
+        if($arrayOriginal1['departamento'] != $arrayCambio1['departamento']){
+
+            $this->addbitacora($registro_id, 'DEPARTAMENTO', $arrayOriginal1['departamento'], $arrayCambio1['departamento'], 'Modificado');
+
+        }
+
+        if($arrayOriginal1['fecha_fallecido'] != $arrayCambio1['fecha_fallecido']){
+
+            $this->addbitacora($registro_id, 'FECHA FALLECIDO', $arrayOriginal1['fecha_fallecido'], $arrayCambio1['fecha_fallecido'], 'Modificado');
+
+        }
+
+        if($arrayOriginal1['fecha_emision'] != $arrayCambio1['fecha_emision']){
+
+            $this->addbitacora($registro_id, 'FECHA EMISION', $arrayOriginal1['fecha_emision'], $arrayCambio1['fecha_emision'], 'Modificado');
+
+        }
+
+        if($arrayOriginal1['fecha_nacionalizado'] != $arrayCambio1['fecha_nacionalizado']){
+
+            $this->addbitacora($registro_id, 'FECHA NACIONALIZADO', $arrayOriginal1['fecha_nacionalizado'], $arrayCambio1['fecha_nacionalizado'], 'Modificado');
+
+        }
+
     }
     
     public function validaKcb(Request $request){
@@ -1999,5 +2197,35 @@ class EjemplarController extends Controller
                                         ->first();
                                     
         return view('certificado.certificadoRosadoAdelante')->with(compact('ejemplar'/*, 'examenEjemplar', 'transferenciaEjemplar', 'tituloEjemplar', 'examenEjemplarAsignacion', 'transferenciaEjemplarAsignacion', 'tituloEjemplarAsignacion'*/));
+    }
+
+    public function bitacora(Request $request){
+
+        $modificaiones = ModificacionEspecifico::orderBy('id', 'desc')->get();
+
+        return view('ejemplar.bitacora')->with(compact('modificaiones'));
+        // dd("en desarrollo :v");
+    }
+
+    private function addbitacora($ejemplar, $campo, $dato_anterior, $dato_modificado, $accion){
+
+        $modificaionEspecifica = new ModificacionEspecifico();
+
+        $modificaionEspecifica->user_id             = Auth::user()->id;
+        $modificaionEspecifica->ejemplar_id         = $ejemplar;
+        $modificaionEspecifica->campo               = $campo;
+        $modificaionEspecifica->dato_anteriror      = $dato_anterior;
+        $modificaionEspecifica->dato_modificado     = $dato_modificado;
+        $modificaionEspecifica->accion              = $accion;
+
+        $modificaionEspecifica->save();
+    }
+
+    public function listaCamadasPadres(Request $request, $ejemplar_id, $padre ){
+        $camada = Camada::where(($padre==1)?'padre_id':'madre_id',$ejemplar_id)
+                            ->orderBy('id','desc')
+                            ->get();
+
+        return view('ejemplar.listaCamadasPadres')->with(compact('camada'));
     }
 }

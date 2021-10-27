@@ -46,6 +46,25 @@
                 <button type="button" class="btn btn-sm btn-icon btn-primary" onclick="logs('{{ $e->id }}')">
                     <i class="far fa-keyboard"></i>
                 </button>
+                @php
+                    $padre = App\Camada::where('padre_id',$e->id)->count();
+                    $madre = App\Camada::where('madre_id',$e->id)->count();
+                    if($padre>0 || $madre>0){
+                        $table = 0;
+                        if($padre>0){
+                            $table = 1;
+                        }
+                        echo '<button type="button" class="btn btn-sm btn-icon btn-success" onclick="PadresCamadas('.$e->id.','.$table.')">
+                                <i class="fas fa-bezier-curve"></i>
+                            </button>';
+                    }
+                    // elseif($madre>0){
+                    //     echo '<button type="button" class="btn btn-sm btn-icon btn-success" onclick="">
+                    //             <i class="fas fa-bezier-curve"></i>
+                    //         </button>';
+                    // }
+                @endphp
+                
                 <button type="button" class="btn btn-sm btn-icon btn-danger" onclick="elimina('{{ $e->id }}', '{{ $e->nombre }}')">
                     <i class="flaticon2-cross"></i>
                 </button>

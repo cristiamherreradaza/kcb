@@ -242,5 +242,10 @@
 			window.location.href = "{{ url('Ejemplar/muestraModificacion')}}/ejemplares/"+id;
 		}
 
+		function PadresCamadas(id, table){
+			// alert('en desarrollo :v'+id+"<->"+table);
+			window.location.href = "{{ url('Ejemplar/listaCamadasPadres')}}/"+id+"/"+table;
+		}
+
     </script>
 @endsection

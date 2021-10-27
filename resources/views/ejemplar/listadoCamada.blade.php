@@ -168,16 +168,20 @@
 		
 		<div class="card-body">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <h3>
                         <span class="text-primary">Padre: </span>{{ $camada->padre->nombre_completo }}
                     </h3>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <h3>
                         <span class="text-primary">Madre: </span>{{ $camada->madre->nombre_completo }}
                     </h3>
-
+                </div>
+                <div class="col-md-2">
+                    <h3>
+                        <span class="text-primary">Camada: </span>{{ $camada->camada }}
+                    </h3>
                 </div>
             </div>
             <div class="row">

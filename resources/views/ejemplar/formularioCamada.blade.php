@@ -92,7 +92,7 @@
             <br />
 
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div class="form-group">
                         <label for="exampleInputPassword1">PROPIETARIO
                         </label>
@@ -102,7 +102,7 @@
                     </div>
                 </div>
                 
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div class="form-group">
                         <label for="exampleInputPassword1">AFIJO
                         </label>
@@ -111,7 +111,13 @@
                         </select>
                     </div>
                 </div>
-
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">CAMADA
+                        </label>
+                        <input class="form-control" type="text" id="camada" name="camada" placeholder="A,B,C">
+                    </div>
+                </div>
             </div>
 
             <div class="row">
@@ -209,7 +215,13 @@
             <div id="ejemplares_1">
                 <div class="form-group row" id="ejemplares_1">
                     <div data-repeater-list="ejemplar" class="col-lg-12">
+                        
                         <div data-repeater-item class="form-group row align-items-center">
+                            <div class="col-md-12">
+                                <div style="padding: 20px;">
+                                    <hr style='background-color: #79E9E6 ; height: 5px; opacity: 0.5;'>
+                                </div>
+                            </div>
                             <div class="col-md-3">
                                 <label>Nombre:</label>
                                 <input type="text" class="form-control" placeholder="Snoopy" name="nombre" />

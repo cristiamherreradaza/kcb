@@ -1232,7 +1232,7 @@
             @csrf
 
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div class="form-group">
                         <label for="nombre">Nombre
                             <span class="text-danger">*</span></label>
@@ -1257,6 +1257,14 @@
                             <option value="Nombre" {{ ($ejemplar!=null)? ($ejemplar->primero_mostrar=="Nombre")?"selected":'':'' }}>Nombre</option>
                             <option value="Afijo" {{ ($ejemplar!=null)? ($ejemplar->primero_mostrar=="Afijo")?"selected":'':'' }}>Afijo</option>
                         </select>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label for="primero_mostrar">Extranjero
+                            {{-- <span class="text-danger">*</span> --}}
+                        </label> <br>
+                        <input name="extranjero" data-switch="true" data-on-text="SI" data-off-text="NO" type="checkbox" data-on-color="success" {{ ($ejemplar != null)? (($ejemplar->extranjero == 'si')? 'checked': ''):'' }} />
                     </div>
                 </div>
             </div>
@@ -1399,7 +1407,11 @@
 
                 <div class="col-md-3">
                 @php
-                    $var = "";
+                    if($ejemplar != null){
+                        $var = $ejemplar->departamento;
+                    }else{
+                        $var = "";
+                    }
                 @endphp
 
                     <div class="form-group">
@@ -1412,7 +1424,7 @@
                                 Oruro</option>
                             <option value="Potosi" {{ ($var!=null)? ($var=="Potosi")?"selected":'':'' }}>
                                 Potosi</option>
-                            <option value="Cochabamba" {{ ($var!=null)? ($var=="Cochabamba")?"selected":'':'' }}>
+                            <option value="Cochabamba" {{ ($var!=null)? (($var=="Cochabamba")?"selected":''):'' }}>
                                 Cochabamba</option>
                             <option value="Chuquisaca" {{ ($var!=null)? ($var=="Chuquisaca")?"selected":'':'' }}>
                                 Chuquisaca</option>
