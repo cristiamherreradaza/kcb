@@ -13,50 +13,62 @@
     @foreach ($menusPerfiles as $m )
         @if ($contador <= $canCol)
             @if ($contador == 1)
+                @if ($m->menu)
                 <div class="col-md-6">
-                    @if ($m->menu->direccion!='#')
-                        <br>- <input type="checkbox" id="{{ $m->id}}" onchange="guarda('{{ $m->id }}')" {{ ($m->estado=='Visible')? "checked":''}} > <label for="{{ $m->id}}">{{$m->menu->nombre}}</label> 
-                    @else
-                        <br><input type="checkbox" id="{{ $m->id}}" onchange="guarda('{{ $m->id }}')" {{ ($m->estado=='Visible')? "checked":''}} > <label for="{{ $m->id}}">{{$m->menu->nombre}}</label> 
-                    @endif
-            @else
-                @if ($contador==$canCol)
-                    @if ($m->menu->direccion!='#')
-                            <br>- <input type="checkbox" id="{{ $m->id}}" onchange="guarda('{{ $m->id }}')" {{ ($m->estado=='Visible')? "checked":''}} > <label for="{{ $m->id}}">{{$m->menu->nombre}}</label> 
-                        </div>
-                    @else
-                            <br><input type="checkbox" id="{{ $m->id}}" onchange="guarda('{{ $m->id }}')" {{ ($m->estado=='Visible')? "checked":''}} > <label for="{{ $m->id}}">{{$m->menu->nombre}}</label> 
-                        </div>
-                    @endif
-                @else
                     @if ($m->menu->direccion!='#')
                         <br>- <input type="checkbox" id="{{ $m->id}}" onchange="guarda('{{ $m->id }}')" {{ ($m->estado=='Visible')? "checked":''}} > <label for="{{ $m->id}}">{{$m->menu->nombre}}</label> 
                     @else
                         <br><input type="checkbox" id="{{ $m->id}}" onchange="guarda('{{ $m->id }}')" {{ ($m->estado=='Visible')? "checked":''}} > <label for="{{ $m->id}}">{{$m->menu->nombre}}</label> 
                     @endif
                 @endif
+            @else
+                @if ($contador==$canCol)
+                    @if ($m->menu)
+                        @if ($m->menu->direccion!='#')
+                                <br>- <input type="checkbox" id="{{ $m->id}}" onchange="guarda('{{ $m->id }}')" {{ ($m->estado=='Visible')? "checked":''}} > <label for="{{ $m->id}}">{{$m->menu->nombre}}</label> 
+                            </div>
+                        @else
+                                <br><input type="checkbox" id="{{ $m->id}}" onchange="guarda('{{ $m->id }}')" {{ ($m->estado=='Visible')? "checked":''}} > <label for="{{ $m->id}}">{{$m->menu->nombre}}</label> 
+                            </div>
+                        @endif    
+                    @endif
+                @else
+                    @if ($m->menu)
+                        @if ($m->menu->direccion!='#')
+                            <br>- <input type="checkbox" id="{{ $m->id}}" onchange="guarda('{{ $m->id }}')" {{ ($m->estado=='Visible')? "checked":''}} > <label for="{{ $m->id}}">{{$m->menu->nombre}}</label> 
+                        @else
+                            <br><input type="checkbox" id="{{ $m->id}}" onchange="guarda('{{ $m->id }}')" {{ ($m->estado=='Visible')? "checked":''}} > <label for="{{ $m->id}}">{{$m->menu->nombre}}</label> 
+                        @endif    
+                    @endif
+                @endif
             @endif
         @else
             @if ($contador==($canCol+1))
-                <div class="col-md-6">
-                    @if ($m->menu->direccion!='#')
-                        <br>- <input type="checkbox" id="{{ $m->id}}" onchange="guarda('{{ $m->id }}')" {{ ($m->estado=='Visible')? "checked":''}} > <label for="{{ $m->id}}">{{$m->menu->nombre}}</label>         
-                    @else
-                        <br><input type="checkbox" id="{{ $m->id}}" onchange="guarda('{{ $m->id }}')" {{ ($m->estado=='Visible')? "checked":''}} > <label for="{{ $m->id}}">{{$m->menu->nombre}}</label>         
-                    @endif
+                @if ($m->menu)
+                    <div class="col-md-6">
+                        @if ($m->menu->direccion!='#')
+                            <br>- <input type="checkbox" id="{{ $m->id}}" onchange="guarda('{{ $m->id }}')" {{ ($m->estado=='Visible')? "checked":''}} > <label for="{{ $m->id}}">{{$m->menu->nombre}}</label>         
+                        @else
+                            <br><input type="checkbox" id="{{ $m->id}}" onchange="guarda('{{ $m->id }}')" {{ ($m->estado=='Visible')? "checked":''}} > <label for="{{ $m->id}}">{{$m->menu->nombre}}</label>         
+                        @endif    
+                @endif
             @else
                 @if ($contador==$cantidadToltal)
-                    @if ($m->menu->direccion!='#')
-                        <br>- <input type="checkbox" id="{{ $m->id}}" onchange="guarda('{{ $m->id }}')" {{ ($m->estado=='Visible')? "checked":''}} > <label for="{{ $m->id}}">{{$m->menu->nombre}}</label> 
-                    @else
-                        <br><input type="checkbox" id="{{ $m->id}}" onchange="guarda('{{ $m->id }}')" {{ ($m->estado=='Visible')? "checked":''}} > <label for="{{ $m->id}}">{{$m->menu->nombre}}</label> 
+                    @if ($m->menu)
+                            @if ($m->menu->direccion!='#')
+                                <br>- <input type="checkbox" id="{{ $m->id}}" onchange="guarda('{{ $m->id }}')" {{ ($m->estado=='Visible')? "checked":''}} > <label for="{{ $m->id}}">{{$m->menu->nombre}}</label> 
+                            @else
+                                <br><input type="checkbox" id="{{ $m->id}}" onchange="guarda('{{ $m->id }}')" {{ ($m->estado=='Visible')? "checked":''}} > <label for="{{ $m->id}}">{{$m->menu->nombre}}</label> 
+                            @endif    
+                        </div>
                     @endif
-                </div>
                 @else
-                    @if ($m->menu->direccion!='#')
-                        <br>- <input type="checkbox" id="{{ $m->id}}" onchange="guarda('{{ $m->id }}')" {{ ($m->estado=='Visible')? "checked":''}} > <label for="{{ $m->id}}">{{$m->menu->nombre}}</label>         
-                    @else
-                        <br><input type="checkbox" id="{{ $m->id}}" onchange="guarda('{{ $m->id }}')" {{ ($m->estado=='Visible')? "checked":''}} > <label for="{{ $m->id}}">{{$m->menu->nombre}}</label>         
+                    @if ($m->menu)
+                        @if ($m->menu->direccion!='#')
+                            <br>- <input type="checkbox" id="{{ $m->id}}" onchange="guarda('{{ $m->id }}')" {{ ($m->estado=='Visible')? "checked":''}} > <label for="{{ $m->id}}">{{$m->menu->nombre}}</label>         
+                        @else
+                            <br><input type="checkbox" id="{{ $m->id}}" onchange="guarda('{{ $m->id }}')" {{ ($m->estado=='Visible')? "checked":''}} > <label for="{{ $m->id}}">{{$m->menu->nombre}}</label>         
+                        @endif    
                     @endif
                 @endif
             @endif

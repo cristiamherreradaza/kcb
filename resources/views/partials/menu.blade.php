@@ -33,51 +33,53 @@
 			@endphp
 			@foreach ($menus as $m)
 			<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-				@if ($m->menu->direccion == '#' && $m->estado == 'Visible')
-					<a href="javascript:;" class="menu-link menu-toggle">
-						<span class="menu-icon"><i class="{{ $m->menu->icono }}"></i></span>
-						<span class="menu-text">{{ $m->menu->nombre }}</span>
-						<i class="menu-arrow"></i>
-					</a>
-					@php
-						$menuPadre = $m->menu_id;
-						// echo $id;
-						// $menuPadre =$m->menu->id;
-						$menusHijos = App\Menu::where('padre',$menuPadre)->get();
-						// foreach($menusHijos as $mh){
-						// 	echo $mh->menuUser->estado."<br>";
-						// }
-					@endphp
-					<div class="menu-submenu">
-						<i class="menu-arrow"></i>
-						<ul class="menu-subnav">
-							<li class="menu-item menu-item-parent" aria-haspopup="true">
-								<span class="menu-link">
-									<span class="menu-text">{{ $m->menu->nombre }}</span>
-								</span>
-							</li>
-							@foreach ($menusHijos as $mh)
-								@php
-									$estado = App\menuUsers::where('user_id',$user_id)
-														->where('menu_id',$mh->id)
-														->first();
-														// dd($estado);
-								@endphp
-								@if ($estado)
-									@if($estado->estado == "Visible")
-										<li class="menu-item" aria-haspopup="true">
-											<a href="{{ url($mh->direccion) }}" class="menu-link">
-												<i class="menu-bullet menu-bullet-dot">
-													<span></span>
-												</i>
-												<span class="menu-text">{{ $mh->nombre }}</span>
-											</a>
-										</li>	
+				@if($m->menu)
+					@if ($m->menu->direccion == '#' && $m->estado == 'Visible')
+						<a href="javascript:;" class="menu-link menu-toggle">
+							<span class="menu-icon"><i class="{{ $m->menu->icono }}"></i></span>
+							<span class="menu-text">{{ $m->menu->nombre }}</span>
+							<i class="menu-arrow"></i>
+						</a>
+						@php
+							$menuPadre = $m->menu_id;
+							// echo $id;
+							// $menuPadre =$m->menu->id;
+							$menusHijos = App\Menu::where('padre',$menuPadre)->get();
+							// foreach($menusHijos as $mh){
+							// 	echo $mh->menuUser->estado."<br>";
+							// }
+						@endphp
+						<div class="menu-submenu">
+							<i class="menu-arrow"></i>
+							<ul class="menu-subnav">
+								<li class="menu-item menu-item-parent" aria-haspopup="true">
+									<span class="menu-link">
+										<span class="menu-text">{{ $m->menu->nombre }}</span>
+									</span>
+								</li>
+								@foreach ($menusHijos as $mh)
+									@php
+										$estado = App\menuUsers::where('user_id',$user_id)
+															->where('menu_id',$mh->id)
+															->first();
+															// dd($estado);
+									@endphp
+									@if ($estado)
+										@if($estado->estado == "Visible")
+											<li class="menu-item" aria-haspopup="true">
+												<a href="{{ url($mh->direccion) }}" class="menu-link">
+													<i class="menu-bullet menu-bullet-dot">
+														<span></span>
+													</i>
+													<span class="menu-text">{{ $mh->nombre }}</span>
+												</a>
+											</li>	
+										@endif
 									@endif
-								@endif
-							@endforeach
-						</ul>
-					</div>
+								@endforeach
+							</ul>
+						</div>
+					@endif
 				@endif
 			</li>
 			{{-- @php
