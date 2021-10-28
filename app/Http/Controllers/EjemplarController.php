@@ -2195,6 +2195,9 @@ class EjemplarController extends Controller
         $examenAptoCria = ExamenMascota::where('ejemplar_id',$ejemplar_id)
                                         ->where('examen_id',2)
                                         ->first();
+
+        $ejemplar = Ejemplar::find($ejemplar_id);
+
                                     
         return view('certificado.certificadoRosadoAdelante')->with(compact('ejemplar'/*, 'examenEjemplar', 'transferenciaEjemplar', 'tituloEjemplar', 'examenEjemplarAsignacion', 'transferenciaEjemplarAsignacion', 'tituloEjemplarAsignacion'*/));
     }

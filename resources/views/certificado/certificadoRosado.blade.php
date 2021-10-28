@@ -50,7 +50,14 @@
         font-size: 15px;
         padding: 5px 0px 5px 0px;
     }
+
+    .codigo-qr{
+        top: 12px;
+        left: 365px;
+        position: absolute;
+    }
     #direccion{
+        font-size: 14px;
         padding: 10px 0px 7px 0px;
     }
     #telefono{
@@ -73,6 +80,9 @@
     .impor-1{
         font-size: 22px;
     }
+    /* .criadero{
+        font-size:10px;
+    } */
     .titulos{
         height: 33px;
     }
@@ -89,7 +99,7 @@
     }
     #arbol-genealogio{
         position: absolute;
-        top: 265px;
+        top: 262px;
         left: 220px;
         color: #0414ff;
         font-weight: bold;
@@ -227,7 +237,7 @@
         top: 465px;
     }
     #certificado{
-        padding: 20px 20px 20px 160px;
+        padding: 15px 20px 0px 160px;
         width: 85%;
     }
 
@@ -716,7 +726,7 @@
             <table id="table-datos-2">
                 <tr>
                     <td colspan="2" class="impor-1">{{ ($ejemplar->criadero)? $ejemplar->criadero->nombre." FCI: ".$ejemplar->criadero->registro_fci : '' }}</td>
-                    <td rowspan="5"> <div id="qrcode"></div></td>
+                    <td rowspan="5" class='codigo-qr'> <div id="qrcode"></div></td>
                 </tr>
                 <tr>
                     <td colspan="2"  id="propietario">{{ ($ejemplar->propietario)? $ejemplar->propietario->name : '' }}</td>
@@ -2042,9 +2052,6 @@
         </section>
     </div>
     <div id="enlaces">
-        <form action="">
-            <input type="text" id="nombre-completo-ejemplar-qr" value="{{ $ejemplar->nombre_completo }}">
-        </form>
         <a href="{{ url('Ejemplar/informacion') }}/{{ $ejemplar->id }}">Volver</a>
         <a href="#" onclick="imprimir()">Imprimir</a>
         <a href="{{ url('Ejemplar/certificadoRosadoAdelante') }}/{{ $ejemplar->id }}">Siguiente</a>
@@ -2068,8 +2075,6 @@
         $('#enlaces').show();
         $('#certificado').show();
     }
-    var holas = document.getElementById("nombre-completo-ejemplar-qr").value;
-    // alert(holas);
     // let cadenaQr = "BEGIN:VCALENDAR"+"%0D%0A"+
     //                    "VERSION:1.0"+"%0D%0A"+
     //                    "BEGIN:VEVENT"+"%0D%0A"+
