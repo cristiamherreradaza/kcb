@@ -89,7 +89,7 @@
     }
     #arbol-genealogio{
         position: absolute;
-        top: 270px;
+        top: 265px;
         left: 220px;
         color: #0414ff;
         font-weight: bold;
