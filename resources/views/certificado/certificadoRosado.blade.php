@@ -102,41 +102,43 @@
     .padres{
         /* background-color: yellow; */
         position: absolute;
-        width:275px;
-        height: 275px;
+        width:290px;
+        height: 243px;
         font-size: 18px;
     }
     .padre_1{
-        top:0px;
+        top: -5px;
     }
 
     .padre_2{
-        top: 280px;
+        top: 245px;
     }
     .abuelos{
+        /* background-color: green; */
         position: absolute;
         font-size: 12px;
-        left: 280px;
-        width:287px;
-        height: 135px;
+        left: 310px;
+        width:250px;
+        height: 123px;
     }
     .abuelo_1{
-        top:0px;
+        top:-3px;
     }
     .abuelo_2{
-        top: 135px;
+        top: 123px;
     }
     .abuelo_3{
-        top: 280px;
+        top: 245px;
     }
     .abuelo_4{
-        top: 425px;
+        top: 370px;
     }
     .tercera_generaciones{
+        /* background-color: orange; */
         position: absolute;
         font-size: 11px;
         height: 60px;
-        width:329px;
+        width:300px;
         left: 570px;
     }
     .tg_1{
@@ -147,43 +149,35 @@
     }
 
     .tg_3{
-        top:135px;
+        top:123px;
     }
     .tg_4{
-        top:210px;
+        top:183px;
     }
     .tg_5{
-        top: 280px;
+        top: 246px;
     }
     .tg_6{
-        top:350px;
+        top:308px;
     }
     .tg_7{
-        top:423px;
+        top:368px;
     }
     .tg_8{
-        top:495px;
+        top:430px;
     }
     
     .cuarta_generaciones{
         /* background-color: yellowgreen; */
         position: absolute;
         width: 450px;
-        height: 32px;
+        height: 30px;
         font-size: 10px;
         /* padding:0;
         margin: 0; */
-        left: 900px;
+        left: 876px;
         /* word-wrap: break-word; */
     }
-    /* .cg_1,.cg_2,.cg_3,.cg_4,#cg_5,#cg_6,#cg_7,#cg_8,#cg_9,#cg_10,#cg_11,#cg_12,#cg_13,#cg_14,#cg_15,#cg_16{
-        position: absolute;
-        font-size: 10px;
-        padding:0;
-        margin: 0;
-        left: 900px;
-        word-wrap: break-word;
-    } */
     .cg_1{
         top: -5px;
     }
@@ -191,47 +185,64 @@
         top: 30px;
     }
     .cg_3{
-        top: 65px;
+        top: 61px;
     }
     .cg_4{
-        top: 100px;
+        top: 93px;
     }
     .cg_5{
-        top: 135px;
+        top: 124px;
     }
     .cg_6{
-        top: 170px;
+        top: 154px;
     }
     .cg_7{
-        top: 205px;
+        top: 185px;
     }
     .cg_8{
-        top: 242px;
+        top: 216px;
     }
     .cg_9{
-        top: 279px;
+        top: 247px;
     }
     .cg_10{
-        top: 314px;
+        top: 279px;
     }
     .cg_11{
-        top: 350px;
+        top: 310px;
     }
     .cg_12{
-        top: 385px;
+        top: 340px;
     }
     .cg_13{
-        top: 422px;
+        top: 371px;
     }
     .cg_14{
-        top: 457px;
+        top: 402px;
     }
     .cg_15{
-        top: 492px;
+        top: 432px;
     }
     .cg_16{
-        top: 526px;
+        top: 465px;
     }
+    #certificado{
+        padding: 20px 20px 20px 160px;
+        width: 85%;
+    }
+
+    .lechigada{
+        /* background-color: yellowgreen; */
+        position: absolute;
+        /* width: 200px;
+        height: 50px; */
+        font-size: 15px;
+        bottom: 155px;
+        left: 600px;
+        color: #0414ff;
+        font-weight: bold;
+    }
+    
 </style>
 @php
     // sacamos las generaciones
@@ -661,7 +672,8 @@
 @endphp
 <body onload="shrink()">
     <div id="bloque-certificado">
-        <img src="{{ url('img/certificado_1.jpg') }}" width="77%" id="certificado" alt="No hay imagen">
+        {{-- <img src="{{ url('img/certificado_1.jpg') }}" width="77%" id="certificado" alt="No hay imagen"> --}}
+        <img src="{{ url('img/certificado_1.jpg') }}" id="certificado" alt="No hay imagen">
         <div id="datos-ejemplar-1">
             <table id="table-datos-1" cellspacing="0">
                 <tr>
@@ -732,10 +744,18 @@
                     <span class="padres1">
                         @php
                             if(isset($papa)){
-                                $titulo = App\TituloEjemplar::where('ejemplar_id',$papa->id)->get();
-                                if($titulo){
+                                $titulosw = App\TituloEjemplar::where('ejemplar_id',$papa->id)->count();
+                                if($titulosw != 0){
+                                    $titulo = App\TituloEjemplar::where('ejemplar_id',$papa->id)->get();
+                                    $i = 1;
                                     foreach ($titulo as $t){
-                                        echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                                        if($i <= 5){
+                                            echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                                            $i++;
+                                        }else{
+                                            $i = 1;
+                                            echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
+                                        }
                                     }
                                     echo "<br>";
                                 }
@@ -743,21 +763,26 @@
                                 echo "K.C.B. ".$papa->kcb."<br>";
                                 echo "No. x Raza ".$papa->num_tatuaje."<br>";
                                 echo "Chip ".$papa->chip."<br>";
-
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$papa->id)
-                                            ->where('examen_id','=',3)
-                                            ->first();
-                                if($examenMascotaPapa){
-                                    $examenPapa = $examenMascotaPapa->examen->nombre;
-                                    $resultadoPapa = $examenMascotaPapa->resultado;
-                                }else{
-                                    $examenPapa = "";
-                                    $resultadoPapa = "";
+                                                                        ->get();
+                                foreach ($examenMascotaPapa as $e){
+                                    echo $e->examen->nombre.": ".$e->resultado."<br>";
+                                    // echo " ".$e->resultado."<br>";
                                 }
+                                // $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$papa->id)
+                                //             ->where('examen_id','=',3)
+                                //             ->first();
+                                // if($examenMascotaPapa){
+                                //     $examenPapa = $examenMascotaPapa->examen->nombre;
+                                //     $resultadoPapa = $examenMascotaPapa->resultado;
+                                // }else{
+                                //     $examenPapa = "";
+                                //     $resultadoPapa = "";
+                                // }
 
-                                echo $examenPapa."<br>";
-                                echo $resultadoPapa."<br>";
-                                echo "Color: ".$papa->color."<br>";
+                                // echo $examenPapa."<br>";
+                                // echo $resultadoPapa."<br>";
+                                echo "Color: ".$papa->color;
                             }
                         @endphp
                     </span>
@@ -767,10 +792,18 @@
                     <span class="padres1">
                         @php
                             if(isset($mama)){
-                                $titulo = App\TituloEjemplar::where('ejemplar_id',$mama->id)->get();
-                                if($titulo){
+                                $titulosw = App\TituloEjemplar::where('ejemplar_id',$mama->id)->count();
+                                if($titulosw != 0){
+                                    $titulo = App\TituloEjemplar::where('ejemplar_id',$mama->id)->get();
+                                    $i = 1;
                                     foreach ($titulo as $t){
-                                        echo "<span class='text-danger'>".$t->titulo->nombre." </span>";
+                                        if($i <= 5){
+                                            echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                                            $i++;
+                                        }else{
+                                            $i = 1;
+                                            echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
+                                        }
                                     }
                                     echo "<br>";
                                 }
@@ -780,19 +813,12 @@
                                 echo "Chip ".$mama->chip."<br>";
 
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$mama->id)
-                                            ->where('examen_id','=',3)
-                                            ->first();
-                                if($examenMascotaPapa){
-                                    $examenPapa = $examenMascotaPapa->examen->nombre;
-                                    $resultadoPapa = $examenMascotaPapa->resultado;
-                                }else{
-                                    $examenPapa = "";
-                                    $resultadoPapa = "";
+                                            ->get();
+                                foreach ($examenMascotaPapa as $e){
+                                    echo $e->examen->nombre;
+                                    echo $e->resultado;
                                 }
-
-                                echo $examenPapa."<br>";
-                                echo $resultadoPapa."<br>";
-                                echo "Color: ".$mama->color."<br>";
+                                echo "Color: ".$mama->color;
                             }
                         @endphp
                     </span>
@@ -824,18 +850,10 @@
                                 echo "Chip ".$abuelo->chip."<br>";
 
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abuelo->id)
-                                            ->where('examen_id','=',3)
-                                            ->first();
-                                if($examenMascotaPapa){
-                                    $examenPapa = $examenMascotaPapa->examen->nombre;
-                                    $resultadoPapa = $examenMascotaPapa->resultado;
-                                }else{
-                                    $examenPapa = "";
-                                    $resultadoPapa = "";
+                                            ->get();
+                                foreach($examenMascotaPapa as $e){
+                                    echo $e->examen->nombre.": ".$e->resultado."<br>";
                                 }
-
-                                echo $examenPapa."<br>";
-                                echo $resultadoPapa."<br>";
                                 echo "Color: ".$abuelo->color;
                             }
                         @endphp
@@ -867,18 +885,10 @@
                                 echo "Chip ".$abuela->chip."<br>";
 
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abuela->id)
-                                            ->where('examen_id','=',3)
-                                            ->first();
-                                if($examenMascotaPapa){
-                                    $examenPapa = $examenMascotaPapa->examen->nombre;
-                                    $resultadoPapa = $examenMascotaPapa->resultado;
-                                }else{
-                                    $examenPapa = "";
-                                    $resultadoPapa = "";
+                                            ->get();
+                                foreach($examenMascotaPapa as $e){
+                                    echo $e->examen->nombre.": ".$e->resultado."<br>";
                                 }
-
-                                echo $examenPapa."<br>";
-                                echo $resultadoPapa."<br>";
                                 echo "Color: ".$abuela->color;
                             }
                         @endphp
@@ -902,7 +912,7 @@
                                             echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
                                         }
                                     }
-                                    echo $titulosw."<br>";
+                                    echo "<br>";
                                 }
                                 echo $abueloM->nombre_completo."<br>";
                                 echo "K.C.B. ".$abueloM->kcb."<br>";
@@ -910,18 +920,10 @@
                                 echo "Chip ".$abueloM->chip."<br>";
 
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloM->id)
-                                            ->where('examen_id','=',3)
-                                            ->first();
-                                if($examenMascotaPapa){
-                                    $examenPapa = $examenMascotaPapa->examen->nombre;
-                                    $resultadoPapa = $examenMascotaPapa->resultado;
-                                }else{
-                                    $examenPapa = "";
-                                    $resultadoPapa = "";
+                                            ->get();
+                                foreach($examenMascotaPapa as $e){
+                                    echo $e->examen->nombre.": ".$e->resultado."<br>";
                                 }
-
-                                echo $examenPapa."<br>";
-                                echo $resultadoPapa."<br>";
                                 echo "Color: ".$abueloM->color;
                             }
                         @endphp
@@ -952,18 +954,10 @@
                                 echo "Chip ".$abuelaM->chip."<br>";
 
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abuelaM->id)
-                                            ->where('examen_id','=',3)
-                                            ->first();
-                                if($examenMascotaPapa){
-                                    $examenPapa = $examenMascotaPapa->examen->nombre;
-                                    $resultadoPapa = $examenMascotaPapa->resultado;
-                                }else{
-                                    $examenPapa = "";
-                                    $resultadoPapa = "";
+                                                                    ->get();
+                                foreach($examenMascotaPapa as $e){
+                                    echo $e->examen->nombre.": ".$e->resultado."<br>";
                                 }
-
-                                echo $examenPapa."<br>";
-                                echo $resultadoPapa."<br>";
                                 echo "Color: ".$abuelaM->color;
                             }
                         @endphp
@@ -1007,8 +1001,9 @@
                                     $resultadoPapa = "";
                                 }
 
-                                echo $examenPapa." ";
-                                echo $resultadoPapa."<br>";
+                                if($examenPapa != ""){
+                                    echo $examenPapa." ".$resultadoPapa."<br>";
+                                }
                                 echo "Color: ".$tGPadre->color;
                             }
                         @endphp
@@ -1050,8 +1045,11 @@
                                     $resultadoPapa = "";
                                 }
 
-                                echo $examenPapa." ";
-                                echo $resultadoPapa."<br>";
+                                if($examenPapa != ""){
+                                    echo $examenPapa." ".$resultadoPapa."<br>";
+                                }
+                                // echo $examenPapa." ";
+                                // echo $resultadoPapa."<br>";
                                 echo "Color: ".$tGMadre->color;
                             }
                         @endphp
@@ -1093,8 +1091,12 @@
                                     $resultadoPapa = "";
                                 }
 
-                                echo $examenPapa." ";
-                                echo $resultadoPapa."<br>";
+                                if($examenPapa != ""){
+                                    echo $examenPapa." ".$resultadoPapa."<br>";
+                                }
+
+                                // echo $examenPapa." ";
+                                // echo $resultadoPapa."<br>";
                                 echo "Color: ".$abueloTG->color;
                             }
                         @endphp
@@ -1136,8 +1138,12 @@
                                     $resultadoPapa = "";
                                 }
 
-                                echo $examenPapa." ";
-                                echo $resultadoPapa."<br>";
+                                if($examenPapa != ""){
+                                    echo $examenPapa." ".$resultadoPapa."<br>";
+                                }
+
+                                // echo $examenPapa." ";
+                                // echo $resultadoPapa."<br>";
                                 echo "Color: ".$abuelaTG->color;
                             }
                         @endphp
@@ -1178,9 +1184,13 @@
                                     $examenPapa = "";
                                     $resultadoPapa = "";
                                 }
+                                
+                                if($examenPapa != ""){
+                                    echo $examenPapa." ".$resultadoPapa."<br>";
+                                }
 
-                                echo $examenPapa." ";
-                                echo $resultadoPapa."<br>";
+                                // echo $examenPapa." ";
+                                // echo $resultadoPapa."<br>";
                                 echo "Color: ".$tGPadreM->color;
                             }
                         @endphp
@@ -1220,9 +1230,13 @@
                                     $examenPapa = "";
                                     $resultadoPapa = "";
                                 }
+                                
+                                if($examenPapa != ""){
+                                    echo $examenPapa." ".$resultadoPapa."<br>";
+                                }
 
-                                echo $examenPapa." ";
-                                echo $resultadoPapa."<br>";
+                                // echo $examenPapa." ";
+                                // echo $resultadoPapa."<br>";
                                 echo "Color: ".$tGMadreM->color;
                             }
                         @endphp
@@ -1262,9 +1276,13 @@
                                     $examenPapa = "";
                                     $resultadoPapa = "";
                                 }
-
-                                echo $examenPapa." ";
-                                echo $resultadoPapa."<br>";
+                                
+                                if($examenPapa != ""){
+                                    echo $examenPapa." ".$resultadoPapa."<br>";
+                                }
+                                
+                                // echo $examenPapa." ";
+                                // echo $resultadoPapa."<br>";
                                 echo "Color: ".$abueloSG->color;
                             }
                         @endphp
@@ -1304,9 +1322,13 @@
                                     $examenPapa = "";
                                     $resultadoPapa = "";
                                 }
+                                
+                                if($examenPapa != ""){
+                                    echo $examenPapa." ".$resultadoPapa."<br>";
+                                }
 
-                                echo $examenPapa." ";
-                                echo $resultadoPapa."<br>";
+                                // echo $examenPapa." ";
+                                // echo $resultadoPapa."<br>";
                                 echo "Color: ".$abueloSGM2->color;
                             }
                         @endphp
@@ -1999,7 +2021,25 @@
                     </span>
                 </div>
             </section>
+
+            
         </div>
+        <section id="footer">
+            <div class="footer1">
+                <div class="lechigada">
+                    @php
+                        $utilidades = new App\librerias\Utilidades();
+                        $fechaHoraEs = $utilidades->fechaNormal($ejemplar->fecha_emision);
+                    @endphp
+                    {{ $ejemplar->lechigada }} <br>
+                    {{ $fechaHoraEs }}
+                    
+                </div>
+                <div class="fecha-emicion">
+
+                </div>
+            </div>
+        </section>
     </div>
     <div id="enlaces">
         <form action="">
@@ -2063,7 +2103,7 @@
             window.print();
             $('#certificado').show();
             $('#enlaces').show();
-            certificado.style.width = "77%";
+            certificado.style.width = "85%";
             event.preventDefault(); 
         } 
     });
