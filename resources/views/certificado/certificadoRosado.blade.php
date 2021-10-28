@@ -90,6 +90,11 @@
     .titulos{
         height: 33px;
     }
+    .hermanos{
+        /* background-color:red; */
+        width: 670px;
+        height: 25px;
+    }
     #datos-ejemplar-2{
         /* background-color: green;
         opacity: 0.5; */
@@ -722,7 +727,22 @@
                     <td>{{ $ejemplar->chip }}</td>
                 </tr>
                 <tr>
-                    <td colspan="5">{{ $ejemplar->hermano }}</td>
+                    <td colspan="5">
+                        <div class="hermanos">
+                            <span class="hermanos1">
+                                @php
+                                    $hermanos = App\Ejemplar::where('camada_id',$ejemplar->camada_id)->get();
+                                    $nombres = '';
+                                    foreach ($hermanos as $h){
+                                        $nombres =$nombres.$h->nombre.', ';
+                                    }
+                                @endphp
+                                {{ substr($nombres, 0, -2)}}
+                            </span>
+                        </div>
+                        {{-- {{ $ejemplar->camada_id }} --}}
+                    
+                    </td>
                 </tr>
             </table>
         </div>
@@ -2502,6 +2522,36 @@
             }
 
         }
+
+
+        /*******************  CUARTA GENERACION  *************************/
+        var AbuelotextDivs = document.getElementsByClassName("hermanos");
+        var AbuelotextDivsLength = AbuelotextDivs.length;
+
+        for(var i=0; i<AbuelotextDivsLength; i++) {
+
+            var AbuelotextDiv = AbuelotextDivs[i];
+
+            var AbuelotextSpan = AbuelotextDiv.getElementsByClassName("hermanos1")[0];
+
+            AbuelotextSpan.style.fontSize = 18;
+
+            while(AbuelotextSpan.offsetHeight > AbuelotextDiv.offsetHeight)
+            {
+                AbuelotextSpan.style.fontSize = parseInt(AbuelotextSpan.style.fontSize) - 1;
+            }
+
+            while(AbuelotextSpan.offsetWidth > AbuelotextDiv.offsetWidth)
+            {
+                AbuelotextSpan.style.fontSize = parseInt(AbuelotextSpan.style.fontSize) - 1;
+            }
+
+        }
+
+
+
+
+        
 
     }
 
