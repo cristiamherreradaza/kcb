@@ -191,7 +191,7 @@
         position: absolute;
         width: 450px;
         height: 30px;
-        font-size: 10px;
+        font-size: 11px;
         /* padding:0;
         margin: 0; */
         left: 876px;
@@ -796,6 +796,8 @@
                                 echo $papa->nombre_completo."<br>";
                                 if(!($papa->kcb == 'nulo' || $papa->kcb == '')){
                                     echo "K.C.B. ".$papa->kcb."<br>";
+                                }else{
+                                    echo $papa->codigo_nacionalizado."<br>";
                                 }
                                 if($papa->num_tatuaje != ''){
                                     echo "No. x Raza ".$papa->num_tatuaje."<br>";
@@ -803,28 +805,12 @@
                                 if($papa->chip != ''){
                                     echo "Chip ".$papa->chip."<br>";
                                 }
-                                // echo "K.C.B. ".$papa->kcb."<br>";
-                                // echo "No. x Raza ".$papa->num_tatuaje."<br>";
-                                // echo "Chip ".$papa->chip."<br>";
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$papa->id)
                                                                         ->get();
                                 foreach ($examenMascotaPapa as $e){
                                     echo $e->examen->nombre.": ".$e->resultado."<br>";
                                     // echo " ".$e->resultado."<br>";
                                 }
-                                // $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$papa->id)
-                                //             ->where('examen_id','=',3)
-                                //             ->first();
-                                // if($examenMascotaPapa){
-                                //     $examenPapa = $examenMascotaPapa->examen->nombre;
-                                //     $resultadoPapa = $examenMascotaPapa->resultado;
-                                // }else{
-                                //     $examenPapa = "";
-                                //     $resultadoPapa = "";
-                                // }
-
-                                // echo $examenPapa."<br>";
-                                // echo $resultadoPapa."<br>";
                                 echo "Color: ".$papa->color;
                             }
                         @endphp
@@ -853,6 +839,8 @@
                                 echo $mama->nombre_completo."<br>";
                                 if(!($mama->kcb == 'nulo' || $mama->kcb == '')){
                                     echo "K.C.B. ".$mama->kcb."<br>";
+                                }else{
+                                    echo $mama->codigo_nacionalizado."<br>";
                                 }
                                 if($mama->num_tatuaje != ''){
                                     echo "No. x Raza ".$mama->num_tatuaje."<br>";
@@ -899,6 +887,8 @@
                                 echo $abuelo->nombre_completo."<br>";
                                 if(!($abuelo->kcb == 'nulo' || $abuelo->kcb == '')){
                                     echo "K.C.B. ".$abuelo->kcb."<br>";
+                                }else{
+                                    echo $abuelo->codigo_nacionalizado."<br>";
                                 }
                                 if($abuelo->num_tatuaje != ''){
                                     echo "No. x Raza ".$abuelo->num_tatuaje."<br>";
@@ -943,6 +933,8 @@
                                 echo $abuela->nombre_completo."<br>";
                                 if(!($abuela->kcb == 'nulo' || $abuela->kcb == '')){
                                     echo "K.C.B. ".$abuela->kcb."<br>";
+                                }else{
+                                    echo $abuela->codigo_nacionalizado."<br>";
                                 }
                                 if($abuela->num_tatuaje != ''){
                                     echo "No. x Raza ".$abuela->num_tatuaje."<br>";
@@ -987,6 +979,8 @@
                                 echo $abueloM->nombre_completo."<br>";
                                 if(!($abueloM->kcb == 'nulo' || $abueloM->kcb == '')){
                                     echo "K.C.B. ".$abueloM->kcb."<br>";
+                                }else{
+                                    echo $abueloM->codigo_nacionalizado."<br>";
                                 }
                                 if($abueloM->num_tatuaje != ''){
                                     echo "No. x Raza ".$abueloM->num_tatuaje."<br>";
@@ -1030,6 +1024,8 @@
                                 echo $abuelaM->nombre_completo."<br>";
                                 if(!($abuelaM->kcb == 'nulo' || $abuelaM->kcb == '')){
                                     echo "K.C.B. ".$abuelaM->kcb."<br>";
+                                }else{
+                                    echo $abuelaM->codigo_nacionalizado."<br>";
                                 }
                                 if($abuelaM->num_tatuaje != ''){
                                     echo "No. x Raza ".$abuelaM->num_tatuaje."<br>";
@@ -1076,6 +1072,8 @@
                                 echo $tGPadre->nombre_completo." ";
                                 if(!($tGPadre->kcb == 'nulo' || $tGPadre->kcb == '')){
                                     echo "K.C.B. ".$tGPadre->kcb."<br>";
+                                }else{
+                                    echo $tGPadre->codigo_nacionalizado."<br>";
                                 }
                                 if($tGPadre->num_tatuaje != ''){
                                     echo "No. x Raza ".$tGPadre->num_tatuaje." ";
@@ -1130,6 +1128,8 @@
                                 echo $tGMadre->nombre_completo." ";
                                 if(!($tGMadre->kcb == 'nulo' || $tGMadre->kcb == '')){
                                     echo "K.C.B. ".$tGMadre->kcb."<br>";
+                                }else{
+                                    echo $tGMadre->codigo_nacionalizado."<br>";
                                 }
                                 if($tGMadre->num_tatuaje != ''){
                                     echo "No. x Raza ".$tGMadre->num_tatuaje." ";
@@ -1185,6 +1185,8 @@
                                 echo $abueloTG->nombre_completo." ";
                                 if(!($abueloTG->kcb == 'nulo' || $abueloTG->kcb == '')){
                                     echo "K.C.B. ".$abueloTG->kcb."<br>";
+                                }else{
+                                    echo $abueloTG->codigo_nacionalizado."<br>";
                                 }
                                 if($abueloTG->num_tatuaje != ''){
                                     echo "No. x Raza ".$abueloTG->num_tatuaje." ";
@@ -1241,6 +1243,8 @@
                                 echo $abuelaTG->nombre_completo." ";
                                 if(!($abuelaTG->kcb == 'nulo' || $abuelaTG->kcb == '')){
                                     echo "K.C.B. ".$abuelaTG->kcb."<br>";
+                                }else{
+                                    echo $abuelaTG->codigo_nacionalizado."<br>";
                                 }
                                 if($abuelaTG->num_tatuaje != ''){
                                     echo "No. x Raza ".$abuelaTG->num_tatuaje." ";
@@ -1297,6 +1301,8 @@
                                 echo $tGPadreM->nombre_completo." ";
                                 if(!($tGPadreM->kcb == 'nulo' || $tGPadreM->kcb == '')){
                                     echo "K.C.B. ".$tGPadreM->kcb."<br>";
+                                }else{
+                                    echo $tGPadreM->codigo_nacionalizado."<br>";
                                 }
                                 if($tGPadreM->num_tatuaje != ''){
                                     echo "No. x Raza ".$tGPadreM->num_tatuaje." ";
@@ -1352,6 +1358,8 @@
                                 echo $tGMadreM->nombre_completo." ";
                                 if(!($tGMadreM->kcb == 'nulo' || $tGMadreM->kcb == '')){
                                     echo "K.C.B. ".$tGMadreM->kcb."<br>";
+                                }else{
+                                    echo $tGMadreM->codigo_nacionalizado."<br>";
                                 }
                                 if($tGMadreM->num_tatuaje != ''){
                                     echo "No. x Raza ".$tGMadreM->num_tatuaje." ";
@@ -1407,6 +1415,8 @@
                                 echo $abueloSG->nombre_completo." ";
                                 if(!($abueloSG->kcb == 'nulo' || $abueloSG->kcb == '')){
                                     echo "K.C.B. ".$abueloSG->kcb."<br>";
+                                }else{
+                                    echo $abueloSG->codigo_nacionalizado."<br>";
                                 }
                                 if($abueloSG->num_tatuaje != ''){
                                     echo "No. x Raza ".$abueloSG->num_tatuaje." ";
@@ -1462,6 +1472,8 @@
                                 echo $abueloSGM2->nombre_completo." ";
                                 if(!($abueloSGM2->kcb == 'nulo' || $abueloSGM2->kcb == '')){
                                     echo "K.C.B. ".$abueloSGM2->kcb."<br>";
+                                }else{
+                                    echo $abueloSGM2->codigo_nacionalizado."<br>";
                                 }
                                 if($abueloSGM2->num_tatuaje != ''){
                                     echo "No. x Raza ".$abueloSGM2->num_tatuaje." ";
@@ -1523,6 +1535,8 @@
 
                                 if(!($cGPadre->kcb == 'nulo' || $cGPadre->kcb == '')){
                                     echo "K.C.B. ".$cGPadre->kcb." ";
+                                }else{
+                                    echo $cGPadre->codigo_nacionalizado."<br>";
                                 }
                                 if($cGPadre->num_tatuaje != ''){
                                     echo "No. x Raza ".$cGPadre->num_tatuaje." ";
@@ -1571,6 +1585,8 @@
                                 echo $cGMadre->nombre_completo." ";
                                 if(!($cGMadre->kcb == 'nulo' || $cGMadre->kcb == '')){
                                     echo "K.C.B. ".$cGMadre->kcb." ";
+                                }else{
+                                    echo $cGMadre->codigo_nacionalizado."<br>";
                                 }
                                 if($cGMadre->num_tatuaje != ''){
                                     echo "No. x Raza ".$cGMadre->num_tatuaje." ";
@@ -1620,6 +1636,8 @@
                                 echo $CGMadreP->nombre_completo." ";
                                 if(!($CGMadreP->kcb == 'nulo' || $CGMadreP->kcb == '')){
                                     echo "K.C.B. ".$CGMadreP->kcb." ";
+                                }else{
+                                    echo $CGMadreP->codigo_nacionalizado."<br>";
                                 }
                                 if($CGMadreP->num_tatuaje != ''){
                                     echo "No. x Raza ".$CGMadreP->num_tatuaje." ";
@@ -1672,6 +1690,8 @@
                                 echo $CGMadreM2->nombre_completo." ";
                                 if(!($CGMadreM2->kcb == 'nulo' || $CGMadreM2->kcb == '')){
                                     echo "K.C.B. ".$CGMadreM2->kcb." ";
+                                }else{
+                                    echo $CGMadreM2->codigo_nacionalizado."<br>";
                                 }
                                 if($CGMadreM2->num_tatuaje != ''){
                                     echo "No. x Raza ".$CGMadreM2->num_tatuaje." ";
@@ -1724,6 +1744,8 @@
                                 echo $abueloCG->nombre_completo." ";
                                 if(!($abueloCG->kcb == 'nulo' || $abueloCG->kcb == '')){
                                     echo "K.C.B. ".$abueloCG->kcb." ";
+                                }else{
+                                    echo $abueloCG->codigo_nacionalizado."<br>";
                                 }
                                 if($abueloCG->num_tatuaje != ''){
                                     echo "No. x Raza ".$abueloCG->num_tatuaje." ";
@@ -1776,6 +1798,8 @@
                                 echo $abueloCGM->nombre_completo." ";
                                 if(!($abueloCGM->kcb == 'nulo' || $abueloCGM->kcb == '')){
                                     echo "K.C.B. ".$abueloCGM->kcb." ";
+                                }else{
+                                    echo $abueloCGM->codigo_nacionalizado."<br>";
                                 }
                                 if($abueloCGM->num_tatuaje != ''){
                                     echo "No. x Raza ".$abueloCGM->num_tatuaje." ";
@@ -1828,6 +1852,8 @@
                                 echo $abueloTGM1->nombre_completo." ";
                                 if(!($abueloTGM1->kcb == 'nulo' || $abueloTGM1->kcb == '')){
                                     echo "K.C.B. ".$abueloTGM1->kcb." ";
+                                }else{
+                                    echo $abueloTGM1->codigo_nacionalizado."<br>";
                                 }
                                 if($abueloTGM1->num_tatuaje != ''){
                                     echo "No. x Raza ".$abueloTGM1->num_tatuaje." ";
@@ -1880,6 +1906,8 @@
                                 echo $abuelaTGM1->nombre_completo." ";
                                 if(!($abuelaTGM1->kcb == 'nulo' || $abuelaTGM1->kcb == '')){
                                     echo "K.C.B. ".$abuelaTGM1->kcb." ";
+                                }else{
+                                    echo $abuelaTGM1->codigo_nacionalizado."<br>";
                                 }
                                 if($abuelaTGM1->num_tatuaje != ''){
                                     echo "No. x Raza ".$abuelaTGM1->num_tatuaje." ";
@@ -1932,6 +1960,8 @@
                                 echo $CGPadreM1->nombre_completo." ";
                                 if(!($CGPadreM1->kcb == 'nulo' || $CGPadreM1->kcb == '')){
                                     echo "K.C.B. ".$CGPadreM1->kcb." ";
+                                }else{
+                                    echo $CGPadreM1->codigo_nacionalizado."<br>";
                                 }
                                 if($CGPadreM1->num_tatuaje != ''){
                                     echo "No. x Raza ".$CGPadreM1->num_tatuaje." ";
@@ -1984,6 +2014,8 @@
                                 echo $CGPadreM2->nombre_completo." ";
                                 if(!($CGPadreM2->kcb == 'nulo' || $CGPadreM2->kcb == '')){
                                     echo "K.C.B. ".$CGPadreM2->kcb." ";
+                                }else{
+                                    echo $CGPadreM2->codigo_nacionalizado."<br>";
                                 }
                                 if($CGPadreM2->num_tatuaje != ''){
                                     echo "No. x Raza ".$CGPadreM2->num_tatuaje." ";
@@ -2036,6 +2068,8 @@
                                 echo $CGPadreM->nombre_completo." ";
                                 if(!($CGPadreM->kcb == 'nulo' || $CGPadreM->kcb == '')){
                                     echo "K.C.B. ".$CGPadreM->kcb." ";
+                                }else{
+                                    echo $CGPadreM->codigo_nacionalizado."<br>";
                                 }
                                 if($CGPadreM->num_tatuaje != ''){
                                     echo "No. x Raza ".$CGPadreM->num_tatuaje." ";
@@ -2087,6 +2121,8 @@
                                 echo $CGMadreM->nombre_completo." ";
                                 if(!($CGMadreM->kcb == 'nulo' || $CGMadreM->kcb == '')){
                                     echo "K.C.B. ".$CGMadreM->kcb." ";
+                                }else{
+                                    echo $CGMadreM->codigo_nacionalizado."<br>";
                                 }
                                 if($CGMadreM->num_tatuaje != ''){
                                     echo "No. x Raza ".$CGMadreM->num_tatuaje." ";
@@ -2138,6 +2174,8 @@
                                 echo $abueloTG1->nombre_completo." ";
                                 if(!($abueloTG1->kcb == 'nulo' || $abueloTG1->kcb == '')){
                                     echo "K.C.B. ".$abueloTG1->kcb." ";
+                                }else{
+                                    echo $abueloTG1->codigo_nacionalizado."<br>";
                                 }
                                 if($abueloTG1->num_tatuaje != ''){
                                     echo "No. x Raza ".$abueloTG1->num_tatuaje." ";
@@ -2189,6 +2227,8 @@
                                 echo $abueloTG11->nombre_completo." ";
                                 if(!($abueloTG11->kcb == 'nulo' || $abueloTG11->kcb == '')){
                                     echo "K.C.B. ".$abueloTG11->kcb." ";
+                                }else{
+                                    echo $abueloTG11->codigo_nacionalizado."<br>";
                                 }
                                 if($abueloTG11->num_tatuaje != ''){
                                     echo "No. x Raza ".$abueloTG11->num_tatuaje." ";
@@ -2240,6 +2280,8 @@
                                 echo $abueloSGM22->nombre_completo." ";
                                 if(!($abueloSGM22->kcb == 'nulo' || $abueloSGM22->kcb == '')){
                                     echo "K.C.B. ".$abueloSGM22->kcb." ";
+                                }else{
+                                    echo $abueloSGM22->codigo_nacionalizado."<br>";
                                 }
                                 if($abueloSGM22->num_tatuaje != ''){
                                     echo "No. x Raza ".$abueloSGM22->num_tatuaje." ";
@@ -2291,6 +2333,8 @@
                                 echo $abueloSGM222->nombre_completo." ";
                                 if(!($abueloSGM222->kcb == 'nulo' || $abueloSGM222->kcb == '')){
                                     echo "K.C.B. ".$abueloSGM222->kcb." ";
+                                }else{
+                                    echo $abueloSGM222->codigo_nacionalizado."<br>";
                                 }
                                 if($abueloSGM222->num_tatuaje != ''){
                                     echo "No. x Raza ".$abueloSGM222->num_tatuaje." ";
@@ -2484,7 +2528,7 @@
 
             var AbuelotextSpan = AbuelotextDiv.getElementsByClassName("tercera_generaciones1")[0];
 
-            AbuelotextSpan.style.fontSize = 18;
+            AbuelotextSpan.style.fontSize = 11;
 
             while(AbuelotextSpan.offsetHeight > AbuelotextDiv.offsetHeight)
             {
@@ -2509,7 +2553,7 @@
 
             var AbuelotextSpan = AbuelotextDiv.getElementsByClassName("cuarta_generaciones1")[0];
 
-            AbuelotextSpan.style.fontSize = 18;
+            AbuelotextSpan.style.fontSize = 11;
 
             while(AbuelotextSpan.offsetHeight > AbuelotextDiv.offsetHeight)
             {
