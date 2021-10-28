@@ -80,6 +80,10 @@
     .impor-1{
         font-size: 22px;
     }
+    .raza{
+        font-size: 17px;
+        height: 25px;
+    }
     /* .criadero{
         font-size:10px;
     } */
@@ -700,13 +704,13 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="4" class="impor-1">{{ $ejemplar->raza->nombre }}</td>
+                    <td colspan="4" class="impor-1 raza">{{ strtoupper($ejemplar->raza->nombre) }}</td>
                     <td id="color">{{ $ejemplar->color }}</td>
                 </tr>
                 <tr>
-                    <td>{{ ($ejemplar->sexo == 'Macho')? 'MACHO': 'HEMBRA'}}</td>
+                    <td>{{ strtoupper($ejemplar->sexo)}}</td>
                     <td id="fecha-naciento"></td>
-                    <td>{{ $ejemplar->fecha_nacimiento }}</td>
+                    <td>{{ date('d/m/Y',strtotime($ejemplar->fecha_nacimiento)) }}</td>
                     <td id="consagnidad"></td>
                     <td>{{ ($ejemplar->consanguinidad!=null)? $ejemplar->consanguinidad :'--------'}}</td>
                 </tr>
