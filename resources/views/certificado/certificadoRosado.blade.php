@@ -80,8 +80,8 @@
         /* background-color: green;
         opacity: 0.5; */
         position: absolute;
-        top: 90px;
-        left: 1060px;
+        top: 86px;
+        left: 1050px;
         color: #0414ff;
         font-weight: bold;
         width: 550px;
