@@ -770,9 +770,18 @@
                                     echo "<br>";
                                 }
                                 echo $papa->nombre_completo."<br>";
-                                echo "K.C.B. ".$papa->kcb."<br>";
-                                echo "No. x Raza ".$papa->num_tatuaje."<br>";
-                                echo "Chip ".$papa->chip."<br>";
+                                if(!($papa->kcb == 'nulo' || $papa->kcb == '')){
+                                    echo "K.C.B. ".$papa->kcb."<br>";
+                                }
+                                if($papa->num_tatuaje != ''){
+                                    echo "No. x Raza ".$papa->num_tatuaje."<br>";
+                                }
+                                if($papa->chip != ''){
+                                    echo "Chip ".$papa->chip."<br>";
+                                }
+                                // echo "K.C.B. ".$papa->kcb."<br>";
+                                // echo "No. x Raza ".$papa->num_tatuaje."<br>";
+                                // echo "Chip ".$papa->chip."<br>";
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$papa->id)
                                                                         ->get();
                                 foreach ($examenMascotaPapa as $e){
@@ -818,9 +827,18 @@
                                     echo "<br>";
                                 }
                                 echo $mama->nombre_completo."<br>";
-                                echo "K.C.B. ".$mama->kcb."<br>";
-                                echo "No. x Raza ".$mama->num_tatuaje."<br>";
-                                echo "Chip ".$mama->chip."<br>";
+                                if(!($mama->kcb == 'nulo' || $mama->kcb == '')){
+                                    echo "K.C.B. ".$mama->kcb."<br>";
+                                }
+                                if($mama->num_tatuaje != ''){
+                                    echo "No. x Raza ".$mama->num_tatuaje."<br>";
+                                }
+                                if($mama->chip != ''){
+                                    echo "Chip ".$mama->chip."<br>";
+                                }
+                                // echo "K.C.B. ".$mama->kcb."<br>";
+                                // echo "No. x Raza ".$mama->num_tatuaje."<br>";
+                                // echo "Chip ".$mama->chip."<br>";
 
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$mama->id)
                                             ->get();
@@ -855,9 +873,18 @@
                                     echo "<br>";
                                 }
                                 echo $abuelo->nombre_completo."<br>";
-                                echo "K.C.B. ".$abuelo->kcb."<br>";
-                                echo "No. x Raza ".$abuelo->num_tatuaje."<br>";
-                                echo "Chip ".$abuelo->chip."<br>";
+                                if(!($abuelo->kcb == 'nulo' || $abuelo->kcb == '')){
+                                    echo "K.C.B. ".$abuelo->kcb."<br>";
+                                }
+                                if($abuelo->num_tatuaje != ''){
+                                    echo "No. x Raza ".$abuelo->num_tatuaje."<br>";
+                                }
+                                if($abuelo->chip != ''){
+                                    echo "Chip ".$abuelo->chip."<br>";
+                                }
+                                // echo "K.C.B. ".$abuelo->kcb."<br>";
+                                // echo "No. x Raza ".$abuelo->num_tatuaje."<br>";
+                                // echo "Chip ".$abuelo->chip."<br>";
 
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abuelo->id)
                                             ->get();
@@ -890,9 +917,18 @@
                                     echo "<br>";
                                 }
                                 echo $abuela->nombre_completo."<br>";
-                                echo "K.C.B. ".$abuela->kcb."<br>";
-                                echo "No. x Raza ".$abuela->num_tatuaje."<br>";
-                                echo "Chip ".$abuela->chip."<br>";
+                                if(!($abuela->kcb == 'nulo' || $abuela->kcb == '')){
+                                    echo "K.C.B. ".$abuela->kcb."<br>";
+                                }
+                                if($abuela->num_tatuaje != ''){
+                                    echo "No. x Raza ".$abuela->num_tatuaje."<br>";
+                                }
+                                if($abuela->chip != ''){
+                                    echo "Chip ".$abuela->chip."<br>";
+                                }
+                                // echo "K.C.B. ".$abuela->kcb."<br>";
+                                // echo "No. x Raza ".$abuela->num_tatuaje."<br>";
+                                // echo "Chip ".$abuela->chip."<br>";
 
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abuela->id)
                                             ->get();
@@ -925,9 +961,18 @@
                                     echo "<br>";
                                 }
                                 echo $abueloM->nombre_completo."<br>";
-                                echo "K.C.B. ".$abueloM->kcb."<br>";
-                                echo "No. x Raza ".$abueloM->num_tatuaje."<br>";
-                                echo "Chip ".$abueloM->chip."<br>";
+                                if(!($abueloM->kcb == 'nulo' || $abueloM->kcb == '')){
+                                    echo "K.C.B. ".$abueloM->kcb."<br>";
+                                }
+                                if($abueloM->num_tatuaje != ''){
+                                    echo "No. x Raza ".$abueloM->num_tatuaje."<br>";
+                                }
+                                if($abueloM->chip != ''){
+                                    echo "Chip ".$abueloM->chip."<br>";
+                                }
+                                // echo "K.C.B. ".$abueloM->kcb."<br>";
+                                // echo "No. x Raza ".$abueloM->num_tatuaje."<br>";
+                                // echo "Chip ".$abueloM->chip."<br>";
 
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloM->id)
                                             ->get();
@@ -959,9 +1004,18 @@
                                     echo "<br>";
                                 }
                                 echo $abuelaM->nombre_completo."<br>";
-                                echo "K.C.B. ".$abuelaM->kcb."<br>";
-                                echo "No. x Raza ".$abuelaM->num_tatuaje."<br>";
-                                echo "Chip ".$abuelaM->chip."<br>";
+                                if(!($abuelaM->kcb == 'nulo' || $abuelaM->kcb == '')){
+                                    echo "K.C.B. ".$abuelaM->kcb."<br>";
+                                }
+                                if($abuelaM->num_tatuaje != ''){
+                                    echo "No. x Raza ".$abuelaM->num_tatuaje."<br>";
+                                }
+                                if($abuelaM->chip != ''){
+                                    echo "Chip ".$abuelaM->chip."<br>";
+                                }
+                                // echo "K.C.B. ".$abuelaM->kcb."<br>";
+                                // echo "No. x Raza ".$abuelaM->num_tatuaje."<br>";
+                                // echo "Chip ".$abuelaM->chip."<br>";
 
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abuelaM->id)
                                                                     ->get();
@@ -996,9 +1050,19 @@
                                     echo "<br>";
                                 }
                                 echo $tGPadre->nombre_completo." ";
-                                echo "K.C.B. ".$tGPadre->kcb."<br>";
-                                echo "No. x Raza ".$tGPadre->num_tatuaje." ";
-                                echo "Chip ".$tGPadre->chip."<br>";
+                                if(!($tGPadre->kcb == 'nulo' || $tGPadre->kcb == '')){
+                                    echo "K.C.B. ".$tGPadre->kcb."<br>";
+                                }
+                                if($tGPadre->num_tatuaje != ''){
+                                    echo "No. x Raza ".$tGPadre->num_tatuaje." ";
+                                }
+                                if($tGPadre->chip != ''){
+                                    echo "Chip ".$tGPadre->chip."<br>";
+                                }
+
+                                // echo "K.C.B. ".$tGPadre->kcb."<br>";
+                                // echo "No. x Raza ".$tGPadre->num_tatuaje." ";
+                                // echo "Chip ".$tGPadre->chip."<br>";
 
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$tGPadre->id)
                                             ->where('examen_id','=',3)
@@ -1040,9 +1104,18 @@
                                     echo "<br>";
                                 }
                                 echo $tGMadre->nombre_completo." ";
-                                echo "K.C.B. ".$tGMadre->kcb."<br>";
-                                echo "No. x Raza ".$tGMadre->num_tatuaje." ";
-                                echo "Chip ".$tGMadre->chip."<br>";
+                                if(!($tGMadre->kcb == 'nulo' || $tGMadre->kcb == '')){
+                                    echo "K.C.B. ".$tGMadre->kcb."<br>";
+                                }
+                                if($tGMadre->num_tatuaje != ''){
+                                    echo "No. x Raza ".$tGMadre->num_tatuaje." ";
+                                }
+                                if($tGMadre->chip != ''){
+                                    echo "Chip ".$tGMadre->chip."<br>";
+                                }
+                                // echo "K.C.B. ".$tGMadre->kcb."<br>";
+                                // echo "No. x Raza ".$tGMadre->num_tatuaje." ";
+                                // echo "Chip ".$tGMadre->chip."<br>";
 
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$tGMadre->id)
                                             ->where('examen_id','=',3)
@@ -1086,9 +1159,18 @@
                                     echo "<br>";
                                 }
                                 echo $abueloTG->nombre_completo." ";
-                                echo "K.C.B. ".$abueloTG->kcb."<br>";
-                                echo "No. x Raza ".$abueloTG->num_tatuaje." ";
-                                echo "Chip ".$abueloTG->chip."<br>";
+                                if(!($abueloTG->kcb == 'nulo' || $abueloTG->kcb == '')){
+                                    echo "K.C.B. ".$abueloTG->kcb."<br>";
+                                }
+                                if($abueloTG->num_tatuaje != ''){
+                                    echo "No. x Raza ".$abueloTG->num_tatuaje." ";
+                                }
+                                if($abueloTG->chip != ''){
+                                    echo "Chip ".$abueloTG->chip."<br>";
+                                }
+                                // echo "K.C.B. ".$abueloTG->kcb."<br>";
+                                // echo "No. x Raza ".$abueloTG->num_tatuaje." ";
+                                // echo "Chip ".$abueloTG->chip."<br>";
 
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloTG->id)
                                             ->where('examen_id','=',3)
@@ -1133,9 +1215,18 @@
                                     echo "<br>";
                                 }
                                 echo $abuelaTG->nombre_completo." ";
-                                echo "K.C.B. ".$abuelaTG->kcb."<br>";
-                                echo "No. x Raza ".$abuelaTG->num_tatuaje." ";
-                                echo "Chip ".$abuelaTG->chip."<br>";
+                                if(!($abuelaTG->kcb == 'nulo' || $abuelaTG->kcb == '')){
+                                    echo "K.C.B. ".$abuelaTG->kcb."<br>";
+                                }
+                                if($abuelaTG->num_tatuaje != ''){
+                                    echo "No. x Raza ".$abuelaTG->num_tatuaje." ";
+                                }
+                                if($abuelaTG->chip != ''){
+                                    echo "Chip ".$abuelaTG->chip."<br>";
+                                }
+                                // echo "K.C.B. ".$abuelaTG->kcb."<br>";
+                                // echo "No. x Raza ".$abuelaTG->num_tatuaje." ";
+                                // echo "Chip ".$abuelaTG->chip."<br>";
 
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abuelaTG->id)
                                             ->where('examen_id','=',3)
@@ -1180,9 +1271,18 @@
                                     echo "<br>";
                                 }
                                 echo $tGPadreM->nombre_completo." ";
-                                echo "K.C.B. ".$tGPadreM->kcb."<br>";
-                                echo "No. x Raza ".$tGPadreM->num_tatuaje." ";
-                                echo "Chip ".$tGPadreM->chip."<br>";
+                                if(!($tGPadreM->kcb == 'nulo' || $tGPadreM->kcb == '')){
+                                    echo "K.C.B. ".$tGPadreM->kcb."<br>";
+                                }
+                                if($tGPadreM->num_tatuaje != ''){
+                                    echo "No. x Raza ".$tGPadreM->num_tatuaje." ";
+                                }
+                                if($tGPadreM->chip != ''){
+                                    echo "Chip ".$tGPadreM->chip."<br>";
+                                }
+                                // echo "K.C.B. ".$tGPadreM->kcb."<br>";
+                                // echo "No. x Raza ".$tGPadreM->num_tatuaje." ";
+                                // echo "Chip ".$tGPadreM->chip."<br>";
 
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$tGPadreM->id)
                                             ->where('examen_id','=',3)
@@ -1226,9 +1326,18 @@
                                     echo "<br>";
                                 }
                                 echo $tGMadreM->nombre_completo." ";
-                                echo "K.C.B. ".$tGMadreM->kcb."<br>";
-                                echo "No. x Raza ".$tGMadreM->num_tatuaje." ";
-                                echo "Chip ".$tGMadreM->chip."<br>";
+                                if(!($tGMadreM->kcb == 'nulo' || $tGMadreM->kcb == '')){
+                                    echo "K.C.B. ".$tGMadreM->kcb."<br>";
+                                }
+                                if($tGMadreM->num_tatuaje != ''){
+                                    echo "No. x Raza ".$tGMadreM->num_tatuaje." ";
+                                }
+                                if($tGMadreM->chip != ''){
+                                    echo "Chip ".$tGMadreM->chip."<br>";
+                                }
+                                // echo "K.C.B. ".$tGMadreM->kcb."<br>";
+                                // echo "No. x Raza ".$tGMadreM->num_tatuaje." ";
+                                // echo "Chip ".$tGMadreM->chip."<br>";
 
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$tGMadreM->id)
                                             ->where('examen_id','=',3)
@@ -1272,9 +1381,18 @@
                                     echo "<br>";
                                 }
                                 echo $abueloSG->nombre_completo." ";
-                                echo "K.C.B. ".$abueloSG->kcb."<br>";
-                                echo "No. x Raza ".$abueloSG->num_tatuaje." ";
-                                echo "Chip ".$abueloSG->chip."<br>";
+                                if(!($abueloSG->kcb == 'nulo' || $abueloSG->kcb == '')){
+                                    echo "K.C.B. ".$abueloSG->kcb."<br>";
+                                }
+                                if($abueloSG->num_tatuaje != ''){
+                                    echo "No. x Raza ".$abueloSG->num_tatuaje." ";
+                                }
+                                if($abueloSG->chip != ''){
+                                    echo "Chip ".$abueloSG->chip."<br>";
+                                }
+                                // echo "K.C.B. ".$abueloSG->kcb."<br>";
+                                // echo "No. x Raza ".$abueloSG->num_tatuaje." ";
+                                // echo "Chip ".$abueloSG->chip."<br>";
 
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloSG->id)
                                             ->where('examen_id','=',3)
@@ -1318,9 +1436,18 @@
                                     echo "<br>";
                                 }
                                 echo $abueloSGM2->nombre_completo." ";
-                                echo "K.C.B. ".$abueloSGM2->kcb."<br>";
-                                echo "No. x Raza ".$abueloSGM2->num_tatuaje." ";
-                                echo "Chip ".$abueloSGM2->chip."<br>";
+                                if(!($abueloSGM2->kcb == 'nulo' || $abueloSGM2->kcb == '')){
+                                    echo "K.C.B. ".$abueloSGM2->kcb."<br>";
+                                }
+                                if($abueloSGM2->num_tatuaje != ''){
+                                    echo "No. x Raza ".$abueloSGM2->num_tatuaje." ";
+                                }
+                                if($abueloSGM2->chip != ''){
+                                    echo "Chip ".$abueloSGM2->chip."<br>";
+                                }
+                                // echo "K.C.B. ".$abueloSGM2->kcb."<br>";
+                                // echo "No. x Raza ".$abueloSGM2->num_tatuaje." ";
+                                // echo "Chip ".$abueloSGM2->chip."<br>";
 
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloSGM2->id)
                                             ->where('examen_id','=',3)
@@ -1369,9 +1496,16 @@
                                         echo "<br>";
                                     }
                                 echo $cGPadre->nombre_completo." ";
-                                echo "K.C.B. ".$cGPadre->kcb." ";
-                                echo "No. x Raza ".$cGPadre->num_tatuaje." ";
-                                echo "Chip ".$cGPadre->chip." ";
+
+                                if(!($cGPadre->kcb == 'nulo' || $cGPadre->kcb == '')){
+                                    echo "K.C.B. ".$cGPadre->kcb." ";
+                                }
+                                if($cGPadre->num_tatuaje != ''){
+                                    echo "No. x Raza ".$cGPadre->num_tatuaje." ";
+                                }
+                                if($cGPadre->chip != ''){
+                                    echo "Chip ".$cGPadre->chip." ";
+                                }
 
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$cGPadre->id)
                                             ->where('examen_id','=',3)
@@ -1411,9 +1545,15 @@
                                         echo "<br>";
                                     }
                                 echo $cGMadre->nombre_completo." ";
-                                echo "K.C.B. ".$cGMadre->kcb." ";
-                                echo "No. x Raza ".$cGMadre->num_tatuaje." ";
-                                echo "Chip ".$cGMadre->chip." ";
+                                if(!($cGMadre->kcb == 'nulo' || $cGMadre->kcb == '')){
+                                    echo "K.C.B. ".$cGMadre->kcb." ";
+                                }
+                                if($cGMadre->num_tatuaje != ''){
+                                    echo "No. x Raza ".$cGMadre->num_tatuaje." ";
+                                }
+                                if($cGMadre->chip != ''){
+                                    echo "Chip ".$cGMadre->chip." ";
+                                }
 
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$cGMadre->id)
                                             ->where('examen_id','=',3)
@@ -1454,9 +1594,18 @@
                                         echo "<br>";
                                     }
                                 echo $CGMadreP->nombre_completo." ";
-                                echo "K.C.B. ".$CGMadreP->kcb." ";
-                                echo "No. x Raza ".$CGMadreP->num_tatuaje." ";
-                                echo "Chip ".$CGMadreP->chip." ";
+                                if(!($CGMadreP->kcb == 'nulo' || $CGMadreP->kcb == '')){
+                                    echo "K.C.B. ".$CGMadreP->kcb." ";
+                                }
+                                if($CGMadreP->num_tatuaje != ''){
+                                    echo "No. x Raza ".$CGMadreP->num_tatuaje." ";
+                                }
+                                if($CGMadreP->chip != ''){
+                                    echo "Chip ".$CGMadreP->chip." ";
+                                }
+                                // echo "K.C.B. ".$CGMadreP->kcb." ";
+                                // echo "No. x Raza ".$CGMadreP->num_tatuaje." ";
+                                // echo "Chip ".$CGMadreP->chip." ";
 
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$CGMadreP->id)
                                             ->where('examen_id','=',3)
@@ -1497,9 +1646,18 @@
                                         echo "<br>";
                                     }
                                 echo $CGMadreM2->nombre_completo." ";
-                                echo "K.C.B. ".$CGMadreM2->kcb." ";
-                                echo "No. x Raza ".$CGMadreM2->num_tatuaje." ";
-                                echo "Chip ".$CGMadreM2->chip." ";
+                                if(!($CGMadreM2->kcb == 'nulo' || $CGMadreM2->kcb == '')){
+                                    echo "K.C.B. ".$CGMadreM2->kcb." ";
+                                }
+                                if($CGMadreM2->num_tatuaje != ''){
+                                    echo "No. x Raza ".$CGMadreM2->num_tatuaje." ";
+                                }
+                                if($CGMadreM2->chip != ''){
+                                    echo "Chip ".$CGMadreM2->chip." ";
+                                }
+                                // echo "K.C.B. ".$CGMadreM2->kcb." ";
+                                // echo "No. x Raza ".$CGMadreM2->num_tatuaje." ";
+                                // echo "Chip ".$CGMadreM2->chip." ";
 
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$CGMadreM2->id)
                                             ->where('examen_id','=',3)
@@ -1540,9 +1698,18 @@
                                         echo "<br>";
                                     }
                                 echo $abueloCG->nombre_completo." ";
-                                echo "K.C.B. ".$abueloCG->kcb." ";
-                                echo "No. x Raza ".$abueloCG->num_tatuaje." ";
-                                echo "Chip ".$abueloCG->chip." ";
+                                if(!($abueloCG->kcb == 'nulo' || $abueloCG->kcb == '')){
+                                    echo "K.C.B. ".$abueloCG->kcb." ";
+                                }
+                                if($abueloCG->num_tatuaje != ''){
+                                    echo "No. x Raza ".$abueloCG->num_tatuaje." ";
+                                }
+                                if($abueloCG->chip != ''){
+                                    echo "Chip ".$abueloCG->chip." ";
+                                }
+                                // echo "K.C.B. ".$abueloCG->kcb." ";
+                                // echo "No. x Raza ".$abueloCG->num_tatuaje." ";
+                                // echo "Chip ".$abueloCG->chip." ";
             
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloCG->id)
                                             ->where('examen_id','=',3)
@@ -1583,9 +1750,18 @@
                                         echo "<br>";
                                     }
                                 echo $abueloCGM->nombre_completo." ";
-                                echo "K.C.B. ".$abueloCGM->kcb." ";
-                                echo "No. x Raza ".$abueloCGM->num_tatuaje." ";
-                                echo "Chip ".$abueloCGM->chip." ";
+                                if(!($abueloCGM->kcb == 'nulo' || $abueloCGM->kcb == '')){
+                                    echo "K.C.B. ".$abueloCGM->kcb." ";
+                                }
+                                if($abueloCGM->num_tatuaje != ''){
+                                    echo "No. x Raza ".$abueloCGM->num_tatuaje." ";
+                                }
+                                if($abueloCGM->chip != ''){
+                                    echo "Chip ".$abueloCGM->chip." ";
+                                }
+                                // echo "K.C.B. ".$abueloCGM->kcb." ";
+                                // echo "No. x Raza ".$abueloCGM->num_tatuaje." ";
+                                // echo "Chip ".$abueloCGM->chip." ";
 
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloCGM->id)
                                             ->where('examen_id','=',3)
@@ -1626,9 +1802,18 @@
                                         echo "<br>";
                                     }
                                 echo $abueloTGM1->nombre_completo." ";
-                                echo "K.C.B. ".$abueloTGM1->kcb." ";
-                                echo "No. x Raza ".$abueloTGM1->num_tatuaje." ";
-                                echo "Chip ".$abueloTGM1->chip." ";
+                                if(!($abueloTGM1->kcb == 'nulo' || $abueloTGM1->kcb == '')){
+                                    echo "K.C.B. ".$abueloTGM1->kcb." ";
+                                }
+                                if($abueloTGM1->num_tatuaje != ''){
+                                    echo "No. x Raza ".$abueloTGM1->num_tatuaje." ";
+                                }
+                                if($abueloTGM1->chip != ''){
+                                    echo "Chip ".$abueloTGM1->chip." ";
+                                }
+                                // echo "K.C.B. ".$abueloTGM1->kcb." ";
+                                // echo "No. x Raza ".$abueloTGM1->num_tatuaje." ";
+                                // echo "Chip ".$abueloTGM1->chip." ";
 
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloTGM1->id)
                                             ->where('examen_id','=',3)
@@ -1669,9 +1854,18 @@
                                         echo "<br>";
                                     }
                                 echo $abuelaTGM1->nombre_completo." ";
-                                echo "K.C.B. ".$abuelaTGM1->kcb." ";
-                                echo "No. x Raza ".$abuelaTGM1->num_tatuaje." ";
-                                echo "Chip ".$abuelaTGM1->chip." ";
+                                if(!($abuelaTGM1->kcb == 'nulo' || $abuelaTGM1->kcb == '')){
+                                    echo "K.C.B. ".$abuelaTGM1->kcb." ";
+                                }
+                                if($abuelaTGM1->num_tatuaje != ''){
+                                    echo "No. x Raza ".$abuelaTGM1->num_tatuaje." ";
+                                }
+                                if($abuelaTGM1->chip != ''){
+                                    echo "Chip ".$abuelaTGM1->chip." ";
+                                }
+                                // echo "K.C.B. ".$abuelaTGM1->kcb." ";
+                                // echo "No. x Raza ".$abuelaTGM1->num_tatuaje." ";
+                                // echo "Chip ".$abuelaTGM1->chip." ";
 
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abuelaTGM1->id)
                                             ->where('examen_id','=',3)
@@ -1712,9 +1906,18 @@
                                         echo "<br>";
                                     }
                                 echo $CGPadreM1->nombre_completo." ";
-                                echo "K.C.B. ".$CGPadreM1->kcb." ";
-                                echo "No. x Raza ".$CGPadreM1->num_tatuaje." ";
-                                echo "Chip ".$CGPadreM1->chip." ";
+                                if(!($CGPadreM1->kcb == 'nulo' || $CGPadreM1->kcb == '')){
+                                    echo "K.C.B. ".$CGPadreM1->kcb." ";
+                                }
+                                if($CGPadreM1->num_tatuaje != ''){
+                                    echo "No. x Raza ".$CGPadreM1->num_tatuaje." ";
+                                }
+                                if($CGPadreM1->chip != ''){
+                                    echo "Chip ".$CGPadreM1->chip." ";
+                                }
+                                // echo "K.C.B. ".$CGPadreM1->kcb." ";
+                                // echo "No. x Raza ".$CGPadreM1->num_tatuaje." ";
+                                // echo "Chip ".$CGPadreM1->chip." ";
 
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$CGPadreM1->id)
                                             ->where('examen_id','=',3)
@@ -1755,9 +1958,18 @@
                                         echo "<br>";
                                     }
                                 echo $CGPadreM2->nombre_completo." ";
-                                echo "K.C.B. ".$CGPadreM2->kcb." ";
-                                echo "No. x Raza ".$CGPadreM2->num_tatuaje." ";
-                                echo "Chip ".$CGPadreM2->chip." ";
+                                if(!($CGPadreM2->kcb == 'nulo' || $CGPadreM2->kcb == '')){
+                                    echo "K.C.B. ".$CGPadreM2->kcb." ";
+                                }
+                                if($CGPadreM2->num_tatuaje != ''){
+                                    echo "No. x Raza ".$CGPadreM2->num_tatuaje." ";
+                                }
+                                if($CGPadreM2->chip != ''){
+                                    echo "Chip ".$CGPadreM2->chip." ";
+                                }
+                                // echo "K.C.B. ".$CGPadreM2->kcb." ";
+                                // echo "No. x Raza ".$CGPadreM2->num_tatuaje." ";
+                                // echo "Chip ".$CGPadreM2->chip." ";
 
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$CGPadreM2->id)
                                             ->where('examen_id','=',3)
@@ -1798,9 +2010,18 @@
                                         echo "<br>";
                                     }
                                 echo $CGPadreM->nombre_completo." ";
-                                echo "K.C.B. ".$CGPadreM->kcb." ";
-                                echo "No. x Raza ".$CGPadreM->num_tatuaje." ";
-                                echo "Chip ".$CGPadreM->chip." ";
+                                if(!($CGPadreM->kcb == 'nulo' || $CGPadreM->kcb == '')){
+                                    echo "K.C.B. ".$CGPadreM->kcb." ";
+                                }
+                                if($CGPadreM->num_tatuaje != ''){
+                                    echo "No. x Raza ".$CGPadreM->num_tatuaje." ";
+                                }
+                                if($CGPadreM->chip != ''){
+                                    echo "Chip ".$CGPadreM->chip." ";
+                                }
+                                // echo "K.C.B. ".$CGPadreM->kcb." ";
+                                // echo "No. x Raza ".$CGPadreM->num_tatuaje." ";
+                                // echo "Chip ".$CGPadreM->chip." ";
 
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$CGPadreM->id)
                                             ->where('examen_id','=',3)
@@ -1840,9 +2061,18 @@
                                         echo "<br>";
                                     }
                                 echo $CGMadreM->nombre_completo." ";
-                                echo "K.C.B. ".$CGMadreM->kcb." ";
-                                echo "No. x Raza ".$CGMadreM->num_tatuaje." ";
-                                echo "Chip ".$CGMadreM->chip." ";
+                                if(!($CGMadreM->kcb == 'nulo' || $CGMadreM->kcb == '')){
+                                    echo "K.C.B. ".$CGMadreM->kcb." ";
+                                }
+                                if($CGMadreM->num_tatuaje != ''){
+                                    echo "No. x Raza ".$CGMadreM->num_tatuaje." ";
+                                }
+                                if($CGMadreM->chip != ''){
+                                    echo "Chip ".$CGMadreM->chip." ";
+                                }
+                                // echo "K.C.B. ".$CGMadreM->kcb." ";
+                                // echo "No. x Raza ".$CGMadreM->num_tatuaje." ";
+                                // echo "Chip ".$CGMadreM->chip." ";
 
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$CGMadreM->id)
                                             ->where('examen_id','=',3)
@@ -1882,9 +2112,18 @@
                                         echo "<br>";
                                     }
                                 echo $abueloTG1->nombre_completo." ";
-                                echo "K.C.B. ".$abueloTG1->kcb." ";
-                                echo "No. x Raza ".$abueloTG1->num_tatuaje." ";
-                                echo "Chip ".$abueloTG1->chip." ";
+                                if(!($abueloTG1->kcb == 'nulo' || $abueloTG1->kcb == '')){
+                                    echo "K.C.B. ".$abueloTG1->kcb." ";
+                                }
+                                if($abueloTG1->num_tatuaje != ''){
+                                    echo "No. x Raza ".$abueloTG1->num_tatuaje." ";
+                                }
+                                if($abueloTG1->chip != ''){
+                                    echo "Chip ".$abueloTG1->chip." ";
+                                }
+                                // echo "K.C.B. ".$abueloTG1->kcb." ";
+                                // echo "No. x Raza ".$abueloTG1->num_tatuaje." ";
+                                // echo "Chip ".$abueloTG1->chip." ";
 
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloTG1->id)
                                             ->where('examen_id','=',3)
@@ -1924,9 +2163,18 @@
                                         echo "<br>";
                                     }
                                 echo $abueloTG11->nombre_completo." ";
-                                echo "K.C.B. ".$abueloTG11->kcb." ";
-                                echo "No. x Raza ".$abueloTG11->num_tatuaje." ";
-                                echo "Chip ".$abueloTG11->chip." ";
+                                if(!($abueloTG11->kcb == 'nulo' || $abueloTG11->kcb == '')){
+                                    echo "K.C.B. ".$abueloTG11->kcb." ";
+                                }
+                                if($abueloTG11->num_tatuaje != ''){
+                                    echo "No. x Raza ".$abueloTG11->num_tatuaje." ";
+                                }
+                                if($abueloTG11->chip != ''){
+                                    echo "Chip ".$abueloTG11->chip." ";
+                                }
+                                // echo "K.C.B. ".$abueloTG11->kcb." ";
+                                // echo "No. x Raza ".$abueloTG11->num_tatuaje." ";
+                                // echo "Chip ".$abueloTG11->chip." ";
 
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloTG11->id)
                                             ->where('examen_id','=',3)
@@ -1966,9 +2214,18 @@
                                         echo "<br>";
                                     }
                                 echo $abueloSGM22->nombre_completo." ";
-                                echo "K.C.B. ".$abueloSGM22->kcb." ";
-                                echo "No. x Raza ".$abueloSGM22->num_tatuaje." ";
-                                echo "Chip ".$abueloSGM22->chip." ";
+                                if(!($abueloSGM22->kcb == 'nulo' || $abueloSGM22->kcb == '')){
+                                    echo "K.C.B. ".$abueloSGM22->kcb." ";
+                                }
+                                if($abueloSGM22->num_tatuaje != ''){
+                                    echo "No. x Raza ".$abueloSGM22->num_tatuaje." ";
+                                }
+                                if($abueloSGM22->chip != ''){
+                                    echo "Chip ".$abueloSGM22->chip." ";
+                                }
+                                // echo "K.C.B. ".$abueloSGM22->kcb." ";
+                                // echo "No. x Raza ".$abueloSGM22->num_tatuaje." ";
+                                // echo "Chip ".$abueloSGM22->chip." ";
 
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloSGM22->id)
                                             ->where('examen_id','=',3)
@@ -2008,9 +2265,18 @@
                                         echo "<br>";
                                     }
                                 echo $abueloSGM222->nombre_completo." ";
-                                echo "K.C.B. ".$abueloSGM222->kcb." ";
-                                echo "No. x Raza ".$abueloSGM222->num_tatuaje." ";
-                                echo "Chip ".$abueloSGM222->chip." ";
+                                if(!($abueloSGM222->kcb == 'nulo' || $abueloSGM222->kcb == '')){
+                                    echo "K.C.B. ".$abueloSGM222->kcb." ";
+                                }
+                                if($abueloSGM222->num_tatuaje != ''){
+                                    echo "No. x Raza ".$abueloSGM222->num_tatuaje." ";
+                                }
+                                if($abueloSGM222->chip != ''){
+                                    echo "Chip ".$abueloSGM222->chip." ";
+                                }
+                                // echo "K.C.B. ".$abueloSGM222->kcb." ";
+                                // echo "No. x Raza ".$abueloSGM222->num_tatuaje." ";
+                                // echo "Chip ".$abueloSGM222->chip." ";
 
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloSGM222->id)
                                             ->where('examen_id','=',3)
@@ -2226,10 +2492,10 @@
                 AbuelotextSpan.style.fontSize = parseInt(AbuelotextSpan.style.fontSize) - 1;
             }
 
-            // while(AbuelotextSpan.offsetWidth > AbuelotextDiv.offsetWidth)
-            // {
-            //     AbuelotextSpan.style.fontSize = parseInt(AbuelotextSpan.style.fontSize) - 1;
-            // }
+            while(AbuelotextSpan.offsetWidth > AbuelotextDiv.offsetWidth)
+            {
+                AbuelotextSpan.style.fontSize = parseInt(AbuelotextSpan.style.fontSize) - 1;
+            }
 
         }
 
