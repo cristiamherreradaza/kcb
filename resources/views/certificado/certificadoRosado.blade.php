@@ -704,7 +704,7 @@
                     <td id="color">{{ $ejemplar->color }}</td>
                 </tr>
                 <tr>
-                    <td>{{ ($ejemplar->sexo == 'Masculino')? 'MASCULINO': 'FEMENINO'}}</td>
+                    <td>{{ ($ejemplar->sexo == 'Macho')? 'MACHO': 'HEMBRA'}}</td>
                     <td id="fecha-naciento"></td>
                     <td>{{ $ejemplar->fecha_nacimiento }}</td>
                     <td id="consagnidad"></td>
