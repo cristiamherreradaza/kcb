@@ -2401,8 +2401,6 @@
 
         $output = str_replace("'",'',$output);
 
-        echo $output;
-
         $nombre_ejemplar = $output;
     @endphp
 </body>
