@@ -1,9 +1,9 @@
 {{-- <!DOCTYPE html> --}}
-<html>
+<html lang="es">
 <head>
     <title>Document</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-</head>
+</head><meta charset="UTF-8">
 @section('css')
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet">
 @endsection
@@ -731,7 +731,9 @@
                         <div class="hermanos">
                             <span class="hermanos1">
                                 @php
-                                    $hermanos = App\Ejemplar::where('camada_id',$ejemplar->camada_id)->get();
+                                    $hermanos = App\Ejemplar::where('camada_id',$ejemplar->camada_id)
+                                                            ->whereNotNull('camada_id')
+                                                            ->get();
                                     $nombres = '';
                                     foreach ($hermanos as $h){
                                         $nombres =$nombres.$h->nombre.', ';
@@ -2391,6 +2393,18 @@
         <a href="{{ url('Ejemplar/certificadoRosadoAdelante') }}/{{ $ejemplar->id }}">Siguiente</a>
         {{-- <button onclick="shrink()" class="btn btn-success">haner</button> --}}
     </div>
+    @php
+        $input = $ejemplar->nombre_completo;
+
+        setlocale(LC_ALL, "en_US.utf8");
+        $output = iconv("utf-8", "ascii//TRANSLIT", $input);
+
+        $output = str_replace("'",'',$output);
+
+        echo $output;
+
+        $nombre_ejemplar = $output;
+    @endphp
 </body>
 </html>
 {{-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -2401,7 +2415,11 @@
 <script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
 <script src="{{ asset('assets/js/qrcode.min.js') }}"></script>
 
+
 <script type="text/javascript">
+
+
+
     function imprimir(){
         $('#certificado').hide();
         $('#enlaces').hide();
@@ -2409,29 +2427,17 @@
         $('#enlaces').show();
         $('#certificado').show();
     }
-    // let cadenaQr = "BEGIN:VCALENDAR"+"%0D%0A"+
-    //                    "VERSION:1.0"+"%0D%0A"+
-    //                    "BEGIN:VEVENT"+"%0D%0A"+
-    //                    "DTSTART:" + "19960401T090000" +"%0D%0A"+
-    //                    "DTEND:" + "19960401T043000" +"%0D%0A"+
-    //                    "SUMMARY:" + "Your Proposal Review"+"%0D%0A"+
-    //                    "DESCRIPTION:" + "Steve and John to review newest proposal material"+"%0D%0A"+
-    //                    "END:VEVENT"+"%0D%0A"+
-    //                    "END:VCALENDAR"+"%0D%0A";
-    // cadenaQr = decodeURIComponent(cadenaQr);
-
-    // let cadenaQr = holas;
-    let cadenaQr = "KCB: {{ $ejemplar->kcb }}\nNombre: {{trim($ejemplar->nombre_completo)}}\nRaza: {{trim($ejemplar->raza->nombre)}}\nN. Tatuaje: {{$ejemplar->num_tatuaje}}\nChip: {{ $ejemplar->chip }}\nSexo: {{ $ejemplar->sexo }}\nF. Nacimeinto: {{ date('d/m/Y' ,strtotime($ejemplar->fecha_nacimiento)) }}\nPagina Web: https://kcb.org.bo/";
-    // let cadenaQr = "KCB: {{ $ejemplar->kcb }}\nNombre: {{trim($ejemplar->nombre_completo)}}\nRaza: {{trim($ejemplar->raza->nombre)}}\nN. Tatuaje: {{$ejemplar->num_tatuaje}}\nChip: {{ $ejemplar->chip }}\nSexo: {{ $ejemplar->sexo }}\n https://kcb.org.bo/";
+    
+    let cadenaQr = "KCB: {{ $ejemplar->kcb }}\nNombre: {{$nombre_ejemplar}}\nRaza: {{trim($ejemplar->raza->nombre)}}\nN. Tatuaje: {{$ejemplar->num_tatuaje}}\nChip: {{ $ejemplar->chip }}\nSexo: {{ $ejemplar->sexo }}\nF. Nacimeinto: {{ date('d/m/Y' ,strtotime($ejemplar->fecha_nacimiento)) }}\nPagina Web: https://kcb.org.bo/";
 
     var qrcode = new QRCode("qrcode", {
         text: cadenaQr,
-        // size: 500,
         width: 110,
         height: 110,
         colorDark : "#000000",
         colorLight : "#ffffff",
         correctLevel : QRCode.CorrectLevel.L
+    // qrcode.makeCode("cómo es bro");
     });
 
     $(window).keydown(function(event) { 
