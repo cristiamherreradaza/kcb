@@ -874,7 +874,7 @@
                                     $titulo = App\TituloEjemplar::where('ejemplar_id',$abuelo->id)->get();
                                     $i = 1;
                                     foreach ($titulo as $t){
-                                        if($i <= 5){
+                                        if($i <= 4){
                                             echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
                                             $i++;
                                         }else{
@@ -920,7 +920,7 @@
                                     $titulo = App\TituloEjemplar::where('ejemplar_id',$abuela->id)->get();
                                     $i = 1;
                                     foreach ($titulo as $t){
-                                        if($i <= 5){
+                                        if($i <= 4){
                                             echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
                                             $i++;
                                         }else{
@@ -966,7 +966,7 @@
                                     $titulo = App\TituloEjemplar::where('ejemplar_id',$abueloM->id)->get();
                                     $i = 1;
                                     foreach ($titulo as $t){
-                                        if($i <= 5){
+                                        if($i <= 4){
                                             echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
                                             $i++;
                                         }else{
@@ -1011,7 +1011,7 @@
                                     $titulo = App\TituloEjemplar::where('ejemplar_id',$abuelaM->id)->get();
                                     $i = 1;
                                     foreach ($titulo as $t){
-                                        if($i <= 5){
+                                        if($i <= 4){
                                             echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
                                             $i++;
                                         }else{
@@ -2421,8 +2421,8 @@
     // cadenaQr = decodeURIComponent(cadenaQr);
 
     // let cadenaQr = holas;
-    // let cadenaQr = "KCB: {{ $ejemplar->kcb }}\nNombre: {{trim($ejemplar->nombre_completo)}}\nRaza: {{trim($ejemplar->raza->nombre)}}\nN. Tatuaje: {{$ejemplar->num_tatuaje}}\nChip: {{ $ejemplar->chip }}\nSexo: {{ $ejemplar->sexo }}\nF. Nacimeinto: {{ $ejemplar->fecha_nacimiento }}\n";
-    let cadenaQr = "KCB: {{ $ejemplar->kcb }}\nNombre: {{trim($ejemplar->nombre_completo)}}\nRaza: {{trim($ejemplar->raza->nombre)}}\nN. Tatuaje: {{$ejemplar->num_tatuaje}}\nChip: {{ $ejemplar->chip }}\nSexo: {{ $ejemplar->sexo }}\n https://kcb.org.bo/";
+    let cadenaQr = "KCB: {{ $ejemplar->kcb }}\nNombre: {{trim($ejemplar->nombre_completo)}}\nRaza: {{trim($ejemplar->raza->nombre)}}\nN. Tatuaje: {{$ejemplar->num_tatuaje}}\nChip: {{ $ejemplar->chip }}\nSexo: {{ $ejemplar->sexo }}\nF. Nacimeinto: {{ date('d/m/Y' ,strtotime($ejemplar->fecha_nacimiento)) }}\nPagina Web: https://kcb.org.bo/";
+    // let cadenaQr = "KCB: {{ $ejemplar->kcb }}\nNombre: {{trim($ejemplar->nombre_completo)}}\nRaza: {{trim($ejemplar->raza->nombre)}}\nN. Tatuaje: {{$ejemplar->num_tatuaje}}\nChip: {{ $ejemplar->chip }}\nSexo: {{ $ejemplar->sexo }}\n https://kcb.org.bo/";
 
     var qrcode = new QRCode("qrcode", {
         text: cadenaQr,
@@ -2431,7 +2431,7 @@
         height: 110,
         colorDark : "#000000",
         colorLight : "#ffffff",
-        correctLevel : QRCode.CorrectLevel.H
+        correctLevel : QRCode.CorrectLevel.L
     });
 
     $(window).keydown(function(event) { 
