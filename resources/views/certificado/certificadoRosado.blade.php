@@ -36,8 +36,111 @@
     #table-datos-1{
         width: 100%;
     }
+    .header-datos-ejemplar{
+        position: absolute;
+        font-size: 22px;
+        padding: 0;
+        margin: 0;
+        color: #0414ff;
+        font-weight: bold;
+    }
+    .header-1{
+        position: absolute;
+        top: -5px;
+        width:670px;
+        height: 28px;
+        /* background-color:yellow; */
+    }
+    .header-2{
+        position: absolute;
+        top: 30px;
+        width:670px;
+        height: 28px;
+        /* background-color:yellow;s */
+    }
+    .header-3{
+        /* background-color:pink; */
+        width:410px;
+        height: 28px;
+        position: absolute;
+        top: 60px;
+        font-size: 16px;
+    }
+    .header-4{
+        /* background-color:yellowgreen; */
+        position: absolute;
+        top: 60px;
+        left: 500px;
+        font-size: 15px;
+        width:  170px;
+        height: 28px;
+    }
+    .header-5{
+        /* background-color:orange; */
+        width:147px;
+        height: 25;
+        position: absolute;
+        top: 82px;
+        font-size:16; 
+    }
+    .header-6{
+        /* background-color:aqua; */
+        position: absolute;
+        top: 83px;
+        left: 270px;
+        width:140px;
+        height: 20px;
+        font-size:16; 
+    }
+    .header-7{
+        /* background-color:azure; */
+        position: absolute;
+        top: 83px;
+        left: 500px;
+        font-size: 15px;
+        width:  170px;
+        height: 22px;
+    }
+    .header-8{
+        /* background-color:rebeccapurple; */
+        position: absolute;
+        top: 102px;
+        font-size: 16px;
+
+    }
+    .header-9{
+        position: absolute;
+        top: 102px;
+        font-size: 16px;
+        left: 280px;
+    }
+    .header-10{
+        /* background-color:tomato; */
+        position: absolute;
+        top: 103px;
+        font-size: 15px;
+        left: 501px;
+    }
+    .header-11{
+        width: 670px;
+        height: 25px;
+        position: absolute;
+        top: 122px;
+    }
+
+
+
+
     #color{
-        width: 180px;
+        /* top:10px; */
+        position: absolute;
+        left: 500px;
+        padding: 0px 0px 0px 0px;
+        width: 172px;
+        background-color:green;
+        font-size: 15px;
+        opacity: 0.5;
+        /* left: 200px; */
     }
     #fecha-naciento{
         width: 150px;
@@ -81,8 +184,15 @@
         font-size: 22px;
     }
     .raza{
+        position: absolute;
+        color: yellow;
+        width:410px;
+        opacity: 0.5;
+
+
+        background-color: red;
         font-size: 17px;
-        height: 25px;
+        height: 28px;
     }
     /* .criadero{
         font-size:10px;
@@ -694,7 +804,43 @@
         {{-- <img src="{{ url('img/certificado_1.jpg') }}" width="77%" id="certificado" alt="No hay imagen"> --}}
         <img src="{{ url('img/certificado_1.jpg') }}" id="certificado" alt="No hay imagen">
         <div id="datos-ejemplar-1">
-            <table id="table-datos-1" cellspacing="0">
+            <div class="header-datos-ejemplar">
+                <div class="header-1">
+                    {{ $ejemplar->nombre_completo }}
+                </div>
+                <div class="header-2">
+                    @php
+                        $titulos = App\TituloEjemplar::where('ejemplar_id',$ejemplar->id)->get();
+                        $titulos1 = '';
+                        foreach ($titulos as $t){
+                            $titulos1= $t->titulo->nombre ;
+                        }
+                    @endphp
+                </div>
+                <div class="header-3"><span class="header-3s">{{ strtoupper($ejemplar->raza->nombre) }}</span></div>
+                <div class="header-4"><span class="header-4s">{{ $ejemplar->color }}</span></div>
+                <div class="header-5">{{ strtoupper($ejemplar->sexo)}}</div>
+                <div class="header-6">{{ date('d/m/Y',strtotime($ejemplar->fecha_nacimiento)) }}</div>
+                <div class="header-7">{{ ($ejemplar->consanguinidad!=null)? $ejemplar->consanguinidad :'--------'}}</div>
+                <div class="header-8">{{ $ejemplar->kcb }}</div>
+                <div class="header-9">{{ ($ejemplar->num_tatuaje != null)? $ejemplar->num_tatuaje:'--------'}}</div>
+                <div class="header-10">{{ $ejemplar->chip }}</div>
+                <div class="header-11">
+                    <span class="hermanos1">
+                        @php
+                            $hermanos = App\Ejemplar::where('camada_id',$ejemplar->camada_id)
+                                                    ->whereNotNull('camada_id')
+                                                    ->get();
+                            $nombres = '';
+                            foreach ($hermanos as $h){
+                                $nombres =$nombres.$h->nombre.', ';
+                            }
+                        @endphp
+                        {{ substr($nombres, 0, -2)}}
+                    </span>
+                </div>
+            </div>
+            {{-- <table id="table-datos-1" cellspacing="0">
                 <tr>
                     <td class="impor-1" colspan="5">{{ $ejemplar->nombre_completo }}</td>
                 </tr>
@@ -713,11 +859,13 @@
                     <td id="color">{{ $ejemplar->color }}</td>
                 </tr>
                 <tr>
-                    <td>{{ strtoupper($ejemplar->sexo)}}</td>
-                    <td id="fecha-naciento"></td>
-                    <td>{{ date('d/m/Y',strtotime($ejemplar->fecha_nacimiento)) }}</td>
-                    <td id="consagnidad"></td>
-                    <td>{{ ($ejemplar->consanguinidad!=null)? $ejemplar->consanguinidad :'--------'}}</td>
+                    <div style="position: absolute; top:50px;">
+                        <td>{{ strtoupper($ejemplar->sexo)}}</td>
+                        <td id="fecha-naciento"></td>
+                        <td>{{ date('d/m/Y',strtotime($ejemplar->fecha_nacimiento)) }}</td>
+                        <td id="consagnidad"></td>
+                        <td>{{ ($ejemplar->consanguinidad!=null)? $ejemplar->consanguinidad :'--------'}}</td>
+                    </div>
                 </tr>
                 <tr>
                     <td id="kcb-ejemplar-master">{{ $ejemplar->kcb }}</td>
@@ -742,11 +890,9 @@
                                 {{ substr($nombres, 0, -2)}}
                             </span>
                         </div>
-                        {{-- {{ $ejemplar->camada_id }} --}}
-                    
                     </td>
                 </tr>
-            </table>
+            </table> --}}
         </div>
         <div id="datos-ejemplar-2">
             <table id="table-datos-2">
@@ -2573,7 +2719,7 @@
 
 
         /*******************  CUARTA GENERACION  *************************/
-        var AbuelotextDivs = document.getElementsByClassName("hermanos");
+        var AbuelotextDivs = document.getElementsByClassName("header-11");
         var AbuelotextDivsLength = AbuelotextDivs.length;
 
         for(var i=0; i<AbuelotextDivsLength; i++) {
@@ -2596,8 +2742,55 @@
 
         }
 
+        
+        /*******************  RAZAS  *************************/
+        var AbuelotextDivs = document.getElementsByClassName("header-3");
+        var AbuelotextDivsLength = AbuelotextDivs.length;
+
+        for(var i=0; i<AbuelotextDivsLength; i++) {
+
+            var AbuelotextDiv = AbuelotextDivs[i];
+
+            var AbuelotextSpan = AbuelotextDiv.getElementsByClassName("header-3s")[0];
+
+            AbuelotextSpan.style.fontSize = 16;
+
+            while(AbuelotextSpan.offsetHeight > AbuelotextDiv.offsetHeight)
+            {
+                AbuelotextSpan.style.fontSize = parseInt(AbuelotextSpan.style.fontSize) - 1;
+            }
+
+            while(AbuelotextSpan.offsetWidth > AbuelotextDiv.offsetWidth)
+            {
+                AbuelotextSpan.style.fontSize = parseInt(AbuelotextSpan.style.fontSize) - 1;
+            }
+
+        }
 
 
+        /*******************  color  *************************/
+        var AbuelotextDivs = document.getElementsByClassName("header-4");
+        var AbuelotextDivsLength = AbuelotextDivs.length;
+
+        for(var i=0; i<AbuelotextDivsLength; i++) {
+
+            var AbuelotextDiv = AbuelotextDivs[i];
+
+            var AbuelotextSpan = AbuelotextDiv.getElementsByClassName("header-4s")[0];
+
+            AbuelotextSpan.style.fontSize = 15;
+
+            while(AbuelotextSpan.offsetHeight > AbuelotextDiv.offsetHeight)
+            {
+                AbuelotextSpan.style.fontSize = parseInt(AbuelotextSpan.style.fontSize) - 1;
+            }
+
+            while(AbuelotextSpan.offsetWidth > AbuelotextDiv.offsetWidth)
+            {
+                AbuelotextSpan.style.fontSize = parseInt(AbuelotextSpan.style.fontSize) - 1;
+            }
+
+        }
 
         
 
