@@ -3,6 +3,7 @@
     <thead>
         <tr>
             <th>ID</th>
+            <th>Propietario</th>
             <th>Nombre</th>
             <th>Email</th>
             <th>Celular</th>
@@ -15,6 +16,7 @@
         @forelse ($datosCriaderos as $cri)
         <tr>
             <td>{{ $cri->id }}</td>
+            <td>{{ $cri->propietario->name }}</td>
             <td>{{ $cri->criadero->nombre }}</td>
             <td>{{ $cri->criadero->email }}</td>
             <td>{{ $cri->criadero->celulares }}</td>

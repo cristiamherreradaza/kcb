@@ -53,27 +53,21 @@ class CriaderoController extends Controller
 
     public function guarda(Request $request)
     {
+        // dd($request->all());
+        // dd($request->filled('criadero_id'));
+
+
         if ($request->filled('criadero_id')) {
-            $criadero = Criadero::find($request->input('criadero_id'));
+            $criadero                   = Criadero::find($request->input('criadero_id'));
+            $criadero->modificador_id   = Auth::user()->id;
         } else {
-            $criadero = new Criadero();
-        }
-
-        $criadero->user_id = Auth::user()->id;
-
-        if($request->filled('propietario_id')){
-            $propietarioCriadero = PropietarioCriadero::where('criadero_id',$request->input('criadero_id'))
-                                                    ->first();
-            $propietarioCriadero->propietario_id = $request->input('propietario_id');
-
-            $propietarioCriadero->save();
+            $criadero           = new Criadero();
+            $criadero->user_id  = Auth::user()->id;
         }
 
         if($request->filled('copropietario_id')){
             $criadero->copropietario_id = $request->input('copropietario_id');
         }
-
-        // dd($request->input('copropietario_id'));
 
         $criadero->nombre              = $request->input('nombre');
         $criadero->registro_fci        = $request->input('registro_fci');
@@ -86,6 +80,26 @@ class CriaderoController extends Controller
         $criadero->email               = $request->input('email');
 
         $criadero->save();
+
+        if($request->filled('criadero_id')){
+            if($request->filled('propietario_id')){
+                $propietarioCriadero = PropietarioCriadero::where('criadero_id',$request->input('criadero_id'))
+                                                        ->first();
+                $propietarioCriadero->propietario_id = $request->input('propietario_id');
+    
+                $propietarioCriadero->save();
+            }
+        }else{
+            if($request->filled('propietario_id')){
+                $propietarioCriadero = new PropietarioCriadero();
+
+                $propietarioCriadero->propietario_id    = Auth::user()->id;
+                $propietarioCriadero->propietario_id    = $request->input('propietario_id');
+                $propietarioCriadero->criadero_id       = $criadero->id;
+    
+                $propietarioCriadero->save();
+            }
+        }
 
         return redirect('Criadero/listado');
     }
@@ -140,13 +154,18 @@ class CriaderoController extends Controller
         }
 
         // // pregunto si los campos estan vacios
+
+        $criaderos->orderBy('criaderos.id', 'desc');
+
         if($request->filled('nombre_buscar') || $request->filled('criador_buscar') || $request->filled('departamento_buscar')){
             $criaderos->limit(20);
         }else{
             $criaderos->limit(100);
         }
 
-        $datosCriaderos = $criaderos
+
+            
+        $datosCriaderos = $criaderos 
                             ->get();
 
         return view('criaderos.ajaxListadoCriadero')->with(compact('datosCriaderos'));

@@ -31,7 +31,7 @@ class Criadero extends Model
     {
         return $this->belongsTo('App\User', 'user_id');
     }
-
+    
     public function copropietario()
     {
         return $this->belongsTo('App\User', 'copropietario_id');
