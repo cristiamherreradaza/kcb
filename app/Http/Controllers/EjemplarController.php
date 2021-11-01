@@ -159,6 +159,7 @@ class EjemplarController extends Controller
 
     public function guarda(Request $request)
     {
+        // dd($request->all());
         // dd($request->input('extranjero'));
         // preguntamos si existe el ejemplar
         if($request->input('ejemplar_id') == 0){
@@ -214,25 +215,31 @@ class EjemplarController extends Controller
         $ejemplar->fecha_emision        = $request->input('fecha_emision');
         $ejemplar->descripcion_perdido  = $request->input('descripcion_perdido');
         $ejemplar->fecha_nacionalizado  = $request->input('fecha_nacionalizado');
-        $criadero = Criadero::find($request->input('criadero_id'));
-        if($request->input('primero_mostrar') == "Nombre"){
-            $nombreCompleto = $ejemplar->nombre;
-            if($request->input('prefijo') == ""){
-                $nombreCompleto = $nombreCompleto." ";
+
+        if($request->input('criadero_id')){
+            $criadero = Criadero::find($request->input('criadero_id'));
+            if($request->input('primero_mostrar') == "Nombre"){
+                $nombreCompleto = $ejemplar->nombre;
+                if($request->input('prefijo') == ""){
+                    $nombreCompleto = $nombreCompleto." ";
+                }else{
+                    $nombreCompleto = $nombreCompleto." ".$request->input('prefijo')." ";
+                }
+                $nombreCompleto = $nombreCompleto.$criadero->nombre;
             }else{
-                $nombreCompleto = $nombreCompleto." ".$request->input('prefijo')." ";
+                $nombreCompleto = $criadero->nombre;
+                if($request->input('prefijo') == ""){
+                    $nombreCompleto = $nombreCompleto." ";
+                }else{
+                    $nombreCompleto = $nombreCompleto." ".$request->input('prefijo')." "; 
+                }
+                $nombreCompleto = $nombreCompleto." ".$ejemplar->nombre;
             }
-            $nombreCompleto = $nombreCompleto.$criadero->nombre;
+            $ejemplar->nombre_completo      = $nombreCompleto;    
         }else{
-            $nombreCompleto = $criadero->nombre;
-            if($request->input('prefijo') == ""){
-                $nombreCompleto = $nombreCompleto." ";
-            }else{
-                $nombreCompleto = $nombreCompleto." ".$request->input('prefijo')." "; 
-            }
-            $nombreCompleto = $nombreCompleto." ".$ejemplar->nombre;
+            $ejemplar->nombre_completo      = $request->input('nombre');
         }
-        $ejemplar->nombre_completo      = $nombreCompleto;
+        
         
         //precedemos con el guardado de datos 
         $ejemplar->save();

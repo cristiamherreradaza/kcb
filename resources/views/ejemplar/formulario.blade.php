@@ -1264,7 +1264,7 @@
                         <label for="primero_mostrar">Extranjero
                             {{-- <span class="text-danger">*</span> --}}
                         </label> <br>
-                        <input name="extranjero" data-switch="true" data-on-text="SI" data-off-text="NO" type="checkbox" data-on-color="success" {{ ($ejemplar != null)? (($ejemplar->extranjero == 'si')? 'checked': ''):'' }} />
+                        <input id="check-extranjero" name="extranjero" data-switch="true" data-on-text="SI" data-off-text="NO" type="checkbox" data-on-color="success" {{ ($ejemplar != null)? (($ejemplar->extranjero == 'si')? 'checked': ''):'' }} onchange="cambiaRequerid()" />
                     </div>
                 </div>
             </div>
@@ -1274,7 +1274,7 @@
                     <div class="form-group">
                         <label for="kcb">KCB
                             <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="kcb" name="kcb" value="{{ ($ejemplar != null)? $ejemplar->kcb:'' }}" placeholder="65123" required />
+                        <input type="text" class="form-control" id="kcb" name="kcb" value="{{ ($ejemplar != null)? $ejemplar->kcb:'' }}" placeholder="65123" {{ ($ejemplar != null)? (($ejemplar->extranjero == 'si')? '': 'required') : 'required'}} />
                         <span class="form-text text-info">Ultimo KCB: 
                             @php
                                 $ultimoKCB = App\Ejemplar::latest()->first();
@@ -1304,7 +1304,7 @@
                     <div class="form-group">
                         <label for="fecha_nacimiento">Fecha Nacimiento
                             <span class="text-danger">*</span></label>
-                        <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" value="{{ ($ejemplar != null)? $ejemplar->fecha_nacimiento:'' }}" />
+                        <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" value="{{ ($ejemplar != null)? $ejemplar->fecha_nacimiento:'' }}"   {{ ($ejemplar != null)? (($ejemplar->extranjero == 'si')? '': 'required') : 'required'}} />
                     </div>
                 </div>
                 
@@ -1388,7 +1388,7 @@
                     <div class="form-group">
                         <label for="exampleInputPassword1">PROPIETARIO
                         </label>
-                        <select class="form-control select2" id="propietario_id" name="propietario_id">
+                        <select class="form-control select2" id="propietario_id" name="propietario_id"   {{ ($ejemplar != null)? (($ejemplar->extranjero == 'si')? '': 'required') : 'required'}}  >
                             @if ($ejemplar != null && $ejemplar->propietario_id != null)
                                 <option value="{{ $ejemplar->propietario->id }}">{{ $ejemplar->propietario->name }}</option>
                             @endif
@@ -1446,7 +1446,7 @@
                     <div class="form-group">
                         <label for="exampleInputPassword1">AFIJO
                         </label>
-                        <select class="form-control select2" id="criadero_id" name="criadero_id" required>
+                        <select class="form-control select2" id="criadero_id" name="criadero_id"   {{ ($ejemplar != null)? (($ejemplar->extranjero == 'si')? '': 'required') : 'required'}}  >
                             @if ($ejemplar != null && $ejemplar->criadero_id != null)
                                 <option value="{{ $ejemplar->criadero->id }}">{{ $ejemplar->criadero->nombre }}</option>
                             @endif
@@ -2687,6 +2687,20 @@
     if($("#auxiliar_raza").val()!= ''){
         $("#raza_id").val($("#auxiliar_raza").val());
         $("#raza_id").trigger('change');
+    }
+    function cambiaRequerid(){
+        var c = document.getElementById('check-extranjero').checked;
+        if(!c){
+            $("#kcb").prop('required',true);
+            $("#fecha_nacimiento").prop('required',true);
+            $("#propietario_id").prop('required',true);
+            $("#criadero_id").prop('required',true);
+        }else{
+            $("#kcb").prop('required',false);
+            $("#fecha_nacimiento").prop('required',false);
+            $("#propietario_id").prop('required',false);
+            $("#criadero_id").prop('required',false);
+        }
     }
 </script>
 @endsection

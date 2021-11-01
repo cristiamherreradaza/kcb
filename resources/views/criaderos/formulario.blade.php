@@ -58,13 +58,22 @@
 
                             @if ($propietarioCriador != null)
                                 <br />
-                                <button type="button" id="boton-copropietario-id" class="btn btn-primary btn-block" onclick="cambiaCoPropietario()">{{ $propietarioCriador->criadero->copropietario->name }} ({{ $propietarioCriador->criadero->copropietario->ci }})</button>                                
+                                {{-- @dd($propietarioCriador->criadero->copropietario) --}}
+                                @if ($propietarioCriador->criadero->copropietario)
+                                    <button type="button" id="boton-copropietario-id" class="btn btn-primary btn-block" onclick="cambiaCoPropietario()">{{ $propietarioCriador->criadero->copropietario->name }} ({{ $propietarioCriador->criadero->copropietario->ci }})</button>                                
 
-                                <div id="select-copropietario" style="display: none;">
-                                    <select class="form-control select2" id="copropietario_id" name="copropietario_id" style="width: 100%">
-                                        <option label="Label"></option>
-                                    </select>
-                                </div>
+                                    <div id="select-copropietario" style="display: none;">
+                                        <select class="form-control select2" id="copropietario_id" name="copropietario_id" style="width: 100%">
+                                            <option label="Label"></option>
+                                        </select>
+                                    </div>    
+                                @else
+                                    <div id="select-copropietario">
+                                        <select class="form-control select2" id="copropietario_id" name="copropietario_id">
+                                            <option label="Label"></option>
+                                        </select>    
+                                    </div>
+                                @endif
                             @else
                                 <div id="select-copropietario">
                                     <select class="form-control select2" id="copropietario_id" name="copropietario_id">
