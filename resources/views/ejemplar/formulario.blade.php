@@ -548,7 +548,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">NUEVO EXAMEN</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">REGISTRO DE EXAMEN</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <i aria-hidden="true" class="ki ki-close"></i>
                     </button>
@@ -556,7 +556,8 @@
                 <div class="modal-body">
                     <form action="{{ url('Ejemplar/guardaExamen') }}" method="POST" id="formulario-examenes">
                         @csrf
-                        <input type="hidden" name="ejemplar_examen_id" value="{{ $ejemplar->id }}">
+                        <input type="text" name="examen-ejemplar-id" id="examen-ejemplar-id" value="0">
+                        <input type="text" name="ejemplar_examen_id" value="{{ $ejemplar->id }}">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -1636,6 +1637,9 @@
                                             <td>{{ $e->fecha_examen }}</td>
                                             <td>{{ $e->examen->nombre }}</td>
                                             <td>
+                                                <button type="button" class="btn btn-sm btn-icon btn-warning" onclick="editaExamen('{{ $e->id }}', '{{ $e->examen_id }}', '{{ $e->fecha_examen }}', '{{ $e->revisor }}', '{{ $e->resultado }}', '{{ $e->observacion }}', '{{ $e->numero_formulario }}', '{{ $e->dfc }}')">
+                                                    <i class="flaticon2-edit"></i>
+                                                </button>
                                                 <button type="button" class="btn btn-sm btn-icon btn-danger" onclick="eliminaExamen('{{ $e->id }}', '{{ $e->examen->nombre }}')">
                                                     <i class="flaticon2-cross"></i>
                                                 </button>
@@ -2123,6 +2127,7 @@
         $("#bloque-nacionalizado").toggle('slow');
     }
     function nuevoExamen(){
+        $('#examen-ejemplar-id').val(0);
         $("#modal-examen").modal('show');
     }
 
@@ -2701,6 +2706,20 @@
             $("#propietario_id").prop('required',false);
             $("#criadero_id").prop('required',false);
         }
+    }
+    function editaExamen(id, examen_id, fecha, doctor, resultado, observacion, num_formulario, codigo_dfc){
+        $('#examen-ejemplar-id').val(id);
+        $('#nombre_examen').val(examen_id);
+        $('#nombre_examen').trigger('change');
+        $('#fecha_examen').val(fecha);
+        $('#doctor_examen').val(doctor);
+        $('#resultado').val(resultado);
+        $('#obserbacion').val(observacion);
+        $('#examen_num_formulario').val(num_formulario);
+        $('#examen_dcf').val(codigo_dfc);
+
+        $("#modal-examen").modal('show');
+        // alert("En desarrollo :v");
     }
 </script>
 @endsection

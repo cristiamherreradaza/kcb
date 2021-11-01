@@ -282,9 +282,13 @@ class EjemplarController extends Controller
 
     public function ajaxGuardaExamen(Request $request){
         // dd($request->all());
-
-        $nuevoExamen                    = new ExamenMascota();
-        $nuevoExamen->user_id           = Auth::user()->id;
+        if($request->input('examen-ejemplar-id') != 0){
+            $nuevoExamen = ExamenMascota::find($request->input('examen-ejemplar-id'));
+            $nuevoExamen->modificador_id           = Auth::user()->id;
+        }else{
+            $nuevoExamen                    = new ExamenMascota();
+            $nuevoExamen->user_id           = Auth::user()->id;
+        }
         $nuevoExamen->ejemplar_id       = $request->input('ejemplar_examen_id');
         $nuevoExamen->examen_id         = $request->input('nombre_examen');
         $nuevoExamen->fecha_examen      = $request->input('fecha_examen');
