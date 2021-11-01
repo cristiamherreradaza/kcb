@@ -2565,11 +2565,13 @@
 
 
     function imprimir(){
-        $('#certificado').hide();
-        $('#enlaces').hide();
-        window.print();
-        $('#enlaces').show();
-        $('#certificado').show();
+        if({{ Auth::user()->id }} == 1){
+            $('#certificado').hide();
+            $('#enlaces').hide();
+            window.print();
+            $('#enlaces').show();
+            $('#certificado').show();
+        }
     }
     
     let cadenaQr = "KCB: {{ $ejemplar->kcb }}\nNombre: {{$nombre_ejemplar}}\nRaza: {{trim($ejemplar->raza->nombre)}}\nN. Tatuaje: {{$ejemplar->num_tatuaje}}\nChip: {{ $ejemplar->chip }}\nSexo: {{ $ejemplar->sexo }}\nF. Nacimeinto: {{ date('d/m/Y' ,strtotime($ejemplar->fecha_nacimiento)) }}\nPagina Web: https://kcb.org.bo/";
@@ -2584,16 +2586,30 @@
     // qrcode.makeCode("cómo es bro");
     });
 
+    // jQuery(document).bind("keyup keydown", function(e){
+    //     if(e.ctrlKey && e.keyCode == 80){
+    //         Print(); e.preventDefault();
+    //     }
+    // });
     $(window).keydown(function(event) { 
         if(event.ctrlKey && event.keyCode == 80) { 
-            var certificado  = document.getElementById("certificado");
-            $('#certificado').hide();
-            $('#enlaces').hide();
-            window.print();
-            $('#certificado').show();
-            $('#enlaces').show();
-            certificado.style.width = "85%";
-            event.preventDefault(); 
+            if({{ Auth::user()->id }} == 1){
+                var certificado  = document.getElementById("certificado");
+                $('#certificado').hide();
+                $('#enlaces').hide();
+                window.print();
+                $('#certificado').show();
+                $('#enlaces').show();
+                certificado.style.width = "85%";
+                event.preventDefault(); 
+            }else{
+                $('#bloque-certificado').hide();
+                $('#enlaces').hide();
+                window.print();
+                $('#bloque-certificado').show();
+                $('#enlaces').show();
+                event.preventDefault(); 
+            }
         } 
     });
 

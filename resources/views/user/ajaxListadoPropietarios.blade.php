@@ -9,6 +9,7 @@
             <th>Cedula</th>
             <th>Departamento</th>
             <th>Tipo</th>
+            <th>Camada</th>
             <th>Criaderos</th>
             <th>Actions</th>
         </tr>
@@ -23,6 +24,18 @@
             <td>{{ $p->ci }}</td>
             <td>{{ $p->departamento }}</td>
             <td>{{ $p->tipo }}</td>
+            <td>
+                @php
+                    $ejemplar = App\Ejemplar::where('propietario_id',$p->id)
+                                            ->orderBy('id','desc')
+                                            ->first();
+                    if($ejemplar){
+                        if($ejemplar->camada){
+                            echo $ejemplar->camada->camada;
+                        }
+                    }
+                @endphp
+            </td>
             <td>
                 @php
                     $cantidad = App\PropietarioCriadero::where('propietario_id', $p->id)
