@@ -21,8 +21,8 @@ use Illuminate\Support\Facades\Route;
 // });
 
 // Route::get('/', 'SocialController@inicio');
-// Route::get('/', 'UserController@listado');
-Route::get('/', 'PanelController@inicio');
+Route::get('/', 'UserController@listado');
+// Route::get('/', 'PanelController@inicio');
 // Route::get('/', 'home');
 
 Auth::routes();

@@ -28,8 +28,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    // protected $redirectTo = RouteServiceProvider::HOME;
-    protected $redirectTo = "/";
+    protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
@@ -47,13 +46,12 @@ class LoginController extends Controller
         // $perfil = User::where('email', auth()->user()->email)->first();
         // dd(Auth::user()->perfil);
 
-        // if(Auth::user()->perfil == 'Administrador'){
-        //     return 'User/listado';
-        // }else{
-        //     return '/';
-        // }
+        if(Auth::user()->perfil == 'Administrador'){
+            return 'User/listado';
+        }else{
+            return '/';
+        }
 
-            return '/home';
 
     }
 }
