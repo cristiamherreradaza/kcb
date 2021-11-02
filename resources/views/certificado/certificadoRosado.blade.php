@@ -21,18 +21,11 @@
         background-color:yellow;
     }
     #datos-ejemplar-1{
-        /* background-color: yellow;
-        opacity: 0.5; */
         position: absolute;
         top: 90px;
         left: 310px;
-        /* color: #eeff00; */
-        /* font-weight: bold; */
         width: 700px;
     }
-    /* #kcb-ejemplar-master{
-        padding: 10px 0px 9px 0px;
-    } */
     #table-datos-1{
         width: 100%;
     }
@@ -46,28 +39,24 @@
     }
     .header-1{
         position: absolute;
-        top: -5px;
+        top: -9px;
         width:670px;
         height: 28px;
-        /* background-color:yellow; */
     }
     .header-2{
         position: absolute;
         top: 30px;
         width:670px;
         height: 28px;
-        /* background-color:yellow;s */
     }
     .header-3{
-        /* background-color:pink; */
         width:410px;
         height: 28px;
         position: absolute;
-        top: 53px;
+        top: 47px;
         font-size: 16px;
     }
     .header-4{
-        /* background-color:yellowgreen; */
         position: absolute;
         top: 60px;
         left: 500px;
@@ -76,24 +65,21 @@
         height: 28px;
     }
     .header-5{
-        /* background-color:orange; */
         width:147px;
         height: 25;
         position: absolute;
-        top: 82px;
+        top: 80px;
         font-size:16; 
     }
     .header-6{
-        /* background-color:aqua; */
         position: absolute;
-        top: 83px;
+        top: 81px;
         left: 270px;
         width:140px;
         height: 20px;
         font-size:16; 
     }
     .header-7{
-        /* background-color:azure; */
         position: absolute;
         top: 83px;
         left: 500px;
@@ -102,20 +88,18 @@
         height: 22px;
     }
     .header-8{
-        /* background-color:rebeccapurple; */
         position: absolute;
-        top: 102px;
+        top: 100px;
         font-size: 16px;
 
     }
     .header-9{
         position: absolute;
-        top: 102px;
+        top: 100px;
         font-size: 16px;
         left: 280px;
     }
     .header-10{
-        /* background-color:tomato; */
         position: absolute;
         top: 103px;
         font-size: 15px;
@@ -127,12 +111,7 @@
         position: absolute;
         top: 122px;
     }
-
-
-
-
     #color{
-        /* top:10px; */
         position: absolute;
         left: 500px;
         padding: 0px 0px 0px 0px;
@@ -140,7 +119,6 @@
         background-color:green;
         font-size: 15px;
         opacity: 0.5;
-        /* left: 200px; */
     }
     #fecha-naciento{
         width: 150px;
@@ -169,19 +147,33 @@
     #email{
         padding: 0px 0px 0px 60px;
     }
-    table tr td{
-        text-align: left;
+    .afijo{
+        position: absolute;
+        top: -5px;
+        font-size:22px;
+        width:350px;
+        height: 36px;
     }
-    td{
-        /* background-color:red; */
-        font-size: 17px;
-        padding: 0;
-        margin: 0;
-        color: #0414ff;
-        font-weight: bold;
+    .criador{
+        font-size:16px;
+        position: absolute;
+        top: 27px;
     }
-    .impor-1{
-        font-size: 22px;
+    .direccion{
+        font-size:15px;
+        position: absolute;
+        top: 60px;
+    }
+    .telefonos{
+        font-size:17px;
+        position: absolute;
+        top: 86px;
+    }
+    .correo{
+        font-size:17px;
+        position: absolute;
+        top: 105px;
+        padding: 0px 0px 0px 49px;
     }
     .raza{
         position: absolute;
@@ -194,20 +186,14 @@
         font-size: 17px;
         height: 28px;
     }
-    /* .criadero{
-        font-size:10px;
-    } */
     .titulos{
         height: 33px;
     }
     .hermanos{
-        /* background-color:red; */
         width: 670px;
         height: 25px;
     }
     #datos-ejemplar-2{
-        /* background-color: green;
-        opacity: 0.5; */
         position: absolute;
         top: 86px;
         left: 1050px;
@@ -229,21 +215,22 @@
         width:100%;
     }
     .padres{
-        /* background-color: yellow; */
         position: absolute;
-        width:290px;
-        height: 243px;
+        width: 290px;
+        height: 230px;
         font-size: 18px;
     }
     .padre_1{
-        top: -5px;
+        /* background-color:red; */
+        top: 10px;
     }
 
     .padre_2{
-        top: 245px;
+        /* background-color:yellow; */
+
+        top: 255px;
     }
     .abuelos{
-        /* background-color: green; */
         position: absolute;
         font-size: 12px;
         left: 310px;
@@ -263,7 +250,6 @@
         top: 370px;
     }
     .tercera_generaciones{
-        /* background-color: orange; */
         position: absolute;
         font-size: 11px;
         height: 60px;
@@ -366,8 +352,9 @@
         /* width: 200px;
         height: 50px; */
         font-size: 15px;
-        bottom: 155px;
-        left: 600px;
+        top: 760px;
+        /* bottom: 155px; */
+        left: 570px;
         color: #0414ff;
         font-weight: bold;
     }
@@ -840,85 +827,16 @@
                     </span>
                 </div>
             </div>
-            {{-- <table id="table-datos-1" cellspacing="0">
-                <tr>
-                    <td class="impor-1" colspan="5">{{ $ejemplar->nombre_completo }}</td>
-                </tr>
-                <tr>
-                    <td class="impor-1 titulos" colspan="5">
-                        @php
-                            $titulos = App\TituloEjemplar::where('ejemplar_id',$ejemplar->id)->get();
-                            foreach ($titulos as $t){
-                                echo $t->titulo->nombre ;
-                            }
-                        @endphp
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="4" class="impor-1 raza">{{ strtoupper($ejemplar->raza->nombre) }}</td>
-                    <td id="color">{{ $ejemplar->color }}</td>
-                </tr>
-                <tr>
-                    <div style="position: absolute; top:50px;">
-                        <td>{{ strtoupper($ejemplar->sexo)}}</td>
-                        <td id="fecha-naciento"></td>
-                        <td>{{ date('d/m/Y',strtotime($ejemplar->fecha_nacimiento)) }}</td>
-                        <td id="consagnidad"></td>
-                        <td>{{ ($ejemplar->consanguinidad!=null)? $ejemplar->consanguinidad :'--------'}}</td>
-                    </div>
-                </tr>
-                <tr>
-                    <td id="kcb-ejemplar-master">{{ $ejemplar->kcb }}</td>
-                    <td id="fecha-naciento"></td>
-                    <td>{{ ($ejemplar->num_tatuaje != null)? $ejemplar->num_tatuaje:'--------'}}</td>
-                    <td id="consagnidad"></td>
-                    <td>{{ $ejemplar->chip }}</td>
-                </tr>
-                <tr>
-                    <td colspan="5">
-                        <div class="hermanos">
-                            <span class="hermanos1">
-                                @php
-                                    $hermanos = App\Ejemplar::where('camada_id',$ejemplar->camada_id)
-                                                            ->whereNotNull('camada_id')
-                                                            ->get();
-                                    $nombres = '';
-                                    foreach ($hermanos as $h){
-                                        $nombres =$nombres.$h->nombre.', ';
-                                    }
-                                @endphp
-                                {{ substr($nombres, 0, -2)}}
-                            </span>
-                        </div>
-                    </td>
-                </tr>
-            </table> --}}
         </div>
         <div id="datos-ejemplar-2">
-            <table id="table-datos-2">
-                <tr>
-                    <td colspan="2" class="impor-1">{{ ($ejemplar->criadero)? $ejemplar->criadero->nombre." FCI: ".$ejemplar->criadero->registro_fci : '' }}</td>
-                    <td rowspan="5" class='codigo-qr'> <div id="qrcode"></div></td>
-                </tr>
-                <tr>
-                    <td colspan="2"  id="propietario">{{ ($ejemplar->propietario)? $ejemplar->propietario->name : '' }}</td>
-                </tr>
-                <tr>
-                    <td colspan="2" id="direccion" >{{ ($ejemplar->propietario)?  $ejemplar->propietario->direccion : ''}}</td>
-                </tr>
-                <tr>
-                    <td colspan="2" id="telefono"  >{{  ($ejemplar->propietario)? $ejemplar->propietario->celulares : ''}}</td>
-                </tr>
-                <tr>
-                    <td colspan="2"  id="email" >{{ ($ejemplar->propietario)? $ejemplar->propietario->email :'' }}</td>
-                    <td></td>
-                </tr>
-                {{-- <tr>
-                    <td id="telefono"></td>
-                    <td></td>
-                    <td></td>
-                </tr> --}}
-            </table>
+            <div class="datos-secundarios">
+                <div class="afijo"> <span class="afijos">{{ ($ejemplar->criadero)? $ejemplar->criadero->nombre." FCI: ".$ejemplar->criadero->registro_fci : '' }}</span></div>
+                <div class="criador">{{ ($ejemplar->propietario)? $ejemplar->propietario->name : '' }}</div>
+                <div class="direccion">{{ ($ejemplar->propietario)?  $ejemplar->propietario->direccion : ''}}</div>
+                <div class="telefonos">{{  ($ejemplar->propietario)? $ejemplar->propietario->celulares : ''}}</div>
+                <div class="correo">{{ ($ejemplar->propietario)? $ejemplar->propietario->email :'' }}</div>
+                <div class="codigo-qr"><div id="qrcode"></div></div>
+            </div>
         </div>
         <div id="arbol-genealogio">
             <section id="bloque-padres" >
@@ -959,7 +877,9 @@
                                     echo $e->examen->nombre.": ".$e->resultado."<br>";
                                     // echo " ".$e->resultado."<br>";
                                 }
-                                echo "Color: ".$papa->color;
+                                if($papa->color != '0' && $papa->color != '.'){
+                                    echo "Color: ".$papa->color;
+                                }
                             }
                         @endphp
                     </span>
@@ -1006,7 +926,9 @@
                                     echo $e->examen->nombre;
                                     echo $e->resultado;
                                 }
-                                echo "Color: ".$mama->color;
+                                if($mama->color != '0' && $mama->color != '.'){
+                                    echo "Color: ".$mama->color;
+                                }
                             }
                         @endphp
                     </span>
@@ -1053,7 +975,9 @@
                                 foreach($examenMascotaPapa as $e){
                                     echo $e->examen->nombre.": ".$e->resultado."<br>";
                                 }
-                                echo "Color: ".$abuelo->color;
+                                if($abuelo->color != '0' && $abuelo->color != '.'){
+                                    echo "Color: ".$abuelo->color;
+                                }
                             }
                         @endphp
                     </span>
@@ -1099,7 +1023,9 @@
                                 foreach($examenMascotaPapa as $e){
                                     echo $e->examen->nombre.": ".$e->resultado."<br>";
                                 }
-                                echo "Color: ".$abuela->color;
+                                if($abuela->color != '0' && $abuela->color != '.'){
+                                    echo "Color: ".$abuela->color;
+                                }
                             }
                         @endphp
                     </span>
@@ -1145,7 +1071,9 @@
                                 foreach($examenMascotaPapa as $e){
                                     echo $e->examen->nombre.": ".$e->resultado."<br>";
                                 }
-                                echo "Color: ".$abueloM->color;
+                                if($abueloM->color != '0' && $abueloM->color != '.'){
+                                    echo "Color: ".$abueloM->color;
+                                }
                             }
                         @endphp
                     </span>
@@ -1190,7 +1118,9 @@
                                 foreach($examenMascotaPapa as $e){
                                     echo $e->examen->nombre.": ".$e->resultado."<br>";
                                 }
-                                echo "Color: ".$abuelaM->color;
+                                if($abuelaM->color != '0' && $abuelaM->color != '.'){
+                                    echo "Color: ".$abuelaM->color;
+                                }
                             }
                         @endphp
                     </span>
@@ -1248,7 +1178,9 @@
                                 if($examenPapa != ""){
                                     echo $examenPapa." ".$resultadoPapa."<br>";
                                 }
-                                echo "Color: ".$tGPadre->color;
+                                if($tGPadre->color != '0' && $tGPadre->color != '.'){
+                                    echo "Color: ".$tGPadre->color;
+                                }
                             }
                         @endphp
                     </span>
@@ -1305,7 +1237,9 @@
                                 }
                                 // echo $examenPapa." ";
                                 // echo $resultadoPapa."<br>";
-                                echo "Color: ".$tGMadre->color;
+                                if($tGMadre->color != '0' && $tGMadre->color != '.'){
+                                    echo "Color: ".$tGMadre->color;
+                                }
                             }
                         @endphp
                     </span>
@@ -1363,7 +1297,9 @@
 
                                 // echo $examenPapa." ";
                                 // echo $resultadoPapa."<br>";
-                                echo "Color: ".$abueloTG->color;
+                                if($abueloTG->color != '0' && $abueloTG->color != '.'){
+                                    echo "Color: ".$abueloTG->color;
+                                }
                             }
                         @endphp
                     </span>
@@ -1421,7 +1357,9 @@
 
                                 // echo $examenPapa." ";
                                 // echo $resultadoPapa."<br>";
-                                echo "Color: ".$abuelaTG->color;
+                                if($abuelaTG->color != '0' && $abuelaTG->color != '.'){
+                                    echo "Color: ".$abuelaTG->color;
+                                }
                             }
                         @endphp
                     </span>
@@ -1479,7 +1417,9 @@
 
                                 // echo $examenPapa." ";
                                 // echo $resultadoPapa."<br>";
-                                echo "Color: ".$tGPadreM->color;
+                                if($tGPadreM->color != '0' && $tGPadreM->color != '.'){
+                                    echo "Color: ".$tGPadreM->color;
+                                }
                             }
                         @endphp
                     </span>
@@ -1536,7 +1476,9 @@
 
                                 // echo $examenPapa." ";
                                 // echo $resultadoPapa."<br>";
-                                echo "Color: ".$tGMadreM->color;
+                                if($tGMadreM->color != '0' && $tGMadreM->color != '.'){
+                                    echo "Color: ".$tGMadreM->color;
+                                }
                             }
                         @endphp
                     </span>
@@ -1572,9 +1514,6 @@
                                 if($abueloSG->chip != ''){
                                     echo "Chip ".$abueloSG->chip."<br>";
                                 }
-                                // echo "K.C.B. ".$abueloSG->kcb."<br>";
-                                // echo "No. x Raza ".$abueloSG->num_tatuaje." ";
-                                // echo "Chip ".$abueloSG->chip."<br>";
 
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloSG->id)
                                             ->where('examen_id','=',3)
@@ -1591,9 +1530,9 @@
                                     echo $examenPapa." ".$resultadoPapa."<br>";
                                 }
                                 
-                                // echo $examenPapa." ";
-                                // echo $resultadoPapa."<br>";
-                                echo "Color: ".$abueloSG->color;
+                                if($abueloSG->color != '0' && $abueloSG->color != '.'){
+                                    echo "Color: ".$abueloSG->color;
+                                }
                             }
                         @endphp
                     </span>
@@ -1650,7 +1589,9 @@
 
                                 // echo $examenPapa." ";
                                 // echo $resultadoPapa."<br>";
-                                echo "Color: ".$abueloSGM2->color;
+                                if($abueloSGM2->color != '0' && $abueloSGM2->color != '.'){
+                                    echo "Color: ".$abueloSGM2->color;
+                                }
                             }
                         @endphp
                     </span>
@@ -1706,7 +1647,9 @@
 
                                 echo $examenPapa." ";
                                 echo $resultadoPapa." ";
-                                echo "Color: ".$cGPadre->color." ";
+                                if($cGPadre->color != '0' && $cGPadre->color != '.'){
+                                    echo "Color: ".$cGPadre->color." ";
+                                }
                             }
                         @endphp
                     </span>
@@ -1756,7 +1699,9 @@
 
                                 echo $examenPapa." ";
                                 echo $resultadoPapa." ";
-                                echo "Color: ".$cGMadre->color." ";
+                                if($cGMadre->color != '0' && $cGMadre->color != '.'){
+                                    echo "Color: ".$cGMadre->color." ";
+                                }
                             }
                         @endphp
                     </span>
@@ -1810,7 +1755,9 @@
 
                                 echo $examenPapa." ";
                                 echo $resultadoPapa." ";
-                                echo "Color: ".$CGMadreP->color." ";
+                                if($CGMadreP->color != '0' && $CGMadreP->color != '.'){
+                                    echo "Color: ".$CGMadreP->color." ";
+                                }
                             }
                         @endphp
                     </span>
@@ -1864,7 +1811,9 @@
 
                                 echo $examenPapa." ";
                                 echo $resultadoPapa." ";
-                                echo "Color: ".$CGMadreM2->color." ";
+                                if($CGMadreM2->color != '0' && $CGMadreM2->color != '.'){
+                                    echo "Color: ".$CGMadreM2->color." ";
+                                }
                             }
                         @endphp
                     </span>
@@ -1918,7 +1867,9 @@
             
                                 echo $examenPapa." ";
                                 echo $resultadoPapa." ";
-                                echo "Color: ".$abueloCG->color." ";
+                                if($abueloCG->color != '0' && $abueloCG->color != '.'){
+                                    echo "Color: ".$abueloCG->color." ";
+                                }
                             }
                         @endphp
                     </span>
@@ -1972,7 +1923,9 @@
 
                                 echo $examenPapa." ";
                                 echo $resultadoPapa." ";
-                                echo "Color: ".$abueloCGM->color." ";
+                                if($abueloCGM->color != '0' && $abueloCGM->color != '.'){
+                                    echo "Color: ".$abueloCGM->color." ";
+                                }
                             }
                         @endphp
                     </span>
@@ -2026,7 +1979,9 @@
 
                                 echo $examenPapa." ";
                                 echo $resultadoPapa." ";
-                                echo "Color: ".$abueloTGM1->color." ";
+                                if($abueloTGM1->color != '0' && $abueloTGM1->color != '.'){
+                                    echo "Color: ".$abueloTGM1->color." ";
+                                }
                             }
                         @endphp
                     </span>
@@ -2080,7 +2035,9 @@
 
                                 echo $examenPapa." ";
                                 echo $resultadoPapa." ";
-                                echo "Color: ".$abuelaTGM1->color." ";
+                                if($abuelaTGM1->color != '0' && $abuelaTGM1->color != '.'){
+                                    echo "Color: ".$abuelaTGM1->color." ";
+                                }
                             }
                         @endphp
                     </span>
@@ -2134,7 +2091,9 @@
 
                                 echo $examenPapa." ";
                                 echo $resultadoPapa." ";
-                                echo "Color: ".$CGPadreM1->color." ";
+                                if($CGPadreM1->color != '0' && $CGPadreM1->color != '.'){
+                                    echo "Color: ".$CGPadreM1->color." ";
+                                }
                             }
                         @endphp
                     </span>
@@ -2188,7 +2147,9 @@
 
                                 echo $examenPapa." ";
                                 echo $resultadoPapa." ";
-                                echo "Color: ".$CGPadreM2->color." ";
+                                if($CGPadreM2->color != '0' && $CGPadreM2->color != '.'){
+                                    echo "Color: ".$CGPadreM2->color." ";
+                                }
                             }
                         @endphp
                     </span>
@@ -2242,7 +2203,9 @@
 
                                 echo $examenPapa." ";
                                 echo $resultadoPapa." ";
-                                echo "Color: ".$CGPadreM->color." ";
+                                if($CGPadreM->color != '0' && $CGPadreM->color != '.'){
+                                    echo "Color: ".$CGPadreM->color." ";
+                                }
                             }
                         @endphp
                     </span>
@@ -2295,7 +2258,9 @@
 
                                 echo $examenPapa." ";
                                 echo $resultadoPapa." ";
-                                echo "Color: ".$CGMadreM->color." ";
+                                if($CGMadreM->color != '0' && $CGMadreM->color != '.'){
+                                    echo "Color: ".$CGMadreM->color." ";
+                                }
                             }
                         @endphp
                     </span>
@@ -2348,7 +2313,9 @@
 
                                 echo $examenPapa." ";
                                 echo $resultadoPapa." ";
-                                echo "Color: ".$abueloTG1->color." ";
+                                if($abueloTG1->color != '0' && $abueloTG1->color != '.'){
+                                    echo "Color: ".$abueloTG1->color." ";
+                                }
                             }
                         @endphp
                     </span>
@@ -2401,7 +2368,9 @@
 
                                 echo $examenPapa." ";
                                 echo $resultadoPapa." ";
-                                echo "Color: ".$abueloTG11->color." ";
+                                if($abueloTG11->color != '0' && $abueloTG11->color != '.'){
+                                    echo "Color: ".$abueloTG11->color." ";
+                                }
                             }
                         @endphp
                     </span>
@@ -2454,7 +2423,9 @@
 
                                 echo $examenPapa." ";
                                 echo $resultadoPapa." ";
-                                echo "Color: ".$abueloSGM22->color." ";
+                                if($abueloSGM22->color != '0' && $abueloSGM22->color != '.'){
+                                    echo "Color: ".$abueloSGM22->color." ";
+                                }
                             }
                         @endphp
                     </span>
@@ -2507,7 +2478,9 @@
 
                                 echo $examenPapa." ";
                                 echo $resultadoPapa." ";
-                                echo "Color: ".$abueloSGM222->color." ";
+                                if($abueloSGM222->color != '0' && $abueloSGM222->color != '.'){
+                                    echo "Color: ".$abueloSGM222->color." ";
+                                }
                             }
                         @endphp
                     </span>
@@ -2541,12 +2514,9 @@
     </div>
     @php
         $input = $ejemplar->nombre_completo;
-
         setlocale(LC_ALL, "en_US.utf8");
         $output = iconv("utf-8", "ascii//TRANSLIT", $input);
-
         $output = str_replace("'",'',$output);
-
         $nombre_ejemplar = $output;
     @endphp
 </body>
@@ -2808,8 +2778,30 @@
 
         }
 
-        
 
+        /*******************  AFIJO  *************************/
+        var AbuelotextDivs = document.getElementsByClassName("afijo");
+        var AbuelotextDivsLength = AbuelotextDivs.length;
+
+        for(var i=0; i<AbuelotextDivsLength; i++) {
+
+            var AbuelotextDiv = AbuelotextDivs[i];
+
+            var AbuelotextSpan = AbuelotextDiv.getElementsByClassName("afijos")[0];
+
+            AbuelotextSpan.style.fontSize = 22;
+
+            while(AbuelotextSpan.offsetHeight > AbuelotextDiv.offsetHeight)
+            {
+                AbuelotextSpan.style.fontSize = parseInt(AbuelotextSpan.style.fontSize) - 1;
+            }
+
+            while(AbuelotextSpan.offsetWidth > AbuelotextDiv.offsetWidth)
+            {
+                AbuelotextSpan.style.fontSize = parseInt(AbuelotextSpan.style.fontSize) - 1;
+            }
+
+        }
     }
 
     // abuelos

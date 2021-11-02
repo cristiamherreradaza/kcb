@@ -21,8 +21,8 @@ use Illuminate\Support\Facades\Route;
 // });
 
 // Route::get('/', 'SocialController@inicio');
-Route::get('/', 'UserController@listado');
-// Route::get('/', 'PanelController@inicio');
+// Route::get('/', 'UserController@listado');
+Route::get('/', 'PanelController@inicio');
 // Route::get('/', 'home');
 
 Auth::routes();
@@ -34,6 +34,8 @@ Route::get('panel/inicio', 'PanelController@inicio');
 
 // RED SOCIAL
 Route::get('Social/inicio', 'SocialController@inicio');
+
+Route::middleware(['auth'])->group(function () {
 
 // USUARIOS
 Route::get('User/listado', 'UserController@listado');
@@ -257,3 +259,5 @@ Route::get('Migracion/eventos', 'MigracionController@eventos');
 
  /* Migracion de EVENTOS INSCRIUTOS MASCOTAS TEMPORALES */
 Route::get('Migracion/ejmplares_ventos', 'MigracionController@ejmplares_ventos');
+
+});
