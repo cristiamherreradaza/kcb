@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 // Route::get('/', 'SocialController@inicio');
 // Route::get('/', 'UserController@listado');
-Route::get('/', 'PanelController@inicio');
+Route::get('/', 'PanelController@inicio')->name('inicio');
 // Route::get('/', 'home');
 
 Auth::routes();
