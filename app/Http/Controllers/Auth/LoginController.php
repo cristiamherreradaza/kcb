@@ -46,16 +46,16 @@ class LoginController extends Controller
         // $perfil = User::where('email', auth()->user()->email)->first();
         // dd(Auth::user()->perfil);
 
-        // if(Auth::user()->perfil == 'Administrador'){
-        //     return 'User/listado';
-        // }else{
-        //     return '/';
-        // }
+        if(Auth::user()->perfil == 'Administrador'){
+            return '/home';
+        }else{
+            return '/';
+        }
 
         // dd("como es");
-        if(Auth::user()->perfil == 'Administrador'){
-            return redirect()->route('inicio');
-        }
+        // if(Auth::user()->perfil == 'Administrador'){
+        //     return redirect()->route('inicio');
+        // }
 
 
     }
