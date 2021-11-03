@@ -217,7 +217,7 @@
                         <a href="{{ url('Ejemplar/certificadoRosado') }}/{{ $ejemplar->id }}" class="btn btn-sm btn-danger btn-block"><i class="far fa-file-pdf"></i> PDF PEEDEGRE</a>
                     </div>
                     <div class="col-md-4">
-
+                        <a href="{{ url('Ejemplar/certificadoExportacion') }}/{{ $ejemplar->id }}" class="btn btn-sm btn-info btn-block"><i class="fas fa-file-export"></i>PEEDEGRE DE EXPORTACION</a>
                     </div>
                 </div>
             </div>

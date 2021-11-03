@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Auth;
 
 class GrupoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function listado()
     {
         $grupos = Grupo::all();

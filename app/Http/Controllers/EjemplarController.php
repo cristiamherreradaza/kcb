@@ -27,6 +27,11 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class EjemplarController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function formulario(Request $request, $id)
     {
         if ($id != 0) {
@@ -2241,5 +2246,19 @@ class EjemplarController extends Controller
                             ->get();
 
         return view('ejemplar.listaCamadasPadres')->with(compact('camada'));
+    }
+
+    public function certificadoExportacion(Request $request, $ejemplar_id){
+        $ejemplar = Ejemplar::find($ejemplar_id);
+
+        return view('certificado.certificadoExportacion')->with(compact('ejemplar'/*, 'examenEjemplar', 'transferenciaEjemplar', 'tituloEjemplar', 'examenEjemplarAsignacion', 'transferenciaEjemplarAsignacion', 'tituloEjemplarAsignacion'*/));
+
+        // $pdf    = PDF::loadView('certificado.certificadoExportacion', compact('ejemplar'))->setPaper('landscape');
+
+        // si queremos que el pdf se descargue
+        // return $pdf->download('boletinInscripcion_'.date('Y-m-d H:i:s').'.pdf');
+
+        // siqueremos que el pdf se muestre
+        // return $pdf->stream('boletinInscripcion_'.date('Y-m-d H:i:s').'.pdf');   
     }
 }

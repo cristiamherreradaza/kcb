@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Auth;
 
 class TituloController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function listado()
     {
         $titulos = Titulo::all();

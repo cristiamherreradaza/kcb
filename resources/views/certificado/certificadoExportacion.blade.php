@@ -9,7 +9,7 @@
 @endsection
 <style type="text/css">
     @page {
-        size: landscape;
+        /* size: landscape; */
         margin: 0;
     }
     body{
@@ -17,12 +17,18 @@
         margin: 0;
         font-family: Arial, Helvetica, sans-serif;
     }
+    #certificado{
+        /* padding: 15px 20px 0px 160px; */
+        padding: 85px 0px 0px 0px;
+        width: 80%;
+        /* height: 100%; */
+    }
     #enlaces a{
         background-color:yellow;
     }
     #datos-ejemplar-1{
         position: absolute;
-        top: 90px;
+        top: 95px;
         left: 310px;
         width: 700px;
     }
@@ -31,54 +37,230 @@
     }
     .header-datos-ejemplar{
         position: absolute;
-        font-size: 22px;
+        font-size: 25px;
         padding: 0;
         margin: 0;
         color: #0414ff;
         font-weight: bold;
+    }
+    /* -------------   cabezera    ---------- */
+    .header-3{
+        width: 380px;
+        height: 28px;
+        position: absolute;
+        top: -10px;
+    }
+    .header-6{
+        position: absolute;
+        top: 85px;
+        width:140px;
+        height: 20px;
+    }
+    .header-12{
+        position: absolute;
+        top: 140px;
+        left: 620px;
+        width: 400px;
+        height: 20px;
     }
     .header-1{
         position: absolute;
         top: -9px;
         width:670px;
         height: 28px;
-    }
-    .header-2{
-        position: absolute;
-        top: 30px;
-        width:670px;
-        height: 28px;
-    }
-    .header-3{
-        width:410px;
-        height: 28px;
-        position: absolute;
-        top: 47px;
-        font-size: 16px;
+        left: 535px;
     }
     .header-4{
         position: absolute;
-        top: 60px;
-        left: 500px;
-        font-size: 15px;
+        top: 40px;
+        left: 535px;
         width:  170px;
         height: 28px;
+    }
+    .codigo-qr{
+        top: 200px;
+        left: -170px;
+        position: absolute;
     }
     .header-5{
         width:147px;
         height: 25;
         position: absolute;
-        top: 80px;
-        font-size:16; 
+        top: 40px;
+        left: 885px;
     }
-    .header-6{
+    .header-10{
         position: absolute;
-        top: 81px;
-        left: 270px;
-        width:140px;
-        height: 20px;
-        font-size:16; 
+        top: 100px;
+        left: 885px;
     }
+    /* --------- cuerpo  ----------- */
+    .principal{
+        position: absolute;
+        width: 600px;
+        height: 60px;
+        font-size: 18px;
+        left: -100px;
+    }
+    .principal_1{
+        top: 865px;
+    }
+
+    .padres{
+        position: absolute;
+        width: 600px;
+        height: 60px;
+        font-size: 18px;
+        left: 43px;
+    }
+    .padre_1{
+        top: 430px;
+    }
+
+    .padre_2{
+        top: 1310px;
+    }
+
+    .abuelos{
+        position: absolute;
+        font-size: 12px;
+        left: 235px;
+        width: 490px;
+        height: 60px;
+    }
+    .abuelo_1{
+        top: 210px;
+    }
+    .abuelo_2{
+        top: 655px;
+    }
+    .abuelo_3{
+        top: 1085px;
+    }
+    .abuelo_4{
+        top: 1530px;
+    }
+
+    .tercera_generaciones{
+        position: absolute;
+        font-size: 11px;
+        height: 60px;
+        width: 490px;
+        left: 390px;
+    }
+    .tg_1{
+        top: 112px;
+    }
+    .tg_2{
+        top: 322px;
+    }
+    .tg_3{
+        top: 555px;
+    }
+    .tg_4{
+        top: 768px;
+    }
+    .tg_5{
+        top: 980px;
+    }
+    .tg_6{
+        top: 1195px;
+    }
+    .tg_7{
+        top: 1422px;
+    }
+    .tg_8{
+        top: 1638px;
+    }
+
+    .cuarta_generaciones{
+        position: absolute;
+        width: 490px;
+        height: 60px;
+        font-size: 11px;
+        left: 735px;
+    }
+    .cg_1{
+        /* background-color:black; */
+        top: 50px;
+    }
+    .cg_2{
+        top: 175px;
+    }
+    .cg_3{
+        top: 260px;
+    }
+    .cg_4{
+        top: 385px;
+    }
+    .cg_5{
+        top: 493px;
+    }
+    .cg_6{
+        top: 618px;
+    }
+    .cg_7{
+        top: 705px;
+    }
+    .cg_8{
+        top: 830px;
+    }
+    .cg_9{
+        top: 918px;
+    }
+    .cg_10{
+        top: 1043px;
+    }
+    .cg_11{
+        top: 1133px;
+    }
+    .cg_12{
+        top: 1258px;
+    }
+    .cg_13{
+        top: 1360px;
+    }
+    .cg_14{
+        top: 1485px;
+    }
+    .cg_15{
+        top: 1575px;
+    }
+    .cg_16{
+        top: 1700px;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    /* .header-2{
+        position: absolute;
+        top: 30px;
+        width:670px;
+        height: 28px;
+    } */
+    /* .criador{
+        font-size:16px;
+        position: absolute;
+        top: 27px;
+        left: 450;
+    } */
     .header-7{
         position: absolute;
         top: 83px;
@@ -99,12 +281,6 @@
         font-size: 16px;
         left: 280px;
     }
-    .header-10{
-        position: absolute;
-        top: 103px;
-        font-size: 15px;
-        left: 501px;
-    }
     .header-11{
         width: 670px;
         height: 25px;
@@ -120,46 +296,25 @@
         font-size: 15px;
         opacity: 0.5;
     }
-    #fecha-naciento{
-        width: 150px;
-    }
-    #consagnidad{
-        width: 80px;
-    }
-    #propietario{
-        width: 400px;
-        font-size: 15px;
-        padding: 5px 0px 5px 0px;
-    }
-
-    .codigo-qr{
-        top: 12px;
-        left: 365px;
-        position: absolute;
-    }
-    #direccion{
+    
+    /* #direccion{
         font-size: 14px;
         padding: 10px 0px 7px 0px;
-    }
-    #telefono{
+    } */
+    /* #telefono{
         padding: 3px 0px 0px 0px;
-    }
-    #email{
+    } */
+    /* #email{
         padding: 0px 0px 0px 60px;
-    }
-    .afijo{
+    } */
+    /* .afijo{
         position: absolute;
         top: -5px;
         font-size:22px;
         width:350px;
         height: 36px;
-    }
-    .criador{
-        font-size:16px;
-        position: absolute;
-        top: 27px;
-    }
-    .direccion{
+    } */
+    /* .direccion{
         font-size:15px;
         position: absolute;
         top: 60px;
@@ -174,8 +329,8 @@
         position: absolute;
         top: 105px;
         padding: 0px 0px 0px 49px;
-    }
-    .raza{
+    } */
+    /* .raza{
         position: absolute;
         color: yellow;
         width:410px;
@@ -185,14 +340,14 @@
         background-color: red;
         font-size: 17px;
         height: 28px;
-    }
-    .titulos{
+    } */
+    /* .titulos{
         height: 33px;
-    }
-    .hermanos{
+    } */
+    /* .hermanos{
         width: 670px;
         height: 25px;
-    }
+    } */
     #datos-ejemplar-2{
         position: absolute;
         top: 86px;
@@ -214,137 +369,12 @@
     #tabla-genealogio{
         width:100%;
     }
-    .padres{
-        position: absolute;
-        width: 290px;
-        height: 230px;
-        font-size: 18px;
-    }
-    .padre_1{
-        /* background-color:red; */
-        top: 10px;
-    }
-
-    .padre_2{
-        /* background-color:yellow; */
-
-        top: 255px;
-    }
-    .abuelos{
-        position: absolute;
-        font-size: 12px;
-        left: 310px;
-        width:250px;
-        height: 123px;
-    }
-    .abuelo_1{
-        top:-3px;
-    }
-    .abuelo_2{
-        top: 123px;
-    }
-    .abuelo_3{
-        top: 245px;
-    }
-    .abuelo_4{
-        top: 370px;
-    }
-    .tercera_generaciones{
-        position: absolute;
-        font-size: 11px;
-        height: 60px;
-        width:300px;
-        left: 570px;
-    }
-    .tg_1{
-        top:0px;
-    }
-    .tg_2{
-        top:63px;
-    }
-
-    .tg_3{
-        top:123px;
-    }
-    .tg_4{
-        top:183px;
-    }
-    .tg_5{
-        top: 246px;
-    }
-    .tg_6{
-        top:308px;
-    }
-    .tg_7{
-        top:368px;
-    }
-    .tg_8{
-        top:430px;
-    }
     
-    .cuarta_generaciones{
-        /* background-color: yellowgreen; */
-        position: absolute;
-        width: 450px;
-        height: 30px;
-        font-size: 11px;
-        /* padding:0;
-        margin: 0; */
-        left: 876px;
-        /* word-wrap: break-word; */
-    }
-    .cg_1{
-        top: -5px;
-    }
-    .cg_2{
-        top: 30px;
-    }
-    .cg_3{
-        top: 61px;
-    }
-    .cg_4{
-        top: 93px;
-    }
-    .cg_5{
-        top: 124px;
-    }
-    .cg_6{
-        top: 154px;
-    }
-    .cg_7{
-        top: 185px;
-    }
-    .cg_8{
-        top: 216px;
-    }
-    .cg_9{
-        top: 247px;
-    }
-    .cg_10{
-        top: 279px;
-    }
-    .cg_11{
-        top: 310px;
-    }
-    .cg_12{
-        top: 340px;
-    }
-    .cg_13{
-        top: 371px;
-    }
-    .cg_14{
-        top: 402px;
-    }
-    .cg_15{
-        top: 432px;
-    }
-    .cg_16{
-        top: 465px;
-    }
-    #certificado{
-        padding: 15px 20px 0px 160px;
-        width: 85%;
-    }
+    
+    
+    
+   
+    
 
     .lechigada{
         /* background-color: yellowgreen; */
@@ -789,13 +819,13 @@
 <body onload="shrink()">
     <div id="bloque-certificado">
         {{-- <img src="{{ url('img/certificado_1.jpg') }}" width="77%" id="certificado" alt="No hay imagen"> --}}
-        <img src="{{ url('img/certificado_1.jpg') }}" id="certificado" alt="No hay imagen">
+        <img src="{{ url('img/certificado_3.1.jpg') }}" id="certificado" alt="No hay imagen">
         <div id="datos-ejemplar-1">
             <div class="header-datos-ejemplar">
                 <div class="header-1">
                     {{ $ejemplar->nombre_completo }}
                 </div>
-                <div class="header-2">
+                {{-- <div class="header-2">
                     @php
                         $titulos = App\TituloEjemplar::where('ejemplar_id',$ejemplar->id)->get();
                         $titulos1 = '';
@@ -803,16 +833,16 @@
                             $titulos1= $t->titulo->nombre ;
                         }
                     @endphp
-                </div>
+                </div> --}}
                 <div class="header-3"><span class="header-3s">{{ strtoupper($ejemplar->raza->nombre) }}</span></div>
                 <div class="header-4"><span class="header-4s">{{ $ejemplar->color }}</span></div>
                 <div class="header-5">{{ strtoupper($ejemplar->sexo)}}</div>
                 <div class="header-6">{{ date('d/m/Y',strtotime($ejemplar->fecha_nacimiento)) }}</div>
-                <div class="header-7">{{ ($ejemplar->consanguinidad!=null)? $ejemplar->consanguinidad :'--------'}}</div>
-                <div class="header-8">{{ $ejemplar->kcb }}</div>
-                <div class="header-9">{{ ($ejemplar->num_tatuaje != null)? $ejemplar->num_tatuaje:'--------'}}</div>
+                {{-- <div class="header-7">{{ ($ejemplar->consanguinidad!=null)? $ejemplar->consanguinidad :'--------'}}</div> --}}
+                {{-- <div class="header-8">{{ $ejemplar->kcb }}</div> --}}
+                {{-- <div class="header-9">{{ ($ejemplar->num_tatuaje != null)? $ejemplar->num_tatuaje:'--------'}}</div> --}}
                 <div class="header-10">{{ $ejemplar->chip }}</div>
-                <div class="header-11">
+                {{-- <div class="header-11">
                     <span class="hermanos1">
                         @php
                             $hermanos = App\Ejemplar::where('camada_id',$ejemplar->camada_id)
@@ -827,10 +857,13 @@
                         @endphp
                         {{ substr($nombres, 0, -2)}}
                     </span>
-                </div>
+                </div> --}}
+                <div class="header-12">{{ ($ejemplar->propietario)? $ejemplar->propietario->name : '' }}</div>
+                <div class="codigo-qr"><div id="qrcode"></div></div>
+
             </div>
         </div>
-        <div id="datos-ejemplar-2">
+        {{-- <div id="datos-ejemplar-2">
             <div class="datos-secundarios">
                 <div class="afijo"> <span class="afijos">{{ ($ejemplar->criadero)? $ejemplar->criadero->nombre." FCI: ".$ejemplar->criadero->registro_fci : '' }}</span></div>
                 <div class="criador">{{ ($ejemplar->propietario)? $ejemplar->propietario->name : '' }}</div>
@@ -839,8 +872,54 @@
                 <div class="correo">{{ ($ejemplar->propietario)? $ejemplar->propietario->email :'' }}</div>
                 <div class="codigo-qr"><div id="qrcode"></div></div>
             </div>
-        </div>
+        </div> --}}
+
         <div id="arbol-genealogio">
+            <section id="bloque-ejemplar-principal">
+                <div class="principal_1 principal">
+                    <span class="princiaples">
+                        @php
+                            if(isset($ejemplar)){
+                                $titulosw = App\TituloEjemplar::where('ejemplar_id',$ejemplar->id)->count();
+                                if($titulosw != 0){
+                                    $titulo = App\TituloEjemplar::where('ejemplar_id',$ejemplar->id)->get();
+                                    $i = 1;
+                                    foreach ($titulo as $t){
+                                        if($i <= 5){
+                                            echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                                            $i++;
+                                        }else{
+                                            $i = 1;
+                                            echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
+                                        }
+                                    }
+                                    echo "<br>";
+                                }
+                                echo $ejemplar->nombre_completo." ";
+                                if(!($ejemplar->kcb == 'nulo' || $ejemplar->kcb == '')){
+                                    echo "K.C.B. ".$ejemplar->kcb." ";
+                                }else{
+                                    echo $ejemplar->codigo_nacionalizado." ";
+                                }
+                                if($ejemplar->num_tatuaje != ''){
+                                    echo "No. x Raza ".$ejemplar->num_tatuaje."<br>";
+                                }
+                                if($ejemplar->chip != ''){
+                                    echo "Chip ".$ejemplar->chip."<br>";
+                                }
+                                $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$ejemplar->id)
+                                                                        ->get();
+                                foreach ($examenMascotaPapa as $e){
+                                    echo $e->examen->nombre.": ".$e->resultado."<br>";
+                                }
+                                if($ejemplar->color != '0' && $ejemplar->color != '.'){
+                                    echo "Color: ".$ejemplar->color;
+                                }
+                            }
+                        @endphp
+                    </span>
+                </div>
+            </section>
             <section id="bloque-padres" >
                 <div class="padre_1 padres">
                     <span class="padres1">
@@ -861,11 +940,11 @@
                                     }
                                     echo "<br>";
                                 }
-                                echo $papa->nombre_completo."<br>";
+                                echo $papa->nombre_completo." ";
                                 if(!($papa->kcb == 'nulo' || $papa->kcb == '')){
-                                    echo "K.C.B. ".$papa->kcb."<br>";
+                                    echo "K.C.B. ".$papa->kcb." ";
                                 }else{
-                                    echo $papa->codigo_nacionalizado."<br>";
+                                    echo $papa->codigo_nacionalizado." ";
                                 }
                                 if($papa->num_tatuaje != ''){
                                     echo "No. x Raza ".$papa->num_tatuaje."<br>";
@@ -877,7 +956,6 @@
                                                                         ->get();
                                 foreach ($examenMascotaPapa as $e){
                                     echo $e->examen->nombre.": ".$e->resultado."<br>";
-                                    // echo " ".$e->resultado."<br>";
                                 }
                                 if($papa->color != '0' && $papa->color != '.'){
                                     echo "Color: ".$papa->color;
@@ -906,11 +984,11 @@
                                     }
                                     echo "<br>";
                                 }
-                                echo $mama->nombre_completo."<br>";
+                                echo $mama->nombre_completo." ";
                                 if(!($mama->kcb == 'nulo' || $mama->kcb == '')){
-                                    echo "K.C.B. ".$mama->kcb."<br>";
+                                    echo "K.C.B. ".$mama->kcb." ";
                                 }else{
-                                    echo $mama->codigo_nacionalizado."<br>";
+                                    echo $mama->codigo_nacionalizado." ";
                                 }
                                 if($mama->num_tatuaje != ''){
                                     echo "No. x Raza ".$mama->num_tatuaje."<br>";
@@ -918,9 +996,6 @@
                                 if($mama->chip != ''){
                                     echo "Chip ".$mama->chip."<br>";
                                 }
-                                // echo "K.C.B. ".$mama->kcb."<br>";
-                                // echo "No. x Raza ".$mama->num_tatuaje."<br>";
-                                // echo "Chip ".$mama->chip."<br>";
 
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$mama->id)
                                             ->get();
@@ -936,6 +1011,7 @@
                     </span>
                 </div>
             </section>
+
             <section id="bloque-abuelos">
                 <div class="abuelo_1 abuelos">
                     <span class="abuelos1">
@@ -956,21 +1032,18 @@
                                     }
                                     echo "<br>";
                                 }
-                                echo $abuelo->nombre_completo."<br>";
+                                echo $abuelo->nombre_completo." ";
                                 if(!($abuelo->kcb == 'nulo' || $abuelo->kcb == '')){
-                                    echo "K.C.B. ".$abuelo->kcb."<br>";
+                                    echo "K.C.B. ".$abuelo->kcb." ";
                                 }else{
-                                    echo $abuelo->codigo_nacionalizado."<br>";
+                                    echo $abuelo->codigo_nacionalizado." ";
                                 }
                                 if($abuelo->num_tatuaje != ''){
-                                    echo "No. x Raza ".$abuelo->num_tatuaje."<br>";
+                                    echo "No. x Raza ".$abuelo->num_tatuaje." ";
                                 }
                                 if($abuelo->chip != ''){
                                     echo "Chip ".$abuelo->chip."<br>";
                                 }
-                                // echo "K.C.B. ".$abuelo->kcb."<br>";
-                                // echo "No. x Raza ".$abuelo->num_tatuaje."<br>";
-                                // echo "Chip ".$abuelo->chip."<br>";
 
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abuelo->id)
                                             ->get();
@@ -1004,22 +1077,18 @@
                                     }
                                     echo "<br>";
                                 }
-                                echo $abuela->nombre_completo."<br>";
+                                echo $abuela->nombre_completo." ";
                                 if(!($abuela->kcb == 'nulo' || $abuela->kcb == '')){
-                                    echo "K.C.B. ".$abuela->kcb."<br>";
+                                    echo "K.C.B. ".$abuela->kcb." ";
                                 }else{
-                                    echo $abuela->codigo_nacionalizado."<br>";
+                                    echo $abuela->codigo_nacionalizado." ";
                                 }
                                 if($abuela->num_tatuaje != ''){
-                                    echo "No. x Raza ".$abuela->num_tatuaje."<br>";
+                                    echo "No. x Raza ".$abuela->num_tatuaje." ";
                                 }
                                 if($abuela->chip != ''){
                                     echo "Chip ".$abuela->chip."<br>";
                                 }
-                                // echo "K.C.B. ".$abuela->kcb."<br>";
-                                // echo "No. x Raza ".$abuela->num_tatuaje."<br>";
-                                // echo "Chip ".$abuela->chip."<br>";
-
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abuela->id)
                                             ->get();
                                 foreach($examenMascotaPapa as $e){
@@ -1052,22 +1121,18 @@
                                     }
                                     echo "<br>";
                                 }
-                                echo $abueloM->nombre_completo."<br>";
+                                echo $abueloM->nombre_completo." ";
                                 if(!($abueloM->kcb == 'nulo' || $abueloM->kcb == '')){
-                                    echo "K.C.B. ".$abueloM->kcb."<br>";
+                                    echo "K.C.B. ".$abueloM->kcb." ";
                                 }else{
-                                    echo $abueloM->codigo_nacionalizado."<br>";
+                                    echo $abueloM->codigo_nacionalizado." ";
                                 }
                                 if($abueloM->num_tatuaje != ''){
-                                    echo "No. x Raza ".$abueloM->num_tatuaje."<br>";
+                                    echo "No. x Raza ".$abueloM->num_tatuaje." ";
                                 }
                                 if($abueloM->chip != ''){
                                     echo "Chip ".$abueloM->chip."<br>";
                                 }
-                                // echo "K.C.B. ".$abueloM->kcb."<br>";
-                                // echo "No. x Raza ".$abueloM->num_tatuaje."<br>";
-                                // echo "Chip ".$abueloM->chip."<br>";
-
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloM->id)
                                             ->get();
                                 foreach($examenMascotaPapa as $e){
@@ -1099,22 +1164,18 @@
                                     }
                                     echo "<br>";
                                 }
-                                echo $abuelaM->nombre_completo."<br>";
+                                echo $abuelaM->nombre_completo." ";
                                 if(!($abuelaM->kcb == 'nulo' || $abuelaM->kcb == '')){
-                                    echo "K.C.B. ".$abuelaM->kcb."<br>";
+                                    echo "K.C.B. ".$abuelaM->kcb." ";
                                 }else{
-                                    echo $abuelaM->codigo_nacionalizado."<br>";
+                                    echo $abuelaM->codigo_nacionalizado." ";
                                 }
                                 if($abuelaM->num_tatuaje != ''){
-                                    echo "No. x Raza ".$abuelaM->num_tatuaje."<br>";
+                                    echo "No. x Raza ".$abuelaM->num_tatuaje." ";
                                 }
                                 if($abuelaM->chip != ''){
                                     echo "Chip ".$abuelaM->chip."<br>";
                                 }
-                                // echo "K.C.B. ".$abuelaM->kcb."<br>";
-                                // echo "No. x Raza ".$abuelaM->num_tatuaje."<br>";
-                                // echo "Chip ".$abuelaM->chip."<br>";
-
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abuelaM->id)
                                                                     ->get();
                                 foreach($examenMascotaPapa as $e){
@@ -1151,9 +1212,9 @@
                                 }
                                 echo $tGPadre->nombre_completo." ";
                                 if(!($tGPadre->kcb == 'nulo' || $tGPadre->kcb == '')){
-                                    echo "K.C.B. ".$tGPadre->kcb."<br>";
+                                    echo "K.C.B. ".$tGPadre->kcb." ";
                                 }else{
-                                    echo $tGPadre->codigo_nacionalizado."<br>";
+                                    echo $tGPadre->codigo_nacionalizado." ";
                                 }
                                 if($tGPadre->num_tatuaje != ''){
                                     echo "No. x Raza ".$tGPadre->num_tatuaje." ";
@@ -1161,11 +1222,6 @@
                                 if($tGPadre->chip != ''){
                                     echo "Chip ".$tGPadre->chip."<br>";
                                 }
-
-                                // echo "K.C.B. ".$tGPadre->kcb."<br>";
-                                // echo "No. x Raza ".$tGPadre->num_tatuaje." ";
-                                // echo "Chip ".$tGPadre->chip."<br>";
-
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$tGPadre->id)
                                             ->where('examen_id','=',3)
                                             ->first();
@@ -1209,9 +1265,9 @@
                                 }
                                 echo $tGMadre->nombre_completo." ";
                                 if(!($tGMadre->kcb == 'nulo' || $tGMadre->kcb == '')){
-                                    echo "K.C.B. ".$tGMadre->kcb."<br>";
+                                    echo "K.C.B. ".$tGMadre->kcb." ";
                                 }else{
-                                    echo $tGMadre->codigo_nacionalizado."<br>";
+                                    echo $tGMadre->codigo_nacionalizado." ";
                                 }
                                 if($tGMadre->num_tatuaje != ''){
                                     echo "No. x Raza ".$tGMadre->num_tatuaje." ";
@@ -1219,10 +1275,6 @@
                                 if($tGMadre->chip != ''){
                                     echo "Chip ".$tGMadre->chip."<br>";
                                 }
-                                // echo "K.C.B. ".$tGMadre->kcb."<br>";
-                                // echo "No. x Raza ".$tGMadre->num_tatuaje." ";
-                                // echo "Chip ".$tGMadre->chip."<br>";
-
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$tGMadre->id)
                                             ->where('examen_id','=',3)
                                             ->first();
@@ -1237,8 +1289,6 @@
                                 if($examenPapa != ""){
                                     echo $examenPapa." ".$resultadoPapa."<br>";
                                 }
-                                // echo $examenPapa." ";
-                                // echo $resultadoPapa."<br>";
                                 if($tGMadre->color != '0' && $tGMadre->color != '.'){
                                     echo "Color: ".$tGMadre->color;
                                 }
@@ -1268,9 +1318,9 @@
                                 }
                                 echo $abueloTG->nombre_completo." ";
                                 if(!($abueloTG->kcb == 'nulo' || $abueloTG->kcb == '')){
-                                    echo "K.C.B. ".$abueloTG->kcb."<br>";
+                                    echo "K.C.B. ".$abueloTG->kcb." ";
                                 }else{
-                                    echo $abueloTG->codigo_nacionalizado."<br>";
+                                    echo $abueloTG->codigo_nacionalizado." ";
                                 }
                                 if($abueloTG->num_tatuaje != ''){
                                     echo "No. x Raza ".$abueloTG->num_tatuaje." ";
@@ -1278,10 +1328,6 @@
                                 if($abueloTG->chip != ''){
                                     echo "Chip ".$abueloTG->chip."<br>";
                                 }
-                                // echo "K.C.B. ".$abueloTG->kcb."<br>";
-                                // echo "No. x Raza ".$abueloTG->num_tatuaje." ";
-                                // echo "Chip ".$abueloTG->chip."<br>";
-
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloTG->id)
                                             ->where('examen_id','=',3)
                                             ->first();
@@ -1296,9 +1342,6 @@
                                 if($examenPapa != ""){
                                     echo $examenPapa." ".$resultadoPapa."<br>";
                                 }
-
-                                // echo $examenPapa." ";
-                                // echo $resultadoPapa."<br>";
                                 if($abueloTG->color != '0' && $abueloTG->color != '.'){
                                     echo "Color: ".$abueloTG->color;
                                 }
@@ -1328,9 +1371,9 @@
                                 }
                                 echo $abuelaTG->nombre_completo." ";
                                 if(!($abuelaTG->kcb == 'nulo' || $abuelaTG->kcb == '')){
-                                    echo "K.C.B. ".$abuelaTG->kcb."<br>";
+                                    echo "K.C.B. ".$abuelaTG->kcb." ";
                                 }else{
-                                    echo $abuelaTG->codigo_nacionalizado."<br>";
+                                    echo $abuelaTG->codigo_nacionalizado." ";
                                 }
                                 if($abuelaTG->num_tatuaje != ''){
                                     echo "No. x Raza ".$abuelaTG->num_tatuaje." ";
@@ -1338,10 +1381,6 @@
                                 if($abuelaTG->chip != ''){
                                     echo "Chip ".$abuelaTG->chip."<br>";
                                 }
-                                // echo "K.C.B. ".$abuelaTG->kcb."<br>";
-                                // echo "No. x Raza ".$abuelaTG->num_tatuaje." ";
-                                // echo "Chip ".$abuelaTG->chip."<br>";
-
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abuelaTG->id)
                                             ->where('examen_id','=',3)
                                             ->first();
@@ -1356,9 +1395,6 @@
                                 if($examenPapa != ""){
                                     echo $examenPapa." ".$resultadoPapa."<br>";
                                 }
-
-                                // echo $examenPapa." ";
-                                // echo $resultadoPapa."<br>";
                                 if($abuelaTG->color != '0' && $abuelaTG->color != '.'){
                                     echo "Color: ".$abuelaTG->color;
                                 }
@@ -1388,9 +1424,9 @@
                                 }
                                 echo $tGPadreM->nombre_completo." ";
                                 if(!($tGPadreM->kcb == 'nulo' || $tGPadreM->kcb == '')){
-                                    echo "K.C.B. ".$tGPadreM->kcb."<br>";
+                                    echo "K.C.B. ".$tGPadreM->kcb." ";
                                 }else{
-                                    echo $tGPadreM->codigo_nacionalizado."<br>";
+                                    echo $tGPadreM->codigo_nacionalizado." ";
                                 }
                                 if($tGPadreM->num_tatuaje != ''){
                                     echo "No. x Raza ".$tGPadreM->num_tatuaje." ";
@@ -1398,10 +1434,6 @@
                                 if($tGPadreM->chip != ''){
                                     echo "Chip ".$tGPadreM->chip."<br>";
                                 }
-                                // echo "K.C.B. ".$tGPadreM->kcb."<br>";
-                                // echo "No. x Raza ".$tGPadreM->num_tatuaje." ";
-                                // echo "Chip ".$tGPadreM->chip."<br>";
-
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$tGPadreM->id)
                                             ->where('examen_id','=',3)
                                             ->first();
@@ -1416,9 +1448,6 @@
                                 if($examenPapa != ""){
                                     echo $examenPapa." ".$resultadoPapa."<br>";
                                 }
-
-                                // echo $examenPapa." ";
-                                // echo $resultadoPapa."<br>";
                                 if($tGPadreM->color != '0' && $tGPadreM->color != '.'){
                                     echo "Color: ".$tGPadreM->color;
                                 }
@@ -1447,9 +1476,9 @@
                                 }
                                 echo $tGMadreM->nombre_completo." ";
                                 if(!($tGMadreM->kcb == 'nulo' || $tGMadreM->kcb == '')){
-                                    echo "K.C.B. ".$tGMadreM->kcb."<br>";
+                                    echo "K.C.B. ".$tGMadreM->kcb." ";
                                 }else{
-                                    echo $tGMadreM->codigo_nacionalizado."<br>";
+                                    echo $tGMadreM->codigo_nacionalizado." ";
                                 }
                                 if($tGMadreM->num_tatuaje != ''){
                                     echo "No. x Raza ".$tGMadreM->num_tatuaje." ";
@@ -1457,10 +1486,6 @@
                                 if($tGMadreM->chip != ''){
                                     echo "Chip ".$tGMadreM->chip."<br>";
                                 }
-                                // echo "K.C.B. ".$tGMadreM->kcb."<br>";
-                                // echo "No. x Raza ".$tGMadreM->num_tatuaje." ";
-                                // echo "Chip ".$tGMadreM->chip."<br>";
-
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$tGMadreM->id)
                                             ->where('examen_id','=',3)
                                             ->first();
@@ -1475,9 +1500,6 @@
                                 if($examenPapa != ""){
                                     echo $examenPapa." ".$resultadoPapa."<br>";
                                 }
-
-                                // echo $examenPapa." ";
-                                // echo $resultadoPapa."<br>";
                                 if($tGMadreM->color != '0' && $tGMadreM->color != '.'){
                                     echo "Color: ".$tGMadreM->color;
                                 }
@@ -1506,9 +1528,9 @@
                                 }
                                 echo $abueloSG->nombre_completo." ";
                                 if(!($abueloSG->kcb == 'nulo' || $abueloSG->kcb == '')){
-                                    echo "K.C.B. ".$abueloSG->kcb."<br>";
+                                    echo "K.C.B. ".$abueloSG->kcb." ";
                                 }else{
-                                    echo $abueloSG->codigo_nacionalizado."<br>";
+                                    echo $abueloSG->codigo_nacionalizado." ";
                                 }
                                 if($abueloSG->num_tatuaje != ''){
                                     echo "No. x Raza ".$abueloSG->num_tatuaje." ";
@@ -1560,9 +1582,9 @@
                                 }
                                 echo $abueloSGM2->nombre_completo." ";
                                 if(!($abueloSGM2->kcb == 'nulo' || $abueloSGM2->kcb == '')){
-                                    echo "K.C.B. ".$abueloSGM2->kcb."<br>";
+                                    echo "K.C.B. ".$abueloSGM2->kcb." ";
                                 }else{
-                                    echo $abueloSGM2->codigo_nacionalizado."<br>";
+                                    echo $abueloSGM2->codigo_nacionalizado." ";
                                 }
                                 if($abueloSGM2->num_tatuaje != ''){
                                     echo "No. x Raza ".$abueloSGM2->num_tatuaje." ";
@@ -1570,10 +1592,6 @@
                                 if($abueloSGM2->chip != ''){
                                     echo "Chip ".$abueloSGM2->chip."<br>";
                                 }
-                                // echo "K.C.B. ".$abueloSGM2->kcb."<br>";
-                                // echo "No. x Raza ".$abueloSGM2->num_tatuaje." ";
-                                // echo "Chip ".$abueloSGM2->chip."<br>";
-
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloSGM2->id)
                                             ->where('examen_id','=',3)
                                             ->first();
@@ -1588,9 +1606,6 @@
                                 if($examenPapa != ""){
                                     echo $examenPapa." ".$resultadoPapa."<br>";
                                 }
-
-                                // echo $examenPapa." ";
-                                // echo $resultadoPapa."<br>";
                                 if($abueloSGM2->color != '0' && $abueloSGM2->color != '.'){
                                     echo "Color: ".$abueloSGM2->color;
                                 }
@@ -1740,10 +1755,6 @@
                                 if($CGMadreP->chip != ''){
                                     echo "Chip ".$CGMadreP->chip." ";
                                 }
-                                // echo "K.C.B. ".$CGMadreP->kcb." ";
-                                // echo "No. x Raza ".$CGMadreP->num_tatuaje." ";
-                                // echo "Chip ".$CGMadreP->chip." ";
-
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$CGMadreP->id)
                                             ->where('examen_id','=',3)
                                             ->first();
@@ -1796,10 +1807,6 @@
                                 if($CGMadreM2->chip != ''){
                                     echo "Chip ".$CGMadreM2->chip." ";
                                 }
-                                // echo "K.C.B. ".$CGMadreM2->kcb." ";
-                                // echo "No. x Raza ".$CGMadreM2->num_tatuaje." ";
-                                // echo "Chip ".$CGMadreM2->chip." ";
-
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$CGMadreM2->id)
                                             ->where('examen_id','=',3)
                                             ->first();
@@ -1852,10 +1859,6 @@
                                 if($abueloCG->chip != ''){
                                     echo "Chip ".$abueloCG->chip." ";
                                 }
-                                // echo "K.C.B. ".$abueloCG->kcb." ";
-                                // echo "No. x Raza ".$abueloCG->num_tatuaje." ";
-                                // echo "Chip ".$abueloCG->chip." ";
-            
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloCG->id)
                                             ->where('examen_id','=',3)
                                             ->first();
@@ -1908,10 +1911,6 @@
                                 if($abueloCGM->chip != ''){
                                     echo "Chip ".$abueloCGM->chip." ";
                                 }
-                                // echo "K.C.B. ".$abueloCGM->kcb." ";
-                                // echo "No. x Raza ".$abueloCGM->num_tatuaje." ";
-                                // echo "Chip ".$abueloCGM->chip." ";
-
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloCGM->id)
                                             ->where('examen_id','=',3)
                                             ->first();
@@ -1964,10 +1963,6 @@
                                 if($abueloTGM1->chip != ''){
                                     echo "Chip ".$abueloTGM1->chip." ";
                                 }
-                                // echo "K.C.B. ".$abueloTGM1->kcb." ";
-                                // echo "No. x Raza ".$abueloTGM1->num_tatuaje." ";
-                                // echo "Chip ".$abueloTGM1->chip." ";
-
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloTGM1->id)
                                             ->where('examen_id','=',3)
                                             ->first();
@@ -2020,10 +2015,6 @@
                                 if($abuelaTGM1->chip != ''){
                                     echo "Chip ".$abuelaTGM1->chip." ";
                                 }
-                                // echo "K.C.B. ".$abuelaTGM1->kcb." ";
-                                // echo "No. x Raza ".$abuelaTGM1->num_tatuaje." ";
-                                // echo "Chip ".$abuelaTGM1->chip." ";
-
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abuelaTGM1->id)
                                             ->where('examen_id','=',3)
                                             ->first();
@@ -2076,10 +2067,6 @@
                                 if($CGPadreM1->chip != ''){
                                     echo "Chip ".$CGPadreM1->chip." ";
                                 }
-                                // echo "K.C.B. ".$CGPadreM1->kcb." ";
-                                // echo "No. x Raza ".$CGPadreM1->num_tatuaje." ";
-                                // echo "Chip ".$CGPadreM1->chip." ";
-
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$CGPadreM1->id)
                                             ->where('examen_id','=',3)
                                             ->first();
@@ -2132,10 +2119,6 @@
                                 if($CGPadreM2->chip != ''){
                                     echo "Chip ".$CGPadreM2->chip." ";
                                 }
-                                // echo "K.C.B. ".$CGPadreM2->kcb." ";
-                                // echo "No. x Raza ".$CGPadreM2->num_tatuaje." ";
-                                // echo "Chip ".$CGPadreM2->chip." ";
-
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$CGPadreM2->id)
                                             ->where('examen_id','=',3)
                                             ->first();
@@ -2188,10 +2171,6 @@
                                 if($CGPadreM->chip != ''){
                                     echo "Chip ".$CGPadreM->chip." ";
                                 }
-                                // echo "K.C.B. ".$CGPadreM->kcb." ";
-                                // echo "No. x Raza ".$CGPadreM->num_tatuaje." ";
-                                // echo "Chip ".$CGPadreM->chip." ";
-
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$CGPadreM->id)
                                             ->where('examen_id','=',3)
                                             ->first();
@@ -2243,10 +2222,6 @@
                                 if($CGMadreM->chip != ''){
                                     echo "Chip ".$CGMadreM->chip." ";
                                 }
-                                // echo "K.C.B. ".$CGMadreM->kcb." ";
-                                // echo "No. x Raza ".$CGMadreM->num_tatuaje." ";
-                                // echo "Chip ".$CGMadreM->chip." ";
-
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$CGMadreM->id)
                                             ->where('examen_id','=',3)
                                             ->first();
@@ -2298,10 +2273,6 @@
                                 if($abueloTG1->chip != ''){
                                     echo "Chip ".$abueloTG1->chip." ";
                                 }
-                                // echo "K.C.B. ".$abueloTG1->kcb." ";
-                                // echo "No. x Raza ".$abueloTG1->num_tatuaje." ";
-                                // echo "Chip ".$abueloTG1->chip." ";
-
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloTG1->id)
                                             ->where('examen_id','=',3)
                                             ->first();
@@ -2353,10 +2324,6 @@
                                 if($abueloTG11->chip != ''){
                                     echo "Chip ".$abueloTG11->chip." ";
                                 }
-                                // echo "K.C.B. ".$abueloTG11->kcb." ";
-                                // echo "No. x Raza ".$abueloTG11->num_tatuaje." ";
-                                // echo "Chip ".$abueloTG11->chip." ";
-
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloTG11->id)
                                             ->where('examen_id','=',3)
                                             ->first();
@@ -2408,10 +2375,6 @@
                                 if($abueloSGM22->chip != ''){
                                     echo "Chip ".$abueloSGM22->chip." ";
                                 }
-                                // echo "K.C.B. ".$abueloSGM22->kcb." ";
-                                // echo "No. x Raza ".$abueloSGM22->num_tatuaje." ";
-                                // echo "Chip ".$abueloSGM22->chip." ";
-
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloSGM22->id)
                                             ->where('examen_id','=',3)
                                             ->first();
@@ -2463,10 +2426,6 @@
                                 if($abueloSGM222->chip != ''){
                                     echo "Chip ".$abueloSGM222->chip." ";
                                 }
-                                // echo "K.C.B. ".$abueloSGM222->kcb." ";
-                                // echo "No. x Raza ".$abueloSGM222->num_tatuaje." ";
-                                // echo "Chip ".$abueloSGM222->chip." ";
-
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$abueloSGM222->id)
                                             ->where('examen_id','=',3)
                                             ->first();
@@ -2491,7 +2450,8 @@
 
             
         </div>
-        <section id="footer">
+        
+        {{-- <section id="footer">
             <div class="footer1">
                 <div class="lechigada">
                     @php
@@ -2506,13 +2466,12 @@
 
                 </div>
             </div>
-        </section>
+        </section> --}}
     </div>
     <div id="enlaces">
         <a href="{{ url('Ejemplar/informacion') }}/{{ $ejemplar->id }}">Volver</a>
         <a href="#" onclick="imprimir()">Imprimir</a>
         <a href="{{ url('Ejemplar/certificadoRosadoAdelante') }}/{{ $ejemplar->id }}">Siguiente</a>
-        {{-- <button onclick="shrink()" class="btn btn-success">haner</button> --}}
     </div>
     @php
         $input = $ejemplar->nombre_completo;
@@ -2523,10 +2482,6 @@
     @endphp
 </body>
 </html>
-{{-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<script src="http://kcb.test/assets/js/qrcode.min.js"></script> --}}
 
 <script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
 <script src="{{ asset('assets/js/qrcode.min.js') }}"></script>
@@ -2550,8 +2505,8 @@
 
     var qrcode = new QRCode("qrcode", {
         text: cadenaQr,
-        width: 110,
-        height: 110,
+        width: 200,
+        height: 200,
         colorDark : "#000000",
         colorLight : "#ffffff",
         correctLevel : QRCode.CorrectLevel.L
@@ -2572,7 +2527,8 @@
                 window.print();
                 $('#certificado').show();
                 $('#enlaces').show();
-                certificado.style.width = "85%";
+                certificado.style.width = "80%";
+                // certificado.style.height = "80%";
                 event.preventDefault(); 
             }else{
                 $('#bloque-certificado').hide();
@@ -2588,6 +2544,34 @@
     // padres
     function shrink()
     {
+
+
+        /*******************  PRINCIPAL  *************************/
+
+        var textDivs = document.getElementsByClassName("principal");
+        var textDivsLength = textDivs.length;
+
+        for(var i=0; i<textDivsLength; i++) {
+
+            var textDiv = textDivs[i];
+
+            var textSpan = textDiv.getElementsByClassName("princiaples")[0];
+
+            textSpan.style.fontSize = 18;
+
+            while(textSpan.offsetHeight > textDiv.offsetHeight)
+            {
+                textSpan.style.fontSize = parseInt(textSpan.style.fontSize) - 1;
+            }
+
+            while(textSpan.offsetWidth > textDiv.offsetWidth)
+            {
+                textSpan.style.fontSize = parseInt(textSpan.style.fontSize) - 1;
+            }
+
+        }
+
+
         /*******************  PADRES  *************************/
 
         var textDivs = document.getElementsByClassName("padres");
@@ -2666,7 +2650,7 @@
 
             var AbuelotextSpan = AbuelotextDiv.getElementsByClassName("tercera_generaciones1")[0];
 
-            AbuelotextSpan.style.fontSize = 11;
+            AbuelotextSpan.style.fontSize = 18;
 
             while(AbuelotextSpan.offsetHeight > AbuelotextDiv.offsetHeight)
             {
@@ -2691,7 +2675,7 @@
 
             var AbuelotextSpan = AbuelotextDiv.getElementsByClassName("cuarta_generaciones1")[0];
 
-            AbuelotextSpan.style.fontSize = 11;
+            AbuelotextSpan.style.fontSize = 16;
 
             while(AbuelotextSpan.offsetHeight > AbuelotextDiv.offsetHeight)
             {
@@ -2741,7 +2725,7 @@
 
             var AbuelotextSpan = AbuelotextDiv.getElementsByClassName("header-3s")[0];
 
-            AbuelotextSpan.style.fontSize = 16;
+            AbuelotextSpan.style.fontSize = 22;
 
             while(AbuelotextSpan.offsetHeight > AbuelotextDiv.offsetHeight)
             {
@@ -2766,7 +2750,7 @@
 
             var AbuelotextSpan = AbuelotextDiv.getElementsByClassName("header-4s")[0];
 
-            AbuelotextSpan.style.fontSize = 15;
+            AbuelotextSpan.style.fontSize = 22;
 
             while(AbuelotextSpan.offsetHeight > AbuelotextDiv.offsetHeight)
             {
@@ -2813,64 +2797,3 @@
 
     // }
 </script>
-
-
-
-
-{{-- <html>
-<head>
-<style type="text/css">
-.dynamicDiv
-{
-    background: #CCCCCC;
-    width: 300px;
-    height: 100px;
-    font-size: 64px;
-    overflow: hidden;
-}
-</style>
-
-<script type="text/javascript">
-    function shrink()
-    {
-        var textDivs = document.getElementsByClassName("dynamicDiv");
-        var textDivsLength = textDivs.length;
-        console.log(textDivsLength);
-
-        // Loop through all of the dynamic divs on the page
-        for(var i=0; i<textDivsLength; i++) {
-
-            var textDiv = textDivs[i];
-
-            // Loop through all of the dynamic spans within the div
-            var textSpan = textDiv.getElementsByClassName("dynamicSpan")[0];
-
-            console.log(textSpan);
-            console.log(textSpan.style.fontSize);
-            // Use the same looping logic as before
-            textSpan.style.fontSize = 64;
-
-            // textSpan.css('font-size', 64);
-            console.log(textSpan.style);
-            console.log(textSpan.style.fontSize);
-
-
-            console.log(textSpan.offsetHeight);
-            console.log(textDiv.offsetHeight);
-            while(textSpan.offsetHeight > textDiv.offsetHeight)
-            {
-                textSpan.style.fontSize = parseInt(textSpan.style.fontSize) - 1;
-            }
-
-        }
-
-    }
-</script>
-
-</head>
-<body onload="shrink()">
-    <div class="dynamicDiv"><span class="dynamicSpan">DYNAMIC FONT <br> <br> <br> <br> como es  <br> <br> a toso</span></div> <br>
-    <div class="dynamicDiv"><span class="dynamicSpan">ANOTHER DYNAMIC FONT</span></div> <br>
-    <div class="dynamicDiv"><span class="dynamicSpan">AND YET ANOTHER DYNAMIC FONT</span></div>
-</body>
-</html> --}}

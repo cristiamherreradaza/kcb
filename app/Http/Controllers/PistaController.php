@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Auth;
 
 class PistaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function listado()
     {
         $pistas = Pista::all();

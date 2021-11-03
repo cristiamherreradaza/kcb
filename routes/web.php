@@ -184,6 +184,7 @@ Route::get('Ejemplar/eliminaEjemplar/{ejemplar_id}', 'EjemplarController@elimina
 Route::get('Ejemplar/generaPdf', 'EjemplarController@generaPdf');
 Route::get('Ejemplar/certificadoRosado/{ejemplar_id}', 'EjemplarController@certificadoRosado');
 Route::get('Ejemplar/certificadoRosadoAdelante/{ejemplar_id}', 'EjemplarController@certificadoRosadoAdelante');
+Route::get('Ejemplar/certificadoExportacion/{ejemplar_id}', 'EjemplarController@certificadoExportacion');
 Route::get('Ejemplar/bitacora', 'EjemplarController@bitacora');
 Route::get('Ejemplar/listaCamadasPadres/{ejemplar_id}/{padre}', 'EjemplarController@listaCamadasPadres');
 
