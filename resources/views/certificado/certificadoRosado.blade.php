@@ -39,7 +39,7 @@
     }
     .header-1{
         position: absolute;
-        top: -9px;
+        top: -12px;
         width:670px;
         height: 28px;
     }
@@ -53,12 +53,12 @@
         width:410px;
         height: 28px;
         position: absolute;
-        top: 47px;
+        top: 45px;
         font-size: 16px;
     }
     .header-4{
         position: absolute;
-        top: 60px;
+        top: 58px;
         left: 500px;
         font-size: 15px;
         width:  170px;
@@ -68,12 +68,12 @@
         width:147px;
         height: 25;
         position: absolute;
-        top: 80px;
+        top: 78px;
         font-size:16; 
     }
     .header-6{
         position: absolute;
-        top: 81px;
+        top: 79px;
         left: 270px;
         width:140px;
         height: 20px;
@@ -81,7 +81,7 @@
     }
     .header-7{
         position: absolute;
-        top: 83px;
+        top: 81px;
         left: 500px;
         font-size: 15px;
         width:  170px;
@@ -89,19 +89,19 @@
     }
     .header-8{
         position: absolute;
-        top: 100px;
+        top: 98px;
         font-size: 16px;
 
     }
     .header-9{
         position: absolute;
-        top: 100px;
+        top: 98px;
         font-size: 16px;
         left: 280px;
     }
     .header-10{
         position: absolute;
-        top: 103px;
+        top: 101px;
         font-size: 15px;
         left: 501px;
     }
@@ -167,12 +167,12 @@
     .telefonos{
         font-size:17px;
         position: absolute;
-        top: 86px;
+        top: 84px;
     }
     .correo{
         font-size:17px;
         position: absolute;
-        top: 105px;
+        top: 103px;
         padding: 0px 0px 0px 49px;
     }
     .raza{
