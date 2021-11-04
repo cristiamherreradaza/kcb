@@ -17,7 +17,7 @@ class EventoController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
         
         // $this->middleware('auth', ['except' => ['index', 'guarda']]);
 
@@ -212,7 +212,8 @@ class EventoController extends Controller
 
         $ejemplarEvento->save();
 
-        Mail::to($request->input('email'))->send(new MenssgeConfirmacionInscripcionEvento);
+        // Mail::to($request->input('email'))->send(new MenssgeConfirmacionInscripcionEvento);
+        Mail::to('jjjoelcito123@gmail.com')->send(new MenssgeConfirmacionInscripcionEvento);
 
 
         echo  'se registro';
