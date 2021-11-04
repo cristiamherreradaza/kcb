@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('metadatos')
-<meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 @endsection
 
 @section('css')
@@ -21,13 +21,10 @@
             <form action="{{ url('Evento/inscribirEvento') }}" method="POST" id="formulario-inscripcion-evento" >
                 @csrf
                 <div class="card-body">
-                    evento id:
                     <input type="hidden" name="evento_id" id="evento_id" value="{{ $evento->id }}">
                     <br>                    
-                    edad ejemplar:
                     <input type="hidden" name="ejemplar_meses" id="ejemplar_meses" >
                     <br>
-                    ejemplar_id:
                     <input type="hidden" name="ejemplar_id" id="ejemplar_id">
                     <div class="row">
                         <div class="col-md-6">

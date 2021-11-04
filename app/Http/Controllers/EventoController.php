@@ -10,12 +10,24 @@ use App\CategoriasPista;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\MenssgeConfirmacionInscripcionEvento;
 
 class EventoController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
+        
+        // $this->middleware('auth', ['except' => ['index', 'guarda']]);
+
+        // $this->middleware('auth')->except('formulario');
+        // $this->middleware('auth', ['except' => [
+        //     'formulario'
+        //     ]
+        // ]);
+
+        // $this->middleware(['auth' => 'verified'])->except("page_name_1", "page_name_2", "page_name_3");
     }
     public function listado()
     {
@@ -70,6 +82,7 @@ class EventoController extends Controller
         $razas = Raza::all();
 
         $categorias_pistas = CategoriasPista::all();
+        // Mail::to($request->user())->send(new MenssgeConfirmacionInscripcionEvento);
 
         return view('evento.formularioInscripcion')->with(compact('razas', 'categorias_pistas', 'evento'));
     }
@@ -198,6 +211,9 @@ class EventoController extends Controller
         $ejemplarEvento->edad                           = $request->input('ejemplar_meses');
 
         $ejemplarEvento->save();
+
+        Mail::to($request->input('email'))->send(new MenssgeConfirmacionInscripcionEvento);
+
 
         echo  'se registro';
     }
