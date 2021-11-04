@@ -212,8 +212,8 @@ class EventoController extends Controller
 
         $ejemplarEvento->save();
 
-        // Mail::to($request->input('email'))->send(new MenssgeConfirmacionInscripcionEvento);
-        Mail::to('jjjoelcito123@gmail.com')->send(new MenssgeConfirmacionInscripcionEvento);
+        Mail::to($request->input('email'))->send(new MenssgeConfirmacionInscripcionEvento);
+        // Mail::to('jjjoelcito123@gmail.com')->send(new MenssgeConfirmacionInscripcionEvento);
 
 
         echo  'se registro';
