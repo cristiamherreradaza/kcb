@@ -11,14 +11,17 @@ class MenssgeConfirmacionInscripcionEvento extends Mailable
 {
     use Queueable, SerializesModels;
     public $subject = "Mensaje de Confirmacion al Evento";
+
+    public $datosR;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($datosE)
     {
-        // $this-> id = id ;
+        $this->datosR = $datosE;
+        // dd($datosE. "<----->".$this->datosR);
     }
 
     /**
@@ -28,6 +31,6 @@ class MenssgeConfirmacionInscripcionEvento extends Mailable
      */
     public function build()
     {
-        return $this->view('email.message-confirmacion-inscripcion-evento')->with(compact());
+        return $this->view('email.message-confirmacion-inscripcion-evento');
     }
 }

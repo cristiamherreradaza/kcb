@@ -211,9 +211,11 @@ class EventoController extends Controller
         $ejemplarEvento->edad                           = $request->input('ejemplar_meses');
 
         $ejemplarEvento->save();
-
+        // dd($request->input('email'));
+        // $haber = json_encode($request->all());
         // Mail::to($request->input('email'))->send(new MenssgeConfirmacionInscripcionEvento);
-        Mail::to('jjjoelcito123@gmail.com')->send(new MenssgeConfirmacionInscripcionEvento($ejemplarEvento->user_id));
+        // Mail::to('jjjoelcito123@gmail.com')->send(new MenssgeConfirmacionInscripcionEvento($request->input('email')));
+        Mail::to($request->input('email'))->send(new MenssgeConfirmacionInscripcionEvento($ejemplarEvento->id));
 
 
         echo  'se registro';
