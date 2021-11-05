@@ -2001,8 +2001,9 @@ class EjemplarController extends Controller
 
             $razaOrigen = Raza::find($arrayOriginal1['raza_id']);
             $razaCambio = Raza::find($arrayCambio1['raza_id']);
+            // dd($razaOrigen);
 
-            $this->addbitacora($registro_id, 'RAZA', $razaOrigen->nombre, $razaCambio->nombre, 'Modificado');
+            $this->addbitacora($registro_id, 'RAZA', ($razaOrigen != null)? $razaOrigen->nombre: '', $razaCambio->nombre, 'Modificado');
 
         }
 

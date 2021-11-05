@@ -18,7 +18,7 @@ class MenssgeConfirmacionInscripcionEvento extends Mailable
      */
     public function __construct()
     {
-        //
+        // $this-> id = id ;
     }
 
     /**
@@ -28,6 +28,6 @@ class MenssgeConfirmacionInscripcionEvento extends Mailable
      */
     public function build()
     {
-        return $this->view('email.message-confirmacion-inscripcion-evento');
+        return $this->view('email.message-confirmacion-inscripcion-evento')->with(compact());
     }
 }
