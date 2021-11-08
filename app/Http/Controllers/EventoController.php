@@ -20,10 +20,13 @@ class EventoController extends Controller
         // $this->middleware('auth');
         
         // $this->middleware('auth', ['except' => ['index', 'guarda']]);
+        $this->middleware('auth', ['except' => ['index', 'formulario','ajaxBuscaEjemplar','ajaxBuscaExtranjero','inscribirEvento']]);
 
         // $this->middleware('auth')->except('formulario');
         // $this->middleware('auth', ['except' => [
-        //     'formulario'
+        //     'formulario',
+        //     'ajaxBuscaEjemplar',
+        //     'ajaxBuscaExtranjero'
         //     ]
         // ]);
 
@@ -175,7 +178,7 @@ class EventoController extends Controller
 
         if($request->kcb_busca && $request->ejemplar_id){
 
-            $ejemplarEvento->user_id                    = Auth::user()->id;
+            // $ejemplarEvento->user_id                    = Auth::user()->id;
             $ejemplarEvento->evento_id                  = $request->input('evento_id');
             $ejemplarEvento->ejemplar_id                = $request->input('ejemplar_id');      
             $ejemplarEvento->categoria_pista_id         = $request->input('categoria_pista');
@@ -186,7 +189,7 @@ class EventoController extends Controller
 
         }elseif($request->cod_extrangero && $request->ejemplar_id == null){
 
-            $ejemplarEvento->user_id                    = Auth::user()->id;
+            // $ejemplarEvento->user_id                    = Auth::user()->id;
             $ejemplarEvento->evento_id                  = $request->input('evento_id');
             $ejemplarEvento->raza_id                    = $request->input('raza_id');
             $ejemplarEvento->categoria_pista_id         = $request->input('categoria_pista');

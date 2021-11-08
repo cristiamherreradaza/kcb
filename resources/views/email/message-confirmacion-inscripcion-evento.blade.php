@@ -12,7 +12,7 @@
         <img src="http://kcb.org.bo/logoKennel.png" alt="aqui va el Logo de KENNEL">
         <h1 class="text-center text-danger"><b> INSCRITO CORRECTAMENTE!!!</h1></b>
         @php
-
+            // dd($datosR);
             $ejemplarParticipante = App\EjemplarEvento::find($datosR);
 
             if($ejemplarParticipante->extrangero == 'no'){
@@ -27,7 +27,36 @@
             $fecha = $utilidades->fechaHoraCastellano($ejemplarParticipante->created_at);
 
         @endphp
+
+        <div class="row">
+            <div class="col-md-6"><b>Ejemplar: </b></div>
+            <div class="col-md-6">{{ $ejemplar->nombre_completo }}</div>
+        </div>
         @if ($ejemplarParticipante->extrangero == 'no')
+            <div class="row">
+                <div class="col-md-6"><b>KCB: </b></div>
+                <div class="col-md-6">{{ $ejemplar->kcb }}</div>
+            </div>
+        @else
+            <div class="row">
+                <div class="col-md-6"><b>CODIGO NACIONALIZADO: </b></div>
+                <div class="col-md-6">{{ $ejemplar->codigo_nacionalizado }}</div>
+            </div>
+        @endif
+        <div class="row">
+            <div class="col-md-6"><b>EVENTO: </b></div>
+            <div class="col-md-6">{{ $evento->nombre }}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-6"><b>FECHA: </b></div>
+            <div class="col-md-6">{{ $fecha }}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-6"><b>CODIGO DE INSCRIPCION: </b></div>
+            <div class="col-md-6">KCB-{{ $ejemplarParticipante->id }}</div>
+        </div>
+
+        {{-- @if ($ejemplarParticipante->extrangero == 'no')
             <div class="row">
                 <div class="col-md-6"><b>Ejemplar: </b></div>
                 <div class="col-md-6">{{ $ejemplar->nombre_completo }}</div>
@@ -55,7 +84,7 @@
             </div>
             <div class="row">
                 <div class="col-md-6"><b>CODIGO NACIONALIZADO: </b></div>
-                <div class="col-md-6">{{ $datosEjemplar->codigo_nacionalizado }}</div>
+                <div class="col-md-6">{{ $ejemplar->codigo_nacionalizado }}</div>
             </div>
             <div class="row">
                 <div class="col-md-6"><b>EVENTO: </b></div>
@@ -69,7 +98,7 @@
                 <div class="col-md-6"><b>CODIGO DE INSCRIPCION: </b></div>
                 <div class="col-md-6">KCB-{{ $ejemplarParticipante->id }}</div>
             </div>
-        @endif
+        @endif --}}
     </div>
 </body>
 </html>

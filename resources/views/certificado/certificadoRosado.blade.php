@@ -155,9 +155,12 @@
         height: 36px;
     }
     .criador{
+        width: 350px;
+        height: 36px;
+        /* background-color: red; */
         font-size:16px;
         position: absolute;
-        top: 27px;
+        top: 25px;
     }
     .direccion{
         font-size:15px;
@@ -833,7 +836,7 @@
         <div id="datos-ejemplar-2">
             <div class="datos-secundarios">
                 <div class="afijo"> <span class="afijos">{{ ($ejemplar->criadero)? $ejemplar->criadero->nombre." FCI: ".$ejemplar->criadero->registro_fci : '' }}</span></div>
-                <div class="criador">{{ ($ejemplar->propietario)? $ejemplar->propietario->name : '' }}</div>
+                <div class="criador"><span class="criadors">{{ ($ejemplar->propietario)? $ejemplar->propietario->name : '' }}</span></div>
                 <div class="direccion">{{ ($ejemplar->propietario)?  $ejemplar->propietario->direccion : ''}}</div>
                 <div class="telefonos">{{  ($ejemplar->propietario)? $ejemplar->propietario->celulares : ''}}</div>
                 <div class="correo">{{ ($ejemplar->propietario)? $ejemplar->propietario->email :'' }}</div>
@@ -2792,6 +2795,31 @@
             var AbuelotextSpan = AbuelotextDiv.getElementsByClassName("afijos")[0];
 
             AbuelotextSpan.style.fontSize = 22;
+
+            while(AbuelotextSpan.offsetHeight > AbuelotextDiv.offsetHeight)
+            {
+                AbuelotextSpan.style.fontSize = parseInt(AbuelotextSpan.style.fontSize) - 1;
+            }
+
+            while(AbuelotextSpan.offsetWidth > AbuelotextDiv.offsetWidth)
+            {
+                AbuelotextSpan.style.fontSize = parseInt(AbuelotextSpan.style.fontSize) - 1;
+            }
+
+        }
+
+
+        /*******************  AFIJO  *************************/
+        var AbuelotextDivs = document.getElementsByClassName("criador");
+        var AbuelotextDivsLength = AbuelotextDivs.length;
+
+        for(var i=0; i<AbuelotextDivsLength; i++) {
+
+            var AbuelotextDiv = AbuelotextDivs[i];
+
+            var AbuelotextSpan = AbuelotextDiv.getElementsByClassName("criadors")[0];
+
+            AbuelotextSpan.style.fontSize = 16;
 
             while(AbuelotextSpan.offsetHeight > AbuelotextDiv.offsetHeight)
             {
