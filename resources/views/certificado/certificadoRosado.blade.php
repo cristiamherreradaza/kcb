@@ -2439,7 +2439,8 @@
                     <span class="cuarta_generaciones1">
                         @php
                             if(isset($abueloSGM222)){
-                                $titulosw = App\TituloEjemplar::where('ejemplar_id',$abueloSGM222                                                                                                                                          ->id)->count();
+                                $titulosw = App\TituloEjemplar::where('ejemplar_id',$abueloSGM222)->count();
+                                    // dd($titulosw);
                                     if($titulosw != 0){
                                         $titulo = App\TituloEjemplar::where('ejemplar_id',$abueloSGM222                                                                                                                                          ->id)->get();
                                         $i = 1;
