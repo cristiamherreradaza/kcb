@@ -56,6 +56,13 @@
         width:140px;
         height: 20px;
     }
+    .reg-kcb{
+        position: absolute;
+        top: 85px;
+        width:140px;
+        height: 20px;
+        left: 535px;
+    }
     .header-12{
         position: absolute;
         top: 140px;
@@ -839,6 +846,7 @@
                 <div class="header-4"><span class="header-4s">{{ $ejemplar->color }}</span></div>
                 <div class="header-5">{{ strtoupper($ejemplar->sexo)}}</div>
                 <div class="header-6">{{ date('d/m/Y',strtotime($ejemplar->fecha_nacimiento)) }}</div>
+                <div class="reg-kcb">{{ ($ejemplar->kcb == 'nulo' || $ejemplar->kcb == '')? $ejemplar->codigo_nacionalizado:"KCB-".$ejemplar->kcb  }}</div>
                 {{-- <div class="header-7">{{ ($ejemplar->consanguinidad!=null)? $ejemplar->consanguinidad :'--------'}}</div> --}}
                 {{-- <div class="header-8">{{ $ejemplar->kcb }}</div> --}}
                 {{-- <div class="header-9">{{ ($ejemplar->num_tatuaje != null)? $ejemplar->num_tatuaje:'--------'}}</div> --}}
