@@ -59,7 +59,8 @@
     .header-12{
         position: absolute;
         top: 140px;
-        left: 620px;
+        left: 0px;
+        /* left: 620px; */
         width: 400px;
         height: 20px;
     }
@@ -2399,9 +2400,9 @@
                     <span class="cuarta_generaciones1">
                         @php
                             if(isset($abueloSGM222)){
-                                $titulosw = App\TituloEjemplar::where('ejemplar_id',$abueloSGM222                                                                                                                                          ->id)->count();
+                                $titulosw = App\TituloEjemplar::where('ejemplar_id',$abueloSGM222)->count();
                                     if($titulosw != 0){
-                                        $titulo = App\TituloEjemplar::where('ejemplar_id',$abueloSGM222                                                                                                                                          ->id)->get();
+                                        $titulo = App\TituloEjemplar::where('ejemplar_id',$abueloSGM222)->get();
                                         $i = 1;
                                         foreach ($titulo as $t){
                                             if($i <= 12){

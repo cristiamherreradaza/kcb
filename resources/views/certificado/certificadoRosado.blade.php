@@ -2442,7 +2442,7 @@
                                 $titulosw = App\TituloEjemplar::where('ejemplar_id',$abueloSGM222)->count();
                                     // dd($titulosw);
                                     if($titulosw != 0){
-                                        $titulo = App\TituloEjemplar::where('ejemplar_id',$abueloSGM222                                                                                                                                          ->id)->get();
+                                        $titulo = App\TituloEjemplar::where('ejemplar_id',$abueloSGM222)->get();
                                         $i = 1;
                                         foreach ($titulo as $t){
                                             if($i <= 12){
