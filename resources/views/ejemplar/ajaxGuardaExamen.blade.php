@@ -12,7 +12,7 @@
             <td>{{ $ee->fecha_examen }}</td>
             <td>{{ $ee->examen->nombre }}</td>
             <td>
-                <button type="button" class="btn btn-sm btn-icon btn-warning" onclick="editaExamen('{{ $ee->id }}', '{{ $ee->examen_id }}', '{{ $ee->fecha_examen }}', '{{ $ee->revisor }}', '{{ $ee->resultado }}', '{{ $ee->observacion }}', '{{ $ee->numero_formulario }}', '{{ $ee->dfc }}')">
+                <button type="button" class="btn btn-sm btn-icon btn-warning" onclick="editaExamen('{{ $ee->id }}', '{{ $ee->examen_id }}', '{{ $ee->fecha_examen }}', '{{ $ee->revisor }}', '{{ $ee->resultado }}', '{{ $ee->observacion }}', '{{ $ee->numero_formulario }}', '{{ $ee->dcf }}')">
                     <i class="flaticon2-edit"></i>
                 </button>
                 <button type="button" class="btn btn-sm btn-icon btn-danger"

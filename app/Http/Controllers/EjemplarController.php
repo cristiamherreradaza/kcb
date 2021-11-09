@@ -299,6 +299,7 @@ class EjemplarController extends Controller
         $nuevoExamen->fecha_examen      = $request->input('fecha_examen');
         $nuevoExamen->dcf               = $request->input('examen_dcf');
         $nuevoExamen->resultado         = $request->input('resultado');
+        $nuevoExamen->observacion       = $request->input('obserbacion');
         $nuevoExamen->numero_formulario = $request->input('examen_num_formulario');
         $nuevoExamen->revisor           = $request->input('doctor_examen');
         $nuevoExamen->save();

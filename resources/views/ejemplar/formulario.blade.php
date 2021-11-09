@@ -556,8 +556,8 @@
                 <div class="modal-body">
                     <form action="{{ url('Ejemplar/guardaExamen') }}" method="POST" id="formulario-examenes">
                         @csrf
-                        <input type="text" name="examen-ejemplar-id" id="examen-ejemplar-id" value="0">
-                        <input type="text" name="ejemplar_examen_id" value="{{ $ejemplar->id }}">
+                        <input type="hidden" name="examen-ejemplar-id" id="examen-ejemplar-id" value="0">
+                        <input type="hidden" name="ejemplar_examen_id" value="{{ $ejemplar->id }}">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -1637,7 +1637,7 @@
                                             <td>{{ $e->fecha_examen }}</td>
                                             <td>{{ $e->examen->nombre }}</td>
                                             <td>
-                                                <button type="button" class="btn btn-sm btn-icon btn-warning" onclick="editaExamen('{{ $e->id }}', '{{ $e->examen_id }}', '{{ $e->fecha_examen }}', '{{ $e->revisor }}', '{{ $e->resultado }}', '{{ $e->observacion }}', '{{ $e->numero_formulario }}', '{{ $e->dfc }}')">
+                                                <button type="button" class="btn btn-sm btn-icon btn-warning" onclick="editaExamen('{{ $e->id }}', '{{ $e->examen_id }}', '{{ $e->fecha_examen }}', '{{ $e->revisor }}', '{{ $e->resultado }}', '{{ $e->observacion }}', '{{ $e->numero_formulario }}', '{{ $e->dcf }}')">
                                                     <i class="flaticon2-edit"></i>
                                                 </button>
                                                 <button type="button" class="btn btn-sm btn-icon btn-danger" onclick="eliminaExamen('{{ $e->id }}', '{{ $e->examen->nombre }}')">
