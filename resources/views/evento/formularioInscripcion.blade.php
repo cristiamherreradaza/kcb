@@ -103,7 +103,7 @@
 											<div class="col-md-6">
 												<div id="bloque-nacional">
 													<div class="row">
-														<div class="col-md-10">
+														<div class="col-md-9">
 															<div class="form-group">
 																<label class="exampleInputPassword1">
 																KCB
@@ -114,7 +114,7 @@
 																<span class="form-text text-danger" id="msg-vacio-kcb" style="display: none;">Digitar un K.C.B.</span>
 															</div>
 														</div>
-														<div class="col-md-2">
+														<div class="col-md-3">
 															<br>
 															<button type="button" class="btn btn-success btn-block" onclick="buscaKcb()"><i class="fa fa-search"></i></button>
 														</div>

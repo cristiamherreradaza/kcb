@@ -122,6 +122,7 @@ class EventoController extends Controller
                 $arrayEjemplar['kcb_madre'] = null;
                 $arrayEjemplar['nombre_madre'] = null;
             }
+            // dd($ejemplar->propietario);
             $arrayEjemplar['nom_propietario'] = $ejemplar->propietario->name;    
             $arrayEjemplar['departamento'] = $ejemplar->propietario->departamento;    
             $arrayEjemplar['celulares'] = $ejemplar->propietario->celulares;    
