@@ -394,33 +394,17 @@
 		}
 		}
 		
-		function canbiaDepartamento()
-		{
-			let departamento = $("#departamento").val();
-		
-			$.ajax({
-				url: "http://kcb.test/User/ajaxDistrito",
-				data: {departamento: departamento},
-				type: 'POST',
-				success: function(data) {
-				$("#ajaxDistritos").html(data);
-				}
-			});
-		
-		}
-		
 		function mostrarBusqueda(){
 			$("#bloque-nacional").toggle('slow');
 			$("#bloque-extrangero").toggle('slow');
 		}
 		
 		function buscaKcb(){
-		// alert("kcb");
-		let kcb = $("#kcb_busca").val();
-		if(kcb != ''){
-		// alert("vacio");
+			let kcb = $("#kcb_busca").val();
+			if(kcb != ''){
+			// alert("vacio");
 			$.ajax({
-				url: "http://kcb.test/Evento/ajaxBuscaEjemplar",
+				url: "{{ url('Evento/ajaxBuscaEjemplar') }}",
 				data: {
 				kcb: kcb
 				},
@@ -539,7 +523,7 @@
 			if(cod_ex != ''){
 			// alert("vacio");
 			$.ajax({
-				url: "http://kcb.test/Evento/ajaxBuscaExtranjero",
+				url: "{{ url('Evento/ajaxBuscaExtranjero') }}",
 				data: {
 				cod_ex: cod_ex
 				},
@@ -606,13 +590,11 @@
 		}
 		
 		</script>
-		{{-- @section('js')
-		@show --}}
-		<!--end::Global Theme Bundle-->
 	</body>
 	<!--end::Body-->
 </html>
-<script src="http://kcb.test/assets/js/pages/crud/forms/widgets/bootstrap-switch.js"></script>
+<script src="{{ asset('assets/js/pages/crud/forms/widgets/bootstrap-switch.js') }}"></script>
+
 
 
 
