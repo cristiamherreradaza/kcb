@@ -15,7 +15,8 @@
     body{
         width: 100%;
         margin: 0;
-        font-family: Arial, Helvetica, sans-serif;
+        font-family:  Georgia,Helvetica, sans-serif;
+        /* font-family: Arial, Helvetica, sans-serif; */
     }
     #certificado{
         /* padding: 15px 20px 0px 160px; */
@@ -239,36 +240,6 @@
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    
-    /* .header-2{
-        position: absolute;
-        top: 30px;
-        width:670px;
-        height: 28px;
-    } */
-    /* .criador{
-        font-size:16px;
-        position: absolute;
-        top: 27px;
-        left: 450;
-    } */
     .header-7{
         position: absolute;
         top: 83px;
@@ -305,57 +276,6 @@
         opacity: 0.5;
     }
     
-    /* #direccion{
-        font-size: 14px;
-        padding: 10px 0px 7px 0px;
-    } */
-    /* #telefono{
-        padding: 3px 0px 0px 0px;
-    } */
-    /* #email{
-        padding: 0px 0px 0px 60px;
-    } */
-    /* .afijo{
-        position: absolute;
-        top: -5px;
-        font-size:22px;
-        width:350px;
-        height: 36px;
-    } */
-    /* .direccion{
-        font-size:15px;
-        position: absolute;
-        top: 60px;
-    }
-    .telefonos{
-        font-size:17px;
-        position: absolute;
-        top: 86px;
-    }
-    .correo{
-        font-size:17px;
-        position: absolute;
-        top: 105px;
-        padding: 0px 0px 0px 49px;
-    } */
-    /* .raza{
-        position: absolute;
-        color: yellow;
-        width:410px;
-        opacity: 0.5;
-
-
-        background-color: red;
-        font-size: 17px;
-        height: 28px;
-    } */
-    /* .titulos{
-        height: 33px;
-    } */
-    /* .hermanos{
-        width: 670px;
-        height: 25px;
-    } */
     #datos-ejemplar-2{
         position: absolute;
         top: 86px;
@@ -377,12 +297,6 @@
     #tabla-genealogio{
         width:100%;
     }
-    
-    
-    
-    
-   
-    
 
     .lechigada{
         /* background-color: yellowgreen; */
@@ -833,55 +747,17 @@
                 <div class="header-1">
                     {{ $ejemplar->nombre_completo }}
                 </div>
-                {{-- <div class="header-2">
-                    @php
-                        $titulos = App\TituloEjemplar::where('ejemplar_id',$ejemplar->id)->get();
-                        $titulos1 = '';
-                        foreach ($titulos as $t){
-                            $titulos1= $t->titulo->nombre ;
-                        }
-                    @endphp
-                </div> --}}
                 <div class="header-3"><span class="header-3s">{{ strtoupper($ejemplar->raza->nombre) }}</span></div>
                 <div class="header-4"><span class="header-4s">{{ $ejemplar->color }}</span></div>
                 <div class="header-5">{{ strtoupper($ejemplar->sexo)}}</div>
                 <div class="header-6">{{ date('d/m/Y',strtotime($ejemplar->fecha_nacimiento)) }}</div>
                 <div class="reg-kcb">{{ ($ejemplar->kcb == 'nulo' || $ejemplar->kcb == '')? $ejemplar->codigo_nacionalizado:"KCB-".$ejemplar->kcb  }}</div>
-                {{-- <div class="header-7">{{ ($ejemplar->consanguinidad!=null)? $ejemplar->consanguinidad :'--------'}}</div> --}}
-                {{-- <div class="header-8">{{ $ejemplar->kcb }}</div> --}}
-                {{-- <div class="header-9">{{ ($ejemplar->num_tatuaje != null)? $ejemplar->num_tatuaje:'--------'}}</div> --}}
                 <div class="header-10">{{ $ejemplar->chip }}</div>
-                {{-- <div class="header-11">
-                    <span class="hermanos1">
-                        @php
-                            $hermanos = App\Ejemplar::where('camada_id',$ejemplar->camada_id)
-                                                    ->whereNotNull('camada_id')
-                                                    ->get();
-                            $nombres = '';
-                            foreach ($hermanos as $h){
-                                if($h->id != $ejemplar->id){
-                                    $nombres =$nombres.$h->nombre.', ';
-                                }
-                            }
-                        @endphp
-                        {{ substr($nombres, 0, -2)}}
-                    </span>
-                </div> --}}
                 <div class="header-12">{{ ($ejemplar->propietario)? $ejemplar->propietario->name : '' }}</div>
                 <div class="codigo-qr"><div id="qrcode"></div></div>
 
             </div>
         </div>
-        {{-- <div id="datos-ejemplar-2">
-            <div class="datos-secundarios">
-                <div class="afijo"> <span class="afijos">{{ ($ejemplar->criadero)? $ejemplar->criadero->nombre." FCI: ".$ejemplar->criadero->registro_fci : '' }}</span></div>
-                <div class="criador">{{ ($ejemplar->propietario)? $ejemplar->propietario->name : '' }}</div>
-                <div class="direccion">{{ ($ejemplar->propietario)?  $ejemplar->propietario->direccion : ''}}</div>
-                <div class="telefonos">{{  ($ejemplar->propietario)? $ejemplar->propietario->celulares : ''}}</div>
-                <div class="correo">{{ ($ejemplar->propietario)? $ejemplar->propietario->email :'' }}</div>
-                <div class="codigo-qr"><div id="qrcode"></div></div>
-            </div>
-        </div> --}}
 
         <div id="arbol-genealogio">
             <section id="bloque-ejemplar-principal">
@@ -910,12 +786,12 @@
                                 }else{
                                     echo $ejemplar->codigo_nacionalizado." ";
                                 }
-                                if($ejemplar->num_tatuaje != ''){
-                                    echo "No. x Raza ".$ejemplar->num_tatuaje."<br>";
-                                }
-                                if($ejemplar->chip != ''){
-                                    echo "Chip ".$ejemplar->chip."<br>";
-                                }
+                                // if($ejemplar->num_tatuaje != ''){
+                                //     echo "No. x Raza ".$ejemplar->num_tatuaje."<br>";
+                                // }
+                                // if($ejemplar->chip != ''){
+                                //     echo "Chip ".$ejemplar->chip."<br>";
+                                // }
                                 $examenMascotaPapa = App\ExamenMascota::where('ejemplar_id','=',$ejemplar->id)
                                                                         ->get();
                                 foreach ($examenMascotaPapa as $e){

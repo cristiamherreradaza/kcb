@@ -29,6 +29,11 @@
 		@show
 		<!--end::Layout Themes-->
 		<link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" />
+		{!! htmlScriptTagJsApi([
+            'action' => 'homepage',
+            'callback_then' => 'callbackThen',
+            'callback_catch' => 'callbackCatch'
+        ]) !!}
 	</head>
 	<!--end::Head-->
 	<!--begin::Body-->
