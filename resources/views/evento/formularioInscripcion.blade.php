@@ -606,7 +606,6 @@
 			}
 		
 		}
-		
 		</script>
 	</body>
 	<!--end::Body-->
