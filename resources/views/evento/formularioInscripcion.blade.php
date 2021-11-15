@@ -77,7 +77,20 @@
 			<!--end::Toolbar-->
 		</div>
 		<div class="container">
-			<br><br><br><br>
+			<br><br>
+			<div class="row">
+				<div class="col-md-6">
+					<div style="height: 200px;">
+						<img src="{{ url('img/fci.jpg') }}" alt="" height="100%">
+					</div>
+				</div>
+				<div class="col-md-6" style="">
+					<div style="height: 200px;">
+						<img src="{{ url('img/logo.gif') }}" alt="" height="100%" style="float: right;">
+					</div>
+				</div>
+			</div>
+			<br><br>
 			<div class="row">
 				<div class="col-md-12">
 					<!--begin::Card-->
