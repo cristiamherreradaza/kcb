@@ -19,7 +19,7 @@ class PanelController extends Controller
 
     public function inicio()
     {
-        // echo "holas";
+        dd("holas");
         $propietarios = User::where('perfil_id',4)->count();
 
         $ejemplares = Ejemplar::all()->count();
