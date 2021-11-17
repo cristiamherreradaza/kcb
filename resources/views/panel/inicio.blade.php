@@ -1,8 +1,6 @@
 @extends('layouts.app')
 
-@section('content')
-<!--Begin::Row-->
-  @php
+@php
       $propietarios = App\User::where('perfil_id',4)->count();
 
 
@@ -48,6 +46,9 @@
       $ejemplaresExtranjeros = App\Ejemplar::whereNull('kcb')->count();
       array_push($ejemplarExNa, $ejemplaresExtranjeros);
   @endphp
+@section('content')
+<!--Begin::Row-->
+  
 <div class="row">
     <div class="col-xl-4">
         <!--begin::Stats Widget 22-->
@@ -169,9 +170,10 @@
 @section('js')
     {{-- <script src="{{ asset('assets/js/pages/features/charts/apexcharts.js') }}"></script> --}}
     <script>
-      const $array1;
+      // const $array1;
+
       $array1 = @json($registrosEjemplares);
-      console.log($array1);
+      // console.log($array1);
 
       for($i=0; $i < $array1.length ; $i++){
         console.log($array1[$i]);
