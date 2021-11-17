@@ -2,52 +2,52 @@
 
 @section('content')
 <!--Begin::Row-->
-@php
-        // $propietarios = App\User::where('perfil_id',4)->count();
+  @php
+      $propietarios = App\User::where('perfil_id',4)->count();
 
 
-        // $ejemplares = App\Ejemplar::all()->count();
+      $ejemplares = App\Ejemplar::all()->count();
 
 
 
-        // $ejemplaresRegistrados = DB::table('ejemplares')
-        //                         ->select('ejemplares.created_at')
-        //                         ->groupBy('ejemplares.raza_id')
-        //                         ->get();
+      $ejemplaresRegistrados = DB::table('ejemplares')
+                              ->select('ejemplares.created_at')
+                              ->groupBy('ejemplares.raza_id')
+                              ->get();
 
-        // $registrosEjemplares = array();
+      $registrosEjemplares = array();
 
-        // for($i = 1 ; $i <= 12 ; $i++){
+      for($i = 1 ; $i <= 12 ; $i++){
 
-        //     $inidate = date("Y")."-".(($i<=9)? '0'.$i : $i )."-01";
-        //     $findate = date("Y")."-".(($i<=9)? '0'.$i : $i )."-".cal_days_in_month(CAL_GREGORIAN, (($i<=9)? '0'.$i : $i ) , date("Y"));
+          $inidate = date("Y")."-".(($i<=9)? '0'.$i : $i )."-01";
+          $findate = date("Y")."-".(($i<=9)? '0'.$i : $i )."-".cal_days_in_month(CAL_GREGORIAN, (($i<=9)? '0'.$i : $i ) , date("Y"));
 
-        //     $cantiodadREgistroMes = App\Ejemplar::whereBetween('created_at',["$inidate","$findate"])
-        //                             ->count(); 
+          $cantiodadREgistroMes = App\Ejemplar::whereBetween('created_at',["$inidate","$findate"])
+                                  ->count(); 
 
-        //     array_push($registrosEjemplares, $cantiodadREgistroMes);
+          array_push($registrosEjemplares, $cantiodadREgistroMes);
 
-        // }
+      }
 
-        // $usuariosDona = array();
+      $usuariosDona = array();
 
-        // $criador = App\User::where('tipo', 'Criador')->count();
-        // array_push($usuariosDona, $criador);
+      $criador = App\User::where('tipo', 'Criador')->count();
+      array_push($usuariosDona, $criador);
 
-        // $socio = App\User::where('tipo', 'Socio')->count();
-        // array_push($usuariosDona, $socio);
-        
-        // $indefinido = App\User::whereNull('tipo')->count();
-        // array_push($usuariosDona, $indefinido);
+      $socio = App\User::where('tipo', 'Socio')->count();
+      array_push($usuariosDona, $socio);
+      
+      $indefinido = App\User::whereNull('tipo')->count();
+      array_push($usuariosDona, $indefinido);
 
-        // $ejemplarExNa = array();
+      $ejemplarExNa = array();
 
-        // $ejemplaresNacionales = App\Ejemplar::whereNotNull('kcb')->count();
-        // array_push($ejemplarExNa, $ejemplaresNacionales);
+      $ejemplaresNacionales = App\Ejemplar::whereNotNull('kcb')->count();
+      array_push($ejemplarExNa, $ejemplaresNacionales);
 
-        // $ejemplaresExtranjeros = App\Ejemplar::whereNull('kcb')->count();
-        // array_push($ejemplarExNa, $ejemplaresExtranjeros);
-@endphp
+      $ejemplaresExtranjeros = App\Ejemplar::whereNull('kcb')->count();
+      array_push($ejemplarExNa, $ejemplaresExtranjeros);
+  @endphp
 <div class="row">
     <div class="col-xl-4">
         <!--begin::Stats Widget 22-->
