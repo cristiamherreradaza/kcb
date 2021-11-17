@@ -45,7 +45,7 @@
 
   //     $ejemplaresExtranjeros = App\Ejemplar::whereNull('kcb')->count();
   //     array_push($ejemplarExNa, $ejemplaresExtranjeros);
-  // @endphp
+  @endphp
 @section('content')
 <!--Begin::Row-->
   
@@ -78,7 +78,7 @@
                 <a href="#"
                     class="card-title font-weight-bolder text-white font-size-h6 mb-4 text-hover-state-dark d-block">Usuarios</a>
                 <div class="font-weight-bold text-white font-size-sm">
-                    <span class="font-size-h2 mr-2">1</span>Registrado
+                    <span class="font-size-h2 mr-2">{{ $user }}</span>Registrado
                 </div>
                 <div class="progress progress-xs mt-7 bg-white-o-90">
                     <div class="progress-bar bg-white" role="progressbar" style="width: 87%;" aria-valuenow="50"
@@ -97,7 +97,7 @@
                 <a href="#"
                     class="card-title font-weight-bolder text-white font-size-h6 mb-4 text-hover-state-dark d-block">Ejemplares</a>
                 <div class="font-weight-bold text-white font-size-sm">
-                    {{-- <span class="font-size-h2 mr-2">{{ $ejemplares }}</span>Registrados --}}
+                    <span class="font-size-h2 mr-2">{{ $ejemplares }}</span>Registrados
                 </div>
                 <div class="progress progress-xs mt-7 bg-white-o-90">
                     <div class="progress-bar bg-white" role="progressbar" style="width: 52%;" aria-valuenow="50"

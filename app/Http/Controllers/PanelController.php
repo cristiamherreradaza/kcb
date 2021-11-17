@@ -23,7 +23,9 @@ class PanelController extends Controller
         $propietarios = User::where('perfil_id',4)->count();
 
 
-        // $ejemplares = Ejemplar::all()->count();
+        $ejemplares = Ejemplar::count();
+
+        $user = User::where('perfil_id','<>',4)->count();
 
 
         $ejemplaresRegistrados = DB::table('ejemplares')
@@ -64,7 +66,7 @@ class PanelController extends Controller
         $ejemplaresExtranjeros = Ejemplar::whereNull('kcb')->count();
         array_push($ejemplarExNa, $ejemplaresExtranjeros);
 
-        return view('panel.inicio')->with(compact('propietarios', /*'ejemplares',*/ 'registrosEjemplares','usuariosDona', 'ejemplarExNa'));
+        return view('panel.inicio')->with(compact('propietarios', 'ejemplares', 'registrosEjemplares','usuariosDona', 'ejemplarExNa', 'user'));
         // return view('panel.inicio');
 
     }
