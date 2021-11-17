@@ -221,8 +221,14 @@ class EventoController extends Controller
         // Mail::to('jjjoelcito123@gmail.com')->send(new MenssgeConfirmacionInscripcionEvento($request->input('email')));
         Mail::to($request->input('email'))->send(new MenssgeConfirmacionInscripcionEvento($ejemplarEvento->id));
 
-
-        echo  'se registro';
+        // $inscripcionEvento = $ejemplarEvento->id;
+        if($ejemplarEvento->extrangero == 'si'){
+            $ejemplarVista = $ejemplarEvento;
+        }else{
+            $ejemplarVista = Ejemplar::find($ejemplarEvento->ejemplar_id);
+        }
+        return view('evento.registroExitoso')->with(compact('ejemplarVista','ejemplarEvento'));;
+        // echo  'se registro';
     }
 
     public function listadoInscritos(Request $request, $evento_id){

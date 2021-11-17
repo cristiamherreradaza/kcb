@@ -58,4 +58,8 @@ class EjemplarEvento extends Model
     {
         return $this->belongsTo('App\GrupoRaza', 'raza_id');
     }
+    public function evento()
+    {
+        return $this->belongsTo('App\Evento', 'evento_id');
+    }
 }
