@@ -3,50 +3,50 @@
 @section('content')
 <!--Begin::Row-->
 @php
-        $propietarios = App\User::where('perfil_id',4)->count();
+        // $propietarios = App\User::where('perfil_id',4)->count();
 
 
-        $ejemplares = App\Ejemplar::all()->count();
+        // $ejemplares = App\Ejemplar::all()->count();
 
+
+
+        // $ejemplaresRegistrados = DB::table('ejemplares')
+        //                         ->select('ejemplares.created_at')
+        //                         ->groupBy('ejemplares.raza_id')
+        //                         ->get();
+
+        // $registrosEjemplares = array();
+
+        // for($i = 1 ; $i <= 12 ; $i++){
+
+        //     $inidate = date("Y")."-".(($i<=9)? '0'.$i : $i )."-01";
+        //     $findate = date("Y")."-".(($i<=9)? '0'.$i : $i )."-".cal_days_in_month(CAL_GREGORIAN, (($i<=9)? '0'.$i : $i ) , date("Y"));
+
+        //     $cantiodadREgistroMes = App\Ejemplar::whereBetween('created_at',["$inidate","$findate"])
+        //                             ->count(); 
+
+        //     array_push($registrosEjemplares, $cantiodadREgistroMes);
+
+        // }
+
+        // $usuariosDona = array();
+
+        // $criador = App\User::where('tipo', 'Criador')->count();
+        // array_push($usuariosDona, $criador);
+
+        // $socio = App\User::where('tipo', 'Socio')->count();
+        // array_push($usuariosDona, $socio);
         
+        // $indefinido = App\User::whereNull('tipo')->count();
+        // array_push($usuariosDona, $indefinido);
 
-        $ejemplaresRegistrados = DB::table('ejemplares')
-                                ->select('ejemplares.created_at')
-                                ->groupBy('ejemplares.raza_id')
-                                ->get();
+        // $ejemplarExNa = array();
 
-        $registrosEjemplares = array();
+        // $ejemplaresNacionales = App\Ejemplar::whereNotNull('kcb')->count();
+        // array_push($ejemplarExNa, $ejemplaresNacionales);
 
-        for($i = 1 ; $i <= 12 ; $i++){
-
-            $inidate = date("Y")."-".(($i<=9)? '0'.$i : $i )."-01";
-            $findate = date("Y")."-".(($i<=9)? '0'.$i : $i )."-".cal_days_in_month(CAL_GREGORIAN, (($i<=9)? '0'.$i : $i ) , date("Y"));
-
-            $cantiodadREgistroMes = App\Ejemplar::whereBetween('created_at',["$inidate","$findate"])
-                                    ->count(); 
-
-            array_push($registrosEjemplares, $cantiodadREgistroMes);
-
-        }
-
-        $usuariosDona = array();
-
-        $criador = App\User::where('tipo', 'Criador')->count();
-        array_push($usuariosDona, $criador);
-
-        $socio = App\User::where('tipo', 'Socio')->count();
-        array_push($usuariosDona, $socio);
-        
-        $indefinido = App\User::whereNull('tipo')->count();
-        array_push($usuariosDona, $indefinido);
-
-        $ejemplarExNa = array();
-
-        $ejemplaresNacionales = App\Ejemplar::whereNotNull('kcb')->count();
-        array_push($ejemplarExNa, $ejemplaresNacionales);
-
-        $ejemplaresExtranjeros = App\Ejemplar::whereNull('kcb')->count();
-        array_push($ejemplarExNa, $ejemplaresExtranjeros);
+        // $ejemplaresExtranjeros = App\Ejemplar::whereNull('kcb')->count();
+        // array_push($ejemplarExNa, $ejemplaresExtranjeros);
 @endphp
 <div class="row">
     <div class="col-xl-4">
@@ -58,7 +58,7 @@
                 <a href="#"
                     class="card-title font-weight-bolder text-info font-size-h6 mb-4 text-hover-state-dark d-block">PROPIETARIOS</a>
                 <div class="font-weight-bold text-muted font-size-sm">
-                    <span class="text-dark-75 font-weight-bolder font-size-h2 mr-2">{{ $propietarios }}</span>Registrados
+                    {{-- <span class="text-dark-75 font-weight-bolder font-size-h2 mr-2">{{ $propietarios }}</span>Registrados --}}
                 </div>
                 <div class="progress progress-xs mt-7 bg-info-o-60">
                     <div class="progress-bar bg-info" role="progressbar" style="width: 22%;" aria-valuenow="50"
@@ -96,7 +96,7 @@
                 <a href="#"
                     class="card-title font-weight-bolder text-white font-size-h6 mb-4 text-hover-state-dark d-block">Ejemplares</a>
                 <div class="font-weight-bold text-white font-size-sm">
-                    <span class="font-size-h2 mr-2">{{ $ejemplares }}</span>Registrados
+                    {{-- <span class="font-size-h2 mr-2">{{ $ejemplares }}</span>Registrados --}}
                 </div>
                 <div class="progress progress-xs mt-7 bg-white-o-90">
                     <div class="progress-bar bg-white" role="progressbar" style="width: 52%;" aria-valuenow="50"
@@ -115,7 +115,7 @@
         <div class="card card-custom gutter-b">
             <div class="card-header">
                 <div class="card-title">
-                    <h3 class="card-label">Registro de Ejemplares de la gestion {{ date('Y') }}</h3>
+                    {{-- <h3 class="card-label">Registro de Ejemplares de la gestion {{ date('Y') }}</h3> --}}
                 </div>
             </div>
             <div class="card-body">
@@ -168,13 +168,7 @@
 
 @section('js')
     {{-- <script src="{{ asset('assets/js/pages/features/charts/apexcharts.js') }}"></script> --}}
-    <script>
-
-      // @if (false)
-      //   console.log('true');
-      // @else
-      //   console.log('false');
-      // @endif
+    {{-- <script>
       const $array1;
       $array1 = @json($registrosEjemplares);
       console.log($array1);
@@ -319,5 +313,5 @@
         var chart = new ApexCharts(document.querySelector("#chart_2"), options);
         chart.render();
     
-    </script>
+    </script> --}}
 @endsection
