@@ -96,7 +96,7 @@
                 <a href="#"
                     class="card-title font-weight-bolder text-white font-size-h6 mb-4 text-hover-state-dark d-block">Ejemplares</a>
                 <div class="font-weight-bold text-white font-size-sm">
-                    <span class="font-size-h2 mr-2">{{ $ejemplares }}</span>Registrados
+                    {{-- <span class="font-size-h2 mr-2">{{ $ejemplares }}</span>Registrados --}}
                 </div>
                 <div class="progress progress-xs mt-7 bg-white-o-90">
                     <div class="progress-bar bg-white" role="progressbar" style="width: 52%;" aria-valuenow="50"
