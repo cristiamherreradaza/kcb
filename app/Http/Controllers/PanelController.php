@@ -64,7 +64,7 @@ class PanelController extends Controller
         $ejemplaresExtranjeros = Ejemplar::whereNull('kcb')->count();
         array_push($ejemplarExNa, $ejemplaresExtranjeros);
 
-        return view('panel.inicio')->with(compact('propietarios', 'ejemplares', 'registrosEjemplares','usuariosDona', 'ejemplarExNa'));
+        return view('panel.inicio')->with(compact('propietarios', /*'ejemplares',*/ 'registrosEjemplares','usuariosDona', 'ejemplarExNa'));
         // return view('panel.inicio');
 
     }
