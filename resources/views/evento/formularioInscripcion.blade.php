@@ -80,12 +80,12 @@
 			<br><br>
 			<div class="row">
 				<div class="col-md-6">
-					<div style="height: 200px;">
+					<div style="height: 100px;">
 						<img src="{{ url('img/fci.jpg') }}" alt="" height="100%">
 					</div>
 				</div>
 				<div class="col-md-6" style="">
-					<div style="height: 200px;">
+					<div style="height: 100px;">
 						<img src="{{ url('img/logo.gif') }}" alt="" height="100%" style="float: right;">
 					</div>
 				</div>
