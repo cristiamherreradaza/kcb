@@ -19,55 +19,54 @@ class PanelController extends Controller
 
     public function inicio()
     {
-        // dd("holas");
-        $propietarios = User::where('perfil_id',4)->count();
-        // dd($propietarios);
+        // // dd("holas");
+        // $propietarios = User::where('perfil_id',4)->count();
 
 
-        $ejemplares = Ejemplar::all()->count();
-        dd($ejemplares);
+        // $ejemplares = Ejemplar::all()->count();
+        // dd($ejemplares);
 
 
-        $ejemplaresRegistrados = DB::table('ejemplares')
-                                ->select('ejemplares.created_at')
-                                ->groupBy('ejemplares.raza_id')
-                                ->get();
-        // dd($ejemplaresRegistrados);
+        // $ejemplaresRegistrados = DB::table('ejemplares')
+        //                         ->select('ejemplares.created_at')
+        //                         ->groupBy('ejemplares.raza_id')
+        //                         ->get();
 
-        $registrosEjemplares = array();
+        // $registrosEjemplares = array();
 
-        for($i = 1 ; $i <= 12 ; $i++){
+        // for($i = 1 ; $i <= 12 ; $i++){
 
-            $inidate = date("Y")."-".(($i<=9)? '0'.$i : $i )."-01";
-            $findate = date("Y")."-".(($i<=9)? '0'.$i : $i )."-".cal_days_in_month(CAL_GREGORIAN, (($i<=9)? '0'.$i : $i ) , date("Y"));
+        //     $inidate = date("Y")."-".(($i<=9)? '0'.$i : $i )."-01";
+        //     $findate = date("Y")."-".(($i<=9)? '0'.$i : $i )."-".cal_days_in_month(CAL_GREGORIAN, (($i<=9)? '0'.$i : $i ) , date("Y"));
 
-            $cantiodadREgistroMes = Ejemplar::whereBetween('created_at',["$inidate","$findate"])
-                                    ->count(); 
+        //     $cantiodadREgistroMes = Ejemplar::whereBetween('created_at',["$inidate","$findate"])
+        //                             ->count(); 
 
-            array_push($registrosEjemplares, $cantiodadREgistroMes);
+        //     array_push($registrosEjemplares, $cantiodadREgistroMes);
 
-        }
+        // }
 
-        $usuariosDona = array();
+        // $usuariosDona = array();
 
-        $criador = User::where('tipo', 'Criador')->count();
-        array_push($usuariosDona, $criador);
+        // $criador = User::where('tipo', 'Criador')->count();
+        // array_push($usuariosDona, $criador);
 
-        $socio = User::where('tipo', 'Socio')->count();
-        array_push($usuariosDona, $socio);
+        // $socio = User::where('tipo', 'Socio')->count();
+        // array_push($usuariosDona, $socio);
         
-        $indefinido = User::whereNull('tipo')->count();
-        array_push($usuariosDona, $indefinido);
+        // $indefinido = User::whereNull('tipo')->count();
+        // array_push($usuariosDona, $indefinido);
 
-        $ejemplarExNa = array();
+        // $ejemplarExNa = array();
 
-        $ejemplaresNacionales = Ejemplar::whereNotNull('kcb')->count();
-        array_push($ejemplarExNa, $ejemplaresNacionales);
+        // $ejemplaresNacionales = Ejemplar::whereNotNull('kcb')->count();
+        // array_push($ejemplarExNa, $ejemplaresNacionales);
 
-        $ejemplaresExtranjeros = Ejemplar::whereNull('kcb')->count();
-        array_push($ejemplarExNa, $ejemplaresExtranjeros);
+        // $ejemplaresExtranjeros = Ejemplar::whereNull('kcb')->count();
+        // array_push($ejemplarExNa, $ejemplaresExtranjeros);
 
-        return view('panel.inicio')->with(compact('propietarios', 'ejemplares', 'registrosEjemplares','usuariosDona', 'ejemplarExNa'));
+        // return view('panel.inicio')->with(compact('propietarios', 'ejemplares', 'registrosEjemplares','usuariosDona', 'ejemplarExNa'));
+        return view('panel.inicio');
 
     }
 
