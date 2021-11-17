@@ -6,14 +6,14 @@
       $propietarios = App\User::where('perfil_id',4)->count();
 
 
-      $ejemplares = App\Ejemplar::all()->count();
+      // $ejemplares = App\Ejemplar::all()->count();
 
 
 
-      // $ejemplaresRegistrados = DB::table('ejemplares')
-      //                         ->select('ejemplares.created_at')
-      //                         ->groupBy('ejemplares.raza_id')
-      //                         ->get();
+      $ejemplaresRegistrados = DB::table('ejemplares')
+                              ->select('ejemplares.created_at')
+                              ->groupBy('ejemplares.raza_id')
+                              ->get();
 
       // $registrosEjemplares = array();
 
