@@ -6,7 +6,7 @@
       $propietarios = App\User::where('perfil_id',4)->count();
 
 
-      // $ejemplares = App\Ejemplar::all()->count();
+      $ejemplares = App\Ejemplar::all()->count();
 
 
 
