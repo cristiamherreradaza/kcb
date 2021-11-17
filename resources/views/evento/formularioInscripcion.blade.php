@@ -35,6 +35,12 @@
             'callback_catch' => 'callbackCatch'
         ]) !!}
 	</head>
+	<style>
+		img{
+			display:block;
+			margin:auto;
+		}
+	</style>
 	<!--end::Head-->
 	<!--begin::Body-->
 	<body id="kt_body" class="header-fixed header-mobile-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading">
@@ -78,25 +84,32 @@
 		</div>
 		<div class="container">
 			<br><br>
-			<div class="row">
-				<div class="col-md-6">
-					<div style="height: 100px;">
-						<img src="{{ url('img/fci.jpg') }}" alt="" height="100%">
-					</div>
-				</div>
-				<div class="col-md-6" style="">
-					<div style="height: 100px;">
-						<img src="{{ url('img/logo.gif') }}" alt="" height="100%" style="float: right;">
-					</div>
-				</div>
-			</div>
+			
 			<br><br>
 			<div class="row">
 				<div class="col-md-12">
 					<!--begin::Card-->
 					<div class="card card-custom gutter-b example example-compact">
-						<div class="card-header">
-							<h3 class="card-title">FORMULARIO DE INSCRIPCION ({{ $evento->nombre }})</h3>
+						<br>
+						<div class="row">
+							<div class="col-md-4">
+								<div style="height: 100px;">
+									<img src="{{ url('img/fci.jpg') }}" alt="" height="100%">
+								</div>
+							</div>
+							<div class="col-md-4" style="">
+								<div style="height: 100px;">
+									<img src="{{ url('img/logo.png') }}" alt="" height="100%">
+								</div>
+							</div>
+							<div class="col-md-4" style="">
+								<div style="height: 100px;">
+									<img src="{{ url('img/logo.gif') }}" alt="" height="100%">
+								</div>
+							</div>
+						</div>
+						<div class="text-center">
+							<h3 class="">FORMULARIO DE INSCRIPCION ({{ $evento->nombre }})</h3>
 						</div>
 						<!--begin::Form-->
 						<form action="{{ url('Evento/inscribirEvento') }}" method="POST" id="formulario-inscripcion-evento" >
