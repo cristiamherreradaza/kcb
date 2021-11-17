@@ -21,6 +21,7 @@ class PanelController extends Controller
     {
         // dd("holas");
         $propietarios = User::where('perfil_id',4)->count();
+        dd($propietarios);
 
 
         $ejemplares = Ejemplar::all()->count();
@@ -29,7 +30,7 @@ class PanelController extends Controller
                                 ->select('ejemplares.created_at')
                                 ->groupBy('ejemplares.raza_id')
                                 ->get();
-        dd($ejemplaresRegistrados);
+        // dd($ejemplaresRegistrados);
 
         $registrosEjemplares = array();
 
