@@ -10,10 +10,10 @@
 
 
 
-      $ejemplaresRegistrados = DB::table('ejemplares')
-                              ->select('ejemplares.created_at')
-                              ->groupBy('ejemplares.raza_id')
-                              ->get();
+      // $ejemplaresRegistrados = DB::table('ejemplares')
+      //                         ->select('ejemplares.created_at')
+      //                         ->groupBy('ejemplares.raza_id')
+      //                         ->get();
 
       $registrosEjemplares = array();
 
