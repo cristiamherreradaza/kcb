@@ -8,6 +8,7 @@
 
         $ejemplares = App\Ejemplar::all()->count();
 
+        
 
         $ejemplaresRegistrados = DB::table('ejemplares')
                                 ->select('ejemplares.created_at')
