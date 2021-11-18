@@ -1449,7 +1449,9 @@
                         </label>
                         <select class="form-control select2" id="criadero_id" name="criadero_id"   {{ ($ejemplar != null)? (($ejemplar->extranjero == 'si')? '': 'required') : 'required'}}  >
                             @if ($ejemplar != null && $ejemplar->criadero_id != null)
-                                <option value="{{ $ejemplar->criadero->id }}">{{ $ejemplar->criadero->nombre }}</option>
+                                @if($ejemplar->criadero)
+                                    <option value="{{ $ejemplar->criadero->id }}">{{ $ejemplar->criadero->nombre }}</option>
+                                @endif
                             @endif
                             <option label="Label"></option>
                         </select>

@@ -108,8 +108,11 @@
                 
                     <div class="col-md-3">
                         <h6><span class="text-primary">AFIJO: </span> 
+                            {{-- @dd($ejemplar->criadero_id) --}}
                             @if ($ejemplar->criadero_id != null)
-                                {{ $ejemplar->criadero->nombre }}
+                                @if($ejemplar->criadero)
+                                    {{ $ejemplar->criadero->nombre }}
+                                @endif
                             @endif
                         </h6>
                     </div>
