@@ -1669,15 +1669,17 @@
                                         <th></th>
                                     </tr>
                                     @foreach ($transferencias as $tra)
-                                        <tr>
-                                            <td>{{ $tra->fecha_transferencia }}</td>
-                                            <td>{{ $tra->propietario->name }}</td>
-                                            <td>
-                                                <button type="button" class="btn btn-sm btn-icon btn-danger" onclick="eliminaTransferencia('{{ $tra->id }}', '{{ $tra->propietario->name }}')">
-                                                    <i class="flaticon2-cross"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
+                                        @if($tra->propietario)
+                                            <tr>
+                                                <td>{{ $tra->fecha_transferencia }}</td>
+                                                <td>{{ $tra->propietario->name }}</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-sm btn-icon btn-danger" onclick="eliminaTransferencia('{{ $tra->id }}', '{{ $tra->propietario->name }}')">
+                                                        <i class="flaticon2-cross"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>    
+                                        @endif
                                     @endforeach
                                 </table>
                                 <a href="#" class="btn btn-info btn-block" onclick="nuevaTransferencia()">Nueva Tramsferencia</a>

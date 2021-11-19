@@ -253,10 +253,12 @@
                 </th>
             </tr>
             @forelse ( $transferencia as $t)
-                <tr>
-                    <td>{{ $t->fecha_transferencia }}</td>
-                    <td>{{ $t->propietario->name }}</td>
-                </tr>
+                @if($t->propietario)
+                    <tr>
+                        <td>{{ $t->fecha_transferencia }}</td>
+                        <td>{{ $t->propietario->name }}</td>
+                    </tr>    
+                @endif
             @empty
                 <h5 class="text-danger">
                     No tiene Tramsferencias
