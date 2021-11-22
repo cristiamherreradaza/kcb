@@ -196,6 +196,7 @@ class EventoController extends Controller
             $ejemplarEvento->propietario                = $request->input('propietario');
             $ejemplarEvento->ciudad                     = $request->input('ciudad');
             $ejemplarEvento->sexo                       = $request->input('sexo');
+            $ejemplarEvento->tatuaje                    = $request->input('tatuaje');
 
             $ejemplarEvento->extrangero                 = 'no';
             $ejemplarEvento->criador                    = $request->input('criador');
@@ -224,6 +225,8 @@ class EventoController extends Controller
             $ejemplarEvento->sexo                       = $request->input('sexo');
             $ejemplarEvento->telefono                   = $request->input('telefono');
             $ejemplarEvento->email                      = $request->input('email');
+
+            $ejemplarEvento->tatuaje                    = $request->input('tatuaje');
         }
 
         $ejemplarEvento->edad                           = $request->input('ejemplar_meses');
