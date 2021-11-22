@@ -183,6 +183,20 @@ class EventoController extends Controller
             $ejemplarEvento->evento_id                  = $request->input('evento_id');
             $ejemplarEvento->ejemplar_id                = $request->input('ejemplar_id');      
             $ejemplarEvento->categoria_pista_id         = $request->input('categoria_pista');
+
+            $ejemplarEvento->raza_id                    = $request->input('raza_id');
+            $ejemplarEvento->nombre_completo            = $request->input('nombre');
+            $ejemplarEvento->color                      = $request->input('color');
+            $ejemplarEvento->fecha_nacimiento           = $request->input('fecha_nacimiento');
+            $ejemplarEvento->chip                       = $request->input('chip');
+            $ejemplarEvento->kcb_padre                  = $request->input('kcb_padre');
+            $ejemplarEvento->nombre_padre               = $request->input('nom_padre');
+            $ejemplarEvento->kcb_madre                  = $request->input('kcb_madre');
+            $ejemplarEvento->nombre_madre               = $request->input('nom_madre');
+            $ejemplarEvento->propietario                = $request->input('propietario');
+            $ejemplarEvento->ciudad                     = $request->input('ciudad');
+            $ejemplarEvento->sexo                       = $request->input('sexo');
+
             $ejemplarEvento->extrangero                 = 'no';
             $ejemplarEvento->criador                    = $request->input('criador');
             $ejemplarEvento->telefono                   = $request->input('telefono');
