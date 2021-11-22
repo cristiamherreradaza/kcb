@@ -138,10 +138,19 @@
                                 <div class="form-group">
                                     <label for="kcb">Seleccione el Padre del Ejemplar
                                     </label>
-                                    <input type="hidden" id="edicion_ejemplar_id" name="edicion_ejemplar_id" value="{{ $ejemplar->id }}">
-                                    <input type="hidden" id="edicion_raza_id" name="edicion_raza_id">
-                                    <input type="hidden" id="edicion_padre_id" name="edicion_padre_id">
-                                    <input type="hidden" id="edicion_ejemplar_id_editar" name="edicion_ejemplar_id_editar">
+                                    <br>
+                                    ejemplar editrar matriz
+                                    <input type="text" id="edicion_ejemplar_id" name="edicion_ejemplar_id" value="{{ $ejemplar->id }}">
+                                    <br>
+                                    raza
+                                    <input type="text" id="edicion_raza_id" name="edicion_raza_id" value="{{ $ejemplar->raza_id }}">
+                                    <br>
+                                    padre del ejemplar a editar
+                                    <input type="text" id="edicion_padre_id" name="edicion_padre_id">
+                                    <br>
+                                    ejempla a cual editar
+                                    <input type="text" id="edicion_ejemplar_id_editar" name="edicion_ejemplar_id_editar">
+
                                     <div id="bloque-edita-padre">
                                         {{-- <button type='button' id='btn-padre' onclick='edicionAjaxBuscaEjemplar("Macho")' class='btn btn-block btn-primary'>PADRE</button> --}}
                                     </div>
@@ -158,7 +167,9 @@
                                 <div class="form-group">
                                     <label for="kcb">Seleccione el Madre del Ejemplar
                                     </label>
-                                    <input type="hidden" id="edicion_madre_id" name="edicion_madre_id">
+                                    <br>
+                                    madre del ejemplar a editar
+                                    <input type="text" id="edicion_madre_id" name="edicion_madre_id">
                                     <div id="bloque-edita-madre">
                                         {{-- <button type='button' id='btn-madre' onclick='edicionAjaxBuscaEjemplar("Hembra")' class='btn btn-block btn-info'>MADRE</button> --}}
                                     </div>
@@ -826,6 +837,7 @@
                 $kcbAbuela = ($abuela)?$abuela->kcb:'';
                 $nombreAbuela = ($abuela != null)?$abuela->nombre:'';
                 $IdAbuela = ($abuela != null)?$abuela->id:null;
+                // dd($abuela);
 
                 if($abuela->padre_id != null){
 
@@ -952,7 +964,8 @@
         $kcbabueloMSG222  = '' ;
         $nombreabueloMSG222  = '' ;
 
-        $IdAbuela = '';
+        // $IdAbuela = '';
+
         $IdTGPadreM = '';
         $IdTGMadreM = '';
         $IdCGPadreM1 = '';
@@ -1812,8 +1825,10 @@
                                     <td rowspan="4">
                                         {{ $nombreAbuela }}
                                         <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdAbuela }}','{{ addslashes($nombreAbueloTG1) }}','{{ $IdAbueloTG1 }}','{{ addslashes($nombreAbuelaTG1) }}','{{  $IdAbuelaTG1  }}','{{ $edicion_raza_id }}')">
-                                            PADRES
+                                            PADRES 1
                                         </span>
+                                        {{-- @dd($IdAbuela) --}}
+                                        {{-- @dd($edicion_raza_id) --}}
                                     </td>
                                     <td rowspan="2">
                                         {{ $nombreAbueloTG1 }}
