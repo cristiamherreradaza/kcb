@@ -138,18 +138,18 @@
                                 <div class="form-group">
                                     <label for="kcb">Seleccione el Padre del Ejemplar
                                     </label>
-                                    <br>
-                                    ejemplar editrar matriz
-                                    <input type="text" id="edicion_ejemplar_id" name="edicion_ejemplar_id" value="{{ $ejemplar->id }}">
-                                    <br>
-                                    raza
-                                    <input type="text" id="edicion_raza_id" name="edicion_raza_id" value="{{ $ejemplar->raza_id }}">
-                                    <br>
-                                    padre del ejemplar a editar
-                                    <input type="text" id="edicion_padre_id" name="edicion_padre_id">
-                                    <br>
-                                    ejempla a cual editar
-                                    <input type="text" id="edicion_ejemplar_id_editar" name="edicion_ejemplar_id_editar">
+                                    {{-- <br>
+                                    ejemplar editrar matriz --}}
+                                    <input type="hidden" id="edicion_ejemplar_id" name="edicion_ejemplar_id" value="{{ $ejemplar->id }}">
+                                    {{-- <br>
+                                    raza --}}
+                                    <input type="hidden" id="edicion_raza_id" name="edicion_raza_id" value="{{ $ejemplar->raza_id }}">
+                                    {{-- <br>
+                                    padre del ejemplar a editar --}}
+                                    <input type="hidden" id="edicion_padre_id" name="edicion_padre_id">
+                                    {{-- <br>
+                                    ejempla a cual editar --}}
+                                    <input type="hidden" id="edicion_ejemplar_id_editar" name="edicion_ejemplar_id_editar">
 
                                     <div id="bloque-edita-padre">
                                         {{-- <button type='button' id='btn-padre' onclick='edicionAjaxBuscaEjemplar("Macho")' class='btn btn-block btn-primary'>PADRE</button> --}}
@@ -167,9 +167,9 @@
                                 <div class="form-group">
                                     <label for="kcb">Seleccione el Madre del Ejemplar
                                     </label>
-                                    <br>
-                                    madre del ejemplar a editar
-                                    <input type="text" id="edicion_madre_id" name="edicion_madre_id">
+                                    {{-- <br>
+                                    madre del ejemplar a editar --}}
+                                    <input type="hidden" id="edicion_madre_id" name="edicion_madre_id">
                                     <div id="bloque-edita-madre">
                                         {{-- <button type='button' id='btn-madre' onclick='edicionAjaxBuscaEjemplar("Hembra")' class='btn btn-block btn-info'>MADRE</button> --}}
                                     </div>
