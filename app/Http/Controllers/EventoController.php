@@ -122,11 +122,18 @@ class EventoController extends Controller
                 $arrayEjemplar['kcb_madre'] = null;
                 $arrayEjemplar['nombre_madre'] = null;
             }
-            // dd($ejemplar->propietario);
-            $arrayEjemplar['nom_propietario'] = $ejemplar->propietario->name;    
-            $arrayEjemplar['departamento'] = $ejemplar->propietario->departamento;    
-            $arrayEjemplar['celulares'] = $ejemplar->propietario->celulares;    
-            $arrayEjemplar['email'] = $ejemplar->propietario->email;    
+            if($ejemplar->propietario){
+                $arrayEjemplar['nom_propietario'] = $ejemplar->propietario->name;    
+                $arrayEjemplar['departamento'] = $ejemplar->propietario->departamento;    
+                $arrayEjemplar['celulares'] = $ejemplar->propietario->celulares;    
+                $arrayEjemplar['email'] = $ejemplar->propietario->email; 
+            }else{
+                $arrayEjemplar['nom_propietario'] = null;    
+                $arrayEjemplar['departamento'] = null;    
+                $arrayEjemplar['celulares'] = null;    
+                $arrayEjemplar['email'] = null; 
+            }
+            // dd($ejemplar->propietario);   
 
             $arrayEjemplar['raza_id'] = $ejemplar->raza->id;                   
         }
