@@ -324,19 +324,20 @@ class EventoController extends Controller
                                     })
                                     ->get();
 
-        $ejemplaresJoveAdulto = EjemplarEvento::where("evento_id",$evento_id)
-                                    ->whereIn("categoria_pista_id",[3,4,5,6,7,8,9,10,14,15])
-                                    // ->where(function($query){
-                                    //     $query->orwhere("categoria_pista_id",3)
-                                    //           ->orwhere("categoria_pista_id",4)
-                                    //           ->orwhere("categoria_pista_id",5)
-                                    //           ->orwhere("categoria_pista_id",6);
-                                    // })
+        $ejemplaresJovenes = EjemplarEvento::where("evento_id",$evento_id)
+                                    ->whereIn("categoria_pista_id",[3,4])
                                     ->get();
 
+        $ejemplaresAdulto = EjemplarEvento::where("evento_id",$evento_id)
+                                    ->whereIn("categoria_pista_id",[5,6,7,8,9,10,14,15])
+                                    ->get();
+        // $ejemplaresJoveAdulto = EjemplarEvento::where("evento_id",$evento_id)
+        //                             ->whereIn("categoria_pista_id",[3,4,5,6,7,8,9,10,14,15])
+        //                             ->get();
         // dd($ejemplaresJoveAdulto);                                    
 
-        return view('evento.catalogo')->with(compact('ejemplares', 'evento','ejemplaresAbsolutos', 'ejemplaresJoveAdulto'));
+        // return view('evento.catalogo')->with(compact('ejemplares', 'evento','ejemplaresAbsolutos', 'ejemplaresJoveAdulto'));
+        return view('evento.catalogo')->with(compact('ejemplares', 'evento','ejemplaresAbsolutos', 'ejemplaresJovenes', 'ejemplaresAdulto'));
     }
 
     public static function armaCatalogo($arrayGrupo, $evento_id, $grupo, $categoria){
@@ -365,8 +366,10 @@ class EventoController extends Controller
                             $razas1->where('ejemplares_eventos.categoria_pista_id',1);
                         }elseif($categoria == 2){
                             $razas1->whereIn('ejemplares_eventos.categoria_pista_id', [11,2]);
+                        }elseif($categoria == 3){
+                            $razas1->whereIn('ejemplares_eventos.categoria_pista_id', [3,4]);
                         }else{
-                            $razas1->whereIn('ejemplares_eventos.categoria_pista_id', [3,4,5,6,7,8,9,10,14,15]);
+                            $razas1->whereIn('ejemplares_eventos.categoria_pista_id', [5,6,7,8,9,10,14,15]);
                         }
                   $razas1->where('grupos.id',$grupo)
                         ->groupBy('razas.id')
@@ -385,17 +388,17 @@ class EventoController extends Controller
             // <h5 class="text-primary"> - {{ $r->nombre }}</h5>
             if (!empty($g2machos)){
                 $swm = true;
-                EventoController::catalogoDevuelveEjemplar($g2machos,$swm,$r);
+                EventoController::catalogoDevuelveEjemplar($g2machos,$swm,$r,$evento_id);
             }
             if (!empty($g2hembras)){
                 $swh = true;
-                EventoController::catalogoDevuelveEjemplar($g2hembras,$swh,$r);
+                EventoController::catalogoDevuelveEjemplar($g2hembras,$swh,$r,$evento_id);
             }
         }
     }
 
     // public static function catalogoDevuelveEjemplar($arrayEjemplares, $sw, $raza){
-    public static function catalogoDevuelveEjemplar($arrayEjemplares, $sw, $raza){
+    public static function catalogoDevuelveEjemplar($arrayEjemplares, $sw, $raza, $evento_id){
         // dd($sexo);
         foreach ($arrayEjemplares as $g2h){
             $eje = Ejemplar::find($g2h);
@@ -407,8 +410,17 @@ class EventoController extends Controller
                         // }else{
                         //     $evento = EjemplarEvento::where('codigo_nacionalizado',$eje->codigo_nacionalizado);
                         // }
-                        $evento = EjemplarEvento::where('ejemplar_id',$eje->id)->first();
-                        echo '<h6> <span class="text-danger">'.$evento->categoriaPista->nombre.'</span>'.$eje->sexo.'s</h6>';
+
+                        
+                        $evento = EjemplarEvento::where('ejemplar_id',$eje->id)
+                                                    ->where('evento_id',$evento_id)
+                                                    ->first();
+                        // dd($evento);
+                        // echo "<h1 class='text-success'>".$evento->categoria_pista_id."<-->".$eje->id."</h1>";
+                        echo '<h6> <span class="text-danger">'.$evento->categoriaPista->nombre.'</span> '.$eje->sexo.'s</h6>';
+
+                        // $evento = EjemplarEvento::where('ejemplar_id',$eje->id)->first();
+                        // echo '<h6> <span class="text-danger">'.$evento->categoriaPista->nombre.'</span>'.$eje->sexo.'s</h6>';
                         $sw = false;
                     }
 
