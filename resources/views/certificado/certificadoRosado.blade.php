@@ -15,6 +15,7 @@
     body{
         width: 100%;
         margin: 0;
+        padding:0;
         font-family: Arial, Helvetica, sans-serif;
     }
     #enlaces a{
@@ -239,6 +240,7 @@
         left: 310px;
         width:250px;
         height: 123px;
+        
     }
     .abuelo_1{
         top:-3px;
@@ -2645,7 +2647,7 @@
 
             var AbuelotextSpan = AbuelotextDiv.getElementsByClassName("abuelos1")[0];
 
-            AbuelotextSpan.style.fontSize = 18;
+            AbuelotextSpan.style.fontSize = 12;
 
             while(AbuelotextSpan.offsetHeight > AbuelotextDiv.offsetHeight)
             {
@@ -2656,7 +2658,6 @@
             {
                 AbuelotextSpan.style.fontSize = parseInt(AbuelotextSpan.style.fontSize) - 1;
             }
-
         }
 
 
