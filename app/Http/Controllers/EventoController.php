@@ -329,7 +329,7 @@ class EventoController extends Controller
                                     ->get();
 
         $ejemplaresAdulto = EjemplarEvento::where("evento_id",$evento_id)
-                                    ->whereIn("categoria_pista_id",[5,6,7,8,9,10,14,15])
+                                    ->whereIn("categoria_pista_id",[5,6,7,8,9,10,14,15,16,17,18,19,20])
                                     ->get();
         // $ejemplaresJoveAdulto = EjemplarEvento::where("evento_id",$evento_id)
         //                             ->whereIn("categoria_pista_id",[3,4,5,6,7,8,9,10,14,15])
@@ -369,7 +369,7 @@ class EventoController extends Controller
                         }elseif($categoria == 3){
                             $razas1->whereIn('ejemplares_eventos.categoria_pista_id', [3,4]);
                         }else{
-                            $razas1->whereIn('ejemplares_eventos.categoria_pista_id', [5,6,7,8,9,10,14,15]);
+                            $razas1->whereIn('ejemplares_eventos.categoria_pista_id', [5,6,7,8,9,10,14,15,16,17,18,19,20]);
                         }
                   $razas1->where('grupos.id',$grupo)
                         ->groupBy('razas.id')

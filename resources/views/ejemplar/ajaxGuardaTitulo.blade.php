@@ -2,7 +2,7 @@
     <thead>
         <tr>
             <th>FECHA</th>
-            <th>EXAMEN</th>
+            <th>TITULO</th>
             {{--  <th></th>  --}}
         </tr>
     </thead>
@@ -22,4 +22,4 @@
         @endforelse
     </tbody>
 </table>    
-<a href="#" class="btn btn-info btn-block" onclick="nuevoTitulo()">Nuevo Examen</a>
+<a href="#" class="btn btn-info btn-block" onclick="nuevoTitulo()">Nuevo Titulo</a>

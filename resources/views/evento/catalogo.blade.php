@@ -75,26 +75,6 @@
                         }
                     }
                 }
-                // echo '<br><br>grupo I -> ';
-                // print_r($grupo1);
-                // echo '<br><br>grupo II -> ';
-                // print_r($grupo2);
-                // echo '<br><br>grupo III -> ';
-                // print_r($grupo3);
-                // echo '<br><br>grupo IV -> ';
-                // print_r($grupo4);
-                // echo '<br><br>grupo V -> ';
-                // print_r($grupo5);
-                // echo '<br><br>grupo VI -> ';
-                // print_r($grupo6);
-                // echo '<br><br>grupo VII -> ';
-                // print_r($grupo7);
-                // echo '<br><br>grupo VIII -> ';
-                // print_r($grupo8);
-                // echo '<br><br>grupo IX -> ';
-                // print_r($grupo9);
-                // echo '<br><br>grupo X -> ';
-                // print_r($grupo10);
             @endphp
             @if (!empty($grupo1))
                 <h5 class="text-primary">Grupo I</h5>
@@ -554,6 +534,7 @@
                 $grupo8  = array();
                 $grupo9  = array();
                 $grupo10 = array();
+                // dd($ejemplaresAdulto);
                 foreach ($ejemplaresAdulto as $key => $e){
 
                     $cant = App\GrupoRaza::where('raza_id',$e->raza_id)

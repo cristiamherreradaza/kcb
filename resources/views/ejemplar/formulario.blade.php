@@ -1698,7 +1698,7 @@
                                 <table class="table table-striped">
                                     <tr>
                                         <th>FECHA</th>
-                                        <th>EXAMEN</th>
+                                        <th>TITULO</th>
                                         <th></th>
                                     </tr>
                                     @foreach ($tituloEjemplar as $te)
