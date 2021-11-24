@@ -432,65 +432,95 @@ class EventoController extends Controller
         // dd($sexo);
         foreach ($arrayEjemplares as $g2h){
             if($g2h > 0){
+                $eje = Ejemplar::find($g2h);
+                if($eje){
+                    if($eje->raza_id == $raza->id){
+                        if($sw){
+                            // if($eje->kcb){
+                            //     $evento = EjemplarEvento::where('kcb',$eje->kcb)->first();
+                            // }else{
+                            //     $evento = EjemplarEvento::where('codigo_nacionalizado',$eje->codigo_nacionalizado);
+                            // }
+                            $evento = EjemplarEvento::where('ejemplar_id',$eje->id)
+                                                        ->where('evento_id',$evento_id)
+                                                        ->first();
+                            // dd($evento);
+                            // echo "<h1 class='text-success'>".$evento->categoria_pista_id."<-->".$eje->id."</h1>";
+                            echo '<h6> <span class="text-danger">'.$evento->categoriaPista->nombre.'</span> '.$eje->sexo.'s</h6>';
+    
+                            // $evento = EjemplarEvento::where('ejemplar_id',$eje->id)->first();
+                            // echo '<h6> <span class="text-danger">'.$evento->categoriaPista->nombre.'</span>'.$eje->sexo.'s</h6>';
+                            $sw = false;
+                        }
+    
+                        if($eje->kcb == null && ($eje->codigo_nacionalizado != '' || $eje->codigo_nacionalizado != null)){
+                            $nacionalidad = '(Extranjero)';
+                            $kcb =  $eje->codigo_nacionalizado; 
+                        }else{
+                            $nacionalidad = '(Nacional)';
+                            $kcb =  $eje->kcb; 
+                        }
+    
+                        if($eje->padre){
+                            $padre = $eje->padre->nombre_completo;
+                        }else{
+                            $padre = '';
+                        }
+    
+                        if($eje->madre){
+                            $madre = $eje->madre->nombre_completo;
+                        }else{
+                            $madre = '';
+                        }
+    
+                        if($eje->propietario){
+                            $nombre_propietario         = $eje->propietario->name;
+                            $departamento_propietario   = $eje->propietario->departamento;
+                            $celulares_propietario      = $eje->propietario->celulares;
+                            $email_propietario          = $eje->propietario->email;
+                        }else{
+                            $nombre_propietario         = '';
+                            $departamento_propietario   = '';
+                            $celulares_propietario      = '';
+                            $email_propietario          = '';
+                        }
+                        echo '<b>'.$eje->nombre_completo.'</b><span class="text-danger">'.$nacionalidad."</span><br>" ;
+                        echo '<b>KCB: </b>'.$kcb.' - <b> FECHA NACIMIENTO: </b>'.date('d/m/Y',strtotime($eje->fecha_nacimiento)).' - <b> POR: </b>'.$padre.' y '.$madre.'<br>';
+                        echo '<b> PROPIETARIO: </b>'.$nombre_propietario.' - <b> CIUDAD/PAIS: </b>'.$departamento_propietario.' - <b> TELEFONOS: </b>'.$celulares_propietario.' - <b> EMAIL: </b>'.$email_propietario.'<br><br>';
+                    }
+                }
+            }else{
+                $g2hExt = (-1) * $g2h ;
 
-            }
-            $eje = Ejemplar::find($g2h);
-            if($eje){
-                if($eje->raza_id == $raza->id){
-                    if($sw){
-                        // if($eje->kcb){
-                        //     $evento = EjemplarEvento::where('kcb',$eje->kcb)->first();
-                        // }else{
-                        //     $evento = EjemplarEvento::where('codigo_nacionalizado',$eje->codigo_nacionalizado);
-                        // }
-                        $evento = EjemplarEvento::where('ejemplar_id',$eje->id)
+                $eje = EjemplarEvento::find($g2hExt);
+
+                if($eje){
+                    if($eje->raza_id == $raza->id){
+                        if($sw){
+                            $evento = EjemplarEvento::where('id',$eje->id)
                                                     ->where('evento_id',$evento_id)
                                                     ->first();
-                        // dd($evento);
-                        // echo "<h1 class='text-success'>".$evento->categoria_pista_id."<-->".$eje->id."</h1>";
-                        echo '<h6> <span class="text-danger">'.$evento->categoriaPista->nombre.'</span> '.$eje->sexo.'s</h6>';
+                            echo '<h6> <span class="text-danger">'.$evento->categoriaPista->nombre.'</span> '.$eje->sexo.'s</h6>';
+                            $sw = false;
+                        }
 
-                        // $evento = EjemplarEvento::where('ejemplar_id',$eje->id)->first();
-                        // echo '<h6> <span class="text-danger">'.$evento->categoriaPista->nombre.'</span>'.$eje->sexo.'s</h6>';
-                        $sw = false;
-                    }
-
-                    if($eje->kcb == null && ($eje->codigo_nacionalizado != '' || $eje->codigo_nacionalizado != null)){
                         $nacionalidad = '(Extranjero)';
                         $kcb =  $eje->codigo_nacionalizado; 
-                    }else{
-                        $nacionalidad = '(Nacional)';
-                        $kcb =  $eje->kcb; 
-                    }
+                        $padre = $eje->nombre_padre;
+                        $madre = $eje->nombre_madre;
+                        
+                        $nombre_propietario         = $eje->propietario;
+                        $departamento_propietario   = $eje->ciudad;
+                        $celulares_propietario      = $eje->telefono;
+                        $email_propietario          = $eje->email;
 
-                    if($eje->padre){
-                        $padre = $eje->padre->nombre_completo;
-                    }else{
-                        $padre = '';
+                        echo '<b>'.$eje->nombre_completo.'</b><span class="text-danger">'.$nacionalidad."</span><br>" ;
+                        echo '<b>COD EXTRANJERO: </b>'.$kcb.' - <b> FECHA NACIMIENTO: </b>'.date('d/m/Y',strtotime($eje->fecha_nacimiento)).' - <b> POR: </b>'.$padre.' y '.$madre.'<br>';
+                        echo '<b> PROPIETARIO: </b>'.$nombre_propietario.' - <b> CIUDAD/PAIS: </b>'.$departamento_propietario.' - <b> TELEFONOS: </b>'.$celulares_propietario.' - <b> EMAIL: </b>'.$email_propietario.'<br><br>';
                     }
-
-                    if($eje->madre){
-                        $madre = $eje->madre->nombre_completo;
-                    }else{
-                        $madre = '';
-                    }
-
-                    if($eje->propietario){
-                        $nombre_propietario         = $eje->propietario->name;
-                        $departamento_propietario   = $eje->propietario->departamento;
-                        $celulares_propietario      = $eje->propietario->celulares;
-                        $email_propietario          = $eje->propietario->email;
-                    }else{
-                        $nombre_propietario         = '';
-                        $departamento_propietario   = '';
-                        $celulares_propietario      = '';
-                        $email_propietario          = '';
-                    }
-                    echo '<b>'.$eje->nombre_completo.'</b><span class="text-danger">'.$nacionalidad."</span><br>" ;
-                    echo '<b>KCB: </b>'.$kcb.' - <b> FECHA NACIMIENTO: </b>'.date('d/m/Y',strtotime($eje->fecha_nacimiento)).' - <b> POR: </b>'.$padre.' y '.$madre.'<br>';
-                    echo '<b> PROPIETARIO: </b>'.$nombre_propietario.' - <b> CIUDAD/PAIS: </b>'.$departamento_propietario.' - <b> TELEFONOS: </b>'.$celulares_propietario.' - <b> EMAIL: </b>'.$email_propietario.'<br><br>';
                 }
             }
+            
         }
     }
 
