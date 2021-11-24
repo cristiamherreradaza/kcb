@@ -75,6 +75,26 @@
                         }
                     }
                 }
+                // echo '<br><br>grupo I -> ';
+                // print_r($grupo1);
+                // echo '<br><br>grupo II -> ';
+                // print_r($grupo2);
+                // echo '<br><br>grupo III -> ';
+                // print_r($grupo3);
+                // echo '<br><br>grupo IV -> ';
+                // print_r($grupo4);
+                // echo '<br><br>grupo V -> ';
+                // print_r($grupo5);
+                // echo '<br><br>grupo VI -> ';
+                // print_r($grupo6);
+                // echo '<br><br>grupo VII -> ';
+                // print_r($grupo7);
+                // echo '<br><br>grupo VIII -> ';
+                // print_r($grupo8);
+                // echo '<br><br>grupo IX -> ';
+                // print_r($grupo9);
+                // echo '<br><br>grupo X -> ';
+                // print_r($grupo10);
             @endphp
             @if (!empty($grupo1))
                 <h5 class="text-primary">Grupo I</h5>
@@ -388,72 +408,78 @@
 
                     $cant = App\GrupoRaza::where('raza_id',$e->raza_id)
                                             ->first();
+                                            // dd($cant);
                     if($cant){
+                        if($e->extranjero == 'no'){
+                            $ejemplar = $e->ejemplar_id;
+                        }else{
+                            $ejemplar = (-1) * $e->id;
+                        }
                         // echo ($key+1)." - Nombre Raza: ".$cant->razas->nombre." <---> Raza ID: ".$cant->razas->id." <---> Grupo ID: ".$cant->grupo_id." <---> Ejemplar ID: ".$e->ejemplar_id."<br>";
                         switch ($cant->grupo_id) {
                             case 1:
-                                array_push($grupo1, "$e->ejemplar_id");
+                                array_push($grupo1, "$ejemplar");
                                 // echo "i equals 0";
                                 break;
                             case 2:
-                                array_push($grupo2, "$e->ejemplar_id");
+                                array_push($grupo2, "$ejemplar");
                                 // echo "i equals 1";
                                 break;
                             case 3:
-                                array_push($grupo3, "$e->ejemplar_id");
+                                array_push($grupo3, "$ejemplar");
                                 // echo "i equals 2";
                                 break;
                             case 4:
-                                array_push($grupo4, "$e->ejemplar_id");
+                                array_push($grupo4, "$ejemplar");
                                 // echo "i equals 0";
                                 break;
                             case 5:
-                                array_push($grupo5, "$e->ejemplar_id");
+                                array_push($grupo5, "$ejemplar");
                                 // echo "i equals 1";
                                 break;
                             case 6:
-                                array_push($grupo6, "$e->ejemplar_id");
+                                array_push($grupo6, "$ejemplar");
                                 // echo "i equals 2";
                                 break;
                             case 7:
-                                array_push($grupo7, "$e->ejemplar_id");
+                                array_push($grupo7, "$ejemplar");
                                 // echo "i equals 0";
                                 break;
                             case 8:
-                                array_push($grupo8, "$e->ejemplar_id");
+                                array_push($grupo8, "$ejemplar");
                                 // echo "i equals 1";
                                 break;
                             case 9:
-                                array_push($grupo9, "$e->ejemplar_id");
+                                array_push($grupo9, "$ejemplar");
                                 // echo "i equals 2";
                                 break;
                             case 10:
-                                array_push($grupo10, "$e->ejemplar_id");
+                                array_push($grupo10, "$ejemplar");
                                 // echo "i equals 2";
                                 break;
                         }
                     }
                 }
-                // echo '<br><br>grupo I -> ';
-                // print_r($grupo1);
-                // echo '<br><br>grupo II -> ';
-                // print_r($grupo2);
-                // echo '<br><br>grupo III -> ';
-                // print_r($grupo3);
-                // echo '<br><br>grupo IV -> ';
-                // print_r($grupo4);
-                // echo '<br><br>grupo V -> ';
-                // print_r($grupo5);
-                // echo '<br><br>grupo VI -> ';
-                // print_r($grupo6);
-                // echo '<br><br>grupo VII -> ';
-                // print_r($grupo7);
-                // echo '<br><br>grupo VIII -> ';
-                // print_r($grupo8);
-                // echo '<br><br>grupo IX -> ';
-                // print_r($grupo9);
-                // echo '<br><br>grupo X -> ';
-                // print_r($grupo10);
+                echo '<br><br>grupo I -> ';
+                print_r($grupo1);
+                echo '<br><br>grupo II -> ';
+                print_r($grupo2);
+                echo '<br><br>grupo III -> ';
+                print_r($grupo3);
+                echo '<br><br>grupo IV -> ';
+                print_r($grupo4);
+                echo '<br><br>grupo V -> ';
+                print_r($grupo5);
+                echo '<br><br>grupo VI -> ';
+                print_r($grupo6);
+                echo '<br><br>grupo VII -> ';
+                print_r($grupo7);
+                echo '<br><br>grupo VIII -> ';
+                print_r($grupo8);
+                echo '<br><br>grupo IX -> ';
+                print_r($grupo9);
+                echo '<br><br>grupo X -> ';
+                print_r($grupo10);
             @endphp
         @if (!empty($grupo1))
             <h5 class="text-primary">Grupo I</h5>

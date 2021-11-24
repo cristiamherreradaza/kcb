@@ -332,8 +332,11 @@ class EventoController extends Controller
                                     ->get();
 
         $ejemplaresJovenes = EjemplarEvento::where("evento_id",$evento_id)
-                                    ->whereIn("categoria_pista_id",[3,4])
+                                    ->whereIn("categoria_pista_id",[3,4,12,13])
                                     ->get();
+
+        // dd($ejemplaresJovenes);                                    
+
 
         $ejemplaresAdulto = EjemplarEvento::where("evento_id",$evento_id)
                                     ->whereIn("categoria_pista_id",[5,6,7,8,9,10,14,15,16,17,18,19,20])
@@ -353,14 +356,34 @@ class EventoController extends Controller
         $g2machos = array();
         $g2hembras = array();
         foreach ($arrayGrupo as $g2){
-            $eje = Ejemplar::find($g2);
-            if($eje){
-                if($eje->sexo == 'Macho'){
-                    array_push($g2machos, "$eje->id");
-                }else{
-                    array_push($g2hembras, "$eje->id");
-                }    
+            if($g2 > 0){
+                if($g2 > 0){
+                    $eje = Ejemplar::find($g2);
+                }
+                else{
+                    $h = (-1)*$g2;
+                    $eje = EjemplarEvento::find($h);
+                }
+                if($eje){
+                    if($eje->sexo == 'Macho'){
+                        array_push($g2machos, "$eje->id");
+                    }else{
+                        array_push($g2hembras, "$eje->id");
+                    }    
+                }
+            }else{
+                $h = (-1)*$g2;
+                $eje = EjemplarEvento::find($h);
+                $ejeExt = (-1) * $eje->id;
+                if($eje){
+                    if($eje->sexo == 'Macho'){
+                        array_push($g2machos, "$ejeExt");
+                    }else{
+                        array_push($g2hembras, "$ejeExt");
+                    }    
+                }
             }
+            
             
         }
             $razas1 = EjemplarEvento::query();
@@ -374,7 +397,7 @@ class EventoController extends Controller
                         }elseif($categoria == 2){
                             $razas1->whereIn('ejemplares_eventos.categoria_pista_id', [11,2]);
                         }elseif($categoria == 3){
-                            $razas1->whereIn('ejemplares_eventos.categoria_pista_id', [3,4]);
+                            $razas1->whereIn('ejemplares_eventos.categoria_pista_id', [3,4,12,13]);
                         }else{
                             $razas1->whereIn('ejemplares_eventos.categoria_pista_id', [5,6,7,8,9,10,14,15,16,17,18,19,20]);
                         }
@@ -408,6 +431,9 @@ class EventoController extends Controller
     public static function catalogoDevuelveEjemplar($arrayEjemplares, $sw, $raza, $evento_id){
         // dd($sexo);
         foreach ($arrayEjemplares as $g2h){
+            if($g2h > 0){
+
+            }
             $eje = Ejemplar::find($g2h);
             if($eje){
                 if($eje->raza_id == $raza->id){
@@ -417,8 +443,6 @@ class EventoController extends Controller
                         // }else{
                         //     $evento = EjemplarEvento::where('codigo_nacionalizado',$eje->codigo_nacionalizado);
                         // }
-
-                        
                         $evento = EjemplarEvento::where('ejemplar_id',$eje->id)
                                                     ->where('evento_id',$evento_id)
                                                     ->first();

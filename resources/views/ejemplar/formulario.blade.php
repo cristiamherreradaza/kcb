@@ -713,6 +713,8 @@
         $IdAbueloCG1M = '';
         $IdAbuelaTG1M1 = '';
 
+        $IdAbuela = '';
+
         if($ejemplarOrigen->padre_id != null){
 
             $papa = App\Ejemplar::find($ejemplarOrigen->padre_id);

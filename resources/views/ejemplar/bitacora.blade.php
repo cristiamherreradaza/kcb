@@ -147,13 +147,19 @@
 					</thead>
 					<tbody>
 						@forelse ($modificaiones as $m)
+						@php
+							$jemplar = App\Ejemplar::find($m->ejemplar_id);
+						@endphp
+						@if($jemplar)
 							<tr>
 								<td>{{ $m->id }}</td>
 								<td>{{ $m->user->name }}</td>
 								<td>
 									@php
 										$jemplar = App\Ejemplar::find($m->ejemplar_id);
-										echo $jemplar->nombre;
+										if($jemplar){
+											echo $jemplar->nombre;
+										}
 									@endphp
 								</td>
 								<td>
@@ -164,7 +170,6 @@
 											echo $m->campo;
 										}
 									@endphp
-									{{-- {{ $m->campo }} --}}
 								</td>
 								<td>{{ $m->dato_anteriror }}</td>
 								<td>{{ $m->dato_modificado }}</td>
@@ -189,6 +194,7 @@
 									<span class="label label-lg label-light-{{ $style }} label-inline">{{ $m->accion }}</span>
 								</td>
 							</tr>
+						@endif
 						@empty
 							<h3 class="text-danger">NO EXISTEN EVENTOS</h3>
 						@endforelse
