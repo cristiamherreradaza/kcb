@@ -430,6 +430,8 @@ class EventoController extends Controller
     // public static function catalogoDevuelveEjemplar($arrayEjemplares, $sw, $raza){
     public static function catalogoDevuelveEjemplar($arrayEjemplares, $sw, $raza, $evento_id){
         // dd($sexo);
+        // var_dump($arrayEjemplares);
+        // exit;
         foreach ($arrayEjemplares as $g2h){
             if($g2h > 0){
                 $eje = Ejemplar::find($g2h);
@@ -508,7 +510,7 @@ class EventoController extends Controller
                         $kcb =  $eje->codigo_nacionalizado; 
                         $padre = $eje->nombre_padre;
                         $madre = $eje->nombre_madre;
-                        
+
                         $nombre_propietario         = $eje->propietario;
                         $departamento_propietario   = $eje->ciudad;
                         $celulares_propietario      = $eje->telefono;

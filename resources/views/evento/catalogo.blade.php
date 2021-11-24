@@ -30,11 +30,12 @@
                     $cant = App\GrupoRaza::where('raza_id',$e->raza_id)
                                             ->first();
                     if($cant){
-                        if($e->extranjero == 'no'){
+                        if($e->extrangero == 'no'){
                             $ejemplar = $e->ejemplar_id;
                         }else{
                             $ejemplar = (-1) * $e->id;
                         }
+                        // dd($ejemplar);
                         // echo ($key+1)." - Nombre Raza: ".$cant->razas->nombre." <---> Raza ID: ".$cant->razas->id." <---> Grupo ID: ".$cant->grupo_id." <---> Ejemplar ID: ".$e->ejemplar_id."<br>";
                         switch ($cant->grupo_id) {
                             case 1:
@@ -266,7 +267,7 @@
                                             ->first();
                     if($cant){
                         // echo ($key+1)." - Nombre Raza: ".$cant->razas->nombre." <---> Raza ID: ".$cant->razas->id." <---> Grupo ID: ".$cant->grupo_id." <---> Ejemplar ID: ".$e->ejemplar_id."<br>";
-                        if($e->extranjero == 'no'){
+                        if($e->extrangero == 'no'){
                             $ejemplar = $e->ejemplar_id;
                         }else{
                             $ejemplar = (-1) * $e->id;
@@ -420,7 +421,7 @@
                                             ->first();
                                             // dd($cant);
                     if($cant){
-                        if($e->extranjero == 'no'){
+                        if($e->extrangero == 'no'){
                             $ejemplar = $e->ejemplar_id;
                         }else{
                             $ejemplar = (-1) * $e->id;
@@ -577,7 +578,7 @@
                                             ->first();
                     if($cant){
                         // echo ($key+1)." - Nombre Raza: ".$cant->razas->nombre." <---> Raza ID: ".$cant->razas->id." <---> Grupo ID: ".$cant->grupo_id." <---> Ejemplar ID: ".$e->ejemplar_id."<br>";
-                        if($e->extranjero == 'no'){
+                        if($e->extrangero == 'no'){
                             $ejemplar = $e->ejemplar_id;
                         }else{
                             $ejemplar = (-1) * $e->id;
