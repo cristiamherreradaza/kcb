@@ -1983,18 +1983,40 @@ class EjemplarController extends Controller
         if($arrayOriginal1['padre_id'] != $arrayCambio1['padre_id']){
 
             $padreOrigen = Ejemplar::find($arrayOriginal1['padre_id']);
-            $padreCambio = Ejemplar::find($arrayCambio1['padre_id']);
+            if($padreOrigen){
+                $padreOrigenadd = $padreOrigen->nombre;
+            }else{
+                $padreOrigenadd = "";
+            }
 
-            $this->addbitacora($registro_id, 'PADRE', $padreOrigen->nombre, $padreCambio->nombre, 'Modificado');
+            $padreCambio = Ejemplar::find($arrayCambio1['padre_id']);
+            if($padreCambio){
+                $padreCambioadd = $padreCambio->nombre;
+            }else{
+                $padreCambioadd = "";
+            }
+
+            $this->addbitacora($registro_id, 'PADRE', $padreOrigenadd, $padreCambioadd, 'Modificado');
 
         }
 
         if($arrayOriginal1['madre_id'] != $arrayCambio1['madre_id']){
 
             $madreOrigen = Ejemplar::find($arrayOriginal1['madre_id']);
-            $madreCambio = Ejemplar::find($arrayCambio1['madre_id']);
+            if($madreOrigen){
+                $madreOrigenadd = $madreOrigen->nombre;
+            }else{
+                $madreOrigenadd = "";
+            }
 
-            $this->addbitacora($registro_id, 'MADRE', $madreOrigen->nombre, $madreCambio->nombre, 'Modificado');
+            $madreCambio = Ejemplar::find($arrayCambio1['madre_id']);
+            if($madreCambio){
+                $madreCambioadd = $madreCambio->nombre;
+            }else{
+                $madreCambioadd = "";
+            }
+
+            $this->addbitacora($registro_id, 'MADRE', $madreOrigenadd, $madreCambioadd, 'Modificado');
 
         }
 
@@ -2262,5 +2284,212 @@ class EjemplarController extends Controller
 
         // siqueremos que el pdf se muestre
         // return $pdf->stream('boletinInscripcion_'.date('Y-m-d H:i:s').'.pdf');   
+    }
+
+    public static function armaEjemplarCertificado($ejemplar,$generacion){
+
+        if($generacion == 1){
+            if($ejemplar->extranjero == 'si'){
+                echo "<span class='text-danger'>".$ejemplar->titulosEjemplares."<br></span>";
+            }else{
+                $titulosw = TituloEjemplar::where('ejemplar_id',$ejemplar->id)->count();
+                if($titulosw != 0){
+                    $titulo = TituloEjemplar::where('ejemplar_id',$ejemplar->id)->get();
+                    $i = 1;
+                    foreach ($titulo as $t){
+                        if($i <= 5){
+                            echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                            $i++;
+                        }else{
+                            $i = 1;
+                            echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
+                        }
+                    }
+                    echo "<br>";
+                }
+            }
+
+            echo $ejemplar->nombre_completo."<br>";
+
+            if(!($ejemplar->kcb == 'nulo' || $ejemplar->kcb == '')){
+                echo "K.C.B. ".$ejemplar->kcb."<br>";
+            }else{
+                echo $ejemplar->codigo_nacionalizado."<br>";
+            }
+
+            if($ejemplar->num_tatuaje != ''){
+                echo "No. x Raza ".$ejemplar->num_tatuaje."<br>";
+            }
+
+            if($ejemplar->chip != ''){
+                echo "Chip ".$ejemplar->chip."<br>";
+            }
+
+            $examenMascotaPapa = ExamenMascota::where('ejemplar_id','=',$ejemplar->id)
+                                                    ->get();
+            foreach ($examenMascotaPapa as $e){
+                echo $e->examen->nombre.": ".$e->resultado."<br>";
+                // echo " ".$e->resultado."<br>";
+            }
+
+            if($ejemplar->color != '0' && $ejemplar->color != '.'){
+                echo "Color: ".$ejemplar->color;
+            }
+        }elseif($generacion == 2){
+            if($ejemplar->extranjero == 'si'){
+                echo "<span class='text-danger'>".$ejemplar->titulos_extranjeros."<br></span>";
+            }else{
+                $titulosw = TituloEjemplar::where('ejemplar_id',$ejemplar->id)->count();
+                if($titulosw != 0){
+                    $titulo = TituloEjemplar::where('ejemplar_id',$ejemplar->id)->get();
+                    $i = 1;
+                    foreach ($titulo as $t){
+                        if($i <= 4){
+                            echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                            $i++;
+                        }else{
+                            $i = 1;
+                            echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
+                        }
+                    }
+                    echo "<br>";
+                }
+            }
+            
+            echo $ejemplar->nombre_completo."<br>";
+            if(!($ejemplar->kcb == 'nulo' || $ejemplar->kcb == '')){
+                echo "K.C.B. ".$ejemplar->kcb."<br>";
+            }else{
+                echo $ejemplar->codigo_nacionalizado."<br>";
+            }
+            if($ejemplar->num_tatuaje != ''){
+                echo "No. x Raza ".$ejemplar->num_tatuaje."<br>";
+            }
+            if($ejemplar->chip != ''){
+                echo "Chip ".$ejemplar->chip."<br>";
+            }
+            // echo "K.C.B. ".$ejemplar->kcb."<br>";
+            // echo "No. x Raza ".$ejemplar->num_tatuaje."<br>";
+            // echo "Chip ".$ejemplar->chip."<br>";
+
+            $examenMascotaPapa = ExamenMascota::where('ejemplar_id','=',$ejemplar->id)
+                        ->get();
+            foreach($examenMascotaPapa as $e){
+                if($e->examen){
+                    echo $e->examen->nombre.": ".$e->resultado."<br>";
+                }
+            }
+            if($ejemplar->color != '0' && $ejemplar->color != '.'){
+                echo "Color: ".$ejemplar->color;
+            }
+        }elseif($generacion == 3){
+            if($ejemplar->extranjero == 'si'){
+                echo "<span class='text-danger'>".$ejemplar->titulos_extranjeros."<br></span>";
+            }else{
+                $titulosw = TituloEjemplar::where('ejemplar_id',$ejemplar->id)->count();
+                if($titulosw != 0){
+                    $titulo = TituloEjemplar::where('ejemplar_id',$ejemplar->id)->get();
+                    $i = 1;
+                    foreach ($titulo as $t){
+                        if($i <= 9){
+                            echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                            $i++;
+                        }else{
+                            $i = 1;
+                            echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
+                        }
+                    }
+                    echo "<br>";
+                }
+            }
+
+            echo $ejemplar->nombre_completo." ";
+
+            if(!($ejemplar->kcb == 'nulo' || $ejemplar->kcb == '')){
+                echo "K.C.B. ".$ejemplar->kcb."<br>";
+            }else{
+                echo $ejemplar->codigo_nacionalizado."<br>";
+            }
+            if($ejemplar->num_tatuaje != ''){
+                echo "No. x Raza ".$ejemplar->num_tatuaje." ";
+            }
+            if($ejemplar->chip != ''){
+                echo "Chip ".$ejemplar->chip."<br>";
+            }
+
+            // echo "K.C.B. ".$ejemplar->kcb."<br>";
+            // echo "No. x Raza ".$ejemplar->num_tatuaje." ";
+            // echo "Chip ".$ejemplar->chip."<br>";
+
+            $examenMascotaPapa = ExamenMascota::where('ejemplar_id','=',$ejemplar->id)
+                        ->where('examen_id','=',3)
+                        ->first();
+            if($examenMascotaPapa){
+                $examenPapa = $examenMascotaPapa->examen->nombre;
+                $resultadoPapa = $examenMascotaPapa->resultado;
+            }else{
+                $examenPapa = "";
+                $resultadoPapa = "";
+            }
+
+            if($examenPapa != ""){
+                echo $examenPapa." ".$resultadoPapa."<br>";
+            }
+            if($ejemplar->color != '0' && $ejemplar->color != '.'){
+                echo "Color: ".$ejemplar->color;
+            }
+        }else{
+            if($ejemplar->extranjero == 'si'){
+                echo "<span class='text-danger'>".$ejemplar->titulos_extranjeros."<br></span>";
+            }else{
+                $titulosw = TituloEjemplar::where('ejemplar_id',$ejemplar->id)->count();
+                if($titulosw != 0){
+                    $titulo = TituloEjemplar::where('ejemplar_id',$ejemplar->id)->get();
+                    $i = 1;
+                    foreach ($titulo as $t){
+                        if($i <= 12){
+                            echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                            $i++;
+                        }else{
+                            $i = 1;
+                            echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
+                        }
+                    }
+                    echo "<br>";
+                }
+            }
+            
+            echo $ejemplar->nombre_completo." ";
+
+            if(!($ejemplar->kcb == 'nulo' || $ejemplar->kcb == '')){
+                echo "K.C.B. ".$ejemplar->kcb." ";
+            }else{
+                echo $ejemplar->codigo_nacionalizado."<br>";
+            }
+            if($ejemplar->num_tatuaje != ''){
+                echo "No. x Raza ".$ejemplar->num_tatuaje." ";
+            }
+            if($ejemplar->chip != ''){
+                echo "Chip ".$ejemplar->chip." ";
+            }
+
+            $examenMascotaPapa = ExamenMascota::where('ejemplar_id','=',$ejemplar->id)
+                        ->where('examen_id','=',3)
+                        ->first();
+            if($examenMascotaPapa){
+                $examenPapa = $examenMascotaPapa->examen->nombre;
+                $resultadoPapa = $examenMascotaPapa->resultado;
+            }else{
+                $examenPapa = "";
+                $resultadoPapa = "";
+            }
+
+            echo $examenPapa." ";
+            echo $resultadoPapa." ";
+            if($ejemplar->color != '0' && $ejemplar->color != '.'){
+                echo "Color: ".$ejemplar->color." ";
+            }   
+        }
+        // echo $ejemplar->id;
     }
 }
