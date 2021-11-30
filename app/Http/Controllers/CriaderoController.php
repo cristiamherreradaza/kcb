@@ -106,7 +106,13 @@ class CriaderoController extends Controller
 
     public function elimina(Request $request)
     {
-        Criadero::destroy($request->id);
+        // dd($request->id);
+        $eli = PropietarioCriadero::find($request->id);
+
+        Criadero::destroy($eli->criadero_id);
+
+        PropietarioCriadero::destroy($request->id);
+
         return redirect('Criadero/listado');
     }
 
@@ -142,6 +148,7 @@ class CriaderoController extends Controller
 
         //buscamos por criador
         if($request->filled('criador_buscar')){
+            $criaderos->select('*','propietarios_criaderos.id as idProCria');
             $criador = $request->input('criador_buscar');
             $criaderos->join('users', 'users.id', "propietarios_criaderos.propietario_id")
                       ->where('propietarios_criaderos.propietario_id', '=', "$criador");
@@ -166,6 +173,8 @@ class CriaderoController extends Controller
 
             
         $datosCriaderos = $criaderos 
+                            // ->toSql();
+                    //    dd($datosCriaderos);     
                             ->get();
 
         return view('criaderos.ajaxListadoCriadero')->with(compact('datosCriaderos'));

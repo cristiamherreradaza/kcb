@@ -139,7 +139,7 @@
 		function elimina(id, nombre)
         {
             Swal.fire({
-                title: "Quieres eliminar "+nombre,
+                title: "Quieres eliminar "+nombre+" "+id,
                 text: "Ya no podras recuperarlo!",
                 icon: "warning",
                 showCancelButton: true,

@@ -16,7 +16,7 @@
         @forelse ($datosCriaderos as $cri)
         @if($cri->criadero)
         <tr>
-            <td>{{ $cri->id }}</td>
+            <td>{{ $cri->idProCria}}</td>
             <td>{{ $cri->propietario->name }}</td>
             <td>{{ $cri->criadero->nombre }}</td>
             <td>{{ $cri->criadero->email }}</td>
@@ -31,11 +31,11 @@
                 @endphp
             </td> --}}
             <td>
-                <button type="button" class="btn btn-sm btn-icon btn-warning" onclick="edita('{{ $cri->id }}')">
+                <button type="button" class="btn btn-sm btn-icon btn-warning" onclick="edita('{{ $cri->idProCria }}')">
                     <i class="flaticon2-edit"></i>
                 </button>
                 <button type="button" class="btn btn-sm btn-icon btn-danger"
-                    onclick="elimina('{{ $cri->id }}', '{{ $cri->nombre }}')">
+                    onclick="elimina('{{ $cri->idProCria }}', '{{ $cri->nombre }}')">
                     <i class="flaticon2-cross"></i>
                 </button>
             </td>
