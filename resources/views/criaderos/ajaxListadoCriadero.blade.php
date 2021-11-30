@@ -14,6 +14,7 @@
     </thead>
     <tbody>
         @forelse ($datosCriaderos as $cri)
+        @if($cri->criadero)
         <tr>
             <td>{{ $cri->id }}</td>
             <td>{{ $cri->propietario->name }}</td>
@@ -39,6 +40,8 @@
                 </button>
             </td>
         </tr>
+        @endif
+
         @empty
         <h3 class="text-danger">NO EXISTEN CRIADEROS</h3>
         @endforelse
