@@ -515,7 +515,11 @@
 		function calcular_fecha(){
 		
 			let fecha_nacimiento    = $("#fecha_nacimiento").val();
-			let fecha_inicio_evento = "2021-08-08";
+			// alert(fecha_nacimiento);
+			// let fecha_inicio_evento = "2021-08-08";
+			let fecha_inicio_evento = "{{ $evento->fecha_inicio }}";
+			// alert(fecha_inicio_evento);
+
 		
 			fecha_cal = new Date(fecha_nacimiento);
 			fechaP = fecha_inicio_evento;
