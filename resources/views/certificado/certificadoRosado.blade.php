@@ -813,7 +813,7 @@
                     @endphp
                 </div>
                 <div class="header-3"><span class="header-3s">{{ strtoupper($ejemplar->raza->nombre) }}</span></div>
-                <div class="header-4"><span class="header-4s">{{ $ejemplar->color }}</span></div>
+                <div class="header-4"><span class="header-4s">{{ $ejemplar->color }}{{ ($ejemplar->senas != '')? " - ".$ejemplar->senas:""}}</span></div>
                 <div class="header-5">{{ strtoupper($ejemplar->sexo)}}</div>
                 <div class="header-6">{{ date('d/m/Y',strtotime($ejemplar->fecha_nacimiento)) }}</div>
                 <div class="header-7">{{ ($ejemplar->consanguinidad!=null)? $ejemplar->consanguinidad :'--------'}}</div>
