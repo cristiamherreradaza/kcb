@@ -36,7 +36,7 @@
                 			<div class="form-group">
                 			    <label for="exampleInputPassword1">Fecha de Inicio
                 			    <span class="text-danger">*</span></label>
-                			    <input type="datetime-local" class="form-control" id="fecha_ini" name="fecha_ini" required />
+                			    <input type="date" class="form-control" id="fecha_ini" name="fecha_ini" required />
                 			</div>
                 		</div>
 
@@ -44,7 +44,7 @@
                 			<div class="form-group">
                 			    <label for="exampleInputPassword1">Fecha de Fin
                 			    <span class="text-danger">*</span></label>
-                			    <input type="datetime-local" class="form-control" id="fecha_fin" name="fecha_fin" required />
+                			    <input type="date" class="form-control" id="fecha_fin" name="fecha_fin" required />
                 			</div>
                 		</div>
                 	</div>
@@ -223,8 +223,10 @@
 			// colocamos valores en los inputs
 			$("#evento_id").val(id);
 			$("#nombre").val(nombre);
-			$("#fecha_ini").val(fecha_ini.replace(' ','T'));
-			$("#fecha_fin").val(fecha_fin.replace(' ','T'));
+			$("#fecha_ini").val(fecha_ini);
+			$("#fecha_fin").val(fecha_fin);
+			// $("#fecha_ini").val(fecha_ini.replace(' ','T'));
+			// $("#fecha_fin").val(fecha_fin.replace(' ','T'));
 			$("#direccion").val(direccion);
 			$("#departamento").val(departamento);
 			$("#num_pista").val(num_pista);
