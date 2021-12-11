@@ -11,6 +11,7 @@
 @endsection
 
 @section('content')
+
     <div class="row">
         <div class="col-md-12">
             <h2>CATEGORIA CACHORROS ESPECIALES</h2>
@@ -246,7 +247,8 @@
             @endif
         </div>
     </div>
-    <div class="row">
+
+    {{-- <div class="row">
         <div class="col-md-12">
             <h2>CATEGORIA CACHORROS ABSOLUTOS</h2>
 
@@ -398,9 +400,9 @@
             @endphp
         @endif
         </div>
-    </div>
+    </div> --}}
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-md-12">
             <h2>CATEGORIA JOVENES</h2>
 
@@ -553,7 +555,7 @@
             @endphp
         @endif
         </div>
-    </div>
+    </div> --}}
 
     <div class="row">
         <div class="col-md-12">
@@ -647,6 +649,7 @@
                 // print_r($grupo9);
                 // echo '<br><br>grupo X -> ';
                 // print_r($grupo10);
+
             @endphp
         @if (!empty($grupo1))
             <h5 class="text-primary">Grupo I</h5>
