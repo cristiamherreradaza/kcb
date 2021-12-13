@@ -172,6 +172,7 @@
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
+											<input type="text" id="verdad_extrangero" name="verdad_extrangero" value="no">
 											<label class="exampleInputPassword1">
 											Raza</label>
 											<select class="form-control select2" id="raza_id" name="raza_id"  required >
@@ -426,6 +427,22 @@
 		}
 		
 		function mostrarBusqueda(){
+			var c = document.getElementById('check_busca').checked;
+			if(!c){
+				$("#registro_extrangero").prop('required',true);
+				$('#verdad_extrangero').val('si');
+				// $("#fecha_nacimiento").prop('required',true);
+				// $("#propietario_id").prop('required',true);
+				// $("#criadero_id").prop('required',true);
+			}else{
+				$("#registro_extrangero").prop('required',false);
+				$('#verdad_extrangero').val('no');
+				// $("#kcb").prop('required',false);
+				// $("#fecha_nacimiento").prop('required',false);
+				// $("#propietario_id").prop('required',false);
+				// $("#criadero_id").prop('required',false);
+			}
+
 			$("#bloque-nacional").toggle('slow');
 			$("#bloque-extrangero").toggle('slow');
 		}

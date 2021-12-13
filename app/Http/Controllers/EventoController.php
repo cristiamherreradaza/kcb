@@ -185,57 +185,84 @@ class EventoController extends Controller
         // dd($request->all());
         $ejemplarEvento = new EjemplarEvento();
 
-        if($request->kcb_busca && $request->ejemplar_id){
 
-            // $ejemplarEvento->user_id                    = Auth::user()->id;
-            $ejemplarEvento->evento_id                  = $request->input('evento_id');
-            $ejemplarEvento->ejemplar_id                = $request->input('ejemplar_id');      
-            $ejemplarEvento->categoria_pista_id         = $request->input('categoria_pista');
+        $ejemplarEvento->evento_id                  = $request->input('evento_id');
+        $ejemplarEvento->ejemplar_id                = $request->input('ejemplar_id');      
+        $ejemplarEvento->categoria_pista_id         = $request->input('categoria_pista');
 
-            $ejemplarEvento->raza_id                    = $request->input('raza_id');
-            $ejemplarEvento->nombre_completo            = $request->input('nombre');
-            $ejemplarEvento->color                      = $request->input('color');
-            $ejemplarEvento->fecha_nacimiento           = $request->input('fecha_nacimiento');
-            $ejemplarEvento->chip                       = $request->input('chip');
-            $ejemplarEvento->kcb_padre                  = $request->input('kcb_padre');
-            $ejemplarEvento->nombre_padre               = $request->input('nom_padre');
-            $ejemplarEvento->kcb_madre                  = $request->input('kcb_madre');
-            $ejemplarEvento->nombre_madre               = $request->input('nom_madre');
-            $ejemplarEvento->propietario                = $request->input('propietario');
-            $ejemplarEvento->ciudad                     = $request->input('ciudad');
-            $ejemplarEvento->sexo                       = $request->input('sexo');
-            $ejemplarEvento->tatuaje                    = $request->input('tatuaje');
+        $ejemplarEvento->raza_id                    = $request->input('raza_id');
+        $ejemplarEvento->nombre_completo            = $request->input('nombre');
+        $ejemplarEvento->color                      = $request->input('color');
+        $ejemplarEvento->fecha_nacimiento           = $request->input('fecha_nacimiento');
+        $ejemplarEvento->chip                       = $request->input('chip');
+        $ejemplarEvento->kcb_padre                  = $request->input('kcb_padre');
+        $ejemplarEvento->nombre_padre               = $request->input('nom_padre');
+        $ejemplarEvento->kcb_madre                  = $request->input('kcb_madre');
+        $ejemplarEvento->nombre_madre               = $request->input('nom_madre');
+        $ejemplarEvento->propietario                = $request->input('propietario');
+        $ejemplarEvento->ciudad                     = $request->input('ciudad');
+        $ejemplarEvento->sexo                       = $request->input('sexo');
+        $ejemplarEvento->tatuaje                    = $request->input('tatuaje');
 
-            $ejemplarEvento->extrangero                 = 'no';
-            $ejemplarEvento->criador                    = $request->input('criador');
-            $ejemplarEvento->telefono                   = $request->input('telefono');
-            $ejemplarEvento->email                      = $request->input('email');
+        $ejemplarEvento->extrangero                 = $request->input('verdad_extrangero');
+        $ejemplarEvento->criador                    = $request->input('criador');
+        $ejemplarEvento->telefono                   = $request->input('telefono');
+        $ejemplarEvento->email                      = $request->input('email');
 
-        }elseif($request->cod_extrangero && $request->ejemplar_id == null){
-
-            // $ejemplarEvento->user_id                    = Auth::user()->id;
-            $ejemplarEvento->evento_id                  = $request->input('evento_id');
-            $ejemplarEvento->raza_id                    = $request->input('raza_id');
-            $ejemplarEvento->categoria_pista_id         = $request->input('categoria_pista');
-            $ejemplarEvento->extrangero                 = 'si';
-            $ejemplarEvento->codigo_nacionalizado       = $request->input('cod_extrangero');
-            $ejemplarEvento->nombre_completo            = $request->input('nombre');
-            $ejemplarEvento->color                      = $request->input('color');
-            $ejemplarEvento->fecha_nacimiento           = $request->input('fecha_nacimiento');
-            $ejemplarEvento->chip                       = $request->input('chip');
-            $ejemplarEvento->kcb_padre                  = $request->input('kcb_padre');
-            $ejemplarEvento->nombre_padre               = $request->input('nom_padre');
-            $ejemplarEvento->kcb_madre                  = $request->input('kcb_madre');
-            $ejemplarEvento->nombre_madre               = $request->input('nom_madre');
-            $ejemplarEvento->criador                    = $request->input('criador');
-            $ejemplarEvento->propietario                = $request->input('propietario');
-            $ejemplarEvento->ciudad                     = $request->input('ciudad');
-            $ejemplarEvento->sexo                       = $request->input('sexo');
-            $ejemplarEvento->telefono                   = $request->input('telefono');
-            $ejemplarEvento->email                      = $request->input('email');
-
-            $ejemplarEvento->tatuaje                    = $request->input('tatuaje');
+        if($request->input('verdad_extrangero') == 'si'){
+            $ejemplarEvento->codigo_nacionalizado = $request->input('registro_extrangero');
         }
+
+
+        // if($request->kcb_busca && $request->ejemplar_id){
+        //     // $ejemplarEvento->user_id                    = Auth::user()->id;
+        //     $ejemplarEvento->evento_id                  = $request->input('evento_id');
+        //     $ejemplarEvento->ejemplar_id                = $request->input('ejemplar_id');      
+        //     $ejemplarEvento->categoria_pista_id         = $request->input('categoria_pista');
+
+        //     $ejemplarEvento->raza_id                    = $request->input('raza_id');
+        //     $ejemplarEvento->nombre_completo            = $request->input('nombre');
+        //     $ejemplarEvento->color                      = $request->input('color');
+        //     $ejemplarEvento->fecha_nacimiento           = $request->input('fecha_nacimiento');
+        //     $ejemplarEvento->chip                       = $request->input('chip');
+        //     $ejemplarEvento->kcb_padre                  = $request->input('kcb_padre');
+        //     $ejemplarEvento->nombre_padre               = $request->input('nom_padre');
+        //     $ejemplarEvento->kcb_madre                  = $request->input('kcb_madre');
+        //     $ejemplarEvento->nombre_madre               = $request->input('nom_madre');
+        //     $ejemplarEvento->propietario                = $request->input('propietario');
+        //     $ejemplarEvento->ciudad                     = $request->input('ciudad');
+        //     $ejemplarEvento->sexo                       = $request->input('sexo');
+        //     $ejemplarEvento->tatuaje                    = $request->input('tatuaje');
+
+        //     $ejemplarEvento->extrangero                 = 'no';
+        //     $ejemplarEvento->criador                    = $request->input('criador');
+        //     $ejemplarEvento->telefono                   = $request->input('telefono');
+        //     $ejemplarEvento->email                      = $request->input('email');
+
+        // }elseif($request->cod_extrangero && $request->ejemplar_id == null){
+
+        //     // $ejemplarEvento->user_id                    = Auth::user()->id;
+        //     $ejemplarEvento->evento_id                  = $request->input('evento_id');
+        //     $ejemplarEvento->raza_id                    = $request->input('raza_id');
+        //     $ejemplarEvento->categoria_pista_id         = $request->input('categoria_pista');
+        //     $ejemplarEvento->extrangero                 = 'si';
+        //     $ejemplarEvento->codigo_nacionalizado       = $request->input('cod_extrangero');
+        //     $ejemplarEvento->nombre_completo            = $request->input('nombre');
+        //     $ejemplarEvento->color                      = $request->input('color');
+        //     $ejemplarEvento->fecha_nacimiento           = $request->input('fecha_nacimiento');
+        //     $ejemplarEvento->chip                       = $request->input('chip');
+        //     $ejemplarEvento->kcb_padre                  = $request->input('kcb_padre');
+        //     $ejemplarEvento->nombre_padre               = $request->input('nom_padre');
+        //     $ejemplarEvento->kcb_madre                  = $request->input('kcb_madre');
+        //     $ejemplarEvento->nombre_madre               = $request->input('nom_madre');
+        //     $ejemplarEvento->criador                    = $request->input('criador');
+        //     $ejemplarEvento->propietario                = $request->input('propietario');
+        //     $ejemplarEvento->ciudad                     = $request->input('ciudad');
+        //     $ejemplarEvento->sexo                       = $request->input('sexo');
+        //     $ejemplarEvento->telefono                   = $request->input('telefono');
+        //     $ejemplarEvento->email                      = $request->input('email');
+        //     $ejemplarEvento->tatuaje                    = $request->input('tatuaje');
+        // }
 
         $ejemplarEvento->edad                           = $request->input('ejemplar_meses');
 
@@ -357,33 +384,37 @@ class EventoController extends Controller
         // dd($evento_id."<----->".$grupo."<----->".$categoria1."<----->".$categoria2);
         $g2machos = array();
         $g2hembras = array();
+        // dd($arrayGrupo);
         foreach ($arrayGrupo as $g2){
-            if($g2 > 0){
+            if($g2 != ''){
+
                 if($g2 > 0){
-                    $eje = Ejemplar::find($g2);
-                }
-                else{
+                    if($g2 > 0){
+                        $eje = Ejemplar::find($g2);
+                    }
+                    else{
+                        $h = (-1)*$g2;
+                        $eje = EjemplarEvento::find($h);
+                    }
+                    if($eje){
+                        if($eje->sexo == 'Macho'){
+                            array_push($g2machos, "$eje->id");
+                        }else{
+                            array_push($g2hembras, "$eje->id");
+                        }    
+                    }
+                }else{
+                    
                     $h = (-1)*$g2;
                     $eje = EjemplarEvento::find($h);
-                }
-                if($eje){
-                    if($eje->sexo == 'Macho'){
-                        array_push($g2machos, "$eje->id");
-                    }else{
-                        array_push($g2hembras, "$eje->id");
-                    }    
-                }
-            }else{
-                
-                $h = (-1)*$g2;
-                $eje = EjemplarEvento::find($h);
-                $ejeExt = (-1) * $eje->id;
-                if($eje){
-                    if($eje->sexo == 'Macho'){
-                        array_push($g2machos, "$ejeExt");
-                    }else{
-                        array_push($g2hembras, "$ejeExt");
-                    }    
+                    $ejeExt = (-1) * $eje->id;
+                    if($eje){
+                        if($eje->sexo == 'Macho'){
+                            array_push($g2machos, "$ejeExt");
+                        }else{
+                            array_push($g2hembras, "$ejeExt");
+                        }    
+                    }
                 }
             }
             

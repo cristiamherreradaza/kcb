@@ -263,6 +263,7 @@
                 $grupo8  = array();
                 $grupo9  = array();
                 $grupo10 = array();
+                // dd($ejemplaresAbsolutos);
                 foreach ($ejemplaresAbsolutos as $key => $e){
 
                     $cant = App\GrupoRaza::where('raza_id',$e->raza_id)
@@ -274,6 +275,7 @@
                         }else{
                             $ejemplar = (-1) * $e->id;
                         }
+                        // echo '<h1>'.$ejemplar.'</h1>';
                         switch ($cant->grupo_id) {
                             case 1:
                                 array_push($grupo1, "$ejemplar");
