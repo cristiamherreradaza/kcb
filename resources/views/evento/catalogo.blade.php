@@ -248,7 +248,7 @@
         </div>
     </div>
 
-    {{-- <div class="row">
+    <div class="row">
         <div class="col-md-12">
             <h2>CATEGORIA CACHORROS ABSOLUTOS</h2>
 
@@ -400,9 +400,9 @@
             @endphp
         @endif
         </div>
-    </div> --}}
+    </div>
 
-    {{-- <div class="row">
+    <div class="row">
         <div class="col-md-12">
             <h2>CATEGORIA JOVENES</h2>
 
@@ -555,7 +555,7 @@
             @endphp
         @endif
         </div>
-    </div> --}}
+    </div>
 
     <div class="row">
         <div class="col-md-12">
