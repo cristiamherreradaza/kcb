@@ -172,7 +172,7 @@
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
-											<input type="text" id="verdad_extrangero" name="verdad_extrangero" value="no">
+											<input type="hidden" id="verdad_extrangero" name="verdad_extrangero" value="no">
 											<label class="exampleInputPassword1">
 											Raza</label>
 											<select class="form-control select2" id="raza_id" name="raza_id"  required >
