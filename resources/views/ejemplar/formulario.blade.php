@@ -1463,7 +1463,7 @@
                     <div class="form-group">
                         <label for="exampleInputPassword1">AFIJO
                         </label>
-                        <select class="form-control select2" id="criadero_id" name="criadero_id"   {{ ($ejemplar != null)? (($ejemplar->extranjero == 'si')? '': 'required') : 'required'}}  >
+                        <select class="form-control select2" id="criadero_id" name="criadero_id" >
                             @if ($ejemplar != null && $ejemplar->criadero_id != null)
                                 @if($ejemplar->criadero)
                                     <option value="{{ $ejemplar->criadero->id }}">{{ $ejemplar->criadero->nombre }}</option>
