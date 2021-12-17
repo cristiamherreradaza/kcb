@@ -1290,7 +1290,8 @@
                     <div class="form-group">
                         <label for="kcb">KCB
                             <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="kcb" name="kcb" value="{{ ($ejemplar != null)? $ejemplar->kcb:'' }}" placeholder="65123" {{ ($ejemplar != null)? (($ejemplar->extranjero == 'si')? '': 'required') : 'required'}} />
+                        <input type="text" class="form-control" id="kcb" name="kcb" value="{{ ($ejemplar != null)? $ejemplar->kcb:'' }}" placeholder="65123" {{ ($ejemplar != null)? (($ejemplar->extranjero == 'si')? '': 'required') : 'required'}} onfocusout="validaKcb()"/>
+                        <span class="text-danger" style="display: none;" id="kcb-registrado">KCB ya Registrado!</span>
                         <span class="form-text text-info">Ultimo KCB: 
                             @php
                                 $ultimoKCB = App\Ejemplar::latest()->first();
@@ -2741,6 +2742,26 @@
 
         $("#modal-examen").modal('show');
         // alert("En desarrollo :v");
+    }
+
+    function validaKcb(){
+        let kcb = $("#kcb").val();
+
+        $.ajax({
+            url: "{{ url('Ejemplar/validaKcb') }}",
+            data: {kcb: kcb},
+            type: 'POST',
+            success: function(data) {
+                // console.log(data.vEmail);     
+                if(data.vKcb > 0){
+                    $("#kcb-registrado").show();
+                    $("#kcb").addClass("is-invalid");
+                }else{
+                    $("#kcb-registrado").hide();
+                    $("#kcb").removeClass("is-invalid");
+                }
+            }
+        });
     }
 </script>
 @endsection

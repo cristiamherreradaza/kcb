@@ -201,6 +201,8 @@ Route::get('Ejemplar/listaCamadasPadres/{ejemplar_id}/{padre}', 'EjemplarControl
 
 
 
+
+
 // ALQUILERES
 Route::get('Alquiler/listado', 'AlquilerController@listado');
 
