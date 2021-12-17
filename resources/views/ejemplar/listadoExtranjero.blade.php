@@ -186,7 +186,7 @@
 			let datosBusqueda = $('#formulario-busqueda-ejemplares').serializeArray();
 
 			$.ajax({
-				url: "{{ url('Ejemplar/ajaxListado') }}",
+				url: "{{ url('Ejemplar/ajaxListadoExtranjero') }}",
 				data: datosBusqueda,
 				type: 'POST',
 				success: function(data) {

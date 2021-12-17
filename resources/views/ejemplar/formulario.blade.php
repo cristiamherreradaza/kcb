@@ -2721,12 +2721,12 @@
             $("#kcb").prop('required',true);
             $("#fecha_nacimiento").prop('required',true);
             $("#propietario_id").prop('required',true);
-            $("#criadero_id").prop('required',true);
+            // $("#criadero_id").prop('required',true);
         }else{
             $("#kcb").prop('required',false);
             $("#fecha_nacimiento").prop('required',false);
             $("#propietario_id").prop('required',false);
-            $("#criadero_id").prop('required',false);
+            // $("#criadero_id").prop('required',false);
         }
     }
     function editaExamen(id, examen_id, fecha, doctor, resultado, observacion, num_formulario, codigo_dfc){
