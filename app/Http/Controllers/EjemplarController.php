@@ -121,6 +121,58 @@ class EjemplarController extends Controller
         return view('ejemplar.listado')->with(compact('razas', 'propietarios'));
     }
 
+    public function listadoExtranjero(Request $request)
+    {
+        $razas = Raza::all();
+        $propietarios = User::where('perfil_id', 4)
+                            ->get();
+
+        return view('ejemplar.listadoExtranjero')->with(compact('razas', 'propietarios'));
+    }
+
+    public function ajaxListadoExtranjero(Request $request)
+    {
+        $queryEjemplares = Ejemplar::orderBy('id', 'desc');
+                            
+        if ($request->filled('kcb_buscar')) {
+            $kcb = $request->input('kcb_buscar');
+            $queryEjemplares->where('kcb', $kcb);
+        }
+
+        if ($request->filled('nombre_buscar')) {
+            $nombre = $request->input('nombre_buscar');
+            $queryEjemplares->where('nombre', 'like', "%$nombre%");
+        }
+
+        if ($request->filled('chip_buscar')) {
+            $chip = $request->input('chip_buscar');
+            $queryEjemplares->where('chip', 'like', "%$chip%");
+        }
+
+        if ($request->filled('raza_buscar')) {
+            $raza_id = $request->input('raza_buscar');
+            $queryEjemplares->where('raza_id', $raza_id);
+        }
+
+        if ($request->filled('propietario_buscar')) {
+            $propietario_id = $request->input('propietario_buscar');
+            $queryEjemplares->where('propietario_id', $propietario_id);
+        }
+
+        $queryEjemplares->where('extranjero', 'si');
+
+        if ($request->filled('kcb_buscar') || $request->filled('nombre_buscar') || $request->filled('chip_buscar') || $request->filled('raza_buscar') || $request->filled('propietario_buscar')) {
+            $queryEjemplares->limit(300);
+        }else{
+            $queryEjemplares->limit(200);
+        }
+
+
+        $ejemplares = $queryEjemplares->get();
+        
+        return view('ejemplar.ajaxListadoExtranjero')->with(compact('ejemplares'));
+    }
+
     public function ajaxListado(Request $request)
     {
         $queryEjemplares = Ejemplar::orderBy('id', 'desc');
@@ -149,6 +201,8 @@ class EjemplarController extends Controller
             $propietario_id = $request->input('propietario_buscar');
             $queryEjemplares->where('propietario_id', $propietario_id);
         }
+
+        $queryEjemplares->whereNull('extranjero');
 
         if ($request->filled('kcb_buscar') || $request->filled('nombre_buscar') || $request->filled('chip_buscar') || $request->filled('raza_buscar') || $request->filled('propietario_buscar')) {
             $queryEjemplares->limit(300);

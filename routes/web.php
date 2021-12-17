@@ -165,6 +165,8 @@ Route::get('Ejemplar/formulario/{id}', 'EjemplarController@formulario');
 Route::post('Ejemplar/ajaxBuscaEjemplar', 'EjemplarController@ajaxBuscaEjemplar');
 Route::get('Ejemplar/listado', 'EjemplarController@listado');
 Route::post('Ejemplar/ajaxListado', 'EjemplarController@ajaxListado');
+Route::get('Ejemplar/listadoExtranjero', 'EjemplarController@listadoExtranjero');
+Route::post('Ejemplar/ajaxListadoExtranjero', 'EjemplarController@ajaxListadoExtranjero');
 Route::post('Ejemplar/guarda', 'EjemplarController@guarda');
 Route::post('Ejemplar/ajaxGuardaExamen', 'EjemplarController@ajaxGuardaExamen');
 Route::post('Ejemplar/ajaxEliminaExamen', 'EjemplarController@ajaxEliminaExamen');
