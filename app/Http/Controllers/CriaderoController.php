@@ -139,7 +139,8 @@ class CriaderoController extends Controller
     {
         $criaderos = PropietarioCriadero::query()
                     ->join('criaderos', 'criaderos.id', "propietarios_criaderos.criadero_id");
-
+                    
+        $criaderos->select('*','propietarios_criaderos.id as idProCria');
         //buscamos por nombr de criador
         if($request->filled('nombre_buscar')){
             $nombre = $request->input('nombre_buscar');
@@ -148,7 +149,7 @@ class CriaderoController extends Controller
 
         //buscamos por criador
         if($request->filled('criador_buscar')){
-            $criaderos->select('*','propietarios_criaderos.id as idProCria');
+            // $criaderos->select('*','propietarios_criaderos.id as idProCria');
             $criador = $request->input('criador_buscar');
             $criaderos->join('users', 'users.id', "propietarios_criaderos.propietario_id")
                       ->where('propietarios_criaderos.propietario_id', '=', "$criador");
@@ -173,7 +174,7 @@ class CriaderoController extends Controller
 
             
         $datosCriaderos = $criaderos 
-                            // ->toSql();
+                    //         ->toSql();
                     //    dd($datosCriaderos);     
                             ->get();
 
