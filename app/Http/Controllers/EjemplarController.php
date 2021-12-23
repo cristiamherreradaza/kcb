@@ -2398,12 +2398,14 @@ class EjemplarController extends Controller
                     $titulo = TituloEjemplar::where('ejemplar_id',$ejemplar->id)->get();
                     $i = 1;
                     foreach ($titulo as $t){
-                        if($i <= 4){
-                            echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
-                            $i++;
-                        }else{
-                            $i = 1;
-                            echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
+                        if($t->titulo){
+                            if($i <= 4){
+                                echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                                $i++;
+                            }else{
+                                $i = 1;
+                                echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
+                            }
                         }
                     }
                     echo "<br>";
