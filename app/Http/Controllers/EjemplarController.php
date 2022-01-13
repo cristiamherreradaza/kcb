@@ -2084,11 +2084,20 @@ class EjemplarController extends Controller
 
         }
 
+        // dd($arrayOriginal1['criadero_id']);
+        // dd($arrayCambio1['criadero_id']);
+
         if($arrayOriginal1['criadero_id'] != $arrayCambio1['criadero_id']){
 
             if($arrayOriginal1['criadero_id']){
+
                 $criaderoOrigen1 = Criadero::find($arrayOriginal1['criadero_id']);
-                $criaderoOrigen = $criaderoOrigen1->nombre;
+                
+                if($criaderoOrigen1){
+                    $criaderoOrigen = $criaderoOrigen1->nombre;
+                }else{
+                    $criaderoOrigen = null;
+                }
             }else{
                 $criaderoOrigen = null;
             }
