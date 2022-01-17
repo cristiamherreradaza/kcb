@@ -346,10 +346,10 @@
         top: 402px;
     }
     .cg_15{
-        top: 432px;
+        top: 436px;
     }
     .cg_16{
-        top: 465px;
+        top: 469px;
     }
     #certificado{
         padding: 15px 20px 0px 160px;
