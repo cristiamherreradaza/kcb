@@ -254,10 +254,10 @@
         top: 123px;
     }
     .abuelo_3{
-        top: 245px;
+        top: 250px;
     }
     .abuelo_4{
-        top: 370px;
+        top: 377px;
     }
     .tercera_generaciones{
         position: absolute;
@@ -280,16 +280,16 @@
         top:183px;
     }
     .tg_5{
-        top: 246px;
+        top: 250px;
     }
     .tg_6{
-        top:308px;
+        top:312px;
     }
     .tg_7{
-        top:368px;
+        top:372px;
     }
     .tg_8{
-        top:430px;
+        top:434px;
     }
     
     .cuarta_generaciones{
@@ -328,13 +328,13 @@
         top: 216px;
     }
     .cg_9{
-        top: 247px;
+        top: 251px;
     }
     .cg_10{
-        top: 279px;
+        top: 283px;
     }
     .cg_11{
-        top: 310px;
+        top: 314px;
     }
     .cg_12{
         top: 340px;
@@ -362,7 +362,7 @@
         /* width: 200px;
         height: 50px; */
         font-size: 15px;
-        top: 760px;
+        top: 775px;
         /* bottom: 155px; */
         left: 570px;
         color: #0414ff;
