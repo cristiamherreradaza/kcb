@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Barryvdh\DomPDF\Facade as PDF;
+// use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\DB;
+use PDF;
     // 'PDF' => Barryvdh\DomPDF\Facade::class;
 
 class ReporteController extends Controller
