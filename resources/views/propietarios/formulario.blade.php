@@ -131,9 +131,11 @@
                             @if ($user == null)
                                 <option value="Socio">Socio</option>
                                 <option value="Criador">Criador</option>
+                                <option value="Socio Usufructuario">Socio Usufructuario</option>
                             @else
                                 <option value="Socio" {{ ($user->tipo=='Socio')?'selected':'' }}>Socio</option>
                                 <option value="Criador" {{ ($user->tipo=='Criador')?'selected':'' }}>Criador</option>
+                                <option value="Socio Usufructuario" {{ ($user->tipo=='Socio Usufructuario')?'selected':'' }}>Socio Usufructuario</option>
                             @endif
                         </select>
                     </div>
