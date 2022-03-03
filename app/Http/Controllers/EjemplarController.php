@@ -2457,8 +2457,10 @@ class EjemplarController extends Controller
                     $i = 1;
                     foreach ($titulo as $t){
                         if($i <= 9){
-                            echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
-                            $i++;
+                            if($t->titulo){
+                                echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                                $i++;
+                            }
                         }else{
                             $i = 1;
                             echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
