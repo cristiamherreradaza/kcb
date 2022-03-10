@@ -58,4 +58,8 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Criadero');
     }
+
+    public function perfil(){
+        return $this->belongsTo('App\Perfil', 'perfil_id');
+    }
 }
