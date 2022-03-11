@@ -5,14 +5,15 @@ namespace App\Http\Controllers;
 use App\Raza;
 use App\Evento;
 use App\Ejemplar;
+use App\Transferencia;
 use App\EjemplarEvento;
 use App\CategoriasPista;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\Foreach_;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MenssgeConfirmacionInscripcionEvento;
-use PhpParser\Node\Stmt\Foreach_;
 
 class EventoController extends Controller
 {
@@ -124,10 +125,26 @@ class EventoController extends Controller
                 $arrayEjemplar['nombre_madre'] = null;
             }
             if($ejemplar->propietario){
-                $arrayEjemplar['nom_propietario'] = $ejemplar->propietario->name;    
-                $arrayEjemplar['departamento'] = $ejemplar->propietario->departamento;    
-                $arrayEjemplar['celulares'] = $ejemplar->propietario->celulares;    
-                $arrayEjemplar['email'] = $ejemplar->propietario->email; 
+
+                $transferencia = Transferencia::where('ejemplar_id', $ejemplar->id)
+                                                ->where('estado', 'Actual')
+                                                ->first();
+
+                if($transferencia != null){
+
+                    $arrayEjemplar['nom_propietario'] = $transferencia->propietario->name;    
+                    $arrayEjemplar['departamento'] = $transferencia->propietario->departamento;    
+                    $arrayEjemplar['celulares'] = $transferencia->propietario->celulares;    
+                    $arrayEjemplar['email'] = $transferencia->propietario->email; 
+
+                }else{
+
+                    $arrayEjemplar['nom_propietario'] = $ejemplar->propietario->name;    
+                    $arrayEjemplar['departamento'] = $ejemplar->propietario->departamento;    
+                    $arrayEjemplar['celulares'] = $ejemplar->propietario->celulares;    
+                    $arrayEjemplar['email'] = $ejemplar->propietario->email; 
+                }
+
             }else{
                 $arrayEjemplar['nom_propietario'] = null;    
                 $arrayEjemplar['departamento'] = null;    
