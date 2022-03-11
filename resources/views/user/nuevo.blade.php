@@ -48,8 +48,8 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Fecha Nacimiento
-                                    <span class="text-danger">*</span></label>
-                                <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required />
+                                </label>
+                                <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" />
                             </div>
                         </div>
                     </div>
@@ -58,16 +58,16 @@
                         <div class="col-md-7">
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Direccion
-                                <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="direccion" name="direccion" required />
+                                </label>
+                                <input type="text" class="form-control" id="direccion" name="direccion" />
                             </div>        
                         </div>
                         
                         <div class="col-md-5">
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Telefonos
-                                <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="celulares" name="celulares" required />
+                                </label>
+                                <input type="text" class="form-control" id="celulares" name="celulares" />
                             </div>
                         </div>
                     </div>
