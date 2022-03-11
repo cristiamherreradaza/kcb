@@ -38,9 +38,10 @@
 				<div class="login-aside order-2 order-lg-1 d-flex flex-row-auto position-relative overflow-hidden">
 					<!--begin: Aside Container-->
 					<div class="d-flex flex-column-fluid flex-column justify-content-between py-9 px-7 py-lg-13 px-lg-35">
+
 						<!--begin::Logo-->
 						<a href="#" class="text-center pt-2">
-							<img src="{{ asset('assets/media/logoInicio.png') }}" class="max-h-75px" alt="" />
+							<img src="{{ asset('assets/media/logo.png') }}" class="max-h-180px"alt="" />
 						</a>
 						<!--end::Logo-->
 						<!--begin::Aside body-->
@@ -49,7 +50,7 @@
 							<div class="login-form login-signin py-11">
 								<!--begin::Title-->
 								<div class="text-center pb-8">
-									<h2 class="font-weight-bolder text-dark font-size-h2 font-size-h1-lg">Formulario Ingreso</h2>									
+									<h2 class="font-weight-bold text-primary">FORMULARIO DE INGRESO <br> KENNEL CLUB BOLIVIANO</h2>									
 								</div>
 								<!--end::Title-->
 								<!--begin::Form-->
@@ -67,18 +68,21 @@
 				</div>
 				<!--begin::Aside-->
 				<!--begin::Content-->
-				<div class="content order-1 order-lg-2 d-flex flex-column w-100 pb-0" style="background-color: #B1DCED;">
-					<!--begin::Title-->
-					<div class="d-flex flex-column justify-content-center text-center pt-lg-40 pt-md-5 pt-sm-5 px-lg-0 pt-5 px-7">
-						<h3 class="display4 font-weight-bolder my-7 text-dark" style="color: #986923;">KENNEL CLUB BOLIVIANO</h3>
-						<p class="font-weight-bolder font-size-h2-md font-size-lg text-dark opacity-70">Sistema Integrado de Registro
-						<br />de Ejemplares</p>
+
+				<div class="order-1 order-lg-2 flex-column-auto flex-lg-row-fluid d-flex flex-column p-7"
+					style="background-image: url(assets/media/bg/bg-9.jpg);">
+					<!--begin::Content body-->
+					<div class="d-flex flex-column-fluid flex-lg-center">
+						<div class="d-flex flex-column justify-content-center">
+							{{--  KENNEL CLUB BOLIVIANO --}}
+							<h3 class="display-3 font-weight-bold my-7 text-white"><b>Sistema Integrado de Registro de Ejemplares</b></h3>
+							<p class="font-weight-bold font-size-lg text-white opacity-80">
+							</p>
+						</div>
 					</div>
-					<!--end::Title-->
-					<!--begin::Image-->
-					<div class="content-img d-flex flex-row-fluid bgi-no-repeat bgi-position-y-bottom bgi-position-x-center" style="background-image: url({{ asset('assets/media/bannerSistema.png') }});"></div>
-					<!--end::Image-->
+					<!--end::Content body-->
 				</div>
+				
 				<!--end::Content-->
 			</div>
 			<!--end::Login-->
