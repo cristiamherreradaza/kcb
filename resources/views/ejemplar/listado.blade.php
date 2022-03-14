@@ -30,7 +30,8 @@
 		</div>
 		
 		<div class="card-body">
-            <div id="barra-busqueda" style="display: none">
+            {{-- <div id="barra-busqueda" style="display: none"> --}}
+			<div class="d-none d-lg-block>
 				<form action="{{ url('Criadero/ajaxListadoCriadero') }}" method="POST" id="formulario-busqueda-ejemplares">
 					@csrf
 					<div class="row">
@@ -197,7 +198,7 @@
 		{
 			var this_item = document.getElementById('barra-busqueda');
 			this_item.style.display = 'none';
-			
+
 			let datosBusqueda = $('#formulario-busqueda-ejemplares').serializeArray();
 
 			$.ajax({
