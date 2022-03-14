@@ -209,6 +209,9 @@
 				<a href="#" class="btn btn-primary font-weight-bolder" onclick="nuevo()">
 					<i class="fa fa-plus-square"></i> NUEVO CRIADERO
 				</a>
+				&nbsp;
+				<a href="#" class="btn btn-success btn-icon font-weight-bolder" onclick="muestraBarra();">
+					<i class="fas fa-search"></i> </a>
 				<!--end::Button-->
 			</div>
 		</div>
@@ -378,6 +381,16 @@
 				$('#formulario-agrega-criadero-nuevo-propietario')[0].reportValidity()
 			}
 			// alert("en desarrollo :v");
+		}
+
+		function muestraBarra(){
+			var this_item = document.getElementById('barra-busqueda'); 
+			if( this_item.style.display == 'block' ) {
+				this_item.style.display = 'none';
+			}
+			else {
+				this_item.style.display = 'block';
+			}
 		}
 	
     </script>

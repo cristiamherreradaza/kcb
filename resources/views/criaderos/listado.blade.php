@@ -22,64 +22,68 @@
 				<a href="#" class="btn btn-primary font-weight-bolder" onclick="nuevo()">
 					<i class="fa fa-plus-square"></i> NUEVO CRIADERO 
 				</a>
+				&nbsp;
+				<a href="#" class="btn btn-success btn-icon font-weight-bolder" onclick="muestraBarra();">
+					<i class="fas fa-search"></i> </a>
 				<!--end::Button-->
 			</div>
 		</div>
 		
 		<div class="card-body">
+            <div id="barra-busqueda" style="display: none">
+				<form action="{{ url('Criadero/ajaxListadoCriadero') }}" method="POST" id="formulario-busqueda-usuarios">
+					@csrf
+					<div class="row">
+						<div class="col-md-3">
+							<div class="form-group">
+								<label for="exampleInputPassword1">Nombre
+									<span class="text-danger">*</span></label>
+								<input type="text" class="form-control" id="nombre_buscar" name="nombre_buscar" />
+							</div>
+						</div>
+				
+						<div class="col-md-3">
+							<div class="form-group">
+								<label for="exampleInputPassword1">Criador
+									<span class="text-danger">*</span></label>
+									<br>
+								{{-- <input type="text" class="form-control" id="criador_buscar" name="cedula_buscar" /> --}}
+								<select class="form-control select2" style="width: 100%;" id="criador_buscar" name="criador_buscar">
+									<option label="Label"></option>
+								</select>
+							</div>
+						</div>
 
-			<form action="{{ url('Criadero/ajaxListadoCriadero') }}" method="POST" id="formulario-busqueda-usuarios">
-				@csrf
-				<div class="row">
-					<div class="col-md-3">
-						<div class="form-group">
-							<label for="exampleInputPassword1">Nombre
-								<span class="text-danger">*</span></label>
-							<input type="text" class="form-control" id="nombre_buscar" name="nombre_buscar" />
+						<div class="col-md-3">
+							<div class="form-group">
+								<label for="exampleInputPassword1">Departamento
+									<span class="text-danger">*</span></label>
+								<select name="departamento_buscar" id="departamento_buscar" class="form-control" >
+									<option value="" >SELECCIONE</option>
+									<option value="La Paz" >La Paz</option>
+									<option value="Oruro" >Oruro</option>
+									<option value="Potosi" >Potosi</option>
+									<option value="Cochabamba" >Cochabamba</option>
+									<option value="Chuquisaca" >Chuquisaca</option>
+									<option value="Tarija" >Tarija</option>
+									<option value="Pando" >Pando</option>
+									<option value="Beni" >Beni</option>
+									<option value="Santa Cruz" >Santa Cruz</option>
+								</select>
+								{{-- <input type="text" class="form-control" id="departamento_buscar" name="departamento_buscar" /> --}}
+							</div>
 						</div>
-					</div>
-			
-					<div class="col-md-3">
-						<div class="form-group">
-							<label for="exampleInputPassword1">Criador
-								<span class="text-danger">*</span></label>
-							{{-- <input type="text" class="form-control" id="criador_buscar" name="cedula_buscar" /> --}}
-							<select class="form-control select2" id="criador_buscar" name="criador_buscar">
-								<option label="Label"></option>
-							</select>
-						</div>
-					</div>
 
-					<div class="col-md-3">
-						<div class="form-group">
-							<label for="exampleInputPassword1">Departamento
-								<span class="text-danger">*</span></label>
-							<select name="departamento_buscar" id="departamento_buscar" class="form-control" >
-								<option value="" >SELECCIONE</option>
-								<option value="La Paz" >La Paz</option>
-								<option value="Oruro" >Oruro</option>
-								<option value="Potosi" >Potosi</option>
-								<option value="Cochabamba" >Cochabamba</option>
-								<option value="Chuquisaca" >Chuquisaca</option>
-								<option value="Tarija" >Tarija</option>
-								<option value="Pando" >Pando</option>
-								<option value="Beni" >Beni</option>
-								<option value="Santa Cruz" >Santa Cruz</option>
-							</select>
-							{{-- <input type="text" class="form-control" id="departamento_buscar" name="departamento_buscar" /> --}}
+						<div class="col-md-3">
+							<div class="form-group">
+								<label for="exampleInputPassword1">&nbsp;</label>
+								<button type="button" class="btn btn-sm btn-success btn-block" onclick="bucarCriadero()">BUSCAR</button>
+							</div>
 						</div>
+				
 					</div>
-
-					<div class="col-md-3">
-						<div class="form-group">
-							<label for="exampleInputPassword1">&nbsp;</label>
-							<button type="button" class="btn btn-sm btn-success btn-block" onclick="bucarCriadero()">BUSCAR</button>
-						</div>
-					</div>
-			
-				</div>
-			</form>
-			
+				</form>
+			</div>
 			<!--begin: Datatable-->
 			<div class="table-responsive m-t-40" id="ajaxCriadero">
 
@@ -167,6 +171,9 @@
         }
 		function bucarCriadero()
 		{
+			var this_item = document.getElementById('barra-busqueda');
+			this_item.style.display = 'none';
+			
 			let datosBusquda = $('#formulario-busqueda-usuarios').serializeArray();
 
 			$.ajax({
@@ -203,6 +210,16 @@
 			},
 			minimumInputLength: 1,
 		});
+
+		function muestraBarra(){
+			var this_item = document.getElementById('barra-busqueda'); 
+			if( this_item.style.display == 'block' ) {
+				this_item.style.display = 'none';
+			}
+			else {
+				this_item.style.display = 'block';
+			}
+		}
 
     </script>
 @endsection

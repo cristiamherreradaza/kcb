@@ -17,114 +17,114 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<form action="{{ url('User/guarda') }}" method="POST" id="formulario-usuarios">
-						@csrf
-						<div class="row">
-							<div class="col-md-4">
-								<div class="form-group">
-									<label for="exampleInputPassword1">Nombre de Usuario
-									<span class="text-danger">*</span></label>
-									<input type="hidden" class="form-control" id="user_id" name="user_id" />
-									<input type="text" class="form-control" id="name" name="name" required />
+						<form action="{{ url('User/guarda') }}" method="POST" id="formulario-usuarios">
+							@csrf
+							<div class="row">
+								<div class="col-md-4">
+									<div class="form-group">
+										<label for="exampleInputPassword1">Nombre de Usuario
+										<span class="text-danger">*</span></label>
+										<input type="hidden" class="form-control" id="user_id" name="user_id" />
+										<input type="text" class="form-control" id="name" name="name" required />
+									</div>
 								</div>
-							</div>
 
-							<div class="col-md-4">
-								<div class="form-group">
-									<label for="exampleInputPassword1">Correo
-									<span class="text-danger">*</span></label>
-									<input type="email" class="form-control" id="email" name="email" required />
+								<div class="col-md-4">
+									<div class="form-group">
+										<label for="exampleInputPassword1">Correo
+										<span class="text-danger">*</span></label>
+										<input type="email" class="form-control" id="email" name="email" required />
+									</div>
 								</div>
-							</div>
 
-							<div class="col-md-4">
-								<div class="form-group">
-									<label for="exampleInputPassword1">Contraseña
-									<span class="text-danger">*</span></label>
-									<input type="password" class="form-control" id="password" name="password" required />
+								<div class="col-md-4">
+									<div class="form-group">
+										<label for="exampleInputPassword1">Contraseña
+										<span class="text-danger">*</span></label>
+										<input type="password" class="form-control" id="password" name="password" required />
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-3">
-								<div class="form-group">
-									<label for="exampleInputPassword1">Fecha de Nacimiento
-									<span class="text-danger">*</span></label>
-									<input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required />
+							<div class="row">
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="exampleInputPassword1">Fecha de Nacimiento
+										<span class="text-danger">*</span></label>
+										<input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required />
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="exampleInputPassword1">Cedula
+										<span class="text-danger">*</span></label>
+										<input type="number" class="form-control" id="ci" name="ci" title="El numero no puede exeder mas de 15 digitos" required />
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="exampleInputPassword1">Genero
+										<span class="text-danger">*</span></label>
+										<select name="genero" id="genero" class="form-control">
+											<option value="Masculino">Masculino</option>
+											<option value="Femenino">Femenino</option>
+											<option value="Otros">Otros</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="exampleInputPassword1">Celular
+										<span class="text-danger">*</span></label>
+										<input type="text" class="form-control" id="celulares" name="celulares" required />
+									</div>
 								</div>
 							</div>
-							<div class="col-md-3">
-								<div class="form-group">
-									<label for="exampleInputPassword1">Cedula
-									<span class="text-danger">*</span></label>
-									<input type="number" class="form-control" id="ci" name="ci" title="El numero no puede exeder mas de 15 digitos" required />
+							<div class="row">
+								<div class="col-md-4">
+									<div class="form-group">
+										<label for="exampleInputPassword1">Direccion
+										<span class="text-danger">*</span></label>
+										<input type="text" class="form-control" id="direccion" name="direccion" required />
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="exampleInputPassword1">Sucursal
+										<span class="text-danger">*</span></label>
+										<select name="sucursal_id" id="sucursal_id" class="form-control">
+											@forelse ($sucursales as $s)
+												<option value="{{ $s->id }}">{{ $s->nombre }}</option>
+											@empty
+												NO existen sucursales	
+											@endforelse
+										</select>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="exampleInputPassword1">Perfil
+										<span class="text-danger">*</span></label>
+										<select name="perfil_id" id="perfil_id" class="form-control">
+											@forelse ($perfiles as $p)
+												<option value="{{ $p->id }}">{{ $p->nombre }}</option>p
+											@empty
+												No existen perfiles											
+											@endforelse
+										</select>
+									</div>
+								</div>
+								<div class="col-md-2">
+									<div class="form-group">
+										<label for="exampleInputPassword1">Socio
+										<span class="text-danger">*</span></label>
+										<select name="socio" id="socio" class="form-control">
+											<option value="Si">Si</option>
+											<option value="No">No</option>
+										</select>
+									</div>
 								</div>
 							</div>
-							<div class="col-md-3">
-								<div class="form-group">
-									<label for="exampleInputPassword1">Genero
-									<span class="text-danger">*</span></label>
-									<select name="genero" id="genero" class="form-control">
-										<option value="Masculino">Masculino</option>
-										<option value="Femenino">Femenino</option>
-										<option value="Otros">Otros</option>
-									</select>
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="form-group">
-									<label for="exampleInputPassword1">Celular
-									<span class="text-danger">*</span></label>
-									<input type="text" class="form-control" id="celulares" name="celulares" required />
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-4">
-								<div class="form-group">
-									<label for="exampleInputPassword1">Direccion
-									<span class="text-danger">*</span></label>
-									<input type="text" class="form-control" id="direccion" name="direccion" required />
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="form-group">
-									<label for="exampleInputPassword1">Sucursal
-									<span class="text-danger">*</span></label>
-									<select name="sucursal_id" id="sucursal_id" class="form-control">
-										@forelse ($sucursales as $s)
-											<option value="{{ $s->id }}">{{ $s->nombre }}</option>
-										@empty
-											NO existen sucursales	
-										@endforelse
-									</select>
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="form-group">
-									<label for="exampleInputPassword1">Perfil
-									<span class="text-danger">*</span></label>
-									<select name="perfil_id" id="perfil_id" class="form-control">
-										@forelse ($perfiles as $p)
-											<option value="{{ $p->id }}">{{ $p->nombre }}</option>p
-										@empty
-											No existen perfiles											
-										@endforelse
-									</select>
-								</div>
-							</div>
-							<div class="col-md-2">
-								<div class="form-group">
-									<label for="exampleInputPassword1">Socio
-									<span class="text-danger">*</span></label>
-									<select name="socio" id="socio" class="form-control">
-										<option value="Si">Si</option>
-										<option value="No">No</option>
-									</select>
-								</div>
-							</div>
-						</div>
-					</form>
+						</form>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-sm btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
@@ -147,42 +147,47 @@
 				<a href="#" class="btn btn-primary font-weight-bolder" onclick="nuevo()">
 					<i class="fa fa-plus-square"></i> NUEVO PROPIETARIO
 				</a>
+				&nbsp;
+				<a href="#" class="btn btn-success btn-icon font-weight-bolder" onclick="muestraBarra();">
+					<i class="fas fa-search"></i> </a>
 				<!--end::Button-->
 			</div>
 		</div>
 		
 		<div class="card-body">
+			<div id="barra-busqueda" style="display: none">
+				<form action="{{ url('User/ajaxListadoPropietarios') }}" method="POST" id="formulario-busqueda-usuarios">
+					@csrf
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="exampleInputPassword1">Nombre
+									<span class="text-danger">*</span></label>
+								<input type="text" class="form-control" id="nombre_buscar" name="nombre_buscar" />
+							</div>
+						</div>
+				
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="exampleInputPassword1">Cedula
+									<span class="text-danger">*</span></label>
+								<input type="text" class="form-control" id="cedula_buscar" name="cedula_buscar" />
+							</div>
+						</div>
 
-			<form action="{{ url('User/ajaxListadoPropietarios') }}" method="POST" id="formulario-busqueda-usuarios">
-				@csrf
-				<div class="row">
-					<div class="col-md-4">
-						<div class="form-group">
-							<label for="exampleInputPassword1">Nombre
-								<span class="text-danger">*</span></label>
-							<input type="text" class="form-control" id="nombre_buscar" name="nombre_buscar" />
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="exampleInputPassword1">&nbsp;</label>
+								<button type="button" class="btn btn-sm btn-success btn-block" onclick="buscarPropietario()">BUSCAR</button>
+							</div>
 						</div>
+				
 					</div>
-			
-					<div class="col-md-4">
-						<div class="form-group">
-							<label for="exampleInputPassword1">Cedula
-								<span class="text-danger">*</span></label>
-							<input type="text" class="form-control" id="cedula_buscar" name="cedula_buscar" />
-						</div>
-					</div>
-
-					<div class="col-md-4">
-						<div class="form-group">
-							<label for="exampleInputPassword1">&nbsp;</label>
-							<button type="button" class="btn btn-sm btn-success btn-block" onclick="buscarPropietario()">BUSCAR</button>
-						</div>
-					</div>
-			
-				</div>
-			</form>
+				</form>
+			</div>
 			<!--begin: Datatable-->
-			<div class="table-responsive m-t-40" id="ajaxPropietarios">
+			{{-- <div class="table-responsive m-t-40" id=""> --}}
+			<div  id="ajaxPropietarios">
 
 			</div>
 			<!--end: Datatable-->
@@ -271,6 +276,7 @@
 
 		function buscarPropietario()
 		{
+			
 			let datosBusquda = $('#formulario-busqueda-usuarios').serializeArray();
 
 			$.ajax({
@@ -282,6 +288,16 @@
 				}
 			});
 
+		}
+
+		function muestraBarra(){
+			var this_item = document.getElementById('barra-busqueda'); 
+			if( this_item.style.display == 'block' ) {
+				this_item.style.display = 'none';
+			}
+			else {
+				this_item.style.display = 'block';
+			}
 		}
     </script>
 @endsection

@@ -115,6 +115,7 @@
 		$(function () {
 			$('#tabla-raza').DataTable({
 				order: [[ 1, "asc" ]],
+				responsive: true,
 				language: {
 					url: '{{ asset('datatableEs.json') }}'
 				},

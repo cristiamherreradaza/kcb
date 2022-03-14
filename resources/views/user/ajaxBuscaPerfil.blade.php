@@ -11,21 +11,23 @@
     </thead>
     <tbody>
         @forelse ($permisos as $p)
-            <tr>
-                <td>{{ $p->id }}</td>
-                <td>{{ $p->menu->nombre }}</td>
-                <td>
-                    @if ($p->estado == 'Visible')
-                        <button type="button" class="btn btn-sm  btn-success" onclick="cambiaEstado('{{ $p->id }}','{{ $p->perfil_id }}')">
-                            {{ ($p->estado) }}
-                        </button>    
-                    @else
-                        <button type="button" class="btn btn-sm  btn-danger" onclick="cambiaEstado('{{ $p->id }}','{{ $p->perfil_id }}')">
-                            {{ ($p->estado) }}
-                        </button>
-                    @endif
-                </td>
-            </tr>
+            @if($p->menu)
+                <tr>
+                    <td>{{ $p->id }}</td>
+                    <td>{{ $p->menu->nombre }}</td>
+                    <td>
+                        @if ($p->estado == 'Visible')
+                            <button type="button" class="btn btn-sm  btn-success" onclick="cambiaEstado('{{ $p->id }}','{{ $p->perfil_id }}')">
+                                {{ ($p->estado) }}
+                            </button>    
+                        @else
+                            <button type="button" class="btn btn-sm  btn-danger" onclick="cambiaEstado('{{ $p->id }}','{{ $p->perfil_id }}')">
+                                {{ ($p->estado) }}
+                            </button>
+                        @endif
+                    </td>
+                </tr>
+            @endif
         @empty
             <h3 class="text-danger">NO EXISTEN USUARIOS</h3>
         @endforelse

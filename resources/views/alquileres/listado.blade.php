@@ -105,21 +105,23 @@
 					</thead>
 					<tbody>
 						@forelse ($alquileres as $a)
-							<tr>
-								<td>{{ $a->id }}</td>
-								<td>{{ $a->criadero->nombre }}</td>
-								<td>{{ $a->propietario_antiguo->name }}</td>
-								<td>{{ $a->propietario_alquilado->name }}</td>
-								<td>{{ $a->ejemplar->nombre_completo }}</td>
-								<td>
-									{{--  <button type="button" class="btn btn-sm btn-icon btn-warning" onclick="edita('{{ $a->id }}', '{{ $a->nombre }}', '{{ $a->descripcion }}')">
-										<i class="flaticon2-edit"></i>
-									</button>  --}}
-									<button type="button" class="btn btn-sm btn-icon btn-danger" onclick="elimina('{{ $a->id }}', '{{ $a->nombre }}')">
-										<i class="flaticon2-cross"></i>
-									</button>
-								</td>
-							</tr>
+							@if($a->ejemplar)
+								<tr>
+									<td>{{ $a->id }}</td>
+									<td>{{ $a->criadero->nombre }}</td>
+									<td>{{ $a->propietario_antiguo->name }}</td>
+									<td>{{ $a->propietario_alquilado->name }}</td>
+									<td>{{ $a->ejemplar->nombre_completo }}</td>
+									<td>
+										{{--  <button type="button" class="btn btn-sm btn-icon btn-warning" onclick="edita('{{ $a->id }}', '{{ $a->nombre }}', '{{ $a->descripcion }}')">
+											<i class="flaticon2-edit"></i>
+										</button>  --}}
+										<button type="button" class="btn btn-sm btn-icon btn-danger" onclick="elimina('{{ $a->id }}', '{{ $a->nombre }}')">
+											<i class="flaticon2-cross"></i>
+										</button>
+									</td>
+								</tr>
+							@endif
 						@empty
 							<h3 class="text-danger">NO EXISTEN ALQUILERES</h3>
 						@endforelse
@@ -140,6 +142,7 @@
 
     	$(function () {
     	    $('#tabla-insumos').DataTable({
+				responsive: true,
     	        language: {
     	            url: '{{ asset('datatableEs.json') }}',
     	        },

@@ -115,6 +115,7 @@
 
     	$(function () {
     	    $('#tabla-insumos').DataTable({
+				responsive: true,
     	        language: {
     	            url: '{{ asset('datatableEs.json') }}',
     	        },

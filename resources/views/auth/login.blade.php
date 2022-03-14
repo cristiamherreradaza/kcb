@@ -8,7 +8,7 @@
     <div class="form-group row">
 
         <div class="col-md-8">
-            <input id="email" placeholder="Email" type="email" class="form-control h-auto border-0 px-0 placeholder-dark-75 @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="off" autofocus>
+            <input id="email" placeholder="Email" type="email" class="form-control h-auto border-0 px-0 placeholder-dark-75 @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autofocus>
 
             @error('email')
                 <span class="invalid-feedback" role="alert">

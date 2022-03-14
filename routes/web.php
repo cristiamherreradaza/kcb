@@ -61,6 +61,7 @@ Route::post('User/ajaxBuscaPropietario', 'UserController@ajaxBuscaPropietario');
 Route::post('User/ajaxBuscaPropietarioTransferencia', 'UserController@ajaxBuscaPropietarioTransferencia');
 Route::post('User/ajaxGuardaNuevoPropietario', 'UserController@ajaxGuardaNuevoPropietario');
 Route::post('User/validaCedula', 'UserController@validaCedula');
+
 // MENUS
 Route::post('User/ajaxPermisos', 'UserController@ajaxPermisos');
 Route::post('User/guardaPermiso', 'UserController@guardaPermiso');
@@ -69,11 +70,6 @@ Route::post('User/ajaxBuscaPermisos', 'UserController@ajaxBuscaPermisos');
 Route::post('User/cambiaEstadoMenuPerfil', 'UserController@cambiaEstadoMenuPerfil');
 Route::post('User/ajaxPermisosPerfil', 'UserController@ajaxPermisosPerfil');
 Route::post('User/guardaPermisoPerfil', 'UserController@guardaPermisoPerfil');
-
-
-
-
-
 
 
 //PROPIETARIOS

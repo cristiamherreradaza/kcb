@@ -114,6 +114,8 @@
 		$(function () {
 			$('#tabla_usuarios').DataTable({
 				order: [[ 0, "desc" ]],
+				responsive: true,
+				lengthChange: false,
 				language: {
 					url: '{{ asset('datatableEs.json') }}'
 				},
