@@ -4,7 +4,77 @@
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet">
 @endsection
 
+@section('metadatos')
+	<meta name="csrf-token" content="{{ csrf_token() }}" />
+@endsection
+
 @section('content')
+
+
+{{-- inicio modal  --}}
+
+<!-- Modal-->
+<div class="modal fade" id="modalAddJuez" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">FORMULARIO DE ASIGNACION DE JUEZ AL EVENTO <span class="text-info" id="nombreEvento"></span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<form action="{{ url('Juez/guardaAsignacionEvento') }}" method="POST" id="formulario-asignacion">
+							@csrf
+							<input type="text" name="asignacion_evento_id" id="asignacion_evento_id">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="exampleInputPassword1">Juez
+										<span class="text-danger">*</span></label>
+										<select name="juez_id" id="juez_id" class="form-control" style="width:100%;">
+											<option value=""></option>
+											@foreach ($jueces as $juez)
+												<option value="{{ $juez->id }}">{{ $juez->nombre }}</option>
+											@endforeach
+										</select>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="exampleInputPassword1">Secretario
+										<span class="text-danger">*</span></label>
+										<select name="secretario_id" id="secretario_id" class="form-control" style="width:100%;">
+											<option value=""></option>
+											@foreach ($secretarios as $secre)
+												<option value="{{ $secre->id }}">{{ $secre->name }}</option>
+											@endforeach
+										</select>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div id="listaAsignaciones">
+
+						</div>
+					</div>
+				</div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-sm btn-success font-weight-bold" onclick="Asignar()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- fin inicio modal  --}}
 
 {{-- inicio modal  --}}
 
@@ -170,6 +240,9 @@
 									<button type="button" class="btn btn-sm btn-icon btn-info" onclick="listaInscritos('{{ $even->id }}')">
 										<i class="far fa-list-alt"></i>
 									</button>
+									<button type="button" class="btn btn-sm btn-icon btn-success" onclick="addJuez('{{ $even->id }}', '{{ $even->nombre }}')">
+										<i class="fas fa-gavel"></i>
+									</button>
 									<button type="button" class="btn btn-sm btn-icon btn-danger" onclick="elimina('{{ $even->id }}', '{{ $even->nombre }}')">
 										<i class="flaticon2-cross"></i>
 									</button>
@@ -192,6 +265,30 @@
 @section('js')
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script type="text/javascript">
+
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
+
+		$(function(){
+			$('#juez_id').select2({
+				placeholder: "Select a state"
+			});
+		});
+
+		$(function(){
+			$('#secretario_id').select2({
+				placeholder: "Select a state"
+			});
+		});
+
+		$(function(){
+			$('#evento_id').select2({
+				placeholder: "Select a state"
+			});
+		});
 
     	$(function () {
     	    $('#tabla-insumos').DataTable({
@@ -295,6 +392,39 @@
 		function catalogo(id){
 			// alert("En desarrollo :v");
 			window.location.href = "{{ url('Evento/catalogo') }}/"+id;
+		}
+
+		function addJuez(id, nombre){
+			$('#asignacion_evento_id').val(id);
+			$('#nombreEvento').text(nombre)
+
+			$('#modalAddJuez').modal('show');
+		}
+
+		function Asignar(){
+			// verificamos que el formulario este correcto
+    		if($("#formulario-asignacion")[0].checkValidity()){
+
+				let datosFormularioAsignacion = $("#formulario-asignacion").serializeArray();
+
+				$.ajax({
+					url: "{{ url('Juez/ajaxguardaAsignacionEvento') }}",
+					data: datosFormularioAsignacion,
+					type: 'POST',
+					success: function(data) {
+						$('#listaAsignaciones').html(data);
+					}
+				});
+
+				// enviamos el formulario
+    			// $("#formulario-asignacion").submit();
+				// mostramos la alerta
+				// Swal.fire("Excelente!", "Registro Guardado!", "success");
+    		}else{
+				// de lo contrario mostramos los errores
+				// del formulario
+    			$("#formulario-asignacion")[0].reportValidity()
+    		}
 		}
 
     </script>

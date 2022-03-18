@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Juez;
+use App\Asignacion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -48,5 +49,21 @@ class JuezController extends Controller
         Juez::destroy($juez_id);
         
         return redirect('Juez/listado');
+    }
+
+    
+
+    public function ajaxguardaAsignacionEvento(Request $request){
+
+        $asignacion = new  Asignacion();
+
+        $asignacion->user_id        = Auth::user()->id;
+        $asignacion->juez_id        = $request->input('juez_id');
+        $asignacion->secretario_id  = $request->input('secretario_id');
+        $asignacion->evento_id      = $request->input('asignacion_evento_id');
+
+        $asignacion->save();
+
+        dd(Asignacion::all());
     }
 }

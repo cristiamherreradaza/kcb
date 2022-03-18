@@ -7,7 +7,8 @@
 			<li>
 				<div class="text-center mb-10">
 					<div class="symbol symbol-60 symbol-circle">
-						<div class="symbol-label" style="background-image:url('{{ url('assets/media/users/fotoPerfil.jpg') }}')">
+						{{-- <div class="symbol-label" style="background-image:url('{{ url('assets/media/users/fotoPerfil.jpg') }}')"> --}}
+							<div class="symbol-label" style="background-image:url('{{ url('assets/media/logo.png') }}')">
 						</div>
 						<i class="symbol-badge symbol-badge-bottom bg-success"></i>
 					</div>

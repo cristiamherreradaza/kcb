@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Asignacion;
+use App\Juez;
 use App\Raza;
+use App\User;
 use App\Evento;
 use App\Ejemplar;
 use App\Transferencia;
@@ -38,7 +41,11 @@ class EventoController extends Controller
     {
         $eventos = Evento::all();
 
-        return view('evento.listado')->with(compact('eventos'));
+        $jueces = Juez::all();
+
+        $secretarios = User::where('perfil_id',7)->get();
+
+        return view('evento.listado')->with(compact('eventos','jueces', 'secretarios'));
     }
 
     public function guarda(Request $request)

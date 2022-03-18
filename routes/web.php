@@ -215,6 +215,7 @@ Route::post('Reporte/ejemplarporrazaPdf', 'ReporteController@ejemplarporRazaPdf'
 Route::get('Juez/listado', 'JuezController@listado');
 Route::post('Juez/guarda', 'JuezController@guarda');
 Route::get('Juez/elimina/{juez_id}', 'JuezController@elimina');
+Route::post('Juez/ajaxguardaAsignacionEvento', 'JuezController@ajaxguardaAsignacionEvento');
 
 
 // ---------- MIGRACIONES ----------
