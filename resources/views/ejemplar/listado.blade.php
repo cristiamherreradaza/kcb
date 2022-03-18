@@ -30,8 +30,8 @@
 		</div>
 		
 		<div class="card-body">
-            {{-- <div id="barra-busqueda" style="display: none"> --}}
-			<div class="d-none d-lg-block>
+            <div id="barra-busqueda" style="display: none">
+			{{-- <div class="d-none d-lg-block> --}}
 				<form action="{{ url('Criadero/ajaxListadoCriadero') }}" method="POST" id="formulario-busqueda-ejemplares">
 					@csrf
 					<div class="row">
