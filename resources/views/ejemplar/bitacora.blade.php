@@ -88,8 +88,8 @@
 						<div class="col-md-4">
 							<div class="form-group">
 								<label for="exampleInputPassword1">Tipo de Evento
-									<span class="text-danger">*</span></label> <p></p> 
-                			    <label class="checkbox checkbox-success">   
+									<span class="text-danger">*</span></label> <p></p>
+                			    <label class="checkbox checkbox-success">
 									<input type="checkbox" name="circuito" id="circuito"/>
 									<span></span>
 									&nbsp;Circuito
@@ -124,7 +124,7 @@
 				<!--end::Button-->
 			</div>
 		</div>
-		
+
 		<div class="card-body">
 			<!--begin: Datatable-->
 			<div class="table-responsive m-t-40">
@@ -150,10 +150,12 @@
 						@php
 							$jemplar = App\Ejemplar::find($m->ejemplar_id);
 						@endphp
-						@if($jemplar)
+						@if($jemplar && $m->user)
 							<tr>
 								<td>{{ $m->id }}</td>
-								<td>{{ $m->user->name }}</td>
+								<td>
+                                    {{ $m->user->name }}
+                                </td>
 								<td>
 									@php
 										$jemplar = App\Ejemplar::find($m->ejemplar_id);
@@ -178,7 +180,7 @@
 						                $utilidades = new App\librerias\Utilidades();
 										$fecha = $utilidades->fechaHoraCastellano($m->created_at);
 										echo $fecha;
-									@endphp	
+									@endphp
 								</td>
 								<td>
 									@php
