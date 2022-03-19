@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Asignacion extends Model
 {
     use SoftDeletes;
+
     protected $table = "asignaciones";
+
     protected $fillable = [
         'user_id',
         'modificador_id',
@@ -20,4 +22,14 @@ class Asignacion extends Model
         'estado',
         'deleted_at',
     ];
+
+    public function juez()
+    {
+        return $this->belongsTo('App\Juez', 'juez_id');
+    }
+
+    public function secretario()
+    {
+        return $this->belongsTo('App\User', 'secretario_id');
+    }
 }

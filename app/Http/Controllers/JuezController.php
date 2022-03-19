@@ -7,6 +7,8 @@ use App\Asignacion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use function GuzzleHttp\Promise\all;
+
 class JuezController extends Controller
 {
     public function __construct()
@@ -51,8 +53,6 @@ class JuezController extends Controller
         return redirect('Juez/listado');
     }
 
-    
-
     public function ajaxguardaAsignacionEvento(Request $request){
 
         $asignacion = new  Asignacion();
@@ -64,6 +64,33 @@ class JuezController extends Controller
 
         $asignacion->save();
 
-        dd(Asignacion::all());
+        $evento_id = $request->input('asignacion_evento_id');
+        
+        $asiganaciones  = Asignacion::where('evento_id',$evento_id)->get();
+
+        return view('evento.ajaxListadoAsignacion')->with(compact('asiganaciones'));
+        // dd(Asignacion::all());
+    }
+
+    public function ajaxListadoAsignacion(Request $request){
+
+        $evento_id = $request->input('evento_id');
+
+        $asiganaciones  = Asignacion::where('evento_id',$evento_id)->get();
+
+        return view('evento.ajaxListadoAsignacion')->with(compact('asiganaciones'));
+    }
+
+    public function ajaxEliminaAsignacion(Request $request){
+
+        $asignacion_id = $request->input('asignacion_id');
+
+        $evento_id = Asignacion::find($asignacion_id)->evento_id;
+
+        Asignacion::destroy($asignacion_id);
+
+        $asiganaciones  = Asignacion::where('evento_id',$evento_id)->get();
+
+        return view('evento.ajaxListadoAsignacion')->with(compact('asiganaciones'));
     }
 }

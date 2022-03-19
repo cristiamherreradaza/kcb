@@ -28,7 +28,7 @@
 					<div class="col-md-12">
 						<form action="{{ url('Juez/guardaAsignacionEvento') }}" method="POST" id="formulario-asignacion">
 							@csrf
-							<input type="text" name="asignacion_evento_id" id="asignacion_evento_id">
+							<input type="hidden" name="asignacion_evento_id" id="asignacion_evento_id">
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
@@ -396,7 +396,18 @@
 
 		function addJuez(id, nombre){
 			$('#asignacion_evento_id').val(id);
-			$('#nombreEvento').text(nombre)
+			$('#nombreEvento').text(nombre);
+
+			$.ajax({
+				url: "{{ url('Juez/ajaxListadoAsignacion') }}",
+				data: {
+					evento_id:id
+				},
+				type: 'POST',
+				success: function(data) {
+					$('#listaAsignaciones').html(data);
+				}
+			});
 
 			$('#modalAddJuez').modal('show');
 		}
@@ -413,18 +424,60 @@
 					type: 'POST',
 					success: function(data) {
 						$('#listaAsignaciones').html(data);
+
+						Swal.fire(
+							"Exito!",
+							"El Juez fue Agregado.",
+							"success"
+						)
 					}
 				});
 
-				// enviamos el formulario
-    			// $("#formulario-asignacion").submit();
-				// mostramos la alerta
-				// Swal.fire("Excelente!", "Registro Guardado!", "success");
     		}else{
-				// de lo contrario mostramos los errores
-				// del formulario
     			$("#formulario-asignacion")[0].reportValidity()
     		}
+		}
+
+		function eliminaAsigancion(id, nombre){
+
+			Swal.fire({
+                title: "Quieres eliminar "+nombre,
+                text: "Ya no podras recuperarlo!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Si, borrar!",
+                cancelButtonText: "No, cancelar!",
+                reverseButtons: true
+            }).then(function(result) {
+				// si pulsa boton si
+                if (result.value) {
+
+
+					$.ajax({
+						url: "{{ url('Juez/ajaxEliminaAsignacion') }}",
+						data: {
+							asignacion_id:id
+						},
+						type: 'POST',
+						success: function(data) {
+							$('#listaAsignaciones').html(data);
+						}
+					});
+
+                    Swal.fire(
+                        "Borrado!",
+                        "El registro fue eliminado.",
+                        "success"
+                    )
+                } else if (result.dismiss === "cancel") {
+                    Swal.fire(
+                        "Cancelado",
+                        "La operacion fue cancelada",
+                        "error"
+                    )
+                }
+            });
+
 		}
 
     </script>
