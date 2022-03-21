@@ -398,6 +398,11 @@
 			$('#asignacion_evento_id').val(id);
 			$('#nombreEvento').text(nombre);
 
+			$('#juez_id').val('');
+			$("#juez_id").trigger('change');
+			$('#secretario_id').val('');
+			$("#secretario_id").trigger('change');
+
 			$.ajax({
 				url: "{{ url('Juez/ajaxListadoAsignacion') }}",
 				data: {
