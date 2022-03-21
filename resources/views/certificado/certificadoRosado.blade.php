@@ -2621,7 +2621,14 @@
     </div>
     @php
     // NOMBRE DEL EJEMPLAR
-        $input = $ejemplar->nombre_completo;
+        // dd($ejemplar->nombre_completo);
+
+        $cadenalimpia = preg_replace("[\n|\r|\n\r]", "", $ejemplar->nombre_completo);
+
+        // dd($ejemplar->nombre_completo."<-->".$cadenalimpia);
+
+        // $input = $ejemplar->nombre_completo;
+        $input = $cadenalimpia;
         setlocale(LC_ALL, "en_US.utf8");
         $output = iconv("utf-8", "ascii//TRANSLIT", $input);
         $output = str_replace("'",'',$output);
@@ -2633,6 +2640,8 @@
         $output = iconv("utf-8", "ascii//TRANSLIT", $input);
         $output = str_replace("'",'',$output);
         $nombre_raza = $output;
+
+        // dd($nombre_raza."<-->".$ejemplar->raza->nombre);
     @endphp
 </body>
 </html>
