@@ -93,4 +93,12 @@ class JuezController extends Controller
 
         return view('evento.ajaxListadoAsignacion')->with(compact('asiganaciones'));
     }
+
+    public function calificacion(Request $request){
+
+        // return view('juez.calificacion')->with(compact('asiganaciones'));
+        
+        return view('juez.calificacion');
+
+    }
 }
