@@ -113,48 +113,42 @@
 		</div>
 		
 		<div class="card-body">
+            @php
+                $contador = 0 ;
 
-			<!--begin: Datatable-->
-			{{-- <div class="table-responsive m-t-40">
-				<table class="table table-bordered table-hover table-striped" id="tabla-insumos">
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>Nombre</th>
-							<th>Email</th>
-							<th>Celulares</th>
-							<th>Direccion</th>
-							<th>Departamento</th>
-							<th>Acciones</th>
-						</tr>
-					</thead>
-					<tbody>
-						@forelse ($jueces as $juez)
-							<tr>
-								<td>{{ $juez->id }}</td>
-								<td>{{ $juez->nombre }}</td>
-								<td>{{ $juez->email }}</td>
-								<td>{{ $juez->celulares }}</td>
-								<td>{{ $juez->direccion }}</td>
-								<td>{{ $juez->departamento }}</td>
-								<td>
-									<button type="button" class="btn btn-sm btn-icon btn-warning" onclick="edita('{{ $juez->id }}', '{{ $juez->nombre }}', '{{ $juez->email }}', '{{ $juez->fecha_nacimiento }}', '{{ $juez->direccion }}', '{{ $juez->celulares }}', '{{ $juez->departamento }}')">
-										<i class="flaticon2-edit"></i>
-									</button>
-									<button type="button" class="btn btn-sm btn-icon btn-danger" onclick="elimina('{{ $juez->id }}', '{{ $juez->nombre }}')">
-										<i class="flaticon2-cross"></i>
-									</button>
-								</td>
-							</tr>
-						@empty
-							<h3 class="text-danger">NO EXISTEN JUECES</h3>
-						@endforelse
-					</tbody>
-					<tbody>
-					</tbody>
-				</table>
-			</div> --}}
-			<!--end: Datatable-->
+                $colores = array("success", "warning", "info", "dark", "danger", "primary");
+
+            @endphp
+            @while ($contador < $cantidadAsignaciones)
+                <div class="row">
+                    @for($i = 0; $i < 3; $i++)
+                        @php
+                            $seleccion = array_rand($colores);
+                        @endphp
+                        @if($contador < $cantidadAsignaciones)
+                            <div class="col-md-4">
+                                <div class="card card-custom wave wave-animate-slow wave-{{ $colores[$seleccion] }} mb-8 mb-lg-0">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center p-5">
+                                            <div class="mr-6">
+                                                <i class="fa fa-dog fa-5x text-{{ $colores[$seleccion] }}"></i>
+                                            </div>
+                                            <div class="d-flex flex-column">
+                                                <a href="{{ url('Juez/ponderacion', [$asignaciones[$contador]->evento_id]) }}" class="btn btn-success btn-block"> <i class="fa fa-check"></i> Calificar</a>
+                                                <div class="text-dark-100"><h4>{{ $asignaciones[$contador]->evento->nombre }}</h4></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @php
+                                $contador++;
+                            @endphp
+                        @endif
+                    @endfor
+                </div>
+                <br>
+            @endwhile
 		</div>
 	</div>
 	<!--end::Card-->
@@ -174,83 +168,6 @@
     	    });
 
     	});
-
-    	function nuevo()
-    	{
-			// pone los inputs vacios
-			$("#juez_id").val('0');
-			$("#nombre").val('');
-			$("#email").val('');
-			$("#fecha_nacimiento").val('');
-			$("#direccion").val('');
-			$("#celulares").val('');
-			$("#departamento").val('La paz');
-			// abre el modal
-    		$("#modalJuez").modal('show');
-    	}
-
-		function edita(id, nombre, email, fecha_nacimiento, direccion, celulares,  departamento)
-    	{
-			// colocamos valores en los inputs
-			$("#juez_id").val(id);
-			$("#nombre").val(nombre);
-			$("#email").val(email);
-			$("#fecha_nacimiento").val(fecha_nacimiento);
-			$("#direccion").val(direccion);
-			$("#celulares").val(celulares);
-			$("#departamento").val(departamento);
-
-			// mostramos el modal
-    		$("#modalJuez").modal('show');
-    	}
-
-    	function crear()
-    	{
-			// verificamos que el formulario este correcto
-    		if($("#formulario-juez")[0].checkValidity()){
-				// enviamos el formulario
-    			$("#formulario-juez").submit();
-				// mostramos la alerta
-				Swal.fire("Excelente!", "Registro Guardado!", "success");
-    		}else{
-				// de lo contrario mostramos los errores
-				// del formulario
-    			$("#formulario-juez")[0].reportValidity()
-    		}
-
-    	}
-
-		function elimina(id, nombre)
-        {
-			// mostramos la pregunta en el alert
-            Swal.fire({
-                title: "Quieres eliminar "+nombre,
-                text: "Ya no podras recuperarlo!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Si, borrar!",
-                cancelButtonText: "No, cancelar!",
-                reverseButtons: true
-            }).then(function(result) {
-				// si pulsa boton si
-                if (result.value) {
-
-                    window.location.href = "{{ url('Juez/elimina') }}/"+id;
-
-                    Swal.fire(
-                        "Borrado!",
-                        "El registro fue eliminado.",
-                        "success"
-                    )
-                } else if (result.dismiss === "cancel") {
-                    Swal.fire(
-                        "Cancelado",
-                        "La operacion fue cancelada",
-                        "error"
-                    )
-                }
-            });
-        }
 
     </script>
 @endsection

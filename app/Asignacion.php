@@ -32,4 +32,9 @@ class Asignacion extends Model
     {
         return $this->belongsTo('App\User', 'secretario_id');
     }
+
+    public function evento()
+    {
+        return $this->belongsTo('App\Evento', 'evento_id');
+    }
 }

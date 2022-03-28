@@ -219,7 +219,8 @@ Route::post('Juez/ajaxguardaAsignacionEvento', 'JuezController@ajaxguardaAsignac
 Route::post('Juez/ajaxListadoAsignacion', 'JuezController@ajaxListadoAsignacion');
 Route::post('Juez/ajaxEliminaAsignacion', 'JuezController@ajaxEliminaAsignacion');
 Route::get('Juez/calificacion', 'JuezController@calificacion');
-
+Route::get('Juez/ponderacion/{evento_id}', 'JuezController@ponderacion');
+Route::post('Juez/guardaPonderacion', 'JuezController@guardaPonderacion');
 
 
 // ---------- MIGRACIONES ----------
