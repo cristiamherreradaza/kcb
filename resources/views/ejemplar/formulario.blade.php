@@ -38,7 +38,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="kcb">Raza 
+                                    <label for="kcb">Raza
                                     </label>
                                     <span class="text-danger">*</span></label>
                                     {{-- <input type="hidden" name="sexo-modal" id="sexo-modal" value="macho"> --}}
@@ -156,7 +156,7 @@
                                     </div>
                                     <br>
                                     <label for="exampleInputPassword1">
-                                        Registrar 
+                                        Registrar
                                         <span class="label label-success label-inline font-weight-normal mr-2" onclick="registro_nuevo_ejemplar('Macho')">Nuevo Ejemplar</span>
                                     </label><br>
                                 </div>
@@ -175,7 +175,7 @@
                                     </div>
                                     <br>
                                     <label for="exampleInputPassword1">
-                                        Registrar 
+                                        Registrar
                                         <span class="label label-success label-inline font-weight-normal mr-2" onclick="registro_nuevo_ejemplar('Hembra')">Nuevo Ejemplar</span>
                                     </label><br>
                                 </div>
@@ -185,7 +185,7 @@
                             <div class="col-md-12">
                                 <button type="button" id="edita_padres_guarda" class="btn btn-success btn-block" onclick="guardarEjemplarEditado()">Guardar</button>
                             </div>
-                        </div>                    
+                        </div>
                     </form>
                     {{-- <div class="row">
                         <div class="col-md-12" id="ajaxPropietario">
@@ -424,7 +424,7 @@
                             <div class="col-md-8">
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">
-                                        PROPIETARIO 
+                                        PROPIETARIO
                                         <span class="label label-success label-inline font-weight-normal mr-2" onclick="ajaxNuevoPropietario();">NUEVO</span>
                                     </label><br>
                                     {{-- <select class="form-control select2" id="transferencia_propietario_id" name="transferencia_propietario_id">
@@ -526,9 +526,9 @@
                                             <option value="{{ $ejemplar->raza->id }}"> {{ $ejemplar->raza->id }} {{ $ejemplar->raza->nombre }} {{ $ejemplar->raza->descripcion }}</option>
                                         @endif  --}}
                                         @forelse ($titulos as $ti)
-                                            <option value="{{ $ti->id }}">{{ $ti->nombre }} {{ $ti->descripcion }}</option>                                    
+                                            <option value="{{ $ti->id }}">{{ $ti->nombre }} {{ $ti->descripcion }}</option>
                                         @empty
-                                            
+
                                         @endforelse
                                     </select>
                                 </div>
@@ -580,9 +580,9 @@
                                             <option value="{{ $ejemplar->raza->id }}"> {{ $ejemplar->raza->id }} {{ $ejemplar->raza->nombre }} {{ $ejemplar->raza->descripcion }}</option>
                                         @endif  --}}
                                         @forelse ($examenes as $ex)
-                                            <option value="{{ $ex->id }}">{{ $ex->nombre }} {{ $ex->descripcion }}</option>                                    
+                                            <option value="{{ $ex->id }}">{{ $ex->nombre }} {{ $ex->descripcion }}</option>
                                         @empty
-                                            
+
                                         @endforelse
                                     </select>
                                 </div>
@@ -669,20 +669,20 @@
         $nombreCGPadre = '';
         $kcbCGMadre = '';
         $nombreCGMadre = '';
-        
+
         $kcbTGMadreP1 = '';
-        $nombreTGMadreP1 = '';  
-        
+        $nombreTGMadreP1 = '';
+
         $kcbTGMadreM2 = '';
         $nombreTGMadreM2 = '';
 
-        
+
         $kcbAbueloTG1 = '';
         $nombreAbueloTG1 = '';
 
         $kcbAbuelaTG1 = '';
         $nombreAbuelaTG1 = '';
-    
+
         $kcbAbueloCG1 = '';
         $nombreAbueloCG1 = '';
 
@@ -691,7 +691,7 @@
 
         $kcbAbueloTG1M1 = '';
         $nombreAbueloTG1M1 = '';
-        
+
         $kcbAbuelaTG1M1 = '';
         $nombreAbuelaTG1M1 = '';
 
@@ -722,7 +722,7 @@
             $kcbPapa = ($papa)?$papa->kcb:'';
             $nombrePapa = ($papa != null)?$papa->nombre:'';
             $IdPapa = ($papa != null)?$papa->id:null;
-            
+
             // preguntamos si el papa tiene padre
             // para sacar al abuelo
             if($papa->padre_id != null){
@@ -750,7 +750,7 @@
                     if($tGPadre->padre_id != null){
 
                         $cGPadre = App\Ejemplar::find($tGPadre->padre_id);
-                        
+
                         $kcbCGPadre = ($cGPadre)?$cGPadre->kcb:'';
                         $nombreCGPadre = ($cGPadre != null)?$cGPadre->nombre:'';
                         $IdCGPadre = ($cGPadre != null)?$cGPadre->id:null;
@@ -765,7 +765,7 @@
                     if($tGPadre->madre_id != null){
 
                         $cGMadre = App\Ejemplar::find($tGPadre->madre_id);
-                        
+
                         $kcbCGMadre = ($cGMadre)?$cGMadre->kcb:'';
                         $nombreCGMadre = ($cGMadre != null)?$cGMadre->nombre:'';
                         $IdCGMadre = ($cGMadre != null)?$cGMadre->id:null;
@@ -796,12 +796,12 @@
                         $CGMadreP = App\Ejemplar::find($tGMadre->padre_id);
 
                         $kcbTGMadreP1 = ($CGMadreP)?$CGMadreP->kcb:'';
-                        $nombreTGMadreP1 = ($CGMadreP)?$CGMadreP->nombre:'';    
-                        $IdTGMadreP1 = ($CGMadreP)?$CGMadreP->id:null;    
+                        $nombreTGMadreP1 = ($CGMadreP)?$CGMadreP->nombre:'';
+                        $IdTGMadreP1 = ($CGMadreP)?$CGMadreP->id:null;
                     }else{
                         $kcbTGMadreP1 = '';
-                        $nombreTGMadreP1 = '';    
-                        $IdTGMadreP1 = null;    
+                        $nombreTGMadreP1 = '';
+                        $IdTGMadreP1 = null;
                     }
 
                     // para la madre de del atercera generacion
@@ -810,12 +810,12 @@
                         $CGMadreM2 = App\Ejemplar::find($tGMadre->madre_id);
 
                         $kcbTGMadreM2 = ($CGMadreM2)?$CGMadreM2->kcb:'';
-                        $nombreTGMadreM2 = ($CGMadreM2)?$CGMadreM2->nombre:'';    
-                        $IdTGMadreM2 = ($CGMadreM2)?$CGMadreM2->id:null;    
+                        $nombreTGMadreM2 = ($CGMadreM2)?$CGMadreM2->nombre:'';
+                        $IdTGMadreM2 = ($CGMadreM2)?$CGMadreM2->id:null;
                     }else{
                         $kcbTGMadreM2 = '';
-                        $nombreTGMadreM2 = '';    
-                        $IdTGMadreM2 = null;    
+                        $nombreTGMadreM2 = '';
+                        $IdTGMadreM2 = null;
                     }
 
                 }else{
@@ -927,7 +927,7 @@
 
         }else{
             $kcbPapa = '';
-            $nombrePapa = '';    
+            $nombrePapa = '';
             $IdPapa = null;
         }
         // definimos las variables de la madre
@@ -943,23 +943,23 @@
         $nombreCGPadreM = '';
         $kcbCGMadreM = '';
         $nombreCGMadreM = '';
-        
+
         $kcbCGPadreM1 = '';
         $nombreCGPadreM1 = '';
         $kcbCGPadreM2 = '';
         $nombreCGPadreM2 = '';
         $kcbabueloMSG  = '' ;
         $nombreabueloMSG  = '' ;
-        
+
         $kcbabueloMSG2  = '' ;
         $nombreabueloMSG2  = '' ;
-        
+
         $kcbabueloMTG1  = '' ;
         $nombreabueloMTG1  = '' ;
-        
+
         $kcbabueloMTG11  = '' ;
         $nombreabueloMTG11  = '' ;
-        
+
         $kcbabueloMSG22  = '' ;
         $nombreabueloMSG22  = '' ;
 
@@ -1000,7 +1000,7 @@
                 $IdAbueloM  = ($abueloM)? $abueloM->id: null;
 
                 if($abueloM->padre_id != null){
-                    
+
                     $tGPadreM = App\Ejemplar::find($abueloM->padre_id);
 
                     $kcbTGPadreM = ($tGPadreM)?$tGPadreM->kcb:'';
@@ -1050,27 +1050,27 @@
 
                         $CGPadreM = App\Ejemplar::find($tGMadreM->padre_id);
 
-                        $kcbCGPadreM = ($CGPadreM)? $CGPadreM->kcb:'';                   
-                        $nombreCGPadreM = ($CGPadreM)? $CGPadreM->nombre:'';                   
-                        $IdCGPadreM = ($CGPadreM)? $CGPadreM->id:null;                   
+                        $kcbCGPadreM = ($CGPadreM)? $CGPadreM->kcb:'';
+                        $nombreCGPadreM = ($CGPadreM)? $CGPadreM->nombre:'';
+                        $IdCGPadreM = ($CGPadreM)? $CGPadreM->id:null;
 
                     }else{
 
-                        $kcbCGPadreM = '';                   
-                        $nombreCGPadreM = '';   
-                        $IdCGPadreM = null;                   
+                        $kcbCGPadreM = '';
+                        $nombreCGPadreM = '';
+                        $IdCGPadreM = null;
                     }
                     if($tGMadreM->madre_id != null){
 
                         $CGMadreM = App\Ejemplar::find($tGMadreM->madre_id);
 
-                        $kcbCGMadreM = ($CGMadreM)? $CGMadreM->kcb:'';                   
-                        $nombreCGMadreM = ($CGMadreM)? $CGMadreM->nombre:'';                   
-                        $IdCGMadreM = ($CGMadreM)? $CGMadreM->id:null;                   
+                        $kcbCGMadreM = ($CGMadreM)? $CGMadreM->kcb:'';
+                        $nombreCGMadreM = ($CGMadreM)? $CGMadreM->nombre:'';
+                        $IdCGMadreM = ($CGMadreM)? $CGMadreM->id:null;
                     }else{
-                        $kcbCGMadreM = '';                   
-                        $nombreCGPadreM = '';                   
-                        $IdCGMadreM = null;                   
+                        $kcbCGMadreM = '';
+                        $nombreCGPadreM = '';
+                        $IdCGMadreM = null;
                     }
                 }else{
                     $kcbTGMadreM = '';
@@ -1150,7 +1150,7 @@
                     }else{
 
                         $kcbabueloMSG22  = '' ;
-                        $nombreabueloMSG22  = '' ;  
+                        $nombreabueloMSG22  = '' ;
                         $IdabueloMSG22  = null ;
                     }
                     if($abueloSGM2->madre_id != null){
@@ -1292,7 +1292,7 @@
                             <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="kcb" name="kcb" value="{{ ($ejemplar != null)? $ejemplar->kcb:'' }}" placeholder="65123" {{ ($ejemplar != null)? (($ejemplar->extranjero == 'si')? '': 'required') : 'required'}} onfocusout="validaKcb()"/>
                         <span class="text-danger" style="display: none;" id="kcb-registrado">KCB ya Registrado!</span>
-                        <span class="form-text text-info">Ultimo KCB: 
+                        <span class="form-text text-info">Ultimo KCB:
                             @php
                                 $ultimoKCB = App\Ejemplar::latest()->first();
                                 echo $ultimoKCB->kcb;
@@ -1324,7 +1324,7 @@
                         <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" value="{{ ($ejemplar != null)? $ejemplar->fecha_nacimiento:'' }}"   {{ ($ejemplar != null)? (($ejemplar->extranjero == 'si')? '': 'required') : 'required'}} />
                     </div>
                 </div>
-                
+
             </div>
 
             <div class="row">
@@ -1354,7 +1354,7 @@
                         </select>
                     </div>
                 </div>
-                
+
             </div>
 
             <div class="row">
@@ -1370,9 +1370,9 @@
                                     <option value="{{ $ejemplar->raza->id }}"> {{ $ejemplar->raza->id }} {{ $ejemplar->raza->nombre }} {{ $ejemplar->raza->descripcion }}</option>
                                 @endif --}}
                                 @forelse ($razas as $r)
-                                    <option value="{{ $r->id }}">{{ $r->nombre }} {{ $r->descripcion }}</option>                                    
+                                    <option value="{{ $r->id }}">{{ $r->nombre }} {{ $r->descripcion }}</option>
                                 @empty
-                                    
+
                                 @endforelse
                             </select>
                     </div>
@@ -1383,7 +1383,7 @@
             <div class="row">
                 <input type="hidden" name="padre_id" id="padre_id" value="{{ ($ejemplar)? $ejemplar->padre_id:'' }}">
                 <div class="col-md-6" id="btn-padre">
-                    @if ($ejemplar != null && $ejemplar->padre_id != null) 
+                    @if ($ejemplar != null && $ejemplar->padre_id != null)
                         <button type="button" class="btn btn-sm btn-primary btn-block" onclick="seleccionaPadre()">KCB: {{ $ejemplar->padre->kcb }} NOMBRE: {{ $ejemplar->padre->nombre }}</button>
                     @else
                         <button type="button" class="btn btn-sm btn-primary btn-block" onclick="seleccionaPadre()">PADRE</button>
@@ -1397,7 +1397,7 @@
                         <button type="button" class="btn btn-sm btn-info btn-block" onclick="seleccionaMadre()">MADRE</button>
                     @endif
                 </div>
-                
+
             </div>
             <br />
             <div class="row">
@@ -1455,10 +1455,10 @@
                                 Santa Cruz</option>
                         </select>
                     </div>
-                </div>         
+                </div>
             </div>
 
-            <div class="row">                
+            <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="exampleInputPassword1">AFIJO
@@ -1562,7 +1562,7 @@
                         <input type="text" class="form-control" id="descripcion_perdido" name="descripcion_perdido" value="{{ ($ejemplar != null)? $ejemplar->descripcion_perdido:'' }}" placeholder="Se extravion por la plaza Villaroel a horas 13:00, lleva una chompa color rojo, reponde a nombre Snoopy" />
                     </div>
                 </div>
-                
+
             </div>
 
             {{-- <br /> --}}
@@ -1592,7 +1592,7 @@
                             value="{{ ($ejemplar != null)? $ejemplar->codigo_nacionalizado:'' }}" />
                     </div>
                 </div>
-                
+
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="prefijo">Fecha Nacionalizado
@@ -1601,7 +1601,7 @@
                             value="{{ ($ejemplar != null)? $ejemplar->fecha_nacionalizado:'' }}" />
                     </div>
                 </div>
-            
+
             </div>
 
             <br />
@@ -1625,7 +1625,7 @@
                                 </span>
                                 <span class="nav-text">TRANSFERENCIAS</span>
                             </a>
-                        </li>                        
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" id="contact-tab-1" data-toggle="tab" href="#titulos-1" aria-controls="titulos">
                                 <span class="nav-icon">
@@ -1694,7 +1694,7 @@
                                                         <i class="flaticon2-cross"></i>
                                                     </button>
                                                 </td>
-                                            </tr>    
+                                            </tr>
                                         @endif
                                     @endforeach
                                 </table>
@@ -1739,7 +1739,7 @@
                 <br />
 
             @endif
-                
+
                 <div class="row">
                     <div class="col-md-6"><button type="button" class="btn btn-sm btn-success btn-block" onclick="guardar()">GUARDAR</button></div>
                     <div class="col-md-6"><button type="button" class="btn btn-sm btn-dark btn-block" onclick="volver()" >VOLVER</button></div>
@@ -1750,6 +1750,7 @@
                         <br />
                         <h2 class="text-center text-primary">GENEALOGIA</h2>
                         {{-- <br /> --}}
+
                         <table class="table table-bordered table-dark">
                             <thead>
                                 <tr>
@@ -2102,7 +2103,7 @@
 
     function seleccionaPadre()
     {
-        $("#modal-padres").modal('show');        
+        $("#modal-padres").modal('show');
         $("#sexo-modal").val('macho');
         $("#ajaxEjemplar").html('');
         $("#busqueda-kcb").val('');
@@ -2119,7 +2120,7 @@
         $.ajax({
             url: "{{ url('Ejemplar/ajaxBuscaEjemplar') }}",
             data: {
-                kcb: kcb, 
+                kcb: kcb,
                 nombre: nombre,
                 sexo: sexo,
                 raza: raza
@@ -2490,7 +2491,7 @@
         }else{
             $("#formulario-nuevo-propietario")[0].reportValidity();
         }
-        
+
     }
 
     function validaEmail()
@@ -2502,7 +2503,7 @@
             data: {email: email},
             type: 'POST',
             success: function(data) {
-                // console.log(data.vEmail);     
+                // console.log(data.vEmail);
                 if(data.vEmail > 0){
                     $("#msg-error-email").show();
                 }else{
@@ -2520,7 +2521,7 @@
             data: {cedula: cedula},
             type: 'POST',
             success: function(data) {
-                // console.log(data.vEmail);     
+                // console.log(data.vEmail);
                 if(data.vCedula > 0){
                     $("#msg-error-cedula").show();
                 }else{
@@ -2529,7 +2530,7 @@
             }
         });
     }
-    
+
     // Class definition
 
     var KTBootstrapSwitch = function() {
@@ -2538,7 +2539,7 @@
         // minimum setup
             $('[data-switch=true]').bootstrapSwitch();
         };
-    
+
         return {
             // public functions
             init: function() {
@@ -2546,11 +2547,11 @@
             },
         };
     }();
-    
+
     jQuery(document).ready(function() {
         KTBootstrapSwitch.init();
     });
-    
+
     function mostrarAlquiler() {
         var c = document.getElementById('check_alquiler').checked;
         if(c){
@@ -2610,7 +2611,7 @@
             botonMadre = "<button type='button' id='btn-madre' onclick='edicionAjaxBuscaEjemplar("+'"Hembra"'+")' class='btn btn-block btn-info'>MADRE</button>";
         }
 
-        
+
         $('#bloque-edita-padre').html(botonPadre);
         $('#bloque-edita-madre').html(botonMadre);
         $('#edicion_ejemplar_id_editar').val(id_ejemplar_editar);
@@ -2638,7 +2639,7 @@
         $.ajax({
             url: "{{ url('Ejemplar/ajaxBuscaEjemplarEdita') }}",
             data: {
-                kcb: kcb, 
+                kcb: kcb,
                 nombre: nombre,
                 sexo: sexo,
                 raza: raza
@@ -2752,7 +2753,7 @@
             data: {kcb: kcb},
             type: 'POST',
             success: function(data) {
-                // console.log(data.vEmail);     
+                // console.log(data.vEmail);
                 if(data.vKcb > 0){
                     $("#kcb-registrado").show();
                     $("#kcb").addClass("is-invalid");
