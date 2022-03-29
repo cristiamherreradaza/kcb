@@ -116,6 +116,7 @@ Route::get('Evento/listadoInscritos/{evento_id}', 'EventoController@listadoInscr
 Route::post('Evento/editaInscripcionEjemplarEvento', 'EventoController@editaInscripcionEjemplarEvento');
 Route::get('Evento/eliminaInscripcion/{inscripcion_id}', 'EventoController@eliminaInscripcion');
 Route::get('Evento/catalogo/{evento_id}', 'EventoController@catalogo');
+Route::get('Evento/catalogoNumeracion/{evento_id}', 'EventoController@catalogoNumeracion');
 
 // PISTAS
 Route::get('Pista/listado', 'PistaController@listado');
@@ -154,8 +155,6 @@ Route::post('Criadero/guardaCriaderoPropietario', 'CriaderoController@guardaCria
 Route::post('Criadero/guardaCriaderoNuevoPropietario', 'CriaderoController@guardaCriaderoNuevoPropietario');
 
 
-
-
 // EJEMPLARES
 Route::get('Ejemplar/formulario/{id}', 'EjemplarController@formulario');
 Route::post('Ejemplar/ajaxBuscaEjemplar', 'EjemplarController@ajaxBuscaEjemplar');
@@ -191,12 +190,6 @@ Route::get('Ejemplar/certificadoRosadoAdelante/{ejemplar_id}', 'EjemplarControll
 Route::get('Ejemplar/certificadoExportacion/{ejemplar_id}', 'EjemplarController@certificadoExportacion');
 Route::get('Ejemplar/bitacora', 'EjemplarController@bitacora');
 Route::get('Ejemplar/listaCamadasPadres/{ejemplar_id}/{padre}', 'EjemplarController@listaCamadasPadres');
-
-
-
-
-
-
 
 
 // ALQUILERES

@@ -243,6 +243,9 @@
 									<button type="button" class="btn btn-sm btn-icon btn-success" onclick="addJuez('{{ $even->id }}', '{{ $even->nombre }}')">
 										<i class="fas fa-gavel"></i>
 									</button>
+									<button type="button" class="btn btn-sm btn-icon btn-dark" onclick="generaNumeracion('{{ $even->id }}', '{{ $even->nombre }}')">
+										<i class="fas fa-monument"></i>
+									</button>
 									<button type="button" class="btn btn-sm btn-icon btn-danger" onclick="elimina('{{ $even->id }}', '{{ $even->nombre }}')">
 										<i class="flaticon2-cross"></i>
 									</button>
@@ -483,6 +486,47 @@
                 }
             });
 
+		}
+
+		function generaNumeracion(id ,nombre){
+			Swal.fire({
+                title: "Quieres genrar la numeracion para el Evento "+nombre,
+                // text: "Ya no podras recuperarlo!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Si, Generar!",
+                cancelButtonText: "No, cancelar!",
+                reverseButtons: true
+            }).then(function(result) {
+				// si pulsa boton si
+                if (result.value) {
+
+					window.location.href = "{{ url('Evento/catalogoNumeracion')}}/"+id;
+
+					// $.ajax({
+					// 	url: "{{ url('Evento/catalogoNumeracion') }}",
+					// 	data: {
+					// 		asignacion_id:id
+					// 	},
+					// 	type: 'POST',
+					// 	success: function(data) {
+					// 		$('#listaAsignaciones').html(data);
+					// 	}
+					// });
+
+                    Swal.fire(
+                        "Borrado!",
+                        "El registro fue eliminado.",
+                        "success"
+                    )
+                } else if (result.dismiss === "cancel") {
+                    Swal.fire(
+                        "Cancelado",
+                        "La operacion fue cancelada",
+                        "error"
+                    )
+                }
+            });
 		}
 
     </script>

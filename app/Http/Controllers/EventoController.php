@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Asignacion;
 use App\Juez;
 use App\Raza;
 use App\User;
 use App\Evento;
 use App\Ejemplar;
+use App\GrupoRaza;
+use App\Asignacion;
 use App\Transferencia;
 use App\EjemplarEvento;
 use App\CategoriasPista;
@@ -636,6 +637,109 @@ class EventoController extends Controller
             }
             
         }
+    }
+
+    public function catalogoNumeracion(Request $request, $evento_id){
+
+        $evento = Evento::find($evento_id);
+        
+        $ejemplares = EjemplarEvento::where("categoria_pista_id",1)
+                                    ->where("evento_id",$evento_id)
+                                    ->get();
+
+        $ejemplaresAbsolutos = EjemplarEvento::where("evento_id",$evento_id)
+                                    ->where(function($query){
+                                        $query->orwhere("categoria_pista_id",11)
+                                              ->orwhere("categoria_pista_id",2);
+                                    })
+                                    ->get();
+
+        $ejemplaresJovenes = EjemplarEvento::where("evento_id",$evento_id)
+                                    ->whereIn("categoria_pista_id",[3,4,12,13])
+                                    ->get();
+
+        $ejemplaresAdulto = EjemplarEvento::where("evento_id",$evento_id)
+                                    ->whereIn("categoria_pista_id",[5,6,7,8,9,10,14,15,16,17,18,19,20])
+                                    ->get();
+
+        $grupo1  = array();
+        $grupo2  = array();
+        $grupo3  = array();
+        $grupo4  = array();
+        $grupo5  = array();
+        $grupo6  = array();
+        $grupo7  = array();
+        $grupo8  = array();
+        $grupo9  = array();
+        $grupo10 = array();
+
+        foreach ($ejemplares as $key => $e){
+
+            $cant = GrupoRaza::where('raza_id',$e->raza_id)
+                                    ->first();
+            if($cant){
+
+                if($e->extrangero == 'no'){
+                    $ejemplar = $e->ejemplar_id;
+                }else{
+                    $ejemplar = (-1) * $e->id;
+                }
+
+                switch ($cant->grupo_id) {
+                    case 1:
+                        array_push($grupo1, "$ejemplar");
+                        break;
+                    case 2:
+                        array_push($grupo2, "$ejemplar");
+                        break;
+                    case 3:
+                        array_push($grupo3, "$ejemplar");
+                        break;
+                    case 4:
+                        array_push($grupo4, "$ejemplar");
+                        break;
+                    case 5:
+                        array_push($grupo5, "$ejemplar");
+                        break;
+                    case 6:
+                        array_push($grupo6, "$ejemplar");
+                        break;
+                    case 7:
+                        array_push($grupo7, "$ejemplar");
+                        break;
+                    case 8:
+                        array_push($grupo8, "$ejemplar");
+                        break;
+                    case 9:
+                        array_push($grupo9, "$ejemplar");
+                        break;
+                    case 10:
+                        array_push($grupo10, "$ejemplar");
+                        break;
+                }
+            }
+        }
+
+        echo '<br><br>grupo I -> ';
+        print_r($grupo1);
+        echo '<br><br>grupo II -> ';
+        print_r($grupo2);
+        echo '<br><br>grupo III -> ';
+        print_r($grupo3);
+        echo '<br><br>grupo IV -> ';
+        print_r($grupo4);
+        echo '<br><br>grupo V -> ';
+        print_r($grupo5);
+        echo '<br><br>grupo VI -> ';
+        print_r($grupo6);
+        echo '<br><br>grupo VII -> ';
+        print_r($grupo7);
+        echo '<br><br>grupo VIII -> ';
+        print_r($grupo8);
+        echo '<br><br>grupo IX -> ';
+        print_r($grupo9);
+        echo '<br><br>grupo X -> ';
+        print_r($grupo10);
     }
 
 }
