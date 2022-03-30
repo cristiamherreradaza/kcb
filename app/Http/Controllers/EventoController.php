@@ -661,85 +661,122 @@ class EventoController extends Controller
         $ejemplaresAdulto = EjemplarEvento::where("evento_id",$evento_id)
                                     ->whereIn("categoria_pista_id",[5,6,7,8,9,10,14,15,16,17,18,19,20])
                                     ->get();
+                                    
+        $arrayDeEjemplares = array();
 
-        $grupo1  = array();
-        $grupo2  = array();
-        $grupo3  = array();
-        $grupo4  = array();
-        $grupo5  = array();
-        $grupo6  = array();
-        $grupo7  = array();
-        $grupo8  = array();
-        $grupo9  = array();
-        $grupo10 = array();
+        array_push($arrayDeEjemplares,$ejemplares);
+        array_push($arrayDeEjemplares,$ejemplaresAbsolutos);
+        array_push($arrayDeEjemplares,$ejemplaresJovenes);
+        array_push($arrayDeEjemplares,$ejemplaresAdulto);
 
-        foreach ($ejemplares as $key => $e){
 
-            $cant = GrupoRaza::where('raza_id',$e->raza_id)
-                                    ->first();
-            if($cant){
+        
 
-                if($e->extrangero == 'no'){
-                    $ejemplar = $e->ejemplar_id;
-                }else{
-                    $ejemplar = (-1) * $e->id;
+        foreach ($arrayDeEjemplares as $key => $ejemplares){
+
+            $grupo1  = array();
+            $grupo2  = array();
+            $grupo3  = array();
+            $grupo4  = array();
+            $grupo5  = array();
+            $grupo6  = array();
+            $grupo7  = array();
+            $grupo8  = array();
+            $grupo9  = array();
+            $grupo10 = array();
+
+            foreach ($ejemplares as $key => $e){
+
+                $cant = GrupoRaza::where('raza_id',$e->raza_id)
+                                        ->first();
+                if($cant){
+
+                    if($e->extrangero == 'no'){
+                        $ejemplar = $e->ejemplar_id;
+                    }else{
+                        $ejemplar = (-1) * $e->id;
+                    }
+
+                    switch ($cant->grupo_id) {
+                        case 1:
+                            array_push($grupo1, "$ejemplar");
+                            break;
+                        case 2:
+                            array_push($grupo2, "$ejemplar");
+                            break;
+                        case 3:
+                            array_push($grupo3, "$ejemplar");
+                            break;
+                        case 4:
+                            array_push($grupo4, "$ejemplar");
+                            break;
+                        case 5:
+                            array_push($grupo5, "$ejemplar");
+                            break;
+                        case 6:
+                            array_push($grupo6, "$ejemplar");
+                            break;
+                        case 7:
+                            array_push($grupo7, "$ejemplar");
+                            break;
+                        case 8:
+                            array_push($grupo8, "$ejemplar");
+                            break;
+                        case 9:
+                            array_push($grupo9, "$ejemplar");
+                            break;
+                        case 10:
+                            array_push($grupo10, "$ejemplar");
+                            break;
+                    }
                 }
+            }
+            echo '<hr>';
+            echo '<br><br>grupo I -> ';
+            print_r($grupo1);
+            echo '<br><br>grupo II -> ';
+            print_r($grupo2);
+            echo '<br><br>grupo III -> ';
+            print_r($grupo3);
+            echo '<br><br>grupo IV -> ';
+            print_r($grupo4);
+            echo '<br><br>grupo V -> ';
+            print_r($grupo5);
+            echo '<br><br>grupo VI -> ';
+            print_r($grupo6);
+            echo '<br><br>grupo VII -> ';
+            print_r($grupo7);
+            echo '<br><br>grupo VIII -> ';
+            print_r($grupo8);
+            echo '<br><br>grupo IX -> ';
+            print_r($grupo9);
+            echo '<br><br>grupo X -> ';
+            print_r($grupo10);
 
-                switch ($cant->grupo_id) {
-                    case 1:
-                        array_push($grupo1, "$ejemplar");
-                        break;
-                    case 2:
-                        array_push($grupo2, "$ejemplar");
-                        break;
-                    case 3:
-                        array_push($grupo3, "$ejemplar");
-                        break;
-                    case 4:
-                        array_push($grupo4, "$ejemplar");
-                        break;
-                    case 5:
-                        array_push($grupo5, "$ejemplar");
-                        break;
-                    case 6:
-                        array_push($grupo6, "$ejemplar");
-                        break;
-                    case 7:
-                        array_push($grupo7, "$ejemplar");
-                        break;
-                    case 8:
-                        array_push($grupo8, "$ejemplar");
-                        break;
-                    case 9:
-                        array_push($grupo9, "$ejemplar");
-                        break;
-                    case 10:
-                        array_push($grupo10, "$ejemplar");
-                        break;
-                }
+        }
+
+        
+
+        $arrayDeArray = array();
+
+        array_push($arrayDeArray,$grupo1);
+        array_push($arrayDeArray,$grupo2);
+        array_push($arrayDeArray,$grupo3);
+        array_push($arrayDeArray,$grupo4);
+        array_push($arrayDeArray,$grupo5);
+        array_push($arrayDeArray,$grupo6);
+        array_push($arrayDeArray,$grupo7);
+        array_push($arrayDeArray,$grupo8);
+        array_push($arrayDeArray,$grupo9);
+        array_push($arrayDeArray,$grupo10);
+
+        for ($i=1; $i <= 10 ; $i++) { 
+            if(!empty($arrayDeArray[$i-1])){
+                EventoController::armaCatalogo($arrayDeArray[$i-1], $evento->id, $i, 1);
             }
         }
 
-        echo '<br><br>grupo I -> ';
-        print_r($grupo1);
-        echo '<br><br>grupo II -> ';
-        print_r($grupo2);
-        echo '<br><br>grupo III -> ';
-        print_r($grupo3);
-        echo '<br><br>grupo IV -> ';
-        print_r($grupo4);
-        echo '<br><br>grupo V -> ';
-        print_r($grupo5);
-        echo '<br><br>grupo VI -> ';
-        print_r($grupo6);
-        echo '<br><br>grupo VII -> ';
-        print_r($grupo7);
-        echo '<br><br>grupo VIII -> ';
-        print_r($grupo8);
-        echo '<br><br>grupo IX -> ';
-        print_r($grupo9);
-        echo '<br><br>grupo X -> ';
-        print_r($grupo10);
+
     }
 
 }
