@@ -669,10 +669,7 @@ class EventoController extends Controller
         array_push($arrayDeEjemplares,$ejemplaresJovenes);
         array_push($arrayDeEjemplares,$ejemplaresAdulto);
 
-
-        
-
-        foreach ($arrayDeEjemplares as $key => $ejemplares){
+        foreach ($arrayDeEjemplares as $keyAE => $ejemplares){
 
             $grupo1  = array();
             $grupo2  = array();
@@ -685,7 +682,7 @@ class EventoController extends Controller
             $grupo9  = array();
             $grupo10 = array();
 
-            foreach ($ejemplares as $key => $e){
+            foreach ($ejemplares as $keyE => $e){
 
                 $cant = GrupoRaza::where('raza_id',$e->raza_id)
                                         ->first();
@@ -730,7 +727,351 @@ class EventoController extends Controller
                             break;
                     }
                 }
+                
             }
+
+            $arrayDeGrupos = array();
+
+            array_push($arrayDeGrupos,$grupo1);
+            array_push($arrayDeGrupos,$grupo2);
+            array_push($arrayDeGrupos,$grupo3);
+            array_push($arrayDeGrupos,$grupo4);
+            array_push($arrayDeGrupos,$grupo5);
+            array_push($arrayDeGrupos,$grupo6);
+            array_push($arrayDeGrupos,$grupo7);
+            array_push($arrayDeGrupos,$grupo8);
+            array_push($arrayDeGrupos,$grupo9);
+            array_push($arrayDeGrupos,$grupo10);
+
+            foreach($arrayDeGrupos as $keyDG => $grupo){
+
+                if(!empty($grupo)){
+
+                    $g2machos = array();
+                    $g2hembras = array();
+
+                    foreach ($grupo as $g2){
+                        if($g2 != ''){
+
+                            if($g2 > 0){
+                                if($g2 > 0){
+                                    $eje = Ejemplar::find($g2);
+                                }
+                                else{
+                                    $h = (-1)*$g2;
+                                    $eje = EjemplarEvento::find($h);
+                                }
+                                if($eje){
+                                    if($eje->sexo == 'Macho'){
+                                        array_push($g2machos, "$eje->id");
+                                    }else{
+                                        array_push($g2hembras, "$eje->id");
+                                    }    
+                                }
+                            }else{
+                                
+                                $h = (-1)*$g2;
+                                $eje = EjemplarEvento::find($h);
+                                $ejeExt = (-1) * $eje->id;
+                                if($eje){
+                                    if($eje->sexo == 'Macho'){
+                                        array_push($g2machos, "$ejeExt");
+                                    }else{
+                                        array_push($g2hembras, "$ejeExt");
+                                    }    
+                                }
+                            }
+                        }
+                        
+                        
+                    }
+
+                    $razas1 = EjemplarEvento::query();
+
+                            $razas1->join('razas', 'ejemplares_eventos.raza_id', '=', 'razas.id')
+                                ->join('grupos_razas', 'grupos_razas.raza_id', '=', 'razas.id')
+                                ->join('grupos', 'grupos.id', '=', 'grupos_razas.grupo_id')
+                                ->where('ejemplares_eventos.evento_id',$evento_id);
+
+                                if($keyAE+1 == 1){
+                                    $razas1->where('ejemplares_eventos.categoria_pista_id',1);
+                                }elseif($keyAE+1 == 2){
+                                    $razas1->whereIn('ejemplares_eventos.categoria_pista_id', [11,2]);
+                                }elseif($keyAE+1 == 3){
+                                    $razas1->whereIn('ejemplares_eventos.categoria_pista_id', [3,4,12,13]);
+                                }else{
+                                    $razas1->whereIn('ejemplares_eventos.categoria_pista_id', [5,6,7,8,9,10,14,15,16,17,18,19,20]);
+                                }
+
+                            $razas1->where('grupos.id',$keyDG+1)
+                                ->groupBy('razas.id')
+                                ->orderBy('razas.nombre','asc')
+                                ->select('razas.*');
+
+                        $razas = $razas1->get();
+
+                    $swm = true;
+                    $swh = true;
+                    $contador = 1;
+
+                    foreach ($razas as $r){
+                        echo '<h5 class="text-primary"> - '. $r->nombre. '</h5>';
+                        if (!empty($g2machos)){
+                            $swm = true;
+                            // EventoController::catalogoDevuelveEjemplar($g2machos,$swm,$r,$evento_id);
+                            
+                            $arrayEjemplaresAux = array();
+                            $arrayEjemplaresAux = $g2machos;
+
+                            foreach ($g2machos as $g2h){
+                                if($g2h > 0){
+
+                                    $eventoEjemplarInscrito = EjemplarEvento::where('ejemplar_id',$g2h)
+                                                                            ->where('evento_id',$evento_id)
+                                                                            ->first();
+                                    $swm = true;
+                                                                        
+                                    foreach ($arrayEjemplaresAux as $keyEAM => $value) {
+
+                                        $eventoEjemplarInscritoAux = EjemplarEvento::where('ejemplar_id',$value)
+                                                                            ->where('evento_id',$evento_id)
+                                                                            ->first();
+
+                                        if($eventoEjemplarInscrito && $eventoEjemplarInscritoAux){
+
+                                            if($eventoEjemplarInscrito->categoria_pista_id == $eventoEjemplarInscritoAux->categoria_pista_id){
+
+                                                $eje = Ejemplar::find($value);
+
+                                                if($eje){
+                                                    if($eje->raza_id == $r->id){
+                                                        if($eje->raza_id == $r->id && $eventoEjemplarInscrito->categoria_pista_id == $eventoEjemplarInscritoAux->categoria_pista_id && $swm){
+
+                                                            $evento = EjemplarEvento::where('ejemplar_id',$eje->id)
+                                                                                        ->where('evento_id',$evento_id)
+                                                                                        ->first();
+
+                                                            echo '<h6> <span class="text-danger">'.$evento->categoriaPista->nombre.'</span> '.$eje->sexo.'s</h6>';
+
+                                                            $swm = false;
+
+                                                        }
+                                    
+                                                        if($eje->kcb == null && ($eje->codigo_nacionalizado != '' || $eje->codigo_nacionalizado != null)){
+                                                            $nacionalidad = '(Extranjero)';
+                                                            $kcb =  $eje->codigo_nacionalizado; 
+                                                        }else{
+                                                            $nacionalidad = '(Nacional)';
+                                                            $kcb =  $eje->kcb; 
+                                                        }
+                                    
+                                                        if($eje->padre){
+                                                            $padre = $eje->padre->nombre_completo;
+                                                        }else{
+                                                            $padre = '';
+                                                        }
+                                    
+                                                        if($eje->madre){
+                                                            $madre = $eje->madre->nombre_completo;
+                                                        }else{
+                                                            $madre = '';
+                                                        }
+                                    
+                                                        if($eje->propietario){
+                                                            $nombre_propietario         = $eje->propietario->name;
+                                                            $departamento_propietario   = $eje->propietario->departamento;
+                                                            $celulares_propietario      = $eje->propietario->celulares;
+                                                            $email_propietario          = $eje->propietario->email;
+                                                        }else{
+                                                            $nombre_propietario         = '';
+                                                            $departamento_propietario   = '';
+                                                            $celulares_propietario      = '';
+                                                            $email_propietario          = '';
+                                                        }
+                                
+                                                        echo '<b>'.$contador." ".$eje->nombre_completo.'</b><span class="text-danger">'.$nacionalidad."</span><br>" ;
+                                                        echo '<b>KCB: </b>'.$kcb.' - <b> FECHA NACIMIENTO: </b>'.date('d/m/Y',strtotime($eje->fecha_nacimiento)).' - <b> POR: </b>'.$padre.' y '.$madre.'<br>';
+                                                        echo '<b> PROPIETARIO: </b>'.$nombre_propietario.' - <b> CIUDAD/PAIS: </b>'.$departamento_propietario.' - <b> TELEFONOS: </b>'.$celulares_propietario.' - <b> EMAIL: </b>'.$email_propietario.'<br><br>';
+
+                                                        unset($arrayEjemplaresAux[$keyEAM]);
+                                                    }
+                                                }
+
+                                            }
+                                        }
+
+                                    }
+                                    
+                                    
+                                }else{
+                                    $g2hExt = (-1) * $g2h ;
+
+                                    $eje = EjemplarEvento::find($g2hExt);
+
+                                    if($eje){
+                                        if($eje->raza_id == $r->id){
+                                            if($swm){
+                                                $evento = EjemplarEvento::where('id',$eje->id)
+                                                                        ->where('evento_id',$evento_id)
+                                                                        ->first();
+                                                echo '<h6> <span class="text-danger">'.$evento->categoriaPista->nombre.'</span> '.$eje->sexo.'s</h6>';
+                                                $swm = false;
+                                            }
+
+                                            $nacionalidad = '(Extranjero)';
+                                            $kcb =  $eje->codigo_nacionalizado; 
+                                            $padre = $eje->nombre_padre;
+                                            $madre = $eje->nombre_madre;
+
+                                            $nombre_propietario         = $eje->propietario;
+                                            $departamento_propietario   = $eje->ciudad;
+                                            $celulares_propietario      = $eje->telefono;
+                                            $email_propietario          = $eje->email;
+
+                                            echo '<b>'.$contador." ".$eje->nombre_completo.'</b><span class="text-danger">'.$nacionalidad."</span><br>" ;
+                                            echo '<b>COD EXTRANJERO: </b>'.$kcb.' - <b> FECHA NACIMIENTO: </b>'.date('d/m/Y',strtotime($eje->fecha_nacimiento)).' - <b> POR: </b>'.$padre.' y '.$madre.'<br>';
+                                            echo '<b> PROPIETARIO: </b>'.$nombre_propietario.' - <b> CIUDAD/PAIS: </b>'.$departamento_propietario.' - <b> TELEFONOS: </b>'.$celulares_propietario.' - <b> EMAIL: </b>'.$email_propietario.'<br><br>';
+                                        }
+                                    }
+                                }
+                                
+                            }
+                            // EventoController::catalogoDevuelveEjemplar($g2machos,$swm,$r,$evento_id);
+                        }
+                        if (!empty($g2hembras)){
+
+                            $swh = true;
+                            // EventoController::catalogoDevuelveEjemplar($g2hembras,$swh,$r,$evento_id);
+                            
+                            $arrayEjemplaresAux = array();
+                            $arrayEjemplaresAux = $g2hembras;
+
+                            foreach ($g2hembras as $g2h){
+                                if($g2h > 0){
+
+                                    $eventoEjemplarInscrito = EjemplarEvento::where('ejemplar_id',$g2h)
+                                                                            ->where('evento_id',$evento_id)
+                                                                            ->first();
+                                    $swh = true;
+                                                                        
+                                    foreach ($arrayEjemplaresAux as $keyEAH => $value) {
+
+                                        $eventoEjemplarInscritoAux = EjemplarEvento::where('ejemplar_id',$value)
+                                                                            ->where('evento_id',$evento_id)
+                                                                            ->first();
+                                        if($eventoEjemplarInscrito && $eventoEjemplarInscritoAux){
+
+                                            if($eventoEjemplarInscrito->categoria_pista_id == $eventoEjemplarInscritoAux->categoria_pista_id){
+
+                                                $eje = Ejemplar::find($value);
+
+                                                if($eje){
+                                                    if($eje->raza_id == $r->id){
+                                                        if($eje->raza_id == $r->id && $eventoEjemplarInscrito->categoria_pista_id == $eventoEjemplarInscritoAux->categoria_pista_id && $swh){
+
+                                                            $evento = EjemplarEvento::where('ejemplar_id',$eje->id)
+                                                                                        ->where('evento_id',$evento_id)
+                                                                                        ->first();
+
+                                                            echo '<h6> <span class="text-danger">'.$evento->categoriaPista->nombre.'</span> '.$eje->sexo.'s</h6>';
+
+                                                            $swh = false;
+
+                                                        }
+                                    
+                                                        if($eje->kcb == null && ($eje->codigo_nacionalizado != '' || $eje->codigo_nacionalizado != null)){
+                                                            $nacionalidad = '(Extranjero)';
+                                                            $kcb =  $eje->codigo_nacionalizado; 
+                                                        }else{
+                                                            $nacionalidad = '(Nacional)';
+                                                            $kcb =  $eje->kcb; 
+                                                        }
+                                    
+                                                        if($eje->padre){
+                                                            $padre = $eje->padre->nombre_completo;
+                                                        }else{
+                                                            $padre = '';
+                                                        }
+                                    
+                                                        if($eje->madre){
+                                                            $madre = $eje->madre->nombre_completo;
+                                                        }else{
+                                                            $madre = '';
+                                                        }
+                                    
+                                                        if($eje->propietario){
+                                                            $nombre_propietario         = $eje->propietario->name;
+                                                            $departamento_propietario   = $eje->propietario->departamento;
+                                                            $celulares_propietario      = $eje->propietario->celulares;
+                                                            $email_propietario          = $eje->propietario->email;
+                                                        }else{
+                                                            $nombre_propietario         = '';
+                                                            $departamento_propietario   = '';
+                                                            $celulares_propietario      = '';
+                                                            $email_propietario          = '';
+                                                        }
+                                
+                                                        // echo '<b>'.$eje->nombre_completo.' <--> <span class="text-danger">'.$evento->categoria_pista_id."</span><-->".$eje->id.'</b><span class="text-danger">'.$nacionalidad."</span><br><br>" ;
+                                
+                                                        echo '<b>'.$eje->nombre_completo.'</b><span class="text-danger">'.$nacionalidad."</span><br>" ;
+                                                        echo '<b>KCB: </b>'.$kcb.' - <b> FECHA NACIMIENTO: </b>'.date('d/m/Y',strtotime($eje->fecha_nacimiento)).' - <b> POR: </b>'.$padre.' y '.$madre.'<br>';
+                                                        echo '<b> PROPIETARIO: </b>'.$nombre_propietario.' - <b> CIUDAD/PAIS: </b>'.$departamento_propietario.' - <b> TELEFONOS: </b>'.$celulares_propietario.' - <b> EMAIL: </b>'.$email_propietario.'<br><br>';
+
+                                                        // echo "<h1>".$key.'<--->'.$value."</h1>";
+
+                                                        unset($arrayEjemplaresAux[$keyEAH]);
+                                                    }
+                                                }
+
+                                            }
+                                        }
+                                    }
+                                    
+                                    
+                                }else{
+                                    $g2hExt = (-1) * $g2h ;
+
+                                    $eje = EjemplarEvento::find($g2hExt);
+
+                                    if($eje){
+                                        if($eje->raza_id == $r->id){
+                                            if($swh){
+                                                $evento = EjemplarEvento::where('id',$eje->id)
+                                                                        ->where('evento_id',$evento_id)
+                                                                        ->first();
+                                                echo '<h6> <span class="text-danger">'.$evento->categoriaPista->nombre.'</span> '.$eje->sexo.'s</h6>';
+                                                $swh = false;
+                                            }
+
+                                            $nacionalidad = '(Extranjero)';
+                                            $kcb =  $eje->codigo_nacionalizado; 
+                                            $padre = $eje->nombre_padre;
+                                            $madre = $eje->nombre_madre;
+
+                                            $nombre_propietario         = $eje->propietario;
+                                            $departamento_propietario   = $eje->ciudad;
+                                            $celulares_propietario      = $eje->telefono;
+                                            $email_propietario          = $eje->email;
+
+                                            echo '<b>'.$eje->nombre_completo.'</b><span class="text-danger">'.$nacionalidad."</span><br>" ;
+                                            echo '<b>COD EXTRANJERO: </b>'.$kcb.' - <b> FECHA NACIMIENTO: </b>'.date('d/m/Y',strtotime($eje->fecha_nacimiento)).' - <b> POR: </b>'.$padre.' y '.$madre.'<br>';
+                                            echo '<b> PROPIETARIO: </b>'.$nombre_propietario.' - <b> CIUDAD/PAIS: </b>'.$departamento_propietario.' - <b> TELEFONOS: </b>'.$celulares_propietario.' - <b> EMAIL: </b>'.$email_propietario.'<br><br>';
+                                        }
+                                    }
+                                }
+                                
+                            }
+                        }
+
+                        $contador = $contador + 1;
+                    }
+
+                    // EventoController::armaCatalogo($grupo, $evento->id, ($keyDG+1), ($keyAE+1));
+
+                }
+            }
+
+
             echo '<hr>';
             echo '<br><br>grupo I -> ';
             print_r($grupo1);
@@ -757,24 +1098,7 @@ class EventoController extends Controller
 
         
 
-        $arrayDeArray = array();
-
-        array_push($arrayDeArray,$grupo1);
-        array_push($arrayDeArray,$grupo2);
-        array_push($arrayDeArray,$grupo3);
-        array_push($arrayDeArray,$grupo4);
-        array_push($arrayDeArray,$grupo5);
-        array_push($arrayDeArray,$grupo6);
-        array_push($arrayDeArray,$grupo7);
-        array_push($arrayDeArray,$grupo8);
-        array_push($arrayDeArray,$grupo9);
-        array_push($arrayDeArray,$grupo10);
-
-        for ($i=1; $i <= 10 ; $i++) { 
-            if(!empty($arrayDeArray[$i-1])){
-                EventoController::armaCatalogo($arrayDeArray[$i-1], $evento->id, $i, 1);
-            }
-        }
+        
 
 
     }
