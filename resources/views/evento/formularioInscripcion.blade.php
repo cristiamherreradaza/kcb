@@ -116,7 +116,7 @@
 							@csrf
 							<div class="card-body">
 								<input type="hidden" name="evento_id" id="evento_id" value="{{ $evento->id }}">
-								<input type="text" name="ejemplar_meses" id="ejemplar_meses" >
+								<input type="hidden" name="ejemplar_meses" id="ejemplar_meses" >
 								<input type="hidden" name="ejemplar_id" id="ejemplar_id">
 								<div class="row">
 									<div class="col-md-6">
@@ -452,13 +452,13 @@
 			if (document.getElementById("Nacional").checked) {
 				
 				$("#registro_extrangero").prop('required',true);
-				$('#verdad_extrangero').val('si');
+				$('#verdad_extrangero').val('no');
 				// $("#fecha_nacimiento").prop('required',true);
 				// $("#propietario_id").prop('required',true);
 				// $("#criadero_id").prop('required',true);
 			} else if (document.getElementById("Extranjero").checked) {
 				$("#registro_extrangero").prop('required',false);
-				$('#verdad_extrangero').val('no');
+				$('#verdad_extrangero').val('si');
 				// $("#kcb").prop('required',false);
 				// $("#fecha_nacimiento").prop('required',false);
 				// $("#propietario_id").prop('required',false);
