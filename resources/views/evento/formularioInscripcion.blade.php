@@ -116,7 +116,7 @@
 							@csrf
 							<div class="card-body">
 								<input type="hidden" name="evento_id" id="evento_id" value="{{ $evento->id }}">
-								<input type="hidden" name="ejemplar_meses" id="ejemplar_meses" >
+								<input type="text" name="ejemplar_meses" id="ejemplar_meses" >
 								<input type="hidden" name="ejemplar_id" id="ejemplar_id">
 								<div class="row">
 									<div class="col-md-6">
@@ -525,7 +525,6 @@
 						$("#msg-vacio-kcb").hide();
 
 						calcular_fecha();
-
 						BuscaCategorias(document.getElementById("sexo"));
 
 						$("#ejemplar_id").prop('readonly', true);
@@ -608,7 +607,6 @@
 		});
 		
 		function calcular_fecha(){
-		
 			let fecha_nacimiento    = $("#fecha_nacimiento").val();
 			// alert(fecha_nacimiento);
 			// let fecha_inicio_evento = "2021-08-08";
@@ -622,6 +620,8 @@
 			meses = diff_months(dt2, fecha_cal);
 			$('#msjEdad').html("OJO su Ejemplar tiene <b>" + meses + " meses</b>");
 			$("#ejemplar_meses").val(meses);
+
+			BuscaCategorias(document.getElementById("sexo"));
 		}
 		
 		function crea_fecha(fecha) {
@@ -696,7 +696,7 @@
 						$("#nombre").val('');
 						$("#color").val('');
 						$("#fecha_nacimiento").val('');
-						$("#sexo").val('');
+						$("#sexo").val('Macho');
 						$("#registro_extrangero").val('');
 						$("#tatuaje").val('');
 						$("#chip").val('');
