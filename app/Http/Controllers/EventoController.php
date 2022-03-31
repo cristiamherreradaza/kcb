@@ -207,7 +207,8 @@ class EventoController extends Controller
     }
     
     public function inscribirEvento(Request $request){
-        // dd($request->all());
+        dd($request->all());
+
         $ejemplarEvento = new EjemplarEvento();
 
 
@@ -237,57 +238,6 @@ class EventoController extends Controller
         if($request->input('verdad_extrangero') == 'si'){
             $ejemplarEvento->codigo_nacionalizado = $request->input('registro_extrangero');
         }
-
-
-        // if($request->kcb_busca && $request->ejemplar_id){
-        //     // $ejemplarEvento->user_id                    = Auth::user()->id;
-        //     $ejemplarEvento->evento_id                  = $request->input('evento_id');
-        //     $ejemplarEvento->ejemplar_id                = $request->input('ejemplar_id');      
-        //     $ejemplarEvento->categoria_pista_id         = $request->input('categoria_pista');
-
-        //     $ejemplarEvento->raza_id                    = $request->input('raza_id');
-        //     $ejemplarEvento->nombre_completo            = $request->input('nombre');
-        //     $ejemplarEvento->color                      = $request->input('color');
-        //     $ejemplarEvento->fecha_nacimiento           = $request->input('fecha_nacimiento');
-        //     $ejemplarEvento->chip                       = $request->input('chip');
-        //     $ejemplarEvento->kcb_padre                  = $request->input('kcb_padre');
-        //     $ejemplarEvento->nombre_padre               = $request->input('nom_padre');
-        //     $ejemplarEvento->kcb_madre                  = $request->input('kcb_madre');
-        //     $ejemplarEvento->nombre_madre               = $request->input('nom_madre');
-        //     $ejemplarEvento->propietario                = $request->input('propietario');
-        //     $ejemplarEvento->ciudad                     = $request->input('ciudad');
-        //     $ejemplarEvento->sexo                       = $request->input('sexo');
-        //     $ejemplarEvento->tatuaje                    = $request->input('tatuaje');
-
-        //     $ejemplarEvento->extrangero                 = 'no';
-        //     $ejemplarEvento->criador                    = $request->input('criador');
-        //     $ejemplarEvento->telefono                   = $request->input('telefono');
-        //     $ejemplarEvento->email                      = $request->input('email');
-
-        // }elseif($request->cod_extrangero && $request->ejemplar_id == null){
-
-        //     // $ejemplarEvento->user_id                    = Auth::user()->id;
-        //     $ejemplarEvento->evento_id                  = $request->input('evento_id');
-        //     $ejemplarEvento->raza_id                    = $request->input('raza_id');
-        //     $ejemplarEvento->categoria_pista_id         = $request->input('categoria_pista');
-        //     $ejemplarEvento->extrangero                 = 'si';
-        //     $ejemplarEvento->codigo_nacionalizado       = $request->input('cod_extrangero');
-        //     $ejemplarEvento->nombre_completo            = $request->input('nombre');
-        //     $ejemplarEvento->color                      = $request->input('color');
-        //     $ejemplarEvento->fecha_nacimiento           = $request->input('fecha_nacimiento');
-        //     $ejemplarEvento->chip                       = $request->input('chip');
-        //     $ejemplarEvento->kcb_padre                  = $request->input('kcb_padre');
-        //     $ejemplarEvento->nombre_padre               = $request->input('nom_padre');
-        //     $ejemplarEvento->kcb_madre                  = $request->input('kcb_madre');
-        //     $ejemplarEvento->nombre_madre               = $request->input('nom_madre');
-        //     $ejemplarEvento->criador                    = $request->input('criador');
-        //     $ejemplarEvento->propietario                = $request->input('propietario');
-        //     $ejemplarEvento->ciudad                     = $request->input('ciudad');
-        //     $ejemplarEvento->sexo                       = $request->input('sexo');
-        //     $ejemplarEvento->telefono                   = $request->input('telefono');
-        //     $ejemplarEvento->email                      = $request->input('email');
-        //     $ejemplarEvento->tatuaje                    = $request->input('tatuaje');
-        // }
 
         $ejemplarEvento->edad                           = $request->input('ejemplar_meses');
 
@@ -1145,6 +1095,46 @@ class EventoController extends Controller
         return redirect('Evento/listado');
         // return redirect('Evento/catalogo/'.$evento_id);
 
+    }
+
+    public function ajaxBuscaCategoria(Request $request){
+
+        $arrayCategorias = array();
+
+        $edad = $request->input('edad');
+
+        // dd($request->input('edad'));
+
+        if($request->input('sexo')=='Macho'){
+            $categorias = CategoriasPista::whereIn('id', [1,3,5,7,9,11,12,14,16])
+                                        ->where('desde','>=',$edad)
+                                        ->where('hasta','<=',$edad)
+                                        ->get();
+                                        // ->toSql();
+        }else{
+            $categorias = CategoriasPista::whereIn('id', [2,4,6,8,10,13,15,17])
+                                        ->where('desde','>=',$edad)
+                                        ->where('hasta','<=',$edad)
+                                        ->get();
+                                        // ->toSql();
+        }
+
+        // dd($categorias);
+
+        if($categorias){
+            $punetero = 0 ;
+            foreach ($categorias as $key =>  $ca){
+                $arrayCategorias[$punetero] = $ca->id;
+                $arrayCategorias[$punetero+1] = $ca->nombre;
+                 
+                $punetero = $punetero + 2 ;
+                //  $arrayCategorias[$ca->id] = $ca->nombre;
+            }
+        }
+
+        // dd("holas");
+
+        return json_encode($arrayCategorias);
     }
 
 }

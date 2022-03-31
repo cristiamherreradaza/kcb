@@ -117,6 +117,8 @@ Route::post('Evento/editaInscripcionEjemplarEvento', 'EventoController@editaInsc
 Route::get('Evento/eliminaInscripcion/{inscripcion_id}', 'EventoController@eliminaInscripcion');
 Route::get('Evento/catalogo/{evento_id}', 'EventoController@catalogo');
 Route::get('Evento/catalogoNumeracion/{evento_id}', 'EventoController@catalogoNumeracion');
+Route::post('Evento/ajaxBuscaCategoria', 'EventoController@ajaxBuscaCategoria');
+
 
 // PISTAS
 Route::get('Pista/listado', 'PistaController@listado');

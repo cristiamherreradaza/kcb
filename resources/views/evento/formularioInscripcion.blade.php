@@ -116,20 +116,38 @@
 							@csrf
 							<div class="card-body">
 								<input type="hidden" name="evento_id" id="evento_id" value="{{ $evento->id }}">
-								<input type="hidden" name="ejemplar_meses" id="ejemplar_meses" >
+								<input type="text" name="ejemplar_meses" id="ejemplar_meses" >
 								<input type="hidden" name="ejemplar_id" id="ejemplar_id">
 								<div class="row">
 									<div class="col-md-6">
 										<div class="row">
 											<div class="col-md-6">
-												<div class="form-group">
+												<div class="form-group row">
+													{{-- <label class="col-3 col-form-label">Ejemplar</label> --}}
+													<div class="col-12 col-form-label">
+														<div class="radio-inline">
+															<label class="radio radio-success">
+																<input type="radio" name="radios5" id="Nacional" checked="checked" value="Nacional" onchange="mostrarBusqueda()"/>
+																<span></span>
+																Nacional
+															</label>
+															<label class="radio radio-success">
+																<input type="radio" name="radios5" id="Extranjero"  value="Extranjero" onchange="mostrarBusqueda()"/>
+																<span></span>
+																Extranjero
+															</label>
+														</div>
+														<span class="form-text text-muted">Selecciona la nacionalidad o Extranjero del Ejemplar</span>
+													</div>
+												</div>
+												{{-- <div class="form-group">
 													<label class="exampleInputPasswo¶rd1">
 													Nacional</label>
 													<input id='check_busca' data-switch="true" type="checkbox" checked data-on-color="primary"  onchange="mostrarBusqueda()"/>
 													<label class="exampleInputPassword1">
 													Extrangero</label>
-												</div>
-												<span class="form-text text-danger" id="msg-error-email" style="display: none;">Correo duplicado, cambielo!!!</span>
+												</div> --}}
+												{{-- <span class="form-text text-danger" id="msg-error-email" style="display: none;">Correo duplicado, cambielo!!!</span> --}}
 											</div>
 											<div class="col-md-6">
 												<div id="bloque-nacional">
@@ -218,7 +236,7 @@
 										<div class="form-group">
 											<label class="exampleInputPassword1">
 											Sexo</label>
-											<select class="form-control" id="sexo" name="sexo" >
+											<select class="form-control" id="sexo" name="sexo" onchange="BuscaCategorias(this)">
 												<option value="Macho">Macho</option>
 												<option value="Hembra">Hembra</option>
 											</select>
@@ -288,14 +306,18 @@
 											<h4 id="msjEdad" class="text-success"></h4>
 											<select class="form-control select2" id="categoria_pista" name="categoria_pista" required >
 												<option value=""></option>
+												<div id="categoria">
+
+												</div>
 												{{-- @if ($ejemplar != null && $ejemplar->raza_id != null)
 													<option value="{{ $ejemplar->raza->id }}"> {{ $ejemplar->raza->id }} {{ $ejemplar->raza->nombre }} {{ $ejemplar->raza->descripcion }}</option>
 												@endif --}}
-												@forelse ($categorias_pistas as $ca)
+
+												{{-- @forelse ($categorias_pistas as $ca)
 													<option value="{{ $ca->id }}">{{ $ca->nombre }} {{ $ca->desde }}</option>                                    
 												@empty
 													
-												@endforelse
+												@endforelse --}}
 											</select>
 										</div>
 									</div>
@@ -427,14 +449,14 @@
 		}
 		
 		function mostrarBusqueda(){
-			var c = document.getElementById('check_busca').checked;
-			if(!c){
+			if (document.getElementById("Nacional").checked) {
+				
 				$("#registro_extrangero").prop('required',true);
 				$('#verdad_extrangero').val('si');
 				// $("#fecha_nacimiento").prop('required',true);
 				// $("#propietario_id").prop('required',true);
 				// $("#criadero_id").prop('required',true);
-			}else{
+			} else if (document.getElementById("Extranjero").checked) {
 				$("#registro_extrangero").prop('required',false);
 				$('#verdad_extrangero').val('no');
 				// $("#kcb").prop('required',false);
@@ -442,6 +464,22 @@
 				// $("#propietario_id").prop('required',false);
 				// $("#criadero_id").prop('required',false);
 			}
+
+			// var c = document.getElementById('check_busca').checked;
+			// if(!c){
+			// 	$("#registro_extrangero").prop('required',true);
+			// 	$('#verdad_extrangero').val('si');
+			// 	// $("#fecha_nacimiento").prop('required',true);
+			// 	// $("#propietario_id").prop('required',true);
+			// 	// $("#criadero_id").prop('required',true);
+			// }else{
+			// 	$("#registro_extrangero").prop('required',false);
+			// 	$('#verdad_extrangero').val('no');
+			// 	// $("#kcb").prop('required',false);
+			// 	// $("#fecha_nacimiento").prop('required',false);
+			// 	// $("#propietario_id").prop('required',false);
+			// 	// $("#criadero_id").prop('required',false);
+			// }
 
 			$("#bloque-nacional").toggle('slow');
 			$("#bloque-extrangero").toggle('slow');
@@ -485,13 +523,35 @@
 						$("#msg-good-kcb").show();
 						$("#msg-error-kcb").hide();
 						$("#msg-vacio-kcb").hide();
+
 						calcular_fecha();
+
+						BuscaCategorias(document.getElementById("sexo"));
+
+						$("#ejemplar_id").prop('readonly', true);
+						$("#nombre").prop('readonly', true);
+						$("#color").prop('readonly', true);
+						$("#fecha_nacimiento").prop('readonly', true);
+
+						$("#sexo").prop('readonly', true);
+						$('#sexo option:not(:selected)').attr('readonly',true);
+
+						$("#registro_extrangero").prop('readonly', true);
+						$("#tatuaje").prop('readonly', true);
+						$("#chip").prop('readonly', true);
+						$("#kcb_padre").prop('readonly', true);
+						$("#nom_padre").prop('readonly', true);
+						$("#kcb_madre").prop('readonly', true);
+						$("#nom_madre").prop('readonly', true);
+						$("#raza_id").prop('readonly', true);
+
+						// $("input").prop('disabled', false);
 					}else{
 						$("#ejemplar_id").val('');
 						$("#nombre").val('');
 						$("#color").val('');
 						$("#fecha_nacimiento").val('');
-						$("#sexo").val('');
+						$("#sexo").val('Macho');
 						$("#registro_extrangero").val('');
 						$("#tatuaje").val('');
 						$("#chip").val('');
@@ -505,6 +565,24 @@
 						$("#nom_madre").val('');
 						$("#raza_id").val('');
 						$('#raza_id').trigger('change');
+
+
+						$("#ejemplar_id").prop('readonly', false);
+						$("#nombre").prop('readonly', false);
+						$("#color").prop('readonly', false);
+						$("#fecha_nacimiento").prop('readonly', false);
+
+						// $("#sexo").prop('readonly', false);
+						// $('#sexo option:not(:selected)').attr('readonly',true);
+
+						$("#registro_extrangero").prop('readonly', false);
+						$("#tatuaje").prop('readonly', false);
+						$("#chip").prop('readonly', false);
+						$("#kcb_padre").prop('readonly', false);
+						$("#nom_padre").prop('readonly', false);
+						$("#kcb_madre").prop('readonly', false);
+						$("#nom_madre").prop('readonly', false);
+						$("#raza_id").prop('readonly', false);
 		
 						// console.log("vacio");
 						$("#msg-error-kcb").show();
@@ -609,7 +687,10 @@
 						$("#msg-good-kcb").show();
 						$("#msg-error-kcb").hide();
 						$("#msg-vacio-kcb").hide();
+
 						calcular_fecha();
+
+						BuscaCategorias(document.getElementById("sexo"));
 					}else{
 						$("#ejemplar_id").val('');
 						$("#nombre").val('');
@@ -640,6 +721,51 @@
 			}
 		
 		}
+
+		function BuscaCategorias(select){
+
+			var edad =  document.getElementById('ejemplar_meses').value;
+
+			console.log(edad)
+
+			const sexo = select.value;
+			
+			removeOptions(document.getElementById("categoria_pista"));
+
+			$.ajax({
+				url: "{{ url('Evento/ajaxBuscaCategoria') }}",
+				data: {
+					sexo:sexo,
+					edad: edad
+					},
+				type: 'POST',
+				success: function(data) {
+
+					let categorias = JSON.parse(data);
+
+					for (let index = 0; index < categorias.length; index = index + 2 ) {
+
+						$('#categoria_pista').prepend("<option value='"+categorias[index]+"' >"+categorias[index+1]+"</option>");
+
+					}
+
+					$('#categoria').html(data);
+				}
+			});
+
+		}
+
+		function removeOptions(selectbox) { 
+			var i;
+
+			for(i=selectbox.options.length-1;i>=0;i--) { 
+
+				selectbox.remove(i); 
+
+			} 
+		}
+
+
 		</script>
 	</body>
 	<!--end::Body-->
