@@ -26,7 +26,7 @@ class EventoController extends Controller
         // $this->middleware('auth');
         
         // $this->middleware('auth', ['except' => ['index', 'guarda']]);
-        $this->middleware('auth', ['except' => ['index', 'formulario','ajaxBuscaEjemplar','ajaxBuscaExtranjero','inscribirEvento']]);
+        $this->middleware('auth', ['except' => ['index', 'formulario','ajaxBuscaEjemplar','ajaxBuscaExtranjero','inscribirEvento', 'ajaxBuscaCategoria']]);
 
         // $this->middleware('auth')->except('formulario');
         // $this->middleware('auth', ['except' => [
@@ -1106,20 +1106,19 @@ class EventoController extends Controller
         // dd($request->input('edad'));
 
         if($request->input('sexo')=='Macho'){
-            $categorias = CategoriasPista::whereIn('id', [1,3,5,7,9,11,12,14,16])
-                                        ->where('desde','>=',$edad)
-                                        ->where('hasta','<=',$edad)
-                                        ->get();
-                                        // ->toSql();
+
+            $categorias = DB::table('categorias_pistas')->where('hasta','>=',$edad)
+                                                        ->where('desde','<=',$edad)
+                                                        ->whereIn('id', [1,3,5,7,9,11,12,14,16])
+                                                        ->get();
         }else{
-            $categorias = CategoriasPista::whereIn('id', [2,4,6,8,10,13,15,17])
-                                        ->where('desde','>=',$edad)
-                                        ->where('hasta','<=',$edad)
-                                        ->get();
-                                        // ->toSql();
+            $categorias = DB::table('categorias_pistas')->where('hasta','>=',"$edad")
+                                                        ->where('desde','<=',"$edad")
+                                                        ->whereIn('id', [1,2,4,6,8,10,13,15,17])
+                                                        ->get();
         }
 
-        // dd($categorias);
+        // dd($categorias."---".$edad);
 
         if($categorias){
             $punetero = 0 ;
