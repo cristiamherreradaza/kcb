@@ -490,7 +490,7 @@
 
 		function generaNumeracion(id ,nombre){
 			Swal.fire({
-                title: "Quieres genrar la numeracion para el Evento "+nombre,
+                title: "Quieres generar la numeracion para el Evento "+nombre,
                 // text: "Ya no podras recuperarlo!",
                 icon: "warning",
                 showCancelButton: true,
@@ -503,20 +503,9 @@
 
 					window.location.href = "{{ url('Evento/catalogoNumeracion')}}/"+id;
 
-					// $.ajax({
-					// 	url: "{{ url('Evento/catalogoNumeracion') }}",
-					// 	data: {
-					// 		asignacion_id:id
-					// 	},
-					// 	type: 'POST',
-					// 	success: function(data) {
-					// 		$('#listaAsignaciones').html(data);
-					// 	}
-					// });
-
                     Swal.fire(
                         "Borrado!",
-                        "El registro fue eliminado.",
+                        "La generacion fue un Exito.",
                         "success"
                     )
                 } else if (result.dismiss === "cancel") {

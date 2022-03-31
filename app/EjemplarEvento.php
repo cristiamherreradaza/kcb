@@ -36,6 +36,8 @@ class EjemplarEvento extends Model
         'telefono',
         'email',
         'edad',
+        'numero',
+        'numero_prefijo',
         'estado',
         'deleted_at',
     ];
