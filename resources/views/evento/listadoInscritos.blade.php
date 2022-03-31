@@ -265,6 +265,24 @@
 										}else{
 											echo $ee->propietario;
 										}
+										
+										// if($ee->ejemplar){
+										// 	$proTra = App\Transferencia::where('ejemplar_id',$ee->ejemplar->id)
+										// 								->where('estado','Actual')
+										// 								->first();
+										// 	if($proTra){
+										// 		echo $proTra->propietario->name;
+										// 	}else{
+										// 		if($ee->ejemplar->propietario != null){
+										// 			echo $ee->ejemplar->propietario->name;
+										// 		}else{
+										// 			echo '';
+										// 		}
+										// 	}
+										// }else{
+										// 	echo $ee->propietario;
+										// }
+										
 									@endphp
 								</td>
 								<td>

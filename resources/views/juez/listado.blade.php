@@ -63,9 +63,10 @@
                 		</div>
 						<div class="col-md-4">
                 			<div class="form-group">
-                			    <label for="exampleInputPassword1">Departamento
+                			    <label for="exampleInputPassword1">Ciudad
                 			    <span class="text-danger">*</span></label>
-								<select class="form-control" id="departamento" name="departamento">
+								<input type="text" class="form-control" id="departamento" name="departamento">
+								{{-- <select class="form-control" id="departamento" name="departamento">
 									<option value="La paz">La paz</option>
 									<option value="Oruro">Oruro</option>
 									<option value="Potosi">Potosi</option>
@@ -75,7 +76,7 @@
 									<option value="Pando">Pando</option>
 									<option value="Beni">Beni</option>
 									<option value="Santa Cruz">Santa Cruz</option>
-								</select>
+								</select> --}}
                 			</div>
                 		</div>
                 	</div>
@@ -183,7 +184,7 @@
 			$("#fecha_nacimiento").val('');
 			$("#direccion").val('');
 			$("#celulares").val('');
-			$("#departamento").val('La paz');
+			$("#departamento").val('');
 			// abre el modal
     		$("#modalJuez").modal('show');
     	}

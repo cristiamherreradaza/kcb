@@ -398,6 +398,23 @@ class EjemplarController extends Controller
 
     public function ajaxGuardaTransferencia(request $request){
 
+        // ponemos anteriror a todas las demas transferencias por que habra uno nuevo qeu sera el dueño actual
+        $ejemplares_anteriores = Transferencia::where('ejemplar_id',$request->input('transferencia_ejemplar_id'))
+                                            ->get();
+
+        foreach($ejemplares_anteriores as $ea){
+
+            $ea->estado = "Anterior";
+            $ea->save();
+
+        }
+
+        // cambiamos en la tabla ejemplares el nuevo id del nuevo propietarios
+        $ejemplar = Ejemplar::find($request->input('transferencia_ejemplar_id'));
+        $ejemplar->propietario_id = $request->input('transferencia_propietario_id');
+        $ejemplar->save();
+
+        //registramos el nuevo camio de propietario en la tabla transferenciuas
         $transferencia = new Transferencia();
 
         $transferencia->user_id                 = Auth::user()->id;
