@@ -271,3 +271,7 @@ Route::get('Migracion/eventos', 'MigracionController@eventos');
 
  /* Migracion de EVENTOS INSCRIUTOS MASCOTAS TEMPORALES */
 Route::get('Migracion/ejmplares_ventos', 'MigracionController@ejmplares_ventos');
+
+
+ /* REGULARIZACION DE TRAMSFERENCIAS */
+ Route::get('Migracion/regularizacionTramsferencias', 'MigracionController@regularizacionTramsferencias');

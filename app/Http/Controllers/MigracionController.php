@@ -910,4 +910,84 @@ class MigracionController extends Controller
         }
         echo "<h1 class='text-success'>SUCCESSFUL</h1>";
     }
+
+    public function regularizacionTramsferencias(Request $request){
+        
+        $transferencias = DB::table('transferencias')
+                    ->get();
+
+        $ajemplaresYa = array();
+
+        foreach ($transferencias as $key => $tra){
+
+            if(!in_array($tra->ejemplar_id, $ajemplaresYa)){
+
+                array_push($ajemplaresYa,$tra->ejemplar_id);
+
+                $ejemplares = Transferencia::where('ejemplar_id',$tra->ejemplar_id)
+                                       ->where('estado',"Actual")
+                                       ->first();
+
+                if($ejemplares){
+                    echo "<b>si</b>";
+
+                    $ejemplar = Ejemplar::find($tra->ejemplar_id);
+
+                    $ejemplar->propietario_id = $tra->propietario_id;
+
+                    $ejemplar->save();
+
+                }else{
+                    echo "<b>no</b>";
+
+                    $ejemplaresAn = Transferencia::where('ejemplar_id',$tra->ejemplar_id)
+                                            ->get();
+
+                    echo "-".count($ejemplaresAn);
+                    
+                    if(count($ejemplaresAn) != 0 ){
+
+                        $propietario = User::find($tra->propietario_id);
+
+                        if($propietario){
+                            if(count($ejemplaresAn) == 1){
+
+                                $ejemplaresAn[0]->estado = "Actual";
+
+                                $ejemplaresAn[0]->save();
+                            }else{
+                                // sacamos el maximo id de transferencias
+                                $idMax = DB::table('transferencias')
+                                                ->select(DB::raw('max(id) as id'))
+                                                ->where('ejemplar_id',$tra->ejemplar_id)
+                                                ->first();
+
+                                // buscamos con el max id en la tabla transferencias 
+                                $ultimoPropietario = Transferencia::find($idMax->id);
+
+                                // buscamos ele ejmplar con el max id que se hizo la transferencia y editamos 
+                                $ejemplarEdit = Ejemplar::find($ultimoPropietario->ejemplar_id);
+
+                                $ejemplarEdit->propietario_id = $ultimoPropietario->propietario_id;
+
+                                $ejemplarEdit->save();
+
+                                // guardamos el estado de actual al max id que buscamos 
+                                $ultimoPropietario->estado = "Actual";
+                                $ultimoPropietario->save();
+
+                            }
+                        }
+                    }
+
+                    
+                }
+
+            }
+
+            echo "<br>key ".$key."<br>";
+            echo "ejem_id ".$tra->ejemplar_id;
+            echo "<br><hr>";
+        }
+    }
 }
