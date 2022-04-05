@@ -1104,21 +1104,25 @@ class EventoController extends Controller
         $edad = $request->input('edad');
 
         // dd($request->input('edad'));
+        $e = intval($edad);
 
         if($request->input('sexo')=='Macho'){
 
-            $categorias = DB::table('categorias_pistas')->where('hasta','>=',$edad)
-                                                        ->where('desde','<=',$edad)
+            $categorias = DB::table('categorias_pistas')->where('hasta','>=',$e)
+                                                        ->where('desde','<=',$e)
                                                         ->whereIn('id', [1,3,5,7,9,11,12,14,16])
+                                                        // ->toSql();
                                                         ->get();
         }else{
-            $categorias = DB::table('categorias_pistas')->where('hasta','>=',"$edad")
-                                                        ->where('desde','<=',"$edad")
+            $categorias = DB::table('categorias_pistas')->where('hasta','>=',$e)
+                                                        ->where('desde','<=',$e)
                                                         ->whereIn('id', [1,2,4,6,8,10,13,15,17])
+                                                        // ->toSql();
                                                         ->get();
         }
 
         // dd($categorias."---".$edad);
+        // dd($categorias);
 
         if($categorias){
             $punetero = 0 ;

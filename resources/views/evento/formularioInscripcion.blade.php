@@ -613,8 +613,15 @@
 			let fecha_inicio_evento = "{{ $evento->fecha_inicio }}";
 			// alert(fecha_inicio_evento);
 
+			// console.log("fecha nacimeitno recibido"+fecha_nacimiento);
+
+			// console.log("fecha evento recibido "+fecha_inicio_evento);
+
 		
 			fecha_cal = new Date(fecha_nacimiento);
+
+			// console.log("fecha con el primer"+fecha_cal);
+
 			fechaP = fecha_inicio_evento;
 			dt2 = new Date(fechaP);
 			meses = diff_months(dt2, fecha_cal);
@@ -634,6 +641,7 @@
 		function diff_months(dt2, dt1) {
 			var diff =(dt2.getTime() - dt1.getTime()) / 1000;
 			diff /= (60 * 60 * 24 * 30);
+			// diff /= (60 * 60 * 24 * 7 * 4);
 			return Math.abs(Math.round(diff));
 		}
 		
