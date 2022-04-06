@@ -100,7 +100,7 @@
 	<div class="card card-custom gutter-b">
 		<div class="card-header flex-wrap py-3">
 			<div class="card-title">
-				<h3 class="card-label">CALIFICACION
+				<h3 class="card-label">GRUPOS
 				</h3>
 			</div>
 			<div class="card-toolbar">
@@ -111,8 +111,55 @@
 				<!--end::Button-->
 			</div>
 		</div>
-		
 		<div class="card-body">
+            @php
+                $cantidadGrupos = count($grupos);
+
+                $contador = 0 ;
+            @endphp
+            @while ($contador < $cantidadGrupos)
+                <div class="row">
+
+                    @for($i = 0; $i < 4; $i++)
+                        @if($contador < $cantidadGrupos)
+                            <div class="col-md-3">
+                                <!--begin::Card-->
+                                <div class="card card-custom gutter-b card-stretch">
+                                    <!--begin::Body-->
+                                    <div class="card-body text-center pt-4">
+                                        <!--begin::User-->
+                                        <div class="mt-7">
+                                            <div class="symbol symbol-circle symbol-lg-90">
+                                                {{-- <img src="/metronic/theme/html/demo1/dist/assets/media/project-logos/1.png" alt="image" /> --}}
+                                                <i class="fa fa-users fa-4x text-success"></i>
+                                            </div>
+                                        </div>
+                                        <!--end::User-->
+                                        <!--begin::Name-->
+                                        <div class="my-4">
+                                            <a href="#" class="text-dark font-weight-bold text-hover-primary font-size-h4">Grupo {{ $grupos[$contador]->id }}</a>
+                                        </div>
+                                        <!--end::Name-->
+                                        <!--begin::Buttons-->
+                                        <div class="mt-9">
+                                            <a href="{{ url('Juez/razas', [$grupos[$contador]->evento_id, $grupos[$contador]->id]) }}" class="btn btn-light-primary font-weight-bolder btn-sm py-3 px-6 text-uppercase">Ver Razas</a>
+                                        </div>
+                                        <!--end::Buttons-->
+                                    </div>
+                                    <!--end::Body-->
+                                </div>
+                                <!--end::Card-->
+                            </div>
+                            @php
+                                $contador++;
+                            @endphp
+                        @endif
+                    @endfor
+                </div>
+            @endwhile
+        </div>
+		{{-- <div class="card-body">
+
             @php
                 $contador = 0 ;
 
@@ -149,7 +196,7 @@
                 </div>
                 <br>
             @endwhile
-		</div>
+		</div> --}}
 	</div>
 	<!--end::Card-->
 @stop

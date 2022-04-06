@@ -26,7 +26,7 @@
                 			<div class="form-group">
                 			    <label for="exampleInputPassword1">Calificaion
                 			    <span class="text-danger">*</span></label>
-                                <input type="hidden" name="ejemplar_evento" id="ejemplar_evento">
+                                <input type="text" name="ejemplar_evento" id="ejemplar_evento">
                                 <select class="form-control "name="calificacion" id="calificacion">
                                     <option value="Excelente">Excelente</option>
                                     <option value="Muy Bien">Muy Bien</option>
@@ -98,14 +98,24 @@
                         </thead>
                         <tbody>
                             @foreach ($cachorros as $ca)
-                                @if($ca->ejemplar)
+                                @if ($ca->extrangero == "si")
                                     <tr>
-                                        <td>{{ $ca->ejemplar->id }}</td>
-                                        <td>{{ $ca->ejemplar->nombre_completo }}</td>
+                                        <td>{{ $ca->id }}</td>
+                                        <td>{{ $ca->nombre_completo }}</td>
                                         <td>
-                                            <button class="btn btn-success btn-icon" onclick="ponderacion('{{ $ca->ejemplar->nombre_completo }}', '{{ $ca->ejemplar->id }}', '{{ $ca->id }}')"><i class="fa fa-list"></i></button>
+                                            <button class="btn btn-success btn-icon" onclick="ponderacion('{{ $ca->nombre_completo }}', '{{ $ca->id }}')"><i class="fa fa-list"></i></button>
                                         </td>
                                     </tr>
+                                @else
+                                    @if($ca->ejemplar)
+                                        <tr>
+                                            <td>{{ $ca->ejemplar->id }}</td>
+                                            <td>{{ $ca->ejemplar->nombre_completo }}</td>
+                                            <td>
+                                                <button class="btn btn-success btn-icon" onclick="ponderacion('{{ $ca->ejemplar->nombre_completo }}', '{{ $ca->id }}')"><i class="fa fa-list"></i></button>
+                                            </td>
+                                        </tr>
+                                    @endif
                                 @endif
                             @endforeach
                         </tbody>
@@ -124,14 +134,24 @@
                         </thead>
                         <tbody>
                             @foreach ($jovenes as $jo)
-                                @if($jo->ejemplar)
+                                @if ($jo->extrangero == "si")
                                     <tr>
-                                        <td>{{ $jo->ejemplar->id }}</td>
-                                        <td>{{ $jo->ejemplar->nombre_completo }}</td>
+                                        <td>{{ $jo->id }}</td>
+                                        <td>{{ $jo->nombre_completo }}</td>
                                         <td>
-                                            <button class="btn btn-success btn-icon" onclick="ponderacion('{{ $jo->ejemplar->nombre_completo }}', '{{ $jo->ejemplar->id }}', '{{ $jo->id }}')"><i class="fa fa-list"></i></button>
+                                            <button class="btn btn-success btn-icon" onclick="ponderacion('{{ $jo->nombre_completo }}', '{{ $jo->id }}')"><i class="fa fa-list"></i></button>
                                         </td>
                                     </tr>
+                                @else
+                                    @if($jo->ejemplar)
+                                        <tr>
+                                            <td>{{ $jo->ejemplar->id }}</td>
+                                            <td>{{ $jo->ejemplar->nombre_completo }}</td>
+                                            <td>
+                                                <button class="btn btn-success btn-icon" onclick="ponderacion('{{ $jo->ejemplar->nombre_completo }}', '{{ $jo->id }}')"><i class="fa fa-list"></i></button>
+                                            </td>
+                                        </tr>
+                                    @endif
                                 @endif
                             @endforeach
                         </tbody>
@@ -153,14 +173,24 @@
                         </thead>
                         <tbody>
                             @foreach ($jovenesCampeones as $joCa)
-                                @if($joCa->ejemplar)
+                                @if ($joCa->extrangero == "si")
                                     <tr>
-                                        <td>{{ $joCa->ejemplar->id }}</td>
-                                        <td>{{ $joCa->ejemplar->nombre_completo }}</td>
+                                        <td>{{ $joCa->id }}</td>
+                                        <td>{{ $joCa->nombre_completo }}</td>
                                         <td>
-                                            <button class="btn btn-success btn-icon" onclick="ponderacion('{{ $joCa->ejemplar->nombre_completo }}', '{{ $joCa->ejemplar->id }}', '{{ $joCa->id }}')"><i class="fa fa-list"></i></button>
+                                            <button class="btn btn-success btn-icon" onclick="ponderacion('{{ $joCa->nombre_completo }}', '{{ $joCa->id }}')"><i class="fa fa-list"></i></button>
                                         </td>
                                     </tr>
+                                @else
+                                    @if($joCa->ejemplar)
+                                        <tr>
+                                            <td>{{ $joCa->ejemplar->id }}</td>
+                                            <td>{{ $joCa->ejemplar->nombre_completo }}</td>
+                                            <td>
+                                                <button class="btn btn-success btn-icon" onclick="ponderacion('{{ $joCa->ejemplar->nombre_completo }}', '{{ $joCa->id }}')"><i class="fa fa-list"></i></button>
+                                            </td>
+                                        </tr>
+                                    @endif
                                 @endif
                             @endforeach
                         </tbody>
@@ -179,14 +209,24 @@
                         </thead>
                         <tbody>
                             @foreach ($intermedia as $int)
-                                @if($int->ejemplar)
+                                @if ($int->extrangero == "si")
                                     <tr>
-                                        <td>{{ $int->ejemplar->id }}</td>
-                                        <td>{{ $int->ejemplar->nombre_completo }}</td>
+                                        <td>{{ $int->id }}</td>
+                                        <td>{{ $int->nombre_completo }}</td>
                                         <td>
-                                            <button class="btn btn-success btn-icon" onclick="ponderacion('{{ $int->ejemplar->nombre_completo }}', '{{ $int->ejemplar->id }}', '{{ $int->id }}')"><i class="fa fa-list"></i></button>
+                                            <button class="btn btn-success btn-icon" onclick="ponderacion('{{ $int->nombre_completo }}', '{{ $int->id }}')"><i class="fa fa-list"></i></button>
                                         </td>
                                     </tr>
+                                @else
+                                    @if($int->ejemplar)
+                                        <tr>
+                                            <td>{{ $int->ejemplar->id }}</td>
+                                            <td>{{ $int->ejemplar->nombre_completo }}</td>
+                                            <td>
+                                                <button class="btn btn-success btn-icon" onclick="ponderacion('{{ $int->ejemplar->nombre_completo }}', '{{ $int->id }}')"><i class="fa fa-list"></i></button>
+                                            </td>
+                                        </tr>
+                                    @endif
                                 @endif
                             @endforeach
                         </tbody>
@@ -208,14 +248,24 @@
                         </thead>
                         <tbody>
                             @foreach ($abiertas as $abi)
-                                @if($abi->ejemplar)
+                                @if ($abi->extrangero == "si")
                                     <tr>
-                                        <td>{{ $abi->ejemplar->id }}</td>
-                                        <td>{{ $abi->ejemplar->nombre_completo }}</td>
+                                        <td>{{ $abi->id }}</td>
+                                        <td>{{ $abi->nombre_completo }}</td>
                                         <td>
-                                            <button class="btn btn-success btn-icon" onclick="ponderacion('{{ $abi->ejemplar->nombre_completo }}', '{{ $abi->ejemplar->id }}', '{{ $abi->id }}')"><i class="fa fa-list"></i></button>
+                                            <button class="btn btn-success btn-icon" onclick="ponderacion('{{ $abi->nombre_completo }}', '{{ $abi->id }}')"><i class="fa fa-list"></i></button>
                                         </td>
                                     </tr>
+                                @else
+                                    @if($abi->ejemplar)
+                                        <tr>
+                                            <td>{{ $abi->ejemplar->id }}</td>
+                                            <td>{{ $abi->ejemplar->nombre_completo }}</td>
+                                            <td>
+                                                <button class="btn btn-success btn-icon" onclick="ponderacion('{{ $abi->ejemplar->nombre_completo }}', '{{ $abi->id }}')"><i class="fa fa-list"></i></button>
+                                            </td>
+                                        </tr>
+                                    @endif
                                 @endif
                             @endforeach
                         </tbody>
@@ -234,14 +284,24 @@
                         </thead>
                         <tbody>
                             @foreach ($campeones as $cam)
-                                @if($cam->ejemplar)
+                                @if ($cam->extrangero == "si")
                                     <tr>
-                                        <td>{{ $cam->ejemplar->id }}</td>
-                                        <td>{{ $cam->ejemplar->nombre_completo }}</td>
+                                        <td>{{ $cam->id }}</td>
+                                        <td>{{ $cam->nombre_completo }}</td>
                                         <td>
-                                            <button class="btn btn-success btn-icon" onclick="ponderacion('{{ $cam->ejemplar->nombre_completo }}', '{{ $cam->ejemplar->id }}', '{{ $cam->id }}')"><i class="fa fa-list"></i></button>
+                                            <button class="btn btn-success btn-icon" onclick="ponderacion('{{ $cam->nombre_completo }}', '{{ $cam->id }}')"><i class="fa fa-list"></i></button>
                                         </td>
                                     </tr>
+                                @else
+                                    @if($cam->ejemplar)
+                                        <tr>
+                                            <td>{{ $cam->ejemplar->id }}</td>
+                                            <td>{{ $cam->ejemplar->nombre_completo }}</td>
+                                            <td>
+                                                <button class="btn btn-success btn-icon" onclick="ponderacion('{{ $cam->ejemplar->nombre_completo }}', '{{ $cam->id }}')"><i class="fa fa-list"></i></button>
+                                            </td>
+                                        </tr>
+                                    @endif
                                 @endif
                             @endforeach
                         </tbody>
@@ -263,14 +323,24 @@
                         </thead>
                         <tbody>
                             @foreach ($GranCampeones as $graCamp)
-                                @if($graCamp->ejemplar)
+                                @if ($graCamp->extrangero == "si")
                                     <tr>
-                                        <td>{{ $graCamp->ejemplar->id }}</td>
-                                        <td>{{ $graCamp->ejemplar->nombre_completo }}</td>
+                                        <td>{{ $graCamp->id }}</td>
+                                        <td>{{ $graCamp->nombre_completo }}</td>
                                         <td>
-                                            <button class="btn btn-success btn-icon" onclick="ponderacion('{{ $graCamp->ejemplar->nombre_completo }}', '{{ $graCamp->ejemplar->id }}', '{{ $graCamp->id }}')"><i class="fa fa-list"></i></button>
+                                            <button class="btn btn-success btn-icon" onclick="ponderacion('{{ $graCamp->nombre_completo }}', '{{ $graCamp->id }}')"><i class="fa fa-list"></i></button>
                                         </td>
                                     </tr>
+                                @else
+                                    @if($graCamp->ejemplar)
+                                        <tr>
+                                            <td>{{ $graCamp->ejemplar->id }}</td>
+                                            <td>{{ $graCamp->ejemplar->nombre_completo }}</td>
+                                            <td>
+                                                <button class="btn btn-success btn-icon" onclick="ponderacion('{{ $graCamp->ejemplar->nombre_completo }}', '{{ $graCamp->id }}')"><i class="fa fa-list"></i></button>
+                                            </td>
+                                        </tr>
+                                    @endif
                                 @endif
                             @endforeach
                         </tbody>
@@ -289,14 +359,24 @@
                         </thead>
                         <tbody>
                             @foreach ($veteranos as $vet)
-                                @if($vet->ejemplar)
+                                @if ($vet->extrangero == "si")
                                     <tr>
-                                        <td>{{ $vet->ejemplar->id }}</td>
-                                        <td>{{ $vet->ejemplar->nombre_completo }}</td>
+                                        <td>{{ $vet->id }}</td>
+                                        <td>{{ $vet->nombre_completo }}</td>
                                         <td>
-                                            <button class="btn btn-success btn-icon" onclick="ponderacion('{{ $vet->ejemplar->nombre_completo }}', '{{ $vet->ejemplar->id }}', '{{ $vet->id }}')"><i class="fa fa-list"></i></button>
+                                            <button class="btn btn-success btn-icon" onclick="ponderacion('{{ $vet->nombre_completo }}', '{{ $vet->id }}')"><i class="fa fa-list"></i></button>
                                         </td>
                                     </tr>
+                                @else
+                                    @if($vet->ejemplar)
+                                        <tr>
+                                            <td>{{ $vet->ejemplar->id }}</td>
+                                            <td>{{ $vet->ejemplar->nombre_completo }}</td>
+                                            <td>
+                                                <button class="btn btn-success btn-icon" onclick="ponderacion('{{ $vet->ejemplar->nombre_completo }}', '{{ $vet->id }}')"><i class="fa fa-list"></i></button>
+                                            </td>
+                                        </tr>
+                                    @endif
                                 @endif
                             @endforeach
                         </tbody>
@@ -355,9 +435,8 @@
             $('#table-veterano').toggle('show');
         }
 
-        function ponderacion(nombre, ejemplar_id, ejemplar_evento){
+        function ponderacion(nombre, ejemplar_evento){
             $("#name-ejemplar").text(nombre);
-            $('#ejemplar_id').val(ejemplar_id);
             $('#ejemplar_evento').val(ejemplar_evento);
 
             $('#modalPonderacion').modal('show');

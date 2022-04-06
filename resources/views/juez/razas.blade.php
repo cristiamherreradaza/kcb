@@ -100,7 +100,7 @@
 	<div class="card card-custom gutter-b">
 		<div class="card-header flex-wrap py-3">
 			<div class="card-title">
-				<h3 class="card-label">CALIFICACION
+				<h3 class="card-label">RAZAS QUE PERTENECES AL <span class="text-info">GRUPO {{ $grupo_id }}</span>
 				</h3>
 			</div>
 			<div class="card-toolbar">
@@ -111,35 +111,77 @@
 				<!--end::Button-->
 			</div>
 		</div>
-		
 		<div class="card-body">
-            @php
+			<!--begin: Datatable-->
+			<div class="table-responsive m-t-40">
+				<table class="table table-bordered table-hover table-striped" id="tabla-insumos">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Nombre</th>
+							<th>Acciones</th>
+						</tr>
+					</thead>
+					<tbody>
+						@forelse ($razas as $ra)
+                            @php
+                                $raza = App\Raza::find($ra->id);
+                            @endphp
+							<tr>
+								<td>{{ $ra->id }}</td>
+								<td>{{ $raza->nombre }}</td>
+								<td>
+                                    <a href="{{ url('Juez/ponderacion', [$evento_id,$grupo_id,$ra->id]) }}" class="btn btn-success">
+										<i class="fas fa-dog"></i> Categorias
+                                    </a>
+								</td>
+							</tr>
+						@empty
+							<h3 class="text-danger">NO EXISTEN JUECES</h3>
+						@endforelse
+					</tbody>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+			<!--end: Datatable-->
+
+            {{-- @php
+                $cantidadGrupos = count($grupos);
+
                 $contador = 0 ;
-
-                $colores = array("success", "warning", "info", "dark", "danger", "primary");
-
             @endphp
-            @while ($contador < $cantidadAsignaciones)
+            @while ($contador < $cantidadGrupos)
                 <div class="row">
-                    @for($i = 0; $i < 3; $i++)
-                        @php
-                            $seleccion = array_rand($colores);
-                        @endphp
-                        @if($contador < $cantidadAsignaciones)
-                            <div class="col-md-4">
-                                <div class="card card-custom wave wave-animate-slow wave-{{ $colores[$seleccion] }} mb-8 mb-lg-0">
-                                    <div class="card-body">
-                                        <div class="d-flex align-items-center p-5">
-                                            <div class="mr-6">
-                                                <i class="fa fa-dog fa-5x text-{{ $colores[$seleccion] }}"></i>
-                                            </div>
-                                            <div class="d-flex flex-column">
-                                                <a href="{{ url('Juez/grupos', [$asignaciones[$contador]->evento_id]) }}" class="btn btn-success btn-block"> <i class="fa fa-check"></i> Calificar</a>
-                                                <div class="text-dark-100"><h4>{{ $asignaciones[$contador]->evento->nombre }}</h4></div>
+
+                    @for($i = 0; $i < 4; $i++)
+                        @if($contador < $cantidadGrupos)
+                            <div class="col-md-3">
+                                <!--begin::Card-->
+                                <div class="card card-custom gutter-b card-stretch">
+                                    <!--begin::Body-->
+                                    <div class="card-body text-center pt-4">
+                                        <!--begin::User-->
+                                        <div class="mt-7">
+                                            <div class="symbol symbol-circle symbol-lg-90">
+                                                <i class="fa fa-users fa-4x text-success"></i>
                                             </div>
                                         </div>
+                                        <!--end::User-->
+                                        <!--begin::Name-->
+                                        <div class="my-4">
+                                            <a href="#" class="text-dark font-weight-bold text-hover-primary font-size-h4">Grupo {{ $grupos[$contador]->id }}</a>
+                                        </div>
+                                        <!--end::Name-->
+                                        <!--begin::Buttons-->
+                                        <div class="mt-9">
+                                            <a href="{{ url('Juez/razas', [$grupos[$contador]->evento_id, $grupos[$contador]->id]) }}" class="btn btn-light-primary font-weight-bolder btn-sm py-3 px-6 text-uppercase">Ver Razas</a>
+                                        </div>
+                                        <!--end::Buttons-->
                                     </div>
+                                    <!--end::Body-->
                                 </div>
+                                <!--end::Card-->
                             </div>
                             @php
                                 $contador++;
@@ -147,9 +189,8 @@
                         @endif
                     @endfor
                 </div>
-                <br>
-            @endwhile
-		</div>
+            @endwhile --}}
+        </div>
 	</div>
 	<!--end::Card-->
 @stop

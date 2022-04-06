@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Juez;
+use App\Grupo;
 use App\Evento;
 use App\GrupoRaza;
-use App\Asignacion;
 
+use App\Asignacion;
 use App\Calificacion;
 use App\EjemplarEvento;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use function GuzzleHttp\Promise\all;
 use Illuminate\Support\Facades\Auth;
 
@@ -114,38 +116,48 @@ class JuezController extends Controller
 
     }
 
-    public function ponderacion(Request $request, $evento_id){
+    public function ponderacion(Request $request, $evento_id, $grupo_id, $raza_id){
 
         // return view('juez.calificacion')->with(compact());
         $cachorros = EjemplarEvento::where('evento_id',$evento_id)
+                                    ->where('raza_id',$raza_id)
                                     ->WhereIn('categoria_pista_id',[1,2,11])
                                     ->get();
 
         $jovenes = EjemplarEvento::where('evento_id',$evento_id)
+                                    ->where('raza_id',$raza_id)
                                     ->WhereIn('categoria_pista_id',[3,4])
                                     ->get();
 
         $jovenesCampeones = EjemplarEvento::where('evento_id',$evento_id)
+                                    ->where('raza_id',$raza_id)
                                     ->WhereIn('categoria_pista_id',[12,13])
                                     ->get();
 
         $intermedia = EjemplarEvento::where('evento_id',$evento_id)
+                                    ->where('raza_id',$raza_id)
                                     ->WhereIn('categoria_pista_id',[5,6])
                                     ->get();
 
         $abiertas = EjemplarEvento::where('evento_id',$evento_id)
+                                    ->where('raza_id',$raza_id)
                                     ->WhereIn('categoria_pista_id',[7,8])
                                     ->get();
 
+        // dd($abiertas);
+
         $campeones = EjemplarEvento::where('evento_id',$evento_id)
+                                    ->where('raza_id',$raza_id)
                                     ->WhereIn('categoria_pista_id',[9,10])
                                     ->get();
 
         $GranCampeones = EjemplarEvento::where('evento_id',$evento_id)
+                                    ->where('raza_id',$raza_id)
                                     ->WhereIn('categoria_pista_id',[14,15])
                                     ->get();
 
         $veteranos = EjemplarEvento::where('evento_id',$evento_id)
+                                    ->where('raza_id',$raza_id)
                                     ->WhereIn('categoria_pista_id',[16,17])
                                     ->get();
 
@@ -189,5 +201,30 @@ class JuezController extends Controller
 
         return redirect('Juez/ponderacion/'.$inscripcion->evento_id);
         
+    }
+
+    public function grupos(Request $request, $evento_id){
+        
+        $grupos = DB::table('ejemplares_eventos')
+                ->join('grupos_razas', 'ejemplares_eventos.raza_id', '=', 'grupos_razas.raza_id')
+                ->select('grupos_razas.grupo_id as id', 'ejemplares_eventos.evento_id')
+                ->where('ejemplares_eventos.evento_id',$evento_id)
+                ->groupBy('grupos_razas.grupo_id')
+                ->get();
+
+        return view('juez.grupos')->with(compact('grupos'));
+    }
+
+    public function razas(Request $request, $evento_id, $grupo_id){
+
+        $razas = DB::table('ejemplares_eventos')
+                ->join('grupos_razas', 'ejemplares_eventos.raza_id', '=', 'grupos_razas.raza_id')
+                ->select('grupos_razas.raza_id as id')
+                ->where('ejemplares_eventos.evento_id',$evento_id)
+                ->where('grupos_razas.grupo_id',$grupo_id)
+                ->groupBy('ejemplares_eventos.raza_id')
+                ->get();
+
+        return view('juez.razas')->with(compact('razas','grupo_id','evento_id'));
     }
 }

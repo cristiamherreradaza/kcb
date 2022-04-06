@@ -214,7 +214,9 @@ Route::post('Juez/ajaxguardaAsignacionEvento', 'JuezController@ajaxguardaAsignac
 Route::post('Juez/ajaxListadoAsignacion', 'JuezController@ajaxListadoAsignacion');
 Route::post('Juez/ajaxEliminaAsignacion', 'JuezController@ajaxEliminaAsignacion');
 Route::get('Juez/calificacion', 'JuezController@calificacion');
-Route::get('Juez/ponderacion/{evento_id}', 'JuezController@ponderacion');
+Route::get('Juez/grupos/{evento_id}', 'JuezController@grupos');
+Route::get('Juez/razas/{evento_id}/{grupo_id}', 'JuezController@razas');
+Route::get('Juez/ponderacion/{evento_id}/{grupo_id}/{raza_id}', 'JuezController@ponderacion');
 Route::post('Juez/guardaPonderacion', 'JuezController@guardaPonderacion');
 
 
