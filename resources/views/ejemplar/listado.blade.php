@@ -20,7 +20,7 @@
 			<div class="card-toolbar">
 				<!--begin::Button-->
 				<a href="{{ url('Ejemplar/formulario/0') }}" class="btn btn-primary font-weight-bolder" onclick="nuevo()">
-					<i class="fa fa-plus-square"></i> NUEVO EJEMPLAR 
+					<i class="fa fa-plus-square"></i> EJEMPLAR
 				</a>
 				&nbsp;
 				<a href="#" class="btn btn-success btn-icon font-weight-bolder" onclick="muestraBarra();">
@@ -28,7 +28,7 @@
 				<!--end::Button-->
 			</div>
 		</div>
-		
+
 		<div class="card-body">
             <div id="barra-busqueda" style="display: none">
 			{{-- <div class="d-none d-lg-block> --}}
@@ -66,13 +66,13 @@
 									@forelse ($razas as $r)
 										<option value="{{ $r->id }}">{{ $r->nombre }}</option>
 									@empty
-						
+
 									@endforelse
 								</select>
 							</div>
 						</div>
-				
-						<div class="col-md-3">
+
+						<div class="col-md-4">
 							<div class="form-group">
 								<label for="exampleInputPassword1">PROPIETARIO
 									</label>
@@ -83,28 +83,22 @@
 							</div>
 						</div>
 
-						<div class="col-md-1">
-							<div class="form-group">
-								<p style="margin-top: 24px;"></p>
-								<div class="row">
-									<div class="col-md-6">
-										<a href="#" class="btn btn-icon btn-primary btn-block" onclick="buscaEjemplares()">
-											<i class="fas fa-search"></i>
-										</a>
-									</div>
-									<div class="col-md-6">
-										<a href="#" class="btn btn-icon btn-success btn-block" onclick="generaExcel()">
-											<i class="fas fa-file-excel"></i>
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
-
 					</div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a href="#" class="btn btn-primary btn-block" onclick="buscaEjemplares()">
+                                <i class="fas fa-search"></i> BUSCAR
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="#" class="btn btn-success btn-block" onclick="generaExcel()">
+                                <i class="fas fa-file-excel"></i> GENERA EXCEL
+                            </a>
+                        </div>
+                    </div>
 				</form>
 			</div>
-			
+
 			<!--begin: Datatable-->
 			{{-- <div class="table-responsive m-t-40" id=""> --}}
 			<div id="ajaxEjemplares">
@@ -159,7 +153,7 @@
     	{
 			window.location.href = "{{ url('Criadero/formulario') }}/0";
     	}
-		
+
 		function edita(id)
 		{
 			window.location.href = "{{ url('Ejemplar/formulario') }}/"+id;
@@ -226,7 +220,7 @@
 					};
 				},
 				processResults: function (response) {
-	
+
 					return {
 						results: response
 					};
@@ -264,7 +258,7 @@
 		}
 
 		function muestraBarra(){
-			var this_item = document.getElementById('barra-busqueda'); 
+			var this_item = document.getElementById('barra-busqueda');
 			if( this_item.style.display == 'block' ) {
 				this_item.style.display = 'none';
 			}
