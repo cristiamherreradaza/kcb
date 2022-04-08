@@ -153,7 +153,7 @@
                         <a href="#" class="btn btn-primary font-weight-bolder" onclick="nuevoEjemplar()">
                             <i class="fa fa-plus-square"></i> REGISTRO NUEVO EJEMPLAR
                         </a>
-                        <!--end::Button-->    
+                        <!--end::Button-->
                     </div>
                     <div class="col-md-6">
                         <!--begin::Button-->
@@ -165,7 +165,7 @@
                 </div>
 			</div>
 		</div>
-		
+
 		<div class="card-body">
             <div class="row">
                 <div class="col-md-5">
@@ -219,7 +219,7 @@
 								<td>{{ $ec->chip }}</td>
 								<td>{{ $ec->num_tatuaje }}</td>
 								<td>
-									<button type="button" class="btn btn-sm btn-icon btn-danger" onclick="elimina('{{ $ec->id }}', '{{ $ec->nombre }}')">
+									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $ec->id }}', '{{ $ec->nombre }}')">
 										<i class="flaticon2-cross"></i>
 									</button>
 								</td>
@@ -333,11 +333,11 @@
             let kcb = $("#busqueda-kcb").val();
             let nombre = $("#busqueda-nombre").val();
             let sexo = $("#sexo-modal").val();
-    
+
             $.ajax({
                 url: "{{ url('Ejemplar/ajaxBuscaEjemplar') }}",
                 data: {
-                    kcb: kcb, 
+                    kcb: kcb,
                     nombre: nombre,
                     sexo: sexo
                 },
@@ -346,7 +346,7 @@
                     $("#ajaxEjemplar").html(data);
                 }
             });
-    
+
         });
 
         function nuevoEjemplar(){
@@ -360,7 +360,7 @@
 
             $("#modal-registro-nuevo-ejemplar").modal('show');
         }
-        
+
         function registrarEjemplar(){
 
             // verificamos que el formulario este correcto
@@ -387,11 +387,11 @@
                 data: {kcb: kcb},
                 type: 'POST',
                 success: function(data) {
-                    // console.log(data.vEmail);     
+                    // console.log(data.vEmail);
                     if(data.vKcb > 0){
                         $("#msg-error-email").show();
                         jQuery('#boton-regitrar-nuevo-ejemplar').prop("disabled", true);  // true para desactivarlo o false para volverlo a activar
-                        // document.getElementById("registro-nuevo-kcb").attributes["required"] = "";   
+                        // document.getElementById("registro-nuevo-kcb").attributes["required"] = "";
                     }else{
                         $("#msg-error-email").hide();
                         jQuery('#boton-regitrar-nuevo-ejemplar').prop("disabled", false);  // true para desactivarlo o false para volverlo a activar

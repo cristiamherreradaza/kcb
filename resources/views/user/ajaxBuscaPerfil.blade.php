@@ -17,11 +17,11 @@
                     <td>{{ $p->menu->nombre }}</td>
                     <td>
                         @if ($p->estado == 'Visible')
-                            <button type="button" class="btn btn-sm  btn-success" onclick="cambiaEstado('{{ $p->id }}','{{ $p->perfil_id }}')">
+                            <button type="button" class="btn  btn-success" onclick="cambiaEstado('{{ $p->id }}','{{ $p->perfil_id }}')">
                                 {{ ($p->estado) }}
-                            </button>    
+                            </button>
                         @else
-                            <button type="button" class="btn btn-sm  btn-danger" onclick="cambiaEstado('{{ $p->id }}','{{ $p->perfil_id }}')">
+                            <button type="button" class="btn  btn-danger" onclick="cambiaEstado('{{ $p->id }}','{{ $p->perfil_id }}')">
                                 {{ ($p->estado) }}
                             </button>
                         @endif

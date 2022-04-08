@@ -48,7 +48,7 @@
 				</button>
 				<!--end::Aside Mobile Toggle-->
 				<!--begin::Header Menu Mobile Toggle-->
-				
+
 				<!--end::Header Menu Mobile Toggle-->
 				<!--begin::Topbar Mobile Toggle-->
 
@@ -70,7 +70,7 @@
 						</a>
 						<!--end::Logo-->
 						<!--begin::Toggle-->
-						<button class="brand-toggle btn btn-sm px-0" id="kt_aside_toggle">
+						<button class="brand-toggle btn px-0" id="kt_aside_toggle">
 							<span class="svg-icon svg-icon svg-icon-xl">
 								<!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Angle-double-left.svg-->
 								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -206,8 +206,8 @@
 									<span class="navi-text text-muted text-hover-primary">jm@softplus.com</span>
 								</span>
 							</a>
-							{{-- <a href="#" class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5">Sign Out</a> --}}
-                            <a class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+							{{-- <a href="#" class="btn btn-light-primary font-weight-bolder py-2 px-5">Sign Out</a> --}}
+                            <a class="btn btn-light-primary font-weight-bolder py-2 px-5" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>

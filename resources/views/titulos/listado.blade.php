@@ -44,8 +44,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-sm btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-sm btn-success font-weight-bold" onclick="crear()">Guardar</button>
+                <button type="button" class="btn btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-success font-weight-bold" onclick="crear()">Guardar</button>
             </div>
         </div>
     </div>
@@ -67,7 +67,7 @@
 				<!--end::Button-->
 			</div>
 		</div>
-		
+
 		<div class="card-body">
 			<!--begin: Datatable-->
 			<div class="table-responsive m-t-40">
@@ -87,10 +87,10 @@
 								<td>{{ $ti->nombre }}</td>
 								<td>{{ $ti->descripcion }}</td>
 								<td>
-									<button type="button" class="btn btn-sm btn-icon btn-warning" onclick="edita('{{ $ti->id }}', '{{ $ti->nombre }}', '{{ $ti->descripcion }}')">
+									<button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $ti->id }}', '{{ $ti->nombre }}', '{{ $ti->descripcion }}')">
 										<i class="flaticon2-edit"></i>
 									</button>
-									<button type="button" class="btn btn-sm btn-icon btn-danger" onclick="elimina('{{ $ti->id }}', '{{ $ti->nombre }}')">
+									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $ti->id }}', '{{ $ti->nombre }}')">
 										<i class="flaticon2-cross"></i>
 									</button>
 								</td>

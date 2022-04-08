@@ -29,7 +29,7 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-sm btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
+				<button type="button" class="btn btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
 			</div>
 		</div>
 	</div>
@@ -74,8 +74,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-sm btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-sm btn-success font-weight-bold" onclick="crear()">Guardar</button>
+                <button type="button" class="btn btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-success font-weight-bold" onclick="crear()">Guardar</button>
             </div>
         </div>
     </div>
@@ -97,7 +97,7 @@
 				<!--end::Button-->
 			</div>
 		</div>
-		
+
 		<div class="card-body">
 			<!--begin: Datatable-->
 			<div class="table-responsive m-t-40">
@@ -117,13 +117,13 @@
 								<td>{{ $per->nombre }}</td>
 								<td>{{ $per->descripcion }}</td>
 								<td>
-									<button type="button" class="btn btn-sm btn-icon btn-warning" onclick="edita('{{ $per->id }}', '{{ $per->nombre }}', '{{ $per->descripcion }}')">
+									<button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $per->id }}', '{{ $per->nombre }}', '{{ $per->descripcion }}')">
 										<i class="flaticon2-edit"></i>
 									</button>
-									<button type="button" class="btn btn-sm btn-icon btn-primary" onclick="permisos('{{ $per->id }}')">
+									<button type="button" class="btn btn-icon btn-primary" onclick="permisos('{{ $per->id }}')">
 										<i class="far fa-list-alt"></i>
 									</button>
-									<button type="button" class="btn btn-sm btn-icon btn-danger" onclick="elimina('{{ $per->id }}', '{{ $per->nombre }}')">
+									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $per->id }}', '{{ $per->nombre }}')">
 										<i class="flaticon2-cross"></i>
 									</button>
 								</td>

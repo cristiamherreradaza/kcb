@@ -36,7 +36,7 @@
                                         <option value="Beni">Beni</option>
                                         <option value="Pando">Pandoa</option>
                                     </select>
-                                </div>        
+                                </div>
                             </div>
 
                             <div class="col-md-7">
@@ -46,12 +46,12 @@
                                     <input type="text" class="form-control" id="nombre" name="nombre" required />
                                 </div>
                             </div>
-                            
+
                         </div>
-                    
+
                         <div class="row">
                             <div class="col-md-6">
-                                <button type="button" class="btn btn-sm btn-success mr-2 btn-block" onclick="guarda();">Guardar</button>
+                                <button type="button" class="btn btn-success mr-2 btn-block" onclick="guarda();">Guardar</button>
                             </div>
                             <div class="col-md-6">
                                 <button type="reset" class="btn btn-secondary btn-block" data-dismiss="modal">Cancelar</button>
@@ -60,7 +60,7 @@
 
                     </form>
                 </div>
-                
+
             </div>
         </div>
     </div>
@@ -74,7 +74,7 @@
                 </h3>
             </div>
             <div class="card-toolbar">
-                
+
                 <!--begin::Button-->
                 <a href="#" class="btn btn-primary font-weight-bolder" onclick="nuevoDistrito();">
                     <span class="svg-icon svg-icon-md">
@@ -120,7 +120,7 @@
                             <a href="#" class="btn btn-icon btn-warning btn-sm mr-2" onclick="edita('{{ $d->id }}', '{{ $d->departamento }}', '{{ $d->nombre }}')">
                                 <i class="fas fa-edit"></i>
                             </a>
-    
+
                             <a href="#" class="btn btn-icon btn-danger btn-sm mr-2" onclick="elimina('{{ $d->id }}', '{{ $d->departamento }}', '{{ $d->nombre }}')">
                                 <i class="flaticon2-delete"></i>
                             </a>

@@ -14,7 +14,7 @@
             <td>{{ $asig->juez->nombre }}</td>
             <td>{{ $asig->secretario->name}}</td>
             <td>
-                <button type="button" class="btn btn-sm btn-icon btn-danger" onclick="eliminaAsigancion('{{ $asig->id }}', '{{$asig->juez->nombre  }}')">
+                <button type="button" class="btn btn-icon btn-danger" onclick="eliminaAsigancion('{{ $asig->id }}', '{{$asig->juez->nombre  }}')">
                     <i class="flaticon2-cross"></i>
                 </button>
             </td>
@@ -23,4 +23,4 @@
         <h3 class="text-danger">No tiene Jueces Asginados</h3>
         @endforelse
     </tbody>
-</table>    
+</table>

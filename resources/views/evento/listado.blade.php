@@ -68,8 +68,8 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-sm btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-sm btn-success font-weight-bold" onclick="Asignar()">Guardar</button>
+                <button type="button" class="btn btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-success font-weight-bold" onclick="Asignar()">Guardar</button>
             </div>
         </div>
     </div>
@@ -171,8 +171,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-sm btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-sm btn-success font-weight-bold" onclick="crear()">Guardar</button>
+                <button type="button" class="btn btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-success font-weight-bold" onclick="crear()">Guardar</button>
             </div>
         </div>
     </div>
@@ -231,22 +231,22 @@
 									@endphp
 								</td>
 								<td>
-									<button type="button" class="btn btn-sm btn-icon btn-warning" onclick="edita('{{ $even->id }}', '{{ $even->nombre }}', '{{ $even->fecha_inicio }}', '{{ $even->fecha_fin }}', '{{ $even->direccion }}', '{{ $even->departamento }}', '{{ $even->numero_pista }}', '{{ $even->circuito }}')">
+									<button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $even->id }}', '{{ $even->nombre }}', '{{ $even->fecha_inicio }}', '{{ $even->fecha_fin }}', '{{ $even->direccion }}', '{{ $even->departamento }}', '{{ $even->numero_pista }}', '{{ $even->circuito }}')">
 										<i class="flaticon2-edit"></i>
 									</button>
-									<button type="button" class="btn btn-sm btn-icon btn-primary" onclick="catalogo('{{ $even->id }}')" title="Catalogo">
+									<button type="button" class="btn btn-icon btn-primary" onclick="catalogo('{{ $even->id }}')" title="Catalogo">
 										<i class="fas fa-book-open"></i>
 									</button>
-									<button type="button" class="btn btn-sm btn-icon btn-info" onclick="listaInscritos('{{ $even->id }}')">
+									<button type="button" class="btn btn-icon btn-info" onclick="listaInscritos('{{ $even->id }}')">
 										<i class="far fa-list-alt"></i>
 									</button>
-									<button type="button" class="btn btn-sm btn-icon btn-success" onclick="addJuez('{{ $even->id }}', '{{ $even->nombre }}')">
+									<button type="button" class="btn btn-icon btn-success" onclick="addJuez('{{ $even->id }}', '{{ $even->nombre }}')">
 										<i class="fas fa-gavel"></i>
 									</button>
-									<button type="button" class="btn btn-sm btn-icon btn-dark" onclick="generaNumeracion('{{ $even->id }}', '{{ $even->nombre }}')">
+									<button type="button" class="btn btn-icon btn-dark" onclick="generaNumeracion('{{ $even->id }}', '{{ $even->nombre }}')">
 										<i class="fas fa-monument"></i>
 									</button>
-									<button type="button" class="btn btn-sm btn-icon btn-danger" onclick="elimina('{{ $even->id }}', '{{ $even->nombre }}')">
+									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $even->id }}', '{{ $even->nombre }}')">
 										<i class="flaticon2-cross"></i>
 									</button>
 								</td>

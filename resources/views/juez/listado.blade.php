@@ -85,10 +85,10 @@
             <div class="modal-footer">
 				<div class="row">
 					<div class="col-md-6">
-						<button type="button" class="btn btn-sm btn-light-dark font-weight-bold " data-dismiss="modal">Cerrar</button>
+						<button type="button" class="btn btn-light-dark font-weight-bold " data-dismiss="modal">Cerrar</button>
 					</div>
 					<div class="col-md-6">
-						<button type="button" class="btn btn-sm btn-success font-weight-bold"  onclick="crear()">Guardar</button>
+						<button type="button" class="btn btn-success font-weight-bold"  onclick="crear()">Guardar</button>
 					</div>
 				</div>
             </div>
@@ -112,7 +112,7 @@
 				<!--end::Button-->
 			</div>
 		</div>
-		
+
 		<div class="card-body">
 			<!--begin: Datatable-->
 			<div class="table-responsive m-t-40">
@@ -138,10 +138,10 @@
 								<td>{{ $juez->direccion }}</td>
 								<td>{{ $juez->departamento }}</td>
 								<td>
-									<button type="button" class="btn btn-sm btn-icon btn-warning" onclick="edita('{{ $juez->id }}', '{{ $juez->nombre }}', '{{ $juez->email }}', '{{ $juez->fecha_nacimiento }}', '{{ $juez->direccion }}', '{{ $juez->celulares }}', '{{ $juez->departamento }}')">
+									<button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $juez->id }}', '{{ $juez->nombre }}', '{{ $juez->email }}', '{{ $juez->fecha_nacimiento }}', '{{ $juez->direccion }}', '{{ $juez->celulares }}', '{{ $juez->departamento }}')">
 										<i class="flaticon2-edit"></i>
 									</button>
-									<button type="button" class="btn btn-sm btn-icon btn-danger" onclick="elimina('{{ $juez->id }}', '{{ $juez->nombre }}')">
+									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $juez->id }}', '{{ $juez->nombre }}')">
 										<i class="flaticon2-cross"></i>
 									</button>
 								</td>

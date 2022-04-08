@@ -73,7 +73,7 @@
     </div>
 
     <div class="card card-body">
-        
+
         <!--begin::Form-->
         <form action="{{ url('Ejemplar/guardaCamada') }}" method="POST" class="form">
             @csrf
@@ -81,14 +81,14 @@
             <div class="row">
                 <input type="hidden" name="padre_id" id="padre_id">
                 <div class="col-md-6" id="btn-padre">
-                    <button type="button" class="btn btn-sm btn-primary btn-block" onclick="seleccionaPadre()">PADRE</button>
+                    <button type="button" class="btn btn-primary btn-block" onclick="seleccionaPadre()">PADRE</button>
                 </div>
                 <input type="hidden" name="madre_id" id="madre_id">
                 <div class="col-md-6" id="btn-madre">
-                    <button type="button" class="btn btn-sm btn-info btn-block" onclick="seleccionaMadre()">MADRE</button>
+                    <button type="button" class="btn btn-info btn-block" onclick="seleccionaMadre()">MADRE</button>
                 </div>
             </div>
-            
+
             <br />
 
             <div class="row">
@@ -101,7 +101,7 @@
                         </select>
                     </div>
                 </div>
-                
+
                 <div class="col-md-5">
                     <div class="form-group">
                         <label for="exampleInputPassword1">AFIJO
@@ -146,9 +146,9 @@
                             <span class="text-danger">*</span></label>
                             <select class="form-control select2" id="raza_id" name="raza_id">
                                 @forelse ($razas as $r)
-                                    <option value="{{ $r->id }}">{{ $r->nombre }} {{ $r->descripcion }}</option>                                    
+                                    <option value="{{ $r->id }}">{{ $r->nombre }} {{ $r->descripcion }}</option>
                                 @empty
-                                    
+
                                 @endforelse
                             </select>
                     </div>
@@ -211,11 +211,11 @@
 
             {{-- <div class="separator separator-dashed my-8"></div> --}}
             <h3 class="text-primary">EJEMPLARES</h3>
-    
+
             <div id="ejemplares_1">
                 <div class="form-group row" id="ejemplares_1">
                     <div data-repeater-list="ejemplar" class="col-lg-12">
-                        
+
                         <div data-repeater-item class="form-group row align-items-center">
                             <div class="col-md-12">
                                 <div style="padding: 20px;">
@@ -267,7 +267,7 @@
                                     <option value="Hembra">Hembra</option>
                                 </select>
                             </div>
-                            
+
                             <div class="col-md-3">
                                 <br />
                                 <a href="javascript:;" data-repeater-delete=""
@@ -290,18 +290,18 @@
                 <br />
 
                 <div class="row">
-                    <div class="col-md-6"><button type="submit" class="btn btn-sm btn-success btn-block">GUARDAR</button></div>
-                    <div class="col-md-6"><button type="button" class="btn btn-sm btn-dark btn-block" onclick="volver()">VOLVER</button>
+                    <div class="col-md-6"><button type="submit" class="btn btn-success btn-block">GUARDAR</button></div>
+                    <div class="col-md-6"><button type="button" class="btn btn-dark btn-block" onclick="volver()">VOLVER</button>
                     </div>
                 </div>
-                
+
             </div>
 
         </form>
         <!--end::Form-->
     </div>
 
-    
+
 </div>
 <!--end::Card-->
 @stop
@@ -316,25 +316,25 @@
     });
 
     jQuery(document).ready(function() {
-       
+
         $('#ejemplares_1').repeater({
             initEmpty: false,
-           
+
             defaultValues: {
                 'text-input': 'foo'
             },
-             
+
             show: function () {
                 $(this).slideDown();
             },
 
-            hide: function (deleteElement) {                
-                $(this).slideUp(deleteElement);                 
+            hide: function (deleteElement) {
+                $(this).slideUp(deleteElement);
             },
-            
+
             isFirstItemUndeletable: true
         });
-    
+
     });
 
     $(function(){
@@ -411,7 +411,7 @@
             data: {email: email},
             type: 'POST',
             success: function(data) {
-                // console.log(data.vEmail);     
+                // console.log(data.vEmail);
                 if(data.vEmail > 0){
                     $("#msg-error-email").show();
                 }else{
@@ -424,7 +424,7 @@
     {{--  busqueda de padre --}}
     function seleccionaPadre()
     {
-        $("#modal-padres").modal('show');        
+        $("#modal-padres").modal('show');
         $("#sexo-modal").val('macho');
         $("#ajaxEjemplar").html('');
         $("#busqueda-kcb").val('');
@@ -450,7 +450,7 @@
         $.ajax({
             url: "{{ url('Ejemplar/ajaxBuscaEjemplar') }}",
             data: {
-                kcb: kcb, 
+                kcb: kcb,
                 nombre: nombre,
                 sexo: sexo
             },
@@ -461,7 +461,7 @@
         });
 
     });
-    
+
     function volver(){
         window.location.href = "{{ url('Ejemplar/listado')}}"
     }
@@ -478,11 +478,11 @@
             //     data: {kcb: kcb},
             //     type: 'POST',
             //     success: function(data) {
-            //         // console.log(data.vEmail);     
+            //         // console.log(data.vEmail);
             //         if(data.vKcb > 0){
             //             $("#msg-error-email").show();
             //             jQuery('#boton-regitrar-nuevo-ejemplar').prop("disabled", true);  // true para desactivarlo o false para volverlo a activar
-            //             // document.getElementById("registro-nuevo-kcb").attributes["required"] = "";   
+            //             // document.getElementById("registro-nuevo-kcb").attributes["required"] = "";
             //         }else{
             //             $("#msg-error-email").hide();
             //             jQuery('#boton-regitrar-nuevo-ejemplar').prop("disabled", false);  // true para desactivarlo o false para volverlo a activar

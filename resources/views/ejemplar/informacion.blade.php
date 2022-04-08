@@ -38,7 +38,7 @@
                 <center>
                     <div id="qrcode"></div>
                 </center>
-                
+
             </div>
             <!--end::Pic-->
             <!--begin::Info-->
@@ -81,7 +81,7 @@
                             @endif
                         </h6>
                     </div>
-                
+
                     <div class="col-md-3">
                         <h6><span class="text-primary">MADRE: </span>
                             @if ($ejemplar->madre_id != null)
@@ -105,9 +105,9 @@
                     <div class="col-md-3">
                         <h6><span class="text-primary">SEXO: </span> {{ $ejemplar->sexo }}</h6>
                     </div>
-                
+
                     <div class="col-md-3">
-                        <h6><span class="text-primary">AFIJO: </span> 
+                        <h6><span class="text-primary">AFIJO: </span>
                             {{-- @dd($ejemplar->criadero_id) --}}
                             @if ($ejemplar->criadero_id != null)
                                 @if($ejemplar->criadero)
@@ -118,11 +118,11 @@
                     </div>
 
                     <div class="col-md-3">
-                        <h6><span class="text-primary">COLOR: </span> 
+                        <h6><span class="text-primary">COLOR: </span>
                             {{ $ejemplar->color }}
                         </h6>
                     </div>
-                
+
                     <div class="col-md-3">
                         <h6><span class="text-primary">SEÑAS: </span> {{ $ejemplar->senas }}</h6>
                     </div>
@@ -214,19 +214,19 @@
             <div class="col-md-6">
                 <div class="row">
                     <div class="col-md-4">
-                        <a href="{{ url('Ejemplar/generaExcelPedigree') }}/{{ $ejemplar->id }}" class="btn btn-sm btn-success btn-block"><i class="far fa-file-excel"></i> EXCEL PEEDEGRE</a>
+                        <a href="{{ url('Ejemplar/generaExcelPedigree') }}/{{ $ejemplar->id }}" class="btn btn-success btn-block"><i class="far fa-file-excel"></i> EXCEL PEEDEGRE</a>
                     </div>
                     <div class="col-md-4">
-                        <a href="{{ url('Ejemplar/certificadoRosado') }}/{{ $ejemplar->id }}" class="btn btn-sm btn-danger btn-block"><i class="far fa-file-pdf"></i> PDF PEEDEGRE</a>
+                        <a href="{{ url('Ejemplar/certificadoRosado') }}/{{ $ejemplar->id }}" class="btn btn-danger btn-block"><i class="far fa-file-pdf"></i> PDF PEEDEGRE</a>
                     </div>
                     <div class="col-md-4">
-                        <a href="{{ url('Ejemplar/certificadoExportacion') }}/{{ $ejemplar->id }}" class="btn btn-sm btn-info btn-block"><i class="fas fa-file-export"></i>PEEDEGRE DE EXPORTACION</a>
+                        <a href="{{ url('Ejemplar/certificadoExportacion') }}/{{ $ejemplar->id }}" class="btn btn-info btn-block"><i class="fas fa-file-export"></i>PEEDEGRE DE EXPORTACION</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6"><button type="button" class="btn btn-sm btn-dark btn-block">VOLVER</button></div>
+            <div class="col-md-6"><button type="button" class="btn btn-dark btn-block">VOLVER</button></div>
         </div>
-        {{-- fin inicio de lo botones de impresion --}}        
+        {{-- fin inicio de lo botones de impresion --}}
 
     </div>
 </div>
@@ -257,7 +257,7 @@
                     <tr>
                         <td>{{ $t->fecha_transferencia }}</td>
                         <td>{{ $t->propietario->name }}</td>
-                    </tr>    
+                    </tr>
                 @endif
             @empty
                 <h5 class="text-danger">
@@ -315,7 +315,7 @@
                             </h5>
                         @endforelse
                     @endif
-                    
+
                 </table>
             </div>
         </div>
@@ -363,7 +363,7 @@
                             <h5 class="text-danger">
                                 No tiene Camadas
                             </h5>
-                        @endforelse    
+                        @endforelse
                     @endif
                 </table>
             </div>
@@ -376,7 +376,7 @@
     <div class="card-header flex-wrap py-3">
         <div class="card-title">
             <h3 class="card-label">
-                GENERACIONES 
+                GENERACIONES
             </h3>
         </div>
         <div class="card-toolbar">
@@ -404,20 +404,20 @@
     $nombreCGPadre = '';
     $kcbCGMadre = '';
     $nombreCGMadre = '';
-    
+
     $kcbTGMadreP1 = '';
-    $nombreTGMadreP1 = '';  
-    
+    $nombreTGMadreP1 = '';
+
     $kcbTGMadreM2 = '';
     $nombreTGMadreM2 = '';
 
-    
+
     $kcbAbueloTG1 = '';
     $nombreAbueloTG1 = '';
 
     $kcbAbuelaTG1 = '';
     $nombreAbuelaTG1 = '';
-   
+
     $kcbAbueloCG1 = '';
     $nombreAbueloCG1 = '';
 
@@ -426,7 +426,7 @@
 
     $kcbAbueloTG1M1 = '';
     $nombreAbueloTG1M1 = '';
-    
+
     $kcbAbuelaTG1M1 = '';
     $nombreAbuelaTG1M1 = '';
 
@@ -435,7 +435,7 @@
 
         $kcbPapa = ($papa)?$papa->kcb:'';
         $nombrePapa = ($papa != null)?$papa->nombre:'';
-        
+
         // preguntamos si el papa tiene padre
         // para sacar al abuelo
         if($papa->padre_id != null){
@@ -459,7 +459,7 @@
                 if($tGPadre->padre_id != null){
 
                     $cGPadre = App\Ejemplar::find($tGPadre->padre_id);
-                    
+
                     $kcbCGPadre = ($cGPadre)?$cGPadre->kcb:'';
                     $nombreCGPadre = ($cGPadre != null)?$cGPadre->nombre:'';
                 }else{
@@ -472,7 +472,7 @@
                 if($tGPadre->madre_id != null){
 
                     $cGMadre = App\Ejemplar::find($tGPadre->madre_id);
-                    
+
                     $kcbCGMadre = ($cGMadre)?$cGMadre->kcb:'';
                     $nombreCGMadre = ($cGMadre != null)?$cGMadre->nombre:'';
                 }else{
@@ -501,10 +501,10 @@
                         $CGMadreP = App\Ejemplar::find($tGMadre->padre_id);
 
                         $kcbTGMadreP1 = ($CGMadreP)?$CGMadreP->kcb:'';
-                        $nombreTGMadreP1 = ($CGMadreP)?$CGMadreP->nombre:'';    
+                        $nombreTGMadreP1 = ($CGMadreP)?$CGMadreP->nombre:'';
                     }else{
                         $kcbTGMadreP1 = '';
-                        $nombreTGMadreP1 = '';    
+                        $nombreTGMadreP1 = '';
                     }
 
                     // para la madre de del atercera generacion
@@ -513,10 +513,10 @@
                         $CGMadreM2 = App\Ejemplar::find($tGMadre->madre_id);
 
                         $kcbTGMadreM2 = ($CGMadreM2)?$CGMadreM2->kcb:'';
-                        $nombreTGMadreM2 = ($CGMadreM2)?$CGMadreM2->nombre:'';    
+                        $nombreTGMadreM2 = ($CGMadreM2)?$CGMadreM2->nombre:'';
                     }else{
                         $kcbTGMadreM2 = '';
-                        $nombreTGMadreM2 = '';    
+                        $nombreTGMadreM2 = '';
                     }
                 }
 
@@ -612,7 +612,7 @@
 
     }else{
         $kcbPapa = '';
-        $nombrePapa = '';        
+        $nombrePapa = '';
     }
     // definimos las variables de la madre
     $kcbAbueloM = '';
@@ -627,23 +627,23 @@
     $nombreCGPadreM = '';
     $kcbCGMadreM = '';
     $nombreCGMadreM = '';
-    
+
     $kcbCGPadreM1 = '';
     $nombreCGPadreM1 = '';
     $kcbCGPadreM2 = '';
     $nombreCGPadreM2 = '';
     $kcbabueloMSG  = '' ;
     $nombreabueloMSG  = '' ;
-    
+
     $kcbabueloMSG2  = '' ;
     $nombreabueloMSG2  = '' ;
-    
+
     $kcbabueloMTG1  = '' ;
     $nombreabueloMTG1  = '' ;
-    
+
     $kcbabueloMTG11  = '' ;
     $nombreabueloMTG11  = '' ;
-    
+
     $kcbabueloMSG22  = '' ;
     $nombreabueloMSG22  = '' ;
 
@@ -663,7 +663,7 @@
             $nombreAbueloM  = ($abueloM)? $abueloM->nombre: '';
 
             if($abueloM->padre_id != null){
-                
+
                 $tGPadreM = App\Ejemplar::find($abueloM->padre_id);
 
                 $kcbTGPadreM = ($tGPadreM)?$tGPadreM->kcb:'';
@@ -706,23 +706,23 @@
 
                     $CGPadreM = App\Ejemplar::find($tGMadreM->padre_id);
 
-                    $kcbCGPadreM = ($CGPadreM)? $CGPadreM->kcb:'';                   
-                    $nombreCGPadreM = ($CGPadreM)? $CGPadreM->nombre:'';                   
+                    $kcbCGPadreM = ($CGPadreM)? $CGPadreM->kcb:'';
+                    $nombreCGPadreM = ($CGPadreM)? $CGPadreM->nombre:'';
 
                 }else{
 
-                    $kcbCGPadreM = '';                   
-                    $nombreCGPadreM = '';                   
+                    $kcbCGPadreM = '';
+                    $nombreCGPadreM = '';
                 }
                 if($tGMadreM->madre_id != null){
 
                     $CGMadreM = App\Ejemplar::find($tGMadreM->madre_id);
 
-                    $kcbCGMadreM = ($CGMadreM)? $CGMadreM->kcb:'';                   
-                    $nombreCGMadreM = ($CGMadreM)? $CGMadreM->nombre:'';                   
+                    $kcbCGMadreM = ($CGMadreM)? $CGMadreM->kcb:'';
+                    $nombreCGMadreM = ($CGMadreM)? $CGMadreM->nombre:'';
                 }else{
-                    $kcbCGMadreM = '';                   
-                    $nombreCGPadreM = '';                   
+                    $kcbCGMadreM = '';
+                    $nombreCGPadreM = '';
                 }
             }else{
                 $kcbTGMadreM = '';
@@ -791,7 +791,7 @@
                 }else{
 
                     $kcbabueloMSG22  = '' ;
-                    $nombreabueloMSG22  = '' ;  
+                    $nombreabueloMSG22  = '' ;
                 }
                 if($abueloSGM2->madre_id != null){
 
@@ -928,7 +928,7 @@
                 }
 
             ],
-                
+
         }
       ]
     };
@@ -971,6 +971,6 @@
 			colorLight : "#ffffff",
 			correctLevel : QRCode.CorrectLevel.H
 		});
-    
+
 </script>
 @endsection

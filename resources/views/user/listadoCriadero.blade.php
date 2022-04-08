@@ -42,7 +42,7 @@
 									<div id="select-copropietario">
 										<select class="form-control select2" id="copropietario_id" name="copropietario_id" required >
 											<option label="Label"></option>
-										</select>    
+										</select>
 									</div>
 								</div>
 							</div>
@@ -126,12 +126,12 @@
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-sm btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
-					<button type="button" class="btn btn-sm btn-success font-weight-bold" onclick="agregarProtietarioCriadero()">Guardar</button>
+					<button type="button" class="btn btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
+					<button type="button" class="btn btn-success font-weight-bold" onclick="agregarProtietarioCriadero()">Guardar</button>
 				</div>
 			</div>
 		</div>
-	</div> 
+	</div>
 	{{-- fin inicio modal  --}}
 
 	{{-- inicio modal  --}}
@@ -189,12 +189,12 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-sm btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
-					<button type="button" class="btn btn-sm btn-success font-weight-bold" onclick="agregarEjemplarCriadero()">Guardar</button>
+					<button type="button" class="btn btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
+					<button type="button" class="btn btn-success font-weight-bold" onclick="agregarEjemplarCriadero()">Guardar</button>
 				</div>
 			</div>
 		</div>
-	</div> 
+	</div>
 	{{-- fin inicio modal  --}}
 
 	<!--begin::Card-->
@@ -215,7 +215,7 @@
 				<!--end::Button-->
 			</div>
 		</div>
-		
+
 		<div class="card-body">
 			<!--begin: Datatable-->
 			<div class="table-responsive m-t-40">
@@ -384,7 +384,7 @@
 		}
 
 		function muestraBarra(){
-			var this_item = document.getElementById('barra-busqueda'); 
+			var this_item = document.getElementById('barra-busqueda');
 			if( this_item.style.display == 'block' ) {
 				this_item.style.display = 'none';
 			}
@@ -392,6 +392,6 @@
 				this_item.style.display = 'block';
 			}
 		}
-	
+
     </script>
 @endsection

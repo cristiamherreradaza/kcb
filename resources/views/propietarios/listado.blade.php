@@ -95,7 +95,7 @@
 											@forelse ($sucursales as $s)
 												<option value="{{ $s->id }}">{{ $s->nombre }}</option>
 											@empty
-												NO existen sucursales	
+												NO existen sucursales
 											@endforelse
 										</select>
 									</div>
@@ -108,7 +108,7 @@
 											@forelse ($perfiles as $p)
 												<option value="{{ $p->id }}">{{ $p->nombre }}</option>p
 											@empty
-												No existen perfiles											
+												No existen perfiles
 											@endforelse
 										</select>
 									</div>
@@ -127,8 +127,8 @@
 						</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-sm btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
-					<button type="button" class="btn btn-sm btn-success font-weight-bold" onclick="crear()">Guardar</button>
+					<button type="button" class="btn btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
+					<button type="button" class="btn btn-success font-weight-bold" onclick="crear()">Guardar</button>
 				</div>
 			</div>
 		</div>
@@ -153,7 +153,7 @@
 				<!--end::Button-->
 			</div>
 		</div>
-		
+
 		<div class="card-body">
 			<div id="barra-busqueda" style="display: none">
 				<form action="{{ url('User/ajaxListadoPropietarios') }}" method="POST" id="formulario-busqueda-usuarios">
@@ -166,7 +166,7 @@
 								<input type="text" class="form-control" id="nombre_buscar" name="nombre_buscar" />
 							</div>
 						</div>
-				
+
 						<div class="col-md-4">
 							<div class="form-group">
 								<label for="exampleInputPassword1">Cedula
@@ -178,10 +178,10 @@
 						<div class="col-md-4">
 							<div class="form-group">
 								<label for="exampleInputPassword1">&nbsp;</label>
-								<button type="button" class="btn btn-sm btn-success btn-block" onclick="buscarPropietario()">BUSCAR</button>
+								<button type="button" class="btn btn-success btn-block" onclick="buscarPropietario()">BUSCAR</button>
 							</div>
 						</div>
-				
+
 					</div>
 				</form>
 			</div>
@@ -197,7 +197,7 @@
 @stop
 
 @section('js')
-    
+
     <script type="text/javascript">
 
 		$.ajaxSetup({
@@ -220,7 +220,7 @@
 			});
 
     	});
-		
+
 		function crear()
 		{
 			if($('#formulario-usuarios')[0].checkValidity()){
@@ -234,7 +234,7 @@
     	{
 			window.location.href = "{{ url('User/formularioPropietario') }}/0";
     	}
-		
+
 		function edita(id)
 		{
 			window.location.href = "{{ url('User/formularioPropietario') }}/"+id;
@@ -276,7 +276,7 @@
 
 		function buscarPropietario()
 		{
-			
+
 			let datosBusquda = $('#formulario-busqueda-usuarios').serializeArray();
 
 			$.ajax({
@@ -291,7 +291,7 @@
 		}
 
 		function muestraBarra(){
-			var this_item = document.getElementById('barra-busqueda'); 
+			var this_item = document.getElementById('barra-busqueda');
 			if( this_item.style.display == 'block' ) {
 				this_item.style.display = 'none';
 			}

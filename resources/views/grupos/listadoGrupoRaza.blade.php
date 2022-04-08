@@ -29,9 +29,9 @@
                 			    <input type="hidden" class="form-control" id="grupo_id" name="grupo_id" value="{{ $gruposRazas[0]->grupos->id }}"/>
 								<select class="form-control select2" id="raza_id" name="raza_id">
 									@forelse ($razas as $r)
-										<option value="{{ $r->id }}">{{ $r->nombre }} {{ $r->descripcion }}</option>                                    
+										<option value="{{ $r->id }}">{{ $r->nombre }} {{ $r->descripcion }}</option>
 									@empty
-										
+
 									@endforelse
 								</select>
                 			</div>
@@ -40,8 +40,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-sm btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-sm btn-success font-weight-bold" onclick="agregar()">Agregar</button>
+                <button type="button" class="btn btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-success font-weight-bold" onclick="agregar()">Agregar</button>
             </div>
         </div>
     </div>
@@ -85,7 +85,7 @@
 								<td>{{ $ra->razas->nombre }}</td>
 								<td>{{ $ra->razas->descripcion }}</td>
 								<td>
-									<button type="button" class="btn btn-sm btn-icon btn-danger" onclick="elimina('{{ $ra->id }}', '{{ $ra->razas->nombre }}', '{{ $ra->grupos->id }}')">
+									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $ra->id }}', '{{ $ra->razas->nombre }}', '{{ $ra->grupos->id }}')">
 										<i class="flaticon2-cross"></i>
 									</button>
 								</td>

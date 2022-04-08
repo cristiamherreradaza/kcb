@@ -60,25 +60,25 @@
                                 <br />
                                 {{-- @dd($propietarioCriador->criadero->copropietario) --}}
                                 @if ($propietarioCriador->criadero->copropietario)
-                                    <button type="button" id="boton-copropietario-id" class="btn btn-primary btn-block" onclick="cambiaCoPropietario()">{{ $propietarioCriador->criadero->copropietario->name }} ({{ $propietarioCriador->criadero->copropietario->ci }})</button>                                
+                                    <button type="button" id="boton-copropietario-id" class="btn btn-primary btn-block" onclick="cambiaCoPropietario()">{{ $propietarioCriador->criadero->copropietario->name }} ({{ $propietarioCriador->criadero->copropietario->ci }})</button>
 
                                     <div id="select-copropietario" style="display: none;">
                                         <select class="form-control select2" id="copropietario_id" name="copropietario_id" style="width: 100%">
                                             <option label="Label"></option>
                                         </select>
-                                    </div>    
+                                    </div>
                                 @else
                                     <div id="select-copropietario">
                                         <select class="form-control select2" id="copropietario_id" name="copropietario_id">
                                             <option label="Label"></option>
-                                        </select>    
+                                        </select>
                                     </div>
                                 @endif
                             @else
                                 <div id="select-copropietario">
                                     <select class="form-control select2" id="copropietario_id" name="copropietario_id">
                                         <option label="Label"></option>
-                                    </select>    
+                                    </select>
                                 </div>
                             @endif
                     </div>
@@ -161,8 +161,8 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6"><button type="button" class="btn btn-sm btn-success btn-block" onclick="crear()">GUARDAR</button></div>
-                <div class="col-md-6"><button type="button" class="btn btn-sm btn-dark btn-block" onclick="volver()" >VOLVER</button></div>
+                <div class="col-md-6"><button type="button" class="btn btn-success btn-block" onclick="crear()">GUARDAR</button></div>
+                <div class="col-md-6"><button type="button" class="btn btn-dark btn-block" onclick="volver()" >VOLVER</button></div>
             </div>
         </form>
     </div>
@@ -248,7 +248,7 @@
             data: {email: email},
             type: 'POST',
             success: function(data) {
-                // console.log(data.vEmail);     
+                // console.log(data.vEmail);
                 if(data.vEmail > 0){
                     $("#msg-error-email").show();
                 }else{

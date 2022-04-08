@@ -12,7 +12,7 @@
             <td>{{ $et->fecha_transferencia }}</td>
             <td>{{ $et->propietario->name }}</td>
             <td>
-                <button type="button" class="btn btn-sm btn-icon btn-danger" onclick="eliminaTransferencia('{{ $et->id }}', '{{ $et->propietario->name }}')">
+                <button type="button" class="btn btn-icon btn-danger" onclick="eliminaTransferencia('{{ $et->id }}', '{{ $et->propietario->name }}')">
                     <i class="flaticon2-cross"></i>
                 </button>
             </td>
@@ -21,5 +21,5 @@
         <h3>No tiene Transferencias</h3>
         @endforelse
     </tbody>
-</table>    
+</table>
 <a href="#" class="btn btn-info btn-block" onclick="nuevaTransferencia()">Nueva Tramsferencia</a>

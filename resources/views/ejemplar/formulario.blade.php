@@ -492,7 +492,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <button type="button" class="btn btn-sm btn-success btn-block" onclick="guardaTransferencia();">Guardar</button>
+                            <button type="button" class="btn btn-success btn-block" onclick="guardaTransferencia();">Guardar</button>
                         </div>
                     </form>
                 </div>
@@ -542,7 +542,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <button type="button" class="btn btn-sm btn-success btn-block" onclick="guardarTitulo();">Guardar</button>
+                            <button type="button" class="btn btn-success btn-block" onclick="guardarTitulo();">Guardar</button>
                         </div>
                     </form>
                 </div>
@@ -638,7 +638,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <button type="button" class="btn btn-sm btn-success btn-block" onclick="guardaExamen();">Guardar</button>
+                            <button type="button" class="btn btn-success btn-block" onclick="guardaExamen();">Guardar</button>
                         </div>
                     </form>
                 </div>
@@ -1387,17 +1387,17 @@
                 <input type="hidden" name="padre_id" id="padre_id" value="{{ ($ejemplar)? $ejemplar->padre_id:'' }}">
                 <div class="col-md-6" id="btn-padre">
                     @if ($ejemplar != null && $ejemplar->padre_id != null)
-                        <button type="button" class="btn btn-sm btn-primary btn-block" onclick="seleccionaPadre()">KCB: {{ $ejemplar->padre->kcb }} NOMBRE: {{ $ejemplar->padre->nombre }}</button>
+                        <button type="button" class="btn btn-primary btn-block" onclick="seleccionaPadre()">KCB: {{ $ejemplar->padre->kcb }} NOMBRE: {{ $ejemplar->padre->nombre }}</button>
                     @else
-                        <button type="button" class="btn btn-sm btn-primary btn-block" onclick="seleccionaPadre()">PADRE</button>
+                        <button type="button" class="btn btn-primary btn-block" onclick="seleccionaPadre()">PADRE</button>
                     @endif
                 </div>
                 <input type="hidden" name="madre_id" id="madre_id" value="{{ ($ejemplar)? $ejemplar->madre_id:'' }}">
                 <div class="col-md-6" id="btn-madre">
                     @if ($ejemplar != null && $ejemplar->madre_id != null)
-                        <button type="button" class="btn btn-sm btn-info btn-block" onclick="seleccionaPadre()">KCB: {{ $ejemplar->madre->kcb }} NOMBRE: {{ $ejemplar->madre->nombre }}</button>
+                        <button type="button" class="btn btn-info btn-block" onclick="seleccionaPadre()">KCB: {{ $ejemplar->madre->kcb }} NOMBRE: {{ $ejemplar->madre->nombre }}</button>
                     @else
-                        <button type="button" class="btn btn-sm btn-info btn-block" onclick="seleccionaMadre()">MADRE</button>
+                        <button type="button" class="btn btn-info btn-block" onclick="seleccionaMadre()">MADRE</button>
                     @endif
                 </div>
 
@@ -1535,7 +1535,7 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <button type="button" class="btn btn-sm btn-light-danger btn-block font-weight-bold mr-2" onclick="muestraBloqueFallecido();"> FALLECIDO, PERDIDO O ROBADO</button>
+                    <button type="button" class="btn btn-light-danger btn-block font-weight-bold mr-2" onclick="muestraBloqueFallecido();"> FALLECIDO, PERDIDO O ROBADO</button>
                 </div>
             </div>
             <br>
@@ -1571,7 +1571,7 @@
             {{-- <br /> --}}
             <div class="row">
                 <div class="col-md-12">
-                    <button type="button" class="btn btn-sm btn-light-dark btn-block font-weight-bold mr-2"
+                    <button type="button" class="btn btn-light-dark btn-block font-weight-bold mr-2"
                         onclick="muestraBloqueNacionalizado();"> NACIONALIZADO</button>
                 </div>
             </div>
@@ -1658,10 +1658,10 @@
                                             <td>{{ $e->fecha_examen }}</td>
                                             <td>{{ $e->examen->nombre }}</td>
                                             <td>
-                                                <button type="button" class="btn btn-sm btn-icon btn-warning" onclick="editaExamen('{{ $e->id }}', '{{ $e->examen_id }}', '{{ $e->fecha_examen }}', '{{ $e->revisor }}', '{{ $e->resultado }}', '{{ $e->observacion }}', '{{ $e->numero_formulario }}', '{{ $e->dcf }}')">
+                                                <button type="button" class="btn btn-icon btn-warning" onclick="editaExamen('{{ $e->id }}', '{{ $e->examen_id }}', '{{ $e->fecha_examen }}', '{{ $e->revisor }}', '{{ $e->resultado }}', '{{ $e->observacion }}', '{{ $e->numero_formulario }}', '{{ $e->dcf }}')">
                                                     <i class="flaticon2-edit"></i>
                                                 </button>
-                                                <button type="button" class="btn btn-sm btn-icon btn-danger" onclick="eliminaExamen('{{ $e->id }}', '{{ $e->examen->nombre }}')">
+                                                <button type="button" class="btn btn-icon btn-danger" onclick="eliminaExamen('{{ $e->id }}', '{{ $e->examen->nombre }}')">
                                                     <i class="flaticon2-cross"></i>
                                                 </button>
                                             </td>
@@ -1693,7 +1693,7 @@
                                                 <td>{{ $tra->fecha_transferencia }}</td>
                                                 <td>{{ $tra->propietario->name }}</td>
                                                 <td>
-                                                    <button type="button" class="btn btn-sm btn-icon btn-danger" onclick="eliminaTransferencia('{{ $tra->id }}', '{{ $tra->propietario->name }}')">
+                                                    <button type="button" class="btn btn-icon btn-danger" onclick="eliminaTransferencia('{{ $tra->id }}', '{{ $tra->propietario->name }}')">
                                                         <i class="flaticon2-cross"></i>
                                                     </button>
                                                 </td>
@@ -1725,7 +1725,7 @@
                                             <td>{{ $te->fecha_obtencion }}</td>
                                             <td>{{ $te->titulo->nombre}}</td>
                                             <td>
-                                                <button type="button" class="btn btn-sm btn-icon btn-danger" onclick="eliminaTitulo('{{ $te->id }}', '{{ $te->titulo->nombre }}')">
+                                                <button type="button" class="btn btn-icon btn-danger" onclick="eliminaTitulo('{{ $te->id }}', '{{ $te->titulo->nombre }}')">
                                                     <i class="flaticon2-cross"></i>
                                                 </button>
                                             </td>
@@ -1744,8 +1744,8 @@
             @endif
 
                 <div class="row">
-                    <div class="col-md-6"><button type="button" class="btn btn-sm btn-success btn-block" onclick="guardar()">GUARDAR</button></div>
-                    <div class="col-md-6"><button type="button" class="btn btn-sm btn-dark btn-block" onclick="volver()" >VOLVER</button></div>
+                    <div class="col-md-6"><button type="button" class="btn btn-success btn-block" onclick="guardar()">GUARDAR</button></div>
+                    <div class="col-md-6"><button type="button" class="btn btn-dark btn-block" onclick="volver()" >VOLVER</button></div>
                 </div>
             @if($ejemplar != null)
                 <div class="row">
@@ -1775,25 +1775,25 @@
                                 <tr>
                                     <td rowspan="8">
                                         {{ $nombrePapa }}
-                                        <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdPapa }}','{{ addslashes($nombreAbuelo) }}','{{ $IdAbuelo }}','{{ addslashes($nombreAbuela) }}','{{ $IdAbuela }}','{{ $edicion_raza_id }}')">
+                                        <span class="btn btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdPapa }}','{{ addslashes($nombreAbuelo) }}','{{ $IdAbuelo }}','{{ addslashes($nombreAbuela) }}','{{ $IdAbuela }}','{{ $edicion_raza_id }}')">
                                             PADRES
                                         </span>
                                     </td>
                                     <td rowspan="4">
                                         {{  $nombreAbuelo }}
-                                        <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdAbuelo }}','{{ addslashes($nombreTGPadre) }}','{{ $IdTGPadre }}','{{ addslashes($nombreTGMadre) }}','{{ $IdTGMadre }}','{{ $edicion_raza_id }}')">
+                                        <span class="btn btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdAbuelo }}','{{ addslashes($nombreTGPadre) }}','{{ $IdTGPadre }}','{{ addslashes($nombreTGMadre) }}','{{ $IdTGMadre }}','{{ $edicion_raza_id }}')">
                                             PADRES
                                         </span>
                                     </td>
                                     <td rowspan="2">
                                         {{ $nombreTGPadre }}
-                                        <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdTGPadre }}','{{ addslashes($nombreCGPadre) }}','{{ $IdCGPadre }}','{{ addslashes($nombreCGMadre) }}','{{ $IdCGMadre }}','{{ $edicion_raza_id }}')">
+                                        <span class="btn btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdTGPadre }}','{{ addslashes($nombreCGPadre) }}','{{ $IdCGPadre }}','{{ addslashes($nombreCGMadre) }}','{{ $IdCGMadre }}','{{ $edicion_raza_id }}')">
                                             PADRES
                                         </span>
                                     </td>
                                     <td>
                                         {{ $nombreCGPadre }}
-                                        {{-- <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
+                                        {{-- <span class="btn btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
                                             PADRES
                                         </span> --}}
                                     </td>
@@ -1801,7 +1801,7 @@
                                 <tr>
                                     <td>
                                         {{ $nombreCGMadre }}
-                                        {{-- <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
+                                        {{-- <span class="btn btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
                                             PADRES
                                         </span> --}}
                                     </td>
@@ -1809,13 +1809,13 @@
                                 <tr>
                                     <td rowspan="2">
                                         {{ $nombreTGMadre }}
-                                        <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdTGMadre }}','{{ addslashes($nombreTGMadreP1) }}','{{ $IdTGMadreP1 }}','{{ addslashes($nombreTGMadreM2) }}','{{ $IdTGMadreM2 }}','{{ $edicion_raza_id }}')">
+                                        <span class="btn btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdTGMadre }}','{{ addslashes($nombreTGMadreP1) }}','{{ $IdTGMadreP1 }}','{{ addslashes($nombreTGMadreM2) }}','{{ $IdTGMadreM2 }}','{{ $edicion_raza_id }}')">
                                             PADRES
                                         </span>
                                     </td>
                                     <td>
                                         {{ $nombreTGMadreP1 }}
-                                        {{-- <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
+                                        {{-- <span class="btn btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
                                             PADRES
                                         </span> --}}
                                     </td>
@@ -1823,7 +1823,7 @@
                                 <tr>
                                     <td>
                                         {{ $nombreTGMadreM2 }}
-                                        {{-- <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
+                                        {{-- <span class="btn btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
                                             PADRES
                                         </span> --}}
                                     </td>
@@ -1831,7 +1831,7 @@
                                 <tr>
                                     <td rowspan="4">
                                         {{ $nombreAbuela }}
-                                        <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdAbuela }}','{{ addslashes($nombreAbueloTG1) }}','{{ $IdAbueloTG1 }}','{{ addslashes($nombreAbuelaTG1) }}','{{  $IdAbuelaTG1  }}','{{ $edicion_raza_id }}')">
+                                        <span class="btn btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdAbuela }}','{{ addslashes($nombreAbueloTG1) }}','{{ $IdAbueloTG1 }}','{{ addslashes($nombreAbuelaTG1) }}','{{  $IdAbuelaTG1  }}','{{ $edicion_raza_id }}')">
                                             PADRES 1
                                         </span>
                                         {{-- @dd($IdAbuela) --}}
@@ -1839,13 +1839,13 @@
                                     </td>
                                     <td rowspan="2">
                                         {{ $nombreAbueloTG1 }}
-                                        <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdAbueloTG1 }}','{{ addslashes($nombreAbueloCG1) }}','{{ $IdAbueloCG1 }}','{{ addslashes($nombreAbueloCG1M) }}','{{  $IdAbueloCG1M  }}','{{ $edicion_raza_id }}')">
+                                        <span class="btn btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdAbueloTG1 }}','{{ addslashes($nombreAbueloCG1) }}','{{ $IdAbueloCG1 }}','{{ addslashes($nombreAbueloCG1M) }}','{{  $IdAbueloCG1M  }}','{{ $edicion_raza_id }}')">
                                             PADRES
                                         </span>
                                     </td>
                                     <td>
                                         {{ $nombreAbueloCG1 }}
-                                        {{-- <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
+                                        {{-- <span class="btn btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
                                             PADRES
                                         </span> --}}
                                     </td>
@@ -1853,7 +1853,7 @@
                                 <tr>
                                     <td>
                                         {{ $nombreAbueloCG1M }}
-                                        {{-- <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
+                                        {{-- <span class="btn btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
                                             PADRES
                                         </span> --}}
                                     </td>
@@ -1861,13 +1861,13 @@
                                 <tr>
                                     <td rowspan="2">
                                         {{ $nombreAbuelaTG1 }}
-                                        <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdAbuelaTG1 }}','{{ addslashes($nombreAbueloTG1M1) }}','{{ $IdAbueloTG1M1 }}','{{ addslashes($nombreAbuelaTG1M1) }}','{{  $IdAbuelaTG1M1  }}','{{ $edicion_raza_id }}')">
+                                        <span class="btn btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdAbuelaTG1 }}','{{ addslashes($nombreAbueloTG1M1) }}','{{ $IdAbueloTG1M1 }}','{{ addslashes($nombreAbuelaTG1M1) }}','{{  $IdAbuelaTG1M1  }}','{{ $edicion_raza_id }}')">
                                             PADRES
                                         </span>
                                     </td>
                                     <td>
                                         {{ $nombreAbueloTG1M1 }}
-                                        {{-- <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
+                                        {{-- <span class="btn btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
                                             PADRES
                                         </span> --}}
                                     </td>
@@ -1875,7 +1875,7 @@
                                 <tr>
                                     <td>
                                         {{ $nombreAbuelaTG1M1 }}
-                                        {{-- <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
+                                        {{-- <span class="btn btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
                                             PADRES
                                         </span> --}}
                                     </td>
@@ -1883,25 +1883,25 @@
                                 <tr>
                                     <td rowspan="8">
                                         {{ $nombreMama }}
-                                        <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdMama }}','{{ addslashes($nombreAbueloM) }}','{{ $IdAbueloM }}','{{ addslashes($nombreAbuelaM) }}','{{  $IdAbuelaM  }}','{{ $edicion_raza_id }}')">
+                                        <span class="btn btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdMama }}','{{ addslashes($nombreAbueloM) }}','{{ $IdAbueloM }}','{{ addslashes($nombreAbuelaM) }}','{{  $IdAbuelaM  }}','{{ $edicion_raza_id }}')">
                                             PADRES
                                         </span>
                                     </td>
                                     <td rowspan="4">
                                         {{ $nombreAbueloM }}
-                                        <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdAbueloM }}','{{ addslashes($nombreTGPadreM) }}','{{ $IdTGPadreM }}','{{ addslashes($nombreTGMadreM) }}','{{  $IdTGMadreM  }}','{{ $edicion_raza_id }}')">
+                                        <span class="btn btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdAbueloM }}','{{ addslashes($nombreTGPadreM) }}','{{ $IdTGPadreM }}','{{ addslashes($nombreTGMadreM) }}','{{  $IdTGMadreM  }}','{{ $edicion_raza_id }}')">
                                             PADRES
                                         </span>
                                     </td>
                                     <td rowspan="2">
                                         {{ $nombreTGPadreM }}
-                                        <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdTGPadreM }}','{{ addslashes($nombreCGPadreM1) }}','{{ $IdCGPadreM1 }}','{{ addslashes($nombreCGPadreM2) }}','{{  $IdCGPadreM2  }}','{{ $edicion_raza_id }}')">
+                                        <span class="btn btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdTGPadreM }}','{{ addslashes($nombreCGPadreM1) }}','{{ $IdCGPadreM1 }}','{{ addslashes($nombreCGPadreM2) }}','{{  $IdCGPadreM2  }}','{{ $edicion_raza_id }}')">
                                             PADRES
                                         </span>
                                     </td>
                                     <td>
                                         {{ $nombreCGPadreM1 }}
-                                        {{-- <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
+                                        {{-- <span class="btn btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
                                             PADRES
                                         </span> --}}
                                     </td>
@@ -1909,7 +1909,7 @@
                                 <tr>
                                     <td>
                                         {{ $nombreCGPadreM2 }}
-                                        {{-- <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
+                                        {{-- <span class="btn btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
                                             PADRES
                                         </span> --}}
                                     </td>
@@ -1917,13 +1917,13 @@
                                 <tr>
                                     <td rowspan="2">
                                         {{ $nombreTGMadreM }}
-                                        <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdTGMadreM }}','{{ addslashes($nombreCGPadreM) }}','{{ $IdCGPadreM }}','{{ addslashes($nombreCGMadreM) }}','{{  $IdCGMadreM  }}','{{ $edicion_raza_id }}')">
+                                        <span class="btn btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdTGMadreM }}','{{ addslashes($nombreCGPadreM) }}','{{ $IdCGPadreM }}','{{ addslashes($nombreCGMadreM) }}','{{  $IdCGMadreM  }}','{{ $edicion_raza_id }}')">
                                             PADRES
                                         </span>
                                     </td>
                                     <td>
                                         {{ $nombreCGPadreM }}
-                                        {{-- <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
+                                        {{-- <span class="btn btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
                                             PADRES
                                         </span> --}}
                                     </td>
@@ -1931,7 +1931,7 @@
                                 <tr>
                                     <td>
                                         {{ $nombreCGMadreM }}
-                                        {{-- <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
+                                        {{-- <span class="btn btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
                                             PADRES
                                         </span> --}}
                                     </td>
@@ -1939,19 +1939,19 @@
                                 <tr>
                                     <td rowspan="4">
                                         {{ $nombreAbuelaM }}
-                                        <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdAbuelaM }}','{{ addslashes($nombreabueloMSG) }}','{{ $IdabueloMSG }}','{{ addslashes($nombreabueloMSG2) }}','{{  $IdabueloMSG2  }}','{{ $edicion_raza_id }}')">
+                                        <span class="btn btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdAbuelaM }}','{{ addslashes($nombreabueloMSG) }}','{{ $IdabueloMSG }}','{{ addslashes($nombreabueloMSG2) }}','{{  $IdabueloMSG2  }}','{{ $edicion_raza_id }}')">
                                             PADRES
                                         </span>
                                     </td>
                                     <td rowspan="2">
                                         {{ $nombreabueloMSG  }}
-                                        <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdabueloMSG }}','{{ addslashes($nombreabueloMTG1) }}','{{ $IdabueloMTG1 }}','{{ addslashes($nombreabueloMTG11) }}','{{  $IdabueloMTG11  }}','{{ $edicion_raza_id }}')">
+                                        <span class="btn btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdabueloMSG }}','{{ addslashes($nombreabueloMTG1) }}','{{ $IdabueloMTG1 }}','{{ addslashes($nombreabueloMTG11) }}','{{  $IdabueloMTG11  }}','{{ $edicion_raza_id }}')">
                                             PADRES
                                         </span>
                                     </td>
                                     <td>
                                         {{ $nombreabueloMTG1  }}
-                                        {{-- <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
+                                        {{-- <span class="btn btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
                                             PADRES
                                         </span> --}}
                                     </td>
@@ -1959,7 +1959,7 @@
                                 <tr>
                                     <td>
                                         {{ $nombreabueloMTG11 }}
-                                        {{-- <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
+                                        {{-- <span class="btn btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
                                             PADRES
                                         </span> --}}
                                     </td>
@@ -1967,13 +1967,13 @@
                                 <tr>
                                     <td rowspan="2">
                                         {{ $nombreabueloMSG2 }}
-                                        <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdabueloMSG2 }}','{{ addslashes($nombreabueloMSG22) }}','{{ $IdabueloMSG22 }}','{{ addslashes($nombreabueloMSG222) }}','{{  $IdabueloMSG222  }}','{{ $edicion_raza_id }}')">
+                                        <span class="btn btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('{{ $IdabueloMSG2 }}','{{ addslashes($nombreabueloMSG22) }}','{{ $IdabueloMSG22 }}','{{ addslashes($nombreabueloMSG222) }}','{{  $IdabueloMSG222  }}','{{ $edicion_raza_id }}')">
                                             PADRES
                                         </span>
                                     </td>
                                     <td>
                                         {{ $nombreabueloMSG22 }}
-                                        {{-- <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
+                                        {{-- <span class="btn btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
                                             PADRES
                                         </span> --}}
                                     </td>
@@ -1981,7 +1981,7 @@
                                 <tr>
                                     <td>
                                         {{ $nombreabueloMSG222 }}
-                                        {{-- <span class="btn btn-sm btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
+                                        {{-- <span class="btn btn-transparent-success font-weight-bold mr-2" onclick="edicionPadre('padre')">
                                             PADRES
                                         </span> --}}
                                     </td>

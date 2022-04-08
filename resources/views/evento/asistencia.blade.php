@@ -36,7 +36,7 @@
                                         <option value="Beni">Beni</option>
                                         <option value="Pando">Pandoa</option>
                                     </select>
-                                </div>        
+                                </div>
                             </div>
 
                             <div class="col-md-7">
@@ -46,12 +46,12 @@
                                     <input type="text" class="form-control" id="nombre" name="nombre" required />
                                 </div>
                             </div>
-                            
+
                         </div>
-                    
+
                         <div class="row">
                             <div class="col-md-6">
-                                <button type="button" class="btn btn-sm btn-success mr-2 btn-block" onclick="guarda();">Guardar</button>
+                                <button type="button" class="btn btn-success mr-2 btn-block" onclick="guarda();">Guardar</button>
                             </div>
                             <div class="col-md-6">
                                 <button type="reset" class="btn btn-secondary btn-block" data-dismiss="modal">Cancelar</button>
@@ -60,7 +60,7 @@
 
                     </form>
                 </div>
-                
+
             </div>
         </div>
     </div>
@@ -99,13 +99,13 @@
                             $asistencia = App\Asistencia::where('evento_id', $datosEvento->id)
                                             ->where('user_id', $d->id)
                                             ->count();
-                                            
+
                             if($asistencia > 0){
                                 $estado = '<a href="#" class="btn btn-light-success font-weight-bold mr-2">Asistio</a>';
                             }else{
                                 $estado = '<a href="#" class="btn btn-light-danger font-weight-bold mr-2">Falto</a>';
                             }
-                        @endphp     
+                        @endphp
                         <tr>
                             <td>{{ $d->id }}</td>
                             <td>{{ $d->name }}</td>
@@ -118,7 +118,7 @@
                                 <a href="#" class="btn btn-icon btn-success btn-sm mr-2" onclick="asiste('{{ $d->id }}', '{{ $datosEvento->id }}')">
                                     <i class="fas fa-calendar-check"></i>
                                 </a>
-        
+
                                 <a href="#" class="btn btn-icon btn-danger btn-sm mr-2" onclick="falta('{{ $d->id }}', '{{ $datosEvento->id }}')">
                                     <i class="fas fa-calendar-minus"></i>
                                 </a>

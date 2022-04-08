@@ -31,10 +31,10 @@
                 @endphp
             </td> --}}
             <td>
-                <button type="button" class="btn btn-sm btn-icon btn-warning" onclick="edita('{{ $cri->idProCria }}')">
+                <button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $cri->idProCria }}')">
                     <i class="flaticon2-edit"></i>
                 </button>
-                <button type="button" class="btn btn-sm btn-icon btn-danger"
+                <button type="button" class="btn btn-icon btn-danger"
                     onclick="elimina('{{ $cri->idProCria }}', '{{ $cri->nombre }}')">
                     <i class="flaticon2-cross"></i>
                 </button>

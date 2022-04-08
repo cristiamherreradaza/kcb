@@ -29,7 +29,7 @@
                                 <label for="exampleInputPassword1">Nombre
                                 <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="nombre" name="nombre" required />
-                            </div>        
+                            </div>
                         </div>
 
                         <div class="col-md-2">
@@ -82,7 +82,7 @@
 
                     <div class="row">
                         <div class="col-md-6">
-                            <button type="button" class="btn btn-sm btn-primary mr-2 btn-block" onclick="guarda()">Guardar</button>
+                            <button type="button" class="btn btn-primary mr-2 btn-block" onclick="guarda()">Guardar</button>
                         </div>
                         <div class="col-md-6">
                             <a href="{{ url('User/listado') }}" class="btn btn-secondary btn-block">Volver</a>
@@ -90,13 +90,13 @@
                     </div>
 
                 </div>
-                
+
             </form>
             <!--end::Form-->
         </div>
         <!--end::Card-->
     </div>
-    
+
 </div>
 
 @stop

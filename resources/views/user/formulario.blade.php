@@ -37,7 +37,7 @@
                         <input type="text" class="form-control" id="name" name="name" value="{{ ($user!=null)?$user->name:'' }}" required />
                     </div>
                 </div>
-        
+
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="exampleInputPassword1">Correo
@@ -46,7 +46,7 @@
                         <span class="form-text text-danger" id="msg-error-email" style="display: none;">Correo duplicado, cambielo!!!</span>
                     </div>
                 </div>
-        
+
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="exampleInputPassword1">Contraseña</label>
@@ -82,7 +82,7 @@
                         </select>
                     </div>
                 </div>
-                
+
                 <div class="col-md-3">
                     <div class="form-group">
                         <label for="exampleInputPassword1">Celular
@@ -161,8 +161,8 @@
                 </div> --}}
             </div>
             <div class="row">
-                <div class="col-md-6"><button type="button" class="btn btn-sm btn-success btn-block" onclick="crear()">GUARDAR</button></div>
-                <div class="col-md-6"><button type="button" class="btn btn-sm btn-dark btn-block" onclick="volver()">VOLVER</button></div>
+                <div class="col-md-6"><button type="button" class="btn btn-success btn-block" onclick="crear()">GUARDAR</button></div>
+                <div class="col-md-6"><button type="button" class="btn btn-dark btn-block" onclick="volver()">VOLVER</button></div>
             </div>
         </form>
     </div>
@@ -199,7 +199,7 @@
             data: {email: email},
             type: 'POST',
             success: function(data) {
-                // console.log(data.vEmail);     
+                // console.log(data.vEmail);
                 if(data.vEmail > 0){
                     $("#msg-error-email").show();
                 }else{

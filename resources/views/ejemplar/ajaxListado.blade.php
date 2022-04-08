@@ -32,18 +32,18 @@
             </td>
             <td>{{ $e->departamento }}</td>
             <td style="width: 10%">
-                <button type="button" class="btn btn-sm btn-icon btn-warning" onclick="edita('{{ $e->id }}')">
+                <button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $e->id }}')">
                     <i class="flaticon2-edit"></i>
                 </button>
                 @if ($e->camada_id != null)
-                    <button type="button" class="btn btn-sm btn-icon btn-dark" onclick="camada('{{ $e->camada_id }}')">
+                    <button type="button" class="btn btn-icon btn-dark" onclick="camada('{{ $e->camada_id }}')">
                         <i class="fab fa-buromobelexperte"></i>
                     </button>
                 @endif
-                <button type="button" class="btn btn-sm btn-icon btn-info" onclick="informacion('{{ $e->id }}')">
+                <button type="button" class="btn btn-icon btn-info" onclick="informacion('{{ $e->id }}')">
                     <i class="far fa-file-alt"></i>
                 </button>
-                <button type="button" class="btn btn-sm btn-icon btn-primary" onclick="logs('{{ $e->id }}')">
+                <button type="button" class="btn btn-icon btn-primary" onclick="logs('{{ $e->id }}')">
                     <i class="far fa-keyboard"></i>
                 </button>
                 @php
@@ -54,18 +54,18 @@
                         if($padre>0){
                             $table = 1;
                         }
-                        echo '<button type="button" class="btn btn-sm btn-icon btn-success" onclick="PadresCamadas('.$e->id.','.$table.')">
+                        echo '<button type="button" class="btn btn-icon btn-success" onclick="PadresCamadas('.$e->id.','.$table.')">
                                 <i class="fas fa-bezier-curve"></i>
                             </button>';
                     }
                     // elseif($madre>0){
-                    //     echo '<button type="button" class="btn btn-sm btn-icon btn-success" onclick="">
+                    //     echo '<button type="button" class="btn btn-icon btn-success" onclick="">
                     //             <i class="fas fa-bezier-curve"></i>
                     //         </button>';
                     // }
                 @endphp
-                
-                <button type="button" class="btn btn-sm btn-icon btn-danger" onclick="elimina('{{ $e->id }}', '{{ $e->nombre }}')">
+
+                <button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $e->id }}', '{{ $e->nombre }}')">
                     <i class="flaticon2-cross"></i>
                 </button>
             </td>

@@ -28,7 +28,7 @@
                                     <input type="hidden" name="padre_id" id="padre_id" value="{{ $distrito->id }}" />
                                     <label for="exampleSelect1">Ciudad </label>
                                     <input type="text" class="form-control" id="ciudad" name="ciudad" value="{{ $distrito->departamento }}" disabled />
-                                </div>        
+                                </div>
                             </div>
 
                             <div class="col-md-7">
@@ -38,11 +38,11 @@
                                     <input type="text" class="form-control" id="distrito" name="distrito" value="{{ $distrito->nombre }}" disabled />
                                 </div>
                             </div>
-                            
+
                         </div>
 
                         <div class="row">
-                        
+
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Nombre
@@ -50,12 +50,12 @@
                                     <input type="text" class="form-control" id="nombre" name="nombre" required />
                                 </div>
                             </div>
-                        
+
                         </div>
-                    
+
                         <div class="row">
                             <div class="col-md-6">
-                                <button type="button" class="btn btn-sm btn-success mr-2 btn-block" onclick="guarda();">Guardar</button>
+                                <button type="button" class="btn btn-success mr-2 btn-block" onclick="guarda();">Guardar</button>
                             </div>
                             <div class="col-md-6">
                                 <button type="reset" class="btn btn-secondary btn-block" data-dismiss="modal">Cancelar</button>
@@ -64,7 +64,7 @@
 
                     </form>
                 </div>
-                
+
             </div>
         </div>
     </div>
@@ -119,7 +119,7 @@
                             <a href="#" class="btn btn-icon btn-warning btn-sm mr-2" onclick="edita('{{ $o->id }}', '{{ $o->departamento }}', '{{ $o->nombre }}')">
                                 <i class="fas fa-edit"></i>
                             </a>
-    
+
                             <a href="#" class="btn btn-icon btn-danger btn-sm mr-2" onclick="elimina('{{ $o->id }}', '{{ $o->departamento }}', '{{ $o->nombre }}')">
                                 <i class="flaticon2-delete"></i>
                             </a>

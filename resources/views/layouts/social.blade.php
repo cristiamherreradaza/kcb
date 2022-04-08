@@ -77,13 +77,13 @@
 								</div>
 								<!--end::Header Logo-->
 								<!--begin::Header Menu Wrapper-->
-								
+
 								<!--end::Header Menu Wrapper-->
 							</div>
 							<!--end::Left-->
 							<!--begin::Topbar-->
 							<div class="topbar">
-								
+
 								<!--begin::User-->
 								<div class="dropdown">
 									<!--begin::Toggle-->
@@ -96,7 +96,7 @@
  											<span class="symbol symbol-35">
 												<span class="symbol-label text-white font-size-h5 font-weight-bold bg-white-o-30"></span>
 											</span>
- 
+
 										</div>--}}
 									</div>
 									<!--end::Toggle-->
@@ -288,12 +288,12 @@
 												</div>
 											</div>
 										</div>
-										
+
 									</div>
 								</div>
-								
+
 								<!--end::Row-->
-							
+
 								<!--end::Dashboard-->
 							</div>
 							<!--end::Container-->
@@ -369,7 +369,7 @@
 									<span class="navi-text text-muted text-hover-primary">jm@softplus.com</span>
 								</span>
 							</a>
-							<a href="#" class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5">Sign Out</a>
+							<a href="#" class="btn btn-light-primary font-weight-bolder py-2 px-5">Sign Out</a>
 						</div>
 					</div>
 				</div>
@@ -629,7 +629,7 @@
 									<a href="#" class="font-weight-bolder text-dark-75 text-hover-primary font-size-lg mb-1">Top Authors</a>
 									<span class="text-muted font-weight-bold">Most Successful Fellas</span>
 								</div>
-								<span class="btn btn-sm btn-light font-weight-bolder py-1 my-lg-0 my-2 text-dark-50">+82$</span>
+								<span class="btn btn-light font-weight-bolder py-1 my-lg-0 my-2 text-dark-50">+82$</span>
 							</div>
 							<!--end: Item-->
 							<!--begin: Item-->
@@ -643,7 +643,7 @@
 									<a href="#" class="font-weight-bolder text-dark-75 text-hover-primary font-size-lg mb-1">Popular Authors</a>
 									<span class="text-muted font-weight-bold">Most Successful Fellas</span>
 								</div>
-								<span class="btn btn-sm btn-light font-weight-bolder my-lg-0 my-2 py-1 text-dark-50">+280$</span>
+								<span class="btn btn-light font-weight-bolder my-lg-0 my-2 py-1 text-dark-50">+280$</span>
 							</div>
 							<!--end: Item-->
 							<!--begin: Item-->
@@ -657,7 +657,7 @@
 									<a href="#" class="font-weight-bolder text-dark-75 text-hover-primary font-size-lg mb-1">New Users</a>
 									<span class="text-muted font-weight-bold">Most Successful Fellas</span>
 								</div>
-								<span class="btn btn-sm btn-light font-weight-bolder my-lg-0 my-2 py-1 text-dark-50">+4500$</span>
+								<span class="btn btn-light font-weight-bolder my-lg-0 my-2 py-1 text-dark-50">+4500$</span>
 							</div>
 							<!--end: Item-->
 							<!--begin: Item-->
@@ -671,7 +671,7 @@
 									<a href="#" class="font-weight-bolder text-dark-75 text-hover-primary font-size-lg mb-1">Active Customers</a>
 									<span class="text-muted font-weight-bold">Most Successful Fellas</span>
 								</div>
-								<span class="btn btn-sm btn-light font-weight-bolder my-lg-0 my-2 py-1 text-dark-50">+4500$</span>
+								<span class="btn btn-light font-weight-bolder my-lg-0 my-2 py-1 text-dark-50">+4500$</span>
 							</div>
 							<!--end: Item-->
 							<!--begin: Item-->
@@ -685,7 +685,7 @@
 									<a href="#" class="font-weight-bolder text-dark-75 text-hover-primary font-size-lg mb-1">Bestseller Theme</a>
 									<span class="text-muted font-weight-bold">Most Successful Fellas</span>
 								</div>
-								<span class="btn btn-sm btn-light font-weight-bolder my-lg-0 my-2 py-1 text-dark-50">+4500$</span>
+								<span class="btn btn-light font-weight-bolder my-lg-0 my-2 py-1 text-dark-50">+4500$</span>
 							</div>
 							<!--end: Item-->
 						</div>
@@ -1128,7 +1128,7 @@
 							<div class="text-left flex-grow-1">
 								<!--begin::Dropdown Menu-->
 								<div class="dropdown dropdown-inline">
-									<button type="button" class="btn btn-sm btn-clean btn-sm btn-icon btn-icon-md" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-md" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 										<span class="svg-icon svg-icon-lg">
 											<!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Add-user.svg-->
 											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -1221,7 +1221,7 @@
 								</div>
 							</div>
 							<div class="text-right flex-grow-1">
-								<button type="button" class="btn btn-sm btn-clean btn-sm btn-icon btn-icon-md" data-dismiss="modal">
+								<button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-md" data-dismiss="modal">
 									<i class="ki ki-close icon-1x"></i>
 								</button>
 							</div>
@@ -1366,7 +1366,7 @@
 									</a>
 								</div>
 								<div>
-									<button type="button" class="btn btn-sm btn-primary btn-md text-uppercase font-weight-bold chat-send py-2 px-6">Send</button>
+									<button type="button" class="btn btn-primary btn-md text-uppercase font-weight-bold chat-send py-2 px-6">Send</button>
 								</div>
 							</div>
 							<!--begin::Compose-->
@@ -1394,9 +1394,9 @@
 		</div>
 		<!--end::Scrolltop-->
 		<!--begin::Sticky Toolbar-->
-		
+
 		<!--end::Sticky Toolbar-->
-		
+
 		<script>var HOST_URL = "https://preview.keenthemes.com/metronic/theme/html/tools/preview";</script>
 		<!--begin::Global Config(global config for global JS scripts)-->
 		<script>var KTAppSettings = { "breakpoints": { "sm": 576, "md": 768, "lg": 992, "xl": 1200, "xxl": 1200 }, "colors": { "theme": { "base": { "white": "#ffffff", "primary": "#6993FF", "secondary": "#E5EAEE", "success": "#1BC5BD", "info": "#8950FC", "warning": "#FFA800", "danger": "#F64E60", "light": "#F3F6F9", "dark": "#212121" }, "light": { "white": "#ffffff", "primary": "#E1E9FF", "secondary": "#ECF0F3", "success": "#C9F7F5", "info": "#EEE5FF", "warning": "#FFF4DE", "danger": "#FFE2E5", "light": "#F3F6F9", "dark": "#D6D6E0" }, "inverse": { "white": "#ffffff", "primary": "#ffffff", "secondary": "#212121", "success": "#ffffff", "info": "#ffffff", "warning": "#ffffff", "danger": "#ffffff", "light": "#464E5F", "dark": "#ffffff" } }, "gray": { "gray-100": "#F3F6F9", "gray-200": "#ECF0F3", "gray-300": "#E5EAEE", "gray-400": "#D6D6E0", "gray-500": "#B5B5C3", "gray-600": "#80808F", "gray-700": "#464E5F", "gray-800": "#1B283F", "gray-900": "#212121" } }, "font-family": "Poppins" };</script>

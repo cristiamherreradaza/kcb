@@ -30,7 +30,7 @@
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-sm btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
+					<button type="button" class="btn btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
 				</div>
 			</div>
 		</div>
@@ -52,7 +52,7 @@
 				<!--end::Button-->
 			</div>
 		</div>
-		
+
 		<div class="card-body">
 			<!--begin: Datatable-->
 			<div class="table-responsive m-t-40">
@@ -76,13 +76,13 @@
 								<td>{{ $u->celulares }}</td>
 								<td>{{ $u->ci }}</td>
 								<td>
-									<button type="button" class="btn btn-sm btn-icon btn-warning" onclick="edita('{{ $u->id }}')">
+									<button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $u->id }}')">
 										<i class="flaticon2-edit"></i>
 									</button>
-									<button type="button" class="btn btn-sm btn-icon btn-primary" onclick="permisos('{{ $u->id }}')">
+									<button type="button" class="btn btn-icon btn-primary" onclick="permisos('{{ $u->id }}')">
 										<i class="far fa-list-alt"></i>
 									</button>
-									<button type="button" class="btn btn-sm btn-icon btn-danger" onclick="elimina('{{ $u->id }}', '{{ $u->name }}')">
+									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $u->id }}', '{{ $u->name }}')">
 										<i class="flaticon2-cross"></i>
 									</button>
 								</td>
@@ -110,7 +110,7 @@
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			}
 		});
-		
+
 		$(function () {
 			$('#tabla_usuarios').DataTable({
 				order: [[ 0, "desc" ]],
@@ -126,7 +126,7 @@
     	{
 			window.location.href = "{{ url('User/formulario') }}/0";
     	}
-		
+
 		function edita(id)
 		{
 			window.location.href = "{{ url('User/formulario') }}/"+id;

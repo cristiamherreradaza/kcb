@@ -14,13 +14,13 @@
 	<div class="card card-custom gutter-b">
 		<div class="card-header flex-wrap py-3">
 			<div class="card-title">
-				<h3 class="card-label">LISTA DE CRIADEROS 
+				<h3 class="card-label">LISTA DE CRIADEROS
 				</h3>
 			</div>
 			<div class="card-toolbar">
 				<!--begin::Button-->
 				<a href="#" class="btn btn-primary font-weight-bolder" onclick="nuevo()">
-					<i class="fa fa-plus-square"></i> NUEVO CRIADERO 
+					<i class="fa fa-plus-square"></i> NUEVO CRIADERO
 				</a>
 				&nbsp;
 				<a href="#" class="btn btn-success btn-icon font-weight-bolder" onclick="muestraBarra();">
@@ -28,7 +28,7 @@
 				<!--end::Button-->
 			</div>
 		</div>
-		
+
 		<div class="card-body">
             <div id="barra-busqueda" style="display: none">
 				<form action="{{ url('Criadero/ajaxListadoCriadero') }}" method="POST" id="formulario-busqueda-usuarios">
@@ -41,7 +41,7 @@
 								<input type="text" class="form-control" id="nombre_buscar" name="nombre_buscar" />
 							</div>
 						</div>
-				
+
 						<div class="col-md-3">
 							<div class="form-group">
 								<label for="exampleInputPassword1">Criador
@@ -77,10 +77,10 @@
 						<div class="col-md-3">
 							<div class="form-group">
 								<label for="exampleInputPassword1">&nbsp;</label>
-								<button type="button" class="btn btn-sm btn-success btn-block" onclick="bucarCriadero()">BUSCAR</button>
+								<button type="button" class="btn btn-success btn-block" onclick="bucarCriadero()">BUSCAR</button>
 							</div>
 						</div>
-				
+
 					</div>
 				</form>
 			</div>
@@ -134,7 +134,7 @@
     	{
 			window.location.href = "{{ url('Criadero/formulario') }}/0";
     	}
-		
+
 		function edita(id)
 		{
 			window.location.href = "{{ url('Criadero/formulario') }}/"+id;
@@ -173,7 +173,7 @@
 		{
 			var this_item = document.getElementById('barra-busqueda');
 			this_item.style.display = 'none';
-			
+
 			let datosBusquda = $('#formulario-busqueda-usuarios').serializeArray();
 
 			$.ajax({
@@ -201,7 +201,7 @@
 					};
 				},
 				processResults: function (response) {
-	
+
 					return {
 						results: response
 					};
@@ -212,7 +212,7 @@
 		});
 
 		function muestraBarra(){
-			var this_item = document.getElementById('barra-busqueda'); 
+			var this_item = document.getElementById('barra-busqueda');
 			if( this_item.style.display == 'block' ) {
 				this_item.style.display = 'none';
 			}

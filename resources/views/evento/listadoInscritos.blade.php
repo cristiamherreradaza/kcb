@@ -206,8 +206,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-sm btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-sm btn-success font-weight-bold" onclick="editaInscripcion()">Guardar</button>
+                <button type="button" class="btn btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-success font-weight-bold" onclick="editaInscripcion()">Guardar</button>
             </div>
         </div>
     </div>
@@ -229,7 +229,7 @@
 				<!--end::Button-->
 			</div>
 		</div>
-		
+
 		<div class="card-body">
 			<!--begin: Datatable-->
 			<div class="table-responsive m-t-40">
@@ -253,7 +253,7 @@
 								<td>{{ ($ee->ejemplar)? $ee->ejemplar->nombre_completo : $ee->nombre_completo}}</td>
 								<td>{{ ($ee->ejemplar)? $ee->ejemplar->raza->nombre : $ee->raza->nombre}}</td>
 								<td>{{ $ee->categoriaPista->nombre }}</td>
-								
+
 								<td>
 									@php
 										if($ee->ejemplar){
@@ -265,7 +265,7 @@
 										}else{
 											echo $ee->propietario;
 										}
-										
+
 										// if($ee->ejemplar){
 										// 	$proTra = App\Transferencia::where('ejemplar_id',$ee->ejemplar->id)
 										// 								->where('estado','Actual')
@@ -282,15 +282,15 @@
 										// }else{
 										// 	echo $ee->propietario;
 										// }
-										
+
 									@endphp
 								</td>
 								<td>
-                                    {{-- <button type="button" class="btn btn-sm btn-icon btn-warning" onclick="edita('{{ $ee->id }}', '{{ ($ee->ejemplar)? addslashes($ee->ejemplar->nombre_completo) : addslashes($ee->nombre_completo) }}', '{{ ($ee->ejemplar)? $ee->ejemplar->raza->id : $ee->raza->id }}', '{{ ($ee->ejemplar)? $ee->ejemplar->kcb: '' }}', '{{ ($ee->ejemplar)? $ee->ejemplar->color: $ee->color }}', '{{ ($ee->ejemplar)? $ee->ejemplar->fecha_nacimiento: $ee->fecha_nacimiento }}', '{{ ($ee->ejemplar)? $ee->ejemplar->sexo : $ee->sexo }}', '{{ $ee->codigo_nacionalizado }}', '{{ ($ee->ejemplar)? $ee->ejemplar->num_tatuaje : $ee->tatuaje }}', '{{ ($ee->ejemplar)? $ee->ejemplar->chip : $ee->chip }}', '{{ ($ee->ejemplar)? $ee->ejemplar->padre->kcb : $ee->kcb_padre }}', '{{ ($ee->ejemplar)? addslashes($ee->ejemplar->padre->nombre) : addslashes($ee->nombre_padre) }}', '{{ ($ee->ejemplar)? $ee->ejemplar->madre->kcb : $ee->kcb_madre }}', '{{ ($ee->ejemplar)? addslashes($ee->ejemplar->madre->nombre) : addslashes($ee->nombre_madre) }}', '{{ $ee->categoria_pista_id }}', '{{ $ee->criador }}', '{{ ($ee->ejemplar)? addslashes($ee->ejemplar->propietario->name) : addslashes($ee->propietario) }}', '{{ ($ee->ejemplar)? $ee->ejemplar->propietario->departamento : $ee->ciudad }}', '{{ ($ee->ejemplar)? $ee->ejemplar->propietario->celulares : $ee->telefono }}', '{{ ($ee->ejemplar)? $ee->ejemplar->propietario->email : $ee->email }}', '{{ $ee->estado }}', '{{ $ee->extrangero }}' )"> --}}
-									<button type="button" class="btn btn-sm btn-icon btn-warning" onclick="edita('{{ $ee->id }}', '{{ ($ee->ejemplar)? trim(addslashes($ee->ejemplar->nombre_completo)): trim(addslashes($ee->nombre_completo)) }}', '{{ ($ee->ejemplar)? $ee->ejemplar->raza->id : $ee->raza->id }}', '{{ ($ee->ejemplar)? $ee->ejemplar->kcb: '' }}', '{{ ($ee->ejemplar)? $ee->ejemplar->color: $ee->color }}', '{{ ($ee->ejemplar)? $ee->ejemplar->fecha_nacimiento: $ee->fecha_nacimiento }}', '{{ ($ee->ejemplar)? $ee->ejemplar->sexo : $ee->sexo }}', '{{ $ee->codigo_nacionalizado }}', '{{ ($ee->ejemplar)? $ee->ejemplar->num_tatuaje : $ee->tatuaje }}', '{{ ($ee->ejemplar)? $ee->ejemplar->chip : $ee->chip }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->padre)? $ee->ejemplar->padre->kcb : '') : $ee->kcb_padre }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->padre)? addslashes($ee->ejemplar->padre->nombre) : '') : addslashes($ee->nombre_padre) }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->madre)? $ee->ejemplar->madre->kcb : '') : $ee->kcb_madre }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->madre)?  addslashes($ee->ejemplar->madre->nombre) : '') : addslashes($ee->nombre_madre) }}', '{{ $ee->categoria_pista_id }}', '{{ $ee->criador }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->propietario)? addslashes($ee->ejemplar->propietario->name) : '' ) : addslashes($ee->propietario) }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->propietario)? $ee->ejemplar->propietario->departamento : '') : $ee->ciudad }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->propietario)? $ee->ejemplar->propietario->celulares : '') : $ee->telefono }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->propietario)? $ee->ejemplar->propietario->email : '') : $ee->email }}', '{{ $ee->estado }}', '{{ $ee->extrangero }}' )">
+                                    {{-- <button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $ee->id }}', '{{ ($ee->ejemplar)? addslashes($ee->ejemplar->nombre_completo) : addslashes($ee->nombre_completo) }}', '{{ ($ee->ejemplar)? $ee->ejemplar->raza->id : $ee->raza->id }}', '{{ ($ee->ejemplar)? $ee->ejemplar->kcb: '' }}', '{{ ($ee->ejemplar)? $ee->ejemplar->color: $ee->color }}', '{{ ($ee->ejemplar)? $ee->ejemplar->fecha_nacimiento: $ee->fecha_nacimiento }}', '{{ ($ee->ejemplar)? $ee->ejemplar->sexo : $ee->sexo }}', '{{ $ee->codigo_nacionalizado }}', '{{ ($ee->ejemplar)? $ee->ejemplar->num_tatuaje : $ee->tatuaje }}', '{{ ($ee->ejemplar)? $ee->ejemplar->chip : $ee->chip }}', '{{ ($ee->ejemplar)? $ee->ejemplar->padre->kcb : $ee->kcb_padre }}', '{{ ($ee->ejemplar)? addslashes($ee->ejemplar->padre->nombre) : addslashes($ee->nombre_padre) }}', '{{ ($ee->ejemplar)? $ee->ejemplar->madre->kcb : $ee->kcb_madre }}', '{{ ($ee->ejemplar)? addslashes($ee->ejemplar->madre->nombre) : addslashes($ee->nombre_madre) }}', '{{ $ee->categoria_pista_id }}', '{{ $ee->criador }}', '{{ ($ee->ejemplar)? addslashes($ee->ejemplar->propietario->name) : addslashes($ee->propietario) }}', '{{ ($ee->ejemplar)? $ee->ejemplar->propietario->departamento : $ee->ciudad }}', '{{ ($ee->ejemplar)? $ee->ejemplar->propietario->celulares : $ee->telefono }}', '{{ ($ee->ejemplar)? $ee->ejemplar->propietario->email : $ee->email }}', '{{ $ee->estado }}', '{{ $ee->extrangero }}' )"> --}}
+									<button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $ee->id }}', '{{ ($ee->ejemplar)? trim(addslashes($ee->ejemplar->nombre_completo)): trim(addslashes($ee->nombre_completo)) }}', '{{ ($ee->ejemplar)? $ee->ejemplar->raza->id : $ee->raza->id }}', '{{ ($ee->ejemplar)? $ee->ejemplar->kcb: '' }}', '{{ ($ee->ejemplar)? $ee->ejemplar->color: $ee->color }}', '{{ ($ee->ejemplar)? $ee->ejemplar->fecha_nacimiento: $ee->fecha_nacimiento }}', '{{ ($ee->ejemplar)? $ee->ejemplar->sexo : $ee->sexo }}', '{{ $ee->codigo_nacionalizado }}', '{{ ($ee->ejemplar)? $ee->ejemplar->num_tatuaje : $ee->tatuaje }}', '{{ ($ee->ejemplar)? $ee->ejemplar->chip : $ee->chip }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->padre)? $ee->ejemplar->padre->kcb : '') : $ee->kcb_padre }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->padre)? addslashes($ee->ejemplar->padre->nombre) : '') : addslashes($ee->nombre_padre) }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->madre)? $ee->ejemplar->madre->kcb : '') : $ee->kcb_madre }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->madre)?  addslashes($ee->ejemplar->madre->nombre) : '') : addslashes($ee->nombre_madre) }}', '{{ $ee->categoria_pista_id }}', '{{ $ee->criador }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->propietario)? addslashes($ee->ejemplar->propietario->name) : '' ) : addslashes($ee->propietario) }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->propietario)? $ee->ejemplar->propietario->departamento : '') : $ee->ciudad }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->propietario)? $ee->ejemplar->propietario->celulares : '') : $ee->telefono }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->propietario)? $ee->ejemplar->propietario->email : '') : $ee->email }}', '{{ $ee->estado }}', '{{ $ee->extrangero }}' )">
                                         <i class="flaticon2-edit"></i>
                                     </button>
-									<button type="button" class="btn btn-sm btn-icon btn-danger" onclick="elimina('{{ $ee->id }}', '{{ ($ee->ejemplar)? trim(addslashes($ee->ejemplar->nombre_completo)) :  trim(addslashes($ee->nombre_completo)) }}')">
+									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $ee->id }}', '{{ ($ee->ejemplar)? trim(addslashes($ee->ejemplar->nombre_completo)) :  trim(addslashes($ee->nombre_completo)) }}')">
 										<i class="flaticon2-cross"></i>
 									</button>
 								</td>

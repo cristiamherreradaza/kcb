@@ -30,7 +30,7 @@
                                 <span class="text-danger">*</span></label>
                                 <input type="hidden" id="id" name="id" value="{{ $datosEvento->id }}" />
                                 <input type="text" class="form-control" id="nombre" name="nombre" value="{{ $datosEvento->nombre }}" required />
-                            </div>        
+                            </div>
                         </div>
 
                         @php
@@ -98,7 +98,7 @@
 
                     <div class="row">
                         <div class="col-md-6">
-                            <button type="button" class="btn btn-sm btn-primary mr-2 btn-block" onclick="guarda()">Guardar</button>
+                            <button type="button" class="btn btn-primary mr-2 btn-block" onclick="guarda()">Guardar</button>
                         </div>
                         <div class="col-md-6">
                             <a href="{{ url('User/listado') }}" class="btn btn-secondary btn-block">Volver</a>
@@ -106,13 +106,13 @@
                     </div>
 
                 </div>
-                
+
             </form>
             <!--end::Form-->
         </div>
         <!--end::Card-->
     </div>
-    
+
 </div>
 
 @stop
