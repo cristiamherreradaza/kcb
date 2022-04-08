@@ -192,6 +192,7 @@ Route::get('Ejemplar/certificadoRosadoAdelante/{ejemplar_id}', 'EjemplarControll
 Route::get('Ejemplar/certificadoExportacion/{ejemplar_id}', 'EjemplarController@certificadoExportacion');
 Route::get('Ejemplar/bitacora', 'EjemplarController@bitacora');
 Route::get('Ejemplar/listaCamadasPadres/{ejemplar_id}/{padre}', 'EjemplarController@listaCamadasPadres');
+Route::get('Ejemplar/generaExcel', 'EjemplarController@generaExcel');
 
 
 // ALQUILERES
