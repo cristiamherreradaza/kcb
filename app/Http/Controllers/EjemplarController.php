@@ -2673,35 +2673,35 @@ class EjemplarController extends Controller
             )
         );
 
+        $fuenteNegrita = array(
+        'font'  => array(
+            'bold'  => true,
+        ));
+
         $libro->getActiveSheet()->getColumnDimension('C')->setWidth(50);
-        $libro->getActiveSheet()->getColumnDimension('B')->setWidth(15);
-        $libro->getActiveSheet()->getColumnDimension('D')->setWidth(15);
+        $libro->getActiveSheet()->getColumnDimension('D')->setWidth(20);
+        $libro->getActiveSheet()->getColumnDimension('E')->setWidth(70);
+        $libro->getActiveSheet()->getColumnDimension('F')->setWidth(50);
+        $libro->getActiveSheet()->getColumnDimension('G')->setWidth(17);
 
 
+        $libro->getActiveSheet()->getStyle('A2:G2')->applyFromArray($fuenteNegrita);
 
+        $style = array(
+            'alignment' => array(
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+            )
+        );
 
-
-        // $hoja->setCellValue('A8', 'No');
-        // $hoja->setCellValue('B8', 'GESTION');
-        // $hoja->setCellValue('C8', 'AÑO');
-        // $hoja->setCellValue('D8', 'CODIGO');
-        // $hoja->setCellValue('E8', 'ASIGNATURA');
-        // $hoja->setCellValue('F8', 'REQUISITOS');
-        // $hoja->setCellValue('G8', 'NOTA');
-        // $hoja->setCellValue('H8', 'RECUPERATORIO');
-        // $hoja->setCellValue('I8', 'OBSERVACIONES');
-        // $hoja->setCellValue('J8', 'FOLIO');
-        // $hoja->setCellValue('K8', 'LIBRO');
-
+        $hoja->getStyle("A1")->applyFromArray($style);
+        $hoja->getStyle("A2:G2")->applyFromArray($style);
 
         // exportamos el excel
         $writer = new Xlsx($libro);
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment; filename="'. urlencode($fileName).'"');
         $writer->save('php://output');
-
-        
-        // return view('ejemplar.ajaxBuscaEjemplar')->with(compact('ejemplares', 'camada'));
 
     } 
 }
