@@ -65,7 +65,7 @@
 						</div>
 					</div>
 				</div>
-                
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-sm btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
@@ -158,8 +158,8 @@
 						<div class="col-md-4">
 							<div class="form-group">
 								<label for="exampleInputPassword1">Tipo de Evento
-									<span class="text-danger">*</span></label> <p></p> 
-                			    <label class="checkbox checkbox-success">   
+									<span class="text-danger">*</span></label> <p></p>
+                			    <label class="checkbox checkbox-success">
 									<input type="checkbox" name="circuito" id="circuito"/>
 									<span></span>
 									&nbsp;Circuito
@@ -194,7 +194,7 @@
 				<!--end::Button-->
 			</div>
 		</div>
-		
+
 		<div class="card-body">
 			<!--begin: Datatable-->
 			<div class="table-responsive m-t-40">
@@ -228,7 +228,7 @@
 									@php
 										$postulantes = App\EjemplarEvento::where('evento_id',$even->id)->count();
 										echo $postulantes;
-									@endphp	
+									@endphp
 								</td>
 								<td>
 									<button type="button" class="btn btn-sm btn-icon btn-warning" onclick="edita('{{ $even->id }}', '{{ $even->nombre }}', '{{ $even->fecha_inicio }}', '{{ $even->fecha_fin }}', '{{ $even->direccion }}', '{{ $even->departamento }}', '{{ $even->numero_pista }}', '{{ $even->circuito }}')">
@@ -287,11 +287,11 @@
 			});
 		});
 
-		$(function(){
-			$('#evento_id').select2({
-				placeholder: "Select a state"
-			});
-		});
+		// $(function(){
+		// 	$('#evento_id').select2({
+		// 		placeholder: "Select a state"
+		// 	});
+		// });
 
     	$(function () {
     	    $('#tabla-insumos').DataTable({
