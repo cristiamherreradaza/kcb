@@ -476,27 +476,29 @@
                 $kcbTGMadre = ($tGMadre)?$tGMadre->kcb:'';
                 $nombreTGMadre = ($tGMadre != null)?$tGMadre->nombre:'';
 
-                if($tGMadre->padre_id != null){
+                if($tGMadre){
+                    if($tGMadre->padre_id != null){
 
-                    $CGMadreP = App\Ejemplar::find($tGMadre->padre_id);
+                        $CGMadreP = App\Ejemplar::find($tGMadre->padre_id);
 
-                    $kcbTGMadreP1 = ($CGMadreP)?$CGMadreP->kcb:'';
-                    $nombreTGMadreP1 = ($CGMadreP)?$CGMadreP->nombre:'';    
-                }else{
-                    $kcbTGMadreP1 = '';
-                    $nombreTGMadreP1 = '';    
-                }
+                        $kcbTGMadreP1 = ($CGMadreP)?$CGMadreP->kcb:'';
+                        $nombreTGMadreP1 = ($CGMadreP)?$CGMadreP->nombre:'';    
+                    }else{
+                        $kcbTGMadreP1 = '';
+                        $nombreTGMadreP1 = '';    
+                    }
 
-                // para la madre de del atercera generacion
-                if($tGMadre->madre_id != null){
+                    // para la madre de del atercera generacion
+                    if($tGMadre->madre_id != null){
 
-                    $CGMadreM2 = App\Ejemplar::find($tGMadre->madre_id);
+                        $CGMadreM2 = App\Ejemplar::find($tGMadre->madre_id);
 
-                    $kcbTGMadreM2 = ($CGMadreM2)?$CGMadreM2->kcb:'';
-                    $nombreTGMadreM2 = ($CGMadreM2)?$CGMadreM2->nombre:'';    
-                }else{
-                    $kcbTGMadreM2 = '';
-                    $nombreTGMadreM2 = '';    
+                        $kcbTGMadreM2 = ($CGMadreM2)?$CGMadreM2->kcb:'';
+                        $nombreTGMadreM2 = ($CGMadreM2)?$CGMadreM2->nombre:'';    
+                    }else{
+                        $kcbTGMadreM2 = '';
+                        $nombreTGMadreM2 = '';    
+                    }
                 }
 
             }else{

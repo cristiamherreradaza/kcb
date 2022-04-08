@@ -791,31 +791,34 @@
                     $nombreTGMadre = ($tGMadre != null)?$tGMadre->nombre:'';
                     $IdTGMadre = ($tGMadre != null)?$tGMadre->id:null;
 
-                    if($tGMadre->padre_id != null){
+                    // dd($tGMadre);
+                    if($tGMadre){
+                        if($tGMadre->padre_id != null){
 
-                        $CGMadreP = App\Ejemplar::find($tGMadre->padre_id);
+                            $CGMadreP = App\Ejemplar::find($tGMadre->padre_id);
 
-                        $kcbTGMadreP1 = ($CGMadreP)?$CGMadreP->kcb:'';
-                        $nombreTGMadreP1 = ($CGMadreP)?$CGMadreP->nombre:'';
-                        $IdTGMadreP1 = ($CGMadreP)?$CGMadreP->id:null;
-                    }else{
-                        $kcbTGMadreP1 = '';
-                        $nombreTGMadreP1 = '';
-                        $IdTGMadreP1 = null;
-                    }
+                            $kcbTGMadreP1 = ($CGMadreP)?$CGMadreP->kcb:'';
+                            $nombreTGMadreP1 = ($CGMadreP)?$CGMadreP->nombre:'';
+                            $IdTGMadreP1 = ($CGMadreP)?$CGMadreP->id:null;
+                        }else{
+                            $kcbTGMadreP1 = '';
+                            $nombreTGMadreP1 = '';
+                            $IdTGMadreP1 = null;
+                        }
 
-                    // para la madre de del atercera generacion
-                    if($tGMadre->madre_id != null){
+                        // para la madre de del atercera generacion
+                        if($tGMadre->madre_id != null){
 
-                        $CGMadreM2 = App\Ejemplar::find($tGMadre->madre_id);
+                            $CGMadreM2 = App\Ejemplar::find($tGMadre->madre_id);
 
-                        $kcbTGMadreM2 = ($CGMadreM2)?$CGMadreM2->kcb:'';
-                        $nombreTGMadreM2 = ($CGMadreM2)?$CGMadreM2->nombre:'';
-                        $IdTGMadreM2 = ($CGMadreM2)?$CGMadreM2->id:null;
-                    }else{
-                        $kcbTGMadreM2 = '';
-                        $nombreTGMadreM2 = '';
-                        $IdTGMadreM2 = null;
+                            $kcbTGMadreM2 = ($CGMadreM2)?$CGMadreM2->kcb:'';
+                            $nombreTGMadreM2 = ($CGMadreM2)?$CGMadreM2->nombre:'';
+                            $IdTGMadreM2 = ($CGMadreM2)?$CGMadreM2->id:null;
+                        }else{
+                            $kcbTGMadreM2 = '';
+                            $nombreTGMadreM2 = '';
+                            $IdTGMadreM2 = null;
+                        }
                     }
 
                 }else{
