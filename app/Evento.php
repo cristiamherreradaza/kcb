@@ -20,6 +20,7 @@ class Evento extends Model
         'departamento',
         'numero_pista',
         'circuito',
+        'habilitado',
         'estado',
         'deleted_at',
     ];

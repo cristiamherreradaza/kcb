@@ -74,6 +74,7 @@ class EventoController extends Controller
         $tipo->departamento = $request->input('departamento');
         $tipo->numero_pista = $request->input('num_pista');
         $tipo->circuito     = $tipoCircuito;
+        $tipo->habilitado   = $request->input('habilitado');
         
         $tipo->save();
 

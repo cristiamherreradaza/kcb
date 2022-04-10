@@ -130,7 +130,7 @@
 					</div>
 
 					<div class="row">
-						<div class="col-md-4">
+						<div class="col-md-3">
 							<div class="form-group">
                 			    <label for="exampleInputPassword1">Departamento
                 			    <span class="text-danger">*</span></label>
@@ -148,14 +148,14 @@
                 			    {{-- <input type="text" class="form-control" id="departamento" name="departamento" required /> --}}
                 			</div>
 						</div>
-						<div class="col-md-4">
+						<div class="col-md-3">
 							<div class="form-group">
                 			    <label for="exampleInputPassword1">Numero de Pista
                 			    <span class="text-danger">*</span></label>
                 			    <input type="number" class="form-control" id="num_pista" name="num_pista" required />
                 			</div>
 						</div>
-						<div class="col-md-4">
+						<div class="col-md-3">
 							<div class="form-group">
 								<label for="exampleInputPassword1">Tipo de Evento
 									<span class="text-danger">*</span></label> <p></p>
@@ -164,6 +164,16 @@
 									<span></span>
 									&nbsp;Circuito
 								</label>
+                			</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+                			    <label for="exampleInputPassword1">Habilitado
+                			    <span class="text-danger">*</span></label>
+								<select name="habilitado" id="habilitado" class="form-control">
+									<option value="Si">Si</option>
+									<option value="No">No</option>
+								</select>
                 			</div>
 						</div>
 					</div>
@@ -231,7 +241,7 @@
 									@endphp
 								</td>
 								<td>
-									<button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $even->id }}', '{{ $even->nombre }}', '{{ $even->fecha_inicio }}', '{{ $even->fecha_fin }}', '{{ $even->direccion }}', '{{ $even->departamento }}', '{{ $even->numero_pista }}', '{{ $even->circuito }}')">
+									<button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $even->id }}', '{{ $even->nombre }}', '{{ $even->fecha_inicio }}', '{{ $even->fecha_fin }}', '{{ $even->direccion }}', '{{ $even->departamento }}', '{{ $even->numero_pista }}', '{{ $even->circuito }}', '{{ $even->habilitado }}')">
 										<i class="flaticon2-edit"></i>
 									</button>
 									<button type="button" class="btn btn-icon btn-primary" onclick="catalogo('{{ $even->id }}')" title="Catalogo">
@@ -319,7 +329,7 @@
     		$("#modalGrupo").modal('show');
     	}
 
-		function edita(id, nombre, fecha_ini, fecha_fin, direccion, departamento, num_pista, circuito)
+		function edita(id, nombre, fecha_ini, fecha_fin, direccion, departamento, num_pista, circuito, habilitado)
     	{
 			// colocamos valores en los inputs
 			$("#evento_id").val(id);
@@ -332,6 +342,7 @@
 			$("#departamento").val(departamento);
 			$("#num_pista").val(num_pista);
 			$("#circuito").val(circuito);
+			$("#habilitado").val(habilitado);
 			// mostramos el modal
 			$("#fecha_ini").val(fecha_ini.replace(' ','T'));
 

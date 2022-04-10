@@ -86,294 +86,327 @@
 			<br><br>
 			
 			<br><br>
-			<div class="row">
-				<div class="col-md-12">
-					<!--begin::Card-->
-					<div class="card card-custom gutter-b example example-compact">
-						<br>
-						<div class="row">
-							<div class="col-md-4">
-								<div style="height: 100px;">
-									<img src="{{ url('img/fci.jpg') }}" alt="" height="100%">
+			@if ($evento->habilitado == "Si")
+				<div class="row">
+					<div class="col-md-12">
+						<!--begin::Card-->
+						<div class="card card-custom gutter-b example example-compact">
+							<br>
+							<div class="row">
+								<div class="col-md-4">
+									<div style="height: 100px;">
+										<img src="{{ url('img/fci.jpg') }}" alt="" height="100%">
+									</div>
+								</div>
+								<div class="col-md-4" style="">
+									<div style="height: 100px;">
+										<img src="{{ url('img/logo.png') }}" alt="" height="100%">
+									</div>
+								</div>
+								<div class="col-md-4" style="">
+									<div style="height: 100px;">
+										<img src="{{ url('img/logo.gif') }}" alt="" height="100%">
+									</div>
 								</div>
 							</div>
-							<div class="col-md-4" style="">
-								<div style="height: 100px;">
-									<img src="{{ url('img/logo.png') }}" alt="" height="100%">
-								</div>
+							<div class="text-center">
+								<h3 class="">FORMULARIO DE INSCRIPCION ({{ $evento->nombre }})</h3>
 							</div>
-							<div class="col-md-4" style="">
-								<div style="height: 100px;">
-									<img src="{{ url('img/logo.gif') }}" alt="" height="100%">
-								</div>
-							</div>
-						</div>
-						<div class="text-center">
-							<h3 class="">FORMULARIO DE INSCRIPCION ({{ $evento->nombre }})</h3>
-						</div>
-						<!--begin::Form-->
-						<form action="{{ url('Evento/inscribirEvento') }}" method="POST" id="formulario-inscripcion-evento" >
-							@csrf
-							<div class="card-body">
-								<input type="hidden" name="evento_id" id="evento_id" value="{{ $evento->id }}">
-								<input type="hidden" name="ejemplar_meses" id="ejemplar_meses" >
-								<input type="hidden" name="ejemplar_id" id="ejemplar_id">
-								<div class="row">
-									<div class="col-md-6">
-										<div class="row">
-											<div class="col-md-6">
-												<div class="form-group row">
-													{{-- <label class="col-3 col-form-label">Ejemplar</label> --}}
-													<div class="col-12 col-form-label">
-														<div class="radio-inline">
-															<label class="radio radio-success">
-																<input type="radio" name="radios5" id="Nacional" checked="checked" value="Nacional" onchange="mostrarBusqueda()"/>
-																<span></span>
-																Nacional
-															</label>
-															<label class="radio radio-success">
-																<input type="radio" name="radios5" id="Extranjero"  value="Extranjero" onchange="mostrarBusqueda()"/>
-																<span></span>
-																Extranjero
-															</label>
-														</div>
-														<span class="form-text text-muted">Selecciona la nacionalidad o Extranjero del Ejemplar</span>
-													</div>
-												</div>
-												{{-- <div class="form-group">
-													<label class="exampleInputPasswo¶rd1">
-													Nacional</label>
-													<input id='check_busca' data-switch="true" type="checkbox" checked data-on-color="primary"  onchange="mostrarBusqueda()"/>
-													<label class="exampleInputPassword1">
-													Extrangero</label>
-												</div> --}}
-												{{-- <span class="form-text text-danger" id="msg-error-email" style="display: none;">Correo duplicado, cambielo!!!</span> --}}
-											</div>
-											<div class="col-md-6">
-												<div id="bloque-nacional">
-													<div class="row">
-														<div class="col-md-9">
-															<div class="form-group">
-																<label class="exampleInputPassword1">
-																KCB
+							<!--begin::Form-->
+							<form action="{{ url('Evento/inscribirEvento') }}" method="POST" id="formulario-inscripcion-evento" >
+								@csrf
+								<div class="card-body">
+									<input type="hidden" name="evento_id" id="evento_id" value="{{ $evento->id }}">
+									<input type="hidden" name="ejemplar_meses" id="ejemplar_meses" >
+									<input type="hidden" name="ejemplar_id" id="ejemplar_id">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="row">
+												<div class="col-md-6">
+													<div class="form-group row">
+														{{-- <label class="col-3 col-form-label">Ejemplar</label> --}}
+														<div class="col-12 col-form-label">
+															<div class="radio-inline">
+																<label class="radio radio-success">
+																	<input type="radio" name="radios5" id="Nacional" checked="checked" value="Nacional" onchange="mostrarBusqueda()"/>
+																	<span></span>
+																	Nacional
 																</label>
-																<input type="text" class="form-control" id="kcb_busca" name="kcb_busca" />
-																<span class="form-text text-danger" id="msg-error-kcb" style="display: none;">Ejemplar no Registrado</span>
-																<span class="form-text text-success" id="msg-good-kcb" style="display: none;">Ejemplar Registrado</span>
-																<span class="form-text text-danger" id="msg-vacio-kcb" style="display: none;">Digitar un K.C.B.</span>
+																<label class="radio radio-success">
+																	<input type="radio" name="radios5" id="Extranjero"  value="Extranjero" onchange="mostrarBusqueda()"/>
+																	<span></span>
+																	Extranjero
+																</label>
 															</div>
-														</div>
-														<div class="col-md-3">
-															<br>
-															<button type="button" class="btn btn-success btn-block" onclick="buscaKcb()"><i class="fa fa-search"></i></button>
+															<span class="form-text text-muted">Selecciona la nacionalidad o Extranjero del Ejemplar</span>
 														</div>
 													</div>
+													{{-- <div class="form-group">
+														<label class="exampleInputPasswo¶rd1">
+														Nacional</label>
+														<input id='check_busca' data-switch="true" type="checkbox" checked data-on-color="primary"  onchange="mostrarBusqueda()"/>
+														<label class="exampleInputPassword1">
+														Extrangero</label>
+													</div> --}}
+													{{-- <span class="form-text text-danger" id="msg-error-email" style="display: none;">Correo duplicado, cambielo!!!</span> --}}
 												</div>
-												<div id="bloque-extrangero" style="display: none;">
-													<div class="row">
-														<div class="col-md-9">
-															<div class="form-group">
-																<label class="exampleInputPassword1">
-																Codigo Extrangero</label>
-																<input type="text" class="form-control" id="cod_extrangero" name="cod_extrangero"/>
-																<span class="form-text text-danger" id="msg-vacio-cod" style="display: none;">Digitar un Codigo de Extranjero</span>
+												<div class="col-md-6">
+													<div id="bloque-nacional">
+														<div class="row">
+															<div class="col-md-9">
+																<div class="form-group">
+																	<label class="exampleInputPassword1">
+																	KCB
+																	</label>
+																	<input type="text" class="form-control" id="kcb_busca" name="kcb_busca" />
+																	<span class="form-text text-danger" id="msg-error-kcb" style="display: none;">Ejemplar no Registrado</span>
+																	<span class="form-text text-success" id="msg-good-kcb" style="display: none;">Ejemplar Registrado</span>
+																	<span class="form-text text-danger" id="msg-vacio-kcb" style="display: none;">Digitar un K.C.B.</span>
+																</div>
+															</div>
+															<div class="col-md-3">
+																<br>
+																<button type="button" class="btn btn-success btn-block" onclick="buscaKcb()"><i class="fa fa-search"></i></button>
 															</div>
 														</div>
-														<div class="col-md-3">
-															<br>
-															<button type="button" class="btn btn-success btn-block" onclick="buscaCodigo()" ><i class="fa fa-search"></i></button>
+													</div>
+													<div id="bloque-extrangero" style="display: none;">
+														<div class="row">
+															<div class="col-md-9">
+																<div class="form-group">
+																	<label class="exampleInputPassword1">
+																	Codigo Extrangero</label>
+																	<input type="text" class="form-control" id="cod_extrangero" name="cod_extrangero"/>
+																	<span class="form-text text-danger" id="msg-vacio-cod" style="display: none;">Digitar un Codigo de Extranjero</span>
+																</div>
+															</div>
+															<div class="col-md-3">
+																<br>
+																<button type="button" class="btn btn-success btn-block" onclick="buscaCodigo()" ><i class="fa fa-search"></i></button>
+															</div>
 														</div>
 													</div>
 												</div>
 											</div>
 										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<input type="hidden" id="verdad_extrangero" name="verdad_extrangero" value="no">
-											<label class="exampleInputPassword1">
-											Raza</label>
-											<select class="form-control select2" id="raza_id" name="raza_id"  required >
-												<option value=""></option>
-												{{-- @if ($ejemplar != null && $ejemplar->raza_id != null)
-													<option value="{{ $ejemplar->raza->id }}"> {{ $ejemplar->raza->id }} {{ $ejemplar->raza->nombre }} {{ $ejemplar->raza->descripcion }}</option>
-												@endif --}}
-												@forelse ($razas as $r)
-													<option value="{{ $r->id }}">{{ $r->nombre }} {{ $r->descripcion }}</option>                                    
-												@empty
-													
-												@endforelse
-											</select>
+										<div class="col-md-6">
+											<div class="form-group">
+												<input type="hidden" id="verdad_extrangero" name="verdad_extrangero" value="no">
+												<label class="exampleInputPassword1">
+												Raza</label>
+												<select class="form-control select2" id="raza_id" name="raza_id"  required >
+													<option value=""></option>
+													{{-- @if ($ejemplar != null && $ejemplar->raza_id != null)
+														<option value="{{ $ejemplar->raza->id }}"> {{ $ejemplar->raza->id }} {{ $ejemplar->raza->nombre }} {{ $ejemplar->raza->descripcion }}</option>
+													@endif --}}
+													@forelse ($razas as $r)
+														<option value="{{ $r->id }}">{{ $r->nombre }} {{ $r->descripcion }}</option>                                    
+													@empty
+														
+													@endforelse
+												</select>
+											</div>
 										</div>
 									</div>
-								</div>
 
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<label class="exampleInputPassword1">
-											Nombre del ejemplar</label>
-											<input type="text" class="form-control" id="nombre" name="nombre" required />
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="exampleInputPassword1">
+												Nombre del ejemplar</label>
+												<input type="text" class="form-control" id="nombre" name="nombre" required />
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="exampleInputPassword1">
+												Color</label>
+												<input type="text" class="form-control" id="color" name="color" required />
+											</div>
 										</div>
 									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label class="exampleInputPassword1">
-											Color</label>
-											<input type="text" class="form-control" id="color" name="color" required />
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="exampleInputPassword1">
+												Fecha de Nacimiento</label>
+												<input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" onchange="calcular_fecha()" required />
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="exampleInputPassword1">
+												Sexo</label>
+												<select class="form-control" id="sexo" name="sexo" onchange="BuscaCategorias(this)">
+													<option value="Macho">Macho</option>
+													<option value="Hembra">Hembra</option>
+												</select>
+											</div>
 										</div>
 									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<label class="exampleInputPassword1">
-											Fecha de Nacimiento</label>
-											<input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" onchange="calcular_fecha()" required />
+									<div class="row">
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="exampleInputPassword1">
+												Registro de Extrangero</label>
+												<input type="text" class="form-control" id="registro_extrangero" name="registro_extrangero"/>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="exampleInputPassword1">
+												Tatuaje</label>
+												<input type="text" class="form-control" id="tatuaje" name="tatuaje" />
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="exampleInputPassword1">
+												Microchip</label>
+												<input type="text" class="form-control" id="chip" name="chip"/>
+											</div>
 										</div>
 									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label class="exampleInputPassword1">
-											Sexo</label>
-											<select class="form-control" id="sexo" name="sexo" onchange="BuscaCategorias(this)">
-												<option value="Macho">Macho</option>
-												<option value="Hembra">Hembra</option>
-											</select>
+									<div class="row">
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="exampleInputPassword1">
+												KCB del Padre</label>
+												<input type="text" class="form-control" id="kcb_padre" name="kcb_padre"/>
+											</div>
+										</div>
+										<div class="col-md-8">
+											<div class="form-group">
+												<label class="exampleInputPassword1">
+												Nombre del Padre</label>
+												<input type="text" class="form-control" id="nom_padre" name="nom_padre" />
+											</div>
 										</div>
 									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-4">
-										<div class="form-group">
-											<label class="exampleInputPassword1">
-											Registro de Extrangero</label>
-											<input type="text" class="form-control" id="registro_extrangero" name="registro_extrangero"/>
+									<div class="row">
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="exampleInputPassword1">
+												KCB del Madre</label>
+												<input type="text" class="form-control" id="kcb_madre" name="kcb_madre" />
+											</div>
+										</div>
+										<div class="col-md-8">
+											<div class="form-group">
+												<label class="exampleInputPassword1">
+												Nombre del Madre</label>
+												<input type="text" class="form-control" id="nom_madre" name="nom_madre"/>
+											</div>
 										</div>
 									</div>
-									<div class="col-md-4">
-										<div class="form-group">
-											<label class="exampleInputPassword1">
-											Tatuaje</label>
-											<input type="text" class="form-control" id="tatuaje" name="tatuaje" />
-										</div>
-									</div>
-									<div class="col-md-4">
-										<div class="form-group">
-											<label class="exampleInputPassword1">
-											Microchip</label>
-											<input type="text" class="form-control" id="chip" name="chip"/>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-4">
-										<div class="form-group">
-											<label class="exampleInputPassword1">
-											KCB del Padre</label>
-											<input type="text" class="form-control" id="kcb_padre" name="kcb_padre"/>
-										</div>
-									</div>
-									<div class="col-md-8">
-										<div class="form-group">
-											<label class="exampleInputPassword1">
-											Nombre del Padre</label>
-											<input type="text" class="form-control" id="nom_padre" name="nom_padre" />
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-4">
-										<div class="form-group">
-											<label class="exampleInputPassword1">
-											KCB del Madre</label>
-											<input type="text" class="form-control" id="kcb_madre" name="kcb_madre" />
-										</div>
-									</div>
-									<div class="col-md-8">
-										<div class="form-group">
-											<label class="exampleInputPassword1">
-											Nombre del Madre</label>
-											<input type="text" class="form-control" id="nom_madre" name="nom_madre"/>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<label class="exampleInputPassword1">
-											Categorias</label>
-											<h4 id="msjEdad" class="text-success"></h4>
-											<select class="form-control select2" id="categoria_pista" name="categoria_pista" required >
-												<option value=""></option>
-												<div id="categoria">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="exampleInputPassword1">
+												Categorias</label>
+												<h4 id="msjEdad" class="text-success"></h4>
+												<select class="form-control select2" id="categoria_pista" name="categoria_pista" required >
+													<option value=""></option>
+													<div id="categoria">
 
-												</div>
-												{{-- @if ($ejemplar != null && $ejemplar->raza_id != null)
-													<option value="{{ $ejemplar->raza->id }}"> {{ $ejemplar->raza->id }} {{ $ejemplar->raza->nombre }} {{ $ejemplar->raza->descripcion }}</option>
-												@endif --}}
+													</div>
+													{{-- @if ($ejemplar != null && $ejemplar->raza_id != null)
+														<option value="{{ $ejemplar->raza->id }}"> {{ $ejemplar->raza->id }} {{ $ejemplar->raza->nombre }} {{ $ejemplar->raza->descripcion }}</option>
+													@endif --}}
 
-												{{-- @forelse ($categorias_pistas as $ca)
-													<option value="{{ $ca->id }}">{{ $ca->nombre }} {{ $ca->desde }}</option>                                    
-												@empty
-													
-												@endforelse --}}
-											</select>
+													{{-- @forelse ($categorias_pistas as $ca)
+														<option value="{{ $ca->id }}">{{ $ca->nombre }} {{ $ca->desde }}</option>                                    
+													@empty
+														
+													@endforelse --}}
+												</select>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="exampleInputPassword1">
+												Criador</label>
+												<input type="text" class="form-control" id="criador" name="criador"/>
+											</div>
 										</div>
 									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label class="exampleInputPassword1">
-											Criador</label>
-											<input type="text" class="form-control" id="criador" name="criador"/>
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="exampleInputPassword1">
+												Propietario</label>
+												<input type="text" class="form-control" id="propietario" name="propietario" required />
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="exampleInputPassword1">
+												Ciudad / Pais</label>
+												<input type="text" class="form-control" id="ciudad" name="ciudad" required />
+											</div>
 										</div>
 									</div>
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="exampleInputPassword1">
+												Telefono</label>
+												<input type="text" class="form-control" id="telefono" name="telefono" required />
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="exampleInputPassword1">
+												Email</label>
+												<input type="email" class="form-control" id="email" name="email" required />
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-12">
+											<button type="button" class="btn btn-success btn-block" onclick="inscribir()">INSCRIBRI EJEMPLAR</button>    
+										</div>    
+									</div>                    
 								</div>
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<label class="exampleInputPassword1">
-											Propietario</label>
-											<input type="text" class="form-control" id="propietario" name="propietario" required />
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label class="exampleInputPassword1">
-											Ciudad / Pais</label>
-											<input type="text" class="form-control" id="ciudad" name="ciudad" required />
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<label class="exampleInputPassword1">
-											Telefono</label>
-											<input type="text" class="form-control" id="telefono" name="telefono" required />
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label class="exampleInputPassword1">
-											Email</label>
-											<input type="email" class="form-control" id="email" name="email" required />
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-12">
-										<button type="button" class="btn btn-success btn-block" onclick="inscribir()">INSCRIBRI EJEMPLAR</button>    
-									</div>    
-								</div>                    
-							</div>
-						</form>
-						<!--end::Form-->
+							</form>
+							<!--end::Form-->
+						</div>
+						<!--end::Card-->
 					</div>
-					<!--end::Card-->
+					
+				</div>	
+			@else
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card card-custom gutter-b example example-compact">
+							<div class="row">
+								<div class="col-md-4">
+									<div style="height: 100px;">
+										<img src="{{ url('img/fci.jpg') }}" alt="" height="100%">
+									</div>
+								</div>
+								<div class="col-md-4" style="">
+									<div style="height: 100px;">
+										<img src="{{ url('img/logo.png') }}" alt="" height="100%">
+									</div>
+								</div>
+								<div class="col-md-4" style="">
+									<div style="height: 100px;">
+										<img src="{{ url('img/logo.gif') }}" alt="" height="100%">
+									</div>
+								</div>
+							</div>
+							<div class="text-center">
+								<h3 class="">FORMULARIO DE INSCRIPCION ({{ $evento->nombre }})</h3>
+							</div>
+							<h1 class="text-center text-danger">
+								EVENTO DESHABILITADO
+							</h1>
+						</div>
+					</div>
 				</div>
-				
-			</div>
+			@endif
+			
 		</div>
 		<!--end::Header Mobile-->
 		

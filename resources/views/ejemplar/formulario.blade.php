@@ -1480,9 +1480,16 @@
                     <div class="form-group">
                         <label class="exampleInputPassword1">
                         Alquiler</label>
+                        <select name="check_alquiler" id="check_alquiler" class="form-control" onchange="mostrarAlquiler(this)">
+                            <option value="No">No</option>
+                            <option value="Si">Si</option>
+                        </select>
+
+                        {{-- <label class="exampleInputPassword1">
+                        Alquiler</label>
                         <div class="">
                             <input id='check_alquiler' data-switch="true" data-on-text="SI" data-off-text="NO" type="checkbox" data-on-color="primary"  onchange="mostrarAlquiler()"/>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -2555,9 +2562,11 @@
         KTBootstrapSwitch.init();
     });
 
-    function mostrarAlquiler() {
-        var c = document.getElementById('check_alquiler').checked;
-        if(c){
+    function mostrarAlquiler(select) {
+        // var c = document.getElementById('check_alquiler').checked;
+
+        // console.log(select.value);
+        if(select.value == "Si"){
             $("#bloque_alquiler_propietario").toggle('slow');
             $("#alquiler_value").val(1);
             //alert("si");
