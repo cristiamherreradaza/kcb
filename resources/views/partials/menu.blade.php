@@ -95,6 +95,51 @@
 			@endphp --}}
 			@endforeach
 
+			<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+				<a href="javascript:;" class="menu-link menu-toggle">
+					<span class="menu-icon"><i class="fas fa-check"></i></span>
+					<span class="menu-text">Calificacion</span>
+					<i class="menu-arrow"></i>
+				</a>
+				<div class="menu-submenu">
+					<i class="menu-arrow"></i>
+					<ul class="menu-subnav">
+						<li class="menu-item menu-item-parent" aria-haspopup="true">
+							<span class="menu-link">
+								<span class="menu-text">Calificacion</span>
+							</span>
+						</li>
+
+						<li class="menu-item" aria-haspopup="true">
+							<a href="{{ url('Juez/calificacion') }}" class="menu-link">
+								<i class="menu-bullet menu-bullet-dot">
+									<span></span>
+								</i>
+								<span class="menu-text">Listado Eventos</span>
+							</a>
+						</li>
+
+						{{-- <li class="menu-item" aria-haspopup="true">
+							<a href="{{ url('Ejemplar/formulario/0') }}" class="menu-link">
+								<i class="menu-bullet menu-bullet-dot">
+									<span></span>
+								</i>
+								<span class="menu-text">Nuevo Ejemplar</span>
+							</a>
+						</li>
+
+						<li class="menu-item" aria-haspopup="true">
+							<a href="{{ url('Ejemplar/formularioCamada') }}" class="menu-link">
+								<i class="menu-bullet menu-bullet-dot">
+									<span></span>
+								</i>
+								<span class="menu-text">Nueva Camada</span>
+							</a>
+						</li>		 --}}
+					</ul>
+				</div>
+			</li>
+
 			{{-- @if (Auth::user()->perfil_id == 7)
 				<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 					<a href="javascript:;" class="menu-link menu-toggle">

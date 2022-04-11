@@ -21,6 +21,8 @@ class CreateCalificacionTable extends Migration
             $table->foreign('modificador_id')->references('id')->on('users');
             $table->unsignedBigInteger('eliminador_id')->nullable();
             $table->foreign('eliminador_id')->references('id')->on('users');
+            $table->unsignedBigInteger('inscripcion_id')->nullable();
+            $table->foreign('inscripcion_id')->references('id')->on('ejemplares_eventos');
             $table->unsignedBigInteger('evento_id')->nullable();
             $table->foreign('evento_id')->references('id')->on('eventos');
             $table->unsignedBigInteger('juez_id')->nullable();

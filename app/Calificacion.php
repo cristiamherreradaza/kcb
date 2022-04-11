@@ -15,6 +15,7 @@ class Calificacion extends Model
         'creador_id',
         'modificador_id',
         'eliminador_id',
+        'inscripcion_id',
         'evento_id',
         'juez_id',
         'secretario_id',
