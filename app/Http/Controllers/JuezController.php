@@ -278,4 +278,66 @@ class JuezController extends Controller
 
         return view('juez.razas')->with(compact('razas','grupo_id','evento_id'));
     }
+
+    public function planilla(Request $request, $evento_id, $grupo_id, $raza_id){
+
+        $raza = Raza::find($raza_id);
+
+        $cachorros = Calificacion::where('evento_id', $evento_id)
+                                ->where('raza_id',$raza_id)
+                                ->WhereIn('categoria_id',[1,2,11])
+                                ->get();
+
+        $joven = Calificacion::where('evento_id', $evento_id)
+                            ->where('raza_id',$raza_id)
+                            ->WhereIn('categoria_id',[3,4])
+                            ->get();
+
+        $jovenCampeon = Calificacion::where('evento_id', $evento_id)
+                            ->where('raza_id',$raza_id)
+                            ->WhereIn('categoria_id',[12,13])
+                            ->get();
+
+        $intermedia = Calificacion::where('evento_id', $evento_id)
+                            ->where('raza_id',$raza_id)
+                            ->WhereIn('categoria_id',[5,6])
+                            ->get();
+
+        $abierta = Calificacion::where('evento_id', $evento_id)
+                            ->where('raza_id',$raza_id)
+                            ->WhereIn('categoria_id',[7,8])
+                            ->get();
+
+        $campeones = Calificacion::where('evento_id', $evento_id)
+                            ->where('raza_id',$raza_id)
+                            ->WhereIn('categoria_id',[9,10])
+                            ->get();
+
+        $GrandesCampeones = Calificacion::where('evento_id', $evento_id)
+                            ->where('raza_id',$raza_id)
+                            ->WhereIn('categoria_id',[14,15])
+                            ->get();
+
+        $veteranos = Calificacion::where('evento_id', $evento_id)
+                            ->where('raza_id',$raza_id)
+                            ->WhereIn('categoria_id',[16,17])
+                            ->get();
+
+        // dd($cachorros);
+        // dd("holas");
+
+        // $anio = $request->input('anio');
+
+        // $ejemplares = DB::table('ejemplares')
+        //                 ->join('razas', 'ejemplares.raza_id', '=', 'razas.id')
+        //                 ->groupBy('ejemplares.raza_id')
+        //                 ->orderBy('razas.nombre', 'asc')
+        //                 ->get();
+
+        return view('juez.planilla')->with(compact('raza', 'cachorros', 'joven', 'jovenCampeon', 'intermedia', 'abierta', 'campeones', 'GrandesCampeones', 'veteranos'));
+
+        // $pdf    = PDF::loadView('pdf.ejemplarporRazaPdf', compact('anio','ejemplares'))->setPaper('letter');
+
+        // return $pdf->stream('boletinInscripcion_'.date('Y-m-d H:i:s').'.pdf');        
+    }
 }

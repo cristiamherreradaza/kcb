@@ -28,4 +28,9 @@ class Calificacion extends Model
         'estado',
         'deleted_at',
     ];
+
+    public function inscripcion()
+    {
+        return $this->belongsTo('App\EjemplarEvento', 'inscripcion_id');
+    }
 }

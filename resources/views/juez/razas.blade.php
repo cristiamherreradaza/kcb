@@ -134,6 +134,7 @@
                                     <a href="{{ url('Juez/ponderacion', [$evento_id,$grupo_id,$ra->id]) }}" class="btn btn-success">
 										<i class="fas fa-dog"></i> Categorias
                                     </a>
+									<a href="{{ url('Juez/planilla', [$evento_id,$grupo_id,$ra->id]) }}" class="btn btn-danger" onclick="planilla()"><i class="fa fa-list"></i>Planilla</a>
 								</td>
 							</tr>
 						@empty
@@ -209,6 +210,13 @@
     	    });
 
     	});
+
+		function planilla(){
+			
+			
+			// console.log("planilla");
+
+		}
 
     </script>
 @endsection
