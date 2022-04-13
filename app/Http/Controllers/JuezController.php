@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\DB;
 use function GuzzleHttp\Promise\all;
 use Illuminate\Support\Facades\Auth;
 
+use PDF;
+
 class JuezController extends Controller
 {
     public function __construct()
@@ -212,7 +214,7 @@ class JuezController extends Controller
 
         $calificaciones = Calificacion::where('evento_id',$inscripcion->evento_id)
                                         // ->where('inscripcion_id',$inscripcion_id)
-                                        // ->where('raza_id',$inscripcion->raza_id)
+                                        ->where('raza_id',$inscripcion->raza_id)
                                         ->where('calificacion', $request->input('calificacion'))
                                         ->where('lugar', $request->input('lugar'))
                                         ->count();
@@ -230,21 +232,35 @@ class JuezController extends Controller
 
             $calificacion->creador_id       = Auth::user()->id;
             $calificacion->evento_id        = $inscripcion->evento_id;
+
+            $juez = Asignacion::where('evento_id',$inscripcion->evento_id)
+                                ->where('secretario_id',Auth::user()->id)
+                                ->first();
+
+            if($juez){
+
+                $calificacion->juez_id    = $juez->juez_id;
+
+            }
+            
             $calificacion->secretario_id    = Auth::user()->id;
             $calificacion->ejemplar_id      = $inscripcion->ejemplar_id;
             $calificacion->raza_id          = $inscripcion->raza_id;
             $calificacion->categoria_id     = $inscripcion->categoria_pista_id;
             $calificacion->inscripcion_id   = $inscripcion_id;
+
             $grupoRazao = GrupoRaza::where('raza_id',$inscripcion->raza_id)->first();
 
             if($grupoRazao){
 
                 $calificacion->grupo            = $grupoRazao->grupos->nombre;
+                $calificacion->grupo_id         = $grupoRazao->grupos->id;
 
             }
 
-            $calificacion->calificacion     = $request->input('calificacion');
-            $calificacion->lugar            = $request->input('lugar');
+            $calificacion->sexo                 = $inscripcion->sexo;
+            $calificacion->calificacion         = $request->input('calificacion');
+            $calificacion->lugar                = $request->input('lugar');
 
             $calificacion->save();
 
@@ -336,7 +352,7 @@ class JuezController extends Controller
 
         return view('juez.planilla')->with(compact('raza', 'cachorros', 'joven', 'jovenCampeon', 'intermedia', 'abierta', 'campeones', 'GrandesCampeones', 'veteranos'));
 
-        // $pdf    = PDF::loadView('pdf.ejemplarporRazaPdf', compact('anio','ejemplares'))->setPaper('letter');
+        // $pdf    = PDF::loadView('juez.planilla', compact('raza', 'cachorros', 'joven', 'jovenCampeon', 'intermedia', 'abierta', 'campeones', 'GrandesCampeones', 'veteranos'))->setPaper('letter');
 
         // return $pdf->stream('boletinInscripcion_'.date('Y-m-d H:i:s').'.pdf');        
     }

@@ -23,6 +23,8 @@ class Calificacion extends Model
         'raza_id',
         'categoria_id',
         'grupo',
+        'grupo_id',
+        'sexo',
         'calificacion',
         'lugar',
         'estado',

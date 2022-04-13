@@ -35,6 +35,9 @@ class CreateCalificacionTable extends Migration
             $table->foreign('raza_id')->references('id')->on('razas');
             $table->unsignedBigInteger('categoria_id')->nullable();
             $table->foreign('categoria_id')->references('id')->on('categorias_pistas');
+            $table->unsignedBigInteger('grupo_id')->nullable();
+            $table->foreign('grupo_id')->references('id')->on('grupos');
+            $table->string('sexo',50)->nullable();
             $table->string('grupo',50)->nullable();
             $table->string('calificacion',100)->nullable();
             $table->string('lugar',5)->nullable();
