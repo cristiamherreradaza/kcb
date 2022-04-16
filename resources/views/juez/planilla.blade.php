@@ -8,13 +8,13 @@
 </head>
 <style>
     #tabla-datos{
-        background-color:black;
-        color: white;
-        font-size:10px;
+        /* background-color:black; */
+        color: black;
+        font-size:9px;
         text-align: center;
     }
     table,th , td{
-        border: 1px solid black;
+        border: 1.5px solid black;
         border-collapse: collapse;
     }
     #tabla-datos-cuerpo{
@@ -23,11 +23,10 @@
         padding:1px;
     }
     #titulo{
+        position: absolute;
+        margin-top: -30px;
         font-size:20px;
-        text-align:center;
-    }
-    .number{
-        text-align: center;
+        margin-left: 400px;
     }
     #table-cachorros{
         position: absolute;
@@ -39,35 +38,30 @@
     }
     #table-jovenCampeon{
         position: absolute;
-        margin-left: 217px;
+        margin-left: 267px;
     }
     #table-intermedio{
         position: absolute;
-        margin-left: 308px;
+        margin-left: 389px;
     }
     #table-abierta{
         position: absolute;
-        margin-left: 377px;
+        margin-left: 506px;
     }
     #table-campeones{
         position: absolute;
-        margin-left: 457px;
+        margin-left: 625px;
     }
     #table-grandesCampeones{
         position: absolute;
-        margin-left: 524px;
+        margin-left: 742px;
     }
     #table-veteranos{
         position: absolute;
-        margin-left: 642px;
+        margin-left: 877px;
     }
 
-
-
-    /* hembra */
-    /* #planillaHembra{
-        position: absolute;
-    } */
+    /* HEMBRAS */
     #table-cachorrosHembra{
         position: absolute;
         margin-left: 20px;
@@ -80,48 +74,124 @@
     }
     #table-jovenCampeonHembra{
         position: absolute;
-        margin-left: 217px;
+        margin-left: 267px;
         margin-top: 350px;
     }
     #table-intermedioHembra{
         position: absolute;
-        margin-left: 308px;
+        margin-left: 389px;
         margin-top: 350px;
     }
     #table-abiertaHembra{
         position: absolute;
-        margin-left: 377px;
+        margin-left: 506px;
         margin-top: 350px;
     }
     #table-campeonesHembra{
         position: absolute;
-        margin-left: 457px;
+        margin-left: 625px;
         margin-top: 350px;
     }
     #table-grandesCampeonesHembra{
         position: absolute;
-        margin-left: 524px;
+        margin-left: 742px;
         margin-top: 350px;
     }
     #table-veteranosHembra{
         position: absolute;
-        margin-left: 642px;
+        margin-left: 877px;
         margin-top: 350px;
+    }
+
+    h3 span { 
+        display: block; 
+        writing-mode: vertical-lr;
+        transform: rotate(-90deg);
+    }
+
+    #machos{
+        margin-left: -20px;
+        position: absolute;
+        border: solid;
+        padding: 5px;
+        padding-top: 55px;
+        padding-bottom: 55px;
+    }
+
+    #cabecera-campeones{
+        padding-top: 7px;
+        padding-bottom: 6px;
+    }
+    #hembra{
+        margin-left: -20px;
+        position: absolute;
+        border: solid;
+        padding: 5px;
+        padding-top: 56px;
+        padding-bottom: 56px;
+        margin-top: 350px;
+    }
+
+    #juez{
+        margin-left: -20px;
+        position: absolute;
+    }
+    #lugar{
+        position: absolute;
+        margin-left:300px;
+    }
+    #raza{
+        position: absolute;
+        margin-left:550px;
+    }
+    #grupo{
+        position: absolute;
+        margin-left:890px;
+    }
+    #calificaion{
+        width: 60px;
+        height: 20px;
+    }
+    #numero_prefijo{
+        width: 20px;
+    }
+    #tabla-dentroTabla{
+        width: 50px;
+        font-size:10px;
+    }
+    #tabla-dentroTablaponderacion{
+        height: 20px;
+    }
+    #tabla-ponderacion{
+        margin-left: 50px;
+        margin-top: -5px;
     }
 </style>
 <body>
-    {{-- Hola: {{ $anio }} --}}
-    {{-- <h1 class="text-center" id="titulo">REGISTRO DE EJEMPLARES <br> POR RAZA</h1> --}}
+
     <h1 id="titulo">PLANILLA DE RAZA </h1>
-    <br>
-    <div class="row">
-        <div class="col-md-3">Juez:</div>
-        <div class="col-md-3">Lugar</div>
-        <div class="col-md-3">Raza</div>
-        <div class="col-md-3">Grupo</div>
+    {{-- <br> --}}
+    <div class="cabeza-datos">
+        <div id="juez">JUEZ: {{ $datoPlanilla[0]->juez->nombre }}</div>
+        <div id="lugar">LUGAR Y FECHA: {{ date('d/m/Y') }}</div>
+        <div id="raza">RAZA: {{ $datoPlanilla[0]->raza->nombre }}</div>
+        <div id="grupo">GRUPO: {{ $datoPlanilla[0]->grupo_id }}</div>
     </div>
 
+    <br>        
+
     <div class="planillaMacho">
+
+        <div id="machos">
+            <h3>
+                <span> O </span>
+                <span> H </span>
+                <span> C </span>
+                <span> A </span>
+                <span> M </span>
+            </h3>
+        </div>
+
         <div id="table-cachorros">
             <table>
                 <thead id="tabla-datos">
@@ -136,31 +206,38 @@
                         <th>Lugar</th>
                     </tr>
                     @php
-                        $cantidad = count($cachorros);
+                        $cantidad = count($cachorrosMacho);
                     @endphp
                     @for ($i=0 ; $i < 9 ; $i++)
                     <tr>
                         @if ($i < $cantidad)
-                            @if ($cachorros[$i]->sexo == "Macho")
-                                <th style="padding:5px;">{{ $cachorros[$i]->inscripcion->numero_prefijo }}</th>
-                                <th>{{ $cachorros[$i]->calificacion }}</th>
-                                <th>{{ $cachorros[$i]->lugar }}</th>
-                            @else
-                                <th><p style="padding-top: 1px;"></p></th>
-                                <th></th>
-                                <th></th>
-                            @endif
+                            <th id="numero_prefijo">{{ $cachorrosMacho[$i]->inscripcion->numero_prefijo }}</th>
+                            <th id="calificaion">{{ $cachorrosMacho[$i]->calificacion }}</th>
+                            <th>{{ $cachorrosMacho[$i]->lugar }}</th>
                         @else
-                            <th><p style="padding-top: 1px;"></p></th>
-                            <th></th>
+                            <th id="numero_prefijo"><p style="padding-top: 1px;"></p></th>
+                            <th id="calificaion"></th>
                             <th></th>
                         @endif
                     </tr>
                     @endfor
                 </tbody>
                 <tfoot>
-                    {{-- <td></td>
-                    <td>TOTALES</td> --}}
+                    <td colspan="3" style="font-size: 10px;">
+                        CCCB
+                        <table id="tabla-ponderacion">
+                            <thead >
+                                <tr>
+                                    <th id="tabla-dentroTabla">N</th>
+                                </tr>
+                            </thead>
+                            <tbody >
+                                <tr>
+                                    <td id="tabla-dentroTablaponderacion"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
                 </tfoot>
             </table>
         </div>
@@ -179,31 +256,38 @@
                         <th>Lugar</th>
                     </tr>
                     @php
-                        $cantidad = count($joven);
+                        $cantidad = count($jovenMacho);
                     @endphp
                     @for ($i=0 ; $i < 9 ; $i++)
                     <tr>
                         @if ($i < $cantidad)
-                            @if ($joven[$i]->sexo == "Macho")
-                                <th style="padding:5px;">{{ $joven[$i]->inscripcion->numero_prefijo }}</th>
-                                <th>{{ $joven[$i]->calificacion }}</th>
-                                <th>{{ $joven[$i]->lugar }}</th>
-                            @else
-                                <th><p style="padding-top: 1px;"></p></th>
-                                <th></th>
-                                <th></th>
-                            @endif
+                            <th id="numero_prefijo">{{ $jovenMacho[$i]->inscripcion->numero_prefijo }}</th>
+                            <th id="calificaion">{{ $jovenMacho[$i]->calificacion }}</th>
+                            <th>{{ $jovenMacho[$i]->lugar }}</th>
                         @else
-                            <th><p style="padding-top: 1px;"></p></th>
-                            <th></th>
+                            <th id="numero_prefijo"><p style="padding-top: 1px;"></p></th>
+                            <th id="calificaion"></th>
                             <th></th>
                         @endif
                     </tr>
                     @endfor
                 </tbody>
                 <tfoot>
-                    {{-- <td></td>
-                    <td>TOTALES</td> --}}
+                    <td colspan="3" style="font-size: 10px;">
+                        CJCB
+                        <table id="tabla-ponderacion">
+                            <thead >
+                                <tr>
+                                    <th id="tabla-dentroTabla">N</th>
+                                </tr>
+                            </thead>
+                            <tbody >
+                                <tr>
+                                    <td id="tabla-dentroTablaponderacion"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
                 </tfoot>
             </table>
         </div>
@@ -222,31 +306,38 @@
                         <th>Lugar</th>
                     </tr>
                     @php
-                        $cantidad = count($jovenCampeon);
+                        $cantidad = count($jovenCampeonMacho);
                     @endphp
                     @for ($i=0 ; $i < 9 ; $i++)
                     <tr>
                         @if ($i < $cantidad)
-                            @if ($jovenCampeon[$i]->sexo == "Macho")
-                                <th style="padding:5px;">{{ $jovenCampeon[$i]->inscripcion->numero_prefijo }}</th>
-                                <th>{{ $jovenCampeon[$i]->calificacion }}</th>
-                                <th>{{ $jovenCampeon[$i]->lugar }}</th>
-                            @else
-                                <th><p style="padding-top: 1px;"></p></th>
-                                <th></th>
-                                <th></th>
-                            @endif
+                            <th id="numero_prefijo">{{ $jovenCampeonMacho[$i]->inscripcion->numero_prefijo }}</th>
+                            <th id="calificaion">{{ $jovenCampeonMacho[$i]->calificacion }}</th>
+                            <th>{{ $jovenCampeonMacho[$i]->lugar }}</th>
                         @else
-                            <th><p style="padding-top: 1px;"></p></th>
-                            <th></th>
+                            <th id="numero_prefijo"><p style="padding-top: 1px;"></p></th>
+                            <th id="calificaion"></th>
                             <th></th>
                         @endif
                     </tr>
                     @endfor
                 </tbody>
                 <tfoot>
-                    {{-- <td></td>
-                    <td>TOTALES</td> --}}
+                    <td colspan="3" style="font-size: 10px;">
+                        CJCGB
+                        <table id="tabla-ponderacion">
+                            <thead >
+                                <tr>
+                                    <th id="tabla-dentroTabla">N</th>
+                                </tr>
+                            </thead>
+                            <tbody >
+                                <tr>
+                                    <td id="tabla-dentroTablaponderacion"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
                 </tfoot>
             </table>
         </div>
@@ -265,31 +356,24 @@
                         <th>Lugar</th>
                     </tr>
                     @php
-                        $cantidad = count($intermedia);
+                        $cantidad = count($intermediaMacho);
                     @endphp
                     @for ($i=0 ; $i < 9 ; $i++)
                     <tr>
                         @if ($i < $cantidad)
-                            @if ($intermedia[$i]->sexo == "Macho")
-                                <th style="padding:5px;">{{ $intermedia[$i]->inscripcion->numero_prefijo }}</th>
-                                <th>{{ $intermedia[$i]->calificacion }}</th>
-                                <th>{{ $intermedia[$i]->lugar }}</th>
-                            @else
-                                <th><p style="padding-top: 1px;"></p></th>
-                                <th></th>
-                                <th></th>
-                            @endif
+                            <th id="numero_prefijo">{{ $intermediaMacho[$i]->inscripcion->numero_prefijo }}</th>
+                            <th id="calificaion">{{ $intermediaMacho[$i]->calificacion }}</th>
+                            <th>{{ $intermediaMacho[$i]->lugar }}</th>
                         @else
-                            <th><p style="padding-top: 1px;"></p></th>
-                            <th></th>
+                            <th id="numero_prefijo"><p style="padding-top: 1px;"></p></th>
+                            <th id="calificaion"></th>
                             <th></th>
                         @endif
                     </tr>
                     @endfor
                 </tbody>
                 <tfoot>
-                    {{-- <td></td>
-                    <td>TOTALES</td> --}}
+                    <td colspan="3" style="height: 47px"></td>
                 </tfoot>
             </table>
         </div>
@@ -308,31 +392,24 @@
                         <th>Lugar</th>
                     </tr>
                     @php
-                        $cantidad = count($abierta);
+                        $cantidad = count($abiertaMacho);
                     @endphp
                     @for ($i=0 ; $i < 9 ; $i++)
                     <tr>
                         @if ($i < $cantidad)
-                            @if ($abierta[$i]->sexo == "Macho")
-                                <th style="padding:5px;">{{ $abierta[$i]->inscripcion->numero_prefijo }}</th>
-                                <th>{{ $abierta[$i]->calificacion }}</th>
-                                <th>{{ $abierta[$i]->lugar }}</th>
-                            @else
-                                <th><p style="padding-top: 1px;"></p></th>
-                                <th></th>
-                                <th></th>
-                            @endif
+                            <th id="numero_prefijo">{{ $abiertaMacho[$i]->inscripcion->numero_prefijo }}</th>
+                            <th id="calificaion">{{ $abiertaMacho[$i]->calificacion }}</th>
+                            <th>{{ $abiertaMacho[$i]->lugar }}</th>
                         @else
-                            <th><p style="padding-top: 1px;"></p></th>
-                            <th></th>
+                            <th id="numero_prefijo"><p style="padding-top: 1px;"></p></th>
+                            <th id="calificaion"></th>
                             <th></th>
                         @endif
                     </tr>
                     @endfor
                 </tbody>
                 <tfoot>
-                    {{-- <td></td>
-                    <td>TOTALES</td> --}}
+                    <td colspan="3" style="height: 47px"></td>
                 </tfoot>
             </table>
         </div>
@@ -341,7 +418,7 @@
             <table>
                 <thead id="tabla-datos">
                     <tr>
-                        <th colspan="3">CAMPEONES</th>
+                        <th id="cabecera-campeones" colspan="3">CAMPEONES</th>
                     </tr>
                 </thead>
                 <tbody id="tabla-datos-cuerpo">
@@ -351,31 +428,38 @@
                         <th>Lugar</th>
                     </tr>
                     @php
-                        $cantidad = count($campeones);
+                        $cantidad = count($campeonesMacho);
                     @endphp
                     @for ($i=0 ; $i < 9 ; $i++)
                     <tr>
                         @if ($i < $cantidad)
-                            @if ($campeones[$i]->sexo == "Macho")
-                                <th style="padding:5px;">{{ $campeones[$i]->inscripcion->numero_prefijo }}</th>
-                                <th>{{ $campeones[$i]->calificacion }}</th>
-                                <th>{{ $campeones[$i]->lugar }}</th>
-                            @else
-                                <th><p style="padding-top: 1px;"></p></th>
-                                <th></th>
-                                <th></th>
-                            @endif
+                            <th id="numero_prefijo">{{ $campeonesMacho[$i]->inscripcion->numero_prefijo }}</th>
+                            <th id="calificaion">{{ $campeonesMacho[$i]->calificacion }}</th>
+                            <th>{{ $campeonesMacho[$i]->lugar }}</th>
                         @else
-                            <th><p style="padding-top: 1px;"></p></th>
-                            <th></th>
+                            <th id="numero_prefijo"><p style="padding-top: 1px;"></p></th>
+                            <th id="calificaion"></th>
                             <th></th>
                         @endif
                     </tr>
                     @endfor
                 </tbody>
                 <tfoot>
-                    {{-- <td></td>
-                    <td>TOTALES</td> --}}
+                    <td colspan="3" style="font-size: 10px;">
+                        CGCB
+                        <table id="tabla-ponderacion">
+                            <thead >
+                                <tr>
+                                    <th id="tabla-dentroTabla">N</th>
+                                </tr>
+                            </thead>
+                            <tbody >
+                                <tr>
+                                    <td id="tabla-dentroTablaponderacion"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
                 </tfoot>
             </table>
         </div>
@@ -384,7 +468,7 @@
             <table>
                 <thead id="tabla-datos">
                     <tr>
-                        <th colspan="3">GRANDES CAMPEONES</th>
+                        <th id="cabecera-campeones"  colspan="3">GRANDES CAMPEONES</th>
                     </tr>
                 </thead>
                 <tbody id="tabla-datos-cuerpo">
@@ -394,31 +478,24 @@
                         <th>Lugar</th>
                     </tr>
                     @php
-                        $cantidad = count($GrandesCampeones);
+                        $cantidad = count($GrandesCampeonesMacho);
                     @endphp
                     @for ($i=0 ; $i < 9 ; $i++)
                     <tr>
                         @if ($i < $cantidad)
-                            @if ($GrandesCampeones[$i]->sexo == "Macho")
-                                <th style="padding:5px;">{{ $GrandesCampeones[$i]->inscripcion->numero_prefijo }}</th>
-                                <th>{{ $GrandesCampeones[$i]->calificacion }}</th>
-                                <th>{{ $GrandesCampeones[$i]->lugar }}</th>
-                            @else
-                                <th><p style="padding-top: 1px;"></p></th>
-                                <th></th>
-                                <th></th>
-                            @endif
+                            <th id="numero_prefijo">{{ $GrandesCampeonesMacho[$i]->inscripcion->numero_prefijo }}</th>
+                            <th id="calificaion">{{ $GrandesCampeonesMacho[$i]->calificacion }}</th>
+                            <th>{{ $GrandesCampeonesMacho[$i]->lugar }}</th>
                         @else
-                            <th><p style="padding-top: 1px;"></p></th>
-                            <th></th>
+                            <th id="numero_prefijo"><p style="padding-top: 1px;"></p></th>
+                            <th id="calificaion"></th>
                             <th></th>
                         @endif
                     </tr>
                     @endfor
                 </tbody>
                 <tfoot>
-                    {{-- <td></td>
-                    <td>TOTALES</td> --}}
+                    <td colspan="3" style="height: 47px"></td>
                 </tfoot>
             </table>
         </div>
@@ -427,7 +504,7 @@
             <table>
                 <thead id="tabla-datos">
                     <tr>
-                        <th colspan="3">VETERANOS</th>
+                        <th id="cabecera-campeones"  colspan="3">VETERANOS</th>
                     </tr>
                 </thead>
                 <tbody id="tabla-datos-cuerpo">
@@ -437,37 +514,56 @@
                         <th>Lugar</th>
                     </tr>
                     @php
-                        $cantidad = count($veteranos);
+                        $cantidad = count($veteranosMacho);
                     @endphp
                     @for ($i=0 ; $i < 9 ; $i++)
                     <tr>
                         @if ($i < $cantidad)
-                            @if ($veteranos[$i]->sexo == "Macho")
-                                <th style="padding:5px;">{{ $veteranos[$i]->inscripcion->numero_prefijo }}</th>
-                                <th>{{ $veteranos[$i]->calificacion }}</th>
-                                <th>{{ $veteranos[$i]->lugar }}</th>                                
-                            @else
-                                <th><p style="padding-top: 1px;"></p></th>
-                                <th></th>
-                                <th></th>
-                            @endif
+                            <th id="numero_prefijo">{{ $veteranosMacho[$i]->inscripcion->numero_prefijo }}</th>
+                            <th id="calificaion">{{ $veteranosMacho[$i]->calificacion }}</th>
+                            <th>{{ $veteranosMacho[$i]->lugar }}</th>                                
                         @else
-                            <th><p style="padding-top: 1px;"></p></th>
-                            <th></th>
+                            <th id="numero_prefijo"><p style="padding-top: 1px;"></p></th>
+                            <th id="calificaion"></th>
                             <th></th>
                         @endif
                     </tr>
                     @endfor
                 </tbody>
                 <tfoot>
-                    {{-- <td></td>
-                    <td>TOTALES</td> --}}
+                    <td colspan="3" style="font-size: 10px;">
+                        CACV
+                        <table id="tabla-ponderacion">
+                            <thead >
+                                <tr>
+                                    <th id="tabla-dentroTabla">N</th>
+                                </tr>
+                            </thead>
+                            <tbody >
+                                <tr>
+                                    <td id="tabla-dentroTablaponderacion"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
                 </tfoot>
             </table>
         </div>
     </div>
 
     <div class="planillaHembra">
+
+        <div id="hembra">
+            <h3>
+                <span> A </span>
+                <span> R </span>
+                <span> B </span>
+                <span> M </span>
+                <span> E </span>
+                <span> H </span>
+            </h3>
+        </div>
+
         <div id="table-cachorrosHembra">
             <table>
                 <thead id="tabla-datos">
@@ -482,31 +578,38 @@
                         <th>Lugar</th>
                     </tr>
                     @php
-                        $cantidad = count($cachorros);
+                        $cantidad = count($cachorrosHembra);
                     @endphp
                     @for ($i=0 ; $i < 9 ; $i++)
                     <tr>
                         @if ($i < $cantidad)
-                            @if ($cachorros[$i]->sexo == "Hembra")
-                                <th style="padding:5px;">{{ $cachorros[$i]->inscripcion->numero_prefijo }}</th>
-                                <th>{{ $cachorros[$i]->calificacion }}</th>
-                                <th>{{ $cachorros[$i]->lugar }}</th>
-                            @else
-                                <th><p style="padding-top: 1px;"></p></th>
-                                <th></th>
-                                <th></th>
-                            @endif
+                            <th id="numero_prefijo">{{ $cachorrosHembra[$i]->inscripcion->numero_prefijo }}</th>
+                            <th id="calificaion">{{ $cachorrosHembra[$i]->calificacion }}</th>
+                            <th>{{ $cachorrosHembra[$i]->lugar }}</th>
                         @else
-                            <th><p style="padding-top: 1px;"></p></th>
-                            <th></th>
+                            <th id="numero_prefijo"><p style="padding-top: 1px;"></p></th>
+                            <th id="calificaion"></th>
                             <th></th>
                         @endif
                     </tr>
                     @endfor
                 </tbody>
                 <tfoot>
-                    {{-- <td></td>
-                    <td>TOTALES</td> --}}
+                    <td colspan="3" style="font-size: 10px;">
+                        CACV
+                        <table id="tabla-ponderacion">
+                            <thead >
+                                <tr>
+                                    <th id="tabla-dentroTabla">N</th>
+                                </tr>
+                            </thead>
+                            <tbody >
+                                <tr>
+                                    <td id="tabla-dentroTablaponderacion"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
                 </tfoot>
             </table>
         </div>
@@ -525,31 +628,38 @@
                         <th>Lugar</th>
                     </tr>
                     @php
-                        $cantidad = count($joven);
+                        $cantidad = count($jovenHembra);
                     @endphp
                     @for ($i=0 ; $i < 9 ; $i++)
                     <tr>
                         @if ($i < $cantidad)
-                            @if ($joven[$i]->sexo == "Hembra")
-                                <th style="padding:5px;">{{ $joven[$i]->inscripcion->numero_prefijo }}</th>
-                                <th>{{ $joven[$i]->calificacion }}</th>
-                                <th>{{ $joven[$i]->lugar }}</th>
-                            @else
-                                <th><p style="padding-top: 1px;"></p></th>
-                                <th></th>
-                                <th></th>
-                            @endif
+                            <th id="numero_prefijo">{{ $jovenHembra[$i]->inscripcion->numero_prefijo }}</th>
+                            <th id="calificaion">{{ $jovenHembra[$i]->calificacion }}</th>
+                            <th>{{ $jovenHembra[$i]->lugar }}</th>
                         @else
-                            <th><p style="padding-top: 1px;"></p></th>
-                            <th></th>
+                            <th id="numero_prefijo"><p style="padding-top: 1px;"></p></th>
+                            <th id="calificaion"></th>
                             <th></th>
                         @endif
                     </tr>
                     @endfor
                 </tbody>
                 <tfoot>
-                    {{-- <td></td>
-                    <td>TOTALES</td> --}}
+                    <td colspan="3" style="font-size: 10px;">
+                        CACV
+                        <table id="tabla-ponderacion">
+                            <thead >
+                                <tr>
+                                    <th id="tabla-dentroTabla">N</th>
+                                </tr>
+                            </thead>
+                            <tbody >
+                                <tr>
+                                    <td id="tabla-dentroTablaponderacion"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
                 </tfoot>
             </table>
         </div>
@@ -568,31 +678,38 @@
                         <th>Lugar</th>
                     </tr>
                     @php
-                        $cantidad = count($jovenCampeon);
+                        $cantidad = count($jovenCampeonHembra);
                     @endphp
                     @for ($i=0 ; $i < 9 ; $i++)
                     <tr>
                         @if ($i < $cantidad)
-                            @if ($jovenCampeon[$i]->sexo == "Hembra")
-                                <th style="padding:5px;">{{ $jovenCampeon[$i]->inscripcion->numero_prefijo }}</th>
-                                <th>{{ $jovenCampeon[$i]->calificacion }}</th>
-                                <th>{{ $jovenCampeon[$i]->lugar }}</th>
-                            @else
-                                <th><p style="padding-top: 1px;"></p></th>
-                                <th></th>
-                                <th></th>
-                            @endif
+                            <th id="numero_prefijo">{{ $jovenCampeonHembra[$i]->inscripcion->numero_prefijo }}</th>
+                            <th id="calificaion">{{ $jovenCampeonHembra[$i]->calificacion }}</th>
+                            <th>{{ $jovenCampeonHembra[$i]->lugar }}</th>
                         @else
-                            <th><p style="padding-top: 1px;"></p></th>
-                            <th></th>
+                            <th id="numero_prefijo"><p style="padding-top: 1px;"></p></th>
+                            <th id="calificaion"></th>
                             <th></th>
                         @endif
                     </tr>
                     @endfor
                 </tbody>
                 <tfoot>
-                    {{-- <td></td>
-                    <td>TOTALES</td> --}}
+                    <td colspan="3" style="font-size: 10px;">
+                        CACV
+                        <table id="tabla-ponderacion">
+                            <thead >
+                                <tr>
+                                    <th id="tabla-dentroTabla">N</th>
+                                </tr>
+                            </thead>
+                            <tbody >
+                                <tr>
+                                    <td id="tabla-dentroTablaponderacion"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
                 </tfoot>
             </table>
         </div>
@@ -611,31 +728,24 @@
                         <th>Lugar</th>
                     </tr>
                     @php
-                        $cantidad = count($intermedia);
+                        $cantidad = count($intermediaHembra);
                     @endphp
                     @for ($i=0 ; $i < 9 ; $i++)
                     <tr>
                         @if ($i < $cantidad)
-                            @if ($intermedia[$i]->sexo == "Hembra")
-                                <th style="padding:5px;">{{ $intermedia[$i]->inscripcion->numero_prefijo }}</th>
-                                <th>{{ $intermedia[$i]->calificacion }}</th>
-                                <th>{{ $intermedia[$i]->lugar }}</th>
-                            @else
-                                <th><p style="padding-top: 1px;"></p></th>
-                                <th></th>
-                                <th></th>
-                            @endif
+                            <th id="numero_prefijo">{{ $intermediaHembra[$i]->inscripcion->numero_prefijo }}</th>
+                            <th id="calificaion">{{ $intermediaHembra[$i]->calificacion }}</th>
+                            <th>{{ $intermediaHembra[$i]->lugar }}</th>
                         @else
-                            <th><p style="padding-top: 1px;"></p></th>
-                            <th></th>
+                            <th id="numero_prefijo"><p style="padding-top: 1px;"></p></th>
+                            <th id="calificaion"></th>
                             <th></th>
                         @endif
                     </tr>
                     @endfor
                 </tbody>
                 <tfoot>
-                    {{-- <td></td>
-                    <td>TOTALES</td> --}}
+                    <td colspan="3" style="height: 47px"></td>
                 </tfoot>
             </table>
         </div>
@@ -654,31 +764,24 @@
                         <th>Lugar</th>
                     </tr>
                     @php
-                        $cantidad = count($abierta);
+                        $cantidad = count($abiertaHembra);
                     @endphp
                     @for ($i=0 ; $i < 9 ; $i++)
                     <tr>
                         @if ($i < $cantidad)
-                            @if ($abierta[$i]->sexo == "Hembra")
-                                <th style="padding:5px;">{{ $abierta[$i]->inscripcion->numero_prefijo }}</th>
-                                <th>{{ $abierta[$i]->calificacion }}</th>
-                                <th>{{ $abierta[$i]->lugar }}</th>
-                            @else
-                                <th><p style="padding-top: 1px;"></p></th>
-                                <th></th>
-                                <th></th>
-                            @endif
+                            <th id="numero_prefijo">{{ $abiertaHembra[$i]->inscripcion->numero_prefijo }}</th>
+                            <th id="calificaion">{{ $abiertaHembra[$i]->calificacion }}</th>
+                            <th>{{ $abiertaHembra[$i]->lugar }}</th>
                         @else
-                            <th><p style="padding-top: 1px;"></p></th>
-                            <th></th>
+                            <th id="numero_prefijo"><p style="padding-top: 1px;"></p></th>
+                            <th id="calificaion"></th>
                             <th></th>
                         @endif
                     </tr>
                     @endfor
                 </tbody>
                 <tfoot>
-                    {{-- <td></td>
-                    <td>TOTALES</td> --}}
+                    <td colspan="3" style="height: 47px"></td>
                 </tfoot>
             </table>
         </div>
@@ -687,7 +790,7 @@
             <table>
                 <thead id="tabla-datos">
                     <tr>
-                        <th colspan="3">CAMPEONES</th>
+                        <th id="cabecera-campeones"  colspan="3">CAMPEONES</th>
                     </tr>
                 </thead>
                 <tbody id="tabla-datos-cuerpo">
@@ -697,31 +800,38 @@
                         <th>Lugar</th>
                     </tr>
                     @php
-                        $cantidad = count($campeones);
+                        $cantidad = count($campeonesHembra);
                     @endphp
                     @for ($i=0 ; $i < 9 ; $i++)
                     <tr>
                         @if ($i < $cantidad)
-                            @if ($campeones[$i]->sexo == "Hembra")
-                                <th style="padding:5px;">{{ $campeones[$i]->inscripcion->numero_prefijo }}</th>
-                                <th>{{ $campeones[$i]->calificacion }}</th>
-                                <th>{{ $campeones[$i]->lugar }}</th>
-                            @else
-                                <th><p style="padding-top: 1px;"></p></th>
-                                <th></th>
-                                <th></th>
-                            @endif
+                            <th id="numero_prefijo">{{ $campeonesHembra[$i]->inscripcion->numero_prefijo }}</th>
+                            <th id="calificaion">{{ $campeonesHembra[$i]->calificacion }}</th>
+                            <th>{{ $campeonesHembra[$i]->lugar }}</th>
                         @else
-                            <th><p style="padding-top: 1px;"></p></th>
-                            <th></th>
+                            <th id="numero_prefijo"><p style="padding-top: 1px;"></p></th>
+                            <th id="calificaion"></th>
                             <th></th>
                         @endif
                     </tr>
                     @endfor
                 </tbody>
                 <tfoot>
-                    {{-- <td></td>
-                    <td>TOTALES</td> --}}
+                    <td colspan="3" style="font-size: 10px;">
+                        CACV
+                        <table id="tabla-ponderacion">
+                            <thead >
+                                <tr>
+                                    <th id="tabla-dentroTabla">N</th>
+                                </tr>
+                            </thead>
+                            <tbody >
+                                <tr>
+                                    <td id="tabla-dentroTablaponderacion"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
                 </tfoot>
             </table>
         </div>
@@ -730,7 +840,7 @@
             <table>
                 <thead id="tabla-datos">
                     <tr>
-                        <th colspan="3">GRANDES CAMPEONES</th>
+                        <th  id="cabecera-campeones"  colspan="3">GRANDES CAMPEONES</th>
                     </tr>
                 </thead>
                 <tbody id="tabla-datos-cuerpo">
@@ -740,31 +850,24 @@
                         <th>Lugar</th>
                     </tr>
                     @php
-                        $cantidad = count($GrandesCampeones);
+                        $cantidad = count($GrandesCampeonesHembra);
                     @endphp
                     @for ($i=0 ; $i < 9 ; $i++)
                     <tr>
                         @if ($i < $cantidad)
-                            @if ($GrandesCampeones[$i]->sexo == "Hembra")
-                                <th style="padding:5px;">{{ $GrandesCampeones[$i]->inscripcion->numero_prefijo }}</th>
-                                <th>{{ $GrandesCampeones[$i]->calificacion }}</th>
-                                <th>{{ $GrandesCampeones[$i]->lugar }}</th>
-                            @else
-                                <th><p style="padding-top: 1px;"></p></th>
-                                <th></th>
-                                <th></th>
-                            @endif
+                            <th id="numero_prefijo">{{ $GrandesCampeonesHembra[$i]->inscripcion->numero_prefijo }}</th>
+                            <th id="calificaion">{{ $GrandesCampeonesHembra[$i]->calificacion }}</th>
+                            <th>{{ $GrandesCampeonesHembra[$i]->lugar }}</th>
                         @else
-                            <th><p style="padding-top: 1px;"></p></th>
-                            <th></th>
+                            <th id="numero_prefijo"><p style="padding-top: 1px;"></p></th>
+                            <th id="calificaion"></th>
                             <th></th>
                         @endif
                     </tr>
                     @endfor
                 </tbody>
                 <tfoot>
-                    {{-- <td></td>
-                    <td>TOTALES</td> --}}
+                    <td colspan="3" style="height: 47px"></td>
                 </tfoot>
             </table>
         </div>
@@ -773,7 +876,7 @@
             <table>
                 <thead id="tabla-datos">
                     <tr>
-                        <th colspan="3">VETERANOS</th>
+                        <th  id="cabecera-campeones"  colspan="3">VETERANOS</th>
                     </tr>
                 </thead>
                 <tbody id="tabla-datos-cuerpo">
@@ -783,31 +886,38 @@
                         <th>Lugar</th>
                     </tr>
                     @php
-                        $cantidad = count($veteranos);
+                        $cantidad = count($veteranosHembra);
                     @endphp
                     @for ($i=0 ; $i < 9 ; $i++)
                     <tr>
                         @if ($i < $cantidad)
-                            @if ($veteranos[$i]->sexo == "Hembra")
-                                <th style="padding:5px;">{{ $veteranos[$i]->inscripcion->numero_prefijo }}</th>
-                                <th>{{ $veteranos[$i]->calificacion }}</th>
-                                <th>{{ $veteranos[$i]->lugar }}</th>
-                            @else
-                                <th><p style="padding-top: 1px;"></p></th>
-                                <th></th>
-                                <th></th>
-                            @endif
+                            <th id="numero_prefijo">{{ $veteranosHembra[$i]->inscripcion->numero_prefijo }}</th>
+                            <th id="calificaion">{{ $veteranosHembra[$i]->calificacion }}</th>
+                            <th>{{ $veteranosHembra[$i]->lugar }}</th>
                         @else
-                            <th><p style="padding-top: 1px;"></p></th>
-                            <th></th>
+                            <th id="numero_prefijo"><p style="padding-top: 1px;"></p></th>
+                            <th id="calificaion"></th>
                             <th></th>
                         @endif
                     </tr>
                     @endfor
                 </tbody>
                 <tfoot>
-                    {{-- <td></td>
-                    <td>TOTALES</td> --}}
+                    <td colspan="3" style="font-size: 10px;">
+                        CACV
+                        <table id="tabla-ponderacion">
+                            <thead >
+                                <tr>
+                                    <th id="tabla-dentroTabla">N</th>
+                                </tr>
+                            </thead>
+                            <tbody >
+                                <tr>
+                                    <td id="tabla-dentroTablaponderacion"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
                 </tfoot>
             </table>
         </div>

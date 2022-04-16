@@ -35,4 +35,15 @@ class Calificacion extends Model
     {
         return $this->belongsTo('App\EjemplarEvento', 'inscripcion_id');
     }
+
+    public function juez()
+    {
+        return $this->belongsTo('App\Juez', 'juez_id');
+    }
+
+    public function raza()
+    {
+        return $this->belongsTo('App\Raza', 'raza_id');
+    }
+
 }
