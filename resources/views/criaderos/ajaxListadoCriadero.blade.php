@@ -14,7 +14,7 @@
     </thead>
     <tbody>
         @forelse ($datosCriaderos as $cri)
-        @if($cri->criadero)
+        @if($cri->criadero && $cri->propietario)
         <tr>
             <td>{{ $cri->idProCria}}</td>
             <td>{{ $cri->propietario->name }}</td>
