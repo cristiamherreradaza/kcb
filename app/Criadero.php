@@ -37,6 +37,11 @@ class Criadero extends Model
         return $this->belongsTo('App\User', 'copropietario_id');
     }
 
+    // public function propietario()
+    // {
+    //     return $this->belongsTo('App\User', 'copropietario_id');
+    // }
+
     public function propietarios()
     {
         return $this->hasMany('App\PropietarioCriadero');

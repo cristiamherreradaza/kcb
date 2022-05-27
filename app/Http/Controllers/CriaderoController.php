@@ -40,10 +40,16 @@ class CriaderoController extends Controller
 
     public function formulario(Request $request, $id)
     {
+        // dd($id);
 
         if($id != 0){
-            $propietarioCriador = PropietarioCriadero::where("criadero_id",$id)
-                                            ->first();
+
+            $propietarioCriador = PropietarioCriadero::find($id);
+
+            // $propietarioCriador = PropietarioCriadero::where("criadero_id",$id)
+            //                                 ->first();
+
+            // dd($propietarioCriador);
         }else{
             $propietarioCriador = null;
         }
