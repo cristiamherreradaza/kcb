@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use PDF;
 use App\Juez;
 use App\Raza;
 use App\Grupo;
-use App\Evento;
 
+use App\Evento;
 use App\GrupoRaza;
 use App\Asignacion;
 use App\Calificacion;
+use App\CategoriaJuez;
 use App\EjemplarEvento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
 use function GuzzleHttp\Promise\all;
 use Illuminate\Support\Facades\Auth;
-
-use PDF;
 
 class JuezController extends Controller
 {
@@ -28,11 +29,16 @@ class JuezController extends Controller
     public function listado(Request $request){
 
         $jueces = Juez::all();
+        
+        // LISTAMOS LAS CATEGORIAS
+        $categoriaJuez = CategoriaJuez::all();
 
-        return view('juez.listado')->with(compact('jueces'));
+        return view('juez.listado')->with(compact('jueces', 'categoriaJuez'));
     }
 
     public function guarda(Request $request){
+
+        // dd($request->all());
         
         $juez_id = $request->input('juez_id');
 
@@ -45,10 +51,24 @@ class JuezController extends Controller
         $juez->user_id                  = Auth::user()->id;
         $juez->nombre                   = $request->input('nombre');
         $juez->email                    = $request->input('email');
-        $juez->fecha_nacimiento         = $request->input('fecha_nacimiento');
-        $juez->direccion                = $request->input('direccion');
-        $juez->celulares                = $request->input('celulares');
+        $juez->categoria_juez_id        = $request->input('categoria_juez_id');
+        // $juez->fecha_nacimiento         = $request->input('fecha_nacimiento');
+        // $juez->direccion                = $request->input('direccion');
+        // $juez->celulares                = $request->input('celulares');
         $juez->departamento             = $request->input('departamento');
+
+        if($request->file('imgInp')){
+
+            // subiendo el archivo al servidor
+            $archivo    = $request->file('imgInp');
+
+            $direcion   = "imagenesJueces/";
+            $nombreArchivo = date('YmdHis').".".$archivo->getClientOriginalExtension();
+            $archivo->move($direcion,$nombreArchivo);
+
+            $juez->foto             = $nombreArchivo;
+
+        }
 
         $juez->save();
 

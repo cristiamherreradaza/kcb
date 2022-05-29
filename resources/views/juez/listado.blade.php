@@ -19,7 +19,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ url('Juez/guarda') }}" method="POST" id="formulario-juez">
+                <form action="{{ url('Juez/guarda') }}" method="POST" id="formulario-juez" enctype="multipart/form-data" target="_target">
                 	@csrf
                 	<div class="row">
                 		<div class="col-md-4">
@@ -39,47 +39,40 @@
                 		</div>
 						<div class="col-md-4">
                 			<div class="form-group">
-                			    <label for="exampleInputPassword1">Fecha Nacimiento
+                			    <label for="exampleInputPassword1">Categoria
                 			    <span class="text-danger">*</span></label>
-                			    <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required />
+								<select name="categoria_juez_id" id="categoria_juez_id" class="form-control">
+									@foreach ($categoriaJuez as $cj)
+										<option value="{{ $cj->id }}">{{ $cj->nombre }}</option>
+									@endforeach
+								</select>
                 			</div>
                 		</div>
                 	</div>
 
 					<div class="row">
-                		<div class="col-md-4">
+						<div class="col-md-6">
                 			<div class="form-group">
-                			    <label for="exampleInputPassword1">Direccion
-                			    <span class="text-danger">*</span></label>
-                			    <input type="text" class="form-control" id="direccion" name="direccion" required />
-                			</div>
-                		</div>
-                		<div class="col-md-4">
-                			<div class="form-group">
-                			    <label for="exampleInputPassword1">Celulares
-                			    <span class="text-danger">*</span></label>
-                			    <input type="text" class="form-control" id="celulares" name="celulares" required />
-                			</div>
-                		</div>
-						<div class="col-md-4">
-                			<div class="form-group">
-                			    <label for="exampleInputPassword1">Ciudad
+                			    <label for="exampleInputPassword1">Pais
                 			    <span class="text-danger">*</span></label>
 								<input type="text" class="form-control" id="departamento" name="departamento">
-								{{-- <select class="form-control" id="departamento" name="departamento">
-									<option value="La paz">La paz</option>
-									<option value="Oruro">Oruro</option>
-									<option value="Potosi">Potosi</option>
-									<option value="Cochabamba">Cochabamba</option>
-									<option value="Chuquisaca">Chuquisaca</option>
-									<option value="Tarija">Tarija</option>
-									<option value="Pando">Pando</option>
-									<option value="Beni">Beni</option>
-									<option value="Santa Cruz">Santa Cruz</option>
-								</select> --}}
                 			</div>
                 		</div>
+						<div class="col-md-6">
+							<p style="margin-top: 24px"></p>
+							<input type='file' id="imgInp"  class="form-control" name="imgInp"/>
+						</div>
                 	</div>
+					<div class="row">
+						<div class="col-md-12">
+							<center>
+								<div style="max-width: 300px">
+									<img id="blah" src="https://via.placeholder.com/150" alt="Tu imagen" width="100%"/>
+								</div>
+							</center>
+						</div>
+					</div>
+
                 </form>
             </div>
             <div class="modal-footer">
@@ -122,9 +115,9 @@
 							<th>ID</th>
 							<th>Nombre</th>
 							<th>Email</th>
-							<th>Celulares</th>
-							<th>Direccion</th>
-							<th>Departamento</th>
+							<th>Categoria</th>
+							<th>Pais</th>
+							<th>Foto</th>
 							<th>Acciones</th>
 						</tr>
 					</thead>
@@ -134,11 +127,15 @@
 								<td>{{ $juez->id }}</td>
 								<td>{{ $juez->nombre }}</td>
 								<td>{{ $juez->email }}</td>
-								<td>{{ $juez->celulares }}</td>
-								<td>{{ $juez->direccion }}</td>
+								<td>{{ $juez->categoriaJuez->nombre }}</td>
 								<td>{{ $juez->departamento }}</td>
 								<td>
-									<button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $juez->id }}', '{{ $juez->nombre }}', '{{ $juez->email }}', '{{ $juez->fecha_nacimiento }}', '{{ $juez->direccion }}', '{{ $juez->celulares }}', '{{ $juez->departamento }}')">
+									<div style="max-width: 50px">
+										<img src="{{ url("imagenesJueces/$juez->foto") }}" alt="" width="100">
+									</div>
+								</td>
+								<td>
+									<button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $juez->id }}', '{{ $juez->nombre }}', '{{ $juez->email }}', '{{ $juez->foto }}', '{{ $juez->departamento }}', '{{ $juez->categoria_juez_id}}')">
 										<i class="flaticon2-edit"></i>
 									</button>
 									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $juez->id }}', '{{ $juez->nombre }}')">
@@ -189,16 +186,18 @@
     		$("#modalJuez").modal('show');
     	}
 
-		function edita(id, nombre, email, fecha_nacimiento, direccion, celulares,  departamento)
+		function edita(id, nombre, email, foto,  departamento, categoria_juez_id)
     	{
 			// colocamos valores en los inputs
 			$("#juez_id").val(id);
 			$("#nombre").val(nombre);
 			$("#email").val(email);
-			$("#fecha_nacimiento").val(fecha_nacimiento);
-			$("#direccion").val(direccion);
-			$("#celulares").val(celulares);
 			$("#departamento").val(departamento);
+			$("#categoria_juez_id").val(categoria_juez_id);
+
+			var ruta = "{{ url('imagenesJueces') }}/"+foto;
+
+			$('#blah').attr('src', ruta);
 
 			// mostramos el modal
     		$("#modalJuez").modal('show');
@@ -251,6 +250,24 @@
                 }
             });
         }
+
+
+
+		function readImage (input) {
+			if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function (e) {
+				$('#blah').attr('src', e.target.result); // Renderizamos la imagen
+			}
+			reader.readAsDataURL(input.files[0]);
+			}
+		}
+
+		$("#imgInp").change(function () {
+			// Código a ejecutar cuando se detecta un cambio de archivO
+			readImage(this);
+		});
+
 
     </script>
 @endsection

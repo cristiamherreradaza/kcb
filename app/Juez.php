@@ -15,9 +15,23 @@ class Juez extends Model
         'user_id',
         'modificador_id',
         'eliminador_id',
+        'sucursal_id',
+        'categoria_juez_id',
         'nombre',
-        'descripcion',
+        'email',
+        'fecha_nacimiento',
+        'direccion',
+        'celulares',
+        'ci',
+        'departamento',
         'estado',
+        'foto',
         'deleted_at',
     ];
+
+    public function categoriaJuez(){
+
+        return $this->belongsTo('App\CategoriaJuez', 'categoria_juez_id');
+
+    }
 }
