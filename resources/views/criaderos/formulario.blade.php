@@ -58,7 +58,6 @@
 
                             @if ($propietarioCriador != null)
                                 <br />
-                                {{-- @dd($propietarioCriador->criadero->copropietario) --}}
                                 @if ($propietarioCriador->criadero->copropietario)
                                     <button type="button" id="boton-copropietario-id" class="btn btn-primary btn-block" onclick="cambiaCoPropietario()">{{ $propietarioCriador->criadero->copropietario->name }} ({{ $propietarioCriador->criadero->copropietario->ci }})</button>
 

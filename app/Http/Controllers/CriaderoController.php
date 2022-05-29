@@ -42,8 +42,12 @@ class CriaderoController extends Controller
     {
 
         if($id != 0){
-            $propietarioCriador = PropietarioCriadero::where("criadero_id",$id)
-                                            ->first();
+
+            $propietarioCriador = PropietarioCriadero::find($id);
+
+            // $propietarioCriador = PropietarioCriadero::where("criadero_id",$id)
+            //                                 ->first();
+
         }else{
             $propietarioCriador = null;
         }

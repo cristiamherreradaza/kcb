@@ -106,20 +106,10 @@
 			}
 		});
 
-		$(function () {
-			// funcion para llamar a los datos iniciales de la tabla
-			let datosBusquda = $('#formulario-busqueda-usuarios').serializeArray();
 
-			$.ajax({
-				url: "{{ url('Criadero/ajaxListadoCriadero') }}",
-				data: datosBusquda,
-				type: 'POST',
-				success: function(data) {
-					$('#ajaxCriadero').html(data);
-				}
-			});
-
-    	});
+		$( document ).ready(function() {
+			bucarCriadero()
+		});
 
 		function crear()
 		{
@@ -169,6 +159,7 @@
                 }
             });
         }
+
 		function bucarCriadero()
 		{
 			var this_item = document.getElementById('barra-busqueda');

@@ -14,7 +14,7 @@
     </thead>
     <tbody>
         @forelse ($datosCriaderos as $cri)
-        @if($cri->criadero)
+        @if($cri->criadero && $cri->propietario)
         <tr>
             <td>{{ $cri->idProCria}}</td>
             <td>{{ $cri->propietario->name }}</td>
@@ -34,6 +34,7 @@
                 <button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $cri->idProCria }}')">
                     <i class="flaticon2-edit"></i>
                 </button>
+                
                 <button type="button" class="btn btn-icon btn-danger"
                     onclick="elimina('{{ $cri->idProCria }}', '{{ $cri->nombre }}')">
                     <i class="flaticon2-cross"></i>

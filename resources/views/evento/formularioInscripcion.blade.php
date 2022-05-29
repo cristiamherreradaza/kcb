@@ -86,7 +86,7 @@
 			<br><br>
 			
 			<br><br>
-			@if ($evento->habilitado == "Si")
+			{{-- @if ($evento->habilitado == "Si") --}}
 				<div class="row">
 					<div class="col-md-12">
 						<!--begin::Card-->
@@ -375,7 +375,7 @@
 					</div>
 					
 				</div>	
-			@else
+			{{-- @else
 				<div class="row">
 					<div class="col-md-12">
 						<div class="card card-custom gutter-b example example-compact">
@@ -405,7 +405,7 @@
 						</div>
 					</div>
 				</div>
-			@endif
+			@endif --}}
 			
 		</div>
 		<!--end::Header Mobile-->
