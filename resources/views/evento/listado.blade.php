@@ -515,10 +515,11 @@
 					window.location.href = "{{ url('Evento/catalogoNumeracion')}}/"+id;
 
                     Swal.fire(
-                        "Borrado!",
+                        "Exito!",
                         "La generacion fue un Exito.",
                         "success"
                     )
+					
                 } else if (result.dismiss === "cancel") {
                     Swal.fire(
                         "Cancelado",

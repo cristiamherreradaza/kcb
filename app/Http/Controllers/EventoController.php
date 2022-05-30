@@ -809,8 +809,27 @@ class EventoController extends Controller
                                                         $numPre = EjemplarEvento::where('ejemplar_id',$eje->id)
                                                                                 ->where('evento_id',$evento_id)
                                                                                 ->first();
+
+                                                        if($keyAE+1 == 1){
+
+                                                            $prefijo = 'E';
+            
+                                                        }elseif($keyAE+1 == 2){
+            
+                                                            $prefijo = 'A';
+            
+                                                        }elseif($keyAE+1 == 3){
+            
+                                                            $prefijo = 'J';
+            
+                                                        }else{
+            
+                                                            $prefijo = '';
+            
+                                                        }
                                                         
-                                                        $numPre->numero_prefijo =  $contador.(($keyAE+1 == 1)? 'E' : (($keyAE+1 == 2)? 'A':''));
+                                                        $numPre->numero_prefijo =  $contador.$prefijo;
+                                                        // $numPre->numero_prefijo =  $contador.(($keyAE+1 == 1)? 'E' : (($keyAE+1 == 2)? 'A':''));
 
                                                         $numPre->save();
 
@@ -884,7 +903,26 @@ class EventoController extends Controller
                                     if($eje){
                                         if($eje->raza_id == $r->id){
 
-                                            $eje->numero_prefijo = $contador.(($keyAE+1 == 1)? 'E' : (($keyAE+1 == 2)? 'A':''));
+                                            if($keyAE+1 == 1){
+
+                                                $prefijo = 'E';
+
+                                            }elseif($keyAE+1 == 2){
+
+                                                $prefijo = 'A';
+
+                                            }elseif($keyAE+1 == 3){
+
+                                                $prefijo = 'J';
+
+                                            }else{
+
+                                                $prefijo = '';
+
+                                            }
+
+                                            $eje->numero_prefijo = $contador.$prefijo;
+                                            // $eje->numero_prefijo = $contador.(($keyAE+1 == 1)? 'E' : (($keyAE+1 == 2)? 'A':''));
 
                                             $eje->save();
 
@@ -952,8 +990,29 @@ class EventoController extends Controller
                                                         $numPre = EjemplarEvento::where('ejemplar_id',$eje->id)
                                                                                 ->where('evento_id',$evento_id)
                                                                                 ->first();
+
+                                                                                
+                                                        if($keyAE+1 == 1){
+
+                                                            $prefijo = 'E';
+
+                                                        }elseif($keyAE+1 == 2){
+
+                                                            $prefijo = 'A';
+
+                                                        }elseif($keyAE+1 == 3){
+
+                                                            $prefijo = 'J';
+
+                                                        }else{
+
+                                                            $prefijo = '';
+
+                                                        }
+
+                                                        $numPre->numero_prefijo = $contador.$prefijo;
                                 
-                                                        $numPre->numero_prefijo =  $contador.(($keyAE+1 == 1)? 'E' : (($keyAE+1 == 2)? 'A':''));
+                                                        // $numPre->numero_prefijo =  $contador.(($keyAE+1 == 1)? 'E' : (($keyAE+1 == 2)? 'A':''));
 
                                                         $numPre->save();
 
@@ -1025,7 +1084,27 @@ class EventoController extends Controller
                                     if($eje){
                                         if($eje->raza_id == $r->id){
 
-                                            $eje->numero_prefijo = $contador.(($keyAE+1 == 1)? 'E' : (($keyAE+1 == 2)? 'A':''));
+                                        
+                                            if($keyAE+1 == 1){
+
+                                                $prefijo = 'E';
+
+                                            }elseif($keyAE+1 == 2){
+
+                                                $prefijo = 'A';
+
+                                            }elseif($keyAE+1 == 3){
+
+                                                $prefijo = 'J';
+
+                                            }else{
+
+                                                $prefijo = '';
+
+                                            }
+
+                                            // $eje->numero_prefijo = $contador.(($keyAE+1 == 1)? 'E' : (($keyAE+1 == 2)? 'A':''));
+                                            $eje->numero_prefijo = $contador.$prefijo;
 
                                             $eje->save();
 
