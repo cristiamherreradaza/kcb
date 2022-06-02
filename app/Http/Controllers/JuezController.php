@@ -432,69 +432,87 @@ class JuezController extends Controller
 
         
         $evento = Evento::find($evento_id);
-
+        
         $arrayEjemplares = array();
         $arrayEjemplaresTotal = array();
-        
-        $ejemplaresEspeciales = EjemplarEvento::select(DB::raw('count(raza_id) as cantRaza, raza_id'))
-                                    ->where("categoria_pista_id",1)
-                                    ->where("evento_id",$evento_id)
-                                    ->groupBy('raza_id')
-                                    ->get();
 
-        $arrayEjemplares = array(
-            'nombre'        => 'Especiales',
-            'ejemplares'    => $ejemplaresEspeciales
-        );
+        for($i = 1; $i <= 10 ; $i++){
 
-        array_push($arrayEjemplaresTotal,$arrayEjemplares);
+            $emplares = Juez::ejemplaresGrupos($evento_id, $i);
 
-        $ejemplaresAbsolutos = EjemplarEvento::select(DB::raw('count(raza_id) as cantRaza, raza_id'))
-                                    ->where(function($query){
-                                        $query->orwhere("categoria_pista_id",11)
-                                        ->orwhere("categoria_pista_id",2);
-                                    })
-                                    ->where("evento_id",$evento_id)
-                                    ->groupBy('raza_id')
-                                    ->get();
+            $arrayEjemplares = array(
+                'grupo' => 'Grupo '.$i,
+                'ejemplares' => $emplares
+            );
 
-                                    
-        $arrayEjemplares = array(
-            'nombre'        => 'Absolutos',
-            'ejemplares'    => $ejemplaresAbsolutos
-        );
+            array_push($arrayEjemplaresTotal,$arrayEjemplares);
 
-        array_push($arrayEjemplaresTotal,$arrayEjemplares);
-
-        $ejemplaresJovenes = EjemplarEvento::select(DB::raw('count(raza_id) as cantRaza, raza_id'))
-                                    ->where("evento_id",$evento_id)
-                                    ->whereIn("categoria_pista_id",[3,4,12,13])
-                                    ->groupBy('raza_id')
-                                    ->get();
-
-        $arrayEjemplares = array(
-            'nombre'        => 'Jovenes',
-            'ejemplares'    => $ejemplaresJovenes
-        );
-
-        array_push($arrayEjemplaresTotal,$arrayEjemplares);
-
-        $ejemplaresAdulto = EjemplarEvento::select(DB::raw('count(raza_id) as cantRaza, raza_id'))
-                                    ->where("evento_id",$evento_id)
-                                    ->whereIn("categoria_pista_id",[5,6,7,8,9,10,14,15,16,17,18,19,20])
-                                    ->groupBy('raza_id')
-                                    ->get();
-
-        $arrayEjemplares = array(
-            'nombre'        => 'Adultos',
-            'ejemplares'    => $ejemplaresAdulto
-        );
-
-        array_push($arrayEjemplaresTotal,$arrayEjemplares);
-
-        // dd($arrayEjemplaresTotal);
+        }
 
         return view('juez.categorias')->with(compact('evento', 'arrayEjemplaresTotal'));
+
+
+        
+        // $ejemplaresEspeciales = EjemplarEvento::select(DB::raw('count(raza_id) as cantRaza, raza_id'))
+        //                             ->where("categoria_pista_id",1)
+        //                             ->where("evento_id",$evento_id)
+        //                             ->groupBy('raza_id')
+        //                             ->get();
+
+        // $arrayEjemplares = array(
+        //     'nombre'        => 'Especiales',
+        //     'ejemplares'    => $ejemplaresEspeciales
+        // );
+
+        // array_push($arrayEjemplaresTotal,$arrayEjemplares);
+
+        // $ejemplaresAbsolutos = EjemplarEvento::select(DB::raw('count(raza_id) as cantRaza, raza_id'))
+        //                             ->where(function($query){
+        //                                 $query->orwhere("categoria_pista_id",11)
+        //                                 ->orwhere("categoria_pista_id",2);
+        //                             })
+        //                             ->where("evento_id",$evento_id)
+        //                             ->groupBy('raza_id')
+        //                             ->get();
+
+                                    
+        // $arrayEjemplares = array(
+        //     'nombre'        => 'Absolutos',
+        //     'ejemplares'    => $ejemplaresAbsolutos
+        // );
+
+        // array_push($arrayEjemplaresTotal,$arrayEjemplares);
+
+        // $ejemplaresJovenes = EjemplarEvento::select(DB::raw('count(raza_id) as cantRaza, raza_id'))
+        //                             ->where("evento_id",$evento_id)
+        //                             ->whereIn("categoria_pista_id",[3,4,12,13])
+        //                             ->groupBy('raza_id')
+        //                             ->get();
+
+        // $arrayEjemplares = array(
+        //     'nombre'        => 'Jovenes',
+        //     'ejemplares'    => $ejemplaresJovenes
+        // );
+
+        // array_push($arrayEjemplaresTotal,$arrayEjemplares);
+
+        // $ejemplaresAdulto = EjemplarEvento::select(DB::raw('count(raza_id) as cantRaza, raza_id'))
+        //                             ->where("evento_id",$evento_id)
+        //                             ->whereIn("categoria_pista_id",[5,6,7,8,9,10,14,15,16,17,18,19,20])
+        //                             ->groupBy('raza_id')
+        //                             ->get();
+
+        // $arrayEjemplares = array(
+        //     'nombre'        => 'Adultos',
+        //     'ejemplares'    => $ejemplaresAdulto
+        // );
+
+        // array_push($arrayEjemplaresTotal,$arrayEjemplares);
+
+        // // dd($arrayEjemplaresTotal);
+
+        // return view('juez.categorias')->with(compact('evento', 'arrayEjemplaresTotal'));
+
         // return view('juez.categorias')->with(compact('evento', 'ejemplaresEspeciales', 'ejemplaresAbsolutos', 'ejemplaresJovenes', 'ejemplaresAdulto'));
 
     }

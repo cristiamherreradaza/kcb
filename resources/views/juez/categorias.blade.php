@@ -56,9 +56,11 @@
 			</div>
 		</div>
 		<div class="card-body">
-            
 
-            {{-- <div class="row">
+            {{--  @dd($arrayEjemplaresTotal)  --}}
+
+
+            <div class="row">
                 <div class="col-md-12">
                     <button class="btn btn-success btn-block" onclick="califaicarEjemplares()">Calificar</button>
                 </div>
@@ -67,162 +69,237 @@
             <br>
             <div id="accordion">
                 <form action="" id="formulario-calificacion">
-                    <input type="hidden" value="{{ $evento->id }}" name="evento_id">
+
+                    <input type="text" value="{{ $evento->id }}" name="evento_id">
+
                     @foreach ($arrayEjemplaresTotal as $key => $a)
-                        <div class="card">
-                            <div class="card-header" id="headingOne{{ $key }}">
-                                <h5 class="mb-0">
-                                    <div class="row">
-                                        <div class="col-md-1">
 
-                                            <div class="form-group">
-                                                <label>Seleccionar</label>
-                                                <div class="checkbox-inline">
-                                                    <label class="checkbox checkbox-lg">
-                                                        <input type="checkbox" id="{{ $a['nombre'] }}" value="{{ $a['nombre'] }}" onchange="checkEjemplares('{{ $a['nombre'] }}')"/>
-                                                        <span></span>
-                                                        <!--Option 1-->
-                                                    </label>
-                                                </div>
-                                                <!--<span class="form-text text-muted">Some help text goes here</span>-->
+                        @if(count($a['ejemplares']) > 0)
+
+                            <div class="card">
+                                <div class="card-header" id="headingOne{{ $key }}">
+                                    <h5 class="mb-0">
+                                        <div class="row">
+                                            {{--  <div class="col-md-1">
+
+                                            </div>  --}}
+                                            <div class="col-md-12">
+                                                <center>
+                                                    <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseOne{{ $key }}" aria-expanded="false" aria-controls="collapseOne{{ $key }}">
+                                                        <h4> {{ $a['grupo'] }}</h4>
+                                                    </button>
+                                                </center>
                                             </div>
-
                                         </div>
-                                        <div class="col-md-11">
-                                            <center>
-                                                <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseOne{{ $key }}" aria-expanded="false" aria-controls="collapseOne{{ $key }}">
-                                                    <h4> Ejemplares {{ $a['nombre'] }}</h4>
-                                                </button>
-                                            </center>
-                                        </div>
-                                    </div>
-                                </h5>
-                            </div>
-                        
-                            <div id="collapseOne{{ $key }}" class="collapse" aria-labelledby="headingOne{{ $key }}" data-parent="#accordion">
-                                <div class="card-body">
-                                    @php
-                                        
-                                        $grupo1  = array();
-                                        $grupo2  = array();
-                                        $grupo3  = array();
-                                        $grupo4  = array();
-                                        $grupo5  = array();
-                                        $grupo6  = array();
-                                        $grupo7  = array();
-                                        $grupo8  = array();
-                                        $grupo9  = array();
-                                        $grupo10 = array();
+                                    </h5>
+                                </div>
+                            
+                                <div id="collapseOne{{ $key }}" class="collapse" aria-labelledby="headingOne{{ $key }}" data-parent="#accordion">
+                                    <div class="card-body">
+                                        @php
+                                            $ejemplaresRazas = $a['ejemplares'];
+                                        @endphp
 
-                                        foreach($a['ejemplares'] as $eje){
+                                        {{--  @php
+                                            
+                                            $grupo1  = array();
+                                            $grupo2  = array();
+                                            $grupo3  = array();
+                                            $grupo4  = array();
+                                            $grupo5  = array();
+                                            $grupo6  = array();
+                                            $grupo7  = array();
+                                            $grupo8  = array();
+                                            $grupo9  = array();
+                                            $grupo10 = array();
 
-                                            $grupoRaza = App\GrupoRaza::where('raza_id',$eje->raza_id)
-                                                                    ->first();
-                                            if($grupoRaza){
+                                            foreach($a['ejemplares'] as $eje){
 
-                                                switch ($grupoRaza->grupo_id) {
-                                                    case 1:
-                                                        array_push($grupo1, $eje);
-                                                        break;
-                                                    case 2:
-                                                        array_push($grupo2, $eje);
-                                                        break;
-                                                    case 3:
-                                                        array_push($grupo3, $eje);
-                                                        break;
-                                                    case 4:
-                                                        array_push($grupo4, $eje);
-                                                        break;
-                                                    case 5:
-                                                        array_push($grupo5, $eje);
-                                                        break;
-                                                    case 6:
-                                                        array_push($grupo6, $eje);
-                                                        break;
-                                                    case 7:
-                                                        array_push($grupo7, $eje);
-                                                        break;
-                                                    case 8:
-                                                        array_push($grupo8, $eje);
-                                                        break;
-                                                    case 9:
-                                                        array_push($grupo9, $eje);
-                                                        break;
-                                                    case 10:
-                                                        array_push($grupo10, $eje);
-                                                        break;
+                                                $grupoRaza = App\GrupoRaza::where('raza_id',$eje->raza_id)
+                                                                        ->first();
+                                                if($grupoRaza){
+
+                                                    switch ($grupoRaza->grupo_id) {
+                                                        case 1:
+                                                            array_push($grupo1, $eje);
+                                                            break;
+                                                        case 2:
+                                                            array_push($grupo2, $eje);
+                                                            break;
+                                                        case 3:
+                                                            array_push($grupo3, $eje);
+                                                            break;
+                                                        case 4:
+                                                            array_push($grupo4, $eje);
+                                                            break;
+                                                        case 5:
+                                                            array_push($grupo5, $eje);
+                                                            break;
+                                                        case 6:
+                                                            array_push($grupo6, $eje);
+                                                            break;
+                                                        case 7:
+                                                            array_push($grupo7, $eje);
+                                                            break;
+                                                        case 8:
+                                                            array_push($grupo8, $eje);
+                                                            break;
+                                                        case 9:
+                                                            array_push($grupo9, $eje);
+                                                            break;
+                                                        case 10:
+                                                            array_push($grupo10, $eje);
+                                                            break;
+                                                    }
                                                 }
                                             }
-                                        }
 
 
-                                        $arrayEjemplaresGrupos = array();
+                                            $arrayEjemplaresGrupos = array();
 
-                                        array_push($arrayEjemplaresGrupos, $grupo1);
-                                        array_push($arrayEjemplaresGrupos, $grupo2);
-                                        array_push($arrayEjemplaresGrupos, $grupo3);
-                                        array_push($arrayEjemplaresGrupos, $grupo4);
-                                        array_push($arrayEjemplaresGrupos, $grupo5);
-                                        array_push($arrayEjemplaresGrupos, $grupo6);
-                                        array_push($arrayEjemplaresGrupos, $grupo7);
-                                        array_push($arrayEjemplaresGrupos, $grupo8);
-                                        array_push($arrayEjemplaresGrupos, $grupo9);
-                                        array_push($arrayEjemplaresGrupos, $grupo10);
+                                            array_push($arrayEjemplaresGrupos, $grupo1);
+                                            array_push($arrayEjemplaresGrupos, $grupo2);
+                                            array_push($arrayEjemplaresGrupos, $grupo3);
+                                            array_push($arrayEjemplaresGrupos, $grupo4);
+                                            array_push($arrayEjemplaresGrupos, $grupo5);
+                                            array_push($arrayEjemplaresGrupos, $grupo6);
+                                            array_push($arrayEjemplaresGrupos, $grupo7);
+                                            array_push($arrayEjemplaresGrupos, $grupo8);
+                                            array_push($arrayEjemplaresGrupos, $grupo9);
+                                            array_push($arrayEjemplaresGrupos, $grupo10);
 
-                                    @endphp
-                                    @foreach ($arrayEjemplaresGrupos as $keyGrupo => $aeg)
+                                        @endphp  --}}
 
-                                        @if (!empty($aeg))
-                                            <!-- Datatable-->  
-                                            <div class="table-responsive m-t-40">
-                                                <table class="table table-bordered table-hover table-striped" id="tabla-insumos">
-                                                    <thead>
-                                                        <tr class="text-info text-center">
-                                                            <th>
-                                                                <div class="form-group">
-                                                                    <!--<label>Seleccionar</label> -->
-                                                                    <div class="checkbox-inline">
-                                                                        <label class="checkbox checkbox-lg">
-                                                                            <input type="checkbox" id="{{ $a['nombre'].($keyGrupo+1) }}" name="ejemplares[]" value="{{ $a['nombre'].','.($keyGrupo+1) }}" class="{{ $a['nombre'] }}"/>
-                                                                            <span></span>
-                                                                        </label>
+                                        {{--  @foreach ($arrayEjemplaresGrupos as $keyGrupo => $aeg)
+
+                                            @if (!empty($aeg))
+                                                <!-- Datatable-->  
+                                                <div class="table-responsive m-t-40">
+                                                    <table class="table table-bordered table-hover table-striped" id="tabla-insumos">
+                                                        <thead>
+                                                            <tr class="text-info text-center">
+                                                                <th>
+                                                                    <div class="form-group">
+                                                                        <!--<label>Seleccionar</label> -->
+                                                                        <div class="checkbox-inline">
+                                                                            <label class="checkbox checkbox-lg">
+                                                                                <input type="checkbox" id="{{ $a['nombre'].($keyGrupo+1) }}" name="ejemplares[]" value="{{ $a['nombre'].','.($keyGrupo+1) }}" class="{{ $a['nombre'] }}"/>
+                                                                                <span></span>
+                                                                            </label>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </th>
-                                                            <th colspan="2">
-                                                                <h4>Grupo {{ $keyGrupo+1 }}</h4>
-                                                            </th>
-                                                        </tr>
-                                                        <tr>
-                                                            <th></th>
-                                                            <th width="1000px">RAZA</th>
-                                                            <th>CANTIDAD</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-
-                                                        @foreach ( $aeg as $keyEjeGru => $eg)
+                                                                </th>
+                                                                <th colspan="2">
+                                                                    <h4>Grupo {{ $keyGrupo+1 }}</h4>
+                                                                </th>
+                                                            </tr>
                                                             <tr>
-                                                                <td></td>
-                                                                <td>{{ $eg->raza->nombre }}</td>
-                                                                <td>{{ $eg->cantRaza }}</td>
-                                                            </tr>   
-                                                        @endforeach
-                                                
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <!--end: Datatable-->  
-                                        <br>
-                                        <hr>
-                                        @endif
-                                    @endforeach                              
+                                                                <th></th>
+                                                                <th width="1000px">RAZA</th>
+                                                                <th>CANTIDAD</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                            @foreach ( $aeg as $keyEjeGru => $eg)
+                                                                <tr>
+                                                                    <td></td>
+                                                                    <td>{{ $eg->raza->nombre }}</td>
+                                                                    <td>{{ $eg->cantRaza }}</td>
+                                                                </tr>   
+                                                            @endforeach
+                                                    
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <!--end: Datatable-->  
+                                            <br>
+                                            <hr>
+                                            @endif
+                                        @endforeach                                --}}
+                                        <div id="accordionRasas">
+
+                                            @foreach($ejemplaresRazas as $keyRazas => $razas)
+
+                                                <div class="card">
+                                                    <div class="card-header" id="headingOneRazas{{ $keyRazas."_".$key }}">
+                                                        <h5 class="mb-0">
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <center>
+                                                                        <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseOneRazas{{ $keyRazas."_".$key }}" aria-expanded="true" aria-controls="collapseOneRazas{{ $keyRazas."_".$key }}">
+                                                                            <span class="text-info">{{ $razas->raza->nombre }}</span>
+                                                                        </button>
+                                                                    </center>
+                                                                </div>
+                                                            </div>
+                                                        </h5>
+                                                    </div>
+                                            
+                                                    <div id="collapseOneRazas{{ $keyRazas."_".$key }}" class="collapse" aria-labelledby="headingOneRazas{{ $keyRazas."_".$key }}" data-parent="#accordionRasas">
+                                                        <div class="card-body">
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                        
+                                                {{--  <!-- Datatable-->  
+                                                <div class="table-responsive m-t-40">
+                                                    <table class="table table-bordered table-hover table-striped" id="tabla-insumos">
+                                                        <thead>
+                                                            <tr class="text-info text-center">
+                                                                <th>
+                                                                    <div class="form-group">
+                                                                        <!--<label>Seleccionar</label> -->
+                                                                        <div class="checkbox-inline">
+                                                                            <label class="checkbox checkbox-lg">
+                                                                                <input type="checkbox" id="{{ $a['nombre'].($keyGrupo+1) }}" name="ejemplares[]" value="{{ $a['nombre'].','.($keyGrupo+1) }}" class="{{ $a['nombre'] }}"/>
+                                                                                <span></span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </th>
+                                                                <th colspan="2">
+                                                                    <h4>Grupo {{ $keyGrupo+1 }}</h4>
+                                                                </th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th></th>
+                                                                <th width="1000px">RAZA</th>
+                                                                <th>CANTIDAD</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                            @foreach ( $aeg as $keyEjeGru => $eg)
+                                                                <tr>
+                                                                    <td></td>
+                                                                    <td>{{ $eg->raza->nombre }}</td>
+                                                                    <td>{{ $eg->cantRaza }}</td>
+                                                                </tr>   
+                                                            @endforeach
+                                                    
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <!--end: Datatable-->    --}}
+
+                                                {{--  {{ $razas->raza->nombre }}<br>  --}}
+
+                                            @endforeach
+
+                                        </div>
+
+                                    </div>
                                 </div>
-                            </div>
-                        </div>        
+                            </div>    
+                        @endif
+    
                     @endforeach
                 </form>
-            </div> --}}
+            </div>
             
 		</div>
 	</div>
