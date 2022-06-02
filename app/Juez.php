@@ -87,8 +87,6 @@ class Juez extends Model
                                                 
         }
 
-        // dd($ejemplares);
-
         return $ejemplares;
 
     }

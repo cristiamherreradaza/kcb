@@ -56,7 +56,9 @@
 			</div>
 		</div>
 		<div class="card-body">
-            <div class="row">
+            
+
+            {{-- <div class="row">
                 <div class="col-md-12">
                     <button class="btn btn-success btn-block" onclick="califaicarEjemplares()">Calificar</button>
                 </div>
@@ -79,10 +81,10 @@
                                                     <label class="checkbox checkbox-lg">
                                                         <input type="checkbox" id="{{ $a['nombre'] }}" value="{{ $a['nombre'] }}" onchange="checkEjemplares('{{ $a['nombre'] }}')"/>
                                                         <span></span>
-                                                        {{-- Option 1 --}}
+                                                        <!--Option 1-->
                                                     </label>
                                                 </div>
-                                                {{-- <span class="form-text text-muted">Some help text goes here</span> --}}
+                                                <!--<span class="form-text text-muted">Some help text goes here</span>-->
                                             </div>
 
                                         </div>
@@ -178,7 +180,7 @@
                                                         <tr class="text-info text-center">
                                                             <th>
                                                                 <div class="form-group">
-                                                                    {{-- <label>Seleccionar</label> --}}
+                                                                    <!--<label>Seleccionar</label> -->
                                                                     <div class="checkbox-inline">
                                                                         <label class="checkbox checkbox-lg">
                                                                             <input type="checkbox" id="{{ $a['nombre'].($keyGrupo+1) }}" name="ejemplares[]" value="{{ $a['nombre'].','.($keyGrupo+1) }}" class="{{ $a['nombre'] }}"/>
@@ -220,7 +222,8 @@
                         </div>        
                     @endforeach
                 </form>
-            </div>
+            </div> --}}
+            
 		</div>
 	</div>
 	<!--end::Card-->
