@@ -11,6 +11,48 @@
 @section('content')
 
 
+    {{-- inicio modal calificacion  --}}
+    <div class="modal fade" id="modalCalificacionEjmeplar" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">CALIFICAION DE <span class="text-info" id="numero_ejemplar"></span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="">Calificacion</label>
+                            <select name="" id="" class="form-control">
+                                <option value="">Excelente</option>
+                                <option value="">Muy Bien</option>
+                                <option value="">Bien</option>
+                                <option value="">Regular</option>
+                                <option value="">Descartado</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">Ponderacion</label>
+                            <select name="" id="" class="form-control">
+                                <option value="">1</option>
+                                <option value="">2</option>
+                                <option value="">3</option>
+                                <option value="">4</option>
+                                <option value="">5</option>
+                                <option value="">6</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-info btn-block" onclick="volver()">Volver</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- fin inicio modal calificacion --}}
 
     {{-- inicio modal  --}}
     <div class="modal fade" id="modalCalificacion" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
@@ -23,52 +65,9 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
+                    <div id="ejemplares-categorias">
 
-                            
-                            <div class="card card-custom card-stretch card-stretch-half gutter-b">
-                                <div class="card-body p-0">
-                                    <div class="align-items-center justify-content-between card-spacer flex-grow-1">
-                                        <span class="symbol symbol-50 symbol-light-success mr-2">
-                                            <span class="symbol-label">
-                                                <span class="svg-icon svg-icon-xl svg-icon-success">
-                                                    <h1 class="text-dark">1E</h1>
-                                                </span>
-                                            </span>
-                                        </span>
-
-                                        <span class="symbol symbol-50 symbol-light-success mr-2">
-                                            <span class="symbol-label">
-                                                <span class="svg-icon svg-icon-xl svg-icon-success">
-                                                    <h1 class="text-dark">1E</h1>
-                                                </span>
-                                            </span>
-                                        </span>
-
-                                        <span class="symbol symbol-50 symbol-light-success mr-2">
-                                            <span class="symbol-label">
-                                                <span class="svg-icon svg-icon-xl svg-icon-success">
-                                                    <h1 class="text-dark">1E</h1>
-                                                </span>
-                                            </span>
-                                        </span>
-
-                                        <span class="symbol symbol-50 symbol-light-success mr-2">
-                                            <span class="symbol-label">
-                                                <span class="svg-icon svg-icon-xl svg-icon-success">
-                                                    <h1 class="text-dark">1E</h1>
-                                                </span>
-                                            </span>
-                                        </span>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
                     </div>
-
                 </div>
                 <div class="modal-footer">
 
@@ -144,7 +143,7 @@
                                                                 <div class="col-md-12">
                                                                     <center>
                                                                         <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseOneRazas{{ $keyRazas."_".$key }}" aria-expanded="true" aria-controls="collapseOneRazas{{ $keyRazas."_".$key }}">
-                                                                            <span class="text-info">{{ $razas->raza->nombre }}</span>
+                                                                            <span class="text-info">{{ $razas->raza->nombre." --->".$razas->raza->id }}</span>
                                                                         </button>
                                                                     </center>
                                                                 </div>
@@ -169,7 +168,7 @@
                                                                         @if ($contador < $cantCategoriasRazas)
                                                                             <div class="col-lg-3">
                                                                                 
-                                                                                <a href="#" onclick="califaicarEjemplares()" class="card card-custom wave wave-animate-slow bg-grey-100 mb-8 mb-lg-0">
+                                                                                <a onclick="califaicarEjemplares('{{ $categoriasRaza[$contador]->categoria_pista_id }}', '{{ $razas->raza_id }}', '{{ $evento->id }}')" class="card card-custom wave wave-animate-slow bg-grey-100 mb-8 mb-lg-0">
                                                                                     <!--begin::Card Body-->
                                                                                     <div class="card-body">
                                                                                         <div class="d-flex align-items-center p-6">
@@ -259,39 +258,46 @@
             }
         }
 
-        function califaicarEjemplares(){
+        function califaicarEjemplares(categoria, raza, evento){
 
-            $('#modalCalificacion').modal('show');
-
-            {{--  if ($('input[type=checkbox]:checked').length==0){
-                
-                Swal.fire(
-                    "Alerta!",
-                    "Debe sellecionar al menos un grupo.",
-                    "warning",
-                )
-                    
-            }else{
-                var dato = $('#formulario-calificacion').serialize();
 
                 $.ajax({
-                    url: "{{ url('Juez/AjaxPlanillaCalificacion') }}",
-                    data: dato,
+
+                    url: "{{ url('Juez/AjaxEjemplarCatalogoRaza') }}",
+                    data: {
+                        categoria: categoria,
+                        raza: raza,
+                        evento: evento
+                    },
                     type: 'POST',
                     dataType: 'json',
                     success: function(data) {
 
-                        $('#formulario_calificaion').html(data.formulario)
-
-                        console.log(data.formulario)
+                        $('#ejemplares-categorias').html(data.html)
 
                         $('#modalCalificacion').modal('show');
 
                     }
+
                 });
-            }  --}}
 
             
+        }
+
+        function calificar(numero){
+
+            $('#numero_ejemplar').text(numero);
+
+            $('#modalCalificacion').modal('hide');
+            $('#modalCalificacionEjmeplar').modal('show');
+
+        }
+
+        function volver(){
+            
+            $('#modalCalificacion').modal('show');
+            $('#modalCalificacionEjmeplar').modal('hide');
+
         }
 
     </script>

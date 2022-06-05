@@ -538,4 +538,50 @@ class JuezController extends Controller
 
         return json_encode($data);
     }
+
+    public function AjaxEjemplarCatalogoRaza(Request $request){
+
+        $categoria_id  = $request->input('categoria');
+        $raza_id  = $request->input('raza');
+        $evento_id  = $request->input('evento');
+
+        $ejemplares = Juez::EjemplarCatalogoRaza($categoria_id, $raza_id, $evento_id);
+
+        $cantEjemplares = count($ejemplares);
+
+        $contador = 0;
+
+        $html = '';
+
+        while ($contador < $cantEjemplares){
+
+            $html = $html.'<div class="row">';
+
+            for($i = 0; $i < 4; $i++){
+                if($contador < $cantEjemplares){
+
+                    // $html = $html.' <div class="col-md-3">
+                    //                     <p style="20px"></p>
+                    //                     <button onclick="calificar('.'"'.$ejemplares[$contador]->numero_prefijo.'"'.')" class="btn btn-success btn-block"><b class="text-white" style="font-size: 20px;">'.$ejemplares[$contador]->numero_prefijo.'</b></button>
+                    //                 </div>';
+
+                                    
+                    $html = $html." <div class='col-md-3'>
+                                        <p style='20px'></p>
+                                        <button onclick='calificar(\"".$ejemplares[$contador]->numero_prefijo."\")' class='btn btn-success btn-block'><b class='text-white' style='font-size: 20px;'>".$ejemplares[$contador]->numero_prefijo."</b></button>
+                                    </div>";
+
+                    $contador++;
+                }
+            }
+
+            $html = $html.'</div>';
+
+        }
+
+        $data['html'] = $html;
+        $data['status'] = 'success';
+
+        return json_encode($data);
+    }
 }

@@ -115,4 +115,15 @@ class Juez extends Model
 
         return $categoriasRazas;
     }
+
+    public static function EjemplarCatalogoRaza($categoria_id, $raza_id, $evento_id){
+
+        $ejemplares = EjemplarEvento::where('evento_id',$evento_id)
+                                    ->where('categoria_pista_id',$categoria_id)
+                                    ->where('raza_id',$raza_id)
+                                    ->get();
+
+        return $ejemplares;
+
+    }
 }
