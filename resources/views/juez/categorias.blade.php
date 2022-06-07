@@ -89,9 +89,6 @@
 		</div>
 		<div class="card-body">
 
-            {{--  @dd($arrayEjemplaresTotal)  --}}
-
-
             <div class="row">
                 <div class="col-md-12">
                     <button class="btn btn-success btn-block" onclick="califaicarEjemplares()">Calificar</button>
@@ -112,13 +109,10 @@
                                 <div class="card-header" id="headingOne{{ $key }}">
                                     <h5 class="mb-0">
                                         <div class="row">
-                                            {{--  <div class="col-md-1">
-
-                                            </div>  --}}
                                             <div class="col-md-12">
                                                 <center>
                                                     <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseOne{{ $key }}" aria-expanded="false" aria-controls="collapseOne{{ $key }}">
-                                                        <h4> {{ $a['grupo'] }}</h4>
+                                                        <h3> {{ $a['grupo'] }}</h3>
                                                     </button>
                                                 </center>
                                             </div>
@@ -143,7 +137,9 @@
                                                                 <div class="col-md-12">
                                                                     <center>
                                                                         <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseOneRazas{{ $keyRazas."_".$key }}" aria-expanded="true" aria-controls="collapseOneRazas{{ $keyRazas."_".$key }}">
-                                                                            <span class="text-info">{{ $razas->raza->nombre." --->".$razas->raza->id }}</span>
+                                                                            <h6>
+                                                                                <span class="text-info">{{ $razas->raza->nombre." --->".$razas->raza->id }}</span>
+                                                                            </h3>
                                                                         </button>
                                                                     </center>
                                                                 </div>
@@ -155,32 +151,175 @@
                                                         <div class="card-body">
 
                                                             @php
+
                                                                 $categoriasRaza = App\Juez::categoriaRaza($evento->id,$razas->raza_id);
-                                                            
+
                                                                 $cantCategoriasRazas = count($categoriasRaza);
 
-                                                                $contador = 0 ;
+                                                                $contadorHembra = 0 ;
+                                                                $contadorMacho = 0 ;
+                                                                $contador = 0;
+
+                                                                $categoriaHembra = array();
+                                                                $categoriaMacho  = array();
+
+                                                                foreach ($categoriasRaza as $cr){
+
+                                                                    $dato = array(
+                                                                        'nombre'         => $cr->categoriaPista->nombre,
+                                                                        'categoria_id'   => $cr->categoria_pista_id
+                                                                    );
+
+                                                                    if($cr->categoria_pista_id == 2 || $cr->categoria_pista_id == 4 || $cr->categoria_pista_id == 6 || $cr->categoria_pista_id == 8 || $cr->categoria_pista_id == 10 || $cr->categoria_pista_id == 13 || $cr->categoria_pista_id == 15 || $cr->categoria_pista_id == 17){
+
+                                                                        array_push($categoriaHembra, $dato);
+
+                                                                    }elseif($cr->categoria_pista_id == 1){
+                                                                        
+                                                                        array_push($categoriaHembra, $dato);
+                                                                        array_push($categoriaMacho, $dato);
+
+                                                                    }else{
+                                                                        
+                                                                        array_push($categoriaMacho, $dato);
+
+                                                                    }
+
+                                                                }
+
+                                                                $cantCategoriaHembra = count($categoriaHembra);
+                                                                $cantCategoriaMacho = count($categoriaMacho);
+
                                                             @endphp
+                                                            <h3 class="text-center text-primary">Machos</h3>
+
+                                                            @while ($contadorMacho < $cantCategoriaMacho)
+                                                                <div class="row">
+                                                                    @for ($i = 0; $i < 4 ; $i++)
+                                                                        @if ($contadorMacho < $cantCategoriaMacho)
+                                                                            <div class="col-md-3">
+                                                                                <table class="table table-hover text-center">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th class="text-primary">
+                                                                                                {{ $categoriaMacho[$contadorMacho]['nombre']}}
+                                                                                            </th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    @php
+                                                                                        $categoria_id       =   $categoriaMacho[$contadorMacho]['categoria_id'];
+                                                                                        $raza_id            =   $razas->raza_id;
+                                                                                        $evento_id          =   $evento->id;
+
+                                                                                        $ejemplares = App\Juez::EjemplarCatalogoRaza($categoria_id, $raza_id, $evento_id);
+
+                                                                                    @endphp
+                                                                                    <tbody>
+                                                                                        @foreach ( $ejemplares as $eje)
+                                                                                            @if ($eje->sexo == 'Macho')
+                                                                                                <tr>
+                                                                                                    <td>
+                                                                                                        <button class="btn btn-block btn-primary" onclick="calificar('{{ $eje->numero_prefijo }}')" type="button">
+                                                                                                            {{ $eje->numero_prefijo }}
+                                                                                                        </button>
+                                                                                                    </td>
+                                                                                                </tr>    
+                                                                                            @endif
+                                                                                        @endforeach
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                            @php
+                                                                                $contadorMacho++;
+                                                                            @endphp
+                                                                        @endif
+                                                                    @endfor
+                                                                </div>
+                                                            @endwhile
+
+                                                            <hr class="border-5 bg-dark">
+
+                                                            <h3 class="text-center"  style="color: #F94EE4 ;">Hembras</h3>
+
+                                                            
+                                                            @while ($contadorHembra < $cantCategoriaHembra)
+                                                                <div class="row">
+                                                                    @for ($i = 0; $i < 4 ; $i++)
+                                                                        @if ($contadorHembra < $cantCategoriaHembra)
+                                                                            <div class="col-md-3">
+                                                                                <table class="table table-hover text-center">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th style="color: #F94EE4 ;">
+                                                                                                {{ $categoriaHembra[$contadorHembra]['nombre']}}
+                                                                                            </th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    @php
+                                                                                        $categoria_id       =   $categoriaHembra[$contadorHembra]['categoria_id'];
+                                                                                        $raza_id            =   $razas->raza_id;
+                                                                                        $evento_id          =   $evento->id;
+
+                                                                                        $ejemplares = App\Juez::EjemplarCatalogoRaza($categoria_id, $raza_id, $evento_id);
+
+                                                                                    @endphp
+                                                                                    <tbody>
+                                                                                        @foreach ( $ejemplares as $eje)
+                                                                                            @if ($eje->sexo == "Hembra")
+                                                                                                <tr>
+                                                                                                    <td>
+                                                                                                        <button class="btn btn-block text-white" style="background: #F94EE4;" onclick="calificar('{{ $eje->numero_prefijo }}')" type="button">
+                                                                                                            {{ $eje->numero_prefijo }}
+                                                                                                        </button>
+                                                                                                    </td>
+                                                                                                </tr>    
+                                                                                            @endif
+                                                                                        @endforeach
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                            @php
+                                                                                $contadorHembra++;
+                                                                            @endphp
+                                                                        @endif
+                                                                    @endfor
+                                                                </div>
+                                                            @endwhile
+
+                                                            {{-- <hr class="border-5 bg-danger">
 
                                                             @while ($contador < $cantCategoriasRazas)
                                                                 <div class="row">
                                                                     @for ($i = 0; $i < 4 ; $i++)
                                                                         @if ($contador < $cantCategoriasRazas)
-                                                                            <div class="col-lg-3">
-                                                                                
-                                                                                <a onclick="califaicarEjemplares('{{ $categoriasRaza[$contador]->categoria_pista_id }}', '{{ $razas->raza_id }}', '{{ $evento->id }}')" class="card card-custom wave wave-animate-slow bg-grey-100 mb-8 mb-lg-0">
-                                                                                    <!--begin::Card Body-->
-                                                                                    <div class="card-body">
-                                                                                        <div class="d-flex align-items-center p-6">
-                                                                                            <div class="d-flex flex-column">
-                                                                                                <h6 class="text-dark h6 mb-3">{{ $categoriasRaza[$contador]->categoriaPista->nombre }}</h6>
-                                                                                            </div>
-                                                                                            <!--end::Content-->
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <!--end::Card Body-->
-                                                                                </a>
+                                                                            <div class="col-md-3">
+                                                                                <table class="table table-hover text-center">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th>{{ $categoriasRaza[$contador]->categoriaPista->nombre }}</th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    @php
 
+                                                                                        $categoria_id =   $categoriasRaza[$contador]->categoria_pista_id;
+                                                                                        $raza_id            =   $razas->raza_id;
+                                                                                        $evento_id          =   $evento->id;
+
+                                                                                        $ejemplares = App\Juez::EjemplarCatalogoRaza($categoria_id, $raza_id, $evento_id);
+
+                                                                                    @endphp
+                                                                                    <tbody>
+                                                                                        @foreach ( $ejemplares as $eje)
+                                                                                            <tr>
+                                                                                                <td>
+                                                                                                    <button class="btn btn-block btn-success" onclick="calificar('{{ $eje->numero_prefijo }}')" type="button">
+                                                                                                        {{ $eje->numero_prefijo }}
+                                                                                                    </button>
+                                                                                                </td>
+                                                                                            </tr>    
+                                                                                        @endforeach
+                                                                                    </tbody>
+                                                                                </table>
                                                                             </div>
                                                                             @php
                                                                                 $contador++;
@@ -188,7 +327,7 @@
                                                                         @endif
                                                                     @endfor
                                                                 </div>
-                                                            @endwhile
+                                                            @endwhile --}}
 
                                                             <div class="col-lg-4">
                                                                 <!--begin::Card-->

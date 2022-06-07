@@ -559,12 +559,6 @@ class JuezController extends Controller
 
             for($i = 0; $i < 4; $i++){
                 if($contador < $cantEjemplares){
-
-                    // $html = $html.' <div class="col-md-3">
-                    //                     <p style="20px"></p>
-                    //                     <button onclick="calificar('.'"'.$ejemplares[$contador]->numero_prefijo.'"'.')" class="btn btn-success btn-block"><b class="text-white" style="font-size: 20px;">'.$ejemplares[$contador]->numero_prefijo.'</b></button>
-                    //                 </div>';
-
                                     
                     $html = $html." <div class='col-md-3'>
                                         <p style='20px'></p>
