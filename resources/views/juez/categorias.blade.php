@@ -89,11 +89,11 @@
 		</div>
 		<div class="card-body">
 
-            <div class="row">
+            {{-- <div class="row">
                 <div class="col-md-12">
                     <button class="btn btn-success btn-block" onclick="califaicarEjemplares()">Calificar</button>
                 </div>
-            </div>
+            </div> --}}
 
             <br>
             <div id="accordion">
@@ -165,24 +165,27 @@
 
                                                                 foreach ($categoriasRaza as $cr){
 
-                                                                    $dato = array(
-                                                                        'nombre'         => $cr->categoriaPista->nombre,
-                                                                        'categoria_id'   => $cr->categoria_pista_id
-                                                                    );
+                                                                    if($cr->categoria_pista_id != 1){
 
-                                                                    if($cr->categoria_pista_id == 2 || $cr->categoria_pista_id == 4 || $cr->categoria_pista_id == 6 || $cr->categoria_pista_id == 8 || $cr->categoria_pista_id == 10 || $cr->categoria_pista_id == 13 || $cr->categoria_pista_id == 15 || $cr->categoria_pista_id == 17){
+                                                                        $dato = array(
+                                                                            'nombre'         => $cr->categoriaPista->nombre,
+                                                                            'categoria_id'   => $cr->categoria_pista_id
+                                                                        );
 
-                                                                        array_push($categoriaHembra, $dato);
+                                                                        if($cr->categoria_pista_id == 2 || $cr->categoria_pista_id == 4 || $cr->categoria_pista_id == 6 || $cr->categoria_pista_id == 8 || $cr->categoria_pista_id == 10 || $cr->categoria_pista_id == 13 || $cr->categoria_pista_id == 15 || $cr->categoria_pista_id == 17){
 
-                                                                    }elseif($cr->categoria_pista_id == 1){
-                                                                        
-                                                                        array_push($categoriaHembra, $dato);
-                                                                        array_push($categoriaMacho, $dato);
+                                                                            array_push($categoriaHembra, $dato);
 
-                                                                    }else{
-                                                                        
-                                                                        array_push($categoriaMacho, $dato);
+                                                                        }elseif($cr->categoria_pista_id == 1){
+                                                                            
+                                                                            array_push($categoriaHembra, $dato);
+                                                                            array_push($categoriaMacho, $dato);
 
+                                                                        }else{
+                                                                            
+                                                                            array_push($categoriaMacho, $dato);
+
+                                                                        }
                                                                     }
 
                                                                 }
@@ -202,7 +205,9 @@
                                                                                     <thead>
                                                                                         <tr>
                                                                                             <th class="text-primary">
-                                                                                                {{ $categoriaMacho[$contadorMacho]['nombre']}}
+                                                                                                <button class="btn btn-primary btn-block" type="button" onclick="califaicarEjemplares('{{ $categoriaMacho[$contadorMacho]['categoria_id'] }}' ,'{{ $razas->raza_id }}', '{{ $evento->id }}')">
+                                                                                                    {{ $categoriaMacho[$contadorMacho]['nombre']}}
+                                                                                                </button>
                                                                                             </th>
                                                                                         </tr>
                                                                                     </thead>
@@ -219,9 +224,9 @@
                                                                                             @if ($eje->sexo == 'Macho')
                                                                                                 <tr>
                                                                                                     <td>
-                                                                                                        <button class="btn btn-block btn-primary" onclick="calificar('{{ $eje->numero_prefijo }}')" type="button">
+                                                                                                        <h1 class="text-primary">
                                                                                                             {{ $eje->numero_prefijo }}
-                                                                                                        </button>
+                                                                                                        </h1>
                                                                                                     </td>
                                                                                                 </tr>    
                                                                                             @endif
@@ -240,7 +245,6 @@
                                                             <hr class="border-5 bg-dark">
 
                                                             <h3 class="text-center"  style="color: #F94EE4 ;">Hembras</h3>
-
                                                             
                                                             @while ($contadorHembra < $cantCategoriaHembra)
                                                                 <div class="row">
@@ -251,7 +255,9 @@
                                                                                     <thead>
                                                                                         <tr>
                                                                                             <th style="color: #F94EE4 ;">
-                                                                                                {{ $categoriaHembra[$contadorHembra]['nombre']}}
+                                                                                                <button type="button" class="btn btn-block" style="background: #F94EE4; color:white;" onclick="califaicarEjemplares('{{ $categoriaHembra[$contadorHembra]['categoria_id'] }}' ,'{{ $razas->raza_id }}', '{{ $evento->id }}')">
+                                                                                                    {{ $categoriaHembra[$contadorHembra]['nombre']}}
+                                                                                                </button>
                                                                                             </th>
                                                                                         </tr>
                                                                                     </thead>
@@ -268,9 +274,9 @@
                                                                                             @if ($eje->sexo == "Hembra")
                                                                                                 <tr>
                                                                                                     <td>
-                                                                                                        <button class="btn btn-block text-white" style="background: #F94EE4;" onclick="calificar('{{ $eje->numero_prefijo }}')" type="button">
+                                                                                                        <h1 style="color: #F94EE4;">
                                                                                                             {{ $eje->numero_prefijo }}
-                                                                                                        </button>
+                                                                                                        </h1>
                                                                                                     </td>
                                                                                                 </tr>    
                                                                                             @endif
@@ -399,28 +405,31 @@
 
         function califaicarEjemplares(categoria, raza, evento){
 
+            $.ajax({
 
-                $.ajax({
+                url: "{{ url('Juez/AjaxEjemplarCatalogoRaza') }}",
+                data: {
+                    categoria: categoria,
+                    raza: raza,
+                    evento: evento
+                },
+                type: 'POST',
+                dataType: 'json',
+                success: function(data) {
 
-                    url: "{{ url('Juez/AjaxEjemplarCatalogoRaza') }}",
-                    data: {
-                        categoria: categoria,
-                        raza: raza,
-                        evento: evento
-                    },
-                    type: 'POST',
-                    dataType: 'json',
-                    success: function(data) {
+                    if(data.status === "success"){
 
-                        $('#ejemplares-categorias').html(data.html)
-
+                        $('#ejemplares-categorias').html(data.table)
                         $('#modalCalificacion').modal('show');
+
+                    }else{
 
                     }
 
-                });
+                }
 
-            
+            });
+
         }
 
         function calificar(numero){

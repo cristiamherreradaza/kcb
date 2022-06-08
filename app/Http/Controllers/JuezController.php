@@ -547,33 +547,82 @@ class JuezController extends Controller
 
         $ejemplares = Juez::EjemplarCatalogoRaza($categoria_id, $raza_id, $evento_id);
 
-        $cantEjemplares = count($ejemplares);
-
-        $contador = 0;
-
-        $html = '';
-
-        while ($contador < $cantEjemplares){
-
-            $html = $html.'<div class="row">';
-
-            for($i = 0; $i < 4; $i++){
-                if($contador < $cantEjemplares){
-                                    
-                    $html = $html." <div class='col-md-3'>
-                                        <p style='20px'></p>
-                                        <button onclick='calificar(\"".$ejemplares[$contador]->numero_prefijo."\")' class='btn btn-success btn-block'><b class='text-white' style='font-size: 20px;'>".$ejemplares[$contador]->numero_prefijo."</b></button>
-                                    </div>";
-
-                    $contador++;
-                }
-            }
-
-            $html = $html.'</div>';
-
+        
+        if($ejemplares[0]->sexo == "Hembra"){
+            $color = 'style="color: #F94EE4 ;"';
+        }else{
+            $color = 'class="text-primary"';
         }
 
-        $data['html'] = $html;
+        $htmlIni = '
+                <table class="table table-hover text-center">
+                    <thead>
+                        <tr>
+                            <th '.$color.' colspan="3">
+                                <h2>EJEMPLARES</h2>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    ';
+                        $htmlBody ='';
+
+                        foreach ($ejemplares as $eje){
+
+                            $htmlBody = $htmlBody.'<tr>
+                                                        <td>
+                                                            <h1 '.$color.'>'.$eje->numero_prefijo.'</h1>
+                                                        </td>
+                                                        <td>
+                                                            <select name="" id="" class="form-control">
+                                                                <option value="">Excelente</option>
+                                                                <option value="">Muy Bien</option>
+                                                                <option value="">Bien</option>
+                                                                <option value="">Descalificado</option>
+                                                                <option value="">Ausente</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <select name="" id="" class="form-control">
+                                                                <option value="">1</option>
+                                                                <option value="">2</option>
+                                                                <option value="">3</option>
+                                                                <option value="">4</option>
+                                                                <option value="">5</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>';
+                            
+                        }
+
+        $htmlFin = '
+                    </tbody>
+                </table>
+                ';
+
+            $table =  $htmlIni.$htmlBody.$htmlFin;
+
+        // while ($contador < $cantEjemplares){
+
+        //     $html = $html.'<div class="row">';
+
+        //     for($i = 0; $i < 4; $i++){
+        //         if($contador < $cantEjemplares){
+                                    
+        //             $html = $html." <div class='col-md-3'>
+        //                                 <p style='20px'></p>
+        //                                 <button onclick='calificar(\"".$ejemplares[$contador]->numero_prefijo."\")' class='btn btn-success btn-block'><b class='text-white' style='font-size: 20px;'>".$ejemplares[$contador]->numero_prefijo."</b></button>
+        //                             </div>";
+
+        //             $contador++;
+        //         }
+        //     }
+
+        //     $html = $html.'</div>';
+
+        // }
+
+        $data['table'] = $table;
         $data['status'] = 'success';
 
         return json_encode($data);

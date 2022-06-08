@@ -46,7 +46,6 @@ class Juez extends Model
                                         ->where("ejemplares_eventos.evento_id",$evento_id)
                                         ->where("ejemplares_eventos.categoria_pista_id",1)
                                         ->orderBy('ejemplares_eventos.raza_id')
-                                        // ->toSql();
                                         ->get();
                                                 
         }elseif($categoria == "Absolutos"){
