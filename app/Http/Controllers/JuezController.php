@@ -547,7 +547,6 @@ class JuezController extends Controller
 
         $ejemplares = Juez::EjemplarCatalogoRaza($categoria_id, $raza_id, $evento_id);
 
-        
         if($ejemplares[0]->sexo == "Hembra"){
             $color = 'style="color: #F94EE4 ;"';
         }else{
@@ -555,11 +554,23 @@ class JuezController extends Controller
         }
 
         $htmlIni = '
+            <form action="" id="formularioCalificacionCategoria">
                 <table class="table table-hover text-center">
                     <thead>
                         <tr>
                             <th '.$color.' colspan="3">
                                 <h2>EJEMPLARES</h2>
+                            </th>
+                        </tr>
+                        <tr  '.$color.' >
+                            <th>
+                                N~
+                            </th>
+                            <th>
+                                Calif.
+                            </th>
+                            <th>
+                                Lugar
                             </th>
                         </tr>
                     </thead>
@@ -571,25 +582,35 @@ class JuezController extends Controller
 
                             $htmlBody = $htmlBody.'<tr>
                                                         <td>
+                                                            <input type="hidden" name="ejemplar_evento_id_ejemplar[]" value="'.$eje->id.'">
+                                                            <input type="hidden" name="raza_id_ejemplar[]" value="'.$raza_id.'">
+                                                            <input type="hidden" name="evento_id_ejemplar[]" value="'.$evento_id.'">
+                                                            <input type="hidden" name="categoria_id_ejemplar[]" value="'.$categoria_id.'">
+                                                            <input type="hidden" name="sexo_ejemplar[]" value="'.$eje->sexo.'">
+                                                            <input type="hidden" name="numero_prefijo_ejemplar[]" value="'.$eje->numero_prefijo.'">
+                                                            <input type="hidden" name="ejemplar_id_ejemplar[]" value="'.$eje->ejemplar_id.'">
                                                             <h1 '.$color.'>'.$eje->numero_prefijo.'</h1>
+                                                            <small style="display: none;" class="_'.$eje->id.' text-warning">Dato repetido</small>
                                                         </td>
                                                         <td>
-                                                            <select name="" id="" class="form-control">
-                                                                <option value="">Excelente</option>
-                                                                <option value="">Muy Bien</option>
-                                                                <option value="">Bien</option>
-                                                                <option value="">Descalificado</option>
-                                                                <option value="">Ausente</option>
+                                                            <select name="calificacion_ejemplar[]" id="calificacion_ejemplar" class="form-control">
+                                                                <option value="Excelente">Excelente</option>
+                                                                <option value="Muy Bien">Muy Bien</option>
+                                                                <option value="Bien">Bien</option>
+                                                                <option value="Descalificado">Descalificado</option>
+                                                                <option value="Ausente">Ausente</option>
                                                             </select>
+                                                            <small style="display: none;" class="_'.$eje->id.' text-warning">Dato repetido</small>
                                                         </td>
                                                         <td>
-                                                            <select name="" id="" class="form-control">
-                                                                <option value="">1</option>
-                                                                <option value="">2</option>
-                                                                <option value="">3</option>
-                                                                <option value="">4</option>
-                                                                <option value="">5</option>
+                                                            <select name="lugar_ejemplar[]" id="lugar_ejemplar" class="form-control">
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                                <option value="4">4</option>
+                                                                <option value="5">5</option>
                                                             </select>
+                                                            <small style="display: none;" class="_'.$eje->id.' text-warning">Dato repetido</small>
                                                         </td>
                                                     </tr>';
                             
@@ -598,33 +619,108 @@ class JuezController extends Controller
         $htmlFin = '
                     </tbody>
                 </table>
+            </form>
+
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button onclick="finalizarCalificacion()" type="button" class="btn btn-success btn-block">Finalizar Calificacion</button>
+                    </div>
+                </div>
                 ';
 
-            $table =  $htmlIni.$htmlBody.$htmlFin;
-
-        // while ($contador < $cantEjemplares){
-
-        //     $html = $html.'<div class="row">';
-
-        //     for($i = 0; $i < 4; $i++){
-        //         if($contador < $cantEjemplares){
-                                    
-        //             $html = $html." <div class='col-md-3'>
-        //                                 <p style='20px'></p>
-        //                                 <button onclick='calificar(\"".$ejemplares[$contador]->numero_prefijo."\")' class='btn btn-success btn-block'><b class='text-white' style='font-size: 20px;'>".$ejemplares[$contador]->numero_prefijo."</b></button>
-        //                             </div>";
-
-        //             $contador++;
-        //         }
-        //     }
-
-        //     $html = $html.'</div>';
-
-        // }
+        $table =  $htmlIni.$htmlBody.$htmlFin;
 
         $data['table'] = $table;
         $data['status'] = 'success';
 
         return json_encode($data);
+    }
+    
+    public function ajaxFinalizarCalificacion(Request $request){
+
+        // dd($request->all());
+
+        $ejemplares_eventos = $request->input('ejemplar_evento_id_ejemplar');
+        $raza_id            = $request->input('raza_id_ejemplar');
+        $evento_id          = $request->input('evento_id_ejemplar');
+        $categoria_id       = $request->input('categoria_id_ejemplar');
+        $sexo               = $request->input('sexo_ejemplar');
+        $numero_prefijos    = $request->input('numero_prefijo_ejemplar');
+        $calificaciones     = $request->input('calificacion_ejemplar');
+        $lugares            = $request->input('lugar_ejemplar');
+        $ejemplares         = $request->input('ejemplar_id_ejemplar');
+
+        // dd($this->validaCalificaciones($ejemplares_eventos,$calificaciones,$lugares)['status']);
+        $valida = $this->validaCalificaciones($ejemplares_eventos,$calificaciones,$lugares);
+
+        if($valida['status']){
+
+            foreach ($ejemplares_eventos as $key => $e){
+
+                $calificacion = new  Calificacion();
+    
+                $calificacion->creador_id               = Auth::user()->id;
+                $calificacion->ejemplares_eventos_id    = intval($e);
+                $calificacion->evento_id                = $evento_id[0];
+                $calificacion->ejemplar_id              = $ejemplares[$key];
+                $calificacion->raza_id                  = $raza_id[0];
+                $calificacion->categoria_id             = $categoria_id[0];
+                $calificacion->sexo                     = $sexo[0];
+                $calificacion->numero_prefijo           = $numero_prefijos[$key];
+                $calificacion->calificacion             = $calificaciones[$key];
+                $calificacion->lugar                    = $lugares[$key];
+    
+                $calificacion->save();
+    
+            }
+
+            $data['status'] = 'success';
+
+        }else{
+
+            $data['status']             = 'error';
+            $data['ejemplar_evento_id'] = $valida['ejemplar_evento_id'];
+
+        }
+
+        $data['ejemplar_enviados'] = $valida['ejemplar_enviados'];
+
+        return json_encode($data);
+
+    }
+
+    public static function validaCalificaciones($ejemplares_eventos, $calificaciones, $lugares){
+
+        $arrayEjemplaresRepetidos = array();
+        $arrayCalificaciones = array();
+        $arrayEjemplaresEnviados = array();
+
+        $data['status'] = true;
+
+        foreach ($ejemplares_eventos as $key => $eje){
+
+            array_push($arrayEjemplaresEnviados, $eje);
+            
+            $datos = $calificaciones[$key].$lugares[$key];
+
+            if(!in_array($datos, $arrayCalificaciones)){
+
+                array_push($arrayCalificaciones, $datos);
+
+            }else{
+
+                $data['status'] = false;
+
+                array_push($arrayEjemplaresRepetidos, $eje);
+
+            }
+
+        }
+
+        $data['ejemplar_evento_id'] = $arrayEjemplaresRepetidos;
+        $data['ejemplar_enviados'] = $arrayEjemplaresEnviados;
+
+        return $data;
     }
 }

@@ -68,6 +68,8 @@
                     <div id="ejemplares-categorias">
 
                     </div>
+                    <hr>
+
                 </div>
                 <div class="modal-footer">
 
@@ -445,6 +447,50 @@
             
             $('#modalCalificacion').modal('show');
             $('#modalCalificacionEjmeplar').modal('hide');
+
+        }
+
+        function finalizarCalificacion(ejemplarEvento, raza, evento, categoria, sexo, numero, ejemplar){
+
+            var datos = $('#formularioCalificacionCategoria').serialize();
+
+            $.ajax({
+
+                url: "{{ url('Juez/ajaxFinalizarCalificacion') }}",
+                data: datos,
+                type: 'POST',
+                dataType: 'json',
+                success: function(data) {
+
+                    $(data.ejemplar_enviados).each(function(index, element) {
+
+                        $("._"+element).css("display", "none");
+
+                    });
+
+                    if(data.status === 'success'){
+
+                    }else{
+
+                        $(data.ejemplar_evento_id).each(function(index, element) {
+
+                            $("._"+element).css("display", "block");
+
+                        });
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Hay calificacion repedita!',
+                            text: 'Revise la planilla!',
+                            // footer: '<a href="">Why do I have this issue?</a>'
+                        })
+
+
+                    }
+
+                }
+
+            });
 
         }
 

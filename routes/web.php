@@ -223,6 +223,7 @@ Route::post('Juez/guardaPonderacion', 'JuezController@guardaPonderacion');
 Route::get('Juez/planilla/{evento_id}/{grupo_id}/{raza_id}', 'JuezController@planilla');
 Route::post('Juez/AjaxPlanillaCalificacion', 'JuezController@AjaxPlanillaCalificacion');
 Route::post('Juez/AjaxEjemplarCatalogoRaza', 'JuezController@AjaxEjemplarCatalogoRaza');
+Route::post('Juez/ajaxFinalizarCalificacion', 'JuezController@ajaxFinalizarCalificacion');
 
 
 

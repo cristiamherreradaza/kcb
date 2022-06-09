@@ -21,8 +21,8 @@ class CreateCalificacionTable extends Migration
             $table->foreign('modificador_id')->references('id')->on('users');
             $table->unsignedBigInteger('eliminador_id')->nullable();
             $table->foreign('eliminador_id')->references('id')->on('users');
-            $table->unsignedBigInteger('inscripcion_id')->nullable();
-            $table->foreign('inscripcion_id')->references('id')->on('ejemplares_eventos');
+            $table->unsignedBigInteger('ejemplares_eventos_id')->nullable();
+            $table->foreign('ejemplares_eventos_id')->references('id')->on('ejemplares_eventos');
             $table->unsignedBigInteger('evento_id')->nullable();
             $table->foreign('evento_id')->references('id')->on('eventos');
             $table->unsignedBigInteger('juez_id')->nullable();
@@ -39,6 +39,7 @@ class CreateCalificacionTable extends Migration
             $table->foreign('grupo_id')->references('id')->on('grupos');
             $table->string('sexo',50)->nullable();
             $table->string('grupo',50)->nullable();
+            $table->string('numero_prefijo',50)->nullable();
             $table->string('calificacion',100)->nullable();
             $table->string('lugar',5)->nullable();
             $table->string('estado')->nullable();
