@@ -2,8 +2,10 @@
 
 namespace App;
 
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Svg\Tag\Rect;
 
 class Juez extends Model
 {
@@ -123,6 +125,14 @@ class Juez extends Model
                                     ->get();
 
         return $ejemplares;
+
+    }
+
+    public static function verificaEjemplar($ejemplar_evento_id, $categoria_id, $numero_prefijo){
+
+        $cantidad = Calificacion::where('categoria_id', $categoria_id)
+                                ->where()
+                                ->count();
 
     }
 }

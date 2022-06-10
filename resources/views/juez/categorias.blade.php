@@ -9,8 +9,6 @@
 @endsection
 
 @section('content')
-
-
     {{-- inicio modal calificacion  --}}
     <div class="modal fade" id="modalCalificacionEjmeplar" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
         <div class="modal-dialog" role="document">
