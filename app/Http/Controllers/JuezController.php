@@ -651,27 +651,38 @@ class JuezController extends Controller
         $lugares            = $request->input('lugar_ejemplar');
         $ejemplares         = $request->input('ejemplar_id_ejemplar');
 
-        // dd($this->validaCalificaciones($ejemplares_eventos,$calificaciones,$lugares)['status']);
-        $valida = $this->validaCalificaciones($ejemplares_eventos,$calificaciones,$lugares);
+        $valida = $this->validaCalificaciones($ejemplares_eventos, $calificaciones, $lugares);
+
+        $arrayRepetidos = array();
 
         if($valida['status']){
 
             foreach ($ejemplares_eventos as $key => $e){
 
-                $calificacion = new  Calificacion();
-    
-                $calificacion->creador_id               = Auth::user()->id;
-                $calificacion->ejemplares_eventos_id    = intval($e);
-                $calificacion->evento_id                = $evento_id[0];
-                $calificacion->ejemplar_id              = $ejemplares[$key];
-                $calificacion->raza_id                  = $raza_id[0];
-                $calificacion->categoria_id             = $categoria_id[0];
-                $calificacion->sexo                     = $sexo[0];
-                $calificacion->numero_prefijo           = $numero_prefijos[$key];
-                $calificacion->calificacion             = $calificaciones[$key];
-                $calificacion->lugar                    = $lugares[$key];
-    
-                $calificacion->save();
+                $cantidadEjemplarRepetido = Juez::verificaEjemplar(intval($e), $categoria_id[0], $numero_prefijos[$key]);
+
+                if($cantidadEjemplarRepetido == 0){
+
+                    $calificacion = new  Calificacion();
+        
+                    $calificacion->creador_id               = Auth::user()->id;
+                    $calificacion->ejemplares_eventos_id    = intval($e);
+                    $calificacion->evento_id                = $evento_id[0];
+                    $calificacion->ejemplar_id              = $ejemplares[$key];
+                    $calificacion->raza_id                  = $raza_id[0];
+                    $calificacion->categoria_id             = $categoria_id[0];
+                    $calificacion->sexo                     = $sexo[0];
+                    $calificacion->numero_prefijo           = $numero_prefijos[$key];
+                    $calificacion->calificacion             = $calificaciones[$key];
+                    $calificacion->lugar                    = $lugares[$key];
+        
+                    $calificacion->save();
+
+                }else{
+                    
+                    array_push($arrayRepetidos,intval($e));
+                }
+
     
             }
 
