@@ -9,8 +9,37 @@
 @endsection
 
 @section('content')
+
+    
+    {{-- inicio modal ganadores  --}}
+    <div class="modal fade" id="modalGanadoresEjmeplar" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">MEJORES EJEMPLARES DE LA RAZA <span class="text-info" id="mejor_raza"></span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="bloque_mejores_ejemplares_machos">
+                        
+                    </div>
+
+                    <div id="bloque_mejores_ejemplares_hembras">
+                        
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-info btn-block" onclick="volver()">Volver</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- fin inicio modal ganadores --}}
+
     {{-- inicio modal calificacion  --}}
-    <div class="modal fade" id="modalCalificacionEjmeplar" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+    {{-- <div class="modal fade" id="modalCalificacionEjmeplar" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -49,7 +78,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     {{-- fin inicio modal calificacion --}}
 
     {{-- inicio modal  --}}
@@ -67,7 +96,9 @@
 
                     </div>
                     <hr>
+                    <div id="bloque_ganador" style="display: none">
 
+                    </div>
                 </div>
                 <div class="modal-footer">
 
@@ -134,7 +165,7 @@
                                                     <div class="card-header" id="headingOneRazas{{ $keyRazas."_".$key }}">
                                                         <h5 class="mb-0">
                                                             <div class="row">
-                                                                <div class="col-md-12">
+                                                                <div class="col-md-11">
                                                                     <center>
                                                                         <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseOneRazas{{ $keyRazas."_".$key }}" aria-expanded="true" aria-controls="collapseOneRazas{{ $keyRazas."_".$key }}">
                                                                             <h6>
@@ -143,12 +174,18 @@
                                                                         </button>
                                                                     </center>
                                                                 </div>
+                                                                <div class="col-md-1">
+                                                                    <button class="btn btn-info btn-icon btn-sm" type="button" onclick="modalGanadores('{{ $razas->raza->id }}', '{{ $razas->raza->nombre }}', '{{ $evento->id }}')"><i class="fa fa-list"></i></button>
+                                                                </div>
                                                             </div>
                                                         </h5>
+
                                                     </div>
                                             
                                                     <div id="collapseOneRazas{{ $keyRazas."_".$key }}" class="collapse" aria-labelledby="headingOneRazas{{ $keyRazas."_".$key }}" data-parent="#accordionRasas{{ $key }}">
                                                         <div class="card-body">
+
+                                                            <hr>
 
                                                             @php
 
@@ -195,7 +232,7 @@
 
                                                             @endphp
                                                             <h3 class="text-center text-primary">Machos</h3>
-
+                                                            
                                                             @while ($contadorMacho < $cantCategoriaMacho)
                                                                 <div class="row">
                                                                     @for ($i = 0; $i < 4 ; $i++)
@@ -419,6 +456,8 @@
 
                     if(data.status === "success"){
 
+                        $('#bloque_ganador').css('display', 'none');
+
                         $('#ejemplares-categorias').html(data.table)
                         $('#modalCalificacion').modal('show');
 
@@ -468,6 +507,18 @@
 
                     if(data.status === 'success'){
 
+                        if(data.ganador){
+
+                            $('#bloque_ganador').html(data.ganadorhtml);
+                            $('#bloque_ganador').toggle('show');
+
+                            console.log("si")
+
+
+                        }else{
+                            console.log("no")
+                        }
+
                     }else{
 
                         $(data.ejemplar_evento_id).each(function(index, element) {
@@ -492,6 +543,44 @@
 
         }
 
+        function modalGanadores(raza, nombre, evento){
+
+            $.ajax({
+
+                url: "{{ url('Juez/ajaxGanadores') }}",
+                data: {
+                    raza        : raza,
+                    evento      : evento,
+                },
+                type: 'POST',
+                dataType: 'json',
+                success: function(data) {
+
+                    // console.log(data);
+                    $('#bloque_mejores_ejemplares_machos').html(data.table_machos)
+                    $('#bloque_mejores_ejemplares_hembras').html(data.table_hembras)
+
+                    $('#mejor_raza').text(nombre);
+                    $('#modalGanadoresEjmeplar').modal('show');
+
+                    // if(data.status === "success"){
+
+                    //     $('#bloque_ganador').css('display', 'none');
+
+                    //     $('#ejemplares-categorias').html(data.table)
+                    //     $('#modalCalificacion').modal('show');
+
+                    // }else{
+
+                    // }
+
+                }
+
+            });
+
+        }
+
     </script>
    
 @endsection
+

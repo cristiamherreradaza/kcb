@@ -8,14 +8,15 @@ use App\Raza;
 use App\Grupo;
 
 use App\Evento;
+use App\Ganador;
 use App\GrupoRaza;
 use App\Asignacion;
 use App\Calificacion;
 use App\CategoriaJuez;
 use App\EjemplarEvento;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\Facades\DB;
 use function GuzzleHttp\Promise\all;
 use Illuminate\Support\Facades\Auth;
 
@@ -654,6 +655,7 @@ class JuezController extends Controller
         $valida = $this->validaCalificaciones($ejemplares_eventos, $calificaciones, $lugares);
 
         $arrayRepetidos = array();
+        $arrayMejorEjemplar = array();
 
         if($valida['status']){
 
@@ -678,15 +680,93 @@ class JuezController extends Controller
         
                     $calificacion->save();
 
+                    if($calificaciones[$key] == "Excelente" && $lugares[$key] == 1){
+
+                        $arrayMejorEjemplar = array(
+
+                            'calificacion_id'       => $calificacion->id,
+                            'ejemplar_id'           => $ejemplares[$key],
+                            'evento_id'             => $evento_id[0],
+                            'ejemplar_evento_id'    => intval($e),
+                            'categoria_id'          => $categoria_id[0],
+                            'numero_prefijo'        => $numero_prefijos[$key],
+                            'calificacion'          => $calificaciones[$key],
+                            'raza'                  => $raza_id[0],
+                            'sexo'                  => $sexo[0],
+                            'lugar'                 => $lugares[$key]
+
+                        );
+
+                    }
+
                 }else{
-                    
+
                     array_push($arrayRepetidos,intval($e));
                 }
 
     
             }
 
+            // preguntamos si hay mejor de la categoria y agregamos al mejor
+            if(count($arrayMejorEjemplar) > 0){
+
+                $ganador = new Ganador();
+
+                $ganador->creador_id            = Auth::user()->id;
+                $ganador->calificacion_id       = $arrayMejorEjemplar['calificacion_id'];
+                $ganador->ejemplar_id           = $arrayMejorEjemplar['ejemplar_id'];
+                $ganador->evento_id             = $arrayMejorEjemplar['evento_id'];
+                $ganador->ejemplar_evento_id    = $arrayMejorEjemplar['ejemplar_evento_id'];
+                $ganador->categoria_id          = $arrayMejorEjemplar['categoria_id'];
+                $ganador->raza_id               = $arrayMejorEjemplar['raza'];
+                $ganador->sexo                  = $arrayMejorEjemplar['sexo'];
+                $ganador->numero_prefijo        = $arrayMejorEjemplar['numero_prefijo'];
+                $ganador->calificacion          = $arrayMejorEjemplar['calificacion'];
+                $ganador->lugar                 = $arrayMejorEjemplar['lugar'];
+
+                $ganador->save();
+
+                $ganadorConfir = true;
+
+                // $data['ganadorhtml'] = '<div class="row">
+                //                             <div class="col-md-4">
+                //                                 <input type="text" class="form-control" disabled value="'.$ganador->numero_prefijo.'">
+                //                             </div>
+                //                             <div class="col-md-4">
+                //                                 <input type="text" class="form-control" disabled value="'.$ganador->calificacion.'">
+                //                             </div>
+                //                             <div class="col-md-4">
+                //                                 <input type="text" class="form-control" disabled value="'.$ganador->lugar.'">
+                //                             </div>
+                //                         </div>';
+
+                                        
+                $data['ganadorhtml'] = '<table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>N~</th>
+                                                    <th>Calificacion</th>
+                                                    <th>Lugar</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>'.$ganador->numero_prefijo.'</td>
+                                                    <td>'.$ganador->calificacion.'</td>
+                                                    <td>'.$ganador->lugar.'</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>';
+                
+            }else{
+
+                $ganadorConfir = false;
+
+            }
+            
+
             $data['status'] = 'success';
+            $data['ganador'] = $ganadorConfir;
 
         }else{
 
@@ -733,5 +813,218 @@ class JuezController extends Controller
         $data['ejemplar_enviados'] = $arrayEjemplaresEnviados;
 
         return $data;
+    }
+
+    public function ajaxGanadores(Request $request){
+
+        $raza_id = $request->input('raza');
+        $evento_id = $request->input('evento');
+
+        // ESTO ES PARA LOS MACHOS
+        $tableBodytd = '';
+        $tableCabezaraTh = '';
+
+        $cachorroMacho              = Juez::ganadorEjemplarEvento($raza_id, $evento_id, 11);
+
+        if($cachorroMacho){
+
+            $tableCabezaraTh    = $tableCabezaraTh.'<th>CACHORRO</th>';
+            $tableBodytd = $tableBodytd.'<td>'.$cachorroMacho->numero_prefijo.'</td>';
+
+        }
+
+        $jovenMacho                 = Juez::ganadorEjemplarEvento($raza_id, $evento_id, 3);
+
+        if($jovenMacho){
+
+            $tableCabezaraTh    = $tableCabezaraTh.'<th>JOVEN</th>';
+            $tableBodytd = $tableBodytd.'<td>'.$jovenMacho->numero_prefijo.'</td>';
+            
+        }
+
+        $jovenCampeonMacho          = Juez::ganadorEjemplarEvento($raza_id, $evento_id, 12);
+
+        if($jovenCampeonMacho){
+
+            $tableCabezaraTh    = $tableCabezaraTh.'<th>JOVEN CAMPEON</th>';
+            $tableBodytd = $tableBodytd.'<td>'.$jovenCampeonMacho->numero_prefijo.'</td>';
+            
+        }
+        
+        $intermediaMacho            = Juez::ganadorEjemplarEvento($raza_id, $evento_id, 5);
+
+        if($intermediaMacho){
+
+            $tableCabezaraTh    = $tableCabezaraTh.'<th>INTERMEDIA</th>';
+            $tableBodytd = $tableBodytd.'<td>'.$intermediaMacho->numero_prefijo.'</td>';
+            
+        }
+        
+        $abiertaMacho               = Juez::ganadorEjemplarEvento($raza_id, $evento_id, 7);
+
+        if($abiertaMacho){
+
+            $tableCabezaraTh    = $tableCabezaraTh.'<th>ABIERTA</th>';
+            $tableBodytd = $tableBodytd.'<td>'.$abiertaMacho->numero_prefijo.'</td>';
+            
+        }
+        
+        $campeonMacho               = Juez::ganadorEjemplarEvento($raza_id, $evento_id, 9);
+
+        if($campeonMacho){
+
+            $tableCabezaraTh    = $tableCabezaraTh.'<th>CAMPEON</th>';
+            $tableBodytd = $tableBodytd.'<td>'.$campeonMacho->numero_prefijo.'</td>';
+            
+        }
+        
+        $grandesCampeonesMacho      = Juez::ganadorEjemplarEvento($raza_id, $evento_id, 14);
+
+        if($grandesCampeonesMacho){
+
+            $tableCabezaraTh    = $tableCabezaraTh.'<th>GRANDES CAMPEONES</th>';
+            $tableBodytd = $tableBodytd.'<td>'.$grandesCampeonesMacho->numero_prefijo.'</td>';
+            
+        }
+
+        $tableCabeza = '
+            <table class="table table-hover text-center">
+                <thead>
+                    <tr>
+                    '.$tableCabezaraTh.'
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+            ';
+            
+        $tablePie = '
+                    </tr>
+                </tbody>
+            </table>
+        ';
+
+        $table = $tableCabeza.$tableBodytd.$tablePie;
+
+        $data['table_machos'] = $table;
+
+
+        // AHORA PARA LAS HEMBRAS
+        $tableBodytd = '';
+        $tableCabezaraTh = '';
+        $jovenes = false;
+
+        $cachorroHembra              = Juez::ganadorEjemplarEvento($raza_id, $evento_id, 2);
+
+        if($cachorroHembra){
+
+            $tableCabezaraTh    = $tableCabezaraTh.'<th>CACHORRO</th>';
+            $tableBodytd = $tableBodytd.'<td>'.$cachorroHembra->numero_prefijo.'</td>';
+
+        }
+
+        $jovenHembra                 = Juez::ganadorEjemplarEvento($raza_id, $evento_id, 4);
+
+        if($jovenHembra){
+
+            $tableCabezaraTh    = $tableCabezaraTh.'<th>JOVEN</th>';
+            $tableBodytd = $tableBodytd.'<td>'.$jovenHembra->numero_prefijo.'</td>';
+            
+        }
+
+        $jovenCampeonHembra          = Juez::ganadorEjemplarEvento($raza_id, $evento_id, 13);
+
+        if($jovenCampeonHembra){
+
+            $tableCabezaraTh    = $tableCabezaraTh.'<th>JOVEN CAMPEON</th>';
+            $tableBodytd = $tableBodytd.'<td>'.$jovenCampeonHembra->numero_prefijo.'</td>';
+            
+        }
+
+        if($jovenHembra && $jovenCampeonHembra){
+
+            $jovenes = true;
+
+        }
+        
+        $intermediaHembra            = Juez::ganadorEjemplarEvento($raza_id, $evento_id, 6);
+
+        if($intermediaHembra){
+
+            $tableCabezaraTh    = $tableCabezaraTh.'<th>INTERMEDIA</th>';
+            $tableBodytd = $tableBodytd.'<td>'.$intermediaHembra->numero_prefijo.'</td>';
+            
+        }
+        
+        $abiertaHembra               = Juez::ganadorEjemplarEvento($raza_id, $evento_id, 8);
+
+        if($abiertaHembra){
+
+            $tableCabezaraTh    = $tableCabezaraTh.'<th>ABIERTA</th>';
+            $tableBodytd = $tableBodytd.'<td>'.$abiertaHembra->numero_prefijo.'</td>';
+            
+        }
+        
+        $campeonHembra               = Juez::ganadorEjemplarEvento($raza_id, $evento_id, 10);
+
+        if($campeonHembra){
+
+            $tableCabezaraTh    = $tableCabezaraTh.'<th>CAMPEON</th>';
+            $tableBodytd = $tableBodytd.'<td>'.$campeonHembra->numero_prefijo.'</td>';
+            
+        }
+        
+        $grandesCampeonesHembra      = Juez::ganadorEjemplarEvento($raza_id, $evento_id, 15);
+
+        if($grandesCampeonesHembra){
+
+            $tableCabezaraTh    = $tableCabezaraTh.'<th>GRANDES CAMPEONES</th>';
+            $tableBodytd = $tableBodytd.'<td>'.$grandesCampeonesHembra->numero_prefijo.'</td>';
+            
+        }
+
+        $tableCabeza = '
+            <table class="table table-hover text-center">
+                <thead>
+                    <tr>
+                    '.$tableCabezaraTh.'
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+            ';
+
+        if($jovenes){
+
+            $pie = '<select class="form-control">
+                        <option value="">SELECCIONE MEJOR JOVEN HEMBRA</option>
+                        <option value="">'.$jovenHembra->numero_prefijo.'</option>
+                        <option value="">'.$jovenCampeonHembra->numero_prefijo.'</option>
+                    </select>';
+
+        }else{
+            $pie = '';
+        }
+            
+        $tablePie = '
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th></th>
+                        
+                        <th colspan="2">'.$pie.'</th>
+                    </tr>
+                </tfoot>
+            </table>
+        ';
+
+        $table = $tableCabeza.$tableBodytd.$tablePie;
+
+        $data['table_hembras'] = $table;
+
+
+        return json_encode($data);
+
     }
 }

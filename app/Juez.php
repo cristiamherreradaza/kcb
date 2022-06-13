@@ -131,12 +131,22 @@ class Juez extends Model
     public static function verificaEjemplar($ejemplar_evento_id, $categoria_id, $numero_prefijo){
 
         $cantidad = Calificacion::where('categoria_id', $categoria_id)
-                                ->where('ejemplar_evento_id', $ejemplar_evento_id)
+                                ->where('ejemplares_eventos_id', $ejemplar_evento_id)
                                 ->where('numero_prefijo', $numero_prefijo)
                                 ->count();
 
 
         return $cantidad;
 
+    }
+
+    public static function ganadorEjemplarEvento($raza, $evento, $categoria){
+
+        $jemplar = Ganador::where('evento_id',$evento)
+                        ->where('raza_id',$raza)
+                        ->where('categoria_id',$categoria)
+                        ->first();
+
+        return $jemplar;
     }
 }
