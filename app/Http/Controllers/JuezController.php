@@ -1027,4 +1027,89 @@ class JuezController extends Controller
         return json_encode($data);
 
     }
+
+    public function ajaxCategoriasCalificacion(Request $request){
+
+        $categorias = $request->input('categorias');
+        $raza_id    = $request->input('raza');
+        $evento_id  = $request->input('evento');
+
+        $tablePrincipal = '';
+        $data['tables'] = '';
+
+        $cantidadCategorias = count($categorias);
+        
+        if($cantidadCategorias == 1){
+            $columna = 'class="col-md-12"';
+        }elseif($cantidadCategorias == 2){
+            $columna = 'class="col-md-6"';
+        }elseif($cantidadCategorias == 3){
+            $columna = 'class="col-md-4"';
+        }elseif($cantidadCategorias == 4){
+            $columna = 'class="col-md-3"';
+        }
+
+
+        foreach($categorias as $ca){
+
+            // echo $ca['categoria_id']."<br>";
+
+            $tableCabeza = '';
+            $tableFoooter= '';
+
+            $tableCabeza =  $tableCabeza.'<div '.$columna.' >
+                                            <table class="table table-hover text-center">
+                                                <thead>
+                                                    <tr>
+                                                        <th colspan="3">'.$ca['nombre'].'</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>';
+
+            $ejemplares = Juez::EjemplarCatalogoRaza($ca['categoria_id'], $raza_id, $evento_id);
+
+            
+            $tableBody = '';
+
+            foreach ($ejemplares as $eje){
+
+                $tableBody = $tableBody.'<tr>
+                                            <td>
+                                                <h1 class="text-primary">'.$eje->numero_prefijo.'</h1>
+                                            </td>
+                                            <td>
+                                                <select name="calificacion_ejemplar[]" id="calificacion_ejemplar" class="form-control">
+                                                    <option value="Excelente">Excelente</option>
+                                                    <option value="Muy Bien">Muy Bien</option>
+                                                    <option value="Bien">Bien</option>
+                                                    <option value="Descalificado">Descalificado</option>
+                                                    <option value="Ausente">Ausente</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select name="lugar_ejemplar[]" id="lugar_ejemplar" class="form-control">
+                                                    <option value="1">Primero</option>
+                                                    <option value="2">Segundo</option>
+                                                    <option value="3">Tercero</option>
+                                                    <option value="4">Cuarto</option>
+                                                    <option value="5">Quinto</option>
+                                                </select>
+                                            </td>
+                                        </tr>';
+
+            }
+
+                $tableFoooter = $tableFoooter.'</tbody>
+                                            </table>
+                                        </div>';
+
+            $data['tables'] = $data['tables'].$tablePrincipal.$tableCabeza.$tableBody.$tableFoooter;
+
+        }
+
+        $data['tables'] = $data['tables'].'<div class="row"><div class="col-md-12"><button class="btn btn-success btn-block">Finalizar</button></div></div>';
+
+        return json_encode($data);
+
+    }
 }

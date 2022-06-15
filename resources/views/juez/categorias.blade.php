@@ -10,6 +10,34 @@
 
 @section('content')
 
+
+    {{-- inicio modal  --}}
+    <div class="modal fade" id="modalCalificacionCategorias" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">FORMULARIO DE CALIFICACION</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="ejemplares-categorias" class="row">
+
+                    </div>
+                    <hr>
+                    <div id="bloque_ganador" style="display: none">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- fin inicio modal  --}}
+
     
     {{-- inicio modal ganadores  --}}
     <div class="modal fade" id="modalGanadoresEjmeplar" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
@@ -82,7 +110,7 @@
     {{-- fin inicio modal calificacion --}}
 
     {{-- inicio modal  --}}
-    <div class="modal fade" id="modalCalificacion" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+    {{-- <div class="modal fade" id="modalCalificacion" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -105,7 +133,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     {{-- fin inicio modal  --}}
 
     <!--begin::Card-->
@@ -383,7 +411,7 @@
                                                                                             $contadorMacho1 = 0;
                                                                                         @endphp 
 
-                                                                                        <button class="btn btn-primary btn-block" type="button" onclick="modalcategorias({{ json_encode($arrayCategoriasMachos[$contadorArryaMacho]) }})">
+                                                                                        <button class="btn btn-primary btn-block" type="button" onclick="modalcategorias({{ json_encode($arrayCategoriasMachos[$contadorArryaMacho]) }}, '{{ $razas->raza_id }}', '{{ $evento->id }}')">
                                                                                         {{-- <button class="btn btn-primary btn-block" type="button" onclick="modalcategorias(@json($arrayCategoriasMachos[$contadorArryaMacho]))"> --}}
                                                                                             @foreach ( $arrayCategoriasMachos[$contadorArryaMacho] as $cate)
 
@@ -432,7 +460,7 @@
                                                                                             <thead>
                                                                                                 <tr>
                                                                                                     <th class="text-primary">
-                                                                                                        <button class="btn btn-primary btn-block" type="button" onclick="modalcategorias({{ json_encode($arrayCategoriasMachos[$contadorArryaMacho]) }})">
+                                                                                                        <button class="btn btn-primary btn-block" type="button" onclick="modalcategorias({{ json_encode($arrayCategoriasMachos[$contadorArryaMacho]) }}, '{{ $razas->raza_id }}', '{{ $evento->id }}')">
                                                                                                             {{ $arrayCategoriasMachos[$contadorArryaMacho][0]['nombre'] }}
                                                                                                         </button>
                                                                                                     </th>
@@ -474,10 +502,9 @@
                                                                 </div>
                                                             @endwhile
 
-                                                            <hr class="border-5 bg-warning">
-
+                                                            {{-- SAEGUNOD INTENTO --}}
+                                                            {{-- <hr class="border-5 bg-warning">
                                                             <h3 class="text-center text-primary">Machos</h3>
-                                                            
                                                             @while ($contadorMacho < $cantCategoriaMacho)
                                                                 <div class="row">
                                                                     @for ($i = 0; $i < 3 ; $i++)
@@ -523,16 +550,11 @@
                                                                         @endif
                                                                     @endfor
                                                                 </div>
-                                                            @endwhile
-
-
+                                                            @endwhile --}}
 
                                                             <hr class="border-5 bg-dark">
 
-
-
                                                             <h3 class="text-center" style="color: #F94EE4 ;">Hembras</h3>
-                                                            
                                                             @while ($contadorArryaHembra < 3)
                                                                 <div class="row">
                                                                     @for ($i = 0; $i < 3 ; $i++)
@@ -547,7 +569,7 @@
                                                                                             $contadorHembra1 = 0;
                                                                                         @endphp 
 
-                                                                                        <button class="btn btn-block" type="button"  style="background: #F94EE4 ; color:white">
+                                                                                        <button class="btn btn-block" type="button"  style="background: #F94EE4 ; color:white" onclick="modalcategorias({{ json_encode($arrayCategoriasHembras[$contadorArryaHembra]) }}, '{{ $razas->raza_id }}', '{{ $evento->id }}')">
                                                                                             @foreach ( $arrayCategoriasHembras[$contadorArryaHembra] as $cate)
                                                                                                 {{ $cate['nombre'].' <-> ' }}
                                                                                             @endforeach
@@ -592,7 +614,7 @@
                                                                                             <thead>
                                                                                                 <tr>
                                                                                                     <th class="text-primary">
-                                                                                                        <button class="btn btn-block" type="button" style="color: white;background: #F94EE4 ;">
+                                                                                                        <button class="btn btn-block" type="button" style="color: white;background: #F94EE4 ;" onclick="modalcategorias({{ json_encode($arrayCategoriasHembras[$contadorArryaHembra]) }}, '{{ $razas->raza_id }}', '{{ $evento->id }}')">
                                                                                                             {{ $arrayCategoriasHembras[$contadorArryaHembra][0]['nombre'] }}
                                                                                                         </button>
                                                                                                     </th>
@@ -634,10 +656,9 @@
                                                                 </div>
                                                             @endwhile
 
-                                                            <hr class="border-5 bg-warning">
-
+                                                                {{-- segundo intento --}}
+                                                            {{-- <hr class="border-5 bg-warning">
                                                             <h3 class="text-center"  style="color: #F94EE4 ;">Hembras</h3>
-                                                            
                                                             @while ($contadorHembra < $cantCategoriaHembra)
                                                                 <div class="row">
                                                                     @for ($i = 0; $i < 4 ; $i++)
@@ -682,7 +703,7 @@
                                                                         @endif
                                                                     @endfor
                                                                 </div>
-                                                            @endwhile
+                                                            @endwhile --}}
 
                                                             {{-- <hr class="border-5 bg-danger">
 
@@ -926,9 +947,43 @@
 
         }
 
-        function modalcategorias(array){
+        function modalcategorias(array, raza_id, evento_id){
 
-            console.log(array);
+            // console.log(array);
+            // console.log('------------------');
+            
+            // console.log(raza_id);
+            // console.log('------------------');
+            
+            // console.log(evento_id);
+            // console.log('------------------');
+
+            $.ajax({
+
+                url: "{{ url('Juez/ajaxCategoriasCalificacion') }}",
+                data: {
+                    categorias  :   array,
+                    raza        :   raza_id,
+                    evento      :   evento_id
+                },
+                type: 'POST',
+                dataType: 'json',
+                success: function(data) {
+
+                    $('#ejemplares-categorias').html(data.tables);
+
+                    $('#modalCalificacionCategorias').modal('show');
+
+                    console.log(data);
+                    // $('#bloque_mejores_ejemplares_machos').html(data.table_machos)
+                    // $('#bloque_mejores_ejemplares_hembras').html(data.table_hembras)
+
+                    // $('#mejor_raza').text(nombre);
+                    // $('#modalGanadoresEjmeplar').modal('show');
+
+                }
+
+            });
 
         }
 
