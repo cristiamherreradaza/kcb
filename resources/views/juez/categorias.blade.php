@@ -383,11 +383,15 @@
                                                                                             $contadorMacho1 = 0;
                                                                                         @endphp 
 
-                                                                                        <button class="btn btn-primary btn-block" type="button">
+                                                                                        <button class="btn btn-primary btn-block" type="button" onclick="modalcategorias({{ json_encode($arrayCategoriasMachos[$contadorArryaMacho]) }})">
+                                                                                        {{-- <button class="btn btn-primary btn-block" type="button" onclick="modalcategorias(@json($arrayCategoriasMachos[$contadorArryaMacho]))"> --}}
                                                                                             @foreach ( $arrayCategoriasMachos[$contadorArryaMacho] as $cate)
+
                                                                                                 {{ $cate['nombre'].' <-> ' }}
+
                                                                                             @endforeach
                                                                                         </button>
+
                                                                                         <div class="row">
                                                                                             @foreach ( $arrayCategoriasMachos[$contadorArryaMacho] as $ejemCAte)
                                                                                             <div class="col-md-6">
@@ -428,7 +432,7 @@
                                                                                             <thead>
                                                                                                 <tr>
                                                                                                     <th class="text-primary">
-                                                                                                        <button class="btn btn-primary btn-block" type="button">
+                                                                                                        <button class="btn btn-primary btn-block" type="button" onclick="modalcategorias({{ json_encode($arrayCategoriasMachos[$contadorArryaMacho]) }})">
                                                                                                             {{ $arrayCategoriasMachos[$contadorArryaMacho][0]['nombre'] }}
                                                                                                         </button>
                                                                                                     </th>
@@ -867,7 +871,9 @@
 
 
                         }else{
+
                             console.log("no")
+
                         }
 
                     }else{
@@ -914,20 +920,15 @@
                     $('#mejor_raza').text(nombre);
                     $('#modalGanadoresEjmeplar').modal('show');
 
-                    // if(data.status === "success"){
-
-                    //     $('#bloque_ganador').css('display', 'none');
-
-                    //     $('#ejemplares-categorias').html(data.table)
-                    //     $('#modalCalificacion').modal('show');
-
-                    // }else{
-
-                    // }
-
                 }
 
             });
+
+        }
+
+        function modalcategorias(array){
+
+            console.log(array);
 
         }
 
