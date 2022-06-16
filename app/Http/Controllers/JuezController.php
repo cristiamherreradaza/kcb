@@ -1107,7 +1107,18 @@ class JuezController extends Controller
 
         }
 
-        $data['tables'] = $data['tables'].'<div class="row"><div class="col-md-12"><button class="btn btn-success btn-block">Finalizar</button></div></div>';
+        // $data['tables'] = $data['tables'].'<div class="row">
+        //                                         <div class="col-md-12">
+        //                                             <button class="btn btn-success btn-block">Finalizar</button>
+        //                                         </div>
+        //                                     </div>';
+
+        
+        $data['tables'] = $data['tables'].'<div class="row bg-danger">
+                                                <div class="col-md-12">
+                                                    <button class="btn btn-success btn-block">Finalizar</button>
+                                                </div>
+                                            </div>';
 
         return json_encode($data);
 

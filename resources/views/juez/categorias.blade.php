@@ -356,31 +356,31 @@
                                                                 // dd($categoriaHembra, $categoriaMacho);
 
                                                                 
-                                                                echo "<h1>Machos</h1>";
-                                                                print_r($categoriasCachorroAbsolutosMacho);
-                                                                echo "<hr>";
-                                                                print_r($categoriasJovenJovenCampeonMacho);
-                                                                echo "<hr>";
-                                                                print_r($categoriasIntrerAbierCampeGrandMacho);
+                                                                // echo "<h1>Machos</h1>";
+                                                                // print_r($categoriasCachorroAbsolutosMacho);
+                                                                // echo "<hr>";
+                                                                // print_r($categoriasJovenJovenCampeonMacho);
+                                                                // echo "<hr>";
+                                                                // print_r($categoriasIntrerAbierCampeGrandMacho);
 
-                                                                echo "<br><hr><br>";
+                                                                // echo "<br><hr><br>";
 
-                                                                echo "<h1>Hembras</h1>";
-                                                                print_r($categoriasCachorroAbsolutosHembra);
-                                                                echo "<hr>";
-                                                                print_r($categoriasJovenJovenCampeonHembra);
-                                                                echo "<hr>";
-                                                                print_r($categoriasIntrerAbierCampeGrandHembra);
+                                                                // echo "<h1>Hembras</h1>";
+                                                                // print_r($categoriasCachorroAbsolutosHembra);
+                                                                // echo "<hr>";
+                                                                // print_r($categoriasJovenJovenCampeonHembra);
+                                                                // echo "<hr>";
+                                                                // print_r($categoriasIntrerAbierCampeGrandHembra);
 
-                                                                echo "<br>";
-                                                                echo "<br>";
-                                                                echo "<br>";
-                                                                echo "<br>";
-                                                                print_r($arrayCategoriasMachos);
-                                                                echo "<br>";
-                                                                echo "<hr>";
-                                                                echo "<br>";
-                                                                print_r($arrayCategoriasHembras);
+                                                                // echo "<br>";
+                                                                // echo "<br>";
+                                                                // echo "<br>";
+                                                                // echo "<br>";
+                                                                // print_r($arrayCategoriasMachos);
+                                                                // echo "<br>";
+                                                                // echo "<hr>";
+                                                                // echo "<br>";
+                                                                // print_r($arrayCategoriasHembras);
 
                                                                 $cantCategoriaHembra = count($categoriaHembra);
                                                                 $cantCategoriaMacho = count($categoriaMacho);
