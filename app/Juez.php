@@ -37,6 +37,13 @@ class Juez extends Model
 
     }
 
+    /*
+    @return array ejemplares
+
+    esta funcion te devuleve las categorias pero en conjunto tanto jovenes y jovenes campeones
+    intermdias abiertas campeones grandes campeones en un solo blouqe
+
+     */
     public static function ejemplaresCategoria($categoria, $evento_id, $grupo){
 
         if($categoria == "Especiales"){
@@ -117,6 +124,7 @@ class Juez extends Model
         return $categoriasRazas;
     }
 
+    // ESTA FUNCON DEVULVE LOS EJEMPLARES EVENTOS DE UNA DETERMINADA CATEGORIA , RAZA Y EVENTO
     public static function EjemplarCatalogoRaza($categoria_id, $raza_id, $evento_id){
 
         $ejemplares = EjemplarEvento::where('evento_id',$evento_id)
@@ -148,5 +156,14 @@ class Juez extends Model
                         ->first();
 
         return $jemplar;
+    }
+
+    // esta funcion devuelve la calificacion del ejemplar segun el id de ejemplares_eventos
+    public static function ejemplarEventoInscrito($ejemplar_evento_id){
+
+        $ejemplar_evento = Calificacion::where('ejemplares_eventos_id',$ejemplar_evento_id)->first();
+
+        return $ejemplar_evento;
+
     }
 }

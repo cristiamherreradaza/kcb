@@ -317,118 +317,119 @@ class JuezController extends Controller
         return view('juez.razas')->with(compact('razas','grupo_id','evento_id'));
     }
 
-    public function planilla(Request $request, $evento_id, $grupo_id, $raza_id){
+    // esta funcion me devuelve en PDF
+    // public function planilla(Request $request, $evento_id, $grupo_id, $raza_id){
 
-        $raza = Raza::find($raza_id);
+    //     $raza = Raza::find($raza_id);
 
-        $cachorrosMacho = Calificacion::where('evento_id', $evento_id)
-                                ->where('sexo',"Macho")
-                                ->where('raza_id',$raza_id)
-                                ->WhereIn('categoria_id',[1,2,11])
-                                ->get();
+    //     $cachorrosMacho = Calificacion::where('evento_id', $evento_id)
+    //                             ->where('sexo',"Macho")
+    //                             ->where('raza_id',$raza_id)
+    //                             ->WhereIn('categoria_id',[1,2,11])
+    //                             ->get();
 
-        $jovenMacho = Calificacion::where('evento_id', $evento_id)
-                            ->where('sexo',"Macho")
-                            ->where('raza_id',$raza_id)
-                            ->WhereIn('categoria_id',[3,4])
-                            ->get();
+    //     $jovenMacho = Calificacion::where('evento_id', $evento_id)
+    //                         ->where('sexo',"Macho")
+    //                         ->where('raza_id',$raza_id)
+    //                         ->WhereIn('categoria_id',[3,4])
+    //                         ->get();
 
-        $jovenCampeonMacho = Calificacion::where('evento_id', $evento_id)
-                            ->where('sexo',"Macho")
-                            ->where('raza_id',$raza_id)
-                            ->WhereIn('categoria_id',[12,13])
-                            ->get();
+    //     $jovenCampeonMacho = Calificacion::where('evento_id', $evento_id)
+    //                         ->where('sexo',"Macho")
+    //                         ->where('raza_id',$raza_id)
+    //                         ->WhereIn('categoria_id',[12,13])
+    //                         ->get();
 
-        $intermediaMacho = Calificacion::where('evento_id', $evento_id)
-                            ->where('sexo',"Macho")
-                            ->where('raza_id',$raza_id)
-                            ->WhereIn('categoria_id',[5,6])
-                            ->get();
+    //     $intermediaMacho = Calificacion::where('evento_id', $evento_id)
+    //                         ->where('sexo',"Macho")
+    //                         ->where('raza_id',$raza_id)
+    //                         ->WhereIn('categoria_id',[5,6])
+    //                         ->get();
 
-        $abiertaMacho = Calificacion::where('evento_id', $evento_id)
-                            ->where('sexo',"Macho")
-                            ->where('raza_id',$raza_id)
-                            ->WhereIn('categoria_id',[7,8])
-                            ->get();
+    //     $abiertaMacho = Calificacion::where('evento_id', $evento_id)
+    //                         ->where('sexo',"Macho")
+    //                         ->where('raza_id',$raza_id)
+    //                         ->WhereIn('categoria_id',[7,8])
+    //                         ->get();
 
-        $campeonesMacho = Calificacion::where('evento_id', $evento_id)
-                            ->where('sexo',"Macho")
-                            ->where('raza_id',$raza_id)
-                            ->WhereIn('categoria_id',[9,10])
-                            ->get();
+    //     $campeonesMacho = Calificacion::where('evento_id', $evento_id)
+    //                         ->where('sexo',"Macho")
+    //                         ->where('raza_id',$raza_id)
+    //                         ->WhereIn('categoria_id',[9,10])
+    //                         ->get();
 
-        $GrandesCampeonesMacho = Calificacion::where('evento_id', $evento_id)
-                            ->where('sexo',"Macho")
-                            ->where('raza_id',$raza_id)
-                            ->WhereIn('categoria_id',[14,15])
-                            ->get();
+    //     $GrandesCampeonesMacho = Calificacion::where('evento_id', $evento_id)
+    //                         ->where('sexo',"Macho")
+    //                         ->where('raza_id',$raza_id)
+    //                         ->WhereIn('categoria_id',[14,15])
+    //                         ->get();
 
-        $veteranosMacho = Calificacion::where('evento_id', $evento_id)
-                            ->where('sexo',"Macho")
-                            ->where('raza_id',$raza_id)
-                            ->WhereIn('categoria_id',[16,17])
-                            ->get();
+    //     $veteranosMacho = Calificacion::where('evento_id', $evento_id)
+    //                         ->where('sexo',"Macho")
+    //                         ->where('raza_id',$raza_id)
+    //                         ->WhereIn('categoria_id',[16,17])
+    //                         ->get();
 
-        // hembras
-        $cachorrosHembra = Calificacion::where('evento_id', $evento_id)
-                                ->where('sexo',"Hembra")
-                                ->where('raza_id',$raza_id)
-                                ->WhereIn('categoria_id',[1,2,11])
-                                ->get();
+    //     // hembras
+    //     $cachorrosHembra = Calificacion::where('evento_id', $evento_id)
+    //                             ->where('sexo',"Hembra")
+    //                             ->where('raza_id',$raza_id)
+    //                             ->WhereIn('categoria_id',[1,2,11])
+    //                             ->get();
 
-        $jovenHembra = Calificacion::where('evento_id', $evento_id)
-                            ->where('sexo',"Hembra")
-                            ->where('raza_id',$raza_id)
-                            ->WhereIn('categoria_id',[3,4])
-                            ->get();
+    //     $jovenHembra = Calificacion::where('evento_id', $evento_id)
+    //                         ->where('sexo',"Hembra")
+    //                         ->where('raza_id',$raza_id)
+    //                         ->WhereIn('categoria_id',[3,4])
+    //                         ->get();
 
-        $jovenCampeonHembra = Calificacion::where('evento_id', $evento_id)
-                            ->where('sexo',"Hembra")
-                            ->where('raza_id',$raza_id)
-                            ->WhereIn('categoria_id',[12,13])
-                            ->get();
+    //     $jovenCampeonHembra = Calificacion::where('evento_id', $evento_id)
+    //                         ->where('sexo',"Hembra")
+    //                         ->where('raza_id',$raza_id)
+    //                         ->WhereIn('categoria_id',[12,13])
+    //                         ->get();
 
-        $intermediaHembra = Calificacion::where('evento_id', $evento_id)
-                            ->where('sexo',"Hembra")
-                            ->where('raza_id',$raza_id)
-                            ->WhereIn('categoria_id',[5,6])
-                            ->get();
+    //     $intermediaHembra = Calificacion::where('evento_id', $evento_id)
+    //                         ->where('sexo',"Hembra")
+    //                         ->where('raza_id',$raza_id)
+    //                         ->WhereIn('categoria_id',[5,6])
+    //                         ->get();
 
-        $abiertaHembra = Calificacion::where('evento_id', $evento_id)
-                            ->where('sexo',"Hembra")
-                            ->where('raza_id',$raza_id)
-                            ->WhereIn('categoria_id',[7,8])
-                            ->get();
+    //     $abiertaHembra = Calificacion::where('evento_id', $evento_id)
+    //                         ->where('sexo',"Hembra")
+    //                         ->where('raza_id',$raza_id)
+    //                         ->WhereIn('categoria_id',[7,8])
+    //                         ->get();
 
-        $campeonesHembra = Calificacion::where('evento_id', $evento_id)
-                            ->where('sexo',"Hembra")
-                            ->where('raza_id',$raza_id)
-                            ->WhereIn('categoria_id',[9,10])
-                            ->get();
+    //     $campeonesHembra = Calificacion::where('evento_id', $evento_id)
+    //                         ->where('sexo',"Hembra")
+    //                         ->where('raza_id',$raza_id)
+    //                         ->WhereIn('categoria_id',[9,10])
+    //                         ->get();
 
-        $GrandesCampeonesHembra = Calificacion::where('evento_id', $evento_id)
-                            ->where('sexo',"Hembra")
-                            ->where('raza_id',$raza_id)
-                            ->WhereIn('categoria_id',[14,15])
-                            ->get();
+    //     $GrandesCampeonesHembra = Calificacion::where('evento_id', $evento_id)
+    //                         ->where('sexo',"Hembra")
+    //                         ->where('raza_id',$raza_id)
+    //                         ->WhereIn('categoria_id',[14,15])
+    //                         ->get();
 
-        $veteranosHembra = Calificacion::where('evento_id', $evento_id)
-                            ->where('sexo',"Hembra")
-                            ->where('raza_id',$raza_id)
-                            ->WhereIn('categoria_id',[16,17])
-                            ->get();
+    //     $veteranosHembra = Calificacion::where('evento_id', $evento_id)
+    //                         ->where('sexo',"Hembra")
+    //                         ->where('raza_id',$raza_id)
+    //                         ->WhereIn('categoria_id',[16,17])
+    //                         ->get();
 
-        $datoPlanilla = Calificacion::where('evento_id', $evento_id)
-                                    ->where('raza_id', $raza_id)
-                                    ->where('grupo_id', $grupo_id)
-                                    ->get();
+    //     $datoPlanilla = Calificacion::where('evento_id', $evento_id)
+    //                                 ->where('raza_id', $raza_id)
+    //                                 ->where('grupo_id', $grupo_id)
+    //                                 ->get();
 
-        // return view('juez.planilla')->with(compact('raza', 'cachorrosMacho', 'jovenMacho', 'jovenCampeonMacho', 'intermediaMacho', 'abiertaMacho', 'campeonesMacho', 'GrandesCampeonesMacho', 'veteranosMacho', 'cachorrosHembra', 'jovenHembra', 'jovenCampeonHembra', 'intermediaHembra', 'abiertaHembra', 'campeonesHembra', 'GrandesCampeonesHembra', 'veteranosHembra', 'datoPlanilla'));
+    //     // return view('juez.planilla')->with(compact('raza', 'cachorrosMacho', 'jovenMacho', 'jovenCampeonMacho', 'intermediaMacho', 'abiertaMacho', 'campeonesMacho', 'GrandesCampeonesMacho', 'veteranosMacho', 'cachorrosHembra', 'jovenHembra', 'jovenCampeonHembra', 'intermediaHembra', 'abiertaHembra', 'campeonesHembra', 'GrandesCampeonesHembra', 'veteranosHembra', 'datoPlanilla'));
 
-        $pdf    = PDF::loadView('juez.planilla', compact('raza', 'cachorrosMacho', 'jovenMacho', 'jovenCampeonMacho', 'intermediaMacho', 'abiertaMacho', 'campeonesMacho', 'GrandesCampeonesMacho', 'veteranosMacho', 'cachorrosHembra', 'jovenHembra', 'jovenCampeonHembra', 'intermediaHembra', 'abiertaHembra', 'campeonesHembra', 'GrandesCampeonesHembra', 'veteranosHembra', 'datoPlanilla'))->setPaper('letter', 'landscape');
+    //     $pdf    = PDF::loadView('juez.planilla', compact('raza', 'cachorrosMacho', 'jovenMacho', 'jovenCampeonMacho', 'intermediaMacho', 'abiertaMacho', 'campeonesMacho', 'GrandesCampeonesMacho', 'veteranosMacho', 'cachorrosHembra', 'jovenHembra', 'jovenCampeonHembra', 'intermediaHembra', 'abiertaHembra', 'campeonesHembra', 'GrandesCampeonesHembra', 'veteranosHembra', 'datoPlanilla'))->setPaper('letter', 'landscape');
 
-        return $pdf->stream('Planilla_'.date('Y-m-d H:i:s').'.pdf');        
-    }
+    //     return $pdf->stream('Planilla_'.date('Y-m-d H:i:s').'.pdf');        
+    // }
 
     public function categorias(Request $request, $evento_id){
 
@@ -1208,5 +1209,41 @@ class JuezController extends Controller
 
         return json_encode($data);
 
+    }
+
+    public function ajaxPlanilla(Request $request){
+
+        $raza_id    = $request->input('raza');
+        $evento_id  = $request->input('evento');
+        
+        // BUSCAMOS Y MANDAMOS LOS CACHORROS ABSOLUTOS
+        $ejemplaresCachorroAbsolutos    = Juez::EjemplarCatalogoRaza(11, $raza_id, $evento_id);
+
+        // BUSCAMOS Y MANDAMOS LOS JOVENES MACHOS
+        $ejemplaresJoven                = Juez::EjemplarCatalogoRaza(3, $raza_id, $evento_id);
+
+        // BUSCAMOS Y MANDAMOS LOS JOVENES CAMPEONES MACHOS
+        $ejemplaresJovenCampeonMacho    = Juez::EjemplarCatalogoRaza(12, $raza_id, $evento_id);
+        
+        // BUSCAMOS Y MANDAMOS LOS INTERMEDIA MACHOS
+        $ejemplaresIntermediaMacho      = Juez::EjemplarCatalogoRaza(5, $raza_id, $evento_id);
+
+        // BUSCAMOS Y MANDAMOS LOS ABIERTA MACHOS
+        $ejemplaresAbiertaMacho         = Juez::EjemplarCatalogoRaza(7, $raza_id, $evento_id);
+
+        // BUSCAMOS Y MANDAMOS LOS CAMPEONES MACHOS
+        $ejemplaresCampeonesMacho       = Juez::EjemplarCatalogoRaza(9, $raza_id, $evento_id);
+
+        // BUSCAMOS Y MANDAMOS LOS GRANDES CAMPEONES MACHOS
+        $ejemplaresGrandesCampeoesMacho = Juez::EjemplarCatalogoRaza(14, $raza_id, $evento_id);
+
+
+        // dd($ejemplaresJoven);
+
+        // dd($request->all());
+
+        $data['planilla'] = view('juez.planilla', compact('ejemplaresCachorroAbsolutos', 'ejemplaresJoven', 'ejemplaresJovenCampeonMacho', 'ejemplaresIntermediaMacho', 'ejemplaresAbiertaMacho', 'ejemplaresCampeonesMacho', 'ejemplaresGrandesCampeoesMacho'))->render();
+
+        return json_encode($data);
     }
 }

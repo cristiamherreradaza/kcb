@@ -13,7 +13,11 @@
         font-size:9px;
         text-align: center;
     }
-    table,th , td{
+    {{--  table,th , td{
+        border: 1.5px solid black;
+        border-collapse: collapse;
+    }  --}}
+    .tabla_planilla, tabla_planillaTh, tabla_planillaTd{
         border: 1.5px solid black;
         border-collapse: collapse;
     }
@@ -170,12 +174,17 @@
 <body>
 
     <h1 id="titulo">PLANILLA DE RAZA </h1>
-    {{-- <br> --}}
     <div class="cabeza-datos">
-        <div id="juez">JUEZ: {{ $datoPlanilla[0]->juez->nombre }}</div>
+        {{--  <div id="juez">JUEZ: {{ $datoPlanilla[0]->juez->nombre }}</div>
         <div id="lugar">LUGAR Y FECHA: {{ date('d/m/Y') }}</div>
         <div id="raza">RAZA: {{ $datoPlanilla[0]->raza->nombre }}</div>
-        <div id="grupo">GRUPO: {{ $datoPlanilla[0]->grupo_id }}</div>
+        <div id="grupo">GRUPO: {{ $datoPlanilla[0]->grupo_id }}</div>  --}}
+
+        
+        <div id="juez">JUEZ: </div>
+        <div id="lugar">LUGAR Y FECHA: {{ date('d/m/Y') }}</div>
+        <div id="raza">RAZA:</div>
+        <div id="grupo">GRUPO: </div>
     </div>
 
     <br>        
@@ -193,42 +202,45 @@
         </div>
 
         <div id="table-cachorros">
-            <table>
-                <thead id="tabla-datos">
+            <table class="tabla_planilla">
+                <thead id="tabla-datos" class="tabla_planilla">
                     <tr>
                         <th colspan="3">CACHORRO <br> 6 a 9 meses</th>
                     </tr>
                 </thead>
-                <tbody id="tabla-datos-cuerpo">
-                    <tr>
-                        <th>Nº</th>
-                        <th>Calf.</th>
-                        <th>Lugar</th>
+                <tbody id="tabla-datos-cuerpo" class="tabla_planilla">
+                    <tr class="tabla_planilla">
+                        <th class="tabla_planilla">Nº</th>
+                        <th class="tabla_planilla">Calf.</th>
+                        <th class="tabla_planilla">Lugar</th>
                     </tr>
                     @php
-                        $cantidad = count($cachorrosMacho);
+                        $cantidad = count($ejemplaresCachorroAbsolutos);
                     @endphp
                     @for ($i=0 ; $i < 9 ; $i++)
-                    <tr>
-                        @if ($i < $cantidad)
-                            <th id="numero_prefijo">{{ $cachorrosMacho[$i]->inscripcion->numero_prefijo }}</th>
-                            <th id="calificaion">{{ $cachorrosMacho[$i]->calificacion }}</th>
-                            <th>{{ $cachorrosMacho[$i]->lugar }}</th>
-                        @else
-                            <th id="numero_prefijo"><p style="padding-top: 1px;"></p></th>
-                            <th id="calificaion"></th>
-                            <th></th>
-                        @endif
-                    </tr>
+                        <tr>
+                            @if ($i < $cantidad)
+                                <th class="tabla_planilla" id="numero_prefijo">{{ $ejemplaresCachorroAbsolutos[$i]->numero_prefijo }}</th>
+                                @php
+                                    $calificaion = App\Juez::ejemplarEventoInscrito($ejemplaresCachorroAbsolutos[$i]->id);
+                                @endphp
+                                <th class="tabla_planilla" id="calificaion">{{ ($calificaion)? $calificaion->calificacion : '' }}</th>
+                                <th class="tabla_planilla">{{ ($calificaion)? $calificaion->lugar : '' }}</th>
+                            @else
+                                <th class="tabla_planilla" id="numero_prefijo"><p style="padding-top: 1px;"></p></th>
+                                <th class="tabla_planilla" id="calificaion"></th>
+                                <th class="tabla_planilla"></th>
+                            @endif
+                        </tr>
                     @endfor
                 </tbody>
-                <tfoot>
-                    <td colspan="3" style="font-size: 10px;">
+                <tfoot class="tabla_planilla">
+                    <td class="tabla_planilla" colspan="3" style="font-size: 10px;">
                         CCCB
-                        <table id="tabla-ponderacion">
-                            <thead >
-                                <tr>
-                                    <th id="tabla-dentroTabla">N</th>
+                        <table class="tabla_planilla" id="tabla-ponderacion">
+                            <thead class="tabla_planilla" >
+                                <tr class="tabla_planilla">
+                                    <th  class="tabla_planilla"id="tabla-dentroTabla">N</th>
                                 </tr>
                             </thead>
                             <tbody >
@@ -243,31 +255,34 @@
         </div>
     
         <div id="table-joven">
-            <table>
-                <thead id="tabla-datos">
+            <table class="tabla_planilla">
+                <thead  class="tabla_planilla" id="tabla-datos">
                     <tr>
                         <th colspan="3">JOVEN <br> 9 a 18 meses</th>
                     </tr>
                 </thead>
-                <tbody id="tabla-datos-cuerpo">
+                <tbody id="tabla-datos-cuerpo" class="tabla_planilla">
                     <tr>
-                        <th>Nº</th>
-                        <th>Calf.</th>
-                        <th>Lugar</th>
+                        <th class="tabla_planilla">Nº</th>
+                        <th class="tabla_planilla">Calf.</th>
+                        <th class="tabla_planilla">Lugar</th>
                     </tr>
                     @php
-                        $cantidad = count($jovenMacho);
+                        $cantidad = count($ejemplaresJoven);
                     @endphp
                     @for ($i=0 ; $i < 9 ; $i++)
-                    <tr>
+                    <tr class="tabla_planilla">
                         @if ($i < $cantidad)
-                            <th id="numero_prefijo">{{ $jovenMacho[$i]->inscripcion->numero_prefijo }}</th>
-                            <th id="calificaion">{{ $jovenMacho[$i]->calificacion }}</th>
-                            <th>{{ $jovenMacho[$i]->lugar }}</th>
+                            <th class="tabla_planilla" id="numero_prefijo">{{ $ejemplaresJoven[$i]->numero_prefijo }}</th>
+                            @php
+                                $calificaion = App\Juez::ejemplarEventoInscrito($ejemplaresJoven[$i]->id);
+                            @endphp
+                            <th class="tabla_planilla" id="calificaion">{{ ($calificaion)? $calificaion->calificacion : '' }}</th>
+                            <th class="tabla_planilla">{{ ($calificaion)? $calificaion->lugar : '' }}</th>
                         @else
-                            <th id="numero_prefijo"><p style="padding-top: 1px;"></p></th>
-                            <th id="calificaion"></th>
-                            <th></th>
+                            <th class="tabla_planilla" id="numero_prefijo"><p style="padding-top: 1px;"></p></th>
+                            <th class="tabla_planilla" id="calificaion"></th>
+                            <th class="tabla_planilla"></th>
                         @endif
                     </tr>
                     @endfor
@@ -275,8 +290,8 @@
                 <tfoot>
                     <td colspan="3" style="font-size: 10px;">
                         CJCB
-                        <table id="tabla-ponderacion">
-                            <thead >
+                        <table class="tabla_planilla" id="tabla-ponderacion">
+                            <thead  class="tabla_planilla">
                                 <tr>
                                     <th id="tabla-dentroTabla">N</th>
                                 </tr>
@@ -293,31 +308,34 @@
         </div>
     
         <div id="table-jovenCampeon">
-            <table>
-                <thead id="tabla-datos">
+            <table class="tabla_planilla">
+                <thead id="tabla-datos" class="tabla_planilla">
                     <tr>
                         <th colspan="3">JOVEN CAMPEON <br> 9 a 18 meses</th>
                     </tr>
                 </thead>
-                <tbody id="tabla-datos-cuerpo">
-                    <tr>
-                        <th>Nº</th>
-                        <th>Calf.</th>
-                        <th>Lugar</th>
+                <tbody id="tabla-datos-cuerpo" class="tabla_planilla">
+                    <tr class="tabla_planilla">
+                        <th class="tabla_planilla">Nº</th>
+                        <th class="tabla_planilla">Calf.</th>
+                        <th class="tabla_planilla">Lugar</th>
                     </tr>
                     @php
-                        $cantidad = count($jovenCampeonMacho);
+                        $cantidad = count($ejemplaresJovenCampeonMacho);
                     @endphp
                     @for ($i=0 ; $i < 9 ; $i++)
                     <tr>
                         @if ($i < $cantidad)
-                            <th id="numero_prefijo">{{ $jovenCampeonMacho[$i]->inscripcion->numero_prefijo }}</th>
-                            <th id="calificaion">{{ $jovenCampeonMacho[$i]->calificacion }}</th>
-                            <th>{{ $jovenCampeonMacho[$i]->lugar }}</th>
+                            <th class="tabla_planilla" id="numero_prefijo">{{ $ejemplaresJovenCampeonMacho[$i]->numero_prefijo }}</th>
+                            @php
+                                $calificaion = App\Juez::ejemplarEventoInscrito($ejemplaresJovenCampeonMacho[$i]->id);
+                            @endphp
+                            <th class="tabla_planilla" id="calificaion">{{ ($calificaion)? $calificaion->calificacion : '' }}</th>
+                            <th class="tabla_planilla">{{ ($calificaion)? $calificaion->lugar : '' }}</th>
                         @else
-                            <th id="numero_prefijo"><p style="padding-top: 1px;"></p></th>
-                            <th id="calificaion"></th>
-                            <th></th>
+                            <th class="tabla_planilla" id="numero_prefijo"><p style="padding-top: 1px;"></p></th>
+                            <th class="tabla_planilla" id="calificaion"></th>
+                            <th class="tabla_planilla"></th>
                         @endif
                     </tr>
                     @endfor
@@ -325,8 +343,8 @@
                 <tfoot>
                     <td colspan="3" style="font-size: 10px;">
                         CJCGB
-                        <table id="tabla-ponderacion">
-                            <thead >
+                        <table id="tabla-ponderacion" class="tabla_planilla">
+                            <thead  class="tabla_planilla">
                                 <tr>
                                     <th id="tabla-dentroTabla">N</th>
                                 </tr>
@@ -344,66 +362,72 @@
         
         <div id="table-intermedio">
             <table>
-                <thead id="tabla-datos">
+                <thead id="tabla-datos" class="tabla_planilla">
                     <tr>
                         <th colspan="3">INTERMEDIA <br> 15 a 24 meses</th>
                     </tr>
                 </thead>
-                <tbody id="tabla-datos-cuerpo">
+                <tbody id="tabla-datos-cuerpo" class="tabla_planilla">
                     <tr>
-                        <th>Nº</th>
-                        <th>Calf.</th>
-                        <th>Lugar</th>
+                        <th class="tabla_planilla">Nº</th>
+                        <th class="tabla_planilla">Calf.</th>
+                        <th class="tabla_planilla">Lugar</th>
                     </tr>
                     @php
-                        $cantidad = count($intermediaMacho);
+                        $cantidad = count($ejemplaresIntermediaMacho);
                     @endphp
                     @for ($i=0 ; $i < 9 ; $i++)
                     <tr>
                         @if ($i < $cantidad)
-                            <th id="numero_prefijo">{{ $intermediaMacho[$i]->inscripcion->numero_prefijo }}</th>
-                            <th id="calificaion">{{ $intermediaMacho[$i]->calificacion }}</th>
-                            <th>{{ $intermediaMacho[$i]->lugar }}</th>
+                            <th class="tabla_planilla" id="numero_prefijo">{{ $ejemplaresIntermediaMacho[$i]->numero_prefijo }}</th>
+                            @php
+                                $calificaion = App\Juez::ejemplarEventoInscrito($ejemplaresIntermediaMacho[$i]->id);
+                            @endphp
+                            <th class="tabla_planilla" id="calificaion">{{ ($calificaion)? $calificaion->calificacion : '' }}</th>
+                            <th class="tabla_planilla">{{ ($calificaion)? $calificaion->lugar : '' }}</th>
                         @else
-                            <th id="numero_prefijo"><p style="padding-top: 1px;"></p></th>
-                            <th id="calificaion"></th>
-                            <th></th>
+                            <th class="tabla_planilla" id="numero_prefijo"><p style="padding-top: 1px;"></p></th>
+                            <th class="tabla_planilla" id="calificaion"></th>
+                            <th class="tabla_planilla"></th>
                         @endif
                     </tr>
                     @endfor
                 </tbody>
-                <tfoot>
+                <tfoot class="tabla_planilla">
                     <td colspan="3" style="height: 47px"></td>
                 </tfoot>
             </table>
         </div>
     
         <div id="table-abierta">
-            <table>
-                <thead id="tabla-datos">
+            <table class="tabla_planilla">
+                <thead id="tabla-datos" class="tabla_planilla">
                     <tr>
                         <th colspan="3">ABIERTA <br> Mayor a 24 Meses</th>
                     </tr>
                 </thead>
-                <tbody id="tabla-datos-cuerpo">
+                <tbody id="tabla-datos-cuerpo" class="tabla_planilla">
                     <tr>
-                        <th>Nº</th>
-                        <th>Calf.</th>
-                        <th>Lugar</th>
+                        <th class="tabla_planilla">Nº</th>
+                        <th class="tabla_planilla">Calf.</th>
+                        <th class="tabla_planilla">Lugar</th>
                     </tr>
                     @php
-                        $cantidad = count($abiertaMacho);
+                        $cantidad = count($ejemplaresAbiertaMacho);
                     @endphp
                     @for ($i=0 ; $i < 9 ; $i++)
                     <tr>
                         @if ($i < $cantidad)
-                            <th id="numero_prefijo">{{ $abiertaMacho[$i]->inscripcion->numero_prefijo }}</th>
-                            <th id="calificaion">{{ $abiertaMacho[$i]->calificacion }}</th>
-                            <th>{{ $abiertaMacho[$i]->lugar }}</th>
+                            <th class="tabla_planilla" id="numero_prefijo">{{ $ejemplaresAbiertaMacho[$i]->numero_prefijo }}</th>
+                            @php
+                                $calificaion = App\Juez::ejemplarEventoInscrito($ejemplaresAbiertaMacho[$i]->id);
+                            @endphp
+                            <th class="tabla_planilla" id="calificaion">{{ ($calificaion)? $calificaion->calificacion : '' }}</th>
+                            <th class="tabla_planilla">{{ ($calificaion)? $calificaion->lugar : '' }}</th>
                         @else
-                            <th id="numero_prefijo"><p style="padding-top: 1px;"></p></th>
-                            <th id="calificaion"></th>
-                            <th></th>
+                            <th class="tabla_planilla" id="numero_prefijo"><p style="padding-top: 1px;"></p></th>
+                            <th class="tabla_planilla" id="calificaion"></th>
+                            <th class="tabla_planilla"></th>
                         @endif
                     </tr>
                     @endfor
@@ -415,31 +439,34 @@
         </div>
     
         <div id="table-campeones">
-            <table>
-                <thead id="tabla-datos">
+            <table class="tabla_planilla">
+                <thead id="tabla-datos" class="tabla_planilla">
                     <tr>
                         <th id="cabecera-campeones" colspan="3">CAMPEONES</th>
                     </tr>
                 </thead>
-                <tbody id="tabla-datos-cuerpo">
+                <tbody id="tabla-datos-cuerpo" class="tabla_planilla">
                     <tr>
-                        <th>Nº</th>
-                        <th>Calf.</th>
-                        <th>Lugar</th>
+                        <th class="tabla_planilla">Nº</th>
+                        <th class="tabla_planilla">Calf.</th>
+                        <th class="tabla_planilla">Lugar</th>
                     </tr>
                     @php
-                        $cantidad = count($campeonesMacho);
+                        $cantidad = count($ejemplaresCampeonesMacho);
                     @endphp
                     @for ($i=0 ; $i < 9 ; $i++)
                     <tr>
                         @if ($i < $cantidad)
-                            <th id="numero_prefijo">{{ $campeonesMacho[$i]->inscripcion->numero_prefijo }}</th>
-                            <th id="calificaion">{{ $campeonesMacho[$i]->calificacion }}</th>
-                            <th>{{ $campeonesMacho[$i]->lugar }}</th>
+                            <th class="tabla_planilla" id="numero_prefijo">{{ $ejemplaresCampeonesMacho[$i]->numero_prefijo }}</th>
+                            @php
+                                $calificaion = App\Juez::ejemplarEventoInscrito($ejemplaresCampeonesMacho[$i]->id);
+                            @endphp
+                            <th class="tabla_planilla" id="calificaion">{{ ($calificaion)? $calificaion->calificacion : '' }}</th>
+                            <th class="tabla_planilla">{{ ($calificaion)? $calificaion->lugar : '' }}</th>
                         @else
-                            <th id="numero_prefijo"><p style="padding-top: 1px;"></p></th>
-                            <th id="calificaion"></th>
-                            <th></th>
+                            <th class="tabla_planilla" id="numero_prefijo"><p style="padding-top: 1px;"></p></th>
+                            <th class="tabla_planilla" id="calificaion"></th>
+                            <th class="tabla_planilla"></th>
                         @endif
                     </tr>
                     @endfor
@@ -447,8 +474,8 @@
                 <tfoot>
                     <td colspan="3" style="font-size: 10px;">
                         CGCB
-                        <table id="tabla-ponderacion">
-                            <thead >
+                        <table id="tabla-ponderacion" class="tabla_planilla">
+                            <thead  class="tabla_planilla">
                                 <tr>
                                     <th id="tabla-dentroTabla">N</th>
                                 </tr>
@@ -465,31 +492,34 @@
         </div>
     
         <div id="table-grandesCampeones">
-            <table>
-                <thead id="tabla-datos">
+            <table class="tabla_planilla">
+                <thead id="tabla-datos" class="tabla_planilla">
                     <tr>
                         <th id="cabecera-campeones"  colspan="3">GRANDES CAMPEONES</th>
                     </tr>
                 </thead>
-                <tbody id="tabla-datos-cuerpo">
+                <tbody id="tabla-datos-cuerpo" class="tabla_planilla">
                     <tr>
-                        <th>Nº</th>
-                        <th>Calf.</th>
-                        <th>Lugar</th>
+                        <th class="tabla_planilla">Nº</th>
+                        <th class="tabla_planilla">Calf.</th>
+                        <th class="tabla_planilla">Lugar</th>
                     </tr>
                     @php
-                        $cantidad = count($GrandesCampeonesMacho);
+                        $cantidad = count($ejemplaresGrandesCampeoesMacho);
                     @endphp
                     @for ($i=0 ; $i < 9 ; $i++)
                     <tr>
                         @if ($i < $cantidad)
-                            <th id="numero_prefijo">{{ $GrandesCampeonesMacho[$i]->inscripcion->numero_prefijo }}</th>
-                            <th id="calificaion">{{ $GrandesCampeonesMacho[$i]->calificacion }}</th>
-                            <th>{{ $GrandesCampeonesMacho[$i]->lugar }}</th>
+                            <th class="tabla_planilla" id="numero_prefijo">{{ $ejemplaresGrandesCampeoesMacho[$i]->numero_prefijo }}</th>
+                            @php
+                                $calificaion = App\Juez::ejemplarEventoInscrito($ejemplaresGrandesCampeoesMacho[$i]->id);
+                            @endphp
+                            <th class="tabla_planilla" id="calificaion">{{ ($calificaion)? $calificaion->calificacion : '' }}</th>
+                            <th class="tabla_planilla">{{ ($calificaion)? $calificaion->lugar : '' }}</th>
                         @else
-                            <th id="numero_prefijo"><p style="padding-top: 1px;"></p></th>
-                            <th id="calificaion"></th>
-                            <th></th>
+                            <th class="tabla_planilla" id="numero_prefijo"><p style="padding-top: 1px;"></p></th>
+                            <th class="tabla_planilla" id="calificaion"></th>
+                            <th class="tabla_planilla"></th>
                         @endif
                     </tr>
                     @endfor
@@ -500,9 +530,9 @@
             </table>
         </div>
     
-        <div id="table-veteranos">
-            <table>
-                <thead id="tabla-datos">
+        {{--  <div id="table-veteranos">
+            <table class="tabla_planilla">
+                <thead id="tabla-datos" class="tabla_planilla">
                     <tr>
                         <th id="cabecera-campeones"  colspan="3">VETERANOS</th>
                     </tr>
@@ -548,7 +578,7 @@
                     </td>
                 </tfoot>
             </table>
-        </div>
+        </div>  --}}
     </div>
 
     <div class="planillaHembra">
@@ -577,10 +607,10 @@
                         <th>Calf.</th>
                         <th>Lugar</th>
                     </tr>
-                    @php
+                    {{--  @php
                         $cantidad = count($cachorrosHembra);
-                    @endphp
-                    @for ($i=0 ; $i < 9 ; $i++)
+                    @endphp  --}}
+                    {{--  @for ($i=0 ; $i < 9 ; $i++)
                     <tr>
                         @if ($i < $cantidad)
                             <th id="numero_prefijo">{{ $cachorrosHembra[$i]->inscripcion->numero_prefijo }}</th>
@@ -592,7 +622,7 @@
                             <th></th>
                         @endif
                     </tr>
-                    @endfor
+                    @endfor  --}}
                 </tbody>
                 <tfoot>
                     <td colspan="3" style="font-size: 10px;">
@@ -627,10 +657,10 @@
                         <th>Calf.</th>
                         <th>Lugar</th>
                     </tr>
-                    @php
+                    {{--  @php
                         $cantidad = count($jovenHembra);
-                    @endphp
-                    @for ($i=0 ; $i < 9 ; $i++)
+                    @endphp  --}}
+                    {{--  @for ($i=0 ; $i < 9 ; $i++)
                     <tr>
                         @if ($i < $cantidad)
                             <th id="numero_prefijo">{{ $jovenHembra[$i]->inscripcion->numero_prefijo }}</th>
@@ -642,7 +672,7 @@
                             <th></th>
                         @endif
                     </tr>
-                    @endfor
+                    @endfor  --}}
                 </tbody>
                 <tfoot>
                     <td colspan="3" style="font-size: 10px;">
@@ -677,10 +707,10 @@
                         <th>Calf.</th>
                         <th>Lugar</th>
                     </tr>
-                    @php
+                    {{--  @php
                         $cantidad = count($jovenCampeonHembra);
-                    @endphp
-                    @for ($i=0 ; $i < 9 ; $i++)
+                    @endphp  --}}
+                    {{--  @for ($i=0 ; $i < 9 ; $i++)
                     <tr>
                         @if ($i < $cantidad)
                             <th id="numero_prefijo">{{ $jovenCampeonHembra[$i]->inscripcion->numero_prefijo }}</th>
@@ -692,7 +722,7 @@
                             <th></th>
                         @endif
                     </tr>
-                    @endfor
+                    @endfor  --}}
                 </tbody>
                 <tfoot>
                     <td colspan="3" style="font-size: 10px;">
@@ -727,10 +757,10 @@
                         <th>Calf.</th>
                         <th>Lugar</th>
                     </tr>
-                    @php
+                    {{--  @php
                         $cantidad = count($intermediaHembra);
-                    @endphp
-                    @for ($i=0 ; $i < 9 ; $i++)
+                    @endphp  --}}
+                    {{--  @for ($i=0 ; $i < 9 ; $i++)
                     <tr>
                         @if ($i < $cantidad)
                             <th id="numero_prefijo">{{ $intermediaHembra[$i]->inscripcion->numero_prefijo }}</th>
@@ -742,7 +772,7 @@
                             <th></th>
                         @endif
                     </tr>
-                    @endfor
+                    @endfor  --}}
                 </tbody>
                 <tfoot>
                     <td colspan="3" style="height: 47px"></td>
@@ -763,10 +793,10 @@
                         <th>Calf.</th>
                         <th>Lugar</th>
                     </tr>
-                    @php
+                    {{--  @php
                         $cantidad = count($abiertaHembra);
-                    @endphp
-                    @for ($i=0 ; $i < 9 ; $i++)
+                    @endphp  --}}
+                    {{--  @for ($i=0 ; $i < 9 ; $i++)
                     <tr>
                         @if ($i < $cantidad)
                             <th id="numero_prefijo">{{ $abiertaHembra[$i]->inscripcion->numero_prefijo }}</th>
@@ -778,7 +808,7 @@
                             <th></th>
                         @endif
                     </tr>
-                    @endfor
+                    @endfor  --}}
                 </tbody>
                 <tfoot>
                     <td colspan="3" style="height: 47px"></td>
@@ -799,10 +829,10 @@
                         <th>Calf.</th>
                         <th>Lugar</th>
                     </tr>
-                    @php
+                    {{--  @php
                         $cantidad = count($campeonesHembra);
-                    @endphp
-                    @for ($i=0 ; $i < 9 ; $i++)
+                    @endphp  --}}
+                    {{--  @for ($i=0 ; $i < 9 ; $i++)
                     <tr>
                         @if ($i < $cantidad)
                             <th id="numero_prefijo">{{ $campeonesHembra[$i]->inscripcion->numero_prefijo }}</th>
@@ -814,7 +844,7 @@
                             <th></th>
                         @endif
                     </tr>
-                    @endfor
+                    @endfor  --}}
                 </tbody>
                 <tfoot>
                     <td colspan="3" style="font-size: 10px;">
@@ -849,10 +879,10 @@
                         <th>Calf.</th>
                         <th>Lugar</th>
                     </tr>
-                    @php
+                    {{--  @php
                         $cantidad = count($GrandesCampeonesHembra);
-                    @endphp
-                    @for ($i=0 ; $i < 9 ; $i++)
+                    @endphp  --}}
+                    {{--  @for ($i=0 ; $i < 9 ; $i++)
                     <tr>
                         @if ($i < $cantidad)
                             <th id="numero_prefijo">{{ $GrandesCampeonesHembra[$i]->inscripcion->numero_prefijo }}</th>
@@ -864,7 +894,7 @@
                             <th></th>
                         @endif
                     </tr>
-                    @endfor
+                    @endfor  --}}
                 </tbody>
                 <tfoot>
                     <td colspan="3" style="height: 47px"></td>
@@ -885,10 +915,10 @@
                         <th>Calf.</th>
                         <th>Lugar</th>
                     </tr>
-                    @php
+                    {{--  @php
                         $cantidad = count($veteranosHembra);
-                    @endphp
-                    @for ($i=0 ; $i < 9 ; $i++)
+                    @endphp  --}}
+                    {{--  @for ($i=0 ; $i < 9 ; $i++)
                     <tr>
                         @if ($i < $cantidad)
                             <th id="numero_prefijo">{{ $veteranosHembra[$i]->inscripcion->numero_prefijo }}</th>
@@ -900,7 +930,7 @@
                             <th></th>
                         @endif
                     </tr>
-                    @endfor
+                    @endfor  --}}
                 </tbody>
                 <tfoot>
                     <td colspan="3" style="font-size: 10px;">

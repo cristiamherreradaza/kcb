@@ -45,23 +45,20 @@
     {{-- fin inicio modal  --}}
 
     
-    {{-- inicio modal ganadores  --}}
-    {{-- <div class="modal fade" id="modalGanadoresEjmeplar" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+    {{-- inicio modal planilla  --}}
+    <div class="modal fade" id="modalPlanillaFinal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">MEJORES EJEMPLARES DE LA RAZA <span class="text-info" id="mejor_raza"></span></h5>
+                    <h5 class="modal-title" id="exampleModalLabel">PLANILLA DE CALIFICACION</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <i aria-hidden="true" class="ki ki-close"></i>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div id="bloque_mejores_ejemplares_machos">
-                        
-                    </div>
+                    <br>
+                    <div id="planilla_final" style="height: 700px;">
 
-                    <div id="bloque_mejores_ejemplares_hembras">
-                        
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -69,7 +66,7 @@
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
     {{-- fin inicio modal ganadores --}}
 
     {{-- inicio modal calificacion  --}}
@@ -929,9 +926,11 @@
 
         function modalGanadores(raza, nombre, evento){
 
+            {{--  console.log("Esta la plantilla")  --}}
+
             $.ajax({
 
-                url: "{{ url('Juez/ajaxGanadores') }}",
+                url: "{{ url('Juez/ajaxPlanilla') }}",
                 data: {
                     raza        : raza,
                     evento      : evento,
@@ -939,13 +938,11 @@
                 type: 'POST',
                 dataType: 'json',
                 success: function(data) {
+                    {{--  console.log(data.planilla)  --}}
 
-                    // console.log(data);
-                    $('#bloque_mejores_ejemplares_machos').html(data.table_machos)
-                    $('#bloque_mejores_ejemplares_hembras').html(data.table_hembras)
+                    $('#planilla_final').html(data.planilla);
 
-                    $('#mejor_raza').text(nombre);
-                    $('#modalGanadoresEjmeplar').modal('show');
+                    $('#modalPlanillaFinal').modal('show'); 
 
                 }
 

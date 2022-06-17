@@ -224,9 +224,10 @@ Route::get('Juez/planilla/{evento_id}/{grupo_id}/{raza_id}', 'JuezController@pla
 Route::post('Juez/AjaxPlanillaCalificacion', 'JuezController@AjaxPlanillaCalificacion');
 Route::post('Juez/AjaxEjemplarCatalogoRaza', 'JuezController@AjaxEjemplarCatalogoRaza');
 Route::post('Juez/ajaxFinalizarCalificacion', 'JuezController@ajaxFinalizarCalificacion');
-Route::post('Juez/ajaxGanadores', 'JuezController@ajaxGanadores');
+// Route::post('Juez/ajaxGanadores', 'JuezController@ajaxGanadores');
 Route::post('Juez/ajaxCategoriasCalificacion', 'JuezController@ajaxCategoriasCalificacion');
 Route::post('Juez/ajaxCalificacionMejor', 'JuezController@ajaxCalificacionMejor');
+Route::post('Juez/ajaxPlanilla', 'JuezController@ajaxPlanilla');
 
 
 
