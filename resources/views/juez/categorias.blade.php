@@ -26,9 +26,6 @@
 
                     </div>
                     <hr>
-                    {{-- <div id="bloque_ganador" style="display: none">
-
-                    </div> --}}
                     
                     <div id="bloques_ganadores">
 
