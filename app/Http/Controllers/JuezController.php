@@ -14,8 +14,9 @@ use App\Asignacion;
 use App\Calificacion;
 use App\CategoriaJuez;
 use App\EjemplarEvento;
-use Illuminate\Http\Request;
+use App\CategoriasPista;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use function GuzzleHttp\Promise\all;
 use Illuminate\Support\Facades\Auth;
@@ -642,6 +643,7 @@ class JuezController extends Controller
 
         // dd($request->all());
 
+
         $ejemplares_eventos = $request->input('ejemplar_evento_id_ejemplar');
         $raza_id            = $request->input('raza_id_ejemplar');
         $evento_id          = $request->input('evento_id_ejemplar');
@@ -652,6 +654,9 @@ class JuezController extends Controller
         $lugares            = $request->input('lugar_ejemplar');
         $ejemplares         = $request->input('ejemplar_id_ejemplar');
 
+        $categoria = CategoriasPista::find($categoria_id)[0]->nombre;
+        
+        // verificamos si las calificaciones o el lugar esta repoedido 
         $valida = $this->validaCalificaciones($ejemplares_eventos, $calificaciones, $lugares);
 
         $arrayRepetidos = array();
@@ -741,7 +746,7 @@ class JuezController extends Controller
                 //                         </div>';
 
                                         
-                $data['ganadorhtml'] = '<table class="table table-hover">
+                $data['ganadorhtml'] = '<table class="table table-hover" id="tabla_ganador">
                                             <thead>
                                                 <tr>
                                                     <th>N~</th>
@@ -750,13 +755,15 @@ class JuezController extends Controller
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
+                                                <tr onclick="escogerMejor('.$ganador->id.','."'".$ganador->numero_prefijo."'".')">
                                                     <td>'.$ganador->numero_prefijo.'</td>
                                                     <td>'.$ganador->calificacion.'</td>
                                                     <td>'.$ganador->lugar.'</td>
                                                 </tr>
                                             </tbody>
                                         </table>';
+
+                $data['categoria'] = str_replace(['(',')',' '],'',$categoria);;
                 
             }else{
 
@@ -1030,6 +1037,8 @@ class JuezController extends Controller
 
     public function ajaxCategoriasCalificacion(Request $request){
 
+        // dd($request->all());
+
         $categorias = $request->input('categorias');
         $raza_id    = $request->input('raza');
         $evento_id  = $request->input('evento');
@@ -1038,87 +1047,164 @@ class JuezController extends Controller
         $data['tables'] = '';
 
         $cantidadCategorias = count($categorias);
-        
+
         if($cantidadCategorias == 1){
             $columna = 'class="col-md-12"';
+
+            $data['divGanadoresCategorias'] = '<div class="row">
+                                                    <div class="col-md-12">
+                                                        <div id="ganador_'.str_replace([' ','(',')'],'',$categorias[0]['nombre']).'" style="display: none;"></div>
+                                                    </div>
+                                                </div>';
         }elseif($cantidadCategorias == 2){
             $columna = 'class="col-md-6"';
+
+            $data['divGanadoresCategorias'] = '<div class="row">
+                                                    <div class="col-md-6">
+                                                        <div id="ganador_'.str_replace([' ','(',')'],'',$categorias[0]['nombre']).'" style="display: none;"></div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div id="ganador_'.str_replace([' ','(',')'],'',$categorias[1]['nombre']).'" style="display: none;"></div>
+                                                    </div>
+                                                </div>';
         }elseif($cantidadCategorias == 3){
             $columna = 'class="col-md-4"';
+
+            $data['divGanadoresCategorias'] = '<div class="row">
+                                                    <div class="col-md-4">
+                                                        <div id="ganador_'.str_replace([' ','(',')'],'',$categorias[0]['nombre']).'" style="display: none;"></div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div id="ganador_'.str_replace([' ','(',')'],'',$categorias[1]['nombre']).'" style="display: none;"></div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div id="ganador_'.str_replace([' ','(',')'],'',$categorias[2]['nombre']).'" style="display: none;"></div>
+                                                    </div>
+                                                </div>';
         }elseif($cantidadCategorias == 4){
             $columna = 'class="col-md-3"';
+
+            $data['divGanadoresCategorias'] = '<div class="row">
+                                                    <div class="col-md-3">
+                                                        <div id="ganador_'.str_replace([' ','(',')'],'',$categorias[0]['nombre']).'" style="display: none;"></div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div id="ganador_'.str_replace([' ','(',')'],'',$categorias[1]['nombre']).'" style="display: none;"></div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div id="ganador_'.str_replace([' ','(',')'],'',$categorias[2]['nombre']).'" style="display: none;"></div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div id="ganador_'.str_replace([' ','(',')'],'',$categorias[3]['nombre']).'" style="display: none;"></div>
+                                                    </div>
+                                                </div>';
         }
 
 
         foreach($categorias as $ca){
 
-            // echo $ca['categoria_id']."<br>";
-
             $tableCabeza = '';
             $tableFoooter= '';
 
             $tableCabeza =  $tableCabeza.'<div '.$columna.' >
-                                            <table class="table table-hover text-center">
-                                                <thead>
-                                                    <tr>
-                                                        <th colspan="3">'.$ca['nombre'].'</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>';
+                                            <form id="formulario_'.str_replace([' ','(',')'],'',$ca['nombre']).'">
+                                                <table class="table table-hover text-center">
+                                                    <thead>
+                                                        <tr>
+                                                            <th colspan="3">'.$ca['nombre'].'</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>';
 
-            $ejemplares = Juez::EjemplarCatalogoRaza($ca['categoria_id'], $raza_id, $evento_id);
+                $ejemplares = Juez::EjemplarCatalogoRaza($ca['categoria_id'], $raza_id, $evento_id);
 
-            
-            $tableBody = '';
+                
+                $tableBody = '';
 
-            foreach ($ejemplares as $eje){
+                foreach ($ejemplares as $eje){
 
-                $tableBody = $tableBody.'<tr>
-                                            <td>
-                                                <h1 class="text-primary">'.$eje->numero_prefijo.'</h1>
-                                            </td>
-                                            <td>
-                                                <select name="calificacion_ejemplar[]" id="calificacion_ejemplar" class="form-control">
-                                                    <option value="Excelente">Excelente</option>
-                                                    <option value="Muy Bien">Muy Bien</option>
-                                                    <option value="Bien">Bien</option>
-                                                    <option value="Descalificado">Descalificado</option>
-                                                    <option value="Ausente">Ausente</option>
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <select name="lugar_ejemplar[]" id="lugar_ejemplar" class="form-control">
-                                                    <option value="1">Primero</option>
-                                                    <option value="2">Segundo</option>
-                                                    <option value="3">Tercero</option>
-                                                    <option value="4">Cuarto</option>
-                                                    <option value="5">Quinto</option>
-                                                </select>
-                                            </td>
-                                        </tr>';
+                    $tableBody = $tableBody.'<tr>
+                                                <td>
+                                                
+                                                <input type="hidden" name="ejemplar_evento_id_ejemplar[]" value="'.$eje->id.'">
+                                                <input type="hidden" name="raza_id_ejemplar[]" value="'.$raza_id.'">
+                                                <input type="hidden" name="evento_id_ejemplar[]" value="'.$evento_id.'">
+                                                <input type="hidden" name="categoria_id_ejemplar[]" value="'.$ca['categoria_id'].'">
+                                                <input type="hidden" name="sexo_ejemplar[]" value="'.$eje->sexo.'">
+                                                <input type="hidden" name="numero_prefijo_ejemplar[]" value="'.$eje->numero_prefijo.'">
+                                                <input type="hidden" name="ejemplar_id_ejemplar[]" value="'.$eje->ejemplar_id.'">
+
+                                                    <h1 class="text-primary">'.$eje->numero_prefijo.'</h1>
+                                                    <small style="display: none;" class="_'.$eje->id.' text-warning">Dato repetido</small>
+                                                </td>
+                                                <td>
+                                                    <select name="calificacion_ejemplar[]" id="calificacion_ejemplar" class="form-control">
+                                                        <option value="Excelente">Excelente</option>
+                                                        <option value="Muy Bien">Muy Bien</option>
+                                                        <option value="Bien">Bien</option>
+                                                        <option value="Descalificado">Descalificado</option>
+                                                        <option value="Ausente">Ausente</option>
+                                                    </select>
+                                                    <small style="display: none;" class="_'.$eje->id.' text-warning">Dato repetido</small>
+                                                </td>
+                                                <td>
+                                                    <select name="lugar_ejemplar[]" id="lugar_ejemplar" class="form-control">
+                                                        <option value="1">Primero</option>
+                                                        <option value="2">Segundo</option>
+                                                        <option value="3">Tercero</option>
+                                                        <option value="4">Cuarto</option>
+                                                        <option value="5">Quinto</option>
+                                                    </select>
+                                                    <small style="display: none;" class="_'.$eje->id.' text-warning">Dato repetido</small>
+                                                </td>
+                                            </tr>';
 
             }
 
-                $tableFoooter = $tableFoooter.'</tbody>
-                                            </table>
+                    $tableFoooter = $tableFoooter.'</tbody>
+                                                </table>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <button id="button_'.str_replace([' ','(',')'],'',$ca['nombre']).'" type="button" class="btn btn-success btn-block" onclick="finalizarCalificacion('."'".str_replace([' ','(',')'],'',$ca['nombre'])."'".')">Finalizar</button>
+                                                    </div>
+                                                </div>
+                                            </form>
                                         </div>';
 
             $data['tables'] = $data['tables'].$tablePrincipal.$tableCabeza.$tableBody.$tableFoooter;
 
         }
 
-        // $data['tables'] = $data['tables'].'<div class="row">
-        //                                         <div class="col-md-12">
-        //                                             <button class="btn btn-success btn-block">Finalizar</button>
-        //                                         </div>
-        //                                     </div>';
+        return json_encode($data);
 
-        
-        $data['tables'] = $data['tables'].'<div class="row bg-danger">
-                                                <div class="col-md-12">
-                                                    <button class="btn btn-success btn-block">Finalizar</button>
-                                                </div>
-                                            </div>';
+    }
+
+    public function ajaxCalificacionMejor(Request $request){
+
+        $ganador_id = $request->input('ganador');
+
+        $ganador = Ganador::find($ganador_id);
+
+        $ganador->mejor_escogido = "Si";
+
+        $ganador->save();
+
+        if($ganador->categoria_id == 2 || $ganador->categoria_id == 11) {
+            $mejor = "MEJOR CACHORRO";
+        }else if($ganador->categoria_id == 3 || $ganador->categoria_id == 4 || $ganador->categoria_id == 12 || $ganador->categoria_id == 13){  
+            $mejor = "MEJOR JOVEN";
+        }else if($ganador->categoria_id == 5 || $ganador->categoria_id == 6 || $ganador->categoria_id == 7 || $ganador->categoria_id == 8 || $ganador->categoria_id == 9 || $ganador->categoria_id == 10 || $ganador->categoria_id == 14 || $ganador->categoria_id == 15){
+            $mejor = "MEJOR ADULTO";
+        }
+
+        $data['mejor'] = '<div class="row text-center">
+                            <div class="col-md-6">
+                                <h5 class="text-success">'.$mejor.'</h5>
+                            </div>
+                            <div class="col-md-6">
+                                <h3 class="text-info">'.$ganador->numero_prefijo.'</h3>
+                            </div>
+                        </div>';
 
         return json_encode($data);
 

@@ -26,7 +26,16 @@
 
                     </div>
                     <hr>
-                    <div id="bloque_ganador" style="display: none">
+                    {{-- <div id="bloque_ganador" style="display: none">
+
+                    </div> --}}
+                    
+                    <div id="bloques_ganadores">
+
+                    </div>
+                    <hr>
+                    
+                    <div id="bloques_mejor_categoria" style="display: none">
 
                     </div>
                 </div>
@@ -40,7 +49,7 @@
 
     
     {{-- inicio modal ganadores  --}}
-    <div class="modal fade" id="modalGanadoresEjmeplar" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+    {{-- <div class="modal fade" id="modalGanadoresEjmeplar" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -63,7 +72,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     {{-- fin inicio modal ganadores --}}
 
     {{-- inicio modal calificacion  --}}
@@ -863,9 +872,9 @@
 
         }
 
-        function finalizarCalificacion(ejemplarEvento, raza, evento, categoria, sexo, numero, ejemplar){
+        function finalizarCalificacion(categoria){
 
-            var datos = $('#formularioCalificacionCategoria').serialize();
+            var datos = $('#formulario_'+categoria).serialize();
 
             $.ajax({
 
@@ -885,8 +894,8 @@
 
                         if(data.ganador){
 
-                            $('#bloque_ganador').html(data.ganadorhtml);
-                            $('#bloque_ganador').toggle('show');
+                            $('#ganador_'+data.categoria).html(data.ganadorhtml);
+                            $('#ganador_'+data.categoria).toggle('show');
 
                             console.log("si")
 
@@ -949,15 +958,6 @@
 
         function modalcategorias(array, raza_id, evento_id){
 
-            // console.log(array);
-            // console.log('------------------');
-            
-            // console.log(raza_id);
-            // console.log('------------------');
-            
-            // console.log(evento_id);
-            // console.log('------------------');
-
             $.ajax({
 
                 url: "{{ url('Juez/ajaxCategoriasCalificacion') }}",
@@ -970,20 +970,69 @@
                 dataType: 'json',
                 success: function(data) {
 
+                    console.log(data);
+
+                    $('#bloques_ganadores').html(data.divGanadoresCategorias);
+
+                    $('#bloque_ganador').css('display', 'none');
+                    $('#bloques_mejor_categoria').css('display', 'none');
+                    
+
                     $('#ejemplares-categorias').html(data.tables);
 
                     $('#modalCalificacionCategorias').modal('show');
 
-                    console.log(data);
-                    // $('#bloque_mejores_ejemplares_machos').html(data.table_machos)
-                    // $('#bloque_mejores_ejemplares_hembras').html(data.table_hembras)
-
-                    // $('#mejor_raza').text(nombre);
-                    // $('#modalGanadoresEjmeplar').modal('show');
-
                 }
 
             });
+
+        }
+
+        function escogerMejor(ganador, numero){
+
+            Swal.fire({
+                title: 'Esta seguro de seleccionar al ejemplar con numero '+numero+' como mejor?',
+                text: "No podra revertir eso!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, estoy seguro!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    $.ajax({
+
+                        url: "{{ url('Juez/ajaxCalificacionMejor') }}",
+                        data: {
+                            ganador  :   ganador
+                        },
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function(data) {
+
+                            $('#bloques_mejor_categoria').html(data.mejor);
+                            $('#bloques_mejor_categoria').toggle('show');
+
+                            // console.log(data);
+
+                            // $('#bloques_ganadores').html(data.divGanadoresCategorias);
+
+                            // $('#bloque_ganador').css('display', 'none');
+
+                            // $('#ejemplares-categorias').html(data.tables);
+
+                            // $('#modalCalificacionCategorias').modal('show');
+
+                        }
+
+                    });
+
+                }
+            })
+
+
+
 
         }
 

@@ -38,6 +38,7 @@ class CreateGanadoresTable extends Migration
             $table->string('numero_prefijo',100)->nullable();
             $table->string('calificacion',100)->nullable();
             $table->string('lugar',5)->nullable();
+            $table->string('mejor_escogido',10)->nullable();
 
             $table->string('estado')->nullable();
             $table->datetime('deleted_at')->nullable();

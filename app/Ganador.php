@@ -21,6 +21,7 @@ class Ganador extends Model
         'ejemplar_evento_id',
         'calificacion',
         'lugar',
+        'mejor_escogido',
         'estado',
         'deleted_at',
     ];
