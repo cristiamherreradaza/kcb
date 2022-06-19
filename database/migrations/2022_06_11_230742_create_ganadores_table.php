@@ -40,6 +40,16 @@ class CreateGanadoresTable extends Migration
             $table->string('lugar',5)->nullable();
             $table->string('mejor_escogido',10)->nullable();
 
+            $table->string('mejor_macho',10)->nullable();
+            $table->string('mejor_hembra',10)->nullable();
+            $table->string('mejor_cachorro',10)->nullable();
+            $table->string('sexo_opuesto_cachorro',10)->nullable();
+            $table->string('mejor_joven',10)->nullable();
+            $table->string('sexo_opuesto_joven',10)->nullable();
+            $table->string('mejor_raza',10)->nullable();
+            $table->string('sexo_opuesto_raza',10)->nullable();
+
+
             $table->string('estado')->nullable();
             $table->datetime('deleted_at')->nullable();
             $table->timestamps();

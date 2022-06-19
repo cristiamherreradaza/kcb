@@ -228,6 +228,7 @@ Route::post('Juez/ajaxFinalizarCalificacion', 'JuezController@ajaxFinalizarCalif
 Route::post('Juez/ajaxCategoriasCalificacion', 'JuezController@ajaxCategoriasCalificacion');
 Route::post('Juez/ajaxCalificacionMejor', 'JuezController@ajaxCalificacionMejor');
 Route::post('Juez/ajaxPlanilla', 'JuezController@ajaxPlanilla');
+Route::post('Juez/ajaxGanadores', 'JuezController@ajaxGanadores');
 
 
 

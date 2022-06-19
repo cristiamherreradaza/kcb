@@ -12,6 +12,38 @@
 
 
     {{-- inicio modal  --}}
+    <div class="modal fade" id="modalGanadores" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">VENCEDORES</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h6 class="text-primary text-center">Vencedores Machos</h6>
+                    <div id="vencedores_machos">
+
+                    </div>
+
+                    <hr>
+
+                    <h6 style="text-align: center; color:#F94EE4;">Vencedores Hembras</h6>
+                    <div id="vencedores_hembras">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- fin inicio modal  --}}
+
+
+    {{-- inicio modal  --}}
     <div class="modal fade" id="modalCalificacionCategorias" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
@@ -206,7 +238,8 @@
                                                                     </center>
                                                                 </div>
                                                                 <div class="col-md-1">
-                                                                    <button class="btn btn-info btn-icon btn-sm" type="button" onclick="modalGanadores('{{ $razas->raza->id }}', '{{ $razas->raza->nombre }}', '{{ $evento->id }}')"><i class="fa fa-list"></i></button>
+                                                                    <button class="btn btn-primary btn-icon btn-sm" type="button" onclick="modalGanadores('{{ $razas->raza->id }}', '{{ $evento->id }}')"><i class="fa fa-list"></i></button>
+                                                                    <button class="btn btn-info btn-icon btn-sm" type="button" onclick="modalPlanilla('{{ $razas->raza->id }}', '{{ $razas->raza->nombre }}', '{{ $evento->id }}')"><i class="fa fa-list"></i></button>
                                                                 </div>
                                                             </div>
                                                         </h5>
@@ -914,8 +947,6 @@
                             text: 'Revise la planilla!',
                             // footer: '<a href="">Why do I have this issue?</a>'
                         })
-
-
                     }
 
                 }
@@ -924,9 +955,7 @@
 
         }
 
-        function modalGanadores(raza, nombre, evento){
-
-            {{--  console.log("Esta la plantilla")  --}}
+        function modalPlanilla(raza, nombre, evento){
 
             $.ajax({
 
@@ -1008,16 +1037,6 @@
                             $('#bloques_mejor_categoria').html(data.mejor);
                             $('#bloques_mejor_categoria').toggle('show');
 
-                            // console.log(data);
-
-                            // $('#bloques_ganadores').html(data.divGanadoresCategorias);
-
-                            // $('#bloque_ganador').css('display', 'none');
-
-                            // $('#ejemplares-categorias').html(data.tables);
-
-                            // $('#modalCalificacionCategorias').modal('show');
-
                         }
 
                     });
@@ -1028,6 +1047,61 @@
 
 
 
+        }
+
+        function modalGanadores(raza, evento){
+
+            $.ajax({
+
+                url: "{{ url('Juez/ajaxGanadores') }}",
+                data: {
+                    raza    :   raza,
+                    evento  :   evento
+                },
+                type: 'POST',
+                dataType: 'json',
+                success: function(data){
+
+                    if(data.status === 'success'){
+
+                        $('#vencedores_machos').html(data.tableMachos)
+                        $('#vencedores_hembras').html(data.tableHembras)
+                        
+
+                        $('#modalGanadores').modal('show');
+
+                    }
+
+                }
+
+            });
+
+        }
+
+        function mejorVencedores(){
+
+            var mejores = document.getElementsByName('mejor_macho');
+            var conta = 0;
+
+            for (let index = 0; index < mejores.length; index++) {
+                const element = mejores[index];
+                if(element.checked){
+                    conta++;
+                    var escogido = element;
+                    break;
+                }
+            }
+
+            if(conta > 0){
+                    console.log(escogido.value)
+            }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Debe seleccionar un mejor macho!',
+                    text: 'Revise la planilla!',
+                    // footer: '<a href="">Why do I have this issue?</a>'
+                })
+            }
         }
 
     </script>
