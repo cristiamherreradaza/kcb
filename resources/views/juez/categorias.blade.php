@@ -33,6 +33,40 @@
                     <div id="vencedores_hembras">
 
                     </div>
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            SELECCION MEJOR CACHORRO
+                            <div id="select_ecoge_mejor_cachorro">
+
+                            </div>
+                            <hr>
+                            <div id="bloque_mejor_cachorro_escogido" style="display: none">
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            SELECCION MEJOR jOVEN
+                            <div id="select_ecoge_mejor_joven">
+
+                            </div>
+                            <hr>
+                            <div id="bloque_mejor_joven_escogido" style="display: none">
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            SELECCION MEJOR MEJOR RAZA
+                            <div id="select_ecoge_mejor_raza">
+
+                            </div>
+                            <hr>
+                            <div id="bloque_mejor_raza_escogido" style="display: none">
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
 
@@ -1062,11 +1096,19 @@
                 dataType: 'json',
                 success: function(data){
 
+                    console.log(data)
+
                     if(data.status === 'success'){
 
+                        $('#mejor_macho_vencedor').css('display', 'block');
                         $('#vencedores_machos').html(data.tableMachos)
                         $('#vencedores_hembras').html(data.tableHembras)
-                        
+
+                        // cachorro
+                        $('#select_ecoge_mejor_cachorro').html(data.selectCachorro);
+
+                        // joven
+                        $('#select_ecoge_mejor_joven').html(data.selectJoven);
 
                         $('#modalGanadores').modal('show');
 
@@ -1078,22 +1120,57 @@
 
         }
 
-        function mejorVencedores(){
+        function mejorVencedores(sexo){
 
-            var mejores = document.getElementsByName('mejor_macho');
+            var name = 'mejor_'+sexo;
+
+            var mejores = document.getElementsByName(name);
             var conta = 0;
+            var vencedor = 0;
 
             for (let index = 0; index < mejores.length; index++) {
                 const element = mejores[index];
                 if(element.checked){
                     conta++;
-                    var escogido = element;
+                    vencedor = element;
                     break;
                 }
             }
 
             if(conta > 0){
-                    console.log(escogido.value)
+
+                $.ajax({
+                    url: "{{ url('Juez/mejorVencedores') }}",
+                    data: {
+                        vencedor : vencedor.value
+                    },
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function(data){
+
+                        if(data.status === "success"){
+
+                            if(data.sexo === 'Macho'){
+
+                                $('#mejor_macho_vencedor').html(data.html);
+                                $('#mejor_macho_vencedor').toggle('show');
+
+                            }else{
+                                
+                                $('#mejor_hembra_vencedor').html(data.html);
+                                $('#mejor_hembra_vencedor').toggle('show');
+
+                            }
+
+                            $('#select_ecoge_mejor_raza').html(data.selectMejoresRaza);
+
+                        }else{
+
+                        }
+
+                    }
+                });
+
             }else{
                 Swal.fire({
                     icon: 'error',
@@ -1102,6 +1179,66 @@
                     // footer: '<a href="">Why do I have this issue?</a>'
                 })
             }
+        }
+
+        function guardaMejor(tipo){
+
+            var valor = 'select_'+tipo+'_mejor';
+
+            Swal.fire({
+                title: 'Esta seguro de poner a '+$('select[name='+valor+'] option:selected').text()+' como mejor '+tipo+'?',
+                text: "No podra revertir eso!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, estoy seguro!'
+            }).then((result) => {
+                
+                // console.log(tipo);
+                // console.log("-------------------------------");
+                // console.log($('#select_'+tipo+'_mejor').val());
+
+                $.ajax({
+                    url: "{{ url('Juez/mejorRazaFinPlanilla') }}",
+                    data: {
+                        vencedor : $('#select_'+tipo+'_mejor').val(),
+                        tipo : tipo
+                    },
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function(data){
+
+                        console.log(data)
+
+                        if(data.status === "success"){
+
+                            // if(data.sexo === 'Macho'){
+
+                            //     $('#mejor_macho_vencedor').html(data.html);
+                            //     $('#mejor_macho_vencedor').toggle('show');
+
+                            // }else{
+                                
+                            //     $('#mejor_hembra_vencedor').html(data.html);
+                            //     $('#mejor_hembra_vencedor').toggle('show');
+
+                            // }
+
+                            $('#select_ecoge_mejor_raza').html(data.selectMejoresRaza);
+
+                            $('#bloque_mejor_'+data.tipo+'_escogido').toggle('show');
+                            $('#bloque_mejor_'+data.tipo+'_escogido').html(data.mejor);
+
+                        }else{
+
+                        }
+
+                    }
+                });
+            })
+
+
         }
 
     </script>

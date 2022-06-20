@@ -229,6 +229,8 @@ Route::post('Juez/ajaxCategoriasCalificacion', 'JuezController@ajaxCategoriasCal
 Route::post('Juez/ajaxCalificacionMejor', 'JuezController@ajaxCalificacionMejor');
 Route::post('Juez/ajaxPlanilla', 'JuezController@ajaxPlanilla');
 Route::post('Juez/ajaxGanadores', 'JuezController@ajaxGanadores');
+Route::post('Juez/mejorVencedores', 'JuezController@mejorVencedores');
+Route::post('Juez/mejorRazaFinPlanilla', 'JuezController@mejorRazaFinPlanilla');
 
 
 

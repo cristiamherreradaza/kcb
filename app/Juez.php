@@ -172,4 +172,48 @@ class Juez extends Model
         return $ejemplar_evento;
 
     }
+
+    /**
+     * Esta funcion deveolvera un array de nejor macho o ejro hembra
+     */
+    public static function getMejorMachooHebra($raza_id, $evento_id, $categorias){
+
+        $mejores = Ganador::where('raza_id',$raza_id)
+                          ->where('evento_id',$evento_id)
+                          ->whereIn('categoria_id', $categorias)
+                          ->where(function($query){
+
+                            $query->where('mejor_macho', "Si")
+                                ->orwhere('mejor_hembra',  "Si");
+
+                          })
+                          ->get();
+
+        return $mejores;
+
+    }
+
+    public static function getsexoOpuesto($raza_id, $evento_id, $categorias, $sexo, $tipo){
+
+        if($sexo == 'Macho'){$nuevoSexo = 'Hembra';}else{$nuevoSexo = 'Macho';}
+
+        $querysexoOpuesto = Ganador::where('raza_id',$raza_id)
+                                ->where('evento_id',$evento_id)
+                                ->whereIn('categoria_id', $categorias)
+                                ->whereNull($tipo)
+                                ->where('sexo', $nuevoSexo)
+                                ->where('mejor_escogido', 'Si');
+
+        if($tipo == 'mejor_raza'){
+
+            $querysexoOpuesto->where(function($query){
+                $query->where('mejor_macho', "Si")
+                    ->orwhere('mejor_hembra',  "Si");
+            });
+
+        }
+
+        return $querysexoOpuesto->first();
+
+    }
 }
