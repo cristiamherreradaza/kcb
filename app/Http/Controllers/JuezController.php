@@ -520,125 +520,125 @@ class JuezController extends Controller
 
     }
 
-    public function AjaxPlanillaCalificacion(Request $request){
+    // public function AjaxPlanillaCalificacion(Request $request){
 
-        $evento_id  = $request->input('evento_id');
-        $ejemplares = $request->input('ejemplares');
+    //     $evento_id  = $request->input('evento_id');
+    //     $ejemplares = $request->input('ejemplares');
 
-        $arrayEjemplaresDevuetos = array();
+    //     $arrayEjemplaresDevuetos = array();
 
-        foreach ($ejemplares as $eje){
+    //     foreach ($ejemplares as $eje){
 
-            $arraySeparado = explode(",", $eje);
+    //         $arraySeparado = explode(",", $eje);
 
-            $dato = Juez::ejemplaresCategoria($arraySeparado[0], $evento_id, $arraySeparado[1 ]);
+    //         $dato = Juez::ejemplaresCategoria($arraySeparado[0], $evento_id, $arraySeparado[1 ]);
 
-            array_push($arrayEjemplaresDevuetos, $dato);
+    //         array_push($arrayEjemplaresDevuetos, $dato);
 
-        }
+    //     }
 
-        $data['formulario'] = view('juez.AjaxformularioCalificaion', compact('arrayEjemplaresDevuetos'))->render();
+    //     $data['formulario'] = view('juez.AjaxformularioCalificaion', compact('arrayEjemplaresDevuetos'))->render();
 
-        return json_encode($data);
-    }
+    //     return json_encode($data);
+    // }
 
-    public function AjaxEjemplarCatalogoRaza(Request $request){
+    // public function AjaxEjemplarCatalogoRaza(Request $request){
 
-        $categoria_id  = $request->input('categoria');
-        $raza_id  = $request->input('raza');
-        $evento_id  = $request->input('evento');
+    //     $categoria_id  = $request->input('categoria');
+    //     $raza_id  = $request->input('raza');
+    //     $evento_id  = $request->input('evento');
 
-        $ejemplares = Juez::EjemplarCatalogoRaza($categoria_id, $raza_id, $evento_id);
+    //     $ejemplares = Juez::EjemplarCatalogoRaza($categoria_id, $raza_id, $evento_id);
 
-        if($ejemplares[0]->sexo == "Hembra"){
-            $color = 'style="color: #F94EE4 ;"';
-        }else{
-            $color = 'class="text-primary"';
-        }
+    //     if($ejemplares[0]->sexo == "Hembra"){
+    //         $color = 'style="color: #F94EE4 ;"';
+    //     }else{
+    //         $color = 'class="text-primary"';
+    //     }
 
-        $htmlIni = '
-            <form action="" id="formularioCalificacionCategoria">
-                <table class="table table-hover text-center">
-                    <thead>
-                        <tr>
-                            <th '.$color.' colspan="3">
-                                <h2>EJEMPLARES</h2>
-                            </th>
-                        </tr>
-                        <tr  '.$color.' >
-                            <th>
-                                N~
-                            </th>
-                            <th>
-                                Calif.
-                            </th>
-                            <th>
-                                Lugar
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    ';
-                        $htmlBody ='';
+    //     $htmlIni = '
+    //         <form action="" id="formularioCalificacionCategoria">
+    //             <table class="table table-hover text-center">
+    //                 <thead>
+    //                     <tr>
+    //                         <th '.$color.' colspan="3">
+    //                             <h2>EJEMPLARES</h2>
+    //                         </th>
+    //                     </tr>
+    //                     <tr  '.$color.' >
+    //                         <th>
+    //                             N~
+    //                         </th>
+    //                         <th>
+    //                             Calif.
+    //                         </th>
+    //                         <th>
+    //                             Lugar
+    //                         </th>
+    //                     </tr>
+    //                 </thead>
+    //                 <tbody>
+    //                 ';
+    //                     $htmlBody ='';
 
-                        foreach ($ejemplares as $eje){
+    //                     foreach ($ejemplares as $eje){
 
-                            $htmlBody = $htmlBody.'<tr>
-                                                        <td>
-                                                            <input type="hidden" name="ejemplar_evento_id_ejemplar[]" value="'.$eje->id.'">
-                                                            <input type="hidden" name="raza_id_ejemplar[]" value="'.$raza_id.'">
-                                                            <input type="hidden" name="evento_id_ejemplar[]" value="'.$evento_id.'">
-                                                            <input type="hidden" name="categoria_id_ejemplar[]" value="'.$categoria_id.'">
-                                                            <input type="hidden" name="sexo_ejemplar[]" value="'.$eje->sexo.'">
-                                                            <input type="hidden" name="numero_prefijo_ejemplar[]" value="'.$eje->numero_prefijo.'">
-                                                            <input type="hidden" name="ejemplar_id_ejemplar[]" value="'.$eje->ejemplar_id.'">
-                                                            <h1 '.$color.'>'.$eje->numero_prefijo.'</h1>
-                                                            <small style="display: none;" class="_'.$eje->id.' text-warning">Dato repetido</small>
-                                                        </td>
-                                                        <td>
-                                                            <select name="calificacion_ejemplar[]" id="calificacion_ejemplar" class="form-control">
-                                                                <option value="Excelente">Excelente</option>
-                                                                <option value="Muy Bien">Muy Bien</option>
-                                                                <option value="Bien">Bien</option>
-                                                                <option value="Descalificado">Descalificado</option>
-                                                                <option value="Ausente">Ausente</option>
-                                                            </select>
-                                                            <small style="display: none;" class="_'.$eje->id.' text-warning">Dato repetido</small>
-                                                        </td>
-                                                        <td>
-                                                            <select name="lugar_ejemplar[]" id="lugar_ejemplar" class="form-control">
-                                                                <option value="1">1</option>
-                                                                <option value="2">2</option>
-                                                                <option value="3">3</option>
-                                                                <option value="4">4</option>
-                                                                <option value="5">5</option>
-                                                            </select>
-                                                            <small style="display: none;" class="_'.$eje->id.' text-warning">Dato repetido</small>
-                                                        </td>
-                                                    </tr>';
+    //                         $htmlBody = $htmlBody.'<tr>
+    //                                                     <td>
+    //                                                         <input type="hidden" name="ejemplar_evento_id_ejemplar[]" value="'.$eje->id.'">
+    //                                                         <input type="hidden" name="raza_id_ejemplar[]" value="'.$raza_id.'">
+    //                                                         <input type="hidden" name="evento_id_ejemplar[]" value="'.$evento_id.'">
+    //                                                         <input type="hidden" name="categoria_id_ejemplar[]" value="'.$categoria_id.'">
+    //                                                         <input type="hidden" name="sexo_ejemplar[]" value="'.$eje->sexo.'">
+    //                                                         <input type="hidden" name="numero_prefijo_ejemplar[]" value="'.$eje->numero_prefijo.'">
+    //                                                         <input type="hidden" name="ejemplar_id_ejemplar[]" value="'.$eje->ejemplar_id.'">
+    //                                                         <h1 '.$color.'>'.$eje->numero_prefijo.'</h1>
+    //                                                         <small style="display: none;" class="_'.$eje->id.' text-warning">Dato repetido</small>
+    //                                                     </td>
+    //                                                     <td>
+    //                                                         <select name="calificacion_ejemplar[]" id="calificacion_ejemplar" class="form-control">
+    //                                                             <option value="Excelente">Excelente</option>
+    //                                                             <option value="Muy Bien">Muy Bien</option>
+    //                                                             <option value="Bien">Bien</option>
+    //                                                             <option value="Descalificado">Descalificado</option>
+    //                                                             <option value="Ausente">Ausente</option>
+    //                                                         </select>
+    //                                                         <small style="display: none;" class="_'.$eje->id.' text-warning">Dato repetido</small>
+    //                                                     </td>
+    //                                                     <td>
+    //                                                         <select name="lugar_ejemplar[]" id="lugar_ejemplar" class="form-control">
+    //                                                             <option value="1">1</option>
+    //                                                             <option value="2">2</option>
+    //                                                             <option value="3">3</option>
+    //                                                             <option value="4">4</option>
+    //                                                             <option value="5">5</option>
+    //                                                         </select>
+    //                                                         <small style="display: none;" class="_'.$eje->id.' text-warning">Dato repetido</small>
+    //                                                     </td>
+    //                                                 </tr>';
                             
-                        }
+    //                     }
 
-        $htmlFin = '
-                    </tbody>
-                </table>
-            </form>
+    //     $htmlFin = '
+    //                 </tbody>
+    //             </table>
+    //         </form>
 
-                <hr>
-                <div class="row">
-                    <div class="col-md-12">
-                        <button onclick="finalizarCalificacion()" type="button" class="btn btn-success btn-block">Finalizar Calificacion</button>
-                    </div>
-                </div>
-                ';
+    //             <hr>
+    //             <div class="row">
+    //                 <div class="col-md-12">
+    //                     <button onclick="finalizarCalificacion()" type="button" class="btn btn-success btn-block">Finalizar Calificacion</button>
+    //                 </div>
+    //             </div>
+    //             ';
 
-        $table =  $htmlIni.$htmlBody.$htmlFin;
+    //     $table =  $htmlIni.$htmlBody.$htmlFin;
 
-        $data['table'] = $table;
-        $data['status'] = 'success';
+    //     $data['table'] = $table;
+    //     $data['status'] = 'success';
 
-        return json_encode($data);
-    }
+    //     return json_encode($data);
+    // }
     
     public function ajaxFinalizarCalificacion(Request $request){
 
@@ -654,6 +654,7 @@ class JuezController extends Controller
         $calificaciones     = $request->input('calificacion_ejemplar');
         $lugares            = $request->input('lugar_ejemplar');
         $ejemplares         = $request->input('ejemplar_id_ejemplar');
+        $grupo              = $request->input('grupo_id');
 
         $categoria = CategoriasPista::find($categoria_id)[0]->nombre;
         
@@ -680,6 +681,7 @@ class JuezController extends Controller
                     $calificacion->raza_id                  = $raza_id[0];
                     $calificacion->categoria_id             = $categoria_id[0];
                     $calificacion->sexo                     = $sexo[0];
+                    $calificacion->grupo_id                 = $grupo[0];
                     $calificacion->numero_prefijo           = $numero_prefijos[$key];
                     $calificacion->calificacion             = $calificaciones[$key];
                     $calificacion->lugar                    = $lugares[$key];
@@ -699,6 +701,7 @@ class JuezController extends Controller
                             'calificacion'          => $calificaciones[$key],
                             'raza'                  => $raza_id[0],
                             'sexo'                  => $sexo[0],
+                            'grupo'              => $grupo[0],
                             'lugar'                 => $lugares[$key]
 
                         );
@@ -725,6 +728,7 @@ class JuezController extends Controller
                 $ganador->ejemplar_evento_id    = $arrayMejorEjemplar['ejemplar_evento_id'];
                 $ganador->categoria_id          = $arrayMejorEjemplar['categoria_id'];
                 $ganador->raza_id               = $arrayMejorEjemplar['raza'];
+                $ganador->grupo_id              = $arrayMejorEjemplar['grupo'];
                 $ganador->sexo                  = $arrayMejorEjemplar['sexo'];
                 $ganador->numero_prefijo        = $arrayMejorEjemplar['numero_prefijo'];
                 $ganador->calificacion          = $arrayMejorEjemplar['calificacion'];
@@ -1124,6 +1128,8 @@ class JuezController extends Controller
 
                 foreach ($ejemplares as $eje){
 
+                    $grupo = Juez::getGrupo($eje->raza_id);
+
                     $tableBody = $tableBody.'<tr>
                                                 <td>
                                                 
@@ -1134,6 +1140,7 @@ class JuezController extends Controller
                                                 <input type="hidden" name="sexo_ejemplar[]" value="'.$eje->sexo.'">
                                                 <input type="hidden" name="numero_prefijo_ejemplar[]" value="'.$eje->numero_prefijo.'">
                                                 <input type="hidden" name="ejemplar_id_ejemplar[]" value="'.$eje->ejemplar_id.'">
+                                                <input type="hidden" name="grupo_id[]" value="'.$grupo->grupo_id.'">
 
                                                     <h1 class="text-primary">'.$eje->numero_prefijo.'</h1>
                                                     <small style="display: none;" class="_'.$eje->id.' text-warning">Dato repetido</small>
@@ -1524,6 +1531,32 @@ class JuezController extends Controller
             $data['tipo'] = $tipo;
             $data['status'] = 'success';
 
+
+            return json_encode($data);
+
+        }
+
+    }
+
+    public function bestingGanadores(Request $request){
+
+        if($request->ajax()){
+
+            $tipo = $request->input('tipo');
+            $evento_id = $request->input('evento');
+
+            if($tipo == "especiales"){
+                $ganadores = Juez::ejemplaresCategoria('Especiales', $evento_id,[1,2,3,4,5,6,7,8,9,10]); 
+            }elseif($tipo == "absolutos"){
+                $ganadores = Juez::getGanadores($evento_id, [2,11], 'mejor_cachorro');
+            }elseif($tipo == "jovenes"){
+                $ganadores = Juez::getGanadores($evento_id, [3,4,12,13], 'mejor_joven');
+            }elseif($tipo == "adultos"){
+                $ganadores = Juez::getGanadores($evento_id, [5,6,7,8,9,10,14,15], 'mejor_raza');
+            }
+
+            
+            $data['table']  =  view('juez.besting', compact('ganadores'))->render();
 
             return json_encode($data);
 

@@ -43,18 +43,22 @@ class Juez extends Model
     esta funcion te devuleve las categorias pero en conjunto tanto jovenes y jovenes campeones
     intermdias abiertas campeones grandes campeones en un solo blouqe
 
+    ojo que ahora solo funciona con especiales
+
      */
     public static function ejemplaresCategoria($categoria, $evento_id, $grupo){
 
         if($categoria == "Especiales"){
             
-            $ejemplares = EjemplarEvento::select('ejemplares_eventos.numero_prefijo', 'ejemplares_eventos.raza_id', 'grupos_razas.grupo_id', 'ejemplares_eventos.categoria_pista_id')
+            $ejemplares = EjemplarEvento::select('ejemplares_eventos.numero_prefijo', 'ejemplares_eventos.raza_id', 'grupos_razas.grupo_id', 'ejemplares_eventos.categoria_pista_id as categoria_id')
                                         ->join('razas','ejemplares_eventos.raza_id','=','razas.id')
                                         ->join('grupos_razas','razas.id', '=', 'grupos_razas.raza_id')
-                                        ->where("grupos_razas.grupo_id",$grupo)
+                                        ->whereIn("grupos_razas.grupo_id",$grupo)
+                                        // ->where("grupos_razas.grupo_id",$grupo)
                                         ->where("ejemplares_eventos.evento_id",$evento_id)
                                         ->where("ejemplares_eventos.categoria_pista_id",1)
                                         ->orderBy('ejemplares_eventos.raza_id')
+                                        // ->toSql();
                                         ->get();
                                                 
         }elseif($categoria == "Absolutos"){
@@ -193,6 +197,10 @@ class Juez extends Model
 
     }
 
+    /**
+     * 
+     * Esta function deveulve el sexo opuesto del ganador
+     */
     public static function getsexoOpuesto($raza_id, $evento_id, $categorias, $sexo, $tipo){
 
         if($sexo == 'Macho'){$nuevoSexo = 'Hembra';}else{$nuevoSexo = 'Macho';}
@@ -214,6 +222,33 @@ class Juez extends Model
         }
 
         return $querysexoOpuesto->first();
+
+    }
+
+    /**
+     * esta funcion devueve el grupo a que pertencece segun la raza_id
+     */
+    public static function getGrupo($raza_id){
+
+        $grupo = GrupoRaza::where('raza_id',$raza_id)
+                        ->first();
+
+        return $grupo;
+
+    }
+
+
+    public static function getGanadores($evento_id, $categoria, $tipo_campo){
+
+        // dd($evento_id, $categoria, $tipo_campo);
+
+        $ganadores = Ganador::whereIn('categoria_id',$categoria)
+                                ->where($tipo_campo, "Si")
+                                ->where('evento_id', $evento_id)
+                                ->orderBy('grupo_id','asc')
+                                ->get();
+
+        return $ganadores;
 
     }
 }

@@ -34,6 +34,8 @@ class CreateGanadoresTable extends Migration
             $table->foreign('categoria_id')->references('id')->on('categorias_pistas');
             $table->unsignedBigInteger('raza_id')->nullable();
             $table->foreign('raza_id')->references('id')->on('razas');
+            $table->unsignedBigInteger('grupo_id')->nullable();
+            $table->foreign('grupo_id')->references('id')->on('grupos');
             $table->string('sexo',10)->nullable();
             $table->string('numero_prefijo',100)->nullable();
             $table->string('calificacion',100)->nullable();

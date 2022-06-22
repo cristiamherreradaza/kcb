@@ -10,6 +10,29 @@
 
 @section('content')
 
+    {{-- inicio modal BESTING  --}}
+    <div class="modal fade" id="modalPlanillaFinales" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">PLANILLA DE FINALES DE <span class="text-info" id="finales"></span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="tabla-finales" class="table-responsive">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- fin inicio modal BESTING  --}}
+
 
     {{-- inicio modal  --}}
     <div class="modal fade" id="modalGanadores" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
@@ -209,13 +232,39 @@
 	<div class="card card-custom gutter-b">
 		<div class="card-header flex-wrap py-3">
 			<div class="card-title">
-				<h3 class="card-label">CATEGORIAS</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3 class="card-label">CATEGORIAS</h3>
+                    </div>
+                    <div class="col-md-6">
+
+                    </div>
+                </div>
+
 			</div>
 			<div class="card-toolbar">
-
+                <div class="row">
+                    <div class="col-md-3">
+                        <button type="button" onclick="bestingGanadores('{{ $evento->id }}', 'especiales')" class="btn btn-success">Especiales</button>
+                    </div>
+                    <div class="col-md-3">
+                        <button type="button" onclick="bestingGanadores('{{ $evento->id }}', 'absolutos')" class="btn btn-success">Absolutos</button>
+                    </div>
+                    <div class="col-md-3">
+                        <button type="button" onclick="bestingGanadores('{{ $evento->id }}', 'jovenes')" class="btn btn-success">Jovenes</button>
+                    </div>
+                    <div class="col-md-3">
+                        <button type="button" onclick="bestingGanadores('{{ $evento->id }}', 'adultos')" class="btn btn-success">Adultos</button>
+                    </div>
+                </div>
 			</div>
 		</div>
 		<div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    hola
+                </div>
+            </div>
 
             {{-- <div class="row">
                 <div class="col-md-12">
@@ -1238,6 +1287,41 @@
                 });
             })
 
+
+        }
+
+        function bestingGanadores(evento, tipo){    
+
+            $.ajax({
+                url: "{{ url('Juez/bestingGanadores') }}",
+                data: {
+                    evento  : evento,
+                    tipo    : tipo
+                },
+                type: 'POST',
+                dataType: 'json',
+                success: function(data){
+
+                    console.log(data);
+
+                    $('#finales').text((tipo.toString()).toUpperCase());
+
+                    $('#tabla-finales').html(data.table)
+
+                    $('#modalPlanillaFinales').modal('show');
+
+                }
+            });
+        }
+
+        function mejorGrupo(grupo){
+
+            var elemet = document.getElementsByName('grupo_'+grupo+'_[]')
+
+            for (let index = 0; index < elemet.length; index++) {
+                const element = elemet[index];
+                console.log(element.value)
+            }
 
         }
 
