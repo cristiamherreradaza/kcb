@@ -8,14 +8,15 @@ use App\Raza;
 use App\Grupo;
 
 use App\Evento;
+use App\Besting;
 use App\Ganador;
 use App\GrupoRaza;
 use App\Asignacion;
 use App\Calificacion;
 use App\CategoriaJuez;
 use App\EjemplarEvento;
-use App\CategoriasPista;
 
+use App\CategoriasPista;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use function GuzzleHttp\Promise\all;
@@ -1556,7 +1557,75 @@ class JuezController extends Controller
             }
 
             
-            $data['table']  =  view('juez.besting', compact('ganadores'))->render();
+            $data['table']  =  view('juez.besting', compact('ganadores','evento_id', 'tipo'))->render();
+
+            return json_encode($data);
+
+        }
+
+    }
+
+    public function calificabesting(Request $request){
+
+        if($request->ajax()){
+
+            $evento_id = $request->input('evento');
+            $grupo_id  = $request->input('grupo');
+            $tipo  = $request->input('tipo');
+
+            $numero_prefijos    = $request->input('numeros');
+            $calificaciones     = $request->input('calificaciones');
+            $categorias_pistas  = $request->input('categorias_pistas');
+            $ejempleres_id      = $request->input('ejempleres_id');
+            $ganadores_id       = $request->input('ganadores_id');
+            $ejemplares_eventos = $request->input('ejemplares_eventos');
+            $razas_ids          = $request->input('razas_ids');
+
+            $mejorGrupo = null;
+            $mejorReserva = null;
+
+            foreach($numero_prefijos as $key => $npr){
+
+                $besting =  new  Besting();
+
+                $besting->creador_id            = Auth::user()->id;
+                $besting->categoria_pista_id    = $categorias_pistas[$key];
+                $besting->ejemplar_evento_id    = $ejemplares_eventos[$key];
+                $besting->raza_id               = $razas_ids[$key];
+                $besting->grupo_id              = $grupo_id;
+                $besting->evento_id             = $evento_id;
+                $besting->ejemplar_id           = $ejempleres_id[$key];
+                $besting->ganador_id            = $ganadores_id[$key];
+                $besting->numero_prefijo        = $npr;
+                $besting->lugar                 = $calificaciones[$key];
+                $besting->tipo                  = $tipo;
+
+                $besting->save();
+
+                // buscamos a al mejor del grupo
+                if($besting->lugar == 1)
+                    $mejorGrupo = $besting;
+
+                // buscamos a la reserva
+                if($besting->lugar == 2)
+                    $mejorReserva = $besting;
+
+            }
+
+            if($mejorGrupo){
+                $mejorGrupo->mejor_grupo = "Si";
+                $mejorGrupo->save();
+            }
+
+            if($mejorReserva){
+                $mejorReserva->recerva_grupo = "Si";
+                $mejorReserva->save();
+            }
+
+            $data['status']         = 'success';
+            $data['mejor_grupo']    = ($mejorGrupo)? $mejorGrupo->numero_prefijo : null;
+            $data['reserva_grupo']  = ($mejorReserva)? $mejorReserva->numero_prefijo : null;
+            $data['grupo']          = $besting->grupo_id;
 
             return json_encode($data);
 

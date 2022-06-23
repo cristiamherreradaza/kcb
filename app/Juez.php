@@ -50,7 +50,7 @@ class Juez extends Model
 
         if($categoria == "Especiales"){
             
-            $ejemplares = EjemplarEvento::select('ejemplares_eventos.numero_prefijo', 'ejemplares_eventos.raza_id', 'grupos_razas.grupo_id', 'ejemplares_eventos.categoria_pista_id as categoria_id')
+            $ejemplares = EjemplarEvento::select('ejemplares_eventos.id as ejemplar_evento_id', 'ejemplares_eventos.ejemplar_id', 'ejemplares_eventos.numero_prefijo', 'ejemplares_eventos.raza_id', 'grupos_razas.grupo_id', 'ejemplares_eventos.categoria_pista_id as categoria_id')
                                         ->join('razas','ejemplares_eventos.raza_id','=','razas.id')
                                         ->join('grupos_razas','razas.id', '=', 'grupos_razas.raza_id')
                                         ->whereIn("grupos_razas.grupo_id",$grupo)

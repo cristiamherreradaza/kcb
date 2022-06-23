@@ -1314,14 +1314,79 @@
             });
         }
 
-        function mejorGrupo(grupo){
+        function mejorGrupo(grupo, tipo){
 
-            var elemet = document.getElementsByName('grupo_'+grupo+'_[]')
+            // eso es para las calificacione
+            let calificaciones = [];
+            var elemet = document.getElementsByName('grupo_'+grupo+'_[]');
+            for (let index = 0; index < elemet.length; index++) {calificaciones.push(elemet[index].value);}
 
-            for (let index = 0; index < elemet.length; index++) {
-                const element = elemet[index];
-                console.log(element.value)
-            }
+            // eso es para las numeros
+            let numeros_prefijos = [];
+            var elemet = document.getElementsByName('numeros_'+grupo+'_[]');
+            for (let index = 0; index < elemet.length; index++) {numeros_prefijos.push(elemet[index].value);}
+
+            // eso es para las categorias pistas
+            let categorias_pistas = [];
+            var elemet = document.getElementsByName('categoria_pista_ids_'+grupo+'_[]');
+            for (let index = 0; index < elemet.length; index++) {categorias_pistas.push(elemet[index].value);}
+            
+            // eso es para las ejemplares eventos
+            let ejemplares_eventos = [];
+            var elemet = document.getElementsByName('ejemplar_eventos_ids_'+grupo+'_[]');
+            for (let index = 0; index < elemet.length; index++) {ejemplares_eventos.push(elemet[index].value);}
+
+            // eso es para las ejemplares
+            let ejempleres_id = [];
+            var elemet = document.getElementsByName('ejemplares_ids_'+grupo+'_[]');
+            for (let index = 0; index < elemet.length; index++) {ejempleres_id.push(elemet[index].value);}
+
+            // eso es para las ganadores id
+            let ganadores_id = [];
+            var elemet = document.getElementsByName('ganador_ids_'+grupo+'_[]');
+            for (let index = 0; index < elemet.length; index++) {ganadores_id.push(elemet[index].value);}
+
+            // eso es para las razas
+            let razas_id = [];
+            var elemet = document.getElementsByName('raza_ids_'+grupo+'_[]');
+            for (let index = 0; index < elemet.length; index++) {razas_id.push(elemet[index].value);}
+
+            var tipo = $('#tipo_besting').val();
+
+            $.ajax({
+                url: "{{ url('Juez/calificabesting') }}",
+                data: {
+                    calificaciones      : calificaciones,
+                    numeros             : numeros_prefijos,
+                    categorias_pistas   : categorias_pistas,
+                    grupo               : grupo,
+                    ejempleres_id       : ejempleres_id,
+                    ganadores_id        : ganadores_id,
+                    evento              : {{ $evento->id }},
+                    ejemplares_eventos  : ejemplares_eventos,
+                    razas_ids           : razas_id,
+                    tipo                : tipo
+                },
+                type: 'POST',
+                dataType: 'json',
+                success: function(data){
+
+                    if(data.status === "success"){
+
+                        if(data.mejor_grupo != null){
+                            $('#mejor_grupo_'+data.grupo+'_numero').text(data.mejor_grupo);
+                            $('#mejor_grupo_'+data.grupo).toggle('show');
+                        }
+
+                        if(data.reserva_grupo != null){
+                            $('#reserva_grupo_'+data.grupo+'_numero').text(data.reserva_grupo);
+                            $('#reserva_grupo_'+data.grupo).toggle('show');
+                        }
+
+                    }
+
+                }
+            });
 
         }
 

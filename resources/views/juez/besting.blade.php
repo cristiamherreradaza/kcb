@@ -125,6 +125,7 @@
     }
 
 @endphp
+<input type="hidden" value="{{ $tipo }}" name="tipo_besting" id="tipo_besting">
 <table class="table table-bordered table-hover table-striped" style="width:100%;">
     <thead>
         <tr>
@@ -137,9 +138,16 @@
         @for($i = 0; $i < $mayor; $i++)
             <tr>
                 @foreach ( $array_grupo as $ag)
+
                     @if (count($ag) > $i)
                         <td>
                             <div class="row">
+                                <input type="hidden" value="{{ $ag[$i]->raza_id }}" name="raza_ids_{{ $ag[$i]->grupo_id }}_[]">
+                                <input type="hidden" value="{{ $ag[$i]->numero_prefijo }}" name="numeros_{{ $ag[$i]->grupo_id }}_[]">
+                                <input type="hidden" value="{{ $ag[$i]->categoria_id }}" name="categoria_pista_ids_{{ $ag[$i]->grupo_id }}_[]">
+                                <input type="hidden" value="{{ $ag[$i]->ejemplar_evento_id }}" name="ejemplar_eventos_ids_{{ $ag[$i]->grupo_id }}_[]">
+                                <input type="hidden" value="{{ $ag[$i]->ejemplar_id }}" name="ejemplares_ids_{{ $ag[$i]->grupo_id }}_[]">
+                                <input type="hidden" value="{{ $ag[$i]->id }}" name="ganador_ids_{{ $ag[$i]->grupo_id }}_[]">
                                 <div class="col-md-12 text-primary text-center">
                                     <h5>
                                         {{ $ag[$i]->numero_prefijo }}
@@ -170,6 +178,19 @@
         <tr>
             @foreach ( $array_grupo as $ag)
                 <th><button onclick="mejorGrupo('{{ $ag[0]->grupo_id }}')" type="button" class="btn btn-success btn-block"> Finalizar </button></th>
+            @endforeach
+        </tr>
+        <tr>
+            @foreach ( $array_grupo as $ag)
+                <th>
+                    <div id="mejor_grupo_{{ $ag[0]->grupo_id }}" style="display: none">
+                        Mejor de grupo => <span class="text-info" id="mejor_grupo_{{ $ag[0]->grupo_id }}_numero"></span>
+                    </div>
+                    <hr>
+                    <div id="reserva_grupo_{{ $ag[0]->grupo_id }}" style="display: none">
+                        Reserva de grupo => <span class="text-info" id="reserva_grupo_{{ $ag[0]->grupo_id }}_numero"></span>
+                    </div>
+                </th>
             @endforeach
         </tr>
     </tfoot>
