@@ -263,4 +263,39 @@ class Juez extends Model
         return $besting;
 
     }
+
+    public static function getMejorGrupoMejorRecerbaTipo($grupo_id, $tipo, $mejor, $evento_id){
+
+        $query = Besting::where('grupo_id',$grupo_id)
+                        ->where('tipo', $tipo)
+                        ->where('evento_id', $evento_id);
+
+        if($mejor == 'mejor_grupo'){
+
+            $query->where('mejor_grupo', 'Si')
+                  ->where('lugar', '1');
+
+        }else{
+
+            $query->where('recerva_grupo', 'Si')
+                  ->where('lugar', '2');
+
+        }
+
+        $bestibg = $query->first();
+
+        return $bestibg;
+
+    }
+
+    public static function finalistasBesting($evento_id, $tipo){
+
+        $finalistas = Besting::where('evento_id',$evento_id)
+                                ->where('tipo', $tipo)
+                                ->where('mejor_grupo', 'Si')
+                                ->get();
+
+        return $finalistas;
+
+    }
 }

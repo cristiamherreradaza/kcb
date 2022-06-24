@@ -182,21 +182,43 @@
     <tfoot>
         <tr>
             @foreach ( $array_grupo as $ag)
-                {{-- @if (!App\Juez::recuperaGanadorBesting($ag[0]->ejemplar_evento_id, $tipo, $ag[0]->grupo_id, $evento_id)) --}}
-                    <th><button onclick="mejorGrupo('{{ $ag[0]->grupo_id }}')" type="button" class="btn btn-success btn-block"> Finalizar </button></th>
-                {{-- @endif --}}
+                <th>
+                    @if (!App\Juez::recuperaGanadorBesting($ag[0]->ejemplar_evento_id, $tipo, $ag[0]->grupo_id, $evento_id))
+                        <button onclick="mejorGrupo('{{ $ag[0]->grupo_id }}')" type="button" class="btn btn-success btn-block"> Finalizar </button>
+                    @endif
+                </th>
             @endforeach
         </tr>
         <tr>
             @foreach ( $array_grupo as $ag)
                 <th>
-                    <div id="mejor_grupo_{{ $ag[0]->grupo_id }}" style="display: none">
-                        Mejor de grupo => <span class="text-info" id="mejor_grupo_{{ $ag[0]->grupo_id }}_numero"></span>
-                    </div>
-                    <hr>
-                    <div id="reserva_grupo_{{ $ag[0]->grupo_id }}" style="display: none">
-                        Reserva de grupo => <span class="text-info" id="reserva_grupo_{{ $ag[0]->grupo_id }}_numero"></span>
-                    </div>
+                    @php
+
+                        $bestingMejorGrupoRescatado = App\Juez::getMejorGrupoMejorRecerbaTipo($ag[0]->grupo_id, $tipo, 'mejor_grupo', $evento_id);
+                        $bestingMejorRecerva = App\Juez::getMejorGrupoMejorRecerbaTipo($ag[0]->grupo_id, $tipo, 'mejor_recerva', $evento_id);
+
+                    @endphp
+                    @if($bestingMejorGrupoRescatado || $bestingMejorRecerva)
+                        @if($bestingMejorGrupoRescatado != null)
+                            <div>
+                                Mejor de grupo => <span class="text-info">{{ $bestingMejorGrupoRescatado->numero_prefijo }}</span>
+                            </div>
+                        @endif
+                        <hr>
+                        @if($bestingMejorRecerva != null)
+                            <div>
+                                Reserva de grupo => <span class="text-info">{{ $bestingMejorRecerva->numero_prefijo }}</span>
+                            </div>
+                        @endif
+                    @else
+                        <div id="mejor_grupo_{{ $ag[0]->grupo_id }}" style="display: none">
+                            Mejor de grupo => <span class="text-info" id="mejor_grupo_{{ $ag[0]->grupo_id }}_numero"></span>
+                        </div>
+                        <hr>
+                        <div id="reserva_grupo_{{ $ag[0]->grupo_id }}" style="display: none">
+                            Reserva de grupo => <span class="text-info" id="reserva_grupo_{{ $ag[0]->grupo_id }}_numero"></span>
+                        </div>
+                    @endif
                 </th>
             @endforeach
         </tr>

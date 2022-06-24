@@ -117,7 +117,10 @@
                                 <!--end::Tab Content-->
                                 <!--begin::Tab Content-->
                                 <div class="tab-pane" id="kt_apps_contacts_view_tab_3" role="tabpanel">
-                                    <h1>ESte es el tercero</h1>
+                                    <h3 class="text-success text-center">Finalistas</h3>
+                                    <div id="besting_finalistas">
+
+                                    </div>
                                 </div>
                                 <!--end::Tab Content-->
                                 <!--begin::Tab Content-->
@@ -1419,13 +1422,17 @@
                 dataType: 'json',
                 success: function(data){
 
-                    console.log(data);
+                    if(data.status === "success"){
+                        
+                        $('#finales').text((tipo.toString()).toUpperCase());
+    
+                        $('#tabla-finales').html(data.table);
 
-                    $('#finales').text((tipo.toString()).toUpperCase());
+                        $('#besting_finalistas').html(data.finalistas);
+    
+                        $('#modalPlanillaFinales').modal('show');
 
-                    $('#tabla-finales').html(data.table)
-
-                    $('#modalPlanillaFinales').modal('show');
+                    }
 
                 }
             });
@@ -1500,11 +1507,64 @@
                             $('#reserva_grupo_'+data.grupo).toggle('show');
                         }
 
+                        $('#besting_finalistas').html(data.finalistas);
+
                     }
 
                 }
             });
 
+        }
+
+        function calificaFinal(select){
+
+            var select = document.getElementsByName('posision[]');
+
+            let array = [];
+            let arrayRepetidos = [];
+            var sw = true;
+
+            for (let index = 0; index < select.length; index++) {
+
+                $('#_'+select[index].id).css('display', 'none');
+
+
+                if(!array.includes(select[index].value)){
+                    array.push(select[index].value);
+                }else{
+                    sw = false;
+                    arrayRepetidos.push(select[index].id);
+                }
+                
+            }
+
+            if(sw){
+
+                var bestingid = document.getElementsByName('bestinguids[]');
+
+                let arrayBesting = [];
+
+                for (let index = 0; index < bestingid.length; index++) {arrayBesting.push(bestingid[index].value);}
+
+                $.ajax({
+                    url: "{{ url('Juez/calificaFinales') }}",
+                    data: {
+                        calificaciones : array,
+                        bestingid :arrayBesting
+                    },
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function(data){
+
+                    }
+                });
+            }else{
+                $(arrayRepetidos).each(function(index, value){
+                    $('#_'+value).css('display', 'block');
+                });
+            }
+
+            
         }
 
     </script>

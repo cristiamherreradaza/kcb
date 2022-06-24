@@ -1555,8 +1555,50 @@ class JuezController extends Controller
             }elseif($tipo == "adultos"){
                 $ganadores = Juez::getGanadores($evento_id, [5,6,7,8,9,10,14,15], 'mejor_raza');
             }
+
             
+            $data['status'] ='success';
+
             $data['table']  =  view('juez.besting', compact('ganadores','evento_id', 'tipo'))->render();
+
+
+            // para los finalistas
+            $finalistas = Juez::finalistasBesting($evento_id, $tipo);
+
+            $tbody = '';
+
+            foreach ($finalistas as $fi){
+                $tbody = $tbody.'<td class="text-primary">
+                                    <input type="text" value="'.$fi->id.'" name="bestinguids[]">
+                                    <h2 class="text-center">'.$fi->numero_prefijo.'</h2>
+                                    <br>
+                                    <select name="posision[]" id="calificacion_final_'.$fi->numero_prefijo.'" class="form-control">
+                                        <option value="1">Mejor</option>
+                                        <option value="2">Segundo</option>
+                                        <option value="3">Tercero</option>
+                                        <option value="4">Cuarto</option>
+                                        <option value="5">Quinto</option>
+                                    </select>
+                                    <small style="display: none;" class="text-warning" id="_calificacion_final_'.$fi->numero_prefijo.'">Calificacion repetida</small>
+                                </td>';
+            }
+
+            $tableFinalistas = '
+                                <table class="table table-bordered table-hover table-striped" style="width:100%;">
+                                    <tbody>
+                                        <tr>
+                                        '.$tbody.'
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button class="btn btn-success btn-block" onclick="calificaFinal()">Finalizar</button>
+                                    </div>
+                                </div>
+                                ';
+
+            $data['finalistas']  = $tableFinalistas;
 
             return json_encode($data);
 
@@ -1626,8 +1668,62 @@ class JuezController extends Controller
             $data['reserva_grupo']  = ($mejorReserva)? $mejorReserva->numero_prefijo : null;
             $data['grupo']          = $besting->grupo_id;
 
+
+            // para los finalistas
+            $finalistas = Juez::finalistasBesting($evento_id, $tipo);
+
+            $tbody = '';
+
+            foreach ($finalistas as $fi){
+                $tbody = $tbody.'<td class="text-primary"><h2>'.$fi->numero_prefijo.'</h2></td>';
+            }
+
+            $tableFinalistas = '
+                                <table class="table table-bordered table-hover table-striped" style="width:100%;">
+                                    <tbody>
+                                        <tr>
+                                        '.$tbody.'
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                ';
+
+            $data['finalistas']  = $tableFinalistas;
+
             return json_encode($data);
 
+        }
+
+    }
+
+    public function calificaFinales(Request $request){
+
+        if($request->ajax()){
+
+            $besting_ids    = $request->input('bestingid');
+            $calificaciones = $request->input('calificaciones');
+
+            foreach ($besting_ids as $key => $bid){
+
+                $besting = Besting::find($bid);
+
+                if($calificaciones[$key] == 1){
+                    $besting->mejor_ejemplar = "Si";
+                }else if($calificaciones[$key] == 2){
+                    $besting->segundo_ejemplar = "Si";
+                }else if($calificaciones[$key] == 3){
+                    $besting->tercer_ejemplar = "Si";
+                }else if($calificaciones[$key] == 4){
+                    $besting->cuarto_ejemplar = "Si";
+                }else if($calificaciones[$key] == 5){
+                    $besting->quinto_ejemplar = "Si";
+                }
+
+                $besting->save();
+
+                
+            }
+            
         }
 
     }
