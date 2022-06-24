@@ -251,4 +251,16 @@ class Juez extends Model
         return $ganadores;
 
     }
+
+    public static function recuperaGanadorBesting($ejemplar_evento_id, $tipo, $grupo_id, $evento_id){
+
+        $besting = Besting::where('tipo', $tipo)
+                        ->where('evento_id', $evento_id)
+                        ->where('grupo_id', $grupo_id)
+                        ->where('ejemplar_evento_id', $ejemplar_evento_id)
+                        ->first();
+
+        return $besting;
+
+    }
 }

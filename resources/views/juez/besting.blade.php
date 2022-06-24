@@ -155,14 +155,19 @@
                                 </div>
                             </div>
                                 <div class="row">
+                                    @php
+                                    
+                                        $besting = App\Juez::recuperaGanadorBesting($ag[$i]->ejemplar_evento_id, $tipo, $ag[$i]->grupo_id, $evento_id);
+
+                                    @endphp
                                     <div class="col-md-12">
-                                        <select name="grupo_{{ $ag[$i]->grupo_id }}_[]" id="" class="form-control">
-                                            <option value="1">Primero</option>
-                                            <option value="2">Segundo</option>
-                                            <option value="3">Tercero</option>
-                                            <option value="4">Cuarto</option>
-                                            <option value="5">Quinto</option>
-                                            <option value="6">Sexto</option>
+                                        <select name="grupo_{{ $ag[$i]->grupo_id }}_[]" id="" class="form-control" {{ ($besting)? 'disabled' : '' }}>
+                                            <option value="1" {{ (($besting)? (($besting->lugar == '1')? 'selected' : '') : '') }}>Primero</option>
+                                            <option value="2" {{ (($besting)? (($besting->lugar == '2')? 'selected' : '') : '') }}>Segundo</option>
+                                            <option value="3" {{ (($besting)? (($besting->lugar == '3')? 'selected' : '') : '') }}>Tercero</option>
+                                            <option value="4" {{ (($besting)? (($besting->lugar == '4')? 'selected' : '') : '') }}>Cuarto</option>
+                                            <option value="5" {{ (($besting)? (($besting->lugar == '5')? 'selected' : '') : '') }}>Quinto</option>
+                                            <option value="6" {{ (($besting)? (($besting->lugar == '6')? 'selected' : '') : '') }}>Sexto</option>
                                         </select>
                                     </div>
                                 </div>
@@ -177,7 +182,9 @@
     <tfoot>
         <tr>
             @foreach ( $array_grupo as $ag)
-                <th><button onclick="mejorGrupo('{{ $ag[0]->grupo_id }}')" type="button" class="btn btn-success btn-block"> Finalizar </button></th>
+                {{-- @if (!App\Juez::recuperaGanadorBesting($ag[0]->ejemplar_evento_id, $tipo, $ag[0]->grupo_id, $evento_id)) --}}
+                    <th><button onclick="mejorGrupo('{{ $ag[0]->grupo_id }}')" type="button" class="btn btn-success btn-block"> Finalizar </button></th>
+                {{-- @endif --}}
             @endforeach
         </tr>
         <tr>

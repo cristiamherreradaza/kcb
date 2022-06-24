@@ -1555,7 +1555,6 @@ class JuezController extends Controller
             }elseif($tipo == "adultos"){
                 $ganadores = Juez::getGanadores($evento_id, [5,6,7,8,9,10,14,15], 'mejor_raza');
             }
-
             
             $data['table']  =  view('juez.besting', compact('ganadores','evento_id', 'tipo'))->render();
 
