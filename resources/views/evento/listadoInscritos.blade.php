@@ -9,7 +9,7 @@
 {{-- inicio modal  --}}
 
 <!-- Modal-->
-<div class="modal fade" id="modal-inscripcion-edita" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+{{-- <div class="modal fade" id="modal-inscripcion-edita" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -211,7 +211,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 {{-- fin inicio modal  --}}
 
 	<!--begin::Card-->
@@ -223,10 +223,32 @@
 			</div>
 			<div class="card-toolbar">
 				<!--begin::Button-->
-				{{-- <a href="#" class="btn btn-primary font-weight-bolder" onclick="nuevo()">
-					<i class="fa fa-plus-square"></i> NUEVO EVENTO
-				</a> --}}
+				<a href="{{ url('Evento/generaBestingPdf', [$evento->id, "especiales"]) }}" target="_target" class="btn btn-success font-weight-bolder">
+					<i class="fa fa-plus-square"></i> Especiales
+				</a>
 				<!--end::Button-->
+				<p style="padding-left: 2px"></p>
+				
+				<!--begin::Button-->
+				<a href="{{ url('Evento/generaBestingPdf', [$evento->id, "absolutos"]) }}" target="_target" class="btn btn-success font-weight-bolder">
+					<i class="fa fa-plus-square"></i> Absolutos
+				</a>
+				<!--end::Button-->
+				<p style="padding-left: 2px"></p>
+				
+				<!--begin::Button-->
+				<a href="{{ url('Evento/generaBestingPdf', [$evento->id, "jovenes"]) }}" target="_target" class="btn btn-success font-weight-bolder">
+					<i class="fa fa-plus-square"></i> Jovenes
+				</a>
+				<!--end::Button-->
+				<p style="padding-left: 2px"></p>
+
+				<!--begin::Button-->
+				<a href="{{ url('Evento/generaBestingPdf', [$evento->id, "adultos"]) }}" target="_target" class="btn btn-success font-weight-bolder">
+					<i class="fa fa-plus-square"></i> Adultos
+				</a>
+				<!--end::Button-->
+
 			</div>
 		</div>
 

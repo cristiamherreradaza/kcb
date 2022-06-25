@@ -30,4 +30,33 @@ class Evento extends Model
         return $this->belongsTo('App\User', 'user_id');
     }
 
+    public static function bestingTipos($tipo, $evento){
+
+        $besting = Besting::where('evento_id',$evento)
+                        ->where('tipo',$tipo)
+                        ->orderBy('grupo_id','asc')
+                        ->get();
+
+        return $besting;
+    }
+
+    public static function getPuestoGanador($evento_id, $tipo, $puesto){
+
+        $ganador = Besting::where('evento_id',$evento_id)
+                            ->where('tipo',$tipo)
+                            ->where('lugar',1)
+                            ->where('lugar_finalista', $puesto)
+                            ->first();
+
+        return $ganador;
+        
+    }
+
+    public static function getJuez($evento_id){
+        $juez = Asignacion::where('evento_id',$evento_id)
+                            ->first();
+
+        return $juez;
+    }
+
 }

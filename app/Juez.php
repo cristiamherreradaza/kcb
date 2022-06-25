@@ -298,4 +298,18 @@ class Juez extends Model
         return $finalistas;
 
     }
+
+    public static function getFinalistas($evento_id,  $grupo_id, $tipo){
+
+        $ganadeores = Besting::where('grupo_id', $grupo_id)
+                            ->where('evento_id',$evento_id)
+                            ->where('tipo',$tipo)
+                            ->where('mejor_grupo',"Si")
+                            ->whereNotNull('lugar_finalista')
+                            ->get();
+
+
+        return $ganadeores;
+
+    }
 }

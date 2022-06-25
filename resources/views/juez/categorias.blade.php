@@ -1382,18 +1382,6 @@
 
                         if(data.status === "success"){
 
-                            // if(data.sexo === 'Macho'){
-
-                            //     $('#mejor_macho_vencedor').html(data.html);
-                            //     $('#mejor_macho_vencedor').toggle('show');
-
-                            // }else{
-                                
-                            //     $('#mejor_hembra_vencedor').html(data.html);
-                            //     $('#mejor_hembra_vencedor').toggle('show');
-
-                            // }
-
                             $('#select_ecoge_mejor_raza').html(data.selectMejoresRaza);
 
                             $('#bloque_mejor_'+data.tipo+'_escogido').toggle('show');
@@ -1495,15 +1483,19 @@
                 dataType: 'json',
                 success: function(data){
 
+                    console.log(data);
+
                     if(data.status === "success"){
 
                         if(data.mejor_grupo != null){
-                            $('#mejor_grupo_'+data.grupo+'_numero').text(data.mejor_grupo);
+                            // $('#mejor_grupo_'+data.grupo+'_numero').text(data.mejor_grupo);
+                            $('#mejor_grupo_'+data.grupo+'_numero').html(data.finalistaMejor);
                             $('#mejor_grupo_'+data.grupo).toggle('show');
                         }
 
                         if(data.reserva_grupo != null){
-                            $('#reserva_grupo_'+data.grupo+'_numero').text(data.reserva_grupo);
+                            // $('#reserva_grupo_'+data.grupo+'_numero').text(data.reserva_grupo);
+                            $('#reserva_grupo_'+data.grupo+'_numero').html(data.finalistaMejorRecerva);
                             $('#reserva_grupo_'+data.grupo).toggle('show');
                         }
 
@@ -1556,6 +1548,16 @@
                     dataType: 'json',
                     success: function(data){
 
+                        if(data.status === "success"){
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Correcto!',
+                                text: 'Se Finalizo el grupo!',
+                            })
+
+                        }
+
                     }
                 });
             }else{
@@ -1565,6 +1567,47 @@
             }
 
             
+        }
+
+        function cambiaMejor(mejor, recerva, numeroMejor){
+
+            Swal.fire({
+                title: 'Esta seguro de seleccionar al ejemplar con numero '+numeroMejor+' como mejor?',
+                text: "No podra revertir eso!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, estoy seguro!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    $.ajax({
+                        url: "{{ url('Juez/cambiaMejorRecerva') }}",
+                        data: {
+                            mejor : mejor,
+                            recerva : recerva
+                        },
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function(data){
+
+                            if(data.status === "success"){
+
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Correcto!',
+                                    text: 'Se cambio  con exito!',
+                                })
+
+                                $('#besting_finalistas').html(data.finalistas);
+                            }
+                            
+                        }
+                    });
+
+                }
+            })
         }
 
     </script>

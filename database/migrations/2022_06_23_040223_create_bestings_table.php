@@ -40,11 +40,14 @@ class CreateBestingsTable extends Migration
             $table->string('tipo',50)->nullable();
             $table->string('mejor_grupo',5)->nullable();
             $table->string('recerva_grupo',5)->nullable();
-            $table->string('mejor_ejemplar',5)->nullable();
-            $table->string('segundo_ejemplar',5)->nullable();
-            $table->string('tercer_ejemplar',5)->nullable();
-            $table->string('cuarto_ejemplar',5)->nullable();
-            $table->string('quinto_ejemplar',5)->nullable();
+
+            $table->string('lugar_finalista',5)->nullable();
+
+            // $table->string('mejor_ejemplar',5)->nullable();
+            // $table->string('segundo_ejemplar',5)->nullable();
+            // $table->string('tercer_ejemplar',5)->nullable();
+            // $table->string('cuarto_ejemplar',5)->nullable();
+            // $table->string('quinto_ejemplar',5)->nullable();
             $table->datetime('deleted_at')->nullable();
             $table->timestamps();
         });

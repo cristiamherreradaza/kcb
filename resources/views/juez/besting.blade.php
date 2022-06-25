@@ -194,30 +194,63 @@
                 <th>
                     @php
 
+                        // VERIFICAMOS SI YA HAY GANAODRES O NO
                         $bestingMejorGrupoRescatado = App\Juez::getMejorGrupoMejorRecerbaTipo($ag[0]->grupo_id, $tipo, 'mejor_grupo', $evento_id);
                         $bestingMejorRecerva = App\Juez::getMejorGrupoMejorRecerbaTipo($ag[0]->grupo_id, $tipo, 'mejor_recerva', $evento_id);
+
+                        // VERIFICAMOS SI EN EL GRUPO YA HAY FINALISTAS PARA QUE YA NO CMABIEN
+                        $finalistas = App\Juez::getFinalistas($evento_id, $ag[0]->grupo_id, $tipo);
 
                     @endphp
                     @if($bestingMejorGrupoRescatado || $bestingMejorRecerva)
                         @if($bestingMejorGrupoRescatado != null)
                             <div>
-                                Mejor de grupo => <span class="text-info">{{ $bestingMejorGrupoRescatado->numero_prefijo }}</span>
+                                <div class="form-group">
+                                    <label>ELIJA AL QUE INGRESARA</label>
+                                    <div class="radio-inline">
+                                        <label class="radio">
+                                            @if(count($finalistas) == 0)
+                                                <input type="radio" name="radios_{{ $ag[0]->grupo_id }}" onchange="cambiaMejor('{{ $bestingMejorGrupoRescatado->id }}', '{{ ($bestingMejorRecerva)? $bestingMejorRecerva->id : 0 }}', '{{ $bestingMejorGrupoRescatado->numero_prefijo }}')"/>
+                                                <span></span>
+                                            @endif
+                                            Mejor de grupo => <small style="font-size: 15px" class="text-info">{{ $bestingMejorGrupoRescatado->numero_prefijo }}</small>
+                                            </label>
+                                    </div>
+                                </div>
                             </div>
                         @endif
                         <hr>
                         @if($bestingMejorRecerva != null)
                             <div>
-                                Reserva de grupo => <span class="text-info">{{ $bestingMejorRecerva->numero_prefijo }}</span>
+                                <div class="form-group">
+                                    <div class="radio-inline">
+                                        <label class="radio">
+
+                                            @if (count($finalistas) == 0)
+                                                <input type="radio" name="radios_{{ $ag[0]->grupo_id }}"  onchange="cambiaMejor( '{{ $bestingMejorRecerva->id }}' , '{{ ($bestingMejorGrupoRescatado)? $bestingMejorGrupoRescatado->id : 0 }}', '{{ $bestingMejorRecerva->numero_prefijo }}')"/>
+                                                <span></span>
+                                            @endif
+
+                                            Reserva de grupo => <small style="font-size: 15px" class="text-info">{{ $bestingMejorRecerva->numero_prefijo }}</small>
+                                            </label>
+                                    </div>
+                                </div>
                             </div>
                         @endif
                     @else
+
                         <div id="mejor_grupo_{{ $ag[0]->grupo_id }}" style="display: none">
-                            Mejor de grupo => <span class="text-info" id="mejor_grupo_{{ $ag[0]->grupo_id }}_numero"></span>
+                            <div id="mejor_grupo_{{ $ag[0]->grupo_id }}_numero">
+
+                            </div>
                         </div>
                         <hr>
                         <div id="reserva_grupo_{{ $ag[0]->grupo_id }}" style="display: none">
-                            Reserva de grupo => <span class="text-info" id="reserva_grupo_{{ $ag[0]->grupo_id }}_numero"></span>
+                            <div id="reserva_grupo_{{ $ag[0]->grupo_id }}_numero">
+
+                            </div>
                         </div>
+
                     @endif
                 </th>
             @endforeach

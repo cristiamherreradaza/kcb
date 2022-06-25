@@ -118,6 +118,7 @@ Route::get('Evento/eliminaInscripcion/{inscripcion_id}', 'EventoController@elimi
 Route::get('Evento/catalogo/{evento_id}', 'EventoController@catalogo');
 Route::get('Evento/catalogoNumeracion/{evento_id}', 'EventoController@catalogoNumeracion');
 Route::post('Evento/ajaxBuscaCategoria', 'EventoController@ajaxBuscaCategoria');
+Route::get('Evento/generaBestingPdf/{evento}/{tipo}', 'EventoController@generaBestingPdf');
 
 
 // PISTAS
@@ -234,7 +235,7 @@ Route::post('Juez/mejorRazaFinPlanilla', 'JuezController@mejorRazaFinPlanilla');
 Route::post('Juez/bestingGanadores', 'JuezController@bestingGanadores');
 Route::post('Juez/calificabesting', 'JuezController@calificabesting');
 Route::post('Juez/calificaFinales', 'JuezController@calificaFinales');
-
+Route::post('Juez/cambiaMejorRecerva', 'JuezController@cambiaMejorRecerva');
 
 
 // ---------- MIGRACIONES ----------
