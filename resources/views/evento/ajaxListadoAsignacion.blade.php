@@ -1,5 +1,16 @@
 <hr>
+<h4 class="text-center text-warning" id="cantidad_de_asignacion">
+    @php
+        if($faltantes == 0){
+            echo 'YA ASIGNO LA CANTIDAD TOPE JUEZ POR PISTA';
+        }else{
+            echo "AUN FALTAN ".$faltantes." ASIGNACIONES";
+        }
+    @endphp
+</h4>
+<hr>
 <h2 class="text-success text-center">Asignacion</h2>
+<hr>
 <table class="table table-striped">
     <thead>
         <tr>

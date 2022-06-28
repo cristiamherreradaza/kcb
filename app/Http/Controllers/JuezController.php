@@ -100,8 +100,22 @@ class JuezController extends Controller
         
         $asiganaciones  = Asignacion::where('evento_id',$evento_id)->get();
 
-        return view('evento.ajaxListadoAsignacion')->with(compact('asiganaciones'));
-        // dd(Asignacion::all());
+
+        // AQUI AREMOS APRA CONTAR
+        $evento = Evento::find($evento_id);
+
+        $numero_pistas_evento = $evento->numero_pista;
+
+        $cantidadAsiganacionesEvento = Asignacion::where('evento_id', $evento_id)->count();
+        
+        $faltantes = intval($numero_pistas_evento) - intval($cantidadAsiganacionesEvento);
+
+        $data['listado'] = view('evento.ajaxListadoAsignacion', compact('asiganaciones', 'faltantes'))->render();
+        $data['cantAsignaciones'] = $faltantes;
+        $data['status'] = 'success';
+
+        return json_encode($data);
+
     }
 
     public function ajaxListadoAsignacion(Request $request){
@@ -110,7 +124,23 @@ class JuezController extends Controller
 
         $asiganaciones  = Asignacion::where('evento_id',$evento_id)->get();
 
-        return view('evento.ajaxListadoAsignacion')->with(compact('asiganaciones'));
+
+        // AQUI AREMOS APRA CONTAR
+        $evento = Evento::find($evento_id);
+
+        $numero_pistas_evento = $evento->numero_pista;
+
+        $cantidadAsiganacionesEvento = Asignacion::where('evento_id', $evento_id)->count();
+
+        $faltantes = intval($numero_pistas_evento) - intval($cantidadAsiganacionesEvento);
+
+
+        $data['listado'] = view('evento.ajaxListadoAsignacion', compact('asiganaciones', 'faltantes'))->render();
+        $data['cantAsignaciones'] = $faltantes;
+        $data['status'] = 'success';
+
+        return json_encode($data);
+
     }
 
     public function ajaxEliminaAsignacion(Request $request){
@@ -123,7 +153,23 @@ class JuezController extends Controller
 
         $asiganaciones  = Asignacion::where('evento_id',$evento_id)->get();
 
-        return view('evento.ajaxListadoAsignacion')->with(compact('asiganaciones'));
+         // AQUI AREMOS APRA CONTAR
+         $evento = Evento::find($evento_id);
+
+         $numero_pistas_evento = $evento->numero_pista;
+ 
+         $cantidadAsiganacionesEvento = Asignacion::where('evento_id', $evento_id)->count();
+ 
+         $faltantes = intval($numero_pistas_evento) - intval($cantidadAsiganacionesEvento);
+ 
+ 
+         $data['listado'] = view('evento.ajaxListadoAsignacion', compact('asiganaciones', 'faltantes'))->render();
+         $data['cantAsignaciones'] = $faltantes;
+         $data['status'] = 'success';
+ 
+         return json_encode($data);
+
+        // return view('evento.ajaxListadoAsignacion')->with(compact('asiganaciones'));
     }
 
     public function calificacion(Request $request){

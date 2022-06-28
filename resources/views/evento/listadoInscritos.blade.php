@@ -9,7 +9,7 @@
 {{-- inicio modal  --}}
 
 <!-- Modal-->
-{{-- <div class="modal fade" id="modal-inscripcion-edita" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+<div class="modal fade" id="modal-inscripcion-edita" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -211,7 +211,7 @@
             </div>
         </div>
     </div>
-</div> --}}
+</div>
 {{-- fin inicio modal  --}}
 
 	<!--begin::Card-->

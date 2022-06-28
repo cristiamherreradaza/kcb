@@ -423,8 +423,29 @@
 					evento_id:id
 				},
 				type: 'POST',
+				dataType: 'json',
 				success: function(data) {
-					$('#listaAsignaciones').html(data);
+
+					console.log(data);
+
+					if(data.status == 'success'){
+
+						if(data.cantAsignaciones == 0){
+
+							$('#juez_id').prop('disabled', true);
+							$('#secretario_id').prop('disabled', true);
+
+						}else{
+
+							$('#juez_id').prop('disabled', false);
+							$('#secretario_id').prop('disabled', false);
+
+						}
+
+						$('#listaAsignaciones').html(data.listado);
+
+					}
+
 				}
 			});
 
@@ -441,14 +462,34 @@
 					url: "{{ url('Juez/ajaxguardaAsignacionEvento') }}",
 					data: datosFormularioAsignacion,
 					type: 'POST',
+					dataType:'json',
 					success: function(data) {
-						$('#listaAsignaciones').html(data);
 
-						Swal.fire(
-							"Exito!",
-							"El Juez fue Agregado.",
-							"success"
-						)
+						if(data.status == 'success'){
+							
+							$('#listaAsignaciones').html(data.listado);
+
+							if(data.cantAsignaciones == 0){
+
+								$('#juez_id').prop('disabled', true);
+								$('#secretario_id').prop('disabled', true);
+
+							}else{
+
+								$('#juez_id').prop('disabled', false);
+								$('#secretario_id').prop('disabled', false);
+
+							}
+							
+	
+							Swal.fire(
+								"Exito!",
+								"El Juez fue Agregado.",
+								"success"
+							)
+
+						}
+						
 					}
 				});
 
@@ -471,24 +512,45 @@
 				// si pulsa boton si
                 if (result.value) {
 
-
 					$.ajax({
 						url: "{{ url('Juez/ajaxEliminaAsignacion') }}",
 						data: {
 							asignacion_id:id
 						},
+						dataType: 'json',
 						type: 'POST',
 						success: function(data) {
-							$('#listaAsignaciones').html(data);
+
+							if(data.status == 'success'){
+
+								if(data.cantAsignaciones == 0){
+
+									$('#juez_id').prop('disabled', true);
+									$('#secretario_id').prop('disabled', true);
+
+								}else{
+
+									$('#juez_id').prop('disabled', false);
+									$('#secretario_id').prop('disabled', false);
+
+								}
+
+								$('#listaAsignaciones').html(data.listado);
+								
+								Swal.fire(
+									"Borrado!",
+									"El registro fue eliminado.",
+									"success"
+								)
+
+							}
+							
 						}
 					});
 
-                    Swal.fire(
-                        "Borrado!",
-                        "El registro fue eliminado.",
-                        "success"
-                    )
+
                 } else if (result.dismiss === "cancel") {
+
                     Swal.fire(
                         "Cancelado",
                         "La operacion fue cancelada",
