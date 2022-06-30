@@ -218,8 +218,6 @@ class JuezController extends Controller
                                     ->WhereIn('categoria_pista_id',[7,8])
                                     ->get();
 
-        // dd($abiertas);
-
         $campeones = EjemplarEvento::where('evento_id',$evento_id)
                                     ->where('raza_id',$raza_id)
                                     ->WhereIn('categoria_pista_id',[9,10])

@@ -1325,6 +1325,7 @@ class EventoController extends Controller
         // dd($request->all());
 
         $ejemplar_id = $request->input('inscribe_ejemplar_id');
+        $evento_id   = $request->input('inscribe_evento_id');
 
         if($ejemplar_id != 0){
 
@@ -1332,15 +1333,18 @@ class EventoController extends Controller
 
         }else{
 
+            $ejemplar = null;
+
         }
 
         $ejemplar_evento = new EjemplarEvento();
 
         $ejemplar_evento->user_id               = Auth::user()->id;
-        $ejemplar_evento->evento_id             = $request->input('inscribe_evento_id');
-        $ejemplar_evento->ejemplar_id           = $ejemplar->id;
-        $ejemplar_evento->raza_id               = $ejemplar->raza_id;
+        $ejemplar_evento->evento_id             = $evento_id;
+        $ejemplar_evento->ejemplar_id           = ($ejemplar)? $ejemplar->id : null;
+        $ejemplar_evento->raza_id               = ($ejemplar)? $ejemplar->raza_id : $request->input('inscribe_raza_id');
         $ejemplar_evento->categoria_pista_id    = $request->input('inscribe_categoria_pista_id');
+        $ejemplar_evento->extrangero            = $request->input('inscribe_extranjero');
         $ejemplar_evento->codigo_nacionalizado  = $request->input('inscribe_cod_extranjero');
         $ejemplar_evento->nombre_completo       = $request->input('inscribe_nombre');
         $ejemplar_evento->color                 = $request->input('inscribe_color');
@@ -1362,6 +1366,33 @@ class EventoController extends Controller
 
         $ejemplar_evento->save();
 
+
+        return redirect('Evento/listadoInscritos/'.$evento_id);
+
+    }
+
+    public function buscaExtranjero(Request $request){
+
+        if($request->all()){
+
+            $codigo = $request->input('codigo');
+
+            $ejemplar = Ejemplar::where('codigo_nacionalizado', $codigo)
+                                ->first();
+
+            if($ejemplar){
+
+                $data['status'] = 'success';
+                $data['ejemplar'] = $ejemplar;                
+
+            }else{
+
+                $data['status'] = 'error';
+
+            }
+
+            return $data;
+        }
     }
 
 }

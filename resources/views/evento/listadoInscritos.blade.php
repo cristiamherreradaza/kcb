@@ -390,7 +390,7 @@
 							<div class="form-group">
                 			    <label for="exampleInputPassword1">Categoria
                 			    <span class="text-danger">*</span></label>
-								<select class="form-control select2" name="inscribe_categoria_pista_id" id="inscribe_categoria_pista_id" style="width: 100%">
+								<select class="form-control select2" name="inscribe_categoria_pista_id" id="inscribe_categoria_pista_id" style="width: 100%" required>
 									<option></option>
 									@foreach ($categoriasPista as $cp)
 										<option value="{{ $cp->id }}">{{ $cp->nombre }}</option>
@@ -738,8 +738,6 @@
 
 		function buscaEjemplar(){
 
-			console.log("se ejecutara");
-
 			let kcb = $("#inscribe_kcb").val();
 
 			if(kcb != ''){
@@ -862,10 +860,144 @@
 				$('#inscribe_extranjero').val('si')
 			}
 
+			console.log("cambio");
+
+			// SETEABNDO LOS CAMPOS
+			$('#inscribe_ejemplar_id').val(0);
+			$('#inscribe_nombre').val('');
+			$('#inscribe_raza_id').val('');
+			$('#inscribe_raza_id').trigger('change');
+			$('#inscribe_color').val('');
+			$('#inscribe_fecha_nacimiento').val('');
+			$('#inscribe_sexo').val('');
+			$('#inscribe_chip').val('');
+			$('#inscribe_cod_extranjero').val('');
+			$('#inscribe_num_tatuaje').val('');
+			$('#inscribe_kcb_padre').val('');
+			$('#inscribe_nom_padre').val('');
+			$('#inscribe_kcb_madre').val('');
+			$('#inscribe_nom_madre').val('');
+			$('#inscribe_propietario').val('');
+			$('#inscribe_ciudad').val('');
+			$('#inscribe_telefono').val('');
+			$('#inscribe_email').val('');
+			$("#inscribe_nombre").prop('readonly', false);
+			$("#inscribe_raza_id").prop('disabled', false);
+			$("#inscribe_color").prop('readonly', false);
+			$("#inscribe_fecha_nacimiento").prop('readonly', false);
+			$("#inscribe_sexo").prop('readonly', false);
+			$("#inscribe_chip").prop('readonly', false);
+			$("#inscribe_cod_extranjero").prop('readonly', false);
+			$("#inscribe_num_tatuaje").prop('readonly', false);
+			$("#inscribe_kcb_padre").prop('readonly', false);
+			$("#inscribe_nom_padre").prop('readonly', false);
+			$("#inscribe_kcb_madre").prop('readonly', false);
+			$("#inscribe_nom_madre").prop('readonly', false);
+			$("#inscribe_propietario").prop('readonly', false);
+			$("#inscribe_ciudad").prop('readonly', false);
+
 		}
 
-		function buscaExtranjero(){
+		function buscaExtranjero(radio){
 			
+			let codigo = $("#inscribe_codigo_extranjero").val();
+
+			if(codigo != ''){
+
+				// alert("vacio");
+				$.ajax({
+					url: "{{ url('Evento/buscaExtranjero') }}",
+					data: {
+					codigo: codigo
+					},
+					type: "POST",
+					dateType: 'json',
+					success: function(data) {
+
+						console.log(data);
+
+						if(data.status == 'success'){
+
+							$('#inscribe_ejemplar_id').val(data.ejemplar.id);
+							$('#inscribe_nombre').val(data.ejemplar.nombre_completo);
+							$('#inscribe_raza_id').val(data.ejemplar.raza_id);
+							$('#inscribe_raza_id').trigger('change');
+							$('#inscribe_color').val(data.ejemplar.color);
+							$('#inscribe_fecha_nacimiento').val(data.ejemplar.fecha_nacimiento);
+							$('#inscribe_sexo').val(data.ejemplar.sexo);
+							$('#inscribe_chip').val(data.ejemplar.chip);
+							$('#inscribe_cod_extranjero').val(data.ejemplar.codigo_nacionalizado);
+							$('#inscribe_num_tatuaje').val(data.ejemplar.num_tatuaje);
+							$('#inscribe_kcb_padre').val(data.ejemplar.kcb_padre);
+							$('#inscribe_nom_padre').val(data.ejemplar.nombre_padre);
+							$('#inscribe_kcb_madre').val(data.ejemplar.kcb_madre);
+							$('#inscribe_nom_madre').val(data.ejemplar.nombre_madre);
+							$('#inscribe_propietario').val(data.ejemplar.nom_propietario);
+							$('#inscribe_ciudad').val(data.ejemplar.departamento);
+							$('#inscribe_telefono').val(data.ejemplar.celulares);
+							$('#inscribe_email').val(data.ejemplar.email);
+							$("#inscribe_nombre").prop('readonly', true);
+							$("#inscribe_raza_id").prop('disabled', true);
+							$("#inscribe_color").prop('readonly', true);
+							$("#inscribe_fecha_nacimiento").prop('readonly', true);
+							$("#inscribe_sexo").prop('readonly', true);
+							$("#inscribe_chip").prop('readonly', true);
+							$("#inscribe_cod_extranjero").prop('readonly', true);
+							$("#inscribe_num_tatuaje").prop('readonly', true);
+							$("#inscribe_kcb_padre").prop('readonly', true);
+							$("#inscribe_nom_padre").prop('readonly', true);
+							$("#inscribe_kcb_madre").prop('readonly', true);
+							$("#inscribe_nom_madre").prop('readonly', true);
+							$("#inscribe_propietario").prop('readonly', true);
+							$("#inscribe_ciudad").prop('readonly', true);
+
+
+						}else{
+
+							$('#inscribe_ejemplar_id').val(0);
+							$('#inscribe_nombre').val('');
+							$('#inscribe_raza_id').val('');
+							$('#inscribe_raza_id').trigger('change');
+							$('#inscribe_color').val('');
+							$('#inscribe_fecha_nacimiento').val('');
+							$('#inscribe_sexo').val('');
+							$('#inscribe_chip').val('');
+							$('#inscribe_cod_extranjero').val('');
+							$('#inscribe_num_tatuaje').val('');
+							$('#inscribe_kcb_padre').val('');
+							$('#inscribe_nom_padre').val('');
+							$('#inscribe_kcb_madre').val('');
+							$('#inscribe_nom_madre').val('');
+							$('#inscribe_propietario').val('');
+							$('#inscribe_ciudad').val('');
+							$('#inscribe_telefono').val('');
+							$('#inscribe_email').val('');
+							$("#inscribe_nombre").prop('readonly', false);
+							$("#inscribe_raza_id").prop('disabled', false);
+							$("#inscribe_color").prop('readonly', false);
+							$("#inscribe_fecha_nacimiento").prop('readonly', false);
+							$("#inscribe_sexo").prop('readonly', false);
+							$("#inscribe_chip").prop('readonly', false);
+							$("#inscribe_cod_extranjero").prop('readonly', false);
+							$("#inscribe_num_tatuaje").prop('readonly', false);
+							$("#inscribe_kcb_padre").prop('readonly', false);
+							$("#inscribe_nom_padre").prop('readonly', false);
+							$("#inscribe_kcb_madre").prop('readonly', false);
+							$("#inscribe_nom_madre").prop('readonly', false);
+							$("#inscribe_propietario").prop('readonly', false);
+							$("#inscribe_ciudad").prop('readonly', false);
+
+						}
+
+					}
+				});
+
+			}else{
+
+				$("#msg-vacio-kcb").show();
+
+			}
+
 		}
 
     </script>

@@ -120,6 +120,8 @@ Route::get('Evento/catalogoNumeracion/{evento_id}', 'EventoController@catalogoNu
 Route::post('Evento/ajaxBuscaCategoria', 'EventoController@ajaxBuscaCategoria');
 Route::get('Evento/generaBestingPdf/{evento}/{tipo}', 'EventoController@generaBestingPdf');
 Route::post('Evento/inscribirEjemplar', 'EventoController@inscribirEjemplar');
+Route::post('Evento/buscaExtranjero', 'EventoController@buscaExtranjero');
+
 
 
 // PISTAS
