@@ -1320,4 +1320,48 @@ class EventoController extends Controller
 
     }
 
+    public function inscribirEjemplar(Request $request){
+
+        // dd($request->all());
+
+        $ejemplar_id = $request->input('inscribe_ejemplar_id');
+
+        if($ejemplar_id != 0){
+
+            $ejemplar = Ejemplar::find($ejemplar_id);
+
+        }else{
+
+        }
+
+        $ejemplar_evento = new EjemplarEvento();
+
+        $ejemplar_evento->user_id               = Auth::user()->id;
+        $ejemplar_evento->evento_id             = $request->input('inscribe_evento_id');
+        $ejemplar_evento->ejemplar_id           = $ejemplar->id;
+        $ejemplar_evento->raza_id               = $ejemplar->raza_id;
+        $ejemplar_evento->categoria_pista_id    = $request->input('inscribe_categoria_pista_id');
+        $ejemplar_evento->codigo_nacionalizado  = $request->input('inscribe_cod_extranjero');
+        $ejemplar_evento->nombre_completo       = $request->input('inscribe_nombre');
+        $ejemplar_evento->color                 = $request->input('inscribe_color');
+        $ejemplar_evento->tatuaje               = $request->input('inscribe_num_tatuaje');
+        $ejemplar_evento->fecha_nacimiento      = $request->input('inscribe_fecha_nacimiento');
+        $ejemplar_evento->sexo                  = $request->input('inscribe_sexo');
+        $ejemplar_evento->chip                  = $request->input('inscribe_chip');
+        $ejemplar_evento->kcb_padre             = $request->input('inscribe_kcb_padre');
+        $ejemplar_evento->nombre_padre          = $request->input('inscribe_nom_padre');
+        $ejemplar_evento->kcb_madre             = $request->input('inscribe_kcb_madre');
+        $ejemplar_evento->nombre_madre          = $request->input('inscribe_nom_madre');
+        // $ejemplar_evento->criador               = $request->input('inscribe_cod_extranjero');
+        $ejemplar_evento->propietario           = $request->input('inscribe_propietario');
+        $ejemplar_evento->ciudad                = $request->input('inscribe_ciudad');
+        $ejemplar_evento->telefono              = $request->input('inscribe_telefono');
+        $ejemplar_evento->email                 = $request->input('inscribe_email');
+        // $ejemplar_evento->edad  = $request->input('inscribe_cod_extranjero');
+        $ejemplar_evento->numero_prefijo        = $request->input('inscribe_numero_prefijo');
+
+        $ejemplar_evento->save();
+
+    }
+
 }

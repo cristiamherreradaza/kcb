@@ -64,4 +64,12 @@ class EjemplarEvento extends Model
     {
         return $this->belongsTo('App\Evento', 'evento_id');
     }
+
+    public static function getGrupo($raza_id){
+
+        $grupo = GrupoRaza::where('raza_id',$raza_id)
+                        ->first();
+
+        return $grupo;
+    }
 }

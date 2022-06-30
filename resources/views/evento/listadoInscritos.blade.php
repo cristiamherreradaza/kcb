@@ -4,6 +4,10 @@
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet">
 @endsection
 
+@section('metadatos')
+	<meta name="csrf-token" content="{{ csrf_token() }}" />
+@endsection
+
 @section('content')
 
 {{-- inicio modal  --}}
@@ -214,6 +218,236 @@
 </div>
 {{-- fin inicio modal  --}}
 
+
+<!-- Modal NUEVA INSCRIPCION-->
+<div class="modal fade" id="modal-inscripcion-agrega" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">REGISTRADO DE NUEVO EJEMPLAR AL EVENTO</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ url('Evento/inscribirEjemplar') }}" method="POST" id="formulario_nueva_inscripcion">
+                	@csrf
+					<input type="text" name="inscribe_ejemplar_id" id="inscribe_ejemplar_id">
+					<input type="text" name="inscribe_evento_id" id="inscribe_evento_id" value="{{ $evento->id }}">
+					<input type="text" name="inscribe_extranjero" id="inscribe_extranjero" value="no">
+
+					<div class="form-group">
+						<label>Tipo de ejemplar</label>
+						<div class="radio-inline">
+							<label class="radio radio-lg">
+								<input type="radio" checked="checked" name="radios3_1" value="nacional" onchange="tipoEjemplar(this)"/>
+								<span></span>
+								Nacional
+							</label>
+							<label class="radio radio-lg">
+								<input type="radio" name="radios3_1" value="extranjero"  onchange="tipoEjemplar(this)"/>
+								<span></span>
+								Extranjero
+							</label>
+						</div>
+						<span class="form-text text-muted">Elija el tipo de ejemplar</span>
+					</div>
+
+
+                	<div class="row">
+						<div class="col-md-2">
+							<div id="bloque_busca_kcb">
+								<div class="form-group">
+									<label for="exampleInputPassword1">KCB
+									<span class="text-danger">*</span></label>
+									<input type="text" class="form-control" id="inscribe_kcb" name="inscribe_kcb" onblur="buscaEjemplar()" />
+								</div>
+							</div>
+							<div id="bloque_busca_codigo" style="display: none;">
+								<div class="form-group">
+									<label for="exampleInputPassword1">CODIGO
+									<span class="text-danger">*</span></label>
+									<input type="text" class="form-control" id="inscribe_codigo_extranjero" name="inscribe_codigo_extranjero" onblur="buscaExtranjero()" />
+								</div>
+							</div>
+                		</div>
+						<div class="col-md-2">
+                			<div class="form-group">
+                			    <label for="exampleInputPassword1">NUMERO
+                			    <span class="text-danger">*</span></label>
+                			    <input type="text" class="form-control" id="inscribe_numero_prefijo" name="inscribe_numero_prefijo" placeholder="5J"/>
+                			</div>
+                		</div>
+
+                		<div class="col-md-4">
+                			<div class="form-group">
+                			    <label for="exampleInputPassword1">Nombre Ejemplar
+                			    <span class="text-danger">*</span></label>
+                			    <input type="text" class="form-control" id="inscribe_nombre" name="inscribe_nombre" required />
+                			</div>
+                		</div>
+
+                		<div class="col-md-4">
+                			<div class="form-group">
+                			    <label for="exampleInputPassword1">Raza
+                			    <span class="text-danger">*</span></label>
+								<br>
+								<select class="form-control select2" name="inscribe_raza_id" id="inscribe_raza_id" style="width: 100%">
+									<option></option>
+									@foreach ($razas as $r )
+										<option value="{{ $r->id }}">{{ $r->nombre }}</option>
+									@endforeach
+								</select>
+                			</div>
+                		</div>
+
+                	</div>
+
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+                			    <label for="exampleInputPassword1">Color
+                			    <span class="text-danger">*</span></label>
+                			    <input type="text" class="form-control" id="inscribe_color" name="inscribe_color"  />
+                			</div>
+						</div>
+                        <div class="col-md-4">
+							<div class="form-group">
+                			    <label for="exampleInputPassword1">Fecha Nacimiento
+                			    <span class="text-danger">*</span></label>
+                			    <input type="date" class="form-control" id="inscribe_fecha_nacimiento" name="inscribe_fecha_nacimiento" />
+                			</div>
+						</div>
+                        <div class="col-md-4">
+							<div class="form-group">
+                			    <label for="exampleInputPassword1">Sexo
+                			    <span class="text-danger">*</span></label>
+                			    <input type="text" class="form-control" id="inscribe_sexo" name="inscribe_sexo" />
+                			</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+                			    <label for="exampleInputPassword1">Registro Extranjero
+                			    <span class="text-danger">*</span></label>
+                			    <input type="text" class="form-control" id="inscribe_cod_extranjero" name="inscribe_cod_extranjero" />
+                			</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+                			    <label for="exampleInputPassword1">Numero Tatuaje
+                			    <span class="text-danger">*</span></label>
+                			    <input type="number" class="form-control" id="inscribe_num_tatuaje" name="inscribe_num_tatuaje" />
+                			</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+                			    <label for="exampleInputPassword1">Chip
+                			    <span class="text-danger">*</span></label>
+                			    <input type="number" class="form-control" id="inscribe_chip" name="inscribe_chip" />
+                			</div>
+						</div>
+					</div>
+
+                    <div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+                			    <label for="exampleInputPassword1">KCB Padre
+                			    <span class="text-danger">*</span></label>
+                			    <input type="text" class="form-control" id="inscribe_kcb_padre" name="inscribe_kcb_padre" />
+                			</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+                			    <label for="exampleInputPassword1">Nombre Padre
+                			    <span class="text-danger">*</span></label>
+                			    <input type="text" class="form-control" id="inscribe_nom_padre" name="inscribe_nom_padre" />
+                			</div>
+						</div>
+					</div>
+
+                    <div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+                			    <label for="exampleInputPassword1">KCB Madre
+                			    <span class="text-danger">*</span></label>
+                			    <input type="text" class="form-control" id="inscribe_kcb_madre" name="inscribe_kcb_madre" />
+                			</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+                			    <label for="exampleInputPassword1">Nombre Madre
+                			    <span class="text-danger">*</span></label>
+                			    <input type="text" class="form-control" id="inscribe_nom_madre" name="inscribe_nom_madre" />
+                			</div>
+						</div>
+					</div>
+
+                    <div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+                			    <label for="exampleInputPassword1">Categoria
+                			    <span class="text-danger">*</span></label>
+								<select class="form-control select2" name="inscribe_categoria_pista_id" id="inscribe_categoria_pista_id" style="width: 100%">
+									<option></option>
+									@foreach ($categoriasPista as $cp)
+										<option value="{{ $cp->id }}">{{ $cp->nombre }}</option>
+									@endforeach
+								</select>
+                			</div>
+						</div>
+						{{-- <div class="col-md-4">
+							<div class="form-group">
+                			    <label for="exampleInputPassword1">Criador
+                			    <span class="text-danger">*</span></label>
+                			    <input type="text" class="form-control" id="inscribe_criador" name="inscribe_criador" />
+                			</div>
+						</div> --}}
+						<div class="col-md-4">
+							<div class="form-group">
+                			    <label for="exampleInputPassword1">Propietario
+                			    <span class="text-danger">*</span></label>
+                			    <input type="text" class="form-control" id="inscribe_propietario" name="inscribe_propietario" />
+                			</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+                			    <label for="exampleInputPassword1">Ciudad / Pais
+                			    <span class="text-danger">*</span></label>
+                			    <input type="text" class="form-control" id="inscribe_ciudad" name="inscribe_ciudad"  />
+                			</div>
+						</div>
+					</div>
+
+                    <div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+                			    <label for="exampleInputPassword1">Telefono
+                			    <span class="text-danger">*</span></label>
+                			    <input type="text" class="form-control" id="inscribe_telefono" name="inscribe_telefono" />
+                			</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+                			    <label for="exampleInputPassword1">Email
+                			    <span class="text-danger">*</span></label>
+                			    <input type="email" class="form-control" id="inscribe_email" name="inscribe_email" required />
+                			</div>
+						</div>
+					</div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
+                <button type="button" onclick="agregarEjemplarEvento()" class="btn btn-success font-weight-bold" onclick="">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- fin inicio modal END NUEVA INSCRIPCION  --}}
+
 	<!--begin::Card-->
 	<div class="card card-custom gutter-b">
 		<div class="card-header flex-wrap py-3">
@@ -248,6 +482,11 @@
 					<i class="fa fa-plus-square"></i> Adultos
 				</a>
 				<!--end::Button-->
+				<p style="padding-left: 2px"></p>
+
+				<!--begin::Button-->
+				<button onclick="agregarEjeplarModal()" class="btn btn-info font-weight-bolder"><i class="fa fa-plus-square"></i> Nuevo Ejemplar</button>
+				<!--end::Button-->
 
 			</div>
 		</div>
@@ -262,22 +501,33 @@
 							<th>Kbc</th>
 							<th>Nombre</th>
 							<th>Raza</th>
+							<th>Grupo</th>
 							<th>Categoria</th>
 							<th>Propietario</th>
+							<th>Numero</th>
 							<th>Acciones</th>
 						</tr>
 					</thead>
 					<tbody>
 						@forelse ($ejemplaresEventos as $ee)
+							{{-- @dd($ee) --}}
 							<tr>
 								<td>{{ $ee->id }}</td>
 								<td>{{ ($ee->ejemplar)? $ee->ejemplar->kcb: ''}}</td>
 								<td>{{ ($ee->ejemplar)? $ee->ejemplar->nombre_completo : $ee->nombre_completo}}</td>
 								<td>{{ ($ee->ejemplar)? $ee->ejemplar->raza->nombre : $ee->raza->nombre}}</td>
+								<td>
+									@php
+										$grupo = App\EjemplarEvento::getGrupo($ee->raza_id);
+
+										echo ($grupo)? "Grupo ".$grupo->grupo_id : '' ;
+									@endphp
+								</td>
 								<td>{{ $ee->categoriaPista->nombre }}</td>
 
 								<td>
 									@php
+
 										if($ee->ejemplar){
 											if($ee->ejemplar->propietario != null){
 												echo $ee->ejemplar->propietario->name;
@@ -288,24 +538,10 @@
 											echo $ee->propietario;
 										}
 
-										// if($ee->ejemplar){
-										// 	$proTra = App\Transferencia::where('ejemplar_id',$ee->ejemplar->id)
-										// 								->where('estado','Actual')
-										// 								->first();
-										// 	if($proTra){
-										// 		echo $proTra->propietario->name;
-										// 	}else{
-										// 		if($ee->ejemplar->propietario != null){
-										// 			echo $ee->ejemplar->propietario->name;
-										// 		}else{
-										// 			echo '';
-										// 		}
-										// 	}
-										// }else{
-										// 	echo $ee->propietario;
-										// }
-
 									@endphp
+								</td>
+								<td>
+									{{ $ee->numero_prefijo }}
 								</td>
 								<td>
                                     {{-- <button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $ee->id }}', '{{ ($ee->ejemplar)? addslashes($ee->ejemplar->nombre_completo) : addslashes($ee->nombre_completo) }}', '{{ ($ee->ejemplar)? $ee->ejemplar->raza->id : $ee->raza->id }}', '{{ ($ee->ejemplar)? $ee->ejemplar->kcb: '' }}', '{{ ($ee->ejemplar)? $ee->ejemplar->color: $ee->color }}', '{{ ($ee->ejemplar)? $ee->ejemplar->fecha_nacimiento: $ee->fecha_nacimiento }}', '{{ ($ee->ejemplar)? $ee->ejemplar->sexo : $ee->sexo }}', '{{ $ee->codigo_nacionalizado }}', '{{ ($ee->ejemplar)? $ee->ejemplar->num_tatuaje : $ee->tatuaje }}', '{{ ($ee->ejemplar)? $ee->ejemplar->chip : $ee->chip }}', '{{ ($ee->ejemplar)? $ee->ejemplar->padre->kcb : $ee->kcb_padre }}', '{{ ($ee->ejemplar)? addslashes($ee->ejemplar->padre->nombre) : addslashes($ee->nombre_padre) }}', '{{ ($ee->ejemplar)? $ee->ejemplar->madre->kcb : $ee->kcb_madre }}', '{{ ($ee->ejemplar)? addslashes($ee->ejemplar->madre->nombre) : addslashes($ee->nombre_madre) }}', '{{ $ee->categoria_pista_id }}', '{{ $ee->criador }}', '{{ ($ee->ejemplar)? addslashes($ee->ejemplar->propietario->name) : addslashes($ee->propietario) }}', '{{ ($ee->ejemplar)? $ee->ejemplar->propietario->departamento : $ee->ciudad }}', '{{ ($ee->ejemplar)? $ee->ejemplar->propietario->celulares : $ee->telefono }}', '{{ ($ee->ejemplar)? $ee->ejemplar->propietario->email : $ee->email }}', '{{ $ee->estado }}', '{{ $ee->extrangero }}' )"> --}}
@@ -334,6 +570,14 @@
 @section('js')
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script type="text/javascript">
+
+		$( document ).ready(function() {
+			$.ajaxSetup({
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				}
+			});
+		});
 
     	$(function () {
     	    $('#tabla-insumos').DataTable({
@@ -480,10 +724,149 @@
 		});
 
 		$(function(){
-			$('#categoria_pista_id').select2({
-				placeholder: "Select a state"
+			$('#categoria_pista_id, #inscribe_raza_id, #inscribe_categoria_pista_id').select2({
+				placeholder: "seleccion"
 			});
 		});
+
+		function agregarEjeplarModal(){
+
+			// console.log("holas");
+			$('#modal-inscripcion-agrega').modal('show');
+
+		}
+
+		function buscaEjemplar(){
+
+			console.log("se ejecutara");
+
+			let kcb = $("#inscribe_kcb").val();
+
+			if(kcb != ''){
+
+				// alert("vacio");
+				$.ajax({
+					url: "{{ url('Evento/ajaxBuscaEjemplar') }}",
+					data: {
+					kcb: kcb
+					},
+					type: "POST",
+					success: function(data) {
+
+						//convertimos la respuesta para poder trabajar
+						let ejemplar = JSON.parse(data);
+
+						if(!$.isEmptyObject(ejemplar)){
+
+							$('#inscribe_ejemplar_id').val(ejemplar.id);
+							$('#inscribe_nombre').val(ejemplar.nombre_completo);
+							$('#inscribe_raza_id').val(ejemplar.raza_id);
+							$('#inscribe_raza_id').trigger('change');
+							$('#inscribe_color').val(ejemplar.color);
+							$('#inscribe_fecha_nacimiento').val(ejemplar.fecha_nacimiento);
+							$('#inscribe_sexo').val(ejemplar.sexo);
+							$('#inscribe_chip').val(ejemplar.chip);
+							$('#inscribe_cod_extranjero').val(ejemplar.codigo_nacionalizado);
+							$('#inscribe_num_tatuaje').val(ejemplar.num_tatuaje);
+							$('#inscribe_kcb_padre').val(ejemplar.kcb_padre);
+							$('#inscribe_nom_padre').val(ejemplar.nombre_padre);
+							$('#inscribe_kcb_madre').val(ejemplar.kcb_madre);
+							$('#inscribe_nom_madre').val(ejemplar.nombre_madre);
+							$('#inscribe_propietario').val(ejemplar.nom_propietario);
+							$('#inscribe_ciudad').val(ejemplar.departamento);
+							$('#inscribe_telefono').val(ejemplar.celulares);
+							$('#inscribe_email').val(ejemplar.email);
+							$("#inscribe_nombre").prop('readonly', true);
+							$("#inscribe_raza_id").prop('disabled', true);
+							$("#inscribe_color").prop('readonly', true);
+							$("#inscribe_fecha_nacimiento").prop('readonly', true);
+							$("#inscribe_sexo").prop('readonly', true);
+							$("#inscribe_chip").prop('readonly', true);
+							$("#inscribe_cod_extranjero").prop('readonly', true);
+							$("#inscribe_num_tatuaje").prop('readonly', true);
+							$("#inscribe_kcb_padre").prop('readonly', true);
+							$("#inscribe_nom_padre").prop('readonly', true);
+							$("#inscribe_kcb_madre").prop('readonly', true);
+							$("#inscribe_nom_madre").prop('readonly', true);
+							$("#inscribe_propietario").prop('readonly', true);
+							$("#inscribe_ciudad").prop('readonly', true);
+
+						}else{
+
+							$('#inscribe_ejemplar_id').val(0);
+							$('#inscribe_nombre').val('');
+							$('#inscribe_raza_id').val('');
+							$('#inscribe_raza_id').trigger('change');
+							$('#inscribe_color').val('');
+							$('#inscribe_fecha_nacimiento').val('');
+							$('#inscribe_sexo').val('');
+							$('#inscribe_chip').val('');
+							$('#inscribe_cod_extranjero').val('');
+							$('#inscribe_num_tatuaje').val('');
+							$('#inscribe_kcb_padre').val('');
+							$('#inscribe_nom_padre').val('');
+							$('#inscribe_kcb_madre').val('');
+							$('#inscribe_nom_madre').val('');
+							$('#inscribe_propietario').val('');
+							$('#inscribe_ciudad').val('');
+							$('#inscribe_telefono').val('');
+							$('#inscribe_email').val('');
+							$("#inscribe_nombre").prop('readonly', false);
+							$("#inscribe_raza_id").prop('disabled', false);
+							$("#inscribe_color").prop('readonly', false);
+							$("#inscribe_fecha_nacimiento").prop('readonly', false);
+							$("#inscribe_sexo").prop('readonly', false);
+							$("#inscribe_chip").prop('readonly', false);
+							$("#inscribe_cod_extranjero").prop('readonly', false);
+							$("#inscribe_num_tatuaje").prop('readonly', false);
+							$("#inscribe_kcb_padre").prop('readonly', false);
+							$("#inscribe_nom_padre").prop('readonly', false);
+							$("#inscribe_kcb_madre").prop('readonly', false);
+							$("#inscribe_nom_madre").prop('readonly', false);
+							$("#inscribe_propietario").prop('readonly', false);
+							$("#inscribe_ciudad").prop('readonly', false);
+
+						}
+					}
+				});
+
+			}else{
+
+				$("#msg-vacio-kcb").show();
+
+			}
+
+		}
+
+		function agregarEjemplarEvento(){
+
+			if($('#formulario_nueva_inscripcion')[0].checkValidity()){
+
+				$('#formulario_nueva_inscripcion').submit();
+
+			}else{
+				$('#formulario_nueva_inscripcion')[0].reportValidity();
+			}
+
+		}
+
+		function tipoEjemplar(radio){
+
+			if(radio.value == 'nacional'){
+				$('#bloque_busca_kcb').show('toogle');
+				$('#bloque_busca_codigo').hide('toogle');
+				$('#inscribe_extranjero').val('no')
+			}else{
+				$('#bloque_busca_codigo').show('toogle');
+				$('#bloque_busca_kcb').hide('toogle');
+				$('#inscribe_extranjero').val('si')
+			}
+
+		}
+
+		function buscaExtranjero(){
+			
+		}
 
     </script>
 @endsection
