@@ -1205,6 +1205,11 @@
 
                     $('#modalCalificacionCategorias').modal('show');
 
+                    // PREGUNTAMOS POR SI HAY GANADOS Y SI YA ESTA REGISTRADO
+                    if(data.statusGanador == "success"){
+                        
+                    }
+
                 }
 
             });

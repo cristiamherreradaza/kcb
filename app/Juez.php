@@ -312,4 +312,39 @@ class Juez extends Model
         return $ganadeores;
 
     }
+
+    public static function getJuezSecreEvento($evento_id,  $secretario_id){
+
+        $juez = Asignacion::where('evento_id',$evento_id)
+                            ->where('secretario_id',$secretario_id)
+                            ->first();
+
+        return $juez;
+
+    }
+
+    public static function getCalificaciones($evento_id, $secretario_id, $ejemplar_evento_id){
+
+        $calificacion = Calificacion::where('evento_id',$evento_id)
+                                    ->where('secretario_id',$secretario_id)
+                                    ->where('ejemplares_eventos_id',$ejemplar_evento_id)
+                                    ->first();
+
+        return $calificacion;
+
+    }
+
+    public static function getGanadoEventoSecretario($evento_id, $secretario_id, $categoria_pista_id, $raza_id){
+
+        $ganador = Ganador::select('ganadores.*')
+                            ->join('calificaciones','ganadores.calificacion_id', '=','calificaciones.id')
+                            ->where('ganadores.evento_id',$evento_id)
+                            ->where('calificaciones.secretario_id',$secretario_id)
+                            ->where('ganadores.categoria_id',$categoria_pista_id)
+                            ->where('ganadores.raza_id',$raza_id)
+                            ->first();
+
+        return $ganador;
+
+    }
 }

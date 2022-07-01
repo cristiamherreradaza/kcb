@@ -498,193 +498,8 @@ class JuezController extends Controller
         }
 
         return view('juez.categorias')->with(compact('evento', 'arrayEjemplaresTotal'));
-
-
-        
-        // $ejemplaresEspeciales = EjemplarEvento::select(DB::raw('count(raza_id) as cantRaza, raza_id'))
-        //                             ->where("categoria_pista_id",1)
-        //                             ->where("evento_id",$evento_id)
-        //                             ->groupBy('raza_id')
-        //                             ->get();
-
-        // $arrayEjemplares = array(
-        //     'nombre'        => 'Especiales',
-        //     'ejemplares'    => $ejemplaresEspeciales
-        // );
-
-        // array_push($arrayEjemplaresTotal,$arrayEjemplares);
-
-        // $ejemplaresAbsolutos = EjemplarEvento::select(DB::raw('count(raza_id) as cantRaza, raza_id'))
-        //                             ->where(function($query){
-        //                                 $query->orwhere("categoria_pista_id",11)
-        //                                 ->orwhere("categoria_pista_id",2);
-        //                             })
-        //                             ->where("evento_id",$evento_id)
-        //                             ->groupBy('raza_id')
-        //                             ->get();
-
-                                    
-        // $arrayEjemplares = array(
-        //     'nombre'        => 'Absolutos',
-        //     'ejemplares'    => $ejemplaresAbsolutos
-        // );
-
-        // array_push($arrayEjemplaresTotal,$arrayEjemplares);
-
-        // $ejemplaresJovenes = EjemplarEvento::select(DB::raw('count(raza_id) as cantRaza, raza_id'))
-        //                             ->where("evento_id",$evento_id)
-        //                             ->whereIn("categoria_pista_id",[3,4,12,13])
-        //                             ->groupBy('raza_id')
-        //                             ->get();
-
-        // $arrayEjemplares = array(
-        //     'nombre'        => 'Jovenes',
-        //     'ejemplares'    => $ejemplaresJovenes
-        // );
-
-        // array_push($arrayEjemplaresTotal,$arrayEjemplares);
-
-        // $ejemplaresAdulto = EjemplarEvento::select(DB::raw('count(raza_id) as cantRaza, raza_id'))
-        //                             ->where("evento_id",$evento_id)
-        //                             ->whereIn("categoria_pista_id",[5,6,7,8,9,10,14,15,16,17,18,19,20])
-        //                             ->groupBy('raza_id')
-        //                             ->get();
-
-        // $arrayEjemplares = array(
-        //     'nombre'        => 'Adultos',
-        //     'ejemplares'    => $ejemplaresAdulto
-        // );
-
-        // array_push($arrayEjemplaresTotal,$arrayEjemplares);
-
-        // // dd($arrayEjemplaresTotal);
-
-        // return view('juez.categorias')->with(compact('evento', 'arrayEjemplaresTotal'));
-
-        // return view('juez.categorias')->with(compact('evento', 'ejemplaresEspeciales', 'ejemplaresAbsolutos', 'ejemplaresJovenes', 'ejemplaresAdulto'));
-
     }
 
-    // public function AjaxPlanillaCalificacion(Request $request){
-
-    //     $evento_id  = $request->input('evento_id');
-    //     $ejemplares = $request->input('ejemplares');
-
-    //     $arrayEjemplaresDevuetos = array();
-
-    //     foreach ($ejemplares as $eje){
-
-    //         $arraySeparado = explode(",", $eje);
-
-    //         $dato = Juez::ejemplaresCategoria($arraySeparado[0], $evento_id, $arraySeparado[1 ]);
-
-    //         array_push($arrayEjemplaresDevuetos, $dato);
-
-    //     }
-
-    //     $data['formulario'] = view('juez.AjaxformularioCalificaion', compact('arrayEjemplaresDevuetos'))->render();
-
-    //     return json_encode($data);
-    // }
-
-    // public function AjaxEjemplarCatalogoRaza(Request $request){
-
-    //     $categoria_id  = $request->input('categoria');
-    //     $raza_id  = $request->input('raza');
-    //     $evento_id  = $request->input('evento');
-
-    //     $ejemplares = Juez::EjemplarCatalogoRaza($categoria_id, $raza_id, $evento_id);
-
-    //     if($ejemplares[0]->sexo == "Hembra"){
-    //         $color = 'style="color: #F94EE4 ;"';
-    //     }else{
-    //         $color = 'class="text-primary"';
-    //     }
-
-    //     $htmlIni = '
-    //         <form action="" id="formularioCalificacionCategoria">
-    //             <table class="table table-hover text-center">
-    //                 <thead>
-    //                     <tr>
-    //                         <th '.$color.' colspan="3">
-    //                             <h2>EJEMPLARES</h2>
-    //                         </th>
-    //                     </tr>
-    //                     <tr  '.$color.' >
-    //                         <th>
-    //                             N~
-    //                         </th>
-    //                         <th>
-    //                             Calif.
-    //                         </th>
-    //                         <th>
-    //                             Lugar
-    //                         </th>
-    //                     </tr>
-    //                 </thead>
-    //                 <tbody>
-    //                 ';
-    //                     $htmlBody ='';
-
-    //                     foreach ($ejemplares as $eje){
-
-    //                         $htmlBody = $htmlBody.'<tr>
-    //                                                     <td>
-    //                                                         <input type="hidden" name="ejemplar_evento_id_ejemplar[]" value="'.$eje->id.'">
-    //                                                         <input type="hidden" name="raza_id_ejemplar[]" value="'.$raza_id.'">
-    //                                                         <input type="hidden" name="evento_id_ejemplar[]" value="'.$evento_id.'">
-    //                                                         <input type="hidden" name="categoria_id_ejemplar[]" value="'.$categoria_id.'">
-    //                                                         <input type="hidden" name="sexo_ejemplar[]" value="'.$eje->sexo.'">
-    //                                                         <input type="hidden" name="numero_prefijo_ejemplar[]" value="'.$eje->numero_prefijo.'">
-    //                                                         <input type="hidden" name="ejemplar_id_ejemplar[]" value="'.$eje->ejemplar_id.'">
-    //                                                         <h1 '.$color.'>'.$eje->numero_prefijo.'</h1>
-    //                                                         <small style="display: none;" class="_'.$eje->id.' text-warning">Dato repetido</small>
-    //                                                     </td>
-    //                                                     <td>
-    //                                                         <select name="calificacion_ejemplar[]" id="calificacion_ejemplar" class="form-control">
-    //                                                             <option value="Excelente">Excelente</option>
-    //                                                             <option value="Muy Bien">Muy Bien</option>
-    //                                                             <option value="Bien">Bien</option>
-    //                                                             <option value="Descalificado">Descalificado</option>
-    //                                                             <option value="Ausente">Ausente</option>
-    //                                                         </select>
-    //                                                         <small style="display: none;" class="_'.$eje->id.' text-warning">Dato repetido</small>
-    //                                                     </td>
-    //                                                     <td>
-    //                                                         <select name="lugar_ejemplar[]" id="lugar_ejemplar" class="form-control">
-    //                                                             <option value="1">1</option>
-    //                                                             <option value="2">2</option>
-    //                                                             <option value="3">3</option>
-    //                                                             <option value="4">4</option>
-    //                                                             <option value="5">5</option>
-    //                                                         </select>
-    //                                                         <small style="display: none;" class="_'.$eje->id.' text-warning">Dato repetido</small>
-    //                                                     </td>
-    //                                                 </tr>';
-                            
-    //                     }
-
-    //     $htmlFin = '
-    //                 </tbody>
-    //             </table>
-    //         </form>
-
-    //             <hr>
-    //             <div class="row">
-    //                 <div class="col-md-12">
-    //                     <button onclick="finalizarCalificacion()" type="button" class="btn btn-success btn-block">Finalizar Calificacion</button>
-    //                 </div>
-    //             </div>
-    //             ';
-
-    //     $table =  $htmlIni.$htmlBody.$htmlFin;
-
-    //     $data['table'] = $table;
-    //     $data['status'] = 'success';
-
-    //     return json_encode($data);
-    // }
-    
     public function ajaxFinalizarCalificacion(Request $request){
 
         // dd($request->all());
@@ -722,6 +537,11 @@ class JuezController extends Controller
                     $calificacion->creador_id               = Auth::user()->id;
                     $calificacion->ejemplares_eventos_id    = intval($e);
                     $calificacion->evento_id                = $evento_id[0];
+
+                    $asignacion =  Juez::getJuezSecreEvento($evento_id[0], Auth::user()->id);
+
+                    $calificacion->juez_id                  = $asignacion->juez_id;
+                    $calificacion->secretario_id            = Auth::user()->id;
                     $calificacion->ejemplar_id              = $ejemplares[$key];
                     $calificacion->raza_id                  = $raza_id[0];
                     $calificacion->categoria_id             = $categoria_id[0];
@@ -782,19 +602,6 @@ class JuezController extends Controller
                 $ganador->save();
 
                 $ganadorConfir = true;
-
-                // $data['ganadorhtml'] = '<div class="row">
-                //                             <div class="col-md-4">
-                //                                 <input type="text" class="form-control" disabled value="'.$ganador->numero_prefijo.'">
-                //                             </div>
-                //                             <div class="col-md-4">
-                //                                 <input type="text" class="form-control" disabled value="'.$ganador->calificacion.'">
-                //                             </div>
-                //                             <div class="col-md-4">
-                //                                 <input type="text" class="form-control" disabled value="'.$ganador->lugar.'">
-                //                             </div>
-                //                         </div>';
-
                                         
                 $data['ganadorhtml'] = '<table class="table table-hover" id="tabla_ganador">
                                             <thead>
@@ -805,10 +612,11 @@ class JuezController extends Controller
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr onclick="escogerMejor('.$ganador->id.','."'".$ganador->numero_prefijo."'".')">
+                                                <tr>
                                                     <td>'.$ganador->numero_prefijo.'</td>
                                                     <td>'.$ganador->calificacion.'</td>
                                                     <td>'.$ganador->lugar.'</td>
+                                                    <td><button onclick="escogerMejor('.$ganador->id.','."'".$ganador->numero_prefijo."'".')" class="btn btn-success btn-icon"><i class="fa fa-check"></i></button></td>
                                                 </tr>
                                             </tbody>
                                         </table>';
@@ -872,219 +680,6 @@ class JuezController extends Controller
         return $data;
     }
 
-    // public function ajaxGanadores(Request $request){
-
-    //     $raza_id = $request->input('raza');
-    //     $evento_id = $request->input('evento');
-
-    //     // ESTO ES PARA LOS MACHOS
-    //     $tableBodytd = '';
-    //     $tableCabezaraTh = '';
-
-    //     $cachorroMacho              = Juez::ganadorEjemplarEvento($raza_id, $evento_id, 11);
-
-    //     if($cachorroMacho){
-
-    //         $tableCabezaraTh    = $tableCabezaraTh.'<th>CACHORRO</th>';
-    //         $tableBodytd = $tableBodytd.'<td>'.$cachorroMacho->numero_prefijo.'</td>';
-
-    //     }
-
-    //     $jovenMacho                 = Juez::ganadorEjemplarEvento($raza_id, $evento_id, 3);
-
-    //     if($jovenMacho){
-
-    //         $tableCabezaraTh    = $tableCabezaraTh.'<th>JOVEN</th>';
-    //         $tableBodytd = $tableBodytd.'<td>'.$jovenMacho->numero_prefijo.'</td>';
-            
-    //     }
-
-    //     $jovenCampeonMacho          = Juez::ganadorEjemplarEvento($raza_id, $evento_id, 12);
-
-    //     if($jovenCampeonMacho){
-
-    //         $tableCabezaraTh    = $tableCabezaraTh.'<th>JOVEN CAMPEON</th>';
-    //         $tableBodytd = $tableBodytd.'<td>'.$jovenCampeonMacho->numero_prefijo.'</td>';
-            
-    //     }
-        
-    //     $intermediaMacho            = Juez::ganadorEjemplarEvento($raza_id, $evento_id, 5);
-
-    //     if($intermediaMacho){
-
-    //         $tableCabezaraTh    = $tableCabezaraTh.'<th>INTERMEDIA</th>';
-    //         $tableBodytd = $tableBodytd.'<td>'.$intermediaMacho->numero_prefijo.'</td>';
-            
-    //     }
-        
-    //     $abiertaMacho               = Juez::ganadorEjemplarEvento($raza_id, $evento_id, 7);
-
-    //     if($abiertaMacho){
-
-    //         $tableCabezaraTh    = $tableCabezaraTh.'<th>ABIERTA</th>';
-    //         $tableBodytd = $tableBodytd.'<td>'.$abiertaMacho->numero_prefijo.'</td>';
-            
-    //     }
-        
-    //     $campeonMacho               = Juez::ganadorEjemplarEvento($raza_id, $evento_id, 9);
-
-    //     if($campeonMacho){
-
-    //         $tableCabezaraTh    = $tableCabezaraTh.'<th>CAMPEON</th>';
-    //         $tableBodytd = $tableBodytd.'<td>'.$campeonMacho->numero_prefijo.'</td>';
-            
-    //     }
-        
-    //     $grandesCampeonesMacho      = Juez::ganadorEjemplarEvento($raza_id, $evento_id, 14);
-
-    //     if($grandesCampeonesMacho){
-
-    //         $tableCabezaraTh    = $tableCabezaraTh.'<th>GRANDES CAMPEONES</th>';
-    //         $tableBodytd = $tableBodytd.'<td>'.$grandesCampeonesMacho->numero_prefijo.'</td>';
-            
-    //     }
-
-    //     $tableCabeza = '
-    //         <table class="table table-hover text-center">
-    //             <thead>
-    //                 <tr>
-    //                 '.$tableCabezaraTh.'
-    //                 </tr>
-    //             </thead>
-    //             <tbody>
-    //                 <tr>
-    //         ';
-            
-    //     $tablePie = '
-    //                 </tr>
-    //             </tbody>
-    //         </table>
-    //     ';
-
-    //     $table = $tableCabeza.$tableBodytd.$tablePie;
-
-    //     $data['table_machos'] = $table;
-
-
-    //     // AHORA PARA LAS HEMBRAS
-    //     $tableBodytd = '';
-    //     $tableCabezaraTh = '';
-    //     $jovenes = false;
-
-    //     $cachorroHembra              = Juez::ganadorEjemplarEvento($raza_id, $evento_id, 2);
-
-    //     if($cachorroHembra){
-
-    //         $tableCabezaraTh    = $tableCabezaraTh.'<th>CACHORRO</th>';
-    //         $tableBodytd = $tableBodytd.'<td>'.$cachorroHembra->numero_prefijo.'</td>';
-
-    //     }
-
-    //     $jovenHembra                 = Juez::ganadorEjemplarEvento($raza_id, $evento_id, 4);
-
-    //     if($jovenHembra){
-
-    //         $tableCabezaraTh    = $tableCabezaraTh.'<th>JOVEN</th>';
-    //         $tableBodytd = $tableBodytd.'<td>'.$jovenHembra->numero_prefijo.'</td>';
-            
-    //     }
-
-    //     $jovenCampeonHembra          = Juez::ganadorEjemplarEvento($raza_id, $evento_id, 13);
-
-    //     if($jovenCampeonHembra){
-
-    //         $tableCabezaraTh    = $tableCabezaraTh.'<th>JOVEN CAMPEON</th>';
-    //         $tableBodytd = $tableBodytd.'<td>'.$jovenCampeonHembra->numero_prefijo.'</td>';
-            
-    //     }
-
-    //     if($jovenHembra && $jovenCampeonHembra){
-
-    //         $jovenes = true;
-
-    //     }
-        
-    //     $intermediaHembra            = Juez::ganadorEjemplarEvento($raza_id, $evento_id, 6);
-
-    //     if($intermediaHembra){
-
-    //         $tableCabezaraTh    = $tableCabezaraTh.'<th>INTERMEDIA</th>';
-    //         $tableBodytd = $tableBodytd.'<td>'.$intermediaHembra->numero_prefijo.'</td>';
-            
-    //     }
-        
-    //     $abiertaHembra               = Juez::ganadorEjemplarEvento($raza_id, $evento_id, 8);
-
-    //     if($abiertaHembra){
-
-    //         $tableCabezaraTh    = $tableCabezaraTh.'<th>ABIERTA</th>';
-    //         $tableBodytd = $tableBodytd.'<td>'.$abiertaHembra->numero_prefijo.'</td>';
-            
-    //     }
-        
-    //     $campeonHembra               = Juez::ganadorEjemplarEvento($raza_id, $evento_id, 10);
-
-    //     if($campeonHembra){
-
-    //         $tableCabezaraTh    = $tableCabezaraTh.'<th>CAMPEON</th>';
-    //         $tableBodytd = $tableBodytd.'<td>'.$campeonHembra->numero_prefijo.'</td>';
-            
-    //     }
-        
-    //     $grandesCampeonesHembra      = Juez::ganadorEjemplarEvento($raza_id, $evento_id, 15);
-
-    //     if($grandesCampeonesHembra){
-
-    //         $tableCabezaraTh    = $tableCabezaraTh.'<th>GRANDES CAMPEONES</th>';
-    //         $tableBodytd = $tableBodytd.'<td>'.$grandesCampeonesHembra->numero_prefijo.'</td>';
-            
-    //     }
-
-    //     $tableCabeza = '
-    //         <table class="table table-hover text-center">
-    //             <thead>
-    //                 <tr>
-    //                 '.$tableCabezaraTh.'
-    //                 </tr>
-    //             </thead>
-    //             <tbody>
-    //                 <tr>
-    //         ';
-
-    //     if($jovenes){
-
-    //         $pie = '<select class="form-control">
-    //                     <option value="">SELECCIONE MEJOR JOVEN HEMBRA</option>
-    //                     <option value="">'.$jovenHembra->numero_prefijo.'</option>
-    //                     <option value="">'.$jovenCampeonHembra->numero_prefijo.'</option>
-    //                 </select>';
-
-    //     }else{
-    //         $pie = '';
-    //     }
-            
-    //     $tablePie = '
-    //                 </tr>
-    //             </tbody>
-    //             <tfoot>
-    //                 <tr>
-    //                     <th></th>
-                        
-    //                     <th colspan="2">'.$pie.'</th>
-    //                 </tr>
-    //             </tfoot>
-    //         </table>
-    //     ';
-
-    //     $table = $tableCabeza.$tableBodytd.$tablePie;
-
-    //     $data['table_hembras'] = $table;
-
-
-    //     return json_encode($data);
-
-    // }
-
     public function ajaxCategoriasCalificacion(Request $request){
 
         // dd($request->all());
@@ -1099,53 +694,441 @@ class JuezController extends Controller
         $cantidadCategorias = count($categorias);
 
         if($cantidadCategorias == 1){
+            
+            // PREGUNTAMOS POR EL GANADOR
+            $ganador = Juez::getGanadoEventoSecretario($evento_id, Auth::user()->id, $categorias[0]['categoria_id'], $raza_id);
+
+            $sw = true;
+            if($ganador){
+                if($ganador->mejor_escogido == "Si"){
+                    $sw = false;
+                }
+            }
+
+            $tableGanador = '';
+
+            if($ganador){
+
+                $tableGanador = '<table class="table table-hover" id="tabla_ganador">
+                                            <thead>
+                                                <tr>
+                                                    <th>N~</th>
+                                                    <th>Calificacion</th>
+                                                    <th>Lugar</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>'.$ganador->numero_prefijo.'</td>
+                                                    <td>'.$ganador->calificacion.'</td>
+                                                    <td>'.$ganador->lugar.'</td>
+                                                    <td>
+                                                        '.(($sw)? '
+                                                            <button onclick="escogerMejor('.$ganador->id.','."'".$ganador->numero_prefijo."'".')" class="btn btn-success btn-icon"><i class="fa fa-check"></i></button>
+                                                        ': '').'
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>';
+
+            }
+
             $columna = 'class="col-md-12"';
 
             $data['divGanadoresCategorias'] = '<div class="row">
                                                     <div class="col-md-12">
-                                                        <div id="ganador_'.str_replace([' ','(',')'],'',$categorias[0]['nombre']).'" style="display: none;"></div>
+                                                        <div id="ganador_'.str_replace([' ','(',')'],'',$categorias[0]['nombre']).'"  '.(($ganador == null)? 'style="display: none;"' : '' ).' >
+                                                            '.$tableGanador.'
+                                                        </div>
                                                     </div>
                                                 </div>';
         }elseif($cantidadCategorias == 2){
+
+            // PREGUNTAMOS POR EL GANADOR
+            // PARA EL GANADOR 1
+            $ganador1 = Juez::getGanadoEventoSecretario($evento_id, Auth::user()->id, $categorias[0]['categoria_id'], $raza_id);
+
+            // PARA EL GANADOR 2
+            $ganador2 = Juez::getGanadoEventoSecretario($evento_id, Auth::user()->id, $categorias[1]['categoria_id'], $raza_id);
+
+            // PARA LOS botones
+            $sw = true;
+            if($ganador1 && $ganador2){
+                if($ganador2->mejor_escogido == "Si" || $ganador1->mejor_escogido == "Si"){
+                    $sw = false; 
+                }
+            }
+
+            // PARA EL GANADOR 1
+            $tableGanador1 = '';
+
+            if($ganador1){
+
+                $tableGanador1 = '<table class="table table-hover" id="tabla_ganador">
+                                            <thead>
+                                                <tr>
+                                                    <th>N~</th>
+                                                    <th>Calificacion</th>
+                                                    <th>Lugar</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>'.$ganador1->numero_prefijo.'</td>
+                                                    <td>'.$ganador1->calificacion.'</td>
+                                                    <td>'.$ganador1->lugar.'</td>
+                                                    <td>
+                                                        '.(($sw)? '
+                                                            <button onclick="escogerMejor('.$ganador1->id.','."'".$ganador1->numero_prefijo."'".')" class="btn btn-success btn-icon"><i class="fa fa-check"></i></button>
+                                                        ' : '').'
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>';
+
+            }
+
+
+            // PARA EL GANADOR 2
+            $tableGanador2 = '';
+
+            if($ganador2){
+
+                $tableGanador2 = '<table class="table table-hover" id="tabla_ganador">
+                                            <thead>
+                                                <tr>
+                                                    <th>N~</th>
+                                                    <th>Calificacion</th>
+                                                    <th>Lugar</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>'.$ganador2->numero_prefijo.'</td>
+                                                    <td>'.$ganador2->calificacion.'</td>
+                                                    <td>'.$ganador2->lugar.'</td>
+                                                    <td>
+                                                        '.(($sw)? '
+                                                            <button onclick="escogerMejor('.$ganador2->id.','."'".$ganador2->numero_prefijo."'".')" class="btn btn-success btn-icon"><i class="fa fa-check"></i></button>
+                                                        ' : '').'
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>';
+
+            }
+
             $columna = 'class="col-md-6"';
 
             $data['divGanadoresCategorias'] = '<div class="row">
                                                     <div class="col-md-6">
-                                                        <div id="ganador_'.str_replace([' ','(',')'],'',$categorias[0]['nombre']).'" style="display: none;"></div>
+                                                        <div id="ganador_'.str_replace([' ','(',')'],'',$categorias[0]['nombre']).'" '.(($ganador1 == null)? 'style="display: none;"' : '' ).'>
+                                                            '.$tableGanador1.'
+                                                        </div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div id="ganador_'.str_replace([' ','(',')'],'',$categorias[1]['nombre']).'" style="display: none;"></div>
+                                                        <div id="ganador_'.str_replace([' ','(',')'],'',$categorias[1]['nombre']).'" '.(($ganador2 == null)? 'style="display: none;"' : '' ).'>
+                                                            '.$tableGanador2.'
+                                                        </div>
                                                     </div>
                                                 </div>';
         }elseif($cantidadCategorias == 3){
+
+            // PREGUNTAMOS POR EL GANADOR
+            // PARA EL GANADOR 1
+            $ganador1 = Juez::getGanadoEventoSecretario($evento_id, Auth::user()->id, $categorias[0]['categoria_id'], $raza_id);
+
+            // PARA EL GANADOR 2
+            $ganador2 = Juez::getGanadoEventoSecretario($evento_id, Auth::user()->id, $categorias[1]['categoria_id'], $raza_id);
+
+            // PARA EL GANADOR 3
+            $ganador3 = Juez::getGanadoEventoSecretario($evento_id, Auth::user()->id, $categorias[2]['categoria_id'], $raza_id);
+
+            // PARA LOS botones
+            $sw = true;
+            if($ganador1 && $ganador2 && $ganador3){
+                if($ganador2->mejor_escogido == "Si" || $ganador1->mejor_escogido == "Si" || $ganador3->mejor_escogido == "Si"){
+                    $sw = false; 
+                }
+            }
+
+
+            // PARA EL GANADOR 1
+            $tableGanador1 = '';
+
+            if($ganador1){
+
+                $tableGanador1 = '<table class="table table-hover" id="tabla_ganador">
+                                            <thead>
+                                                <tr>
+                                                    <th>N~</th>
+                                                    <th>Calificacion</th>
+                                                    <th>Lugar</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>'.$ganador1->numero_prefijo.'</td>
+                                                    <td>'.$ganador1->calificacion.'</td>
+                                                    <td>'.$ganador1->lugar.'</td>
+                                                    <td>
+                                                        '.(($sw)? '
+                                                            <button onclick="escogerMejor('.$ganador1->id.','."'".$ganador1->numero_prefijo."'".')" class="btn btn-success btn-icon"><i class="fa fa-check"></i></button>
+                                                        ' : '').'
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>';
+
+            }
+
+
+            // PARA EL GANADOR 2
+            $tableGanador2 = '';
+
+            if($ganador2){
+
+                $tableGanador2 = '<table class="table table-hover" id="tabla_ganador">
+                                            <thead>
+                                                <tr>
+                                                    <th>N~</th>
+                                                    <th>Calificacion</th>
+                                                    <th>Lugar</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>'.$ganador2->numero_prefijo.'</td>
+                                                    <td>'.$ganador2->calificacion.'</td>
+                                                    <td>'.$ganador2->lugar.'</td>
+                                                    <td>
+                                                        '.(($sw)? '
+                                                            <button onclick="escogerMejor('.$ganador2->id.','."'".$ganador2->numero_prefijo."'".')" class="btn btn-success btn-icon"><i class="fa fa-check"></i></button>
+                                                        ' : '').'
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>';
+
+            }
+
+            // PARA EL GANADOR 3
+            $tableGanador3 = '';
+
+            if($ganador3){
+
+                $tableGanador3 = '<table class="table table-hover" id="tabla_ganador">
+                                            <thead>
+                                                <tr>
+                                                    <th>N~</th>
+                                                    <th>Calificacion</th>
+                                                    <th>Lugar</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>'.$ganador3->numero_prefijo.'</td>
+                                                    <td>'.$ganador3->calificacion.'</td>
+                                                    <td>'.$ganador3->lugar.'</td>
+                                                    <td>
+                                                        '.(($sw)? '
+                                                            <button onclick="escogerMejor('.$ganador3->id.','."'".$ganador3->numero_prefijo."'".')" class="btn btn-success btn-icon"><i class="fa fa-check"></i></button>
+                                                        ' : '').'
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>';
+
+            }
+
+            // PREPARAMOS LOS TABLAS CON LOS COL
             $columna = 'class="col-md-4"';
 
             $data['divGanadoresCategorias'] = '<div class="row">
                                                     <div class="col-md-4">
-                                                        <div id="ganador_'.str_replace([' ','(',')'],'',$categorias[0]['nombre']).'" style="display: none;"></div>
+                                                        <div id="ganador_'.str_replace([' ','(',')'],'',$categorias[0]['nombre']).'"  '.(($ganador1 == null)? 'style="display: none;"' : '' ).'>
+                                                            '.$tableGanador1.'
+                                                        </div>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <div id="ganador_'.str_replace([' ','(',')'],'',$categorias[1]['nombre']).'" style="display: none;"></div>
+                                                        <div id="ganador_'.str_replace([' ','(',')'],'',$categorias[1]['nombre']).'"  '.(($ganador2 == null)? 'style="display: none;"' : '' ).'>
+                                                            '.$tableGanador2.'
+                                                        </div>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <div id="ganador_'.str_replace([' ','(',')'],'',$categorias[2]['nombre']).'" style="display: none;"></div>
+                                                        <div id="ganador_'.str_replace([' ','(',')'],'',$categorias[2]['nombre']).'"  '.(($ganador3 == null)? 'style="display: none;"' : '' ).'>
+                                                            '.$tableGanador3.'
+                                                        </div>
                                                     </div>
                                                 </div>';
         }elseif($cantidadCategorias == 4){
+
+            // PREGUNTAMOS POR EL GANADOR
+            // PARA EL GANADOR 1
+            $ganador1 = Juez::getGanadoEventoSecretario($evento_id, Auth::user()->id, $categorias[0]['categoria_id'], $raza_id);
+            
+            // PARA EL GANADOR 2
+            $ganador2 = Juez::getGanadoEventoSecretario($evento_id, Auth::user()->id, $categorias[1]['categoria_id'], $raza_id);
+
+            // PARA EL GANADOR 3
+            $ganador3 = Juez::getGanadoEventoSecretario($evento_id, Auth::user()->id, $categorias[2]['categoria_id'], $raza_id);
+
+            // PARA EL GANADOR 4
+            $ganador4 = Juez::getGanadoEventoSecretario($evento_id, Auth::user()->id, $categorias[3]['categoria_id'], $raza_id);
+
+            // PARA LOS botones
+            $sw = true;
+            if($ganador1 && $ganador2 && $ganador3 && $ganador4){
+                if($ganador2->mejor_escogido == "Si" || $ganador1->mejor_escogido == "Si" || $ganador3->mejor_escogido == "Si" || $ganador4->mejor_escogido == "Si"){
+                    $sw = false; 
+                }
+            }
+
+            // PARA EL GANADOR 1
+            $tableGanador1 = '';
+
+            if($ganador1){
+
+                $tableGanador1 = '<table class="table table-hover" id="tabla_ganador">
+                                            <thead>
+                                                <tr>
+                                                    <th>N~</th>
+                                                    <th>Calificacion</th>
+                                                    <th>Lugar</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>'.$ganador1->numero_prefijo.'</td>
+                                                    <td>'.$ganador1->calificacion.'</td>
+                                                    <td>'.$ganador1->lugar.'</td>
+                                                    <td>
+                                                        '.(($sw)? '
+                                                            <button onclick="escogerMejor('.$ganador1->id.','."'".$ganador1->numero_prefijo."'".')" class="btn btn-success btn-icon"><i class="fa fa-check"></i></button>
+                                                        ' : '').'
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>';
+
+            }
+
+
+            // PARA EL GANADOR 2
+            $tableGanador2 = '';
+
+            if($ganador2){
+
+                $tableGanador2 = '<table class="table table-hover" id="tabla_ganador">
+                                            <thead>
+                                                <tr>
+                                                    <th>N~</th>
+                                                    <th>Calificacion</th>
+                                                    <th>Lugar</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>'.$ganador2->numero_prefijo.'</td>
+                                                    <td>'.$ganador2->calificacion.'</td>
+                                                    <td>'.$ganador2->lugar.'</td>
+                                                    <td>
+                                                        '.(($sw)? '
+                                                            <button onclick="escogerMejor('.$ganador2->id.','."'".$ganador2->numero_prefijo."'".')" class="btn btn-success btn-icon"><i class="fa fa-check"></i></button>
+                                                        ' : '').'
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>';
+
+            }
+
+
+            // PARA EL GANADOR 3
+            $tableGanador3 = '';
+
+            if($ganador3){
+
+                $tableGanador3 = '<table class="table table-hover" id="tabla_ganador">
+                                            <thead>
+                                                <tr>
+                                                    <th>N~</th>
+                                                    <th>Calificacion</th>
+                                                    <th>Lugar</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>'.$ganador3->numero_prefijo.'</td>
+                                                    <td>'.$ganador3->calificacion.'</td>
+                                                    <td>'.$ganador3->lugar.'</td>
+                                                    <td>
+                                                        '.(($sw)? '
+                                                            <button onclick="escogerMejor('.$ganador3->id.','."'".$ganador3->numero_prefijo."'".')" class="btn btn-success btn-icon"><i class="fa fa-check"></i></button>
+                                                        ' : '').'
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>';
+
+            }
+
+
+            // PARA EL GANADOR 4
+            $tableGanador4 = '';
+
+            if($ganador4){
+
+                $tableGanador4 = '<table class="table table-hover" id="tabla_ganador">
+                                            <thead>
+                                                <tr>
+                                                    <th>N~</th>
+                                                    <th>Calificacion</th>
+                                                    <th>Lugar</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>'.$ganador4->numero_prefijo.'</td>
+                                                    <td>'.$ganador4->calificacion.'</td>
+                                                    <td>'.$ganador4->lugar.'</td>
+                                                    <td>
+                                                        '.(($sw)? '
+                                                            <button onclick="escogerMejor('.$ganador4->id.','."'".$ganador4->numero_prefijo."'".')" class="btn btn-success btn-icon"><i class="fa fa-check"></i></button>
+                                                        ' : '').'
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>';
+
+            }
+
+
+
+
+
             $columna = 'class="col-md-3"';
 
             $data['divGanadoresCategorias'] = '<div class="row">
                                                     <div class="col-md-3">
-                                                        <div id="ganador_'.str_replace([' ','(',')'],'',$categorias[0]['nombre']).'" style="display: none;"></div>
+                                                        <div id="ganador_'.str_replace([' ','(',')'],'',$categorias[0]['nombre']).'"  '.(($ganador1 == null)? 'style="display: none;"' : '' ).' >
+                                                            '.$tableGanador1.'
+                                                        </div>
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <div id="ganador_'.str_replace([' ','(',')'],'',$categorias[1]['nombre']).'" style="display: none;"></div>
+                                                        <div id="ganador_'.str_replace([' ','(',')'],'',$categorias[1]['nombre']).'"  '.(($ganador2 == null)? 'style="display: none;"' : '' ).' >
+                                                            '.$tableGanador2.'
+                                                        </div>
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <div id="ganador_'.str_replace([' ','(',')'],'',$categorias[2]['nombre']).'" style="display: none;"></div>
+                                                        <div id="ganador_'.str_replace([' ','(',')'],'',$categorias[2]['nombre']).'"  '.(($ganador3 == null)? 'style="display: none;"' : '' ).' >
+                                                            '.$tableGanador3.'
+                                                        </div>
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <div id="ganador_'.str_replace([' ','(',')'],'',$categorias[3]['nombre']).'" style="display: none;"></div>
+                                                        <div id="ganador_'.str_replace([' ','(',')'],'',$categorias[3]['nombre']).'"  '.(($ganador4 == null)? 'style="display: none;"' : '' ).' >
+                                                            '.$tableGanador4.'
+                                                        </div>
                                                     </div>
                                                 </div>';
         }
@@ -1173,54 +1156,57 @@ class JuezController extends Controller
 
                 foreach ($ejemplares as $eje){
 
+                    // VERIFICAMOS SI YA Esta calificado
+                    $cali = Juez::getCalificaciones($evento_id, Auth::user()->id, $eje->id);
+
                     $grupo = Juez::getGrupo($eje->raza_id);
 
                     $tableBody = $tableBody.'<tr>
                                                 <td>
-                                                
-                                                <input type="hidden" name="ejemplar_evento_id_ejemplar[]" value="'.$eje->id.'">
-                                                <input type="hidden" name="raza_id_ejemplar[]" value="'.$raza_id.'">
-                                                <input type="hidden" name="evento_id_ejemplar[]" value="'.$evento_id.'">
-                                                <input type="hidden" name="categoria_id_ejemplar[]" value="'.$ca['categoria_id'].'">
-                                                <input type="hidden" name="sexo_ejemplar[]" value="'.$eje->sexo.'">
-                                                <input type="hidden" name="numero_prefijo_ejemplar[]" value="'.$eje->numero_prefijo.'">
-                                                <input type="hidden" name="ejemplar_id_ejemplar[]" value="'.$eje->ejemplar_id.'">
-                                                <input type="hidden" name="grupo_id[]" value="'.$grupo->grupo_id.'">
-
+                                                    <input type="hidden" name="ejemplar_evento_id_ejemplar[]" value="'.$eje->id.'">
+                                                    <input type="hidden" name="raza_id_ejemplar[]" value="'.$raza_id.'">
+                                                    <input type="hidden" name="evento_id_ejemplar[]" value="'.$evento_id.'">
+                                                    <input type="hidden" name="categoria_id_ejemplar[]" value="'.$ca['categoria_id'].'">
+                                                    <input type="hidden" name="sexo_ejemplar[]" value="'.$eje->sexo.'">
+                                                    <input type="hidden" name="numero_prefijo_ejemplar[]" value="'.$eje->numero_prefijo.'">
+                                                    <input type="hidden" name="ejemplar_id_ejemplar[]" value="'.$eje->ejemplar_id.'">
+                                                    <input type="hidden" name="grupo_id[]" value="'.$grupo->grupo_id.'">
                                                     <h1 class="text-primary">'.$eje->numero_prefijo.'</h1>
                                                     <small style="display: none;" class="_'.$eje->id.' text-warning">Dato repetido</small>
                                                 </td>
                                                 <td>
-                                                    <select name="calificacion_ejemplar[]" id="calificacion_ejemplar" class="form-control">
-                                                        <option value="Excelente">Excelente</option>
-                                                        <option value="Muy Bien">Muy Bien</option>
-                                                        <option value="Bien">Bien</option>
-                                                        <option value="Descalificado">Descalificado</option>
-                                                        <option value="Ausente">Ausente</option>
+                                                    <select name="calificacion_ejemplar[]" id="calificacion_ejemplar" class="form-control" '.(($cali)? 'disabled' : '').' >
+                                                        <option '.(($cali)? (($cali->calificacion == 'Excelente')? 'selected' : '') : '').'  value="Excelente">Excelente</option>
+                                                        <option '.(($cali)? (($cali->calificacion == 'Muy Bien')? 'selected' : '') : '').'  value="Muy Bien">Muy Bien</option>
+                                                        <option '.(($cali)? (($cali->calificacion == 'Bien')? 'selected' : '') : '').'  value="Bien">Bien</option>
+                                                        <option '.(($cali)? (($cali->calificacion == 'Descalificado')? 'selected' : '') : '').'  value="Descalificado">Descalificado</option>
+                                                        <option '.(($cali)? (($cali->calificacion == 'Ausente')? 'selected' : '') : '').'  value="Ausente">Ausente</option>
                                                     </select>
                                                     <small style="display: none;" class="_'.$eje->id.' text-warning">Dato repetido</small>
                                                 </td>
                                                 <td>
-                                                    <select name="lugar_ejemplar[]" id="lugar_ejemplar" class="form-control">
-                                                        <option value="1">Primero</option>
-                                                        <option value="2">Segundo</option>
-                                                        <option value="3">Tercero</option>
-                                                        <option value="4">Cuarto</option>
-                                                        <option value="5">Quinto</option>
+                                                    <select name="lugar_ejemplar[]" id="lugar_ejemplar" class="form-control" '.(($cali)? 'disabled' : '').' >
+                                                        <option '.(($cali)? (($cali->lugar == 1)? 'selected' : '') : '').' value="1">Primero</option>
+                                                        <option '.(($cali)? (($cali->lugar == 2)? 'selected' : '') : '').' value="2">Segundo</option>
+                                                        <option '.(($cali)? (($cali->lugar == 3)? 'selected' : '') : '').' value="3">Tercero</option>
+                                                        <option '.(($cali)? (($cali->lugar == 4)? 'selected' : '') : '').' value="4">Cuarto</option>
+                                                        <option '.(($cali)? (($cali->lugar == 5)? 'selected' : '') : '').' value="5">Quinto</option>
                                                     </select>
                                                     <small style="display: none;" class="_'.$eje->id.' text-warning">Dato repetido</small>
                                                 </td>
                                             </tr>';
 
-            }
+                }
 
                     $tableFoooter = $tableFoooter.'</tbody>
                                                 </table>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <button id="button_'.str_replace([' ','(',')'],'',$ca['nombre']).'" type="button" class="btn btn-success btn-block" onclick="finalizarCalificacion('."'".str_replace([' ','(',')'],'',$ca['nombre'])."'".')">Finalizar</button>
+                                                '.(($cali == null)? '
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <button id="button_'.str_replace([' ','(',')'],'',$ca['nombre']).'" type="button" class="btn btn-success btn-block" onclick="finalizarCalificacion('."'".str_replace([' ','(',')'],'',$ca['nombre'])."'".')">Finalizar</button>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                ' : '').'
                                             </form>
                                         </div>';
 
@@ -1233,6 +1219,8 @@ class JuezController extends Controller
     }
 
     public function ajaxCalificacionMejor(Request $request){
+
+        // dd($request->all());
 
         $ganador_id = $request->input('ganador');
 
