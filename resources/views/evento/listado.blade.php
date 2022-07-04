@@ -30,7 +30,7 @@
 							@csrf
 							<input type="hidden" name="asignacion_evento_id" id="asignacion_evento_id">
 							<div class="row">
-								<div class="col-md-6">
+								<div class="col-md-4">
 									<div class="form-group">
 										<label for="exampleInputPassword1">Juez
 										<span class="text-danger">*</span></label>
@@ -42,7 +42,7 @@
 										</select>
 									</div>
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-4">
 									<div class="form-group">
 										<label for="exampleInputPassword1">Secretario
 										<span class="text-danger">*</span></label>
@@ -51,6 +51,15 @@
 											@foreach ($secretarios as $secre)
 												<option value="{{ $secre->id }}">{{ $secre->name }}</option>
 											@endforeach
+										</select>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label for="exampleInputPassword1">Pista
+										<span class="text-danger">*</span></label>
+										<select name="num_pista" id="num_pista" class="form-control" style="width:100%;" required>
+
 										</select>
 									</div>
 								</div>
@@ -250,7 +259,7 @@
 									<button type="button" class="btn btn-icon btn-info" onclick="listaInscritos('{{ $even->id }}')">
 										<i class="far fa-list-alt"></i>
 									</button>
-									<button type="button" class="btn btn-icon btn-success" onclick="addJuez('{{ $even->id }}', '{{ $even->nombre }}')">
+									<button type="button" class="btn btn-icon btn-success" onclick="addJuez('{{ $even->id }}', '{{ $even->nombre }}', '{{ $even->numero_pista }}')">
 										<i class="fas fa-gavel"></i>
 									</button>
 									<button type="button" class="btn btn-icon btn-dark" onclick="generaNumeracion('{{ $even->id }}', '{{ $even->nombre }}')">
@@ -408,7 +417,7 @@
 			window.location.href = "{{ url('Evento/catalogo') }}/"+id;
 		}
 
-		function addJuez(id, nombre){
+		function addJuez(id, nombre, numero_pista){
 			$('#asignacion_evento_id').val(id);
 			$('#nombreEvento').text(nombre);
 
@@ -416,6 +425,18 @@
 			$("#juez_id").trigger('change');
 			$('#secretario_id').val('');
 			$("#secretario_id").trigger('change');
+
+			// PARA EL SELECT DE CATEGORIAS
+			// eliminamos todas las opciones del select
+			$('#num_pista').empty();
+
+			let option = '';
+			for (let index = 1; index <= numero_pista; index++) {
+				option = option+'<option value='+index+'>'+index+'</option>'
+			}
+
+			$('#num_pista').append(option);
+
 
 			$.ajax({
 				url: "{{ url('Juez/ajaxListadoAsignacion') }}",

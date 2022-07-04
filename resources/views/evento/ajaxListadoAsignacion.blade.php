@@ -16,7 +16,8 @@
         <tr>
             <th>JUEZ</th>
             <th>SECRETARIO</th>
-            {{--  <th></th>  --}}
+            <th>PISTA</th>
+             <th></th> 
         </tr>
     </thead>
     <tbody>
@@ -24,6 +25,7 @@
         <tr>
             <td>{{ $asig->juez->nombre }}</td>
             <td>{{ $asig->secretario->name}}</td>
+            <td>{{ $asig->num_pista}}</td>
             <td>
                 <button type="button" class="btn btn-icon btn-danger" onclick="eliminaAsigancion('{{ $asig->id }}', '{{$asig->juez->nombre  }}')">
                     <i class="flaticon2-cross"></i>

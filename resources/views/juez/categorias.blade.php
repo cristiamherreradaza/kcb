@@ -390,6 +390,7 @@
                 <form action="" id="formulario-calificacion">
 
                     <input type="text" value="{{ $evento->id }}" name="evento_id">
+                    <input type="text" value="{{ $asignacion->id }}" name="asignacion_id">
 
                     @foreach ($arrayEjemplaresTotal as $key => $a)
 
@@ -646,7 +647,7 @@
                                                                                             // dd($razas->raza->nombre);
                                                                                         @endphp 
 
-                                                                                        <button class="btn btn-primary btn-block" type="button" onclick="modalcategorias({{ json_encode($arrayCategoriasMachos[$contadorArryaMacho]) }}, '{{ $razas->raza_id }}', '{{ $evento->id }}', '{{ $razas->raza->nombre }}')">
+                                                                                        <button class="btn btn-primary btn-block" type="button" onclick="modalcategorias({{ json_encode($arrayCategoriasMachos[$contadorArryaMacho]) }}, '{{ $razas->raza_id }}', '{{ $evento->id }}', '{{ $razas->raza->nombre }}', '{{ $asignacion->id }}')">
                                                                                             @foreach ( $arrayCategoriasMachos[$contadorArryaMacho] as $cate)
 
                                                                                                 {{ $cate['nombre'].' <-> ' }}
@@ -694,7 +695,7 @@
                                                                                             <thead>
                                                                                                 <tr>
                                                                                                     <th class="text-primary">
-                                                                                                        <button class="btn btn-primary btn-block" type="button" onclick="modalcategorias({{ json_encode($arrayCategoriasMachos[$contadorArryaMacho]) }}, '{{ $razas->raza_id }}', '{{ $evento->id }}', '{{ $razas->raza->nombre}}')">
+                                                                                                        <button class="btn btn-primary btn-block" type="button" onclick="modalcategorias({{ json_encode($arrayCategoriasMachos[$contadorArryaMacho]) }}, '{{ $razas->raza_id }}', '{{ $evento->id }}', '{{ $razas->raza->nombre}}', '{{ $asignacion->id }}')">
                                                                                                             {{ $arrayCategoriasMachos[$contadorArryaMacho][0]['nombre'] }}
                                                                                                         </button>
                                                                                                     </th>
@@ -803,7 +804,7 @@
                                                                                             $contadorHembra1 = 0;
                                                                                         @endphp 
 
-                                                                                        <button class="btn btn-block" type="button"  style="background: #F94EE4 ; color:white" onclick="modalcategorias({{ json_encode($arrayCategoriasHembras[$contadorArryaHembra]) }}, '{{ $razas->raza_id }}', '{{ $evento->id }}', '{{ $razas->raza->nombre }}')">
+                                                                                        <button class="btn btn-block" type="button"  style="background: #F94EE4 ; color:white" onclick="modalcategorias({{ json_encode($arrayCategoriasHembras[$contadorArryaHembra]) }}, '{{ $razas->raza_id }}', '{{ $evento->id }}', '{{ $razas->raza->nombre }}', '{{ $asignacion->id }}')">
                                                                                             @foreach ( $arrayCategoriasHembras[$contadorArryaHembra] as $cate)
                                                                                                 {{ $cate['nombre'].' <-> ' }}
                                                                                             @endforeach
@@ -848,7 +849,7 @@
                                                                                             <thead>
                                                                                                 <tr>
                                                                                                     <th class="text-primary">
-                                                                                                        <button class="btn btn-block" type="button" style="color: white;background: #F94EE4 ;" onclick="modalcategorias({{ json_encode($arrayCategoriasHembras[$contadorArryaHembra]) }}, '{{ $razas->raza_id }}', '{{ $evento->id }}', '{{ $razas->raza->nombre }}')">
+                                                                                                        <button class="btn btn-block" type="button" style="color: white;background: #F94EE4 ;" onclick="modalcategorias({{ json_encode($arrayCategoriasHembras[$contadorArryaHembra]) }}, '{{ $razas->raza_id }}', '{{ $evento->id }}', '{{ $razas->raza->nombre }}', '{{ $asignacion->id }}')">
                                                                                                             {{ $arrayCategoriasHembras[$contadorArryaHembra][0]['nombre'] }}
                                                                                                         </button>
                                                                                                     </th>
@@ -1177,7 +1178,7 @@
 
         }
 
-        function modalcategorias(array, raza_id, evento_id, nombreRaza){
+        function modalcategorias(array, raza_id, evento_id, nombreRaza, pista){
 
             $.ajax({
 
@@ -1185,7 +1186,8 @@
                 data: {
                     categorias  :   array,
                     raza        :   raza_id,
-                    evento      :   evento_id
+                    evento      :   evento_id,
+                    pista       :   pista
                 },
                 type: 'POST',
                 dataType: 'json',

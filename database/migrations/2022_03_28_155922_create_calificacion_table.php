@@ -42,6 +42,7 @@ class CreateCalificacionTable extends Migration
             $table->string('numero_prefijo',50)->nullable();
             $table->string('calificacion',100)->nullable();
             $table->string('lugar',5)->nullable();
+            $table->string('pista',3)->nullable();
             $table->string('estado')->nullable();
             $table->datetime('deleted_at')->nullable();
             $table->timestamps();

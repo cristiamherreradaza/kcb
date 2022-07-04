@@ -21,7 +21,6 @@ class CreateGanadoresTable extends Migration
             $table->foreign('modificador_id')->references('id')->on('users');
             $table->unsignedBigInteger('eliminador_id')->nullable();
             $table->foreign('eliminador_id')->references('id')->on('users');
-            
             $table->unsignedBigInteger('calificacion_id')->nullable();
             $table->foreign('calificacion_id')->references('id')->on('calificaciones');
             $table->unsignedBigInteger('ejemplar_id')->nullable();
@@ -41,7 +40,6 @@ class CreateGanadoresTable extends Migration
             $table->string('calificacion',100)->nullable();
             $table->string('lugar',5)->nullable();
             $table->string('mejor_escogido',10)->nullable();
-
             $table->string('mejor_macho',10)->nullable();
             $table->string('mejor_hembra',10)->nullable();
             $table->string('mejor_cachorro',10)->nullable();
@@ -50,8 +48,7 @@ class CreateGanadoresTable extends Migration
             $table->string('sexo_opuesto_joven',10)->nullable();
             $table->string('mejor_raza',10)->nullable();
             $table->string('sexo_opuesto_raza',10)->nullable();
-
-
+            $table->string('pista',3)->nullable();
             $table->string('estado')->nullable();
             $table->datetime('deleted_at')->nullable();
             $table->timestamps();

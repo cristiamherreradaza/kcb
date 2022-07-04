@@ -37,6 +37,7 @@ class CreateAsignacionesTable extends Migration
             $table->unsignedBigInteger('evento_id')->nullable();
             $table->foreign('evento_id')->references('id')->on('eventos');
 
+            $table->string('num_pista',3)->nullable();
             $table->string('estado',50)->nullable();
 
             $table->datetime('deleted_at')->nullable();

@@ -19,6 +19,7 @@ class Asignacion extends Model
         'juez_id',
         'secretario_id',
         'evento_id',
+        'num_pista',
         'estado',
         'deleted_at',
     ];

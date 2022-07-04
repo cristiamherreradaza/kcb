@@ -44,7 +44,8 @@
                                                 <i class="fa fa-dog fa-5x text-{{ $colores[$seleccion] }}"></i>
                                             </div>
                                             <div class="d-flex flex-column">
-                                                <a href="{{ url('Juez/categorias', [$asignaciones[$contador]->evento_id]) }}" class="btn btn-success btn-block"> <i class="fa fa-check"></i> Calificar</a>
+                                                {{-- @dd() --}}
+                                                <a href="{{ url('Juez/categorias', [$asignaciones[$contador]->evento_id, $asignaciones[$contador]->id]) }}" class="btn btn-success btn-block"> <i class="fa fa-check"></i> Calificar</a>
                                                 {{-- <a href="{{ url('Juez/grupos', [$asignaciones[$contador]->evento_id]) }}" class="btn btn-success btn-block"> <i class="fa fa-check"></i> Calificar</a> --}}
                                                 <div class="text-dark-100"><h4>{{ $asignaciones[$contador]->evento->nombre }}</h4></div>
                                             </div>

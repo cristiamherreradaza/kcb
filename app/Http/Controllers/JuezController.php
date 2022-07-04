@@ -93,6 +93,7 @@ class JuezController extends Controller
         $asignacion->juez_id        = $request->input('juez_id');
         $asignacion->secretario_id  = $request->input('secretario_id');
         $asignacion->evento_id      = $request->input('asignacion_evento_id');
+        $asignacion->num_pista      = $request->input('num_pista');
 
         $asignacion->save();
 
@@ -476,10 +477,12 @@ class JuezController extends Controller
     //     return $pdf->stream('Planilla_'.date('Y-m-d H:i:s').'.pdf');        
     // }
 
-    public function categorias(Request $request, $evento_id){
+    public function categorias(Request $request, $evento_id, $asignacion_id){
 
-        
         $evento = Evento::find($evento_id);
+
+        // MANDAMOS LA ASIGNACION
+        $asignacion = Asignacion::find($asignacion_id);
         
         $arrayEjemplares = array();
         $arrayEjemplaresTotal = array();
@@ -497,13 +500,12 @@ class JuezController extends Controller
 
         }
 
-        return view('juez.categorias')->with(compact('evento', 'arrayEjemplaresTotal'));
+        return view('juez.categorias')->with(compact('evento', 'arrayEjemplaresTotal', 'asignacion'));
     }
 
     public function ajaxFinalizarCalificacion(Request $request){
 
         // dd($request->all());
-
 
         $ejemplares_eventos = $request->input('ejemplar_evento_id_ejemplar');
         $raza_id            = $request->input('raza_id_ejemplar');
@@ -515,6 +517,7 @@ class JuezController extends Controller
         $lugares            = $request->input('lugar_ejemplar');
         $ejemplares         = $request->input('ejemplar_id_ejemplar');
         $grupo              = $request->input('grupo_id');
+        $num_pista          = $request->input('num_pista');
 
         $categoria = CategoriasPista::find($categoria_id)[0]->nombre;
         
@@ -550,6 +553,7 @@ class JuezController extends Controller
                     $calificacion->numero_prefijo           = $numero_prefijos[$key];
                     $calificacion->calificacion             = $calificaciones[$key];
                     $calificacion->lugar                    = $lugares[$key];
+                    $calificacion->pista                    = $num_pista;
         
                     $calificacion->save();
 
@@ -566,8 +570,9 @@ class JuezController extends Controller
                             'calificacion'          => $calificaciones[$key],
                             'raza'                  => $raza_id[0],
                             'sexo'                  => $sexo[0],
-                            'grupo'              => $grupo[0],
-                            'lugar'                 => $lugares[$key]
+                            'grupo'                 => $grupo[0],
+                            'lugar'                 => $lugares[$key],
+                            'pista'                 => $num_pista
 
                         );
 
@@ -598,6 +603,7 @@ class JuezController extends Controller
                 $ganador->numero_prefijo        = $arrayMejorEjemplar['numero_prefijo'];
                 $ganador->calificacion          = $arrayMejorEjemplar['calificacion'];
                 $ganador->lugar                 = $arrayMejorEjemplar['lugar'];
+                $ganador->pista                 = $arrayMejorEjemplar['pista'];
 
                 $ganador->save();
 
@@ -687,6 +693,7 @@ class JuezController extends Controller
         $categorias = $request->input('categorias');
         $raza_id    = $request->input('raza');
         $evento_id  = $request->input('evento');
+        $num_pista  = $request->input('pista');
 
         $tablePrincipal = '';
         $data['tables'] = '';
@@ -1171,6 +1178,7 @@ class JuezController extends Controller
                                                     <input type="hidden" name="numero_prefijo_ejemplar[]" value="'.$eje->numero_prefijo.'">
                                                     <input type="hidden" name="ejemplar_id_ejemplar[]" value="'.$eje->ejemplar_id.'">
                                                     <input type="hidden" name="grupo_id[]" value="'.$grupo->grupo_id.'">
+                                                    <input type="hidden" name="num_pista" value="'.$num_pista.'">
                                                     <h1 class="text-primary">'.$eje->numero_prefijo.'</h1>
                                                     <small style="display: none;" class="_'.$eje->id.' text-warning">Dato repetido</small>
                                                 </td>
