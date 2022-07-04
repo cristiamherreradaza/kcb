@@ -27,7 +27,9 @@
             </td>
             <td>
                 @if ($e->propietario_id != null)
-                    {{ $e->propietario['name'] }}
+                    @if ($e->propietario)
+                        {{ $e->propietario['name'] }}
+                    @endif
                 @endif
             </td>
             <td>{{ $e->departamento }}</td>
