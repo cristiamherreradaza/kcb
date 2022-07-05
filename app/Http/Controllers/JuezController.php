@@ -531,7 +531,9 @@ class JuezController extends Controller
 
             foreach ($ejemplares_eventos as $key => $e){
 
-                $cantidadEjemplarRepetido = Juez::verificaEjemplar(intval($e), $categoria_id[0], $numero_prefijos[$key]);
+                $cantidadEjemplarRepetido = Juez::verificaEjemplar(intval($e), $categoria_id[0], $numero_prefijos[$key], $num_pista);
+
+                // dd($cantidadEjemplarRepetido);
 
                 if($cantidadEjemplarRepetido == 0){
 
@@ -703,7 +705,7 @@ class JuezController extends Controller
         if($cantidadCategorias == 1){
             
             // PREGUNTAMOS POR EL GANADOR
-            $ganador = Juez::getGanadoEventoSecretario($evento_id, Auth::user()->id, $categorias[0]['categoria_id'], $raza_id);
+            $ganador = Juez::getGanadoEventoSecretario($evento_id, Auth::user()->id, $categorias[0]['categoria_id'], $raza_id, $num_pista);
 
             $sw = true;
             if($ganador){
@@ -753,10 +755,10 @@ class JuezController extends Controller
 
             // PREGUNTAMOS POR EL GANADOR
             // PARA EL GANADOR 1
-            $ganador1 = Juez::getGanadoEventoSecretario($evento_id, Auth::user()->id, $categorias[0]['categoria_id'], $raza_id);
+            $ganador1 = Juez::getGanadoEventoSecretario($evento_id, Auth::user()->id, $categorias[0]['categoria_id'], $raza_id, $num_pista);
 
             // PARA EL GANADOR 2
-            $ganador2 = Juez::getGanadoEventoSecretario($evento_id, Auth::user()->id, $categorias[1]['categoria_id'], $raza_id);
+            $ganador2 = Juez::getGanadoEventoSecretario($evento_id, Auth::user()->id, $categorias[1]['categoria_id'], $raza_id, $num_pista);
 
             // PARA LOS botones
             $sw = true;
@@ -843,13 +845,13 @@ class JuezController extends Controller
 
             // PREGUNTAMOS POR EL GANADOR
             // PARA EL GANADOR 1
-            $ganador1 = Juez::getGanadoEventoSecretario($evento_id, Auth::user()->id, $categorias[0]['categoria_id'], $raza_id);
+            $ganador1 = Juez::getGanadoEventoSecretario($evento_id, Auth::user()->id, $categorias[0]['categoria_id'], $raza_id, $num_pista);
 
             // PARA EL GANADOR 2
-            $ganador2 = Juez::getGanadoEventoSecretario($evento_id, Auth::user()->id, $categorias[1]['categoria_id'], $raza_id);
+            $ganador2 = Juez::getGanadoEventoSecretario($evento_id, Auth::user()->id, $categorias[1]['categoria_id'], $raza_id, $num_pista);
 
             // PARA EL GANADOR 3
-            $ganador3 = Juez::getGanadoEventoSecretario($evento_id, Auth::user()->id, $categorias[2]['categoria_id'], $raza_id);
+            $ganador3 = Juez::getGanadoEventoSecretario($evento_id, Auth::user()->id, $categorias[2]['categoria_id'], $raza_id, $num_pista);
 
             // PARA LOS botones
             $sw = true;
@@ -972,16 +974,16 @@ class JuezController extends Controller
 
             // PREGUNTAMOS POR EL GANADOR
             // PARA EL GANADOR 1
-            $ganador1 = Juez::getGanadoEventoSecretario($evento_id, Auth::user()->id, $categorias[0]['categoria_id'], $raza_id);
+            $ganador1 = Juez::getGanadoEventoSecretario($evento_id, Auth::user()->id, $categorias[0]['categoria_id'], $raza_id, $num_pista);
             
             // PARA EL GANADOR 2
-            $ganador2 = Juez::getGanadoEventoSecretario($evento_id, Auth::user()->id, $categorias[1]['categoria_id'], $raza_id);
+            $ganador2 = Juez::getGanadoEventoSecretario($evento_id, Auth::user()->id, $categorias[1]['categoria_id'], $raza_id, $num_pista);
 
             // PARA EL GANADOR 3
-            $ganador3 = Juez::getGanadoEventoSecretario($evento_id, Auth::user()->id, $categorias[2]['categoria_id'], $raza_id);
+            $ganador3 = Juez::getGanadoEventoSecretario($evento_id, Auth::user()->id, $categorias[2]['categoria_id'], $raza_id, $num_pista);
 
             // PARA EL GANADOR 4
-            $ganador4 = Juez::getGanadoEventoSecretario($evento_id, Auth::user()->id, $categorias[3]['categoria_id'], $raza_id);
+            $ganador4 = Juez::getGanadoEventoSecretario($evento_id, Auth::user()->id, $categorias[3]['categoria_id'], $raza_id, $num_pista);
 
             // PARA LOS botones
             $sw = true;
@@ -1111,9 +1113,6 @@ class JuezController extends Controller
             }
 
 
-
-
-
             $columna = 'class="col-md-3"';
 
             $data['divGanadoresCategorias'] = '<div class="row">
@@ -1139,7 +1138,6 @@ class JuezController extends Controller
                                                     </div>
                                                 </div>';
         }
-
 
         foreach($categorias as $ca){
 
@@ -1222,13 +1220,44 @@ class JuezController extends Controller
 
         }
 
+        // PARA EL MOJOR ESCOGIDO
+        $array_categorias = array();
+
+        foreach($categorias as $ca){
+            array_push($array_categorias, $ca['categoria_id']);
+        }
+
+        $mejosEscogido = Juez::getMejoresEscogidos($evento_id, Auth::user()->id, $array_categorias, $num_pista, $raza_id);
+
+        if($mejosEscogido){
+
+            $data['mejorEscogido'] = true;
+
+            if($mejosEscogido->categoria_id == 2 || $mejosEscogido->categoria_id == 11) {
+                $mejor = "MEJOR CACHORRO";
+            }else if($mejosEscogido->categoria_id == 3 || $mejosEscogido->categoria_id == 4 || $mejosEscogido->categoria_id == 12 || $mejosEscogido->categoria_id == 13){  
+                $mejor = "MEJOR JOVEN";
+            }else if($mejosEscogido->categoria_id == 5 || $mejosEscogido->categoria_id == 6 || $mejosEscogido->categoria_id == 7 || $mejosEscogido->categoria_id == 8 || $mejosEscogido->categoria_id == 9 || $mejosEscogido->categoria_id == 10 || $mejosEscogido->categoria_id == 14 || $mejosEscogido->categoria_id == 15){
+                $mejor = "MEJOR ADULTO";
+            }
+
+            $data['mejorEscogidoHtml'] = '<div class="row text-center">
+                                                <div class="col-md-6">
+                                                    <h5 class="text-success">'.$mejor.'</h5>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <h3 class="text-info">'.$mejosEscogido->numero_prefijo.'</h3>
+                                                </div>
+                                            </div>';
+
+        }
+
+
         return json_encode($data);
 
     }
 
     public function ajaxCalificacionMejor(Request $request){
-
-        // dd($request->all());
 
         $ganador_id = $request->input('ganador');
 
@@ -1583,8 +1612,9 @@ class JuezController extends Controller
 
         if($request->ajax()){
 
-            $tipo = $request->input('tipo');
-            $evento_id = $request->input('evento');
+            $tipo       = $request->input('tipo');
+            $evento_id  = $request->input('evento');
+            $num_pista  = $request->input('pista');
 
             if($tipo == "especiales"){
                 $ganadores = Juez::ejemplaresCategoria('Especiales', $evento_id,[1,2,3,4,5,6,7,8,9,10]); 
@@ -1603,7 +1633,7 @@ class JuezController extends Controller
 
 
             // para los finalistas
-            $finalistas = Juez::finalistasBesting($evento_id, $tipo);
+            $finalistas = Juez::finalistasBesting($evento_id, $tipo, $num_pista);
 
             $tbody = '';
 
@@ -1670,6 +1700,8 @@ class JuezController extends Controller
             $ejemplares_eventos = $request->input('ejemplares_eventos');
             $razas_ids          = $request->input('razas_ids');
 
+            $num_pistas         = $request->input('pista');
+
             $mejorGrupo = null;
             $mejorReserva = null;
 
@@ -1688,6 +1720,7 @@ class JuezController extends Controller
                 $besting->numero_prefijo        = $npr;
                 $besting->lugar                 = $calificaciones[$key];
                 $besting->tipo                  = $tipo;
+                $besting->pista                 = $num_pistas;
 
                 $besting->save();
 

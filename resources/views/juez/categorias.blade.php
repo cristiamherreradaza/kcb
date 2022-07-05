@@ -271,75 +271,6 @@
     </div>
     {{-- fin inicio modal ganadores --}}
 
-    {{-- inicio modal calificacion  --}}
-    {{-- <div class="modal fade" id="modalCalificacionEjmeplar" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">CALIFICAION DE <span class="text-info" id="numero_ejemplar"></span></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <i aria-hidden="true" class="ki ki-close"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="">Calificacion</label>
-                            <select name="" id="" class="form-control">
-                                <option value="">Excelente</option>
-                                <option value="">Muy Bien</option>
-                                <option value="">Bien</option>
-                                <option value="">Regular</option>
-                                <option value="">Descartado</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="">Ponderacion</label>
-                            <select name="" id="" class="form-control">
-                                <option value="">1</option>
-                                <option value="">2</option>
-                                <option value="">3</option>
-                                <option value="">4</option>
-                                <option value="">5</option>
-                                <option value="">6</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-info btn-block" onclick="volver()">Volver</button>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-    {{-- fin inicio modal calificacion --}}
-
-    {{-- inicio modal  --}}
-    {{-- <div class="modal fade" id="modalCalificacion" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">FORMULARIO DE CALIFICACION</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <i aria-hidden="true" class="ki ki-close"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div id="ejemplares-categorias">
-
-                    </div>
-                    <hr>
-                    <div id="bloque_ganador" style="display: none">
-
-                    </div>
-                </div>
-                <div class="modal-footer">
-
-                </div>
-            </div>
-        </div>
-    </div> --}}
-    {{-- fin inicio modal  --}}
 
     <!--begin::Card-->
 	<div class="card card-custom gutter-b">
@@ -390,7 +321,7 @@
                 <form action="" id="formulario-calificacion">
 
                     <input type="text" value="{{ $evento->id }}" name="evento_id">
-                    <input type="text" value="{{ $asignacion->id }}" name="asignacion_id">
+                    <input type="text" value="{{ $asignacion->num_pista }}" name="asignacion_id">
 
                     @foreach ($arrayEjemplaresTotal as $key => $a)
 
@@ -647,7 +578,7 @@
                                                                                             // dd($razas->raza->nombre);
                                                                                         @endphp 
 
-                                                                                        <button class="btn btn-primary btn-block" type="button" onclick="modalcategorias({{ json_encode($arrayCategoriasMachos[$contadorArryaMacho]) }}, '{{ $razas->raza_id }}', '{{ $evento->id }}', '{{ $razas->raza->nombre }}', '{{ $asignacion->id }}')">
+                                                                                        <button class="btn btn-primary btn-block" type="button" onclick="modalcategorias({{ json_encode($arrayCategoriasMachos[$contadorArryaMacho]) }}, '{{ $razas->raza_id }}', '{{ $evento->id }}', '{{ $razas->raza->nombre }}', '{{ $asignacion->num_pista }}')">
                                                                                             @foreach ( $arrayCategoriasMachos[$contadorArryaMacho] as $cate)
 
                                                                                                 {{ $cate['nombre'].' <-> ' }}
@@ -695,7 +626,7 @@
                                                                                             <thead>
                                                                                                 <tr>
                                                                                                     <th class="text-primary">
-                                                                                                        <button class="btn btn-primary btn-block" type="button" onclick="modalcategorias({{ json_encode($arrayCategoriasMachos[$contadorArryaMacho]) }}, '{{ $razas->raza_id }}', '{{ $evento->id }}', '{{ $razas->raza->nombre}}', '{{ $asignacion->id }}')">
+                                                                                                        <button class="btn btn-primary btn-block" type="button" onclick="modalcategorias({{ json_encode($arrayCategoriasMachos[$contadorArryaMacho]) }}, '{{ $razas->raza_id }}', '{{ $evento->id }}', '{{ $razas->raza->nombre}}', '{{ $asignacion->num_pista }}')">
                                                                                                             {{ $arrayCategoriasMachos[$contadorArryaMacho][0]['nombre'] }}
                                                                                                         </button>
                                                                                                     </th>
@@ -804,7 +735,7 @@
                                                                                             $contadorHembra1 = 0;
                                                                                         @endphp 
 
-                                                                                        <button class="btn btn-block" type="button"  style="background: #F94EE4 ; color:white" onclick="modalcategorias({{ json_encode($arrayCategoriasHembras[$contadorArryaHembra]) }}, '{{ $razas->raza_id }}', '{{ $evento->id }}', '{{ $razas->raza->nombre }}', '{{ $asignacion->id }}')">
+                                                                                        <button class="btn btn-block" type="button"  style="background: #F94EE4 ; color:white" onclick="modalcategorias({{ json_encode($arrayCategoriasHembras[$contadorArryaHembra]) }}, '{{ $razas->raza_id }}', '{{ $evento->id }}', '{{ $razas->raza->nombre }}', '{{ $asignacion->num_pista }}')">
                                                                                             @foreach ( $arrayCategoriasHembras[$contadorArryaHembra] as $cate)
                                                                                                 {{ $cate['nombre'].' <-> ' }}
                                                                                             @endforeach
@@ -849,7 +780,7 @@
                                                                                             <thead>
                                                                                                 <tr>
                                                                                                     <th class="text-primary">
-                                                                                                        <button class="btn btn-block" type="button" style="color: white;background: #F94EE4 ;" onclick="modalcategorias({{ json_encode($arrayCategoriasHembras[$contadorArryaHembra]) }}, '{{ $razas->raza_id }}', '{{ $evento->id }}', '{{ $razas->raza->nombre }}', '{{ $asignacion->id }}')">
+                                                                                                        <button class="btn btn-block" type="button" style="color: white;background: #F94EE4 ;" onclick="modalcategorias({{ json_encode($arrayCategoriasHembras[$contadorArryaHembra]) }}, '{{ $razas->raza_id }}', '{{ $evento->id }}', '{{ $razas->raza->nombre }}', '{{ $asignacion->num_pista }}')">
                                                                                                             {{ $arrayCategoriasHembras[$contadorArryaHembra][0]['nombre'] }}
                                                                                                         </button>
                                                                                                     </th>
@@ -1110,6 +1041,8 @@
                 dataType: 'json',
                 success: function(data) {
 
+                    console.log(data);
+
                     $(data.ejemplar_enviados).each(function(index, element) {
 
                         $("._"+element).css("display", "none");
@@ -1210,6 +1143,14 @@
                     // PREGUNTAMOS POR SI HAY GANADOS Y SI YA ESTA REGISTRADO
                     if(data.statusGanador == "success"){
                         
+                    }
+
+                    // PREGUNTAMOS SI HAY MEJOR ESCOJIDO
+                    if(data.mejorEscogido){
+
+                        $('#bloques_mejor_categoria').show('toggle');
+                        $('#bloques_mejor_categoria').html(data.mejorEscogidoHtml);
+
                     }
 
                 }
@@ -1411,7 +1352,8 @@
                 url: "{{ url('Juez/bestingGanadores') }}",
                 data: {
                     evento  : evento,
-                    tipo    : tipo
+                    tipo    : tipo,
+                    pista   : {{ $asignacion->num_pista }}
                 },
                 type: 'POST',
                 dataType: 'json',
@@ -1484,7 +1426,8 @@
                     evento              : {{ $evento->id }},
                     ejemplares_eventos  : ejemplares_eventos,
                     razas_ids           : razas_id,
-                    tipo                : tipo
+                    tipo                : tipo,
+                    pista               : {{ $asignacion->num_pista }}
                 },
                 type: 'POST',
                 dataType: 'json',

@@ -140,13 +140,13 @@ class Juez extends Model
 
     }
 
-    public static function verificaEjemplar($ejemplar_evento_id, $categoria_id, $numero_prefijo){
+    public static function verificaEjemplar($ejemplar_evento_id, $categoria_id, $numero_prefijo, $num_pista){
 
         $cantidad = Calificacion::where('categoria_id', $categoria_id)
                                 ->where('ejemplares_eventos_id', $ejemplar_evento_id)
                                 ->where('numero_prefijo', $numero_prefijo)
+                                ->where('pista', $num_pista)
                                 ->count();
-
 
         return $cantidad;
 
@@ -288,11 +288,12 @@ class Juez extends Model
 
     }
 
-    public static function finalistasBesting($evento_id, $tipo){
+    public static function finalistasBesting($evento_id, $tipo, $num_pista){
 
         $finalistas = Besting::where('evento_id',$evento_id)
                                 ->where('tipo', $tipo)
                                 ->where('mejor_grupo', 'Si')
+                                ->where('pista', $num_pista)
                                 ->get();
 
         return $finalistas;
@@ -334,7 +335,7 @@ class Juez extends Model
 
     }
 
-    public static function getGanadoEventoSecretario($evento_id, $secretario_id, $categoria_pista_id, $raza_id){
+    public static function getGanadoEventoSecretario($evento_id, $secretario_id, $categoria_pista_id, $raza_id, $pista){
 
         $ganador = Ganador::select('ganadores.*')
                             ->join('calificaciones','ganadores.calificacion_id', '=','calificaciones.id')
@@ -342,9 +343,24 @@ class Juez extends Model
                             ->where('calificaciones.secretario_id',$secretario_id)
                             ->where('ganadores.categoria_id',$categoria_pista_id)
                             ->where('ganadores.raza_id',$raza_id)
+                            ->where('ganadores.pista', $pista)
                             ->first();
 
         return $ganador;
+
+    }
+
+    public static function getMejoresEscogidos($evento_id, $secretario_id, $categoria_pista_id, $pista, $raza_id){
+
+        $mejoEscogido = Ganador::where('evento_id',$evento_id)
+                                ->whereIn('categoria_id', $categoria_pista_id)
+                                ->where('pista', $pista)
+                                ->where('raza_id', $raza_id)
+                                ->where('mejor_escogido', "Si")
+
+                                ->first();
+
+        return $mejoEscogido;
 
     }
 }
