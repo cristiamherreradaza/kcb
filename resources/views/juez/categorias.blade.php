@@ -174,7 +174,6 @@
 
                     <div class="row">
                         <div class="col-md-4">
-                            SELECCION MEJOR CACHORRO
                             <div id="select_ecoge_mejor_cachorro">
 
                             </div>
@@ -184,7 +183,6 @@
                             </div>
                         </div>
                         <div class="col-md-4">
-                            SELECCION MEJOR jOVEN
                             <div id="select_ecoge_mejor_joven">
 
                             </div>
@@ -1204,7 +1202,8 @@
                 url: "{{ url('Juez/ajaxGanadores') }}",
                 data: {
                     raza    :   raza,
-                    evento  :   evento
+                    evento  :   evento,
+                    pista   :   {{ $asignacion->num_pista }}
                 },
                 type: 'POST',
                 dataType: 'json',
@@ -1213,6 +1212,11 @@
                     console.log(data)
 
                     if(data.status === 'success'){
+
+                        // PONEMOS HIDEN TODOS LOS ANTERIORES
+                        $('#bloque_mejor_cachorro_escogido').css('display', 'none');
+                        $('#bloque_mejor_joven_escogido').css('display', 'none');
+                        $('#bloque_mejor_raza_escogido').css('display', 'none');
 
                         $('#mejor_macho_vencedor').css('display', 'block');
                         $('#vencedores_machos').html(data.tableMachos)
@@ -1228,6 +1232,13 @@
                         $('#vencedor_raza').text(nombre_raza);
 
                         $('#modalGanadores').modal('show');
+
+                        if(data.MejoOpuestoJoven){
+
+                            $('#bloque_mejor_joven_escogido').html(data.htmlMejoOpuestoJoven);
+                            $('#bloque_mejor_joven_escogido').show('toggle');
+
+                        }
 
                     }
 
@@ -1259,7 +1270,8 @@
                 $.ajax({
                     url: "{{ url('Juez/mejorVencedores') }}",
                     data: {
-                        vencedor : vencedor.value
+                        vencedor : vencedor.value,
+                        pista    : {{ $asignacion->num_pista }}
                     },
                     type: 'POST',
                     dataType: 'json',

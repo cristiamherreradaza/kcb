@@ -33,4 +33,9 @@ class Ganador extends Model
         'estado',
         'deleted_at',
     ];
+
+    public function calificacion()
+    {
+        return $this->belongsTo('App\Calificacion', 'calificacion_id');
+    }
 }

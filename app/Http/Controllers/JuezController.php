@@ -1332,20 +1332,47 @@ class JuezController extends Controller
 
             $raza_id    = $request->input('raza');
             $evento_id  = $request->input('evento');
+            $num_pista  = $request->input('pista');
 
             // PRIMERO PARA LOS MACHOS
             // CACHORRO
-            $cachorro = Juez::ganadorEjemplarEvento($raza_id, $evento_id, [11], "Macho");
+            $cachorro = Juez::ganadorEjemplarEvento($raza_id, $evento_id, [11], "Macho", $num_pista);
 
             // JOVEN o JOVEN CAMPEON
-            $joven = Juez::ganadorEjemplarEvento($raza_id, $evento_id, [3, 12], "Macho");
+            $joven = Juez::ganadorEjemplarEvento($raza_id, $evento_id, [3, 12], "Macho", $num_pista);
 
             // ADULTO
-            $adulto = Juez::ganadorEjemplarEvento($raza_id, $evento_id, [5, 7, 9, 14], "Macho");
+            $adulto = Juez::ganadorEjemplarEvento($raza_id, $evento_id, [5, 7, 9, 14], "Macho", $num_pista);
 
             // VENTERANO
-            $veterano = Juez::ganadorEjemplarEvento($raza_id, $evento_id, [16], "Macho");
+            $veterano = Juez::ganadorEjemplarEvento($raza_id, $evento_id, [16], "Macho", $num_pista);
+
+            // PARA SABER EL MOJOR MACHO
+            $sw = false;
+            $mejorMacho = null;
+            $mejorSexoOpuesto = null;
+
+            if($joven){
+                if($joven->mejor_macho == "Si"){
+                    $mejorMacho = $joven;
+                    $sw = true;
+                }
+            }
+
+            if($adulto){
+                if($adulto->mejor_macho == "Si"){
+                    $mejorMacho = $adulto;
+                    $sw = true;
+                }
+            }
             
+            if($veterano){
+                if($veterano->mejor_macho == "Si"){
+                    $mejorMacho = $veterano;
+                    $sw = true;
+                }
+            }
+
             $tableMacho = '<div class="row">
                                 <div class="col-md-6">
                                     <div class="radio-inline">
@@ -1355,31 +1382,37 @@ class JuezController extends Controller
 
                                         <label class="radio radio-rounded radio-primary">
                                             JOVEN => <small style="font-size:15px" class="text-primary border p-1">'.(($joven)? $joven->numero_prefijo : "").'</small>
-                                            '.(($joven)? '<p class="pl-1"></p><input type="radio" id="mejor_macho_joven" value="'.$joven->id.'" name="mejor_macho"/><span></span>' : '').'
+                                            '.(($joven)? '<p class="pl-1"></p><input type="radio" id="mejor_macho_joven" value="'.$joven->id.'" name="mejor_macho" '.(($sw)? 'disabled' : '').' '.(($sw)? (($mejorMacho->id == $joven->id)? 'checked' : '') : '').' /><span></span>' : '').'
                                         </label>
                                         <label class="radio radio-rounded radio-primary">
                                             ADULTO => <small style="font-size:15px" class="text-primary border p-1">'.(($adulto)? $adulto->numero_prefijo : "").'</small>
-                                            '.(($adulto)? '<p class="pl-1"></p><input type="radio" id="mejor_macho_adulto" value="'.$adulto->id.'" name="mejor_macho"/><span></span>' : '').'
+                                            '.(($adulto)? '<p class="pl-1"></p><input type="radio" id="mejor_macho_adulto" value="'.$adulto->id.'" name="mejor_macho" '.(($sw)? 'disabled' : '').' '.(($sw)? (($mejorMacho->id == $adulto->id)? 'checked' : '') : '').' /><span></span>' : '').'
                                         </label>
                                         <label class="radio radio-rounded radio-primary">
                                             VETERANO => <small style="font-size:15px" class="text-primary border p-1">'.(($veterano)? $veterano->numero_prefijo : "").'</small>
-                                            '.(($veterano)? '<p class="pl-1"></p><input type="radio" id="mejor_macho_veterano" value="'.$veterano->id.'" name="mejor_macho"/><span></span>' : '').'
+                                            '.(($veterano)? '<p class="pl-1"></p><input type="radio" id="mejor_macho_veterano" value="'.$veterano->id.'" name="mejor_macho" '.(($sw)? 'disabled' : '').' '.(($sw)? (($mejorMacho->id == $veterano->id)? 'checked' : '') : '').' /><span></span>' : '').'
                                         </label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-8">
                                             <div class="row">
                                                 <div class="col-md-3">
-                                                    <button type="button" onclick="mejorVencedores('."'macho'".')" class="btn btn-icon btn-success"><i class="fa fa-align-center" aria-hidden="true"></i></button>
+                                                    <button type="button" onclick="mejorVencedores('."'macho'".')" class="btn btn-icon btn-success" '.(($sw)? 'disabled' : '').'><i class="fa fa-align-center" aria-hidden="true"></i></button>
                                                 </div>
                                                 <div class="col-md-9">
-                                                    <div id="mejor_macho_vencedor" style="display: none"></div>
+                                                    <div id="mejor_macho_vencedor" '.((!$sw)? 'style="display: none"' : '').'>'
+                                                        .(($sw)? '<div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <h5 class="text-success text-center"> MEJOR MACHO => <span class="text-info">'.$mejorMacho->numero_prefijo.'</span></h5>
+                                                                    </div>
+                                                                </div>' : '').
+                                                    '</div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                         </div>
                                     </div>
                                 </div>
@@ -1389,16 +1422,47 @@ class JuezController extends Controller
 
             // SEGUNDO PARA LOS HEMBRAS
             // CACHORRO
-            $cachorroHembra = Juez::ganadorEjemplarEvento($raza_id, $evento_id, [2], "Hembra");
+            $cachorroHembra = Juez::ganadorEjemplarEvento($raza_id, $evento_id, [2], "Hembra", $num_pista);
 
             // JOVEN o JOVEN CAMPEON
-            $jovenHembra = Juez::ganadorEjemplarEvento($raza_id, $evento_id, [4, 13], "Hembra");
+            $jovenHembra = Juez::ganadorEjemplarEvento($raza_id, $evento_id, [4, 13], "Hembra", $num_pista);
 
             // ADULTO
-            $adultoHembra = Juez::ganadorEjemplarEvento($raza_id, $evento_id, [6, 8, 10, 15], "Hembra");
+            $adultoHembra = Juez::ganadorEjemplarEvento($raza_id, $evento_id, [6, 8, 10, 15], "Hembra", $num_pista);
 
             // VENTERANO
-            $veteranoHembra = Juez::ganadorEjemplarEvento($raza_id, $evento_id, [17], "Hembra");
+            $veteranoHembra = Juez::ganadorEjemplarEvento($raza_id, $evento_id, [17], "Hembra", $num_pista);
+
+             // PARA SABER EL MOJOR HEMBRA
+             $sw = false;
+             $mejorHembra = null;
+ 
+             if($jovenHembra){
+ 
+                 if($jovenHembra->mejor_hembra == "Si"){
+                     $mejorHembra = $jovenHembra;
+                     $sw = true;
+                 }
+ 
+             }
+
+             if($adultoHembra){
+                 
+                 if($adultoHembra->mejor_hembra == "Si"){
+                     $mejorHembra = $adultoHembra;
+                     $sw = true;
+                 }
+ 
+             }
+             
+            if($veteranoHembra){
+ 
+                 if($veteranoHembra->mejor_hembra == "Si"){
+                     $mejorHembra = $veteranoHembra;
+                     $sw = true;
+                 }
+ 
+             }
             
             $tableHembra = '
                             <div class="row">
@@ -1410,31 +1474,37 @@ class JuezController extends Controller
 
                                         <label class="radio radio-rounded radio-danger">
                                             JOVEN => <small style="color: #F94EE4;  font-size:15px" class="border p-1">'.(($jovenHembra)? $jovenHembra->numero_prefijo : "").'</small>
-                                            '.(($jovenHembra)? '<p class="pl-1"></p><input type="radio" id="mejor_hembra_joven" value="'.$jovenHembra->id.'" name="mejor_hembra"/><span></span>' : '').'
+                                            '.(($jovenHembra)? '<p class="pl-1"></p><input type="radio" id="mejor_hembra_joven" value="'.$jovenHembra->id.'" name="mejor_hembra" '.(($sw)? 'disabled' : '').' '.(($sw)? (($mejorHembra->id == $jovenHembra->id)? 'checked' : '') : '').' /><span></span>' : '').'
                                         </label>
                                         <label class="radio radio-rounded radio-danger">
                                             ADULTO => <small style="color: #F94EE4;  font-size:15px" class="border p-1">'.(($adultoHembra)? $adultoHembra->numero_prefijo : "").'</small>
-                                            '.(($adultoHembra)? '<p class="pl-1"></p><input type="radio" id="mejor_hembra_adulto" value="'.$adultoHembra->id.'" name="mejor_hembra"/><span></span>' : '').'
+                                            '.(($adultoHembra)? '<p class="pl-1"></p><input type="radio" id="mejor_hembra_adulto" value="'.$adultoHembra->id.'" name="mejor_hembra" '.(($sw)? 'disabled' : '').' '.(($sw)? (($mejorHembra->id == $adultoHembra->id)? 'checked' : '') : '').' /><span></span>' : '').'
                                         </label>
                                         <label class="radio radio-rounded radio-danger">
                                             VETERANO => <small style="color: #F94EE4;  font-size:15px" class="border p-1">'.(($veteranoHembra)? $veteranoHembra->numero_prefijo : "").'</small>
-                                            '.(($veteranoHembra)? '<p class="pl-1"></p><input type="radio" id="mejor_hembra_jveterano" value="'.$veteranoHembra->id.'" name="mejor_hembra"/><span></span>' : '').'
+                                            '.(($veteranoHembra)? '<p class="pl-1"></p><input type="radio" id="mejor_hembra_jveterano" value="'.$veteranoHembra->id.'" name="mejor_hembra" '.(($sw)? 'disabled' : '').' '.(($sw)? (($mejorHembra->id == $veteranoHembra->id)? 'checked' : '') : '').' /><span></span>' : '').'
                                         </label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-8">
                                             <div class="row">
                                                 <div class="col-md-3">
-                                                    <button type="button" onclick="mejorVencedores('."'hembra'".')" class="btn btn-icon" style="background: #F94EE4;"><i class="fa fa-align-center text-white" aria-hidden="true"></i></button>
+                                                    <button type="button" onclick="mejorVencedores('."'hembra'".')" class="btn btn-icon" style="background: #F94EE4;" '.(($sw)? 'disabled' : '').'><i class="fa fa-align-center text-white" aria-hidden="true"></i></button>
                                                 </div>
                                                 <div class="col-md-9">
-                                                    <div id="mejor_hembra_vencedor" style="display: none"></div>
+                                                    <div id="mejor_hembra_vencedor" '.((!$sw)? 'style="display: none"' : '').'>'.
+                                                    (($sw)? ('<div class="row">
+                                                                <div class="col-md-12">
+                                                                    <h5 class="text-success text-center"> MEJOR HEMBRA => <span class="text-info">'.$mejorHembra->numero_prefijo.'</span></h5>
+                                                                </div>
+                                                            </div>') : '')
+                                                    .'</div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                         </div>
                                     </div>
                                 </div>
@@ -1447,35 +1517,131 @@ class JuezController extends Controller
 
 
             // AHORA VAMOS A PONER LOS SELECT PARA SELECIONAR MEJRO CACHORRO, JOVEN Y RAZA
-            // CACHORRO
-            $selectCachorro = '<select class="form-control" name="select_cachorro_mejor" id="select_cachorro_mejor">';
+            // ************************** CACHORRO ******************************
 
             $selectBod= '';
+            $swMC = false;
 
             if($cachorro){
-                $selectBod = $selectBod.'<option value="'.$cachorro->id.'">'.$cachorro->numero_prefijo.'</option>';
+                if($cachorro->mejor_cachorro == "Si"){
+                    $swMC = true;
+                }
+                $selectBod = $selectBod.'<option '.(($swMC)? 'selected' : '').' value="'.$cachorro->id.'">'.$cachorro->numero_prefijo.'</option>';
             }
             if($cachorroHembra){
-                $selectBod = $selectBod.'<option value="'.$cachorroHembra->id.'">'.$cachorroHembra->numero_prefijo.'</option>';
+                if($cachorroHembra->mejor_cachorro == "Si"){
+                    $swMC = true;
+                }
+                $selectBod = $selectBod.'<option '.(($swMC)? 'selected' : '').' value="'.$cachorroHembra->id.'">'.$cachorroHembra->numero_prefijo.'</option>';
             }
             
-            $data['selectCachorro'] = $selectCachorro.$selectBod.'</select><br><button type="button" onclick="guardaMejor('."'".'cachorro'."'".')" class="btn btn-success btn-block">Guardar Mejor Cachorro</button>';
+            $selectCachorro = 'SELECCION MEJOR CACHORRO<br><select class="form-control" name="select_cachorro_mejor" id="select_cachorro_mejor" '.(($swMC)? 'disabled' : '').'>';
 
-            // AHORA PARA LOS JOVENES
-            $selectCachorro = '<select class="form-control" name="select_joven_mejor" id="select_joven_mejor">';
+            // SELLECIONAMOS SI HAY MEJOR CACHORRO
+            if($cachorro || $cachorroHembra){
+                
+                $data['selectCachorro'] = $selectCachorro.$selectBod.'</select>
+                                                                        <br>'.((!$swMC)? '
+                                                                            <button type="button" onclick="guardaMejor('."'".'cachorro'."'".')" class="btn btn-success btn-block">Guardar Mejor Cachorro</button>
+                                                                        ' : '').'';
 
+            }else{
+
+                $data['selectCachorro'] = '';
+                
+            }
+
+            // ******************* AHORA PARA LOS JOVENES **************************
             $selectBod= '';
 
+            $swMJ = false;
+            $mejoJoven = null;
+            $sexoOpuesto  = null;
+            $swMejoJoveSexoOpuestop = true;
+
             if($joven){
-                $selectBod = $selectBod.'<option value="'.$joven->id.'">'.$joven->numero_prefijo.'</option>';
+                
+                if($joven->mejor_joven == "Si"){
+
+                    $mejoJoven = $joven;
+                    $swMJ = true;
+                    $swMejoJoveSexoOpuestop= false;
+
+                    if($jovenHembra){
+                        if($jovenHembra->sexo_opuesto_joven == "Si"){
+                            $sexoOpuesto  = $jovenHembra;
+                        }
+                    }
+
+                }
+                
+                $selectBod = $selectBod.'<option '.(($swMJ)? 'selected' : '').' value="'.$joven->id.'">'.$joven->numero_prefijo.'</option>';
             }
+
             if($jovenHembra){
-                $selectBod = $selectBod.'<option value="'.$jovenHembra->id.'">'.$jovenHembra->numero_prefijo.'</option>';
+                
+                if($jovenHembra->mejor_joven == "Si"){
+
+                    $mejoJoven = $jovenHembra;
+                    $swMJ = true;
+                    $swMejoJoveSexoOpuestop= false;
+
+
+                    if($joven){
+                        if($joven->sexo_opuesto_joven == "Si"){
+                            $sexoOpuesto  = $joven;
+                        }
+                    }
+
+                }
+
+                $selectBod = $selectBod.'<option '.(($swMJ)? 'selected' : '').'  value="'.$jovenHembra->id.'">'.$jovenHembra->numero_prefijo.'</option>';
             }
 
-            $data['selectJoven'] = $selectCachorro.$selectBod.'</select><br><button  type="button" onclick="guardaMejor('."'".'joven'."'".')"  class="btn btn-success btn-block">Guardar Mejor Joven</button>';
+            $selectCachorro = 'SELECCION MEJOR jOVEN<br><select class="form-control" name="select_joven_mejor" id="select_joven_mejor" '.(($swMJ)? 'disabled' : '').'>';
+
+            if($joven || $jovenHembra){
+
+                $data['selectJoven'] = $selectCachorro.$selectBod.'</select>
+                                                                    <br>'.((!$swMJ)? '
+                                                                        <button  type="button" onclick="guardaMejor('."'".'joven'."'".')"  class="btn btn-success btn-block">Guardar Mejor Joven</button>
+                                                                    ' : '').'';
+
+                // ************** PARA MANDAR EL HTML MEJOR JOVEN Y SEXO OPUESTO **********
+                if($mejoJoven){
+
+                    $sexoOpuestoHtml = '';
+
+                    if($sexoOpuesto){
+
+                        $sexoOpuestoHtml = $sexoOpuestoHtml.'<div class="row">
+                                                                <div class="col-md-12">
+                                                                    <h5>SEXO OPUESTO => <span class="text-info">'.($sexoOpuesto->numero_prefijo).'</span></h5>
+                                                                </div>
+                                                            </div>';
+                    }
+
+                    $data['htmlMejoOpuestoJoven'] = '<div class="row">
+                                                        <div class="col-md-12">
+                                                            <h5>MEJOR JOVEN => <span class="text-info">'.($mejoJoven->numero_prefijo).'</span></h5>
+                                                        </div>
+                                                    </div>
+                                                    '.$sexoOpuestoHtml;
+
+                    $data['MejoOpuestoJoven'] = true;
 
 
+                }else{
+
+                    $data['MejoOpuestoJoven'] = false;
+
+                }
+
+            }else{
+
+                $data['selectJoven'] = '';
+
+            }
 
             return json_encode($data);
 
@@ -1487,7 +1653,10 @@ class JuezController extends Controller
 
         if($request->ajax()){
 
+            // dd($request->all());
+
             $ganador_id = $request->input('vencedor');
+            $num_pista = $request->input('pista');
 
             $ganador = Ganador::find($ganador_id);
 
@@ -1512,7 +1681,7 @@ class JuezController extends Controller
 
             $bodySelect = '';
 
-            $datos = Juez::getMejorMachooHebra($ganador->raza_id, $ganador->evento_id, [3,4,5,6,7,8,9,10,14,15]);
+            $datos = Juez::getMejorMachooHebra($ganador->raza_id, $ganador->evento_id, [3,4,5,6,7,8,9,10,12,13,14,15], $num_pista);
 
             foreach ($datos as $d){
                 $bodySelect = $bodySelect.'<option value="'.$d->id.'">'.$d->numero_prefijo.'</option>';
@@ -1617,7 +1786,7 @@ class JuezController extends Controller
             $num_pista  = $request->input('pista');
 
             if($tipo == "especiales"){
-                $ganadores = Juez::ejemplaresCategoria('Especiales', $evento_id,[1,2,3,4,5,6,7,8,9,10]); 
+                $ganadores = Juez::ejemplaresCategoria('Especiales', $evento_id,[1,2,3,4,5,6,7,8,9,10], $num_pista); 
             }elseif($tipo == "absolutos"){
                 $ganadores = Juez::getGanadores($evento_id, [2,11], 'mejor_cachorro');
             }elseif($tipo == "jovenes"){

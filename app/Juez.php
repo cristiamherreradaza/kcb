@@ -156,13 +156,14 @@ class Juez extends Model
      * Funcion para sacar al unico ganador escojido como vencedor
      * @return ejemplar solo unico  first()
      */
-    public static function ganadorEjemplarEvento($raza, $evento, $categoria, $sexo){
+    public static function ganadorEjemplarEvento($raza, $evento, $categoria, $sexo, $num_pista){
 
         $jemplar = Ganador::where('evento_id', $evento)
                         ->where('raza_id', $raza)
                         ->whereIn('categoria_id', $categoria)
                         ->where('sexo', $sexo)
                         ->where('mejor_escogido', 'Si')
+                        ->where('pista', $num_pista)
                         ->first();
 
         return $jemplar;
@@ -180,10 +181,11 @@ class Juez extends Model
     /**
      * Esta funcion deveolvera un array de nejor macho o ejro hembra
      */
-    public static function getMejorMachooHebra($raza_id, $evento_id, $categorias){
+    public static function getMejorMachooHebra($raza_id, $evento_id, $categorias, $num_pista){
 
         $mejores = Ganador::where('raza_id',$raza_id)
                           ->where('evento_id',$evento_id)
+                          ->where('pista',$num_pista)
                           ->whereIn('categoria_id', $categorias)
                           ->where(function($query){
 
