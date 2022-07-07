@@ -117,7 +117,11 @@
                                 <!--end::Tab Content-->
                                 <!--begin::Tab Content-->
                                 <div class="tab-pane" id="kt_apps_contacts_view_tab_3" role="tabpanel">
-                                    <h3 class="text-success text-center">Finalistas</h3>
+                                    <div id="besting_ya_ganadores">
+
+                                    </div>
+                                    <hr>
+                                    <h3 class="text-success text-center">PLANILLA</h3>
                                     <div id="besting_finalistas">
 
                                     </div>
@@ -192,7 +196,6 @@
                             </div>
                         </div>
                         <div class="col-md-4">
-                            SELECCION MEJOR MEJOR RAZA
                             <div id="select_ecoge_mejor_raza">
 
                             </div>
@@ -1217,6 +1220,7 @@
                         $('#bloque_mejor_cachorro_escogido').css('display', 'none');
                         $('#bloque_mejor_joven_escogido').css('display', 'none');
                         $('#bloque_mejor_raza_escogido').css('display', 'none');
+                        $('#select_ecoge_mejor_raza').html('');
 
                         $('#mejor_macho_vencedor').css('display', 'block');
                         $('#vencedores_machos').html(data.tableMachos)
@@ -1237,6 +1241,14 @@
 
                             $('#bloque_mejor_joven_escogido').html(data.htmlMejoOpuestoJoven);
                             $('#bloque_mejor_joven_escogido').show('toggle');
+
+                        }
+
+                        // para el mejro de la raza
+                        if(data.mejorRaza){
+
+                            $('#bloque_mejor_raza_escogido').html(data.mejorRazaHtml);
+                            $('#bloque_mejor_raza_escogido').show('toggle');
 
                         }
 
@@ -1470,63 +1482,101 @@
 
         }
 
-        function calificaFinal(select){
+        function calificaFinal(select, ganador, numero){
 
-            var select = document.getElementsByName('posision[]');
+            // console.log($('#calificacion_final_'+numero).val());
 
-            let array = [];
-            let arrayRepetidos = [];
-            var sw = true;
+            var calificacion = $('#calificacion_final_'+numero).val();
 
-            for (let index = 0; index < select.length; index++) {
+            $.ajax({
+                url: "{{ url('Juez/calificaFinales') }}",
+                data: {
 
-                $('#_'+select[index].id).css('display', 'none');
+                    ganador         : ganador,
+                    numero          :numero,
+                    calificacion    : calificacion
 
+                    // calificaciones : array,
+                    // bestingid :arrayBesting
+                },
+                type: 'POST',
+                dataType: 'json',
+                success: function(data){
 
-                if(!array.includes(select[index].value)){
-                    array.push(select[index].value);
-                }else{
-                    sw = false;
-                    arrayRepetidos.push(select[index].id);
-                }
-                
-            }
+                    if(data.status === "success"){
 
-            if(sw){
+                        console.log(data);
 
-                var bestingid = document.getElementsByName('bestinguids[]');
+                        $('#besting_finalistas').html(data.finalistas);
 
-                let arrayBesting = [];
-
-                for (let index = 0; index < bestingid.length; index++) {arrayBesting.push(bestingid[index].value);}
-
-                $.ajax({
-                    url: "{{ url('Juez/calificaFinales') }}",
-                    data: {
-                        calificaciones : array,
-                        bestingid :arrayBesting
-                    },
-                    type: 'POST',
-                    dataType: 'json',
-                    success: function(data){
-
-                        if(data.status === "success"){
-
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Correcto!',
-                                text: 'Se Finalizo el grupo!',
-                            })
-
-                        }
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Correcto!',
+                            text: 'Se califico con exito!',
+                        })
 
                     }
-                });
-            }else{
-                $(arrayRepetidos).each(function(index, value){
-                    $('#_'+value).css('display', 'block');
-                });
-            }
+
+                }
+            });
+
+
+
+            // var select = document.getElementsByName('posision[]');
+
+            // let array = [];
+            // let arrayRepetidos = [];
+            // var sw = true;
+
+            // for (let index = 0; index < select.length; index++) {
+
+            //     $('#_'+select[index].id).css('display', 'none');
+
+
+            //     if(!array.includes(select[index].value)){
+            //         array.push(select[index].value);
+            //     }else{
+            //         sw = false;
+            //         arrayRepetidos.push(select[index].id);
+            //     }
+                
+            // }
+
+            // if(sw){
+
+            //     var bestingid = document.getElementsByName('bestinguids[]');
+
+            //     let arrayBesting = [];
+
+            //     for (let index = 0; index < bestingid.length; index++) {arrayBesting.push(bestingid[index].value);}
+
+            //     $.ajax({
+            //         url: "{{ url('Juez/calificaFinales') }}",
+            //         data: {
+            //             calificaciones : array,
+            //             bestingid :arrayBesting
+            //         },
+            //         type: 'POST',
+            //         dataType: 'json',
+            //         success: function(data){
+
+            //             if(data.status === "success"){
+
+            //                 Swal.fire({
+            //                     icon: 'success',
+            //                     title: 'Correcto!',
+            //                     text: 'Se Finalizo el grupo!',
+            //                 })
+
+            //             }
+
+            //         }
+            //     });
+            // }else{
+            //     $(arrayRepetidos).each(function(index, value){
+            //         $('#_'+value).css('display', 'block');
+            //     });
+            // }
 
             
         }

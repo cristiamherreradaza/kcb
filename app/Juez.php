@@ -240,13 +240,14 @@ class Juez extends Model
     }
 
 
-    public static function getGanadores($evento_id, $categoria, $tipo_campo){
+    public static function getGanadores($evento_id, $categoria, $tipo_campo, $num_pista){
 
         // dd($evento_id, $categoria, $tipo_campo);
 
         $ganadores = Ganador::whereIn('categoria_id',$categoria)
                                 ->where($tipo_campo, "Si")
                                 ->where('evento_id', $evento_id)
+                                ->where('pista', $num_pista)
                                 ->orderBy('grupo_id','asc')
                                 ->get();
 
@@ -254,11 +255,12 @@ class Juez extends Model
 
     }
 
-    public static function recuperaGanadorBesting($ejemplar_evento_id, $tipo, $grupo_id, $evento_id){
+    public static function recuperaGanadorBesting($ejemplar_evento_id, $tipo, $grupo_id, $evento_id, $num_pista){
 
         $besting = Besting::where('tipo', $tipo)
                         ->where('evento_id', $evento_id)
                         ->where('grupo_id', $grupo_id)
+                        ->where('pista', $num_pista)
                         ->where('ejemplar_evento_id', $ejemplar_evento_id)
                         ->first();
 
@@ -266,10 +268,11 @@ class Juez extends Model
 
     }
 
-    public static function getMejorGrupoMejorRecerbaTipo($grupo_id, $tipo, $mejor, $evento_id){
+    public static function getMejorGrupoMejorRecerbaTipo($grupo_id, $tipo, $mejor, $evento_id, $num_pista){
 
         $query = Besting::where('grupo_id',$grupo_id)
                         ->where('tipo', $tipo)
+                        ->where('pista', $num_pista)
                         ->where('evento_id', $evento_id);
 
         if($mejor == 'mejor_grupo'){
@@ -302,11 +305,12 @@ class Juez extends Model
 
     }
 
-    public static function getFinalistas($evento_id,  $grupo_id, $tipo){
+    public static function getFinalistas($evento_id,  $grupo_id, $tipo, $num_pista){
 
         $ganadeores = Besting::where('grupo_id', $grupo_id)
                             ->where('evento_id',$evento_id)
                             ->where('tipo',$tipo)
+                            ->where('pista',$num_pista)
                             ->where('mejor_grupo',"Si")
                             ->whereNotNull('lugar_finalista')
                             ->get();
@@ -363,6 +367,39 @@ class Juez extends Model
                                 ->first();
 
         return $mejoEscogido;
+
+    }
+
+    public static function getReservaSinCalificarSiguiente($num_pista, $tipo, $grupo_id, $lugar){
+
+        while($lugar < 4){
+
+            $lugarRecerva = $lugar+1;
+
+            $recerba = Besting::where('pista', $num_pista)
+                                ->where('tipo', $tipo)
+                                ->where('lugar', $lugarRecerva)
+                                ->whereNull('lugar_finalista')
+                                ->where('grupo_id', $grupo_id)
+                                ->first();
+
+            if($recerba){
+                break;
+            }else{
+                $lugar++;
+            }
+            
+        }
+
+        if($lugar < 4 && $recerba){
+
+            return $recerba;
+            
+        }else{
+
+            return null;
+
+        }
 
     }
 }

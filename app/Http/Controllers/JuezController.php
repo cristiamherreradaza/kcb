@@ -1349,13 +1349,25 @@ class JuezController extends Controller
 
             // PARA SABER EL MOJOR MACHO
             $sw = false;
+            $swMR = false;
+            $swMRSO = false;
             $mejorMacho = null;
-            $mejorSexoOpuesto = null;
+            $mejorRaza = null;
+            $mejorRazaSexoOpuesto = null;
 
             if($joven){
                 if($joven->mejor_macho == "Si"){
                     $mejorMacho = $joven;
                     $sw = true;
+
+                    // esto sera para el mejor de la raza
+                    if($joven->mejor_raza == "Si"){
+                        $mejorRaza =   $joven;
+                        $swMR = true;
+                    }else if($joven->sexo_opuesto_raza == "Si"){
+                        $mejorRazaSexoOpuesto = $joven;
+                        $swMRSO = true;
+                    }
                 }
             }
 
@@ -1363,6 +1375,15 @@ class JuezController extends Controller
                 if($adulto->mejor_macho == "Si"){
                     $mejorMacho = $adulto;
                     $sw = true;
+
+                    // esto sera para el mejor de la raza
+                    if($adulto->mejor_raza == "Si"){
+                        $mejorRaza =   $adulto;
+                        $swMR = true;
+                    }else if($adulto->sexo_opuesto_raza == "Si"){
+                        $mejorRazaSexoOpuesto = $adulto;
+                        $swMRSO = true;
+                    }
                 }
             }
             
@@ -1370,6 +1391,15 @@ class JuezController extends Controller
                 if($veterano->mejor_macho == "Si"){
                     $mejorMacho = $veterano;
                     $sw = true;
+
+                    // esto sera para el mejor de la raza
+                    if($veterano->mejor_raza == "Si"){
+                        $mejorRaza =   $veterano;
+                        $swMR = true;
+                    }else if($veterano->sexo_opuesto_raza == "Si"){
+                        $mejorRazaSexoOpuesto = $veterano;
+                        $swMRSO = true;
+                    }
                 }
             }
 
@@ -1420,6 +1450,7 @@ class JuezController extends Controller
                             ';
 
 
+            
             // SEGUNDO PARA LOS HEMBRAS
             // CACHORRO
             $cachorroHembra = Juez::ganadorEjemplarEvento($raza_id, $evento_id, [2], "Hembra", $num_pista);
@@ -1442,6 +1473,14 @@ class JuezController extends Controller
                  if($jovenHembra->mejor_hembra == "Si"){
                      $mejorHembra = $jovenHembra;
                      $sw = true;
+
+                     if($jovenHembra->mejor_raza == "Si"){
+                        $mejorRaza =   $jovenHembra;
+                        $swMR = true;
+                     }else if($jovenHembra->sexo_opuesto_raza == "Si"){
+                        $mejorRazaSexoOpuesto = $jovenHembra;
+                        $swMRSO = true;
+                     }
                  }
  
              }
@@ -1451,6 +1490,14 @@ class JuezController extends Controller
                  if($adultoHembra->mejor_hembra == "Si"){
                      $mejorHembra = $adultoHembra;
                      $sw = true;
+
+                     if($adultoHembra->mejor_raza == "Si"){
+                        $mejorRaza =   $adultoHembra;
+                        $swMR = true;
+                     }else if($adultoHembra->sexo_opuesto_raza == "Si"){
+                        $mejorRazaSexoOpuesto = $adultoHembra;
+                        $swMRSO = true;
+                     }
                  }
  
              }
@@ -1460,6 +1507,14 @@ class JuezController extends Controller
                  if($veteranoHembra->mejor_hembra == "Si"){
                      $mejorHembra = $veteranoHembra;
                      $sw = true;
+
+                     if($veteranoHembra->mejor_raza == "Si"){
+                        $mejorRaza =   $veteranoHembra;
+                        $swMR = true;
+                     }else if($veteranoHembra->sexo_opuesto_raza == "Si"){
+                        $mejorRazaSexoOpuesto = $veteranoHembra;
+                        $swMRSO = true;
+                     }
                  }
  
              }
@@ -1516,6 +1571,35 @@ class JuezController extends Controller
             $data['tableHembras'] = $tableHembra;
 
 
+
+            // ************************ PARA EL MEJOR DE LA RAZA ********************************
+
+            $mejorRazaHtml = '';
+            $mejorRazaSexoOpuestoHtml = '';
+
+            if($swMRSO){
+
+                $mejorRazaSexoOpuestoHtml = $mejorRazaSexoOpuestoHtml. '<div class="row">
+                                            <div class="col-md-12">
+                                            <h5> SEXO OPUESTO DE LA RAZA => <span class="text-info">'.$mejorRazaSexoOpuesto->numero_prefijo.'</span></h5>
+                                            </div>
+                                        </div>';
+            }
+
+            if($swMR){
+
+                $data['mejorRaza'] = true;
+                $mejorRazaHtml = $mejorRazaHtml. '<div class="row">
+                                                    <div class="col-md-12">
+                                                        <h5> MEJOR JOVEN DE LA RAZA => <span class="text-info">'.$mejorRaza->numero_prefijo.'</span></h5>
+                                                    </div>
+                                                </div>'.$mejorRazaSexoOpuestoHtml;
+
+            }
+
+            $data['mejorRazaHtml'] = $mejorRazaHtml;
+            
+
             // AHORA VAMOS A PONER LOS SELECT PARA SELECIONAR MEJRO CACHORRO, JOVEN Y RAZA
             // ************************** CACHORRO ******************************
 
@@ -1557,7 +1641,6 @@ class JuezController extends Controller
             $swMJ = false;
             $mejoJoven = null;
             $sexoOpuesto  = null;
-            $swMejoJoveSexoOpuestop = true;
 
             if($joven){
                 
@@ -1565,7 +1648,6 @@ class JuezController extends Controller
 
                     $mejoJoven = $joven;
                     $swMJ = true;
-                    $swMejoJoveSexoOpuestop= false;
 
                     if($jovenHembra){
                         if($jovenHembra->sexo_opuesto_joven == "Si"){
@@ -1584,8 +1666,6 @@ class JuezController extends Controller
 
                     $mejoJoven = $jovenHembra;
                     $swMJ = true;
-                    $swMejoJoveSexoOpuestop= false;
-
 
                     if($joven){
                         if($joven->sexo_opuesto_joven == "Si"){
@@ -1598,14 +1678,23 @@ class JuezController extends Controller
                 $selectBod = $selectBod.'<option '.(($swMJ)? 'selected' : '').'  value="'.$jovenHembra->id.'">'.$jovenHembra->numero_prefijo.'</option>';
             }
 
-            $selectCachorro = 'SELECCION MEJOR jOVEN<br><select class="form-control" name="select_joven_mejor" id="select_joven_mejor" '.(($swMJ)? 'disabled' : '').'>';
-
+            
             if($joven || $jovenHembra){
 
-                $data['selectJoven'] = $selectCachorro.$selectBod.'</select>
-                                                                    <br>'.((!$swMJ)? '
-                                                                        <button  type="button" onclick="guardaMejor('."'".'joven'."'".')"  class="btn btn-success btn-block">Guardar Mejor Joven</button>
-                                                                    ' : '').'';
+                if(!$swMJ){
+
+                    $selectCachorro = 'SELECCION MEJOR jOVEN<br><select class="form-control" name="select_joven_mejor" id="select_joven_mejor" '.(($swMJ)? 'disabled' : '').'>';
+                    
+                    $data['selectJoven'] = $selectCachorro.$selectBod.'</select>
+                                                                        <br>'.((!$swMJ)? '
+                                                                            <button  type="button" onclick="guardaMejor('."'".'joven'."'".')"  class="btn btn-success btn-block">Guardar Mejor Joven</button>
+                                                                        ' : '').'';
+                }else{
+
+                    $data['selectJoven'] = '';
+
+                }
+                
 
                 // ************** PARA MANDAR EL HTML MEJOR JOVEN Y SEXO OPUESTO **********
                 if($mejoJoven){
@@ -1677,7 +1766,7 @@ class JuezController extends Controller
                             </div>';
 
             // PARA EL SELCE DE MEJRO RAZA
-            $selecRaza = '<select  name="select_raza_mejor" id="select_raza_mejor" class="form-control">';
+            $selecRaza = 'SELECCION MEJOR MEJOR RAZA<br><select  name="select_raza_mejor" id="select_raza_mejor" class="form-control">';
 
             $bodySelect = '';
 
@@ -1788,36 +1877,52 @@ class JuezController extends Controller
             if($tipo == "especiales"){
                 $ganadores = Juez::ejemplaresCategoria('Especiales', $evento_id,[1,2,3,4,5,6,7,8,9,10], $num_pista); 
             }elseif($tipo == "absolutos"){
-                $ganadores = Juez::getGanadores($evento_id, [2,11], 'mejor_cachorro');
+                $ganadores = Juez::getGanadores($evento_id, [2,11], 'mejor_cachorro', $num_pista);
             }elseif($tipo == "jovenes"){
-                $ganadores = Juez::getGanadores($evento_id, [3,4,12,13], 'mejor_joven');
+                $ganadores = Juez::getGanadores($evento_id, [3,4,12,13], 'mejor_joven', $num_pista);
             }elseif($tipo == "adultos"){
-                $ganadores = Juez::getGanadores($evento_id, [5,6,7,8,9,10,14,15], 'mejor_raza');
+                $ganadores = Juez::getGanadores($evento_id, [5,6,7,8,9,10,14,15], 'mejor_raza', $num_pista);
             }
 
             
             $data['status'] ='success';
 
-            $data['table']  =  view('juez.besting', compact('ganadores','evento_id', 'tipo'))->render();
+            $data['table']  =  view('juez.besting', compact('ganadores','evento_id', 'tipo', 'num_pista'))->render();
 
 
-            // para los finalistas
+            // ************************** PARA LOS FINALISTAS **************************
             $finalistas = Juez::finalistasBesting($evento_id, $tipo, $num_pista);
-
+            
             $tbody = '';
 
             $sw = false;
 
-            foreach ($finalistas as $fi){
+            foreach ($finalistas as $key => $fi){
 
                 if($fi->lugar_finalista != null)
                     $sw = true;
+
+                // $tbody = $tbody.'<td class="text-primary">
+                //                     <input type="hidden" value="'.$fi->id.'" name="bestinguids[]">
+                //                     <h2 class="text-center">'.$fi->numero_prefijo.'</h2>
+                //                     <br>
+                //                     <select name="posision[]" id="calificacion_final_'.$fi->numero_prefijo.'" class="form-control" '.(($sw)? 'disabled' : '').'>
+                //                         <option '.(($sw)? (($fi->lugar_finalista == 1)? 'selected' : '') : '').' value="1">Mejor</option>
+                //                         <option '.(($sw)? (($fi->lugar_finalista == 2)? 'selected' : '') : '').' value="2">Segundo</option>
+                //                         <option '.(($sw)? (($fi->lugar_finalista == 3)? 'selected' : '') : '').' value="3">Tercero</option>
+                //                         <option '.(($sw)? (($fi->lugar_finalista == 4)? 'selected' : '') : '').' value="4">Cuarto</option>
+                //                         <option '.(($sw)? (($fi->lugar_finalista == 5)? 'selected' : '') : '').' value="5">Quinto</option>
+                //                     </select>
+                //                     <small style="display: none;" class="text-warning" id="_calificacion_final_'.$fi->numero_prefijo.'">Calificacion repetida</small>
+                //                     <br>
+                //                     <button class="btn btn-success btn-block" onclick="calificaFinal()">CALIFICAR</button>
+                //                 </td>';
 
                 $tbody = $tbody.'<td class="text-primary">
                                     <input type="hidden" value="'.$fi->id.'" name="bestinguids[]">
                                     <h2 class="text-center">'.$fi->numero_prefijo.'</h2>
                                     <br>
-                                    <select name="posision[]" id="calificacion_final_'.$fi->numero_prefijo.'" class="form-control" '.(($sw)? 'disabled' : '').'>
+                                    <select name="posision_'.$key.'" id="calificacion_final_'.$fi->numero_prefijo.'" class="form-control" '.(($sw)? 'disabled' : '').'>
                                         <option '.(($sw)? (($fi->lugar_finalista == 1)? 'selected' : '') : '').' value="1">Mejor</option>
                                         <option '.(($sw)? (($fi->lugar_finalista == 2)? 'selected' : '') : '').' value="2">Segundo</option>
                                         <option '.(($sw)? (($fi->lugar_finalista == 3)? 'selected' : '') : '').' value="3">Tercero</option>
@@ -1825,8 +1930,25 @@ class JuezController extends Controller
                                         <option '.(($sw)? (($fi->lugar_finalista == 5)? 'selected' : '') : '').' value="5">Quinto</option>
                                     </select>
                                     <small style="display: none;" class="text-warning" id="_calificacion_final_'.$fi->numero_prefijo.'">Calificacion repetida</small>
+                                    <br>
+                                    <button class="btn btn-success btn-block" onclick="calificaFinal('.$key.', '.$fi->id.', '."'".$fi->numero_prefijo."'".')">CALIFICAR</button>
                                 </td>';
             }
+
+            // $tableFinalistas = '
+            //                     <table class="table table-bordered table-hover table-striped" style="width:100%;">
+            //                         <tbody>
+            //                             <tr>
+            //                             '.$tbody.'
+            //                             </tr>
+            //                         </tbody>
+            //                     </table>
+            //                     '.((!$sw)? '<div class="row">
+            //                                     <div class="col-md-12">
+            //                                         <button class="btn btn-success btn-block" onclick="calificaFinal()">Finalizar</button>
+            //                                     </div>
+            //                                 </div>' : '').'                                
+            //                     ';
 
             $tableFinalistas = '
                                 <table class="table table-bordered table-hover table-striped" style="width:100%;">
@@ -1835,17 +1957,9 @@ class JuezController extends Controller
                                         '.$tbody.'
                                         </tr>
                                     </tbody>
-                                </table>
-                                '.((!$sw)? '<div class="row">
-                                                <div class="col-md-12">
-                                                    <button class="btn btn-success btn-block" onclick="calificaFinal()">Finalizar</button>
-                                                </div>
-                                            </div>' : '').'                                
-                                ';
+                                </table>';
 
             $data['finalistas']  = $tableFinalistas;
-
-            // PARA LOS GANADORES
 
             return json_encode($data);
 
@@ -1857,10 +1971,11 @@ class JuezController extends Controller
 
         if($request->ajax()){
 
-            $evento_id = $request->input('evento');
-            $grupo_id  = $request->input('grupo');
-            $tipo  = $request->input('tipo');
+            // dd($request->all());
 
+            $evento_id          = $request->input('evento');
+            $grupo_id           = $request->input('grupo');
+            $tipo               = $request->input('tipo');
             $numero_prefijos    = $request->input('numeros');
             $calificaciones     = $request->input('calificaciones');
             $categorias_pistas  = $request->input('categorias_pistas');
@@ -1954,7 +2069,7 @@ class JuezController extends Controller
 
 
             // para los finalistas
-            $finalistas = Juez::finalistasBesting($evento_id, $tipo);
+            $finalistas = Juez::finalistasBesting($evento_id, $tipo, $num_pistas);
 
             $tbody = '';
 
@@ -1998,17 +2113,97 @@ class JuezController extends Controller
 
             // dd($request->all());
 
-            $besting_ids    = $request->input('bestingid');
-            $calificaciones = $request->input('calificaciones');
+            $ganador_id     = $request->input('ganador');
+            $calificacion   = $request->input('calificacion');
 
-            foreach ($besting_ids as $key => $bid){
+            $ganador = Besting::find($ganador_id);
 
-                $besting = Besting::find($bid);
+            $ganador->lugar_finalista = $calificacion;
 
-                $besting->lugar_finalista = $calificaciones[$key];
+            $ganador->save();
 
-                $besting->save();
+            // ********************* MANDAMOS A LOS GANADORES ********************
+            // dd($ganador->evento_id, $ganador->tipo, $ganador->num_pistas);
+
+            $finalistas = Juez::finalistasBesting($ganador->evento_id, $ganador->tipo, $ganador->pista);
+
+            // dd($finalistas);
+
+            $tbody = '';
+
+            foreach ($finalistas as $key => $fi){
+
+                if($fi->lugar_finalista == '' || $fi->lugar_finalista == null){
+
+                    $tbody = $tbody.'<td class="text-primary">
+                                        <input type="hidden" value="'.$fi->id.'" name="bestinguids[]">
+                                        <h2 class="text-center">'.$fi->numero_prefijo.'</h2>
+                                        <br>
+                                        <select name="posision[]" id="calificacion_final_'.$fi->numero_prefijo.'" class="form-control">
+                                            <option value="1">Mejor</option>
+                                            <option value="2">Segundo</option>
+                                            <option value="3">Tercero</option>
+                                            <option value="4">Cuarto</option>
+                                            <option value="5">Quinto</option>
+                                        </select>
+                                        <small style="display: none;" class="text-warning" id="_calificacion_final_'.$fi->numero_prefijo.'">Calificacion repetida</small>
+                                        <br>
+                                        <button class="btn btn-success btn-block" onclick="calificaFinal('.$key.', '.$fi->id.', '."'".$fi->numero_prefijo."'".')">CALIFICAR</button>
+                                    </td>';
+
+                }else{
+
+                    $recervaSiguiente = Juez::getReservaSinCalificarSiguiente($fi->pista, $fi->tipo, $fi->grupo_id, $fi->lugar);
+
+                    if($recervaSiguiente){
+
+                        $tbody = $tbody.'<td class="text-primary">
+                                            <input type="hidden" value="'.$recervaSiguiente->id.'" name="bestinguids[]">
+                                            <h2 class="text-center">'.$recervaSiguiente->numero_prefijo.'</h2>
+                                            <br>
+                                            <select name="posision[]" id="calificacion_final_'.$recervaSiguiente->numero_prefijo.'" class="form-control">
+                                                <option value="1">Mejor</option>
+                                                <option value="2">Segundo</option>
+                                                <option value="3">Tercero</option>
+                                                <option value="4">Cuarto</option>
+                                                <option value="5">Quinto</option>
+                                            </select>
+                                            <small style="display: none;" class="text-warning" id="_calificacion_final_'.$recervaSiguiente->numero_prefijo.'">Calificacion repetida</small>
+                                            <br>
+                                            <button class="btn btn-success btn-block" onclick="calificaFinal('.$key.', '.$recervaSiguiente->id.', '."'".$recervaSiguiente->numero_prefijo."'".')">CALIFICAR</button>
+                                        </td>';
+                    }
+
+                }
+
             }
+
+            $tableFinalistas = '
+                                <table class="table table-bordered table-hover table-striped" style="width:100%;">
+                                    <tbody>
+                                        <tr>
+                                        '.$tbody.'
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                ';
+
+            $data['finalistas']  = $tableFinalistas;
+
+
+            
+
+            // $besting_ids    = $request->input('bestingid');
+            // $calificaciones = $request->input('calificaciones');
+
+            // foreach ($besting_ids as $key => $bid){
+
+            //     $besting = Besting::find($bid);
+
+            //     $besting->lugar_finalista = $calificaciones[$key];
+
+            //     $besting->save();
+            // }
 
             $data['status'] = 'success';
 

@@ -156,8 +156,8 @@
                             </div>
                                 <div class="row">
                                     @php
-                                    
-                                        $besting = App\Juez::recuperaGanadorBesting($ag[$i]->ejemplar_evento_id, $tipo, $ag[$i]->grupo_id, $evento_id);
+
+                                        $besting = App\Juez::recuperaGanadorBesting($ag[$i]->ejemplar_evento_id, $tipo, $ag[$i]->grupo_id, $evento_id, $num_pista);
 
                                     @endphp
                                     <div class="col-md-12">
@@ -183,7 +183,7 @@
         <tr>
             @foreach ( $array_grupo as $ag)
                 <th>
-                    @if (!App\Juez::recuperaGanadorBesting($ag[0]->ejemplar_evento_id, $tipo, $ag[0]->grupo_id, $evento_id))
+                    @if (!App\Juez::recuperaGanadorBesting($ag[0]->ejemplar_evento_id, $tipo, $ag[0]->grupo_id, $evento_id, $num_pista))
                         <button onclick="mejorGrupo('{{ $ag[0]->grupo_id }}')" type="button" class="btn btn-success btn-block"> Finalizar </button>
                     @endif
                 </th>
@@ -195,11 +195,11 @@
                     @php
 
                         // VERIFICAMOS SI YA HAY GANAODRES O NO
-                        $bestingMejorGrupoRescatado = App\Juez::getMejorGrupoMejorRecerbaTipo($ag[0]->grupo_id, $tipo, 'mejor_grupo', $evento_id);
-                        $bestingMejorRecerva = App\Juez::getMejorGrupoMejorRecerbaTipo($ag[0]->grupo_id, $tipo, 'mejor_recerva', $evento_id);
+                        $bestingMejorGrupoRescatado = App\Juez::getMejorGrupoMejorRecerbaTipo($ag[0]->grupo_id, $tipo, 'mejor_grupo', $evento_id, $num_pista);
+                        $bestingMejorRecerva = App\Juez::getMejorGrupoMejorRecerbaTipo($ag[0]->grupo_id, $tipo, 'mejor_recerva', $evento_id, $num_pista);
 
                         // VERIFICAMOS SI EN EL GRUPO YA HAY FINALISTAS PARA QUE YA NO CMABIEN
-                        $finalistas = App\Juez::getFinalistas($evento_id, $ag[0]->grupo_id, $tipo);
+                        $finalistas = App\Juez::getFinalistas($evento_id, $ag[0]->grupo_id, $tipo, $num_pista);
 
                     @endphp
                     @if($bestingMejorGrupoRescatado || $bestingMejorRecerva)
