@@ -14,7 +14,7 @@ class AddCarnetToEjemplaresEventos extends Migration
     public function up()
     {
         Schema::table('ejemplares_eventos', function (Blueprint $table) {
-            $table->string('carnet', 50)->nullable()->after('numero_prefijo');
+            $table->string('carnet', 50)->nullable()->after('edad');
         });
     }
 
