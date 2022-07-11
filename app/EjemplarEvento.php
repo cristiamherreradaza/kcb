@@ -38,6 +38,7 @@ class EjemplarEvento extends Model
         'edad',
         'numero',
         'numero_prefijo',
+        'carnet',
         'estado',
         'deleted_at',
     ];

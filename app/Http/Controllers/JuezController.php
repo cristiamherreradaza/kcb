@@ -505,8 +505,6 @@ class JuezController extends Controller
 
     public function ajaxFinalizarCalificacion(Request $request){
 
-        // dd($request->all());
-
         $ejemplares_eventos = $request->input('ejemplar_evento_id_ejemplar');
         $raza_id            = $request->input('raza_id_ejemplar');
         $evento_id          = $request->input('evento_id_ejemplar');
@@ -2213,80 +2211,122 @@ class JuezController extends Controller
 
     }
 
-    public function cambiaMejorRecerva(Request $request){
+    // public function cambiaMejorRecerva(Request $request){
 
-        if($request->ajax()){
+    //     if($request->ajax()){
 
-            $bestinMejor = $request->input('mejor');
-            $bestinRecerva = $request->input('recerva');
+    //         $bestinMejor = $request->input('mejor');
+    //         $bestinRecerva = $request->input('recerva');
 
-            if($bestinMejor != 0){
+    //         if($bestinMejor != 0){
 
-                $bestong = Besting::find($bestinMejor);
+    //             $bestong = Besting::find($bestinMejor);
 
-                $bestong->mejor_grupo =  "Si";
-                $bestong->lugar =  1;
-                $bestong->recerva_grupo =  null;
+    //             $bestong->mejor_grupo =  "Si";
+    //             $bestong->lugar =  1;
+    //             $bestong->recerva_grupo =  null;
 
-                $bestong->save();
+    //             $bestong->save();
 
-            }
+    //         }
 
-            if($bestinRecerva != 0){
+    //         if($bestinRecerva != 0){
 
-                $bestong = Besting::find($bestinRecerva);
+    //             $bestong = Besting::find($bestinRecerva);
 
-                $bestong->mejor_grupo = null;
-                $bestong->recerva_grupo = "Si";
-                $bestong->lugar = 2;
+    //             $bestong->mejor_grupo = null;
+    //             $bestong->recerva_grupo = "Si";
+    //             $bestong->lugar = 2;
 
-                $bestong->save();
+    //             $bestong->save();
 
-            }
+    //         }
 
-            $data['status'] = 'success';
+    //         $data['status'] = 'success';
 
-             // para los finalistas
-             $finalistas = Juez::finalistasBesting($bestong->evento_id, $bestong->tipo);
+    //          // para los finalistas
+    //          $finalistas = Juez::finalistasBesting($bestong->evento_id, $bestong->tipo);
 
-             $tbody = '';
+    //          $tbody = '';
  
-             foreach ($finalistas as $fi){
-                 $tbody = $tbody.'<td class="text-primary">
-                                    <input type="hidden" value="'.$fi->id.'" name="bestinguids[]">
-                                    <h2 class="text-center">'.$fi->numero_prefijo.'</h2>
-                                    <br>
-                                    <select name="posision[]" id="calificacion_final_'.$fi->numero_prefijo.'" class="form-control">
-                                        <option value="1">Mejor</option>
-                                        <option value="2">Segundo</option>
-                                        <option value="3">Tercero</option>
-                                        <option value="4">Cuarto</option>
-                                        <option value="5">Quinto</option>
-                                    </select>
-                                    <small style="display: none;" class="text-warning" id="_calificacion_final_'.$fi->numero_prefijo.'">Calificacion repetida</small>
-                                </td>';
-             }
+    //          foreach ($finalistas as $fi){
+    //              $tbody = $tbody.'<td class="text-primary">
+    //                                 <input type="hidden" value="'.$fi->id.'" name="bestinguids[]">
+    //                                 <h2 class="text-center">'.$fi->numero_prefijo.'</h2>
+    //                                 <br>
+    //                                 <select name="posision[]" id="calificacion_final_'.$fi->numero_prefijo.'" class="form-control">
+    //                                     <option value="1">Mejor</option>
+    //                                     <option value="2">Segundo</option>
+    //                                     <option value="3">Tercero</option>
+    //                                     <option value="4">Cuarto</option>
+    //                                     <option value="5">Quinto</option>
+    //                                 </select>
+    //                                 <small style="display: none;" class="text-warning" id="_calificacion_final_'.$fi->numero_prefijo.'">Calificacion repetida</small>
+    //                             </td>';
+    //          }
  
-             $tableFinalistas = '
-                                 <table class="table table-bordered table-hover table-striped" style="width:100%;">
-                                     <tbody>
-                                         <tr>
-                                         '.$tbody.'
-                                         </tr>
-                                     </tbody>
-                                 </table>
-                                 <div class="row">
-                                    <div class="col-md-12">
-                                        <button class="btn btn-success btn-block" onclick="calificaFinal()">Finalizar</button>
-                                    </div>
-                                </div>
-                                 ';
+    //          $tableFinalistas = '
+    //                              <table class="table table-bordered table-hover table-striped" style="width:100%;">
+    //                                  <tbody>
+    //                                      <tr>
+    //                                      '.$tbody.'
+    //                                      </tr>
+    //                                  </tbody>
+    //                              </table>
+    //                              <div class="row">
+    //                                 <div class="col-md-12">
+    //                                     <button class="btn btn-success btn-block" onclick="calificaFinal()">Finalizar</button>
+    //                                 </div>
+    //                             </div>
+    //                              ';
  
-            $data['finalistas']  = $tableFinalistas;
+    //         $data['finalistas']  = $tableFinalistas;
 
 
-            return json_encode($data);
+    //         return json_encode($data);
+    //     }
+
+    // }
+
+    public function planillaPDF(Request $request, $evento_id, $pista){
+
+        // dd($evento_id, $pista);
+
+        
+
+        // SACAMOS LOS GRUPOS DEL EVENTO
+        $grupos = Juez::gruposEvento($evento_id);
+
+        // MANDAMOS LA ASIGANCION
+        $asignacion = Asignacion::where('num_pista',$pista)
+                                ->where('evento_id',$evento_id)
+                                ->first();
+
+        
+        $arrayEjemplares = array();
+        $arrayEjemplaresTotal = array();
+
+        foreach ($grupos as $g){
+
+            $emplares = Juez::ejemplaresGrupos($evento_id, $g->grupo_id);
+
+            $arrayEjemplares = array(
+                'grupo' => 'Grupo '.$g->grupo_id,
+                'ejemplares' => $emplares
+            );
+
+            array_push($arrayEjemplaresTotal,$arrayEjemplares);
+
         }
+
+        // return view('juez.planillaPDF')->with(compact('evento_id', 'pista', 'arrayEjemplaresTotal', 'asignacion'));
+
+
+        $pdf    = PDF::loadView('juez.planillaPDF', compact('evento_id', 'pista', 'arrayEjemplaresTotal', 'asignacion'));
+
+        $pdf->setPaper('letter', 'landscape');
+
+        return $pdf->stream('Planilla_'.date('Y-m-d H:i:s').'.pdf');    
 
     }
 }

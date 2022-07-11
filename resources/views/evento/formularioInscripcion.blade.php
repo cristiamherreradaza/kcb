@@ -113,7 +113,7 @@
 								<h3 class="">FORMULARIO DE INSCRIPCION ({{ $evento->nombre }})</h3>
 							</div>
 							<!--begin::Form-->
-							<form action="{{ url('Evento/inscribirEvento') }}" method="POST" id="formulario-inscripcion-evento" >
+							<form action="{{ url('Evento/inscribirEvento') }}" method="POST" id="formulario-inscripcion-evento" enctype="multipart/form-data">
 								@csrf
 								<div class="card-body">
 									<input type="hidden" name="evento_id" id="evento_id" value="{{ $evento->id }}">
@@ -141,14 +141,6 @@
 															<span class="form-text text-muted">Selecciona la nacionalidad o Extranjero del Ejemplar</span>
 														</div>
 													</div>
-													{{-- <div class="form-group">
-														<label class="exampleInputPasswo¶rd1">
-														Nacional</label>
-														<input id='check_busca' data-switch="true" type="checkbox" checked data-on-color="primary"  onchange="mostrarBusqueda()"/>
-														<label class="exampleInputPassword1">
-														Extrangero</label>
-													</div> --}}
-													{{-- <span class="form-text text-danger" id="msg-error-email" style="display: none;">Correo duplicado, cambielo!!!</span> --}}
 												</div>
 												<div class="col-md-6">
 													<div id="bloque-nacional">
@@ -196,9 +188,6 @@
 												Raza</label>
 												<select class="form-control select2" id="raza_id" name="raza_id"  required >
 													<option value=""></option>
-													{{-- @if ($ejemplar != null && $ejemplar->raza_id != null)
-														<option value="{{ $ejemplar->raza->id }}"> {{ $ejemplar->raza->id }} {{ $ejemplar->raza->nombre }} {{ $ejemplar->raza->descripcion }}</option>
-													@endif --}}
 													@forelse ($razas as $r)
 														<option value="{{ $r->id }}">{{ $r->nombre }} {{ $r->descripcion }}</option>                                    
 													@empty
@@ -310,15 +299,6 @@
 													<div id="categoria">
 
 													</div>
-													{{-- @if ($ejemplar != null && $ejemplar->raza_id != null)
-														<option value="{{ $ejemplar->raza->id }}"> {{ $ejemplar->raza->id }} {{ $ejemplar->raza->nombre }} {{ $ejemplar->raza->descripcion }}</option>
-													@endif --}}
-
-													{{-- @forelse ($categorias_pistas as $ca)
-														<option value="{{ $ca->id }}">{{ $ca->nombre }} {{ $ca->desde }}</option>                                    
-													@empty
-														
-													@endforelse --}}
 												</select>
 											</div>
 										</div>
@@ -364,6 +344,16 @@
 									</div>
 									<div class="row">
 										<div class="col-md-12">
+											<div class="form-group">
+												<label class="exampleInputPassword1">
+												Adjunte su carnet de vacunacion <b class="text-danger">*</b></label>
+												<input type="file" class="form-control" id="carnet" name="carnet" required accept="image/*" />
+											</div>
+										</div>
+									</div>
+									<br>
+									<div class="row">
+										<div class="col-md-12">
 											<button type="button" class="btn btn-success btn-block" onclick="inscribir()">INSCRIBRI EJEMPLAR</button>    
 										</div>    
 									</div>                    
@@ -375,38 +365,6 @@
 					</div>
 					
 				</div>	
-			{{-- @else
-				<div class="row">
-					<div class="col-md-12">
-						<div class="card card-custom gutter-b example example-compact">
-							<div class="row">
-								<div class="col-md-4">
-									<div style="height: 100px;">
-										<img src="{{ url('img/fci.jpg') }}" alt="" height="100%">
-									</div>
-								</div>
-								<div class="col-md-4" style="">
-									<div style="height: 100px;">
-										<img src="{{ url('img/logo.png') }}" alt="" height="100%">
-									</div>
-								</div>
-								<div class="col-md-4" style="">
-									<div style="height: 100px;">
-										<img src="{{ url('img/logo.gif') }}" alt="" height="100%">
-									</div>
-								</div>
-							</div>
-							<div class="text-center">
-								<h3 class="">FORMULARIO DE INSCRIPCION ({{ $evento->nombre }})</h3>
-							</div>
-							<h1 class="text-center text-danger">
-								EVENTO DESHABILITADO
-							</h1>
-						</div>
-					</div>
-				</div>
-			@endif --}}
-			
 		</div>
 		<!--end::Header Mobile-->
 		

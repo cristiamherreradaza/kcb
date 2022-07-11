@@ -30,6 +30,9 @@
                 <button type="button" class="btn btn-icon btn-danger" onclick="eliminaAsigancion('{{ $asig->id }}', '{{$asig->juez->nombre  }}')">
                     <i class="flaticon2-cross"></i>
                 </button>
+                <a href="{{ url('Juez/planillaPDF', [$asig->evento_id, $asig->num_pista]) }}" class="btn btn-icon btn-info" target="_target">
+                    <i class="fa fa-list"></i>
+                </a>
             </td>
         </tr>
         @empty

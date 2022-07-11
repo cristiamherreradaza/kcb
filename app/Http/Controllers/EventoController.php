@@ -214,7 +214,6 @@ class EventoController extends Controller
 
         $ejemplarEvento = new EjemplarEvento();
 
-
         $ejemplarEvento->evento_id                  = $request->input('evento_id');
         $ejemplarEvento->ejemplar_id                = $request->input('ejemplar_id');      
         $ejemplarEvento->categoria_pista_id         = $request->input('categoria_pista');
@@ -243,6 +242,19 @@ class EventoController extends Controller
         }
 
         $ejemplarEvento->edad                           = $request->input('ejemplar_meses');
+
+        // PARA LA IMAGEN
+        if($request->file('carnet')){
+
+            $archivo                            = $request->file('carnet');
+            $direccion                          = 'imagenesCarnet/';   
+            $nombreArchivo                      = date('YmdHis').".".$archivo->getClientOriginalExtension();
+
+            $archivo->move($direccion,$nombreArchivo);
+
+            $ejemplarEvento->carnet             = $nombreArchivo;
+
+        }
 
         $ejemplarEvento->save();
         // dd($request->input('email'));

@@ -170,9 +170,11 @@ class Juez extends Model
     }
 
     // esta funcion devuelve la calificacion del ejemplar segun el id de ejemplares_eventos
-    public static function ejemplarEventoInscrito($ejemplar_evento_id){
+    public static function ejemplarEventoInscrito($ejemplar_evento_id, $pista){
 
-        $ejemplar_evento = Calificacion::where('ejemplares_eventos_id',$ejemplar_evento_id)->first();
+        $ejemplar_evento = Calificacion::where('ejemplares_eventos_id',$ejemplar_evento_id)
+                                        ->where('pista', $pista)
+                                        ->first();
 
         return $ejemplar_evento;
 
@@ -400,6 +402,43 @@ class Juez extends Model
             return null;
 
         }
+
+    }
+
+    public static function gruposEvento($evento_id){
+
+        $grupos = GrupoRaza::select('grupos_razas.grupo_id')
+                        ->join('ejemplares_eventos','grupos_razas.raza_id' , '=', 'ejemplares_eventos.raza_id')
+                        ->where('ejemplares_eventos.evento_id', $evento_id)
+                        ->groupBy('grupos_razas.grupo_id')
+                        ->get();
+
+        return $grupos;
+    }
+
+
+    public static function mejorCategoriaEscogito($evento_id, $categoria_id, $pista, $raza_id){
+
+        $mejor = Ganador::where('pista',$pista)
+                        ->where('evento_id',$evento_id)
+                        ->where('raza_id',$raza_id)
+                        ->where('categoria_id',$categoria_id)
+                        ->first();
+
+        return $mejor;
+
+    }
+
+    public static function mejorVencedorSexo($evento_id, $raza_id, $categoria_id, $pista, $tipo){
+
+        $mejores = Ganador::where('raza_id',$raza_id)
+                          ->where('evento_id',$evento_id)
+                          ->where('pista',$pista)
+                          ->whereIn('categoria_id', $categoria_id)
+                          ->where($tipo ,"Si")
+                          ->first();
+
+        return $mejores;
 
     }
 }
