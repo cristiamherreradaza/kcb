@@ -2290,10 +2290,6 @@ class JuezController extends Controller
 
     public function planillaPDF(Request $request, $evento_id, $pista){
 
-        // dd($evento_id, $pista);
-
-        
-
         // SACAMOS LOS GRUPOS DEL EVENTO
         $grupos = Juez::gruposEvento($evento_id);
 
@@ -2327,6 +2323,124 @@ class JuezController extends Controller
         $pdf->setPaper('letter', 'landscape');
 
         return $pdf->stream('Planilla_'.date('Y-m-d H:i:s').'.pdf');    
+
+    }
+
+    public function bestingPDF(Request $request, $evento_id, $pista ){
+
+        $tipos = ['especiales', 'absolutos', 'jovenes', 'adultos'];
+        
+        $arrayTipos = array();
+
+        foreach ($tipos as $t){
+
+            $ganadores = Evento::bestingTipos($t, $evento_id, $pista);
+
+            $grupo1 = array();
+            $grupo2 = array();
+            $grupo3 = array();
+            $grupo4 = array();
+            $grupo5 = array();
+            $grupo6 = array();
+            $grupo7 = array();
+            $grupo8 = array();
+            $grupo9 = array();
+            $grupo10 = array();
+            $grupo11 = array();
+
+            $arrayGrupo = array();
+
+            foreach ($ganadores as $g){
+
+                switch ($g->grupo_id) {
+                    case 1:
+                        array_push($grupo1,$g);
+                        break;
+                    case 2:
+                        array_push($grupo2,$g);
+                        break;
+                    case 3:
+                        array_push($grupo3,$g);
+                        break;
+                    case 4:
+                        array_push($grupo4,$g);
+                        break;
+                    case 5:
+                        array_push($grupo5,$g);
+                        break;
+                    case 6:
+                        array_push($grupo6,$g);
+                        break;
+                    case 7:
+                        array_push($grupo7,$g);
+                        break;
+                    case 8:
+                        array_push($grupo8,$g);
+                        break;
+                    case 9:
+                        array_push($grupo9,$g);
+                        break;
+                    case 10:
+                        array_push($grupo10,$g);
+                        break;
+                    case 11:
+                        array_push($grupo11,$g);
+                        break;
+                }  
+            }
+
+            array_push($arrayGrupo, $grupo1);
+            array_push($arrayGrupo, $grupo2);
+            array_push($arrayGrupo, $grupo3);
+            array_push($arrayGrupo, $grupo4);
+            array_push($arrayGrupo, $grupo5);
+            array_push($arrayGrupo, $grupo6);
+            array_push($arrayGrupo, $grupo7);
+            array_push($arrayGrupo, $grupo8);
+            array_push($arrayGrupo, $grupo9);
+            array_push($arrayGrupo, $grupo10);
+            array_push($arrayGrupo, $grupo11);
+
+            // SACAMOS LOS GANADORES
+            // primer
+            $primerLugar = Evento::getPuestoGanador($evento_id, $t, 1, $pista);
+
+            // segundo
+            $segundoLugar = Evento::getPuestoGanador($evento_id, $t, 2, $pista);
+
+            // tercer
+            $tercerLugar = Evento::getPuestoGanador($evento_id, $t, 3, $pista);
+
+            // cuarto
+            $cuartoLugar = Evento::getPuestoGanador($evento_id, $t, 4, $pista);
+
+            // quinto
+            $quintoLugar = Evento::getPuestoGanador($evento_id, $t, 5, $pista);
+
+            $besting = array(
+                'tipo'      =>  $t,
+                'grupos'    =>  $arrayGrupo,
+                'primero'   =>  $primerLugar,
+                'segundo'   =>  $segundoLugar,
+                'tercer'    =>  $tercerLugar,
+                'cuarto'    =>  $cuartoLugar,
+                'quinto'    =>  $quintoLugar
+            );
+
+            array_push($arrayTipos, $besting);
+        }
+    
+
+        // // BUSCAMOS AL JUEZ DEL EVENTO
+        $juez = Evento::getJuez($evento_id);
+
+
+        // $pdf    = PDF::loadView('evento.generaBestingPdf', compact('ganadores', 'tipo', 'arrayGrupo', 'primerLugar', 'segundoLugar', 'tercerLugar', 'cuartoLugar', 'quintoLugar', 'juez'))->setPaper('letter', 'landscape');
+        $pdf    = PDF::loadView('juez.bestingPDF', compact('arrayTipos', 'juez'))->setPaper('letter', 'landscape');
+
+        return $pdf->stream('Planilla_'.date('Y-m-d H:i:s').'.pdf');      
+
+        // return view('evento.generaBestingPdf')->with(compact('ganadores'));
 
     }
 }

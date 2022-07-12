@@ -441,4 +441,22 @@ class Juez extends Model
         return $mejores;
 
     }
+
+    /*
+        Esta funcion devuelve los mejores escojidos de las raza como ser
+        mejor_cachorro, mejjor_jove, mejor_reza
+        la variable $tipo_busqueda ayuda por que campo vamos a buscar
+     */
+    public static function mejorCategoria($evento_id, $pista, $raza_id, $tipo_busqueda){
+
+        $mejor = Ganador::where('evento_id',$evento_id)
+                        ->where('pista',$pista)
+                        ->where('raza_id',$raza_id)
+                        ->where("mejor_escogido",'Si')
+                        ->where($tipo_busqueda,'Si')
+                        ->first();
+
+        return $mejor;
+
+    }
 }
