@@ -127,7 +127,7 @@
 								<td>{{ $juez->id }}</td>
 								<td>{{ $juez->nombre }}</td>
 								<td>{{ $juez->email }}</td>
-								<td>{{ $juez->categoriaJuez->nombre }}</td>
+								<td>{{ ($juez->categoriaJuez)? $juez->categoriaJuez->nombre : '' }}</td>
 								<td>{{ $juez->departamento }}</td>
 								<td>
 									<div style="max-width: 50px">
