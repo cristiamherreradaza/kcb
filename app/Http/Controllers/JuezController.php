@@ -2432,7 +2432,7 @@ class JuezController extends Controller
     
 
         // // BUSCAMOS AL JUEZ DEL EVENTO
-        $juez = Evento::getJuez($evento_id);
+        $juez = Evento::getJuez($evento_id, $pista);
 
 
         // $pdf    = PDF::loadView('evento.generaBestingPdf', compact('ganadores', 'tipo', 'arrayGrupo', 'primerLugar', 'segundoLugar', 'tercerLugar', 'cuartoLugar', 'quintoLugar', 'juez'))->setPaper('letter', 'landscape');

@@ -54,11 +54,14 @@ class Evento extends Model
         
     }
 
-    public static function getJuez($evento_id){
+    public static function getJuez($evento_id, $num_pista){
+
         $juez = Asignacion::where('evento_id',$evento_id)
+                            ->where('num_pista', $num_pista)
                             ->first();
 
         return $juez;
+        
     }
 
 }

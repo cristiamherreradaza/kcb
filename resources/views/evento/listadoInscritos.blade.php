@@ -457,7 +457,7 @@
 			</div>
 			<div class="card-toolbar">
 				<!--begin::Button-->
-				<a href="{{ url('Evento/generaBestingPdf', [$evento->id, "especiales"]) }}" target="_target" class="btn btn-success font-weight-bolder">
+				{{-- <a href="{{ url('Evento/generaBestingPdf', [$evento->id, "especiales"]) }}" target="_target" class="btn btn-success font-weight-bolder">
 					<i class="fa fa-plus-square"></i> Especiales
 				</a>
 				<!--end::Button-->
@@ -482,10 +482,10 @@
 					<i class="fa fa-plus-square"></i> Adultos
 				</a>
 				<!--end::Button-->
-				<p style="padding-left: 2px"></p>
+				<p style="padding-left: 2px"></p> --}}
 
 				<!--begin::Button-->
-				<button onclick="agregarEjeplarModal()" class="btn btn-info font-weight-bolder"><i class="fa fa-plus-square"></i> Nuevo Ejemplar</button>
+				<button onclick="agregarEjeplarModal()" class="btn btn-info font-weight-bolder"><i class="fa fa-plus-square"></i> Nueva Inscripcion</button>
 				<!--end::Button-->
 
 			</div>

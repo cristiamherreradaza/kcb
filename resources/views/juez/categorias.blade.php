@@ -278,11 +278,8 @@
 		<div class="card-header flex-wrap py-3">
 			<div class="card-title">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <h3 class="card-label">CATEGORIAS</h3>
-                    </div>
-                    <div class="col-md-6">
-
                     </div>
                 </div>
 
@@ -305,24 +302,11 @@
 			</div>
 		</div>
 		<div class="card-body">
-            <div class="row">
-                <div class="col-md-12">
-                    hola
-                </div>
-            </div>
-
-            {{-- <div class="row">
-                <div class="col-md-12">
-                    <button class="btn btn-success btn-block" onclick="califaicarEjemplares()">Calificar</button>
-                </div>
-            </div> --}}
-
-            <br>
             <div id="accordion">
                 <form action="" id="formulario-calificacion">
 
-                    <input type="text" value="{{ $evento->id }}" name="evento_id">
-                    <input type="text" value="{{ $asignacion->num_pista }}" name="asignacion_id">
+                    <input type="hidden" value="{{ $evento->id }}" name="evento_id">
+                    <input type="hidden" value="{{ $asignacion->num_pista }}" name="asignacion_id">
 
                     @foreach ($arrayEjemplaresTotal as $key => $a)
 
