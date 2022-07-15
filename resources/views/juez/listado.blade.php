@@ -268,6 +268,5 @@
 			readImage(this);
 		});
 
-
     </script>
 @endsection
