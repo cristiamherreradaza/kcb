@@ -1380,4 +1380,12 @@ class EventoController extends Controller
         }
     }
 
+    public function ranking(Request $request, $evento_id){
+
+        $evento = Evento::find($evento_id);
+
+        return view('evento.ranking')->with(compact('evento'));
+
+    }
+
 }

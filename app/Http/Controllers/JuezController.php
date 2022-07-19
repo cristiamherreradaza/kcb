@@ -2326,7 +2326,6 @@ class JuezController extends Controller
 
         // return view('juez.planillaPDF')->with(compact('evento_id', 'pista', 'arrayEjemplaresTotal', 'asignacion'));
 
-
         $pdf    = PDF::loadView('juez.planillaPDF', compact('evento_id', 'pista', 'arrayEjemplaresTotal', 'asignacion'));
 
         $pdf->setPaper('letter', 'landscape');

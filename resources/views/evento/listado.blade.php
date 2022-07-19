@@ -229,6 +229,7 @@
 							<th>Numero Pista</th>
 							<th>Circuito</th>
 							<th>Postulantes</th>
+							<th>Habilitado</th>
 							<th>Acciones</th>
 						</tr>
 					</thead>
@@ -250,6 +251,18 @@
 									@endphp
 								</td>
 								<td>
+									<div class="form-group row">
+										<div class="col-3">
+										 <span class="switch switch-outline switch-icon switch-success">
+										  <label>
+										   <input type="checkbox" checked="checked" {{ ($even->habilitado == 'Si' || $even->habilitado == NULL)? 'checked' : '' }} onchange="cerrarEvento({{ $even->id }})"/>
+										   <span></span>
+										  </label>
+										 </span>
+										</div>
+									</div>
+								</td>
+								<td>
 									<button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $even->id }}', '{{ $even->nombre }}', '{{ $even->fecha_inicio }}', '{{ $even->fecha_fin }}', '{{ $even->direccion }}', '{{ $even->departamento }}', '{{ $even->numero_pista }}', '{{ $even->circuito }}', '{{ $even->habilitado }}')">
 										<i class="flaticon2-edit"></i>
 									</button>
@@ -265,6 +278,9 @@
 									<button type="button" class="btn btn-icon btn-dark" onclick="generaNumeracion('{{ $even->id }}', '{{ $even->nombre }}')">
 										<i class="fas fa-monument"></i>
 									</button>
+									<a href="{{ url('Evento/ranking', [$even->id]) }}" class="btn btn-icon btn-white">
+										<i class="flaticon-map"></i>
+									</a>
 									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $even->id }}', '{{ $even->nombre }}')">
 										<i class="flaticon2-cross"></i>
 									</button>
@@ -609,6 +625,12 @@
                     )
                 }
             });
+		}
+
+		function cerrarEvento(evento){
+
+			console.log(evento);
+
 		}
 
     </script>

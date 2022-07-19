@@ -308,12 +308,28 @@
         font-size: 12px;
         width: 715px;
     }
+
     /* FIRMAS DIGITALES */
     .bloque_firmas{
-        background-color:red;
         position: absolute;
-        margin-top: 200px;
-        float: right;
+        margin-top: 570px;
+        margin-left: 750px;
+        text-align: center;
+        font-size: 12px;
+    }
+    .espacio_firmas{
+        padding-top:15px;
+        padding-bottom:15px;
+    }
+    .firma_figital{
+        position: absolute;
+        margin-top: -50px;
+        width: 180px;
+    }
+    .firma_figital_secretario{
+        position: absolute;
+        margin-top: -40px;
+        width: 180px;
     }
 </style>
 <body>
@@ -1371,9 +1387,28 @@
                 </div>
                 
                 <div class="bloque_firmas">
-                    aqui las firmas
-                </div>
+                    <div class="firma_figital">
+                        @php
+                            $firmaJuez = $asignacion->juez->estado;
+                        @endphp
+                        <img src="{{ url("imagenesFirmaJuezSecre/$firmaJuez") }}" width="100%" alt="">
+                    </div>
 
+                    _____________________________<br>
+                            <b>JUEZ</b>
+
+                            <p class="espacio_firmas"></p>
+
+                    <div class="firma_figital_secretario">
+                        @php
+                            $firmaSecre = $asignacion->secretario->estado;
+                        @endphp
+                        <img src="{{ url("imagenesFirmaJuezSecre/$firmaSecre") }}" width="100%" alt="">
+                    </div>
+
+                    _____________________________<br>
+                            <b>AYUDANTE DE JUEZ</b>
+                </div>
             </div>
         @endforeach
     @endforeach

@@ -25,19 +25,12 @@ use Illuminate\Support\Facades\Route;
 
 // Route::get('/', 'UserController@listado');
 Route::get('/', 'PanelController@inicio');
-// Route::get('/', 'EjemplarController@listado');
-
-
-// Route::get('/', 'PanelController@inicio');
-// Route::get('/', 'PanelController@inicio')->name('inicio');
-// Route::get('/', 'home');
 
 Auth::routes();
 
 // PANEL DE CONTROL
 Route::get('/home', 'PanelController@inicio');
 
-// Route::get('/', 'PanelController@inicio');
 Route::get('panel/inicio', 'PanelController@inicio');
 
 // RED SOCIAL
@@ -71,7 +64,6 @@ Route::post('User/cambiaEstadoMenuPerfil', 'UserController@cambiaEstadoMenuPerfi
 Route::post('User/ajaxPermisosPerfil', 'UserController@ajaxPermisosPerfil');
 Route::post('User/guardaPermisoPerfil', 'UserController@guardaPermisoPerfil');
 
-
 //PROPIETARIOS
 Route::get('User/listadoPropietario', 'UserController@listadoPropietario');
 Route::get('User/formularioPropietario/{id}', 'UserController@formularioPropietario');
@@ -103,7 +95,6 @@ Route::get('Grupo/listadoGrupoRaza/{grupo_id}', 'GrupoController@listadoGrupoRaz
 Route::post('Grupo/agregarRaza', 'GrupoController@agregarRaza');
 Route::get('Grupo/eliminaGrupoRaza/{raza_id}/{grupo_id}', 'GrupoController@eliminaGrupoRaza');
 
-
 // EVENTOS
 Route::get('Evento/listado', 'EventoController@listado');
 Route::post('Evento/guarda', 'EventoController@guarda');
@@ -121,7 +112,7 @@ Route::post('Evento/ajaxBuscaCategoria', 'EventoController@ajaxBuscaCategoria');
 Route::get('Evento/generaBestingPdf/{evento}/{tipo}', 'EventoController@generaBestingPdf');
 Route::post('Evento/inscribirEjemplar', 'EventoController@inscribirEjemplar');
 Route::post('Evento/buscaExtranjero', 'EventoController@buscaExtranjero');
-
+Route::get('Evento/ranking/{evento_id}', 'EventoController@ranking');
 
 
 // PISTAS
@@ -160,7 +151,6 @@ Route::post('Criadero/ajaxBuscaCriaderoPropietario', 'CriaderoController@ajaxBus
 Route::post('Criadero/guardaCriaderoPropietario', 'CriaderoController@guardaCriaderoPropietario');
 Route::post('Criadero/guardaCriaderoNuevoPropietario', 'CriaderoController@guardaCriaderoNuevoPropietario');
 
-
 // EJEMPLARES
 Route::get('Ejemplar/formulario/{id}', 'EjemplarController@formulario');
 Route::post('Ejemplar/ajaxBuscaEjemplar', 'EjemplarController@ajaxBuscaEjemplar');
@@ -198,13 +188,11 @@ Route::get('Ejemplar/bitacora', 'EjemplarController@bitacora');
 Route::get('Ejemplar/listaCamadasPadres/{ejemplar_id}/{padre}', 'EjemplarController@listaCamadasPadres');
 Route::get('Ejemplar/generaExcel', 'EjemplarController@generaExcel');
 
-
 // ALQUILERES
 Route::get('Alquiler/listado', 'AlquilerController@listado');
 
 // MENUS
 Route::get('User/listado', 'UserController@listado');
-
 
 // REPORTES
 Route::get('Reporte/ejemplarporraza', 'ReporteController@ejemplarporRaza');
