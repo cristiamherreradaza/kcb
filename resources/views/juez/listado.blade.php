@@ -19,7 +19,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ url('Juez/guarda') }}" method="POST" id="formulario-juez" enctype="multipart/form-data" target="_target">
+                <form action="{{ url('Juez/guarda') }}" method="POST" id="formulario-juez" enctype="multipart/form-data">
                 	@csrf
                 	<div class="row">
                 		<div class="col-md-4">
@@ -59,10 +59,26 @@
                 			</div>
                 		</div>
 						<div class="col-md-6">
-							<p style="margin-top: 24px"></p>
-							<input type='file' id="imgInp"  class="form-control" name="imgInp"/>
-						</div>
+                			<div class="form-group">
+                			    <label for="exampleInputPassword1">Firma
+                			    <span class="text-danger">*</span></label>
+								<input type="file" class="form-control" id="firma_digital" name="firma_digital">
+                			</div>
+                		</div>
                 	</div>
+
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+                			    <label for="exampleInputPassword1">Foto del Juez
+                			    <span class="text-danger">*</span></label>
+								<input type='file' id="imgInp"  class="form-control" name="imgInp"/>
+                			</div>
+						</div>
+					</div>
+
+					<br>
+
 					<div class="row">
 						<div class="col-md-12">
 							<center>

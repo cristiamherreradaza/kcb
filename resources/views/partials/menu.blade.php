@@ -37,7 +37,6 @@
 				$menus = App\MenuUsers::where('user_id',$user_id)
 										->where('estado',$estado)	
 										->get();
-				// dd($menus->count());						
 			@endphp
 			@foreach ($menus as $m)
 			<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
@@ -50,12 +49,7 @@
 						</a>
 						@php
 							$menuPadre = $m->menu_id;
-							// echo $id;
-							// $menuPadre =$m->menu->id;
 							$menusHijos = App\Menu::where('padre',$menuPadre)->get();
-							// foreach($menusHijos as $mh){
-							// 	echo $mh->menuUser->estado."<br>";
-							// }
 						@endphp
 						<div class="menu-submenu">
 							<i class="menu-arrow"></i>
@@ -70,7 +64,6 @@
 										$estado = App\menuUsers::where('user_id',$user_id)
 															->where('menu_id',$mh->id)
 															->first();
-															// dd($estado);
 									@endphp
 									@if ($estado)
 										@if($estado->estado == "Visible")
@@ -90,9 +83,6 @@
 					@endif
 				@endif
 			</li>
-			{{-- @php
-				$contador++;
-			@endphp --}}
 			@endforeach
 
 			<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
@@ -138,6 +128,10 @@
 						</li>		 --}}
 					</ul>
 				</div>
+			</li>
+			<li class="menu-section bg-success-o-100 p-10">
+				<h4 class="menu-text text-center text-white">Kennel Club Boliviano administrador Club Canofilo de Bolivia S.R.L.</h4>
+				<i class="menu-icon ki ki-bold-more-hor icon-md"></i>
 			</li>
 
 			{{-- @if (Auth::user()->perfil_id == 7)

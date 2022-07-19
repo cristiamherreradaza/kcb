@@ -308,6 +308,13 @@
         font-size: 12px;
         width: 715px;
     }
+    /* FIRMAS DIGITALES */
+    .bloque_firmas{
+        background-color:red;
+        position: absolute;
+        margin-top: 200px;
+        float: right;
+    }
 </style>
 <body>
 
@@ -369,8 +376,6 @@
                     
                     // VETERANOS
                     $categoriaVeteranosMacho         = App\Juez::EjemplarCatalogoRaza(16, $er->raza_id, $evento_id);
-
-                    // dd($er->raza_id, $categoriaCachorroAbsolutoMacho, $categoriaJovenMacho, $categoriaJovenCampeonMacho, $categoriaIntermediaMacho, $categoriaAbiertaMacho, $categoriaCampeonMacho, $categoriaGrandesCampeonesMacho, $categoriaVeteranosMacho);
 
                 @endphp
 
@@ -1363,6 +1368,10 @@
                             </tr>
                         </tbody>
                     </table>
+                </div>
+                
+                <div class="bloque_firmas">
+                    aqui las firmas
                 </div>
 
             </div>

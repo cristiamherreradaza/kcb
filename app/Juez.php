@@ -244,8 +244,6 @@ class Juez extends Model
 
     public static function getGanadores($evento_id, $categoria, $tipo_campo, $num_pista){
 
-        // dd($evento_id, $categoria, $tipo_campo);
-
         $ganadores = Ganador::whereIn('categoria_id',$categoria)
                                 ->where($tipo_campo, "Si")
                                 ->where('evento_id', $evento_id)

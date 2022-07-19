@@ -75,6 +75,20 @@ class UserController extends Controller
         $persona->ci               = $request->input('ci');
         $persona->genero           = $request->input('genero');
         $persona->celulares        = $request->input('celulares');
+
+        // esto es para la firma digital de los secretarios
+        if($request->file('firma_digital')){
+            
+            // subiendo el archivo al servidor
+            $archivo    = $request->file('firma_digital');
+
+            $direcion   = "imagenesFirmaJuezSecre/";
+            $nombreArchivo = date('YmdHis').".".$archivo->getClientOriginalExtension();
+            $archivo->move($direcion,$nombreArchivo);
+
+            $persona->estado    = $nombreArchivo;
+
+        }
         
         $persona->save();
 

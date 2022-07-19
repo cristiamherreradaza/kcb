@@ -41,8 +41,6 @@ class JuezController extends Controller
 
     public function guarda(Request $request){
 
-        // dd($request->all());
-        
         $juez_id = $request->input('juez_id');
 
         if($juez_id == 0 ){
@@ -55,9 +53,6 @@ class JuezController extends Controller
         $juez->nombre                   = $request->input('nombre');
         $juez->email                    = $request->input('email');
         $juez->categoria_juez_id        = $request->input('categoria_juez_id');
-        // $juez->fecha_nacimiento         = $request->input('fecha_nacimiento');
-        // $juez->direccion                = $request->input('direccion');
-        // $juez->celulares                = $request->input('celulares');
         $juez->departamento             = $request->input('departamento');
 
         if($request->file('imgInp')){
@@ -70,6 +65,20 @@ class JuezController extends Controller
             $archivo->move($direcion,$nombreArchivo);
 
             $juez->foto             = $nombreArchivo;
+
+        }
+
+        // esto es para la firma digital de los secretarios
+        if($request->file('firma_digital')){
+            
+            // subiendo el archivo al servidor
+            $archivo    = $request->file('firma_digital');
+
+            $direcion   = "imagenesFirmaJuezSecre/";
+            $nombreArchivo = date('YmdHis').".".$archivo->getClientOriginalExtension();
+            $archivo->move($direcion,$nombreArchivo);
+
+            $juez->estado    = $nombreArchivo;
 
         }
 
@@ -2439,8 +2448,6 @@ class JuezController extends Controller
         $pdf    = PDF::loadView('juez.bestingPDF', compact('arrayTipos', 'juez'))->setPaper('letter', 'landscape');
 
         return $pdf->stream('Planilla_'.date('Y-m-d H:i:s').'.pdf');      
-
-        // return view('evento.generaBestingPdf')->with(compact('ganadores'));
 
     }
 }

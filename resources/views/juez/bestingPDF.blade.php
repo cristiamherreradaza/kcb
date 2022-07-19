@@ -156,7 +156,7 @@
     .firma_juez{
         text-align: center;
         margin-left: -600px;
-        margin-top: 95px;
+        margin-top: 140px;
         font-size: 12px;
     }
 
@@ -305,6 +305,20 @@
     #tabla-ponderacion{
         margin-left: 50px;
         margin-top: -5px;
+    }
+
+    /* FIRMAS DIGITALES */
+    #firma_figital{
+        position: absolute;
+        margin-top: 70px;
+        margin-left: 70px;
+        width: 255px;
+    }
+    #firma_figital_secretario{
+        position: absolute;
+        margin-top: -100px;
+        margin-left: 650px;
+        width: 255px;
     }
 </style>
 <body>
@@ -490,10 +504,24 @@
                 <div id="divHijo_quinto">{{ ($aT['quinto'])? $aT['quinto']->numero_prefijo : '' }}</div>
             </div>
 
+            <div id="firma_figital">
+                @php
+                    $firmaJuez = $juez->juez->estado;
+                @endphp
+                <img src="{{ url("imagenesFirmaJuezSecre/$firmaJuez") }}" width="100%" alt="">
+            </div>
+            
             <div class="firma_juez">
                 _____________________________<br>
                 NOMBRE Y FIRMA <br>
                 <b>JUEZ</b>
+            </div>
+
+            <div id="firma_figital_secretario">
+                @php
+                    $firmaSecre = $juez->secretario->estado;
+                @endphp
+                <img src="{{ url("imagenesFirmaJuezSecre/$firmaSecre") }}" width="100%" alt="">
             </div>
 
             <div class="firma_ayudante">

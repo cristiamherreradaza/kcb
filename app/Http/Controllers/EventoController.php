@@ -23,22 +23,10 @@ use App\Mail\MenssgeConfirmacionInscripcionEvento;
 
 class EventoController extends Controller
 {
-    public function __construct()
-    {
-        // $this->middleware('auth');
-        
-        // $this->middleware('auth', ['except' => ['index', 'guarda']]);
+    public function __construct(){
+
         $this->middleware('auth', ['except' => ['index', 'formulario','ajaxBuscaEjemplar','ajaxBuscaExtranjero','inscribirEvento', 'ajaxBuscaCategoria']]);
 
-        // $this->middleware('auth')->except('formulario');
-        // $this->middleware('auth', ['except' => [
-        //     'formulario',
-        //     'ajaxBuscaEjemplar',
-        //     'ajaxBuscaExtranjero'
-        //     ]
-        // ]);
-
-        // $this->middleware(['auth' => 'verified'])->except("page_name_1", "page_name_2", "page_name_3");
     }
     public function listado()
     {
@@ -53,7 +41,6 @@ class EventoController extends Controller
 
     public function guarda(Request $request)
     {
-        // dd($request->all());
         // preguntamos si tiene tipo id
         // para editar o crear un registro
         if($request->input('evento_id') == null){
@@ -352,26 +339,16 @@ class EventoController extends Controller
         $ejemplaresJovenes = EjemplarEvento::where("evento_id",$evento_id)
                                     ->whereIn("categoria_pista_id",[3,4,12,13])
                                     ->get();
-                                    // ->toSql();
-
-        // dd($ejemplaresJovenes);                                    
-
 
         $ejemplaresAdulto = EjemplarEvento::where("evento_id",$evento_id)
                                     ->whereIn("categoria_pista_id",[5,6,7,8,9,10,14,15,16,17,18,19,20])
                                     ->get();
-        // $ejemplaresJoveAdulto = EjemplarEvento::where("evento_id",$evento_id)
-        //                             ->whereIn("categoria_pista_id",[3,4,5,6,7,8,9,10,14,15])
-        //                             ->get();
-        // dd($ejemplaresJoveAdulto);                                    
 
-        // return view('evento.catalogo')->with(compact('ejemplares', 'evento','ejemplaresAbsolutos', 'ejemplaresJoveAdulto'));
         return view('evento.catalogo')->with(compact('ejemplares', 'evento','ejemplaresAbsolutos', 'ejemplaresJovenes', 'ejemplaresAdulto'));
     }
 
     public static function armaCatalogo($arrayGrupo, $evento_id, $grupo, $categoria){
-        // dd($arrayGrupo);
-        // dd($evento_id."<----->".$grupo."<----->".$categoria1."<----->".$categoria2);
+
         $g2machos = array();
         $g2hembras = array();
         // dd($arrayGrupo);
@@ -430,17 +407,15 @@ class EventoController extends Controller
                     ->groupBy('razas.id')
                     ->orderBy('razas.nombre','asc')
                     ->select('razas.*');
-                    // ->toSql();
-            // $razas = $razas1->toSql();
+
             $razas = $razas1->get();
-        // echo $razas;
-        // dd($razas);
+
         $swm = true;
         $swh = true;
 
         foreach ($razas as $r){
             echo '<h5 class="text-primary"> - '. $r->nombre. '</h5>';
-            // <h5 class="text-primary"> - {{ $r->nombre }}</h5>
+
             if (!empty($g2machos)){
                 $swm = true;
                 EventoController::catalogoDevuelveEjemplar($g2machos,$swm,$r,$evento_id);
@@ -1333,8 +1308,6 @@ class EventoController extends Controller
     }
 
     public function inscribirEjemplar(Request $request){
-
-        // dd($request->all());
 
         $ejemplar_id = $request->input('inscribe_ejemplar_id');
         $evento_id   = $request->input('inscribe_evento_id');

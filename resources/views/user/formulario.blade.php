@@ -26,7 +26,7 @@
     </div>
 
     <div class="card-body">
-        <form action="{{ url('User/guarda') }}" method="POST" id="formulario-usuarios">
+        <form action="{{ url('User/guarda') }}" method="POST" id="formulario-usuarios" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="col-md-4">
@@ -126,7 +126,7 @@
                     <div class="form-group">
                         <label for="exampleInputPassword1">Perfil
                             <span class="text-danger">*</span></label>
-                        <select name="perfil_id" id="perfil_id" class="form-control">
+                        <select name="perfil_id" id="perfil_id" class="form-control" onchange="verificaSecretario(this)">
                             @forelse ($perfiles as $p)
                                 @if ($user != null)
                                     @if ($user->perfil_id == $p->id)
@@ -144,21 +144,16 @@
                         </select>
                     </div>
                 </div>
-                {{-- <div class="col-md-2">
+            </div>
+            <div class="row" style="display: none;" id="block_firma">
+                <div class="col-md-12">
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Socio
-                            <span class="text-danger">*</span></label>
-                        <select name="socio" id="socio" class="form-control">
-                            @if ($user == null)
-                                <option value="Si">Si</option>
-                                <option value="No">No</option>
-                            @else
-                                <option value="Si" {{ ($user->socio=='Si')?'selected':'' }}>Si</option>
-                                <option value="No" {{ ($user->socio=='No')?'selected':'' }}>No</option>
-                            @endif
-                        </select>
+                        <label for="exampleInputPassword1">FIRMA DIGITAL
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input type="file" class="form-control" name="firma_digital" id="firma_digital">
                     </div>
-                </div> --}}
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-6"><button type="button" class="btn btn-success btn-block" onclick="crear()">GUARDAR</button></div>
@@ -211,6 +206,20 @@
 
     function volver(){
         window.location.href = "{{ url('User/listado')}}"
+    }
+
+    function verificaSecretario(select){
+
+        if(select.value ==  7){
+
+            $('#block_firma').show('toggle');
+
+        }else{
+
+            $('#block_firma').hide('toggle');
+
+        }
+
     }
 </script>
 @endsection
