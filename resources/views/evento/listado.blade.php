@@ -278,9 +278,6 @@
 									<button type="button" class="btn btn-icon btn-dark" onclick="generaNumeracion('{{ $even->id }}', '{{ $even->nombre }}')">
 										<i class="fas fa-monument"></i>
 									</button>
-									<a href="{{ url('Evento/ranking', [$even->id]) }}" class="btn btn-icon btn-white">
-										<i class="flaticon-map"></i>
-									</a>
 									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $even->id }}', '{{ $even->nombre }}')">
 										<i class="flaticon2-cross"></i>
 									</button>

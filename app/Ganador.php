@@ -19,6 +19,10 @@ class Ganador extends Model
         'ejemplar_id',
         'evento_id',
         'ejemplar_evento_id',
+        'raza_id',
+        'grupo_id',
+        'sexo',
+        'numero_prefijo',
         'calificacion',
         'lugar',
         'mejor_escogido',
@@ -37,5 +41,14 @@ class Ganador extends Model
     public function calificacion()
     {
         return $this->belongsTo('App\Calificacion', 'calificacion_id');
+    }
+
+    public function raza(){
+        return $this->belongsTo('App\Raza', 'raza_id');
+    }
+
+    public function ganadores(){
+        // return $this->hasMany('App\Ganador');
+        return $this->hasMany('App\Ganador');
     }
 }

@@ -352,7 +352,7 @@
                                                                 </div>
                                                                 <div class="col-md-1">
                                                                     <button class="btn btn-primary btn-icon btn-sm" type="button" onclick="modalGanadores('{{ $razas->raza->id }}', '{{ $evento->id }}', '{{ $razas->raza->nombre }}')"><i class="fa fa-list"></i></button>
-                                                                    <button class="btn btn-info btn-icon btn-sm" type="button" onclick="modalPlanilla('{{ $razas->raza->id }}', '{{ $razas->raza->nombre }}', '{{ $evento->id }}')"><i class="fa fa-list"></i></button>
+                                                                    {{-- <button class="btn btn-info btn-icon btn-sm" type="button" onclick="modalPlanilla('{{ $razas->raza->id }}', '{{ $razas->raza->nombre }}', '{{ $evento->id }}')"><i class="fa fa-list"></i></button> --}}
                                                                 </div>
                                                             </div>
                                                         </h5>

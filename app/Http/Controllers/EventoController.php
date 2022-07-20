@@ -1380,11 +1380,70 @@ class EventoController extends Controller
         }
     }
 
-    public function ranking(Request $request, $evento_id){
+    public function ranking(Request $request, $evento_id, $pista){
 
         $evento = Evento::find($evento_id);
 
-        return view('evento.ranking')->with(compact('evento'));
+        $razas = Evento::razasParticipantesEventoGanadores($evento_id, $pista);
+
+
+        // MANDARESMO LAS RAZAS LAS RAZAS
+        $ejemplares = array();
+
+        foreach($razas as $ra){
+
+            // PARA EL MEJOR CACHORRO
+            $mejorCachorro = Juez::mejorCategoria($evento_id, $pista, $ra->raza_id, 'mejor_cachorro');
+            
+            // PARA EL MEJOR CACHORRO SEXO OPUESTO
+            $mejorCachorroSexoOpuesto = Juez::mejorCategoria($evento_id, $pista, $ra->raza_id, 'sexo_opuesto_cachorro');
+
+            //PARA EL MEJOR JOVEN
+            $mejorJoven = Juez::mejorCategoria($evento_id, $pista, $ra->raza_id, 'mejor_joven');
+
+            //PARA EL MEJOR JOVEN SEXO OPUESTO
+            $mejorJovenSexoOpuesto = Juez::mejorCategoria($evento_id, $pista, $ra->raza_id, 'sexo_opuesto_joven');
+
+            
+            //PARA EL MEJOR RAZA
+            $mejorRaza = Juez::mejorCategoria($evento_id, $pista, $ra->raza_id, 'mejor_raza');
+            
+            //PARA EL MEJOR RAZA SEXO OPUESTO
+            $mejorRazaSexoOpuesto = Juez::mejorCategoria($evento_id, $pista, $ra->raza_id, 'sexo_opuesto_raza');
+
+
+            $raza = array(
+                'nombre'                    => $ra->raza->nombre,
+                'mejorCachoro'              => $mejorCachorro,
+                'mejorCachoroSexoOpuesto'   => $mejorCachorroSexoOpuesto,
+                
+                'mejorJoven'                => $mejorJoven,
+                'mejorJovenSexoOpuesto'     => $mejorJovenSexoOpuesto,
+                
+                'mejorRaza'                 => $mejorRaza,
+                'mejorRazaSexoOpuesto'      => $mejorRazaSexoOpuesto
+            );
+
+            array_push($ejemplares, $raza);
+        }
+
+
+        $primeroEspecial = Evento::ganadoresBesting($evento_id, $pista,'especiales',1);
+        $segundoEspecial = Evento::ganadoresBesting($evento_id, $pista,'especiales',2);
+        $tercerEspecial = Evento::ganadoresBesting($evento_id, $pista,'especiales',3);
+        $cuartoEspecial = Evento::ganadoresBesting($evento_id, $pista,'especiales',4);
+        $quintoEspecial = Evento::ganadoresBesting($evento_id, $pista,'especiales',5);
+        
+        $arrarEspeciales = array(
+            'primero' => $primeroEspecial,
+            'segundo' => $segundoEspecial,
+            'tercer' => $tercerEspecial,
+            'cuarto' => $cuartoEspecial,
+            'quinto' => $quintoEspecial
+        );
+
+
+        return view('evento.ranking')->with(compact('evento', 'razas', 'ejemplares', 'primeroEspecial', 'arrarEspeciales'));
 
     }
 

@@ -64,4 +64,28 @@ class Evento extends Model
         
     }
 
+    public static function razasParticipantesEventoGanadores($evento_id, $pistas){
+
+        $razas = Ganador::select('ganadores.raza_id')
+                        ->where('evento_id',$evento_id)
+                        ->where('pista',$pistas)
+                        ->groupBy('ganadores.raza_id')
+                        ->get();
+
+
+        return $razas; 
+    }
+
+    public static function ganadoresBesting($evento_id, $pista, $tipo, $lugar){
+
+        $ganadores = Besting::where('evento_id',$evento_id)
+                            ->where('pista', $pista)
+                            ->where('tipo', $tipo)
+                            ->where('lugar_finalista', $lugar)
+                            ->first();
+
+        return $ganadores;
+
+    }
+
 }
