@@ -179,7 +179,6 @@ class JuezController extends Controller
  
          return json_encode($data);
 
-        // return view('evento.ajaxListadoAsignacion')->with(compact('asiganaciones'));
     }
 
     public function calificacion(Request $request){
@@ -371,120 +370,6 @@ class JuezController extends Controller
 
         return view('juez.razas')->with(compact('razas','grupo_id','evento_id'));
     }
-
-    // esta funcion me devuelve en PDF
-    // public function planilla(Request $request, $evento_id, $grupo_id, $raza_id){
-
-    //     $raza = Raza::find($raza_id);
-
-    //     $cachorrosMacho = Calificacion::where('evento_id', $evento_id)
-    //                             ->where('sexo',"Macho")
-    //                             ->where('raza_id',$raza_id)
-    //                             ->WhereIn('categoria_id',[1,2,11])
-    //                             ->get();
-
-    //     $jovenMacho = Calificacion::where('evento_id', $evento_id)
-    //                         ->where('sexo',"Macho")
-    //                         ->where('raza_id',$raza_id)
-    //                         ->WhereIn('categoria_id',[3,4])
-    //                         ->get();
-
-    //     $jovenCampeonMacho = Calificacion::where('evento_id', $evento_id)
-    //                         ->where('sexo',"Macho")
-    //                         ->where('raza_id',$raza_id)
-    //                         ->WhereIn('categoria_id',[12,13])
-    //                         ->get();
-
-    //     $intermediaMacho = Calificacion::where('evento_id', $evento_id)
-    //                         ->where('sexo',"Macho")
-    //                         ->where('raza_id',$raza_id)
-    //                         ->WhereIn('categoria_id',[5,6])
-    //                         ->get();
-
-    //     $abiertaMacho = Calificacion::where('evento_id', $evento_id)
-    //                         ->where('sexo',"Macho")
-    //                         ->where('raza_id',$raza_id)
-    //                         ->WhereIn('categoria_id',[7,8])
-    //                         ->get();
-
-    //     $campeonesMacho = Calificacion::where('evento_id', $evento_id)
-    //                         ->where('sexo',"Macho")
-    //                         ->where('raza_id',$raza_id)
-    //                         ->WhereIn('categoria_id',[9,10])
-    //                         ->get();
-
-    //     $GrandesCampeonesMacho = Calificacion::where('evento_id', $evento_id)
-    //                         ->where('sexo',"Macho")
-    //                         ->where('raza_id',$raza_id)
-    //                         ->WhereIn('categoria_id',[14,15])
-    //                         ->get();
-
-    //     $veteranosMacho = Calificacion::where('evento_id', $evento_id)
-    //                         ->where('sexo',"Macho")
-    //                         ->where('raza_id',$raza_id)
-    //                         ->WhereIn('categoria_id',[16,17])
-    //                         ->get();
-
-    //     // hembras
-    //     $cachorrosHembra = Calificacion::where('evento_id', $evento_id)
-    //                             ->where('sexo',"Hembra")
-    //                             ->where('raza_id',$raza_id)
-    //                             ->WhereIn('categoria_id',[1,2,11])
-    //                             ->get();
-
-    //     $jovenHembra = Calificacion::where('evento_id', $evento_id)
-    //                         ->where('sexo',"Hembra")
-    //                         ->where('raza_id',$raza_id)
-    //                         ->WhereIn('categoria_id',[3,4])
-    //                         ->get();
-
-    //     $jovenCampeonHembra = Calificacion::where('evento_id', $evento_id)
-    //                         ->where('sexo',"Hembra")
-    //                         ->where('raza_id',$raza_id)
-    //                         ->WhereIn('categoria_id',[12,13])
-    //                         ->get();
-
-    //     $intermediaHembra = Calificacion::where('evento_id', $evento_id)
-    //                         ->where('sexo',"Hembra")
-    //                         ->where('raza_id',$raza_id)
-    //                         ->WhereIn('categoria_id',[5,6])
-    //                         ->get();
-
-    //     $abiertaHembra = Calificacion::where('evento_id', $evento_id)
-    //                         ->where('sexo',"Hembra")
-    //                         ->where('raza_id',$raza_id)
-    //                         ->WhereIn('categoria_id',[7,8])
-    //                         ->get();
-
-    //     $campeonesHembra = Calificacion::where('evento_id', $evento_id)
-    //                         ->where('sexo',"Hembra")
-    //                         ->where('raza_id',$raza_id)
-    //                         ->WhereIn('categoria_id',[9,10])
-    //                         ->get();
-
-    //     $GrandesCampeonesHembra = Calificacion::where('evento_id', $evento_id)
-    //                         ->where('sexo',"Hembra")
-    //                         ->where('raza_id',$raza_id)
-    //                         ->WhereIn('categoria_id',[14,15])
-    //                         ->get();
-
-    //     $veteranosHembra = Calificacion::where('evento_id', $evento_id)
-    //                         ->where('sexo',"Hembra")
-    //                         ->where('raza_id',$raza_id)
-    //                         ->WhereIn('categoria_id',[16,17])
-    //                         ->get();
-
-    //     $datoPlanilla = Calificacion::where('evento_id', $evento_id)
-    //                                 ->where('raza_id', $raza_id)
-    //                                 ->where('grupo_id', $grupo_id)
-    //                                 ->get();
-
-    //     // return view('juez.planilla')->with(compact('raza', 'cachorrosMacho', 'jovenMacho', 'jovenCampeonMacho', 'intermediaMacho', 'abiertaMacho', 'campeonesMacho', 'GrandesCampeonesMacho', 'veteranosMacho', 'cachorrosHembra', 'jovenHembra', 'jovenCampeonHembra', 'intermediaHembra', 'abiertaHembra', 'campeonesHembra', 'GrandesCampeonesHembra', 'veteranosHembra', 'datoPlanilla'));
-
-        // $pdf    = PDF::loadView('juez.planilla', compact('raza', 'cachorrosMacho', 'jovenMacho', 'jovenCampeonMacho', 'intermediaMacho', 'abiertaMacho', 'campeonesMacho', 'GrandesCampeonesMacho', 'veteranosMacho', 'cachorrosHembra', 'jovenHembra', 'jovenCampeonHembra', 'intermediaHembra', 'abiertaHembra', 'campeonesHembra', 'GrandesCampeonesHembra', 'veteranosHembra', 'datoPlanilla'))->setPaper('letter', 'landscape');
-
-    //     return $pdf->stream('Planilla_'.date('Y-m-d H:i:s').'.pdf');        
-    // }
 
     public function categorias(Request $request, $evento_id, $asignacion_id){
 
@@ -1906,6 +1791,13 @@ class JuezController extends Controller
 
             foreach ($finalistas as $key => $fi){
 
+                // PREGUNTAMOS POR LO SLUGARES
+                $primero = Evento::ganadoresBesting($evento_id, $num_pista, $tipo, 1);
+                $segundo = Evento::ganadoresBesting($evento_id, $num_pista, $tipo, 2);
+                $tercer  = Evento::ganadoresBesting($evento_id, $num_pista, $tipo, 3);
+                $cuarto  = Evento::ganadoresBesting($evento_id, $num_pista, $tipo, 4);
+                $quinto  = Evento::ganadoresBesting($evento_id, $num_pista, $tipo, 5);
+
                 if($fi->lugar_finalista != null)
                     $sw = true;
 
@@ -1913,17 +1805,33 @@ class JuezController extends Controller
                                     <input type="hidden" value="'.$fi->id.'" name="bestinguids[]">
                                     <h2 class="text-center">'.$fi->numero_prefijo.'</h2>
                                     <br>
-                                    <select name="posision_'.$key.'" id="calificacion_final_'.$fi->numero_prefijo.'" class="form-control" '.(($sw)? 'disabled' : '').'>
-                                        <option '.(($sw)? (($fi->lugar_finalista == 1)? 'selected' : '') : '').' value="1">Mejor</option>
-                                        <option '.(($sw)? (($fi->lugar_finalista == 2)? 'selected' : '') : '').' value="2">Segundo</option>
-                                        <option '.(($sw)? (($fi->lugar_finalista == 3)? 'selected' : '') : '').' value="3">Tercero</option>
-                                        <option '.(($sw)? (($fi->lugar_finalista == 4)? 'selected' : '') : '').' value="4">Cuarto</option>
-                                        <option '.(($sw)? (($fi->lugar_finalista == 5)? 'selected' : '') : '').' value="5">Quinto</option>
+                                    <select name="posision_'.$key.'" id="calificacion_final_'.$fi->numero_prefijo.'" class="form-control">
+                                        <option '.(($primero)? 'disabled' : '').' value="1">Mejor</option>
+                                        <option '.(($segundo)? 'disabled' : '').' value="2">Segundo</option>
+                                        <option '.(($tercer)? 'disabled' : '').' value="3">Tercero</option>
+                                        <option '.(($cuarto)? 'disabled' : '').' value="4">Cuarto</option>
+                                        <option '.(($quinto)? 'disabled' : '').' value="5">Quinto</option>
                                     </select>
                                     <small style="display: none;" class="text-warning" id="_calificacion_final_'.$fi->numero_prefijo.'">Calificacion repetida</small>
                                     <br>'.
                                     ((!$sw)? '<button class="btn btn-success btn-block" onclick="calificaFinal('.$key.', '.$fi->id.', '."'".$fi->numero_prefijo."'".')">CALIFICAR</button>' : '').'
                                 </td>';
+
+                // $tbody = $tbody.'<td class="text-primary">
+                //                     <input type="hidden" value="'.$fi->id.'" name="bestinguids[]">
+                //                     <h2 class="text-center">'.$fi->numero_prefijo.'</h2>
+                //                     <br>
+                //                     <select name="posision_'.$key.'" id="calificacion_final_'.$fi->numero_prefijo.'" class="form-control" '.(($sw)? 'disabled' : '').'>
+                //                         <option '.(($sw)? (($fi->lugar_finalista == 1)? 'selected' : '') : '').' value="1">Mejor</option>
+                //                         <option '.(($sw)? (($fi->lugar_finalista == 2)? 'selected' : '') : '').' value="2">Segundo</option>
+                //                         <option '.(($sw)? (($fi->lugar_finalista == 3)? 'selected' : '') : '').' value="3">Tercero</option>
+                //                         <option '.(($sw)? (($fi->lugar_finalista == 4)? 'selected' : '') : '').' value="4">Cuarto</option>
+                //                         <option '.(($sw)? (($fi->lugar_finalista == 5)? 'selected' : '') : '').' value="5">Quinto</option>
+                //                     </select>
+                //                     <small style="display: none;" class="text-warning" id="_calificacion_final_'.$fi->numero_prefijo.'">Calificacion repetida</small>
+                //                     <br>'.
+                //                     ((!$sw)? '<button class="btn btn-success btn-block" onclick="calificaFinal('.$key.', '.$fi->id.', '."'".$fi->numero_prefijo."'".')">CALIFICAR</button>' : '').'
+                //                 </td>';
             }
 
             $tableFinalistas = '
@@ -2083,7 +1991,6 @@ class JuezController extends Controller
             $ganador->save();
 
             // ********************* MANDAMOS A LOS GANADORES ********************
-
             $finalistas = Juez::finalistasBesting($ganador->evento_id, $ganador->tipo, $ganador->pista);
 
             $tbody = '';

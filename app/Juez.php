@@ -299,7 +299,11 @@ class Juez extends Model
                                 ->where('tipo', $tipo)
                                 ->where('mejor_grupo', 'Si')
                                 ->where('pista', $num_pista)
+                                // ->whereNull('lugar_finalista')
                                 ->get();
+        //                         ->toSql();
+
+        // dd($finalistas,$evento_id, $tipo, $num_pista);
 
         return $finalistas;
 
@@ -312,7 +316,7 @@ class Juez extends Model
                             ->where('tipo',$tipo)
                             ->where('pista',$num_pista)
                             ->where('mejor_grupo',"Si")
-                            ->whereNotNull('lugar_finalista')
+                            // ->whereNotNull('lugar_finalista')
                             ->get();
 
 
