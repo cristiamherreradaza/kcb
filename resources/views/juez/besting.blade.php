@@ -184,7 +184,7 @@
             @foreach ( $array_grupo as $ag)
                 <th>
                     @if (!App\Juez::recuperaGanadorBesting($ag[0]->ejemplar_evento_id, $tipo, $ag[0]->grupo_id, $evento_id, $num_pista))
-                        <button onclick="mejorGrupo('{{ $ag[0]->grupo_id }}')" type="button" class="btn btn-success btn-block"> Finalizar </button>
+                        <button id="btn_grupo_{{ $ag[0]->grupo_id }}" onclick="mejorGrupo('{{ $ag[0]->grupo_id }}')" type="button" class="btn btn-success btn-block"> Finalizar </button>
                     @endif
                 </th>
             @endforeach
@@ -206,16 +206,8 @@
                         @if($bestingMejorGrupoRescatado != null)
                             <div>
                                 <div class="form-group">
-                                    <label>ELIJA AL QUE INGRESARA</label>
-                                    <div class="radio-inline">
-                                        <label class="radio">
-                                            @if(count($finalistas) == 0)
-                                                <input type="radio" name="radios_{{ $ag[0]->grupo_id }}" onchange="cambiaMejor('{{ $bestingMejorGrupoRescatado->id }}', '{{ ($bestingMejorRecerva)? $bestingMejorRecerva->id : 0 }}', '{{ $bestingMejorGrupoRescatado->numero_prefijo }}')"/>
-                                                <span></span>
-                                            @endif
-                                            Mejor de grupo => <small style="font-size: 15px" class="text-info">{{ $bestingMejorGrupoRescatado->numero_prefijo }}</small>
-                                            </label>
-                                    </div>
+                                    <label>MEJOR DE GRUPO</label><br>
+                                    Mejor de grupo => <small style="font-size: 15px" class="text-info">{{ $bestingMejorGrupoRescatado->numero_prefijo }}</small>
                                 </div>
                             </div>
                         @endif
@@ -223,17 +215,8 @@
                         @if($bestingMejorRecerva != null)
                             <div>
                                 <div class="form-group">
-                                    <div class="radio-inline">
-                                        <label class="radio">
-
-                                            @if (count($finalistas) == 0)
-                                                <input type="radio" name="radios_{{ $ag[0]->grupo_id }}"  onchange="cambiaMejor( '{{ $bestingMejorRecerva->id }}' , '{{ ($bestingMejorGrupoRescatado)? $bestingMejorGrupoRescatado->id : 0 }}', '{{ $bestingMejorRecerva->numero_prefijo }}')"/>
-                                                <span></span>
-                                            @endif
-
-                                            Reserva de grupo => <small style="font-size: 15px" class="text-info">{{ $bestingMejorRecerva->numero_prefijo }}</small>
-                                            </label>
-                                    </div>
+                                    <label>RECERVA DE GRUPO</label><br>
+                                    Reserva de grupo => <small style="font-size: 15px" class="text-info">{{ $bestingMejorRecerva->numero_prefijo }}</small>
                                 </div>
                             </div>
                         @endif

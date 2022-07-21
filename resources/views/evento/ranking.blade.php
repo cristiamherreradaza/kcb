@@ -238,6 +238,31 @@
                                 </div>
                                 <div class="col-md-6">
                                     <h1>CACHORROS ABSOLUTOS</h1>
+                                    <p id="primeroEspecial" class="especiales">
+                                        @if ($arrarAbsoluto['primero'])
+                                            {{ $arrarAbsoluto['primero']->numero_prefijo }}
+                                        @endif
+                                    </p>
+                                    <p id="segundoEspecial" class="especiales">
+                                        @if ($arrarAbsoluto['segundo'])
+                                            {{ $arrarAbsoluto['segundo']->numero_prefijo }}
+                                        @endif
+                                    </p>
+                                    <p id="terceroEspecial" class="especiales">
+                                        @if ($arrarAbsoluto['tercer'])
+                                            {{ $arrarAbsoluto['tercer']->numero_prefijo }}
+                                        @endif
+                                    </p>
+                                    <p id="cuartoEspecial" class="especiales">
+                                        @if ($arrarAbsoluto['cuarto'])
+                                            {{ $arrarAbsoluto['cuarto']->numero_prefijo }}
+                                        @endif
+                                    </p>
+                                    <p id="quintooEspecial" class="especiales">
+                                        @if ($arrarAbsoluto['quinto'])
+                                            {{ $arrarAbsoluto['quinto']->numero_prefijo }}
+                                        @endif
+                                    </p>
                                     <img src="{{ url('img/podioKennel.jpg') }}" alt="" width="100%">
                                 </div>
                             </div>
@@ -245,10 +270,60 @@
                             <div class="row text-center">
                                 <div class="col-md-6">
                                     <h1>JOVENES</h1>
+                                    <p id="primeroEspecial" class="especiales">
+                                        @if ($arrarJoven['primero'])
+                                            {{ $arrarJoven['primero']->numero_prefijo }}
+                                        @endif
+                                    </p>
+                                    <p id="segundoEspecial" class="especiales">
+                                        @if ($arrarJoven['segundo'])
+                                            {{ $arrarJoven['segundo']->numero_prefijo }}
+                                        @endif
+                                    </p>
+                                    <p id="terceroEspecial" class="especiales">
+                                        @if ($arrarJoven['tercer'])
+                                            {{ $arrarJoven['tercer']->numero_prefijo }}
+                                        @endif
+                                    </p>
+                                    <p id="cuartoEspecial" class="especiales">
+                                        @if ($arrarJoven['cuarto'])
+                                            {{ $arrarJoven['cuarto']->numero_prefijo }}
+                                        @endif
+                                    </p>
+                                    <p id="quintooEspecial" class="especiales">
+                                        @if ($arrarJoven['quinto'])
+                                            {{ $arrarJoven['quinto']->numero_prefijo }}
+                                        @endif
+                                    </p>
                                     <img src="{{ url('img/podioKennel.jpg') }}" alt="" width="100%">
                                 </div>
                                 <div class="col-md-6">
                                     <h1>ADULTOS</h1>
+                                    <p id="primeroEspecial" class="especiales">
+                                        @if ($arrarAdulto['primero'])
+                                            {{ $arrarAdulto['primero']->numero_prefijo }}
+                                        @endif
+                                    </p>
+                                    <p id="segundoEspecial" class="especiales">
+                                        @if ($arrarAdulto['segundo'])
+                                            {{ $arrarAdulto['segundo']->numero_prefijo }}
+                                        @endif
+                                    </p>
+                                    <p id="terceroEspecial" class="especiales">
+                                        @if ($arrarAdulto['tercer'])
+                                            {{ $arrarAdulto['tercer']->numero_prefijo }}
+                                        @endif
+                                    </p>
+                                    <p id="cuartoEspecial" class="especiales">
+                                        @if ($arrarAdulto['cuarto'])
+                                            {{ $arrarAdulto['cuarto']->numero_prefijo }}
+                                        @endif
+                                    </p>
+                                    <p id="quintooEspecial" class="especiales">
+                                        @if ($arrarAdulto['quinto'])
+                                            {{ $arrarAdulto['quinto']->numero_prefijo }}
+                                        @endif
+                                    </p>
                                     <img src="{{ url('img/podioKennel.jpg') }}" alt="" width="100%">
                                 </div>
                             </div>

@@ -1138,36 +1138,35 @@
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Si, estoy seguro!'
             }).then((result) => {
-                
-                // console.log(tipo);
-                // console.log("-------------------------------");
-                // console.log($('#select_'+tipo+'_mejor').val());
+                if (result.isConfirmed) {
 
-                $.ajax({
-                    url: "{{ url('Juez/mejorRazaFinPlanilla') }}",
-                    data: {
-                        vencedor : $('#select_'+tipo+'_mejor').val(),
-                        tipo : tipo
-                    },
-                    type: 'POST',
-                    dataType: 'json',
-                    success: function(data){
+                    $.ajax({
+                        url: "{{ url('Juez/mejorRazaFinPlanilla') }}",
+                        data: {
+                            vencedor : $('#select_'+tipo+'_mejor').val(),
+                            tipo : tipo
+                        },
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function(data){
 
-                        console.log(data)
+                            console.log(data)
 
-                        if(data.status === "success"){
+                            if(data.status === "success"){
 
-                            $('#select_ecoge_mejor_raza').html(data.selectMejoresRaza);
+                                $('#select_ecoge_mejor_raza').html(data.selectMejoresRaza);
 
-                            $('#bloque_mejor_'+data.tipo+'_escogido').toggle('show');
-                            $('#bloque_mejor_'+data.tipo+'_escogido').html(data.mejor);
+                                $('#bloque_mejor_'+data.tipo+'_escogido').toggle('show');
+                                $('#bloque_mejor_'+data.tipo+'_escogido').html(data.mejor);
 
-                        }else{
+                            }else{
+
+                            }
 
                         }
+                    });
+                }   
 
-                    }
-                });
             })
 
 
@@ -1204,85 +1203,100 @@
 
         function mejorGrupo(grupo, tipo){
 
-            // eso es para las calificacione
-            let calificaciones = [];
-            var elemet = document.getElementsByName('grupo_'+grupo+'_[]');
-            for (let index = 0; index < elemet.length; index++) {calificaciones.push(elemet[index].value);}
+            Swal.fire({
+                title: 'Esta seguro de realizar la calificacion de grupo?',
+                text: "No podra revertir eso!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, estoy seguro!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                
+                    // eso es para las calificacione
+                    let calificaciones = [];
+                    var elemet = document.getElementsByName('grupo_'+grupo+'_[]');
+                    for (let index = 0; index < elemet.length; index++) {calificaciones.push(elemet[index].value);}
 
-            // eso es para las numeros
-            let numeros_prefijos = [];
-            var elemet = document.getElementsByName('numeros_'+grupo+'_[]');
-            for (let index = 0; index < elemet.length; index++) {numeros_prefijos.push(elemet[index].value);}
+                    // eso es para las numeros
+                    let numeros_prefijos = [];
+                    var elemet = document.getElementsByName('numeros_'+grupo+'_[]');
+                    for (let index = 0; index < elemet.length; index++) {numeros_prefijos.push(elemet[index].value);}
 
-            // eso es para las categorias pistas
-            let categorias_pistas = [];
-            var elemet = document.getElementsByName('categoria_pista_ids_'+grupo+'_[]');
-            for (let index = 0; index < elemet.length; index++) {categorias_pistas.push(elemet[index].value);}
-            
-            // eso es para las ejemplares eventos
-            let ejemplares_eventos = [];
-            var elemet = document.getElementsByName('ejemplar_eventos_ids_'+grupo+'_[]');
-            for (let index = 0; index < elemet.length; index++) {ejemplares_eventos.push(elemet[index].value);}
+                    // eso es para las categorias pistas
+                    let categorias_pistas = [];
+                    var elemet = document.getElementsByName('categoria_pista_ids_'+grupo+'_[]');
+                    for (let index = 0; index < elemet.length; index++) {categorias_pistas.push(elemet[index].value);}
+                    
+                    // eso es para las ejemplares eventos
+                    let ejemplares_eventos = [];
+                    var elemet = document.getElementsByName('ejemplar_eventos_ids_'+grupo+'_[]');
+                    for (let index = 0; index < elemet.length; index++) {ejemplares_eventos.push(elemet[index].value);}
 
-            // eso es para las ejemplares
-            let ejempleres_id = [];
-            var elemet = document.getElementsByName('ejemplares_ids_'+grupo+'_[]');
-            for (let index = 0; index < elemet.length; index++) {ejempleres_id.push(elemet[index].value);}
+                    // eso es para las ejemplares
+                    let ejempleres_id = [];
+                    var elemet = document.getElementsByName('ejemplares_ids_'+grupo+'_[]');
+                    for (let index = 0; index < elemet.length; index++) {ejempleres_id.push(elemet[index].value);}
 
-            // eso es para las ganadores id
-            let ganadores_id = [];
-            var elemet = document.getElementsByName('ganador_ids_'+grupo+'_[]');
-            for (let index = 0; index < elemet.length; index++) {ganadores_id.push(elemet[index].value);}
+                    // eso es para las ganadores id
+                    let ganadores_id = [];
+                    var elemet = document.getElementsByName('ganador_ids_'+grupo+'_[]');
+                    for (let index = 0; index < elemet.length; index++) {ganadores_id.push(elemet[index].value);}
 
-            // eso es para las razas
-            let razas_id = [];
-            var elemet = document.getElementsByName('raza_ids_'+grupo+'_[]');
-            for (let index = 0; index < elemet.length; index++) {razas_id.push(elemet[index].value);}
+                    // eso es para las razas
+                    let razas_id = [];
+                    var elemet = document.getElementsByName('raza_ids_'+grupo+'_[]');
+                    for (let index = 0; index < elemet.length; index++) {razas_id.push(elemet[index].value);}
 
-            var tipo = $('#tipo_besting').val();
+                    var tipo = $('#tipo_besting').val();
 
-            $.ajax({
-                url: "{{ url('Juez/calificabesting') }}",
-                data: {
-                    calificaciones      : calificaciones,
-                    numeros             : numeros_prefijos,
-                    categorias_pistas   : categorias_pistas,
-                    grupo               : grupo,
-                    ejempleres_id       : ejempleres_id,
-                    ganadores_id        : ganadores_id,
-                    evento              : {{ $evento->id }},
-                    ejemplares_eventos  : ejemplares_eventos,
-                    razas_ids           : razas_id,
-                    tipo                : tipo,
-                    pista               : {{ $asignacion->num_pista }}
-                },
-                type: 'POST',
-                dataType: 'json',
-                success: function(data){
+                    $.ajax({
+                        url: "{{ url('Juez/calificabesting') }}",
+                        data: {
+                            calificaciones      : calificaciones,
+                            numeros             : numeros_prefijos,
+                            categorias_pistas   : categorias_pistas,
+                            grupo               : grupo,
+                            ejempleres_id       : ejempleres_id,
+                            ganadores_id        : ganadores_id,
+                            evento              : {{ $evento->id }},
+                            ejemplares_eventos  : ejemplares_eventos,
+                            razas_ids           : razas_id,
+                            tipo                : tipo,
+                            pista               : {{ $asignacion->num_pista }}
+                        },
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function(data){
 
-                    console.log(data);
+                            if(data.status === "success"){
 
-                    if(data.status === "success"){
+                                if(data.mejor_grupo != null){
+                                    // $('#mejor_grupo_'+data.grupo+'_numero').text(data.mejor_grupo);
+                                    $('#mejor_grupo_'+data.grupo+'_numero').html(data.finalistaMejor);
+                                    $('#mejor_grupo_'+data.grupo).toggle('show');
+                                }
 
-                        if(data.mejor_grupo != null){
-                            // $('#mejor_grupo_'+data.grupo+'_numero').text(data.mejor_grupo);
-                            $('#mejor_grupo_'+data.grupo+'_numero').html(data.finalistaMejor);
-                            $('#mejor_grupo_'+data.grupo).toggle('show');
+                                if(data.reserva_grupo != null){
+                                    // $('#reserva_grupo_'+data.grupo+'_numero').text(data.reserva_grupo);
+                                    $('#reserva_grupo_'+data.grupo+'_numero').html(data.finalistaMejorRecerva);
+                                    $('#reserva_grupo_'+data.grupo).toggle('show');
+                                }
+
+                                $('#besting_finalistas').html(data.finalistas);
+
+                                // BLOQUEAMOS LOS BOTONES
+                                $('#btn_grupo_'+grupo).prop('disabled', true);
+
+
+                            }
+
                         }
-
-                        if(data.reserva_grupo != null){
-                            // $('#reserva_grupo_'+data.grupo+'_numero').text(data.reserva_grupo);
-                            $('#reserva_grupo_'+data.grupo+'_numero').html(data.finalistaMejorRecerva);
-                            $('#reserva_grupo_'+data.grupo).toggle('show');
-                        }
-
-                        $('#besting_finalistas').html(data.finalistas);
-
-                    }
+                    });
 
                 }
-            });
-
+            })
         }
 
         function calificaFinal(select, ganador, numero){
@@ -1292,21 +1306,15 @@
             $.ajax({
                 url: "{{ url('Juez/calificaFinales') }}",
                 data: {
-
                     ganador         : ganador,
                     numero          :numero,
                     calificacion    : calificacion
-
-                    // calificaciones : array,
-                    // bestingid :arrayBesting
                 },
                 type: 'POST',
                 dataType: 'json',
                 success: function(data){
 
                     if(data.status === "success"){
-
-                        console.log(data);
 
                         $('#besting_finalistas').html(data.finalistas);
 
@@ -1321,65 +1329,6 @@
                 }
             });
 
-
-
-            // var select = document.getElementsByName('posision[]');
-
-            // let array = [];
-            // let arrayRepetidos = [];
-            // var sw = true;
-
-            // for (let index = 0; index < select.length; index++) {
-
-            //     $('#_'+select[index].id).css('display', 'none');
-
-
-            //     if(!array.includes(select[index].value)){
-            //         array.push(select[index].value);
-            //     }else{
-            //         sw = false;
-            //         arrayRepetidos.push(select[index].id);
-            //     }
-                
-            // }
-
-            // if(sw){
-
-            //     var bestingid = document.getElementsByName('bestinguids[]');
-
-            //     let arrayBesting = [];
-
-            //     for (let index = 0; index < bestingid.length; index++) {arrayBesting.push(bestingid[index].value);}
-
-            //     $.ajax({
-            //         url: "{{ url('Juez/calificaFinales') }}",
-            //         data: {
-            //             calificaciones : array,
-            //             bestingid :arrayBesting
-            //         },
-            //         type: 'POST',
-            //         dataType: 'json',
-            //         success: function(data){
-
-            //             if(data.status === "success"){
-
-            //                 Swal.fire({
-            //                     icon: 'success',
-            //                     title: 'Correcto!',
-            //                     text: 'Se Finalizo el grupo!',
-            //                 })
-
-            //             }
-
-            //         }
-            //     });
-            // }else{
-            //     $(arrayRepetidos).each(function(index, value){
-            //         $('#_'+value).css('display', 'block');
-            //     });
-            // }
-
-            
         }
 
         function cambiaMejor(mejor, recerva, numeroMejor){

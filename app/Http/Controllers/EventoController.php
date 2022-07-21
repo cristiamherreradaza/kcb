@@ -1428,6 +1428,7 @@ class EventoController extends Controller
         }
 
 
+        // BUSCAMOS PARA LOS ESPECIALES
         $primeroEspecial = Evento::ganadoresBesting($evento_id, $pista,'especiales',1);
         $segundoEspecial = Evento::ganadoresBesting($evento_id, $pista,'especiales',2);
         $tercerEspecial = Evento::ganadoresBesting($evento_id, $pista,'especiales',3);
@@ -1441,9 +1442,53 @@ class EventoController extends Controller
             'cuarto' => $cuartoEspecial,
             'quinto' => $quintoEspecial
         );
+        
+        // PARA LOS ABSOLUTOS
+        $primeroAbsoluto = Evento::ganadoresBesting($evento_id, $pista,'absolutos',1);
+        $segundoAbsoluto = Evento::ganadoresBesting($evento_id, $pista,'absolutos',2);
+        $tercerAbsoluto = Evento::ganadoresBesting($evento_id, $pista,'absolutos',3);
+        $cuartoAbsoluto = Evento::ganadoresBesting($evento_id, $pista,'absolutos',4);
+        $quintoAbsoluto = Evento::ganadoresBesting($evento_id, $pista,'absolutos',5);
+        
+        $arrarAbsoluto = array(
+            'primero' => $primeroAbsoluto,
+            'segundo' => $segundoAbsoluto,
+            'tercer' => $tercerAbsoluto,
+            'cuarto' => $cuartoAbsoluto,
+            'quinto' => $quintoAbsoluto
+        );
 
+        // PARA LOS ABSOLUTOS
+        $primeroJoven = Evento::ganadoresBesting($evento_id, $pista,'jovenes',1);
+        $segundoJoven = Evento::ganadoresBesting($evento_id, $pista,'jovenes',2);
+        $tercerJoven = Evento::ganadoresBesting($evento_id, $pista,'jovenes',3);
+        $cuartoJoven = Evento::ganadoresBesting($evento_id, $pista,'jovenes',4);
+        $quintoJoven = Evento::ganadoresBesting($evento_id, $pista,'jovenes',5);
+        
+        $arrarJoven = array(
+            'primero' => $primeroJoven,
+            'segundo' => $segundoJoven,
+            'tercer' => $tercerJoven,
+            'cuarto' => $cuartoJoven,
+            'quinto' => $quintoJoven
+        );
 
-        return view('evento.ranking')->with(compact('evento', 'razas', 'ejemplares', 'primeroEspecial', 'arrarEspeciales'));
+        // PARA LOS ADULTOS
+        $primeroAdulto = Evento::ganadoresBesting($evento_id, $pista,'adultos',1);
+        $segundoAdulto = Evento::ganadoresBesting($evento_id, $pista,'adultos',2);
+        $tercerAdulto = Evento::ganadoresBesting($evento_id, $pista,'adultos',3);
+        $cuartoAdulto = Evento::ganadoresBesting($evento_id, $pista,'adultos',4);
+        $quintoAdulto = Evento::ganadoresBesting($evento_id, $pista,'adultos',5);
+        
+        $arrarAdulto = array(
+            'primero' => $primeroAdulto,
+            'segundo' => $segundoAdulto,
+            'tercer' => $tercerAdulto,
+            'cuarto' => $cuartoAdulto,
+            'quinto' => $quintoAdulto
+        );
+        
+        return view('evento.ranking')->with(compact('evento', 'razas', 'ejemplares', 'primeroEspecial', 'arrarEspeciales', 'arrarAbsoluto', 'arrarJoven', 'arrarAdulto'));
 
     }
 
