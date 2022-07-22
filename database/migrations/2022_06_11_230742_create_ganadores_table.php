@@ -48,6 +48,7 @@ class CreateGanadoresTable extends Migration
             $table->string('sexo_opuesto_joven',10)->nullable();
             $table->string('mejor_raza',10)->nullable();
             $table->string('sexo_opuesto_raza',10)->nullable();
+            $table->string('certificacionCACP',3)->nullable();
             $table->string('pista',3)->nullable();
             $table->string('estado')->nullable();
             $table->datetime('deleted_at')->nullable();

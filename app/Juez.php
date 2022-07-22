@@ -44,8 +44,7 @@ class Juez extends Model
     intermdias abiertas campeones grandes campeones en un solo blouqe
 
     ojo que ahora solo funciona con especiales
-
-     */
+    */
     public static function ejemplaresCategoria($categoria, $evento_id, $grupo){
 
         if($categoria == "Especiales"){
@@ -295,15 +294,28 @@ class Juez extends Model
 
     public static function finalistasBesting($evento_id, $tipo, $num_pista){
 
-        $finalistas = Besting::where('evento_id',$evento_id)
-                                ->where('tipo', $tipo)
-                                ->where('mejor_grupo', 'Si')
-                                ->where('pista', $num_pista)
-                                // ->whereNull('lugar_finalista')
-                                ->get();
-        //                         ->toSql();
+        // $finalistas = Besting::where('evento_id',$evento_id)
+        //                         ->where('tipo', $tipo)
+        //                         ->where('mejor_grupo', 'Si')
+        //                         ->where('pista', $num_pista)
+        //                         ->get();
 
-        // dd($finalistas,$evento_id, $tipo, $num_pista);
+        $finalistas = Besting::select('*')
+                                ->where('tipo',$tipo)
+                                ->where('pista',$num_pista)
+                                ->where('evento_id',$evento_id)
+                                ->whereNull('lugar_finalista')
+                                ->whereIn('lugar', function($query) use ($tipo, $evento_id, $num_pista){
+                                    $query->selectRaw('min(lugar)')
+                                          ->from('bestings')
+                                          ->where('tipo',$tipo)
+                                          ->where('pista',$num_pista)
+                                          ->where('evento_id',$evento_id)
+                                          ->whereNull('lugar_finalista')
+                                          ->groupBy('bestings.grupo_id')
+                                          ->get();
+                                })
+                                ->get();
 
         return $finalistas;
 
@@ -461,4 +473,18 @@ class Juez extends Model
         return $mejor;
 
     }
+
+    public static function getCertificacionExtranjero($evento_id, $num_pista, $raza_id, $tipoCertificacion, $sexo){
+
+        $certificado = Ganador::where('evento_id', $evento_id)
+                             ->where('pista', $num_pista)
+                             ->where('raza_id', $raza_id)
+                             ->where($tipoCertificacion, "Si")
+                             ->where('sexo', $sexo)
+                             ->first();
+
+        return $certificado;
+
+    }
 }
+

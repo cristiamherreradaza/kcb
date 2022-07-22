@@ -35,7 +35,7 @@
 
     .espacioPadingVacio{
 
-        padding:10px
+        padding:8px
 
     }
     .centreado{
@@ -318,8 +318,9 @@
         position: absolute;
         margin-top: -100px;
         margin-left: 650px;
-        width: 255px;
+        width: 240px;
     }
+
 </style>
 <body>
     {{-- @dd($arrayTipos) --}}
@@ -402,7 +403,7 @@
                 </tbody>
             </table>
 
-            <br>
+            <p style="margin-top: 0px;"></p>
 
             <div id="mejores_grupo">
                 <table class="tabla_planilla">

@@ -1372,6 +1372,65 @@
             })
         }
 
+        function agregaCertificado(certificado, ganador){
+
+            Swal.fire({
+                title: 'Esta seguro de agregar la certificacion?',
+                text: "No podra revertir eso!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, estoy seguro!'
+            }).then((result) => {
+
+                if(certificado == 1)
+                    var certif = 'certificacionCACPan_';
+                else
+                    var certif = 'certificacionCACPan2_';
+
+                if( $('#'+certif+ganador).prop('checked') )
+                    var sw = true;
+                else
+                    var sw = false;
+
+
+                if (result.isConfirmed) {
+                    
+                    $.ajax({
+                        url: "{{ url('Juez/certificacionExtrangero') }}",
+                        data: {
+                            tipoCertificacion : certificado,
+                            ganador           : ganador
+                        },
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function(data){
+
+                            console.log(data);
+
+                            if(data.status === "success"){
+
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Correcto!',
+                                    text: 'Se cambio  con exito!',
+                                })
+
+                            }
+                            
+                        }
+                    });
+
+                }else{
+                    if(sw)
+                        $('#'+certif+ganador).prop("checked", false);
+                    else
+                        $('#'+certif+ganador).prop("checked", true);
+                }
+            })
+        }
+
     </script>
    
 @endsection

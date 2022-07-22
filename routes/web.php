@@ -230,6 +230,8 @@ Route::post('Juez/calificaFinales', 'JuezController@calificaFinales');
 Route::post('Juez/cambiaMejorRecerva', 'JuezController@cambiaMejorRecerva');
 Route::get('Juez/planillaPDF/{evento_id}/{pista}', 'JuezController@planillaPDF');
 Route::get('Juez/bestingPDF/{evento_id}/{pista}', 'JuezController@bestingPDF');
+Route::post('Juez/certificacionExtrangero', 'JuezController@certificacionExtrangero');
+
 
 
 // ---------- MIGRACIONES ----------

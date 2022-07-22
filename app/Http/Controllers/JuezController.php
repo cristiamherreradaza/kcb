@@ -1318,7 +1318,7 @@ class JuezController extends Controller
                                 </div>
                                 <div class="col-md-6">
                                     <div class="row">
-                                        <div class="col-md-8">
+                                        <div class="col-md-12">
                                             <div class="row">
                                                 <div class="col-md-3">
                                                     <button type="button" onclick="mejorVencedores('."'macho'".')" class="btn btn-icon btn-success" '.(($sw)? 'disabled' : '').'><i class="fa fa-align-center" aria-hidden="true"></i></button>
@@ -1333,8 +1333,6 @@ class JuezController extends Controller
                                                     '</div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-4">
                                         </div>
                                     </div>
                                 </div>
@@ -1435,7 +1433,7 @@ class JuezController extends Controller
                                 </div>
                                 <div class="col-md-6">
                                     <div class="row">
-                                        <div class="col-md-8">
+                                        <div class="col-md-12">
                                             <div class="row">
                                                 <div class="col-md-3">
                                                     <button type="button" onclick="mejorVencedores('."'hembra'".')" class="btn btn-icon" style="background: #F94EE4;" '.(($sw)? 'disabled' : '').'><i class="fa fa-align-center text-white" aria-hidden="true"></i></button>
@@ -1450,8 +1448,6 @@ class JuezController extends Controller
                                                     .'</div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-4">
                                         </div>
                                     </div>
                                 </div>
@@ -1634,8 +1630,6 @@ class JuezController extends Controller
 
         if($request->ajax()){
 
-            // dd($request->all());
-
             $ganador_id = $request->input('vencedor');
             $num_pista = $request->input('pista');
 
@@ -1651,11 +1645,48 @@ class JuezController extends Controller
 
             $data['status'] = 'success';
             $data['sexo'] = $ganador->sexo;
+
             $data['html'] = '<div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-8">
                                     <h5 class="text-success text-center"> MEJOR '.(($ganador->sexo == 'Macho')? 'MACHO =>': 'HEMBRA =>').'<span class="text-info">'.$ganador->numero_prefijo.'</span></h5>
                                 </div>
+                                <div class="col-md-4">
+                                    <div class="form-group row">
+                                        <div class="col-9 col-form-label">
+                                            <div class="checkbox-inline">
+                                                <label class="checkbox">
+                                                    <input type="checkbox" id="certificacionCACPan_'.$ganador->id.'" onclick="agregaCertificado(1, '.$ganador->id.')" name="Checkboxes6"/>
+                                                    <span></span>
+                                                    CACPan
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>';
+            // $data['html'] = '<div class="row">
+            //                 <div class="col-md-8">
+            //                     <h5 class="text-success text-center"> MEJOR '.(($ganador->sexo == 'Macho')? 'MACHO =>': 'HEMBRA =>').'<span class="text-info">'.$ganador->numero_prefijo.'</span></h5>
+            //                 </div>
+            //                 <div class="col-md-4">
+            //                     <div class="form-group row">
+            //                         <div class="col-9 col-form-label">
+            //                             <div class="checkbox-inline">
+            //                                 <label class="checkbox">
+            //                                     <input type="checkbox" id="certificacionCACPan2_'.$ganador->id.'" onclick="agregaCertificado(1, '.$ganador->id.')" name="Checkboxes6"/>
+            //                                     <span></span>
+            //                                     CACPan2
+            //                                 </label>
+            //                                 <label class="checkbox">
+            //                                     <input type="checkbox" id="certificacionCACPan_'.$ganador->id.'" onclick="agregaCertificado(2, '.$ganador->id.')" name="Checkboxes6"/>
+            //                                     <span></span>
+            //                                     CACPan
+            //                                 </label>
+            //                             </div>
+            //                         </div>
+            //                     </div>
+            //                 </div>
+            //             </div>';
 
             // PARA EL SELCE DE MEJRO RAZA
             $selecRaza = 'SELECCION MEJOR MEJOR RAZA<br><select  name="select_raza_mejor" id="select_raza_mejor" class="form-control">';
@@ -1789,49 +1820,57 @@ class JuezController extends Controller
 
             $sw = false;
 
+            $arrayGruposExistentes = array();
+
             foreach ($finalistas as $key => $fi){
 
-                // PREGUNTAMOS POR LO SLUGARES
-                $primero = Evento::ganadoresBesting($evento_id, $num_pista, $tipo, 1);
-                $segundo = Evento::ganadoresBesting($evento_id, $num_pista, $tipo, 2);
-                $tercer  = Evento::ganadoresBesting($evento_id, $num_pista, $tipo, 3);
-                $cuarto  = Evento::ganadoresBesting($evento_id, $num_pista, $tipo, 4);
-                $quinto  = Evento::ganadoresBesting($evento_id, $num_pista, $tipo, 5);
+                if(!in_array($fi->grupo_id, $arrayGruposExistentes)){
 
-                if($fi->lugar_finalista != null)
-                    $sw = true;
+                    array_push($arrayGruposExistentes, $fi->grupo_id);
 
-                $tbody = $tbody.'<td class="text-primary">
-                                    <input type="hidden" value="'.$fi->id.'" name="bestinguids[]">
-                                    <h2 class="text-center">'.$fi->numero_prefijo.'</h2>
-                                    <br>
-                                    <select name="posision_'.$key.'" id="calificacion_final_'.$fi->numero_prefijo.'" class="form-control">
-                                        <option '.(($primero)? 'disabled' : '').' value="1">Mejor</option>
-                                        <option '.(($segundo)? 'disabled' : '').' value="2">Segundo</option>
-                                        <option '.(($tercer)? 'disabled' : '').' value="3">Tercero</option>
-                                        <option '.(($cuarto)? 'disabled' : '').' value="4">Cuarto</option>
-                                        <option '.(($quinto)? 'disabled' : '').' value="5">Quinto</option>
-                                    </select>
-                                    <small style="display: none;" class="text-warning" id="_calificacion_final_'.$fi->numero_prefijo.'">Calificacion repetida</small>
-                                    <br>'.
-                                    ((!$sw)? '<button class="btn btn-success btn-block" onclick="calificaFinal('.$key.', '.$fi->id.', '."'".$fi->numero_prefijo."'".')">CALIFICAR</button>' : '').'
-                                </td>';
+                    // PREGUNTAMOS POR LO SLUGARES
+                    $primero = Evento::ganadoresBesting($evento_id, $num_pista, $tipo, 1);
+                    $segundo = Evento::ganadoresBesting($evento_id, $num_pista, $tipo, 2);
+                    $tercer  = Evento::ganadoresBesting($evento_id, $num_pista, $tipo, 3);
+                    $cuarto  = Evento::ganadoresBesting($evento_id, $num_pista, $tipo, 4);
+                    $quinto  = Evento::ganadoresBesting($evento_id, $num_pista, $tipo, 5);
 
-                // $tbody = $tbody.'<td class="text-primary">
-                //                     <input type="hidden" value="'.$fi->id.'" name="bestinguids[]">
-                //                     <h2 class="text-center">'.$fi->numero_prefijo.'</h2>
-                //                     <br>
-                //                     <select name="posision_'.$key.'" id="calificacion_final_'.$fi->numero_prefijo.'" class="form-control" '.(($sw)? 'disabled' : '').'>
-                //                         <option '.(($sw)? (($fi->lugar_finalista == 1)? 'selected' : '') : '').' value="1">Mejor</option>
-                //                         <option '.(($sw)? (($fi->lugar_finalista == 2)? 'selected' : '') : '').' value="2">Segundo</option>
-                //                         <option '.(($sw)? (($fi->lugar_finalista == 3)? 'selected' : '') : '').' value="3">Tercero</option>
-                //                         <option '.(($sw)? (($fi->lugar_finalista == 4)? 'selected' : '') : '').' value="4">Cuarto</option>
-                //                         <option '.(($sw)? (($fi->lugar_finalista == 5)? 'selected' : '') : '').' value="5">Quinto</option>
-                //                     </select>
-                //                     <small style="display: none;" class="text-warning" id="_calificacion_final_'.$fi->numero_prefijo.'">Calificacion repetida</small>
-                //                     <br>'.
-                //                     ((!$sw)? '<button class="btn btn-success btn-block" onclick="calificaFinal('.$key.', '.$fi->id.', '."'".$fi->numero_prefijo."'".')">CALIFICAR</button>' : '').'
-                //                 </td>';
+                    if($fi->lugar_finalista != null)
+                        $sw = true;
+
+                    $tbody = $tbody.'<td class="text-primary">
+                                        <input type="hidden" value="'.$fi->id.'" name="bestinguids[]">
+                                        <h2 class="text-center">'.$fi->numero_prefijo.'</h2>
+                                        <br>
+                                        <select name="posision_'.$key.'" id="calificacion_final_'.$fi->numero_prefijo.'" class="form-control">
+                                            <option '.(($primero)? 'disabled' : '').' value="1">Mejor</option>
+                                            <option '.(($segundo)? 'disabled' : '').' value="2">Segundo</option>
+                                            <option '.(($tercer)? 'disabled' : '').' value="3">Tercero</option>
+                                            <option '.(($cuarto)? 'disabled' : '').' value="4">Cuarto</option>
+                                            <option '.(($quinto)? 'disabled' : '').' value="5">Quinto</option>
+                                        </select>
+                                        <small style="display: none;" class="text-warning" id="_calificacion_final_'.$fi->numero_prefijo.'">Calificacion repetida</small>
+                                        <br>'.
+                                        ((!$sw)? '<button class="btn btn-success btn-block" onclick="calificaFinal('.$key.', '.$fi->id.', '."'".$fi->numero_prefijo."'".')">CALIFICAR</button>' : '').'
+                                    </td>';
+
+                    // $tbody = $tbody.'<td class="text-primary">
+                    //                     <input type="hidden" value="'.$fi->id.'" name="bestinguids[]">
+                    //                     <h2 class="text-center">'.$fi->numero_prefijo.'</h2>
+                    //                     <br>
+                    //                     <select name="posision_'.$key.'" id="calificacion_final_'.$fi->numero_prefijo.'" class="form-control" '.(($sw)? 'disabled' : '').'>
+                    //                         <option '.(($sw)? (($fi->lugar_finalista == 1)? 'selected' : '') : '').' value="1">Mejor</option>
+                    //                         <option '.(($sw)? (($fi->lugar_finalista == 2)? 'selected' : '') : '').' value="2">Segundo</option>
+                    //                         <option '.(($sw)? (($fi->lugar_finalista == 3)? 'selected' : '') : '').' value="3">Tercero</option>
+                    //                         <option '.(($sw)? (($fi->lugar_finalista == 4)? 'selected' : '') : '').' value="4">Cuarto</option>
+                    //                         <option '.(($sw)? (($fi->lugar_finalista == 5)? 'selected' : '') : '').' value="5">Quinto</option>
+                    //                     </select>
+                    //                     <small style="display: none;" class="text-warning" id="_calificacion_final_'.$fi->numero_prefijo.'">Calificacion repetida</small>
+                    //                     <br>'.
+                    //                     ((!$sw)? '<button class="btn btn-success btn-block" onclick="calificaFinal('.$key.', '.$fi->id.', '."'".$fi->numero_prefijo."'".')">CALIFICAR</button>' : '').'
+                    //                 </td>';
+                }
+
             }
 
             $tableFinalistas = '
@@ -1994,59 +2033,66 @@ class JuezController extends Controller
             $finalistas = Juez::finalistasBesting($ganador->evento_id, $ganador->tipo, $ganador->pista);
 
             $tbody = '';
+            
+            $arrayGruposExistentes = array();
 
             foreach ($finalistas as $key => $fi){
 
-                // PREGUNTAMOS POR LO SLUGARES
-                $primero = Evento::ganadoresBesting($ganador->evento_id, $ganador->pista, $ganador->tipo, 1);
-                $segundo = Evento::ganadoresBesting($ganador->evento_id, $ganador->pista, $ganador->tipo, 2);
-                $tercer  = Evento::ganadoresBesting($ganador->evento_id, $ganador->pista, $ganador->tipo, 3);
-                $cuarto  = Evento::ganadoresBesting($ganador->evento_id, $ganador->pista, $ganador->tipo, 4);
-                $quinto  = Evento::ganadoresBesting($ganador->evento_id, $ganador->pista, $ganador->tipo, 5);
+                
+                if(!in_array($fi->grupo_id, $arrayGruposExistentes)){
 
-                if($fi->lugar_finalista == '' || $fi->lugar_finalista == null){
+                    array_push($arrayGruposExistentes, $fi->grupo_id);
 
-                    $tbody = $tbody.'<td class="text-primary">
-                                        <input type="hidden" value="'.$fi->id.'" name="bestinguids[]">
-                                        <h2 class="text-center">'.$fi->numero_prefijo.'</h2>
-                                        <br>
-                                        <select name="posision[]" id="calificacion_final_'.$fi->numero_prefijo.'" class="form-control" required>
-                                            <option '.(($primero)? 'disabled' : '').' value="1">Mejor</option>
-                                            <option '.(($segundo)? 'disabled' : '').' value="2">Segundo</option>
-                                            <option '.(($tercer)? 'disabled' : '').'  value="3">Tercero</option>
-                                            <option '.(($cuarto)? 'disabled' : '').'  value="4">Cuarto</option>
-                                            <option '.(($quinto)? 'disabled' : '').'  value="5">Quinto</option>
-                                        </select>
-                                        <small style="display: none;" class="text-warning" id="_calificacion_final_'.$fi->numero_prefijo.'">Calificacion repetida</small>
-                                        <br>
-                                        <button class="btn btn-success btn-block" onclick="calificaFinal('.$key.', '.$fi->id.', '."'".$fi->numero_prefijo."'".')">CALIFICAR</button>
-                                    </td>';
+                    // PREGUNTAMOS POR LO SLUGARES
+                    $primero = Evento::ganadoresBesting($ganador->evento_id, $ganador->pista, $ganador->tipo, 1);
+                    $segundo = Evento::ganadoresBesting($ganador->evento_id, $ganador->pista, $ganador->tipo, 2);
+                    $tercer  = Evento::ganadoresBesting($ganador->evento_id, $ganador->pista, $ganador->tipo, 3);
+                    $cuarto  = Evento::ganadoresBesting($ganador->evento_id, $ganador->pista, $ganador->tipo, 4);
+                    $quinto  = Evento::ganadoresBesting($ganador->evento_id, $ganador->pista, $ganador->tipo, 5);
 
-                }else{
-
-                    $recervaSiguiente = Juez::getReservaSinCalificarSiguiente($fi->pista, $fi->tipo, $fi->grupo_id, $fi->lugar);
-
-                    if($recervaSiguiente){
+                    if($fi->lugar_finalista == '' || $fi->lugar_finalista == null){
 
                         $tbody = $tbody.'<td class="text-primary">
-                                            <input type="hidden" value="'.$recervaSiguiente->id.'" name="bestinguids[]">
-                                            <h2 class="text-center">'.$recervaSiguiente->numero_prefijo.'</h2>
+                                            <input type="hidden" value="'.$fi->id.'" name="bestinguids[]">
+                                            <h2 class="text-center">'.$fi->numero_prefijo.'</h2>
                                             <br>
-                                            <select name="posision[]" id="calificacion_final_'.$recervaSiguiente->numero_prefijo.'" class="form-control" required>
+                                            <select name="posision[]" id="calificacion_final_'.$fi->numero_prefijo.'" class="form-control" required>
                                                 <option '.(($primero)? 'disabled' : '').' value="1">Mejor</option>
                                                 <option '.(($segundo)? 'disabled' : '').' value="2">Segundo</option>
-                                                <option '.(($tercer)? 'disabled' : '').' value="3">Tercero</option>
-                                                <option '.(($cuarto)? 'disabled' : '').' value="4">Cuarto</option>
-                                                <option '.(($quinto)? 'disabled' : '').' value="5">Quinto</option>
+                                                <option '.(($tercer)? 'disabled' : '').'  value="3">Tercero</option>
+                                                <option '.(($cuarto)? 'disabled' : '').'  value="4">Cuarto</option>
+                                                <option '.(($quinto)? 'disabled' : '').'  value="5">Quinto</option>
                                             </select>
-                                            <small style="display: none;" class="text-warning" id="_calificacion_final_'.$recervaSiguiente->numero_prefijo.'">Calificacion repetida</small>
+                                            <small style="display: none;" class="text-warning" id="_calificacion_final_'.$fi->numero_prefijo.'">Calificacion repetida</small>
                                             <br>
-                                            <button class="btn btn-success btn-block" onclick="calificaFinal('.$key.', '.$recervaSiguiente->id.', '."'".$recervaSiguiente->numero_prefijo."'".')">CALIFICAR</button>
+                                            <button class="btn btn-success btn-block" onclick="calificaFinal('.$key.', '.$fi->id.', '."'".$fi->numero_prefijo."'".')">CALIFICAR</button>
                                         </td>';
+
+                    }else{
+
+                        $recervaSiguiente = Juez::getReservaSinCalificarSiguiente($fi->pista, $fi->tipo, $fi->grupo_id, $fi->lugar);
+
+                        if($recervaSiguiente){
+
+                            $tbody = $tbody.'<td class="text-primary">
+                                                <input type="hidden" value="'.$recervaSiguiente->id.'" name="bestinguids[]">
+                                                <h2 class="text-center">'.$recervaSiguiente->numero_prefijo.'</h2>
+                                                <br>
+                                                <select name="posision[]" id="calificacion_final_'.$recervaSiguiente->numero_prefijo.'" class="form-control" required>
+                                                    <option '.(($primero)? 'disabled' : '').' value="1">Mejor</option>
+                                                    <option '.(($segundo)? 'disabled' : '').' value="2">Segundo</option>
+                                                    <option '.(($tercer)? 'disabled' : '').' value="3">Tercero</option>
+                                                    <option '.(($cuarto)? 'disabled' : '').' value="4">Cuarto</option>
+                                                    <option '.(($quinto)? 'disabled' : '').' value="5">Quinto</option>
+                                                </select>
+                                                <small style="display: none;" class="text-warning" id="_calificacion_final_'.$recervaSiguiente->numero_prefijo.'">Calificacion repetida</small>
+                                                <br>
+                                                <button class="btn btn-success btn-block" onclick="calificaFinal('.$key.', '.$recervaSiguiente->id.', '."'".$recervaSiguiente->numero_prefijo."'".')">CALIFICAR</button>
+                                            </td>';
+                        }
+
                     }
-
                 }
-
             }
 
             $tableFinalistas = '
@@ -2219,5 +2265,28 @@ class JuezController extends Controller
         return $pdf->stream('Planilla_'.date('Y-m-d H:i:s').'.pdf');      
 
     }
-}
 
+    public function certificacionExtrangero(Request $request){
+
+        if($request->ajax()){
+
+            $ganador_id         = $request->input('ganador');
+            $tipoCertificacion  = $request->input('tipoCertificacion');
+
+            $ganador = Ganador::find($ganador_id);
+
+            if($tipoCertificacion == 1){
+
+                $ganador->certificacionCACP = "Si";
+
+            }
+
+            $ganador->save();
+
+            $data['status'] = 'success';
+
+            return json_encode($data);
+
+        }
+    }
+}

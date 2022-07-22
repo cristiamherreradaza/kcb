@@ -34,6 +34,8 @@ class Ganador extends Model
         'sexo_opuesto_joven',
         'mejor_raza',
         'sexo_opuesto_raza',
+        'certificacionCACP',
+        'pista',
         'estado',
         'deleted_at',
     ];

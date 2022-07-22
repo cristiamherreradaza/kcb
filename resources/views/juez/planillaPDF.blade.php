@@ -10,7 +10,6 @@
 
     .planilla{
 
-        /* background-color : green; */
         height: 720px;
 
     }
@@ -45,11 +44,6 @@
         width: 120px;
         border-collapse:collapse;
     }
-
-    .cachorro{
-        /* margin-left: 62px; */
-    }
-
     .joven{
         margin-left: 119px;
     }
@@ -330,6 +324,20 @@
         position: absolute;
         margin-top: -40px;
         width: 180px;
+    }
+    
+    .extrangeroMacho{
+        position: absolute;
+        margin-left: 643px;
+        font-size: 10px;
+        margin-top: -62px;
+    }
+    .tablaEstrangero{
+        border-collapse:collapse;
+    }
+    .extrangeroNumero{
+        font-size: 13px;
+        padding: 5px;
     }
 </style>
 <body>
@@ -849,7 +857,29 @@
                             </tr>
                         </tfoot>
                     </table>
+                    
+                    <div class="extrangeroMacho">
+                        <table class="bordes tablaEstrangero">
+                            <thead>
+                                <tr>
+                                    <th  class="bordes" height="2" colspan="2">N</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="bordes">CACPan</td>
+                                    @php
+                                        $certificado = App\Juez::getCertificacionExtranjero($evento_id, $pista, $er->raza_id, 'certificacionCACP', 'Macho');
+                                    @endphp
+                                    <td class="bordes"><span class="extrangeroNumero">{{ (($certificado)? $certificado->numero_prefijo : '' ) }}</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
+
+                
 
                 @php
 
@@ -1343,6 +1373,24 @@
                             </tr>
                         </tfoot>
                     </table>
+                    <div class="extrangeroMacho">
+                        <table class="bordes tablaEstrangero">
+                            <thead>
+                                <tr>
+                                    <th  class="bordes" height="2" colspan="2">N</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="bordes">CACPan</td>
+                                    @php
+                                        $certificado = App\Juez::getCertificacionExtranjero($evento_id, $pista, $er->raza_id, 'certificacionCACP', 'Hembra');
+                                    @endphp
+                                    <td class="bordes"><span class="extrangeroNumero">{{ (($certificado)? $certificado->numero_prefijo : '' ) }}</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
                 <div class="mejorRazaCJA bordes">
