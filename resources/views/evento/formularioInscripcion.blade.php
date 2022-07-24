@@ -86,7 +86,7 @@
 			<br><br>
 			
 			<br><br>
-			{{-- @if ($evento->habilitado == "Si") --}}
+			@if ($evento->habilitado == "Si")
 				<div class="row">
 					<div class="col-md-12">
 						<!--begin::Card-->
@@ -365,6 +365,38 @@
 					</div>
 					
 				</div>	
+			@else
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card card-custom gutter-b example example-compact">
+							<div class="row">
+								<div class="col-md-4">
+									<div style="height: 100px;">
+										<img src="{{ url('img/fci.jpg') }}" alt="" height="100%">
+									</div>
+								</div>
+								<div class="col-md-4" style="">
+									<div style="height: 100px;">
+										<img src="{{ url('img/logo.png') }}" alt="" height="100%">
+									</div>
+								</div>
+								<div class="col-md-4" style="">
+									<div style="height: 100px;">
+										<img src="{{ url('img/logo.gif') }}" alt="" height="100%">
+									</div>
+								</div>
+							</div>
+							<div class="text-center">
+								<h3 class="">FORMULARIO DE INSCRIPCION ({{ $evento->nombre }})</h3>
+							</div>
+							<h1 class="text-center text-danger">
+								EVENTO DESHABILITADO
+							</h1>
+						</div>
+					</div>
+				</div>
+			@endif
+
 		</div>
 		<!--end::Header Mobile-->
 		

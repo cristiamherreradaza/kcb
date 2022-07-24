@@ -808,8 +808,7 @@
 					
                 } else if (result.dismiss === "cancel") {
 
-					
-					if($('#evento_cerrerar_'+evento).checked)
+					if($('#evento_cerrerar_'+evento).prop('checked'))
 						var sw = true;
 					else
 						var sw = false;
