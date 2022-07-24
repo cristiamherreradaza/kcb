@@ -150,7 +150,7 @@
 																	<label class="exampleInputPassword1">
 																	KCB
 																	</label>
-																	<input type="text" class="form-control" id="kcb_busca" name="kcb_busca" />
+																	<input type="text" class="form-control" id="kcb_busca" name="kcb_busca"  required/>
 																	<span class="form-text text-danger" id="msg-error-kcb" style="display: none;">Ejemplar no Registrado</span>
 																	<span class="form-text text-success" id="msg-good-kcb" style="display: none;">Ejemplar Registrado</span>
 																	<span class="form-text text-danger" id="msg-vacio-kcb" style="display: none;">Digitar un K.C.B.</span>
@@ -472,37 +472,59 @@
 		}
 		
 		function mostrarBusqueda(){
+
 			if (document.getElementById("Nacional").checked) {
-				
 				$("#registro_extrangero").prop('required',true);
 				$('#verdad_extrangero').val('no');
-				// $("#fecha_nacimiento").prop('required',true);
-				// $("#propietario_id").prop('required',true);
-				// $("#criadero_id").prop('required',true);
+
+				$("#kcb_busca").prop('required',true);
+				$("#cod_extrangero").prop('required',false);
+
 			} else if (document.getElementById("Extranjero").checked) {
+				
 				$("#registro_extrangero").prop('required',false);
 				$('#verdad_extrangero').val('si');
-				// $("#kcb").prop('required',false);
-				// $("#fecha_nacimiento").prop('required',false);
-				// $("#propietario_id").prop('required',false);
-				// $("#criadero_id").prop('required',false);
+
+				$("#cod_extrangero").prop('required',true);
+				$("#kcb_busca").prop('required',false);
 			}
 
-			// var c = document.getElementById('check_busca').checked;
-			// if(!c){
-			// 	$("#registro_extrangero").prop('required',true);
-			// 	$('#verdad_extrangero').val('si');
-			// 	// $("#fecha_nacimiento").prop('required',true);
-			// 	// $("#propietario_id").prop('required',true);
-			// 	// $("#criadero_id").prop('required',true);
-			// }else{
-			// 	$("#registro_extrangero").prop('required',false);
-			// 	$('#verdad_extrangero').val('no');
-			// 	// $("#kcb").prop('required',false);
-			// 	// $("#fecha_nacimiento").prop('required',false);
-			// 	// $("#propietario_id").prop('required',false);
-			// 	// $("#criadero_id").prop('required',false);
-			// }
+			$('#kcb_busca').val('');
+			$('#cod_extrangero').val('');
+
+			$("#ejemplar_id").val('');
+			$("#nombre").val('');
+			$("#color").val('');
+			$("#fecha_nacimiento").val('');
+			$("#sexo").val('Macho');
+			$("#registro_extrangero").val('');
+			$("#tatuaje").val('');
+			$("#chip").val('');
+			$("#kcb_padre").val('');
+			$("#nom_padre").val('');
+			$("#propietario").val('');
+			$("#ciudad").val('');
+			$("#telefono").val('');
+			$("#email").val('');
+			$("#kcb_madre").val('');
+			$("#nom_madre").val('');
+			$("#raza_id").val('');
+			$('#raza_id').trigger('change');
+
+
+			$("#ejemplar_id").prop('readonly', false);
+			$("#nombre").prop('readonly', false);
+			$("#color").prop('readonly', false);
+			$("#fecha_nacimiento").prop('readonly', false);
+
+			$("#registro_extrangero").prop('readonly', false);
+			$("#tatuaje").prop('readonly', false);
+			$("#chip").prop('readonly', false);
+			$("#kcb_padre").prop('readonly', false);
+			$("#nom_padre").prop('readonly', false);
+			$("#kcb_madre").prop('readonly', false);
+			$("#nom_madre").prop('readonly', false);
+			$("#raza_id").prop('readonly', false);
 
 			$("#bloque-nacional").toggle('slow');
 			$("#bloque-extrangero").toggle('slow');
@@ -511,7 +533,6 @@
 		function buscaKcb(){
 			let kcb = $("#kcb_busca").val();
 			if(kcb != ''){
-			// alert("vacio");
 			$.ajax({
 				url: "{{ url('Evento/ajaxBuscaEjemplar') }}",
 				data: {
@@ -521,10 +542,7 @@
 				success: function(data) {
 					//convertimos la respuesta para poder trabajar
 					let ejemplar = JSON.parse(data);
-					// let ejemplar = JSON.stringify(data);
-					// console.log(ejemplar);
 					if(ejemplar.id){
-						// console.log("lleno");
 						$("#ejemplar_id").val(ejemplar.id);
 						$("#nombre").val(ejemplar.nombre_completo);
 						$("#color").val(ejemplar.color);
@@ -567,7 +585,6 @@
 						$("#nom_madre").prop('readonly', true);
 						$("#raza_id").prop('readonly', true);
 
-						// $("input").prop('disabled', false);
 					}else{
 						$("#ejemplar_id").val('');
 						$("#nombre").val('');
@@ -594,9 +611,6 @@
 						$("#color").prop('readonly', false);
 						$("#fecha_nacimiento").prop('readonly', false);
 
-						// $("#sexo").prop('readonly', false);
-						// $('#sexo option:not(:selected)').attr('readonly',true);
-
 						$("#registro_extrangero").prop('readonly', false);
 						$("#tatuaje").prop('readonly', false);
 						$("#chip").prop('readonly', false);
@@ -606,13 +620,12 @@
 						$("#nom_madre").prop('readonly', false);
 						$("#raza_id").prop('readonly', false);
 		
-						// console.log("vacio");
 						$("#msg-error-kcb").show();
 					}
 				}
 			});
 			}else{
-			$("#msg-vacio-kcb").show();
+				$("#msg-vacio-kcb").show();
 			}
 		
 		}
