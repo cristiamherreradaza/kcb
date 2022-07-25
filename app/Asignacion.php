@@ -20,6 +20,7 @@ class Asignacion extends Model
         'secretario_id',
         'evento_id',
         'num_pista',
+        'grupos',
         'estado',
         'deleted_at',
     ];

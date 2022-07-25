@@ -24,53 +24,91 @@
                 </button>
             </div>
             <div class="modal-body">
+				
+				<label>Tipo de Asignacion</label>
 				<div class="row">
-					<div class="col-md-12">
-						<form action="{{ url('Juez/guardaAsignacionEvento') }}" method="POST" id="formulario-asignacion">
-							@csrf
-							<input type="hidden" name="asignacion_evento_id" id="asignacion_evento_id">
-							<div class="row">
-								<div class="col-md-4">
-									<div class="form-group">
-										<label for="exampleInputPassword1">Juez
-										<span class="text-danger">*</span></label>
-										<select name="juez_id" id="juez_id" class="form-control" style="width:100%;">
-											<option value=""></option>
-											@foreach ($jueces as $juez)
-												<option value="{{ $juez->id }}">{{ $juez->nombre }}</option>
-											@endforeach
-										</select>
-									</div>
-								</div>
-								<div class="col-md-4">
-									<div class="form-group">
-										<label for="exampleInputPassword1">Secretario
-										<span class="text-danger">*</span></label>
-										<select name="secretario_id" id="secretario_id" class="form-control" style="width:100%;">
-											<option value=""></option>
-											@foreach ($secretarios as $secre)
-												<option value="{{ $secre->id }}">{{ $secre->name }}</option>
-											@endforeach
-										</select>
-									</div>
-								</div>
-								<div class="col-md-4">
-									<div class="form-group">
-										<label for="exampleInputPassword1">Pista
-										<span class="text-danger">*</span></label>
-										<select name="num_pista" id="num_pista" class="form-control" style="width:100%;" required>
-
-										</select>
-									</div>
-								</div>
-							</div>
-						</form>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="radio radio-lg">
+								<input type="radio" checked="checked" name="radios3_1" value="pista" onchange="cambiaAsignacion(this)"/>
+								<span></span>
+								 Por Pista
+							</label>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="radio radio-lg">
+								<input type="radio" name="radios3_1" value="grupo" onchange="cambiaAsignacion(this)"/>
+								<span></span>
+								 Por Grupo
+							</label>
+						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<div id="listaAsignaciones">
 
+				<div id="bloque_pista">
+					<div class="row">
+						<div class="col-md-12">
+							<form action="{{ url('Juez/guardaAsignacionEvento') }}" method="POST" id="formulario-asignacion">
+								@csrf
+								
+								<input type="hidden" name="asignacion_evento_id" id="asignacion_evento_id">
+								<input type="text" id="tipo_asignacion" value="pista" name="tipo_asignacion">
+
+								<div class="row">
+									<div class="col-md-4">
+										<div class="form-group">
+											<label for="exampleInputPassword1">Juez
+											<span class="text-danger">*</span></label>
+											<select name="juez_id" id="juez_id" class="form-control" style="width:100%;">
+												<option value=""></option>
+												@foreach ($jueces as $juez)
+													<option value="{{ $juez->id }}">{{ $juez->nombre }}</option>
+												@endforeach
+											</select>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<label for="exampleInputPassword1">Secretario
+											<span class="text-danger">*</span></label>
+											<select name="secretario_id" id="secretario_id" class="form-control" style="width:100%;">
+												<option value=""></option>
+												@foreach ($secretarios as $secre)
+													<option value="{{ $secre->id }}">{{ $secre->name }}</option>
+												@endforeach
+											</select>
+										</div>
+									</div>
+									<div class="col-md-4" >
+										<div id="select_pistas">
+											<div class="form-group">
+												<label for="exampleInputPassword1">Pista
+												<span class="text-danger">*</span></label>
+												<select name="num_pista" id="num_pista" class="form-control" style="width:100%;" required>
+		
+												</select>
+											</div>
+										</div>
+										<div id="select_grupos" style="display: none;">
+											<div class="form-group">
+												<label>Grupos <span class="text-danger">*</span></label>
+												<select class="form-control select2" id="kt_select2_3_modal" name="grupos[]" multiple="multiple" style="width:100%;">
+													
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div id="listaAsignaciones">
+	
+							</div>
 						</div>
 					</div>
 				</div>
@@ -319,11 +357,22 @@
 			});
 		});
 
-		// $(function(){
-		// 	$('#evento_id').select2({
-		// 		placeholder: "Select a state"
-		// 	});
-		// });
+		$(function(){
+			$('#grupo_juez_id').select2({
+				placeholder: "Seleccione al juez"
+			});
+		});
+
+		$(function(){
+			$('#grupo_secretario_id').select2({
+				placeholder: "Seleccione al secretario"
+			});
+		});
+
+		// multi select
+         $('#kt_select2_3_modal').select2({
+          placeholder: "Select los grupos",
+         });
 
     	$(function () {
     	    $('#tabla-insumos').DataTable({
@@ -336,8 +385,7 @@
 
     	});
 
-    	function nuevo()
-    	{
+    	function nuevo(){
 			// pone los inputs vacios
 			$("#evento_id").val('');
 			$("#nombre").val('');
@@ -476,6 +524,13 @@
 
 						$('#listaAsignaciones').html(data.listado);
 
+						// PARA LOS GRUPOS
+						$('#kt_select2_3_modal').empty();
+
+						$(data.grupos).each(function( index , value) {
+							$('#kt_select2_3_modal').prepend("<option value='"+value.grupo_id+"' >Grupo "+value.grupo_id+"</option>");
+						});
+
 					}
 
 				}
@@ -485,8 +540,9 @@
 		}
 
 		function Asignar(){
+
 			// verificamos que el formulario este correcto
-    		if($("#formulario-asignacion")[0].checkValidity()){
+			if($("#formulario-asignacion")[0].checkValidity()){
 
 				let datosFormularioAsignacion = $("#formulario-asignacion").serializeArray();
 
@@ -512,7 +568,6 @@
 								$('#secretario_id').prop('disabled', false);
 
 							}
-							
 	
 							Swal.fire(
 								"Exito!",
@@ -525,9 +580,10 @@
 					}
 				});
 
-    		}else{
-    			$("#formulario-asignacion")[0].reportValidity()
-    		}
+			}else{
+				$("#formulario-asignacion")[0].reportValidity()
+			}
+
 		}
 
 		function eliminaAsigancion(id, nombre){
@@ -630,5 +686,25 @@
 
 		}
 
+		function cambiaAsignacion(radio){
+
+			if(radio.value == 'pista'){
+
+				$('#select_pistas').show('toggle');
+				$('#select_grupos').hide('toggle');
+
+				$('#tipo_asignacion').val('pista');
+
+			}else{
+
+				$('#select_pistas').hide('toggle');
+				$('#select_grupos').show('toggle');
+
+
+				$('#tipo_asignacion').val('grupo');
+
+			}
+			
+		}
     </script>
 @endsection

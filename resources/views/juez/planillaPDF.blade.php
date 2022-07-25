@@ -354,7 +354,8 @@
                 </div>
 
                 <p class="juez">
-                    Juez: {{ $asignacion->juez->nombre }}
+                    {{-- Juez: {{ $asignacion->juez->nombre }} --}}
+                    Juez: {{ $asignacion[0]->juez->nombre }}
                  </p>
 
                 <p class="fecha">
@@ -1437,7 +1438,7 @@
                 <div class="bloque_firmas">
                     <div class="firma_figital">
                         @php
-                            $firmaJuez = $asignacion->juez->estado;
+                            $firmaJuez = $asignacion[0]->juez->estado;
                         @endphp
                         <img src="{{ url("imagenesFirmaJuezSecre/$firmaJuez") }}" width="100%" alt="">
                     </div>
@@ -1449,7 +1450,7 @@
 
                     <div class="firma_figital_secretario">
                         @php
-                            $firmaSecre = $asignacion->secretario->estado;
+                            $firmaSecre = $asignacion[0]->secretario->estado;
                         @endphp
                         <img src="{{ url("imagenesFirmaJuezSecre/$firmaSecre") }}" width="100%" alt="">
                     </div>

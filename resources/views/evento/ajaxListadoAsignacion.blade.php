@@ -17,6 +17,7 @@
             <th>JUEZ</th>
             <th>SECRETARIO</th>
             <th>PISTA</th>
+            <th>GRUPOS</th>
             <th></th> 
         </tr>
     </thead>
@@ -26,16 +27,18 @@
             <td>{{ $asig->juez->nombre }}</td>
             <td>{{ $asig->secretario->name}}</td>
             <td>{{ $asig->num_pista}}</td>
+            <td>{{ str_replace(['[',']', '"'],' ' , $asig->grupos) }}</td>
             <td>
-                <a href="{{ url('Juez/planillaPDF', [$asig->evento_id, $asig->num_pista]) }}" class="btn btn-icon btn-info" target="_target" title="Planilla">
+                <a href="{{ url('Juez/planillaPDF', [$asig->evento_id, ($asig->estado == 1)? $asig->num_pista : 0]) }}" class="btn btn-icon btn-info" target="_target" title="Planilla">
                     <i class="fa fa-list"></i>
                 </a>
-                <a href="{{ url('Juez/bestingPDF', [$asig->evento_id, $asig->num_pista]) }}" class="btn btn-icon btn-dark" target="_target" title="besting">
+                <a href="{{ url('Juez/bestingPDF', [$asig->evento_id, ($asig->estado == 1)? $asig->num_pista : 0]) }}" class="btn btn-icon btn-dark" target="_target" title="besting">
                     <i class="fa fa-user"></i>
                 </a>
-                <a href="{{ url('Evento/ranking', [$asig->evento_id, $asig->num_pista]) }}" class="btn btn-icon btn-primary">
+                <a href="{{ url('Evento/ranking', [$asig->evento_id, ($asig->estado == 1)? $asig->num_pista : 0]) }}" class="btn btn-icon btn-primary">
                     <i class="flaticon-map"></i>
                 </a>
+
                 <button type="button" class="btn btn-icon btn-danger" onclick="eliminaAsigancion('{{ $asig->id }}', '{{$asig->juez->nombre  }}')">
                     <i class="flaticon2-cross"></i>
                 </button>

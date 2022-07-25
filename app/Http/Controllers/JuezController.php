@@ -96,13 +96,30 @@ class JuezController extends Controller
 
     public function ajaxguardaAsignacionEvento(Request $request){
 
+        $tipo = $request->input('tipo_asignacion');
+
+        if($tipo == "pista")
+            $sw  = true;
+        else
+            $sw  = false;
+
+
         $asignacion = new  Asignacion();
 
         $asignacion->user_id        = Auth::user()->id;
         $asignacion->juez_id        = $request->input('juez_id');
         $asignacion->secretario_id  = $request->input('secretario_id');
         $asignacion->evento_id      = $request->input('asignacion_evento_id');
-        $asignacion->num_pista      = $request->input('num_pista');
+
+        if($sw){
+            $asignacion->estado         = 1;
+            $asignacion->num_pista      = $request->input('num_pista');
+        }else{
+            $asignacion->estado         = 2;
+
+            $asignacion->grupos = json_encode($request->input('grupos'));
+        }
+
 
         $asignacion->save();
 
@@ -125,7 +142,6 @@ class JuezController extends Controller
         $data['status'] = 'success';
 
         return json_encode($data);
-
     }
 
     public function ajaxListadoAsignacion(Request $request){
@@ -144,9 +160,14 @@ class JuezController extends Controller
 
         $faltantes = intval($numero_pistas_evento) - intval($cantidadAsiganacionesEvento);
 
+        // MANDAMOS LOS GROPOS DEL EVENTO
+        $grupos = Juez::getGruposParticipantes($evento_id);
 
         $data['listado'] = view('evento.ajaxListadoAsignacion', compact('asiganaciones', 'faltantes'))->render();
         $data['cantAsignaciones'] = $faltantes;
+
+        $data['grupos'] = $grupos;
+
         $data['status'] = 'success';
 
         return json_encode($data);
@@ -377,22 +398,45 @@ class JuezController extends Controller
 
         // MANDAMOS LA ASIGNACION
         $asignacion = Asignacion::find($asignacion_id);
-        
+
         $arrayEjemplares = array();
         $arrayEjemplaresTotal = array();
 
-        for($i = 1; $i <= 10 ; $i++){
+        if($asignacion->estado == 1){
 
-            $emplares = Juez::ejemplaresGrupos($evento_id, $i);
+    
+            for($i = 1; $i <= 10 ; $i++){
+    
+                $emplares = Juez::ejemplaresGrupos($evento_id, $i);
+    
+                $arrayEjemplares = array(
+                    'grupo' => 'Grupo '.$i,
+                    'ejemplares' => $emplares
+                );
+    
+                array_push($arrayEjemplaresTotal,$arrayEjemplares);
+    
+            }
 
-            $arrayEjemplares = array(
-                'grupo' => 'Grupo '.$i,
-                'ejemplares' => $emplares
-            );
+        }else{
 
-            array_push($arrayEjemplaresTotal,$arrayEjemplares);
+            $grupos = json_decode($asignacion->grupos);
+
+            foreach ($grupos as $g){
+
+                $ejemplares = Juez::ejemplaresGrupos($evento_id, $g);
+
+                $arrayEjemplares = array(
+                                    'grupo' => 'Grupo '.$g,
+                                    'ejemplares' => $ejemplares
+                                );
+
+                array_push($arrayEjemplaresTotal,$arrayEjemplares);
+
+            }
 
         }
+        
 
         return view('juez.categorias')->with(compact('evento', 'arrayEjemplaresTotal', 'asignacion'));
     }
@@ -1220,8 +1264,6 @@ class JuezController extends Controller
 
         if($request->ajax()){
 
-            // dd($request->all());
-
             $raza_id    = $request->input('raza');
             $evento_id  = $request->input('evento');
             $num_pista  = $request->input('pista');
@@ -1479,7 +1521,7 @@ class JuezController extends Controller
                 $data['mejorRaza'] = true;
                 $mejorRazaHtml = $mejorRazaHtml. '<div class="row">
                                                     <div class="col-md-12">
-                                                        <h5> MEJOR JOVEN DE LA RAZA => <span class="text-info">'.$mejorRaza->numero_prefijo.'</span></h5>
+                                                        <h5> MEJOR DE LA RAZA => <span class="text-info">'.$mejorRaza->numero_prefijo.'</span></h5>
                                                     </div>
                                                 </div>'.$mejorRazaSexoOpuestoHtml;
 
@@ -1709,10 +1751,11 @@ class JuezController extends Controller
 
     public function mejorRazaFinPlanilla(Request $request){
 
-        // dd($request->all());
         if($request->ajax()){
-            $ganador_id = $request->input('vencedor');
-            $tipo       = $request->input('tipo');
+
+            $ganador_id      = $request->input('vencedor');
+            $tipo            = $request->input('tipo');
+            $num_pista       = $request->input('pista');
 
             $ganador = Ganador::find($ganador_id);
 
@@ -1722,7 +1765,7 @@ class JuezController extends Controller
 
                 $ganador->mejor_cachorro = "Si";
 
-                $sexoOpuesto =  Juez::getsexoOpuesto($ganador->raza_id, $ganador->evento_id, [2, 11], $ganador->sexo, "mejor_cachorro");
+                $sexoOpuesto =  Juez::getsexoOpuesto($ganador->raza_id, $ganador->evento_id, [2, 11], $ganador->sexo, "mejor_cachorro", $num_pista);
 
                 if($sexoOpuesto){
 
@@ -1737,7 +1780,7 @@ class JuezController extends Controller
 
                 $ganador->mejor_joven = "Si";
 
-                $sexoOpuesto =  Juez::getsexoOpuesto($ganador->raza_id, $ganador->evento_id, [3, 4, 12, 13], $ganador->sexo, "mejor_joven");
+                $sexoOpuesto =  Juez::getsexoOpuesto($ganador->raza_id, $ganador->evento_id, [3, 4, 12, 13], $ganador->sexo, "mejor_joven", $num_pista);
 
                 if($sexoOpuesto){
 
@@ -1750,7 +1793,7 @@ class JuezController extends Controller
 
                 $ganador->mejor_raza = "Si";
 
-                $sexoOpuesto =  Juez::getsexoOpuesto($ganador->raza_id, $ganador->evento_id, [3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17], $ganador->sexo, "mejor_raza");
+                $sexoOpuesto =  Juez::getsexoOpuesto($ganador->raza_id, $ganador->evento_id, [3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17], $ganador->sexo, "mejor_raza", $num_pista);
 
                 if($sexoOpuesto){
 
@@ -1796,6 +1839,8 @@ class JuezController extends Controller
             $tipo       = $request->input('tipo');
             $evento_id  = $request->input('evento');
             $num_pista  = $request->input('pista');
+
+            // dd($request->all());
 
             if($tipo == "especiales"){
                 $ganadores = Juez::ejemplaresCategoria('Especiales', $evento_id,[1,2,3,4,5,6,7,8,9,10], $num_pista); 
@@ -2117,15 +2162,20 @@ class JuezController extends Controller
 
     public function planillaPDF(Request $request, $evento_id, $pista){
 
+        if($pista != 0){
+            // MANDAMOS LA ASIGANCION
+            $asignacion = Asignacion::where('num_pista',$pista)
+                                    ->where('evento_id',$evento_id)
+                                    ->first();
+        }else{
+            // MANDAMOS LA ASIGANCION
+            $asignacion = Asignacion::where('evento_id',$evento_id)
+                                    ->get();
+        }
+
         // SACAMOS LOS GRUPOS DEL EVENTO
         $grupos = Juez::gruposEvento($evento_id);
 
-        // MANDAMOS LA ASIGANCION
-        $asignacion = Asignacion::where('num_pista',$pista)
-                                ->where('evento_id',$evento_id)
-                                ->first();
-
-        
         $arrayEjemplares = array();
         $arrayEjemplaresTotal = array();
 

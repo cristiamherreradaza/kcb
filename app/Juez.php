@@ -204,7 +204,7 @@ class Juez extends Model
      * 
      * Esta function deveulve el sexo opuesto del ganador
      */
-    public static function getsexoOpuesto($raza_id, $evento_id, $categorias, $sexo, $tipo){
+    public static function getsexoOpuesto($raza_id, $evento_id, $categorias, $sexo, $tipo, $num_pista){
 
         if($sexo == 'Macho'){$nuevoSexo = 'Hembra';}else{$nuevoSexo = 'Macho';}
 
@@ -213,6 +213,7 @@ class Juez extends Model
                                 ->whereIn('categoria_id', $categorias)
                                 ->whereNull($tipo)
                                 ->where('sexo', $nuevoSexo)
+                                ->where('pista', $num_pista)
                                 ->where('mejor_escogido', 'Si');
 
         if($tipo == 'mejor_raza'){
@@ -485,6 +486,18 @@ class Juez extends Model
 
         return $certificado;
 
+    }
+
+    public static function getGruposParticipantes($evento_id){
+
+        $grupos = EjemplarEvento::select('grupos_razas.grupo_id')
+                                ->join('grupos_razas','ejemplares_eventos.raza_id','=','grupos_razas.id')
+                                ->where('ejemplares_eventos.evento_id',$evento_id)
+                                ->groupBy('grupos_razas.grupo_id')
+                                ->get();
+
+        return $grupos;
+        
     }
 }
 
