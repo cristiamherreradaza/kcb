@@ -1238,13 +1238,11 @@
                             if(data.status === "success"){
 
                                 if(data.mejor_grupo != null){
-                                    // $('#mejor_grupo_'+data.grupo+'_numero').text(data.mejor_grupo);
                                     $('#mejor_grupo_'+data.grupo+'_numero').html(data.finalistaMejor);
                                     $('#mejor_grupo_'+data.grupo).toggle('show');
                                 }
 
                                 if(data.reserva_grupo != null){
-                                    // $('#reserva_grupo_'+data.grupo+'_numero').text(data.reserva_grupo);
                                     $('#reserva_grupo_'+data.grupo+'_numero').html(data.finalistaMejorRecerva);
                                     $('#reserva_grupo_'+data.grupo).toggle('show');
                                 }
@@ -1253,7 +1251,6 @@
 
                                 // BLOQUEAMOS LOS BOTONES
                                 $('#btn_grupo_'+grupo).prop('disabled', true);
-
 
                             }
 

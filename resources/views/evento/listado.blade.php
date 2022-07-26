@@ -30,7 +30,7 @@
 					<div class="col-md-6">
 						<div class="form-group">
 							<label class="radio radio-lg">
-								<input type="radio" checked="checked" name="radios3_1" value="pista" onchange="cambiaAsignacion(this)"/>
+								<input type="radio" id="checkPista" checked="checked" name="radios3_1" value="pista" onchange="cambiaAsignacion(this)"/>
 								<span></span>
 								 Por Pista
 							</label>
@@ -39,7 +39,7 @@
 					<div class="col-md-6">
 						<div class="form-group">
 							<label class="radio radio-lg">
-								<input type="radio" name="radios3_1" value="grupo" onchange="cambiaAsignacion(this)"/>
+								<input type="radio" id="checkGrupo" name="radios3_1" value="grupo" onchange="cambiaAsignacion(this)"/>
 								<span></span>
 								 Por Grupo
 							</label>
@@ -54,7 +54,7 @@
 								@csrf
 								
 								<input type="hidden" name="asignacion_evento_id" id="asignacion_evento_id">
-								<input type="text" id="tipo_asignacion" value="pista" name="tipo_asignacion">
+								<input type="hidden" id="tipo_asignacion" value="pista" name="tipo_asignacion">
 
 								<div class="row">
 									<div class="col-md-4">
@@ -316,6 +316,9 @@
 									<button type="button" class="btn btn-icon btn-dark" onclick="generaNumeracion('{{ $even->id }}', '{{ $even->nombre }}')">
 										<i class="fas fa-monument"></i>
 									</button>
+									<a href="{{ url('Juez/exportarExcel', [$even->id]) }}" class="btn btn-icon btn-success">
+										<i class="fas fa-file-excel"></i>
+									</a>
 									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $even->id }}', '{{ $even->nombre }}')">
 										<i class="flaticon2-cross"></i>
 									</button>
@@ -510,15 +513,42 @@
 
 					if(data.status == 'success'){
 
-						if(data.cantAsignaciones == 0){
+						if(data.tipo != 'vacio'){
 
-							$('#juez_id').prop('disabled', true);
-							$('#secretario_id').prop('disabled', true);
+							if(data.tipo == 'pista'){
+								$('#checkPista').prop('checked', true);
+								$('#tipo_asignacion').val('pista');
+
+								$('#select_pistas').show('toggle');
+								$('#select_grupos').hide('toggle');
+							}else{
+								$('#checkGrupo').prop('checked', true);
+								$('#tipo_asignacion').val('grupo');
+
+								$('#select_grupos').show('toggle');
+								$('#select_pistas').hide('toggle');
+							}
+
+							$('#checkPista').prop('disabled', true);
+							$('#checkGrupo').prop('disabled', true);
+
+
+							// if(data.cantAsignaciones == 0){
+	
+							// 	$('#juez_id').prop('disabled', true);
+							// 	$('#secretario_id').prop('disabled', true);
+	
+							// }else{
+	
+							// 	$('#juez_id').prop('disabled', false);
+							// 	$('#secretario_id').prop('disabled', false);
+	
+							// }
 
 						}else{
 
-							$('#juez_id').prop('disabled', false);
-							$('#secretario_id').prop('disabled', false);
+							$('#checkPista').prop('disabled', false);
+							$('#checkGrupo').prop('disabled', false);
 
 						}
 
@@ -557,17 +587,49 @@
 							
 							$('#listaAsignaciones').html(data.listado);
 
-							if(data.cantAsignaciones == 0){
+							if(data.tipo != 'vacio'){
 
-								$('#juez_id').prop('disabled', true);
-								$('#secretario_id').prop('disabled', true);
+								if(data.tipo == 'pista'){
+									$('#checkPista').prop('checked', true);
+									$('#tipo_asignacion').val('pista');
+
+									$('#select_pistas').show('toggle');
+									$('#select_grupos').hide('toggle');
+								}else{
+									$('#checkGrupo').prop('checked', true);
+									$('#tipo_asignacion').val('grupo');
+
+									$('#select_grupos').show('toggle');
+									$('#select_pistas').hide('toggle');
+								}
+
+								$('#checkPista').prop('disabled', true);
+								$('#checkGrupo').prop('disabled', true);
 
 							}else{
 
-								$('#juez_id').prop('disabled', false);
-								$('#secretario_id').prop('disabled', false);
+								$('#checkPista').prop('disabled', false);
+								$('#checkGrupo').prop('disabled', false);
 
 							}
+
+							// if(data.tipo){
+
+							// 	if(data.cantAsignaciones == 0){
+
+							// 		$('#juez_id').prop('disabled', true);
+							// 		$('#secretario_id').prop('disabled', true);
+
+							// 	}else{
+
+							// 		$('#juez_id').prop('disabled', false);
+							// 		$('#secretario_id').prop('disabled', false);
+
+							// 	}
+
+							// }else{
+
+							// }
 	
 							Swal.fire(
 								"Exito!",
@@ -611,17 +673,43 @@
 
 							if(data.status == 'success'){
 
-								if(data.cantAsignaciones == 0){
+								if(data.tipo != 'vacio'){
 
-									$('#juez_id').prop('disabled', true);
-									$('#secretario_id').prop('disabled', true);
+									if(data.tipo == 'pista'){
+										$('#checkPista').prop('checked', true);
+										$('#tipo_asignacion').val('pista');
+
+										$('#select_pistas').show('toggle');
+										$('#select_grupos').hide('toggle');
+									}else{
+										$('#checkGrupo').prop('checked', true);
+										$('#tipo_asignacion').val('grupo');
+
+										$('#select_grupos').show('toggle');
+										$('#select_pistas').hide('toggle');
+									}
+
+									$('#checkPista').prop('disabled', true);
+									$('#checkGrupo').prop('disabled', true);
 
 								}else{
 
-									$('#juez_id').prop('disabled', false);
-									$('#secretario_id').prop('disabled', false);
+									$('#checkPista').prop('disabled', false);
+									$('#checkGrupo').prop('disabled', false);
 
 								}
+
+								// if(data.cantAsignaciones == 0){
+
+								// 	$('#juez_id').prop('disabled', true);
+								// 	$('#secretario_id').prop('disabled', true);
+
+								// }else{
+
+								// 	$('#juez_id').prop('disabled', false);
+								// 	$('#secretario_id').prop('disabled', false);
+
+								// }
 
 								$('#listaAsignaciones').html(data.listado);
 								
@@ -706,5 +794,6 @@
 			}
 			
 		}
+
     </script>
 @endsection

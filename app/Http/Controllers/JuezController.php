@@ -21,6 +21,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use function GuzzleHttp\Promise\all;
 use Illuminate\Support\Facades\Auth;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class JuezController extends Controller
 {
@@ -137,6 +139,20 @@ class JuezController extends Controller
         
         $faltantes = intval($numero_pistas_evento) - intval($cantidadAsiganacionesEvento);
 
+        // VERIFICAMOS QUE TIPO DE ASIGNACION ES
+        if(count($asiganaciones) != 0 ){
+        
+            if($asiganaciones[0]->estado == 1)
+                $data['tipo'] = 'pista';
+            else
+                $data['tipo'] = 'grupo';
+
+        }else{
+
+            $data['tipo'] = 'vacio';
+
+        }
+
         $data['listado'] = view('evento.ajaxListadoAsignacion', compact('asiganaciones', 'faltantes'))->render();
         $data['cantAsignaciones'] = $faltantes;
         $data['status'] = 'success';
@@ -148,8 +164,7 @@ class JuezController extends Controller
 
         $evento_id = $request->input('evento_id');
 
-        $asiganaciones  = Asignacion::where('evento_id',$evento_id)->get();
-
+        $asiganaciones  = Asignacion::where('evento_id', $evento_id)->get();
 
         // AQUI AREMOS APRA CONTAR
         $evento = Evento::find($evento_id);
@@ -163,12 +178,38 @@ class JuezController extends Controller
         // MANDAMOS LOS GROPOS DEL EVENTO
         $grupos = Juez::getGruposParticipantes($evento_id);
 
+        if($cantidadAsiganacionesEvento != 0){
+
+            if($asiganaciones[0]->estado == 1)
+                $data['tipo'] = 'pista';
+            else
+                $data['tipo'] = 'grupo';
+
+        }else{
+            $data['tipo'] = 'vacio';
+        }
+
+
+        // if($cantidadAsiganacionesEvento != 0){
+
+        //     $data['vacio'] = 'no';
+            
+        //     if($asiganaciones[0]->estado == 1)
+        //         $sw = true;
+        //     else
+        //         $sw = false;
+
+        // }else{
+
+        //     $data['vacio'] = 'si';
+
+        // }
+
         $data['listado'] = view('evento.ajaxListadoAsignacion', compact('asiganaciones', 'faltantes'))->render();
         $data['cantAsignaciones'] = $faltantes;
-
         $data['grupos'] = $grupos;
-
         $data['status'] = 'success';
+        // $data['tipo'] = $sw;
 
         return json_encode($data);
 
@@ -184,21 +225,31 @@ class JuezController extends Controller
 
         $asiganaciones  = Asignacion::where('evento_id',$evento_id)->get();
 
-         // AQUI AREMOS APRA CONTAR
-         $evento = Evento::find($evento_id);
+        // AQUI AREMOS APRA CONTAR
+        $evento = Evento::find($evento_id);
 
-         $numero_pistas_evento = $evento->numero_pista;
+        $numero_pistas_evento = $evento->numero_pista;
+
+        $cantidadAsiganacionesEvento = Asignacion::where('evento_id', $evento_id)->count();
+
+        $faltantes = intval($numero_pistas_evento) - intval($cantidadAsiganacionesEvento);
+
+        if($cantidadAsiganacionesEvento != 0){
+
+            if($asiganaciones[0]->estado == 1)
+                $data['tipo'] = 'pista';
+            else
+                $data['tipo'] = 'grupo';
+
+        }else{
+            $data['tipo'] = 'vacio';
+        }
  
-         $cantidadAsiganacionesEvento = Asignacion::where('evento_id', $evento_id)->count();
+        $data['listado'] = view('evento.ajaxListadoAsignacion', compact('asiganaciones', 'faltantes'))->render();
+        $data['cantAsignaciones'] = $faltantes;
+        $data['status'] = 'success';
  
-         $faltantes = intval($numero_pistas_evento) - intval($cantidadAsiganacionesEvento);
- 
- 
-         $data['listado'] = view('evento.ajaxListadoAsignacion', compact('asiganaciones', 'faltantes'))->render();
-         $data['cantAsignaciones'] = $faltantes;
-         $data['status'] = 'success';
- 
-         return json_encode($data);
+        return json_encode($data);
 
     }
 
@@ -2166,7 +2217,8 @@ class JuezController extends Controller
             // MANDAMOS LA ASIGANCION
             $asignacion = Asignacion::where('num_pista',$pista)
                                     ->where('evento_id',$evento_id)
-                                    ->first();
+                                    ->get();
+                                    // ->first();
         }else{
             // MANDAMOS LA ASIGANCION
             $asignacion = Asignacion::where('evento_id',$evento_id)
@@ -2200,7 +2252,7 @@ class JuezController extends Controller
 
     }
 
-    public function bestingPDF(Request $request, $evento_id, $pista ){
+    public function bestingPDF(Request $request, $evento_id, $pista){
 
         $tipos = ['especiales', 'absolutos', 'jovenes', 'adultos'];
         
@@ -2305,8 +2357,14 @@ class JuezController extends Controller
         }
     
 
-        // // BUSCAMOS AL JUEZ DEL EVENTO
-        $juez = Evento::getJuez($evento_id, $pista);
+        if($pista != 0){
+            // // BUSCAMOS AL JUEZ DEL EVENTO
+            $juez = Evento::getJuez($evento_id, $pista);
+        }else{
+            // MANDAMOS LA ASIGANCION
+            $juez = Asignacion::where('evento_id',$evento_id)
+                                    ->get();
+        }
 
 
         // $pdf    = PDF::loadView('evento.generaBestingPdf', compact('ganadores', 'tipo', 'arrayGrupo', 'primerLugar', 'segundoLugar', 'tercerLugar', 'cuartoLugar', 'quintoLugar', 'juez'))->setPaper('letter', 'landscape');
@@ -2338,5 +2396,131 @@ class JuezController extends Controller
             return json_encode($data);
 
         }
+    }
+
+    public function exportarExcel(Request $request, $evento_id){
+
+        $evento = Evento::find($evento_id);
+
+        $ejemplares = EjemplarEvento::select('ejemplares_eventos.nombre_completo',
+                                            'ejemplares_eventos.raza_id',
+                                            'ejemplares_eventos.sexo',
+                                            'ejemplares_eventos.ejemplar_id',
+                                            'ejemplares_eventos.codigo_nacionalizado',
+                                            'ejemplares_eventos.fecha_nacimiento',
+                                            'ejemplares_eventos.propietario',
+                                            'calificaciones.calificacion',
+                                            'calificaciones.lugar'
+                                            )
+                                            ->leftjoin('calificaciones', 'ejemplares_eventos.id','=','calificaciones.ejemplares_eventos_id')
+                                            ->leftjoin('ganadores', 'ejemplares_eventos.id','=', 'ganadores.ejemplar_evento_id')
+                                            ->leftjoin('bestings', 'ejemplares_eventos.id','=', 'bestings.ejemplar_evento_id')
+                                            ->where('ejemplares_eventos.evento_id',$evento->id)
+                                            ->get();
+
+        // generacion del excel
+        $fileName = 'CalificacionEvento'.str_replace(' ', '_',$evento->nombre).'.xlsx';
+        $libro = new Spreadsheet();
+
+        $hoja = $libro->getActiveSheet();
+        
+        $hoja->setCellValue('A1', 'LISTA DE EJEMPLARES');
+        $hoja->setCellValue('B2', 'NOMBRE');
+        $hoja->setCellValue('C2', 'RAZA');
+        $hoja->setCellValue('D2', 'KCB');
+        $hoja->setCellValue('E2', 'SEXO');
+        $hoja->setCellValue('F2', 'FECHA NACIMIENTO');
+        $hoja->setCellValue('G2', 'PROPIETARIO');
+        $hoja->setCellValue('H2', 'CALIFICACION');
+        $hoja->setCellValue('I2', 'LUGAR');
+        // $hoja->setCellValue('J2', 'MEJOR MACHO');
+        // $hoja->setCellValue('K2', 'MEJOR HEMBRA');
+        // $hoja->setCellValue('L2', 'MEJOR CACHORRO');
+        // $hoja->setCellValue('M2', 'SEXO OPUESTO CACHORRO');
+        // $hoja->setCellValue('N2', 'MEJOR JOVEN');
+        // $hoja->setCellValue('O2', 'SEXO OPUESTO JOVEN');
+
+        $libro->getActiveSheet()->mergeCells('A1:I1');
+
+        $contador = 3;
+
+        foreach($ejemplares as $key => $eje){
+
+            if($eje->ejemplar){
+                $kcb = $eje->ejemplar->kcb;
+            }else{
+                $kcb = $eje->codigo_nacionalizado;
+            }
+
+            $hoja->setCellValue("B$contador", $eje->nombre_completo);
+            $hoja->setCellValue("C$contador", ($eje->raza)? $eje->raza->nombre : '');
+            $hoja->setCellValue("D$contador", $kcb);
+            $hoja->setCellValue("E$contador", $eje->sexo);
+            $hoja->setCellValue("F$contador", $eje->fecha_nacimiento);
+            $hoja->setCellValue("G$contador", $eje->propietario);
+            $hoja->setCellValue("H$contador", $eje->calificacion);
+            $hoja->setCellValue("I$contador", $eje->lugar);
+
+            $contador++;
+        }
+
+        // $contador = 5;
+
+        $fuenteNegritaTitulo = array(
+        'font'  => array(
+            'bold'  => true,
+            // 'color' => array('rgb' => 'FF0000'),
+            'size'  => 20,
+            // 'name'  => 'Verdana'
+        ));
+
+        $libro->getActiveSheet()->getStyle("A1")->applyFromArray($fuenteNegritaTitulo);
+
+        $estilobor = $contador-1;
+
+        $libro->getActiveSheet()->getStyle("B2:I$estilobor")->applyFromArray(
+            array(
+                'borders' => array(
+                    'allBorders' => array(
+                        'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                        'color' => array('argb' => '000000')
+                    )
+                )
+            )
+        );
+
+        $fuenteNegrita = array(
+        'font'  => array(
+            'bold'  => true,
+        ));
+
+        $libro->getActiveSheet()->getColumnDimension('B')->setWidth(50);
+        $libro->getActiveSheet()->getColumnDimension('C')->setWidth(70);
+        $libro->getActiveSheet()->getColumnDimension('D')->setWidth(15);
+        $libro->getActiveSheet()->getColumnDimension('E')->setWidth(10);
+        $libro->getActiveSheet()->getColumnDimension('F')->setWidth(12);
+        $libro->getActiveSheet()->getColumnDimension('G')->setWidth(60);
+        $libro->getActiveSheet()->getColumnDimension('H')->setWidth(10);
+        $libro->getActiveSheet()->getColumnDimension('I')->setWidth(9);
+
+
+        $libro->getActiveSheet()->getStyle('A2:I2')->applyFromArray($fuenteNegrita);
+
+        $style = array(
+            'alignment' => array(
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+            )
+        );
+
+        $hoja->getStyle("A1")->applyFromArray($style);
+        $hoja->getStyle("A2:I2")->applyFromArray($style);
+
+        // exportamos el excel
+        $writer = new Xlsx($libro);
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="'. urlencode($fileName).'"');
+        $writer->save('php://output');
+
     }
 }

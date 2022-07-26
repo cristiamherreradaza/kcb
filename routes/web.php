@@ -231,6 +231,7 @@ Route::post('Juez/cambiaMejorRecerva', 'JuezController@cambiaMejorRecerva');
 Route::get('Juez/planillaPDF/{evento_id}/{pista}', 'JuezController@planillaPDF');
 Route::get('Juez/bestingPDF/{evento_id}/{pista}', 'JuezController@bestingPDF');
 Route::post('Juez/certificacionExtrangero', 'JuezController@certificacionExtrangero');
+Route::get('Juez/exportarExcel/{evento_id}', 'JuezController@exportarExcel');
 
 
 

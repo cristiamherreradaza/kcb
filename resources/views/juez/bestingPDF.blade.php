@@ -339,7 +339,8 @@
             </h1>
             
             <div class="cabeza-datos">
-                <div id="juez">JUEZ: {{ $juez->juez->nombre }}</div>
+                {{-- <div id="juez">JUEZ: {{ $juez->juez->nombre }}</div> --}}
+                <div id="juez">JUEZ: {{ $juez[0]->juez->nombre }}</div>
                 <div id="lugar">LUGAR Y FECHA: {{ date('d/m/Y') }}</div>
             </div>
         
@@ -507,7 +508,7 @@
 
             <div id="firma_figital">
                 @php
-                    $firmaJuez = $juez->juez->estado;
+                    $firmaJuez = $juez[0]->juez->estado;
                 @endphp
                 <img src="{{ url("imagenesFirmaJuezSecre/$firmaJuez") }}" width="100%" alt="">
             </div>
@@ -520,7 +521,7 @@
 
             <div id="firma_figital_secretario">
                 @php
-                    $firmaSecre = $juez->secretario->estado;
+                    $firmaSecre = $juez[0]->secretario->estado;
                 @endphp
                 <img src="{{ url("imagenesFirmaJuezSecre/$firmaSecre") }}" width="100%" alt="">
             </div>

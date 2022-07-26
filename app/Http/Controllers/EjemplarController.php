@@ -709,7 +709,6 @@ class EjemplarController extends Controller
 
     public function generaExcelPedigree(Request $request, $ejemplarId)
     {
-        // dd($ejemplarId);
         $ejemplar = Ejemplar::find($ejemplarId);
         // generacion del excel
         $fileName = 'pedigree.xlsx';

@@ -58,7 +58,8 @@ class Evento extends Model
 
         $juez = Asignacion::where('evento_id',$evento_id)
                             ->where('num_pista', $num_pista)
-                            ->first();
+                            ->get();
+                            // ->first();
 
         return $juez;
         
