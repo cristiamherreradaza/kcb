@@ -1209,103 +1209,103 @@ class EventoController extends Controller
         return json_encode($arrayCategorias);
     }
 
-    public function generaBestingPdf(Request $request, $evento, $tipo){
+    // public function generaBestingPdf(Request $request, $evento, $tipo){
 
-        $ganadores = Evento::bestingTipos($tipo, $evento);
+    //     $ganadores = Evento::bestingTipos($tipo, $evento);
 
-        $grupo1 = array();
-        $grupo2 = array();
-        $grupo3 = array();
-        $grupo4 = array();
-        $grupo5 = array();
-        $grupo6 = array();
-        $grupo7 = array();
-        $grupo8 = array();
-        $grupo9 = array();
-        $grupo10 = array();
-        $grupo11 = array();
+    //     $grupo1 = array();
+    //     $grupo2 = array();
+    //     $grupo3 = array();
+    //     $grupo4 = array();
+    //     $grupo5 = array();
+    //     $grupo6 = array();
+    //     $grupo7 = array();
+    //     $grupo8 = array();
+    //     $grupo9 = array();
+    //     $grupo10 = array();
+    //     $grupo11 = array();
 
-        $arrayGrupo = array();
+    //     $arrayGrupo = array();
 
-        foreach ($ganadores as $g){
+    //     foreach ($ganadores as $g){
 
-            switch ($g->grupo_id) {
-                case 1:
-                    array_push($grupo1,$g);
-                    break;
-                case 2:
-                    array_push($grupo2,$g);
-                    break;
-                case 3:
-                    array_push($grupo3,$g);
-                    break;
-                case 4:
-                    array_push($grupo4,$g);
-                    break;
-                case 5:
-                    array_push($grupo5,$g);
-                    break;
-                case 6:
-                    array_push($grupo6,$g);
-                    break;
-                case 7:
-                    array_push($grupo7,$g);
-                    break;
-                case 8:
-                    array_push($grupo8,$g);
-                    break;
-                case 9:
-                    array_push($grupo9,$g);
-                    break;
-                case 10:
-                    array_push($grupo10,$g);
-                    break;
-                case 11:
-                    array_push($grupo11,$g);
-                    break;
-            }
+    //         switch ($g->grupo_id) {
+    //             case 1:
+    //                 array_push($grupo1,$g);
+    //                 break;
+    //             case 2:
+    //                 array_push($grupo2,$g);
+    //                 break;
+    //             case 3:
+    //                 array_push($grupo3,$g);
+    //                 break;
+    //             case 4:
+    //                 array_push($grupo4,$g);
+    //                 break;
+    //             case 5:
+    //                 array_push($grupo5,$g);
+    //                 break;
+    //             case 6:
+    //                 array_push($grupo6,$g);
+    //                 break;
+    //             case 7:
+    //                 array_push($grupo7,$g);
+    //                 break;
+    //             case 8:
+    //                 array_push($grupo8,$g);
+    //                 break;
+    //             case 9:
+    //                 array_push($grupo9,$g);
+    //                 break;
+    //             case 10:
+    //                 array_push($grupo10,$g);
+    //                 break;
+    //             case 11:
+    //                 array_push($grupo11,$g);
+    //                 break;
+    //         }
 
-        }
+    //     }
 
-        array_push($arrayGrupo, $grupo1);
-        array_push($arrayGrupo, $grupo2);
-        array_push($arrayGrupo, $grupo3);
-        array_push($arrayGrupo, $grupo4);
-        array_push($arrayGrupo, $grupo5);
-        array_push($arrayGrupo, $grupo6);
-        array_push($arrayGrupo, $grupo7);
-        array_push($arrayGrupo, $grupo8);
-        array_push($arrayGrupo, $grupo9);
-        array_push($arrayGrupo, $grupo10);
-        array_push($arrayGrupo, $grupo11);
+    //     array_push($arrayGrupo, $grupo1);
+    //     array_push($arrayGrupo, $grupo2);
+    //     array_push($arrayGrupo, $grupo3);
+    //     array_push($arrayGrupo, $grupo4);
+    //     array_push($arrayGrupo, $grupo5);
+    //     array_push($arrayGrupo, $grupo6);
+    //     array_push($arrayGrupo, $grupo7);
+    //     array_push($arrayGrupo, $grupo8);
+    //     array_push($arrayGrupo, $grupo9);
+    //     array_push($arrayGrupo, $grupo10);
+    //     array_push($arrayGrupo, $grupo11);
 
-        // SACAMOS LOS GANADORES
-        // primer
-        $primerLugar = Evento::getPuestoGanador($evento, $tipo, 1);
+    //     // SACAMOS LOS GANADORES
+    //     // primer
+    //     $primerLugar = Evento::getPuestoGanador($evento, $tipo, 1);
 
-        // segundo
-        $segundoLugar = Evento::getPuestoGanador($evento, $tipo, 2);
+    //     // segundo
+    //     $segundoLugar = Evento::getPuestoGanador($evento, $tipo, 2);
 
-        // tercer
-        $tercerLugar = Evento::getPuestoGanador($evento, $tipo, 3);
+    //     // tercer
+    //     $tercerLugar = Evento::getPuestoGanador($evento, $tipo, 3);
 
-        // cuarto
-        $cuartoLugar = Evento::getPuestoGanador($evento, $tipo, 4);
+    //     // cuarto
+    //     $cuartoLugar = Evento::getPuestoGanador($evento, $tipo, 4);
 
-        // quinto
-        $quintoLugar = Evento::getPuestoGanador($evento, $tipo, 5);
+    //     // quinto
+    //     $quintoLugar = Evento::getPuestoGanador($evento, $tipo, 5);
 
-        // BUSCAMOS AL JUEZ DEL EVENTO
-        $juez = Evento::getJuez($evento);
+    //     // BUSCAMOS AL JUEZ DEL EVENTO
+    //     $juez = Evento::getJuez($evento);
 
 
-        $pdf    = PDF::loadView('evento.generaBestingPdf', compact('ganadores', 'tipo', 'arrayGrupo', 'primerLugar', 'segundoLugar', 'tercerLugar', 'cuartoLugar', 'quintoLugar', 'juez'))->setPaper('letter', 'landscape');
+    //     $pdf    = PDF::loadView('evento.generaBestingPdf', compact('ganadores', 'tipo', 'arrayGrupo', 'primerLugar', 'segundoLugar', 'tercerLugar', 'cuartoLugar', 'quintoLugar', 'juez'))->setPaper('letter', 'landscape');
 
-        return $pdf->stream('Planilla_'.date('Y-m-d H:i:s').'.pdf');      
+    //     return $pdf->stream('Planilla_'.date('Y-m-d H:i:s').'.pdf');      
 
-        // return view('evento.generaBestingPdf')->with(compact('ganadores'));
+    //     // return view('evento.generaBestingPdf')->with(compact('ganadores'));
 
-    }
+    // }
 
     public function inscribirEjemplar(Request $request){
 

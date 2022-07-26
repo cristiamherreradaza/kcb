@@ -330,7 +330,7 @@
         position: absolute;
         margin-left: 643px;
         font-size: 10px;
-        margin-top: -62px;
+        margin-top: -55px;
     }
     .tablaEstrangero{
         border-collapse:collapse;
@@ -338,6 +338,12 @@
     .extrangeroNumero{
         font-size: 13px;
         padding: 5px;
+    }
+    .extrangeroMachoCacib{
+        position: absolute;
+        margin-left: 712px;
+        font-size: 10px;
+        margin-top: -55px;
     }
 </style>
 <body>
@@ -868,9 +874,28 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="bordes">CACPan</td>
+                                    <td class="bordes">CLACAB</td>
                                     @php
-                                        $certificado = App\Juez::getCertificacionExtranjero($evento_id, $pista, $er->raza_id, 'certificacionCACP', 'Macho');
+                                        $certificado = App\Juez::getCertificacionExtranjero($evento_id, $pista, $er->raza_id, 'certificacionCLACAB', 'Macho');
+                                    @endphp
+                                    <td class="bordes"><span class="extrangeroNumero">{{ (($certificado)? $certificado->numero_prefijo : '' ) }}</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="extrangeroMachoCacib">
+                        <table class="bordes tablaEstrangero">
+                            <thead>
+                                <tr>
+                                    <th  class="bordes" height="2" colspan="2">N</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="bordes">CACIB</td>
+                                    @php
+                                        $certificado = App\Juez::getCertificacionExtranjero($evento_id, $pista, $er->raza_id, 'certificacionCACIB', 'Macho');
                                     @endphp
                                     <td class="bordes"><span class="extrangeroNumero">{{ (($certificado)? $certificado->numero_prefijo : '' ) }}</span></td>
                                 </tr>
@@ -1374,6 +1399,7 @@
                             </tr>
                         </tfoot>
                     </table>
+
                     <div class="extrangeroMacho">
                         <table class="bordes tablaEstrangero">
                             <thead>
@@ -1383,9 +1409,27 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="bordes">CACPan</td>
+                                    <td class="bordes">CLACAB</td>
                                     @php
-                                        $certificado = App\Juez::getCertificacionExtranjero($evento_id, $pista, $er->raza_id, 'certificacionCACP', 'Hembra');
+                                        $certificado = App\Juez::getCertificacionExtranjero($evento_id, $pista, $er->raza_id, 'certificacionCLACAB', 'Hembra');
+                                    @endphp
+                                    <td class="bordes"><span class="extrangeroNumero">{{ (($certificado)? $certificado->numero_prefijo : '' ) }}</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="extrangeroMachoCacib">
+                        <table class="bordes tablaEstrangero">
+                            <thead>
+                                <tr>
+                                    <th  class="bordes" height="2" colspan="2">N</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="bordes">CACIB</td>
+                                    @php
+                                        $certificado = App\Juez::getCertificacionExtranjero($evento_id, $pista, $er->raza_id, 'certificacionCACIB', 'Hembra');
                                     @endphp
                                     <td class="bordes"><span class="extrangeroNumero">{{ (($certificado)? $certificado->numero_prefijo : '' ) }}</span></td>
                                 </tr>

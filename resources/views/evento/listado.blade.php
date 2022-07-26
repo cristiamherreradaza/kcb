@@ -53,8 +53,8 @@
 							<form action="{{ url('Juez/guardaAsignacionEvento') }}" method="POST" id="formulario-asignacion">
 								@csrf
 								
-								<input type="hidden" name="asignacion_evento_id" id="asignacion_evento_id">
-								<input type="hidden" id="tipo_asignacion" value="pista" name="tipo_asignacion">
+								<input type="text" name="asignacion_evento_id" id="asignacion_evento_id">
+								<input type="text" id="tipo_asignacion" value="pista" name="tipo_asignacion">
 
 								<div class="row">
 									<div class="col-md-4">
@@ -546,6 +546,11 @@
 							// }
 
 						}else{
+
+							$('#checkPista').prop('checked', true);
+							$('#tipo_asignacion').val('pista');
+							$('#select_pistas').css('display', 'block');
+							$('#select_grupos').css('display', 'none');
 
 							$('#checkPista').prop('disabled', false);
 							$('#checkGrupo').prop('disabled', false);

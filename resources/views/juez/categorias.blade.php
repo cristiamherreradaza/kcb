@@ -1347,9 +1347,9 @@
             }).then((result) => {
 
                 if(certificado == 1)
-                    var certif = 'certificacionCACPan_';
+                    var certif = 'certificacionCLACAB_';
                 else
-                    var certif = 'certificacionCACPan2_';
+                    var certif = 'certificacionCACIB_';
 
                 if( $('#'+certif+ganador).prop('checked') )
                     var sw = true;

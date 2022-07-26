@@ -1748,9 +1748,14 @@ class JuezController extends Controller
                                         <div class="col-9 col-form-label">
                                             <div class="checkbox-inline">
                                                 <label class="checkbox">
-                                                    <input type="checkbox" id="certificacionCACPan_'.$ganador->id.'" onclick="agregaCertificado(1, '.$ganador->id.')" name="Checkboxes6"/>
+                                                    <input type="checkbox" id="certificacionCLACAB_'.$ganador->id.'" onclick="agregaCertificado(1, '.$ganador->id.')" name="Checkboxes6"/>
                                                     <span></span>
-                                                    CACPan
+                                                    CLACAB
+                                                </label>
+                                                <label class="checkbox">
+                                                    <input type="checkbox" id="certificacionCACIB_'.$ganador->id.'" onclick="agregaCertificado(2, '.$ganador->id.')" name="Checkboxes6"/>
+                                                    <span></span>
+                                                    CA CIB
                                                 </label>
                                             </div>
                                         </div>
@@ -2385,7 +2390,18 @@ class JuezController extends Controller
 
             if($tipoCertificacion == 1){
 
-                $ganador->certificacionCACP = "Si";
+                if($ganador->certificacionCLACAB == "Si")
+                    $ganador->certificacionCLACAB = null;
+                else
+                    $ganador->certificacionCLACAB = "Si";
+                    
+                
+            }else if($tipoCertificacion == 2){
+
+                if($ganador->certificacionCACIB == "Si")
+                    $ganador->certificacionCACIB = null;
+                else
+                    $ganador->certificacionCACIB = "Si";
 
             }
 
@@ -2410,7 +2426,8 @@ class JuezController extends Controller
                                             'ejemplares_eventos.fecha_nacimiento',
                                             'ejemplares_eventos.propietario',
                                             'calificaciones.calificacion',
-                                            'calificaciones.lugar'
+                                            'calificaciones.lugar',
+                                            'calificaciones.pista'
                                             )
                                             ->leftjoin('calificaciones', 'ejemplares_eventos.id','=','calificaciones.ejemplares_eventos_id')
                                             ->leftjoin('ganadores', 'ejemplares_eventos.id','=', 'ganadores.ejemplar_evento_id')
@@ -2433,6 +2450,7 @@ class JuezController extends Controller
         $hoja->setCellValue('G2', 'PROPIETARIO');
         $hoja->setCellValue('H2', 'CALIFICACION');
         $hoja->setCellValue('I2', 'LUGAR');
+        // $hoja->setCellValue('J2', 'PISTA');
         // $hoja->setCellValue('J2', 'MEJOR MACHO');
         // $hoja->setCellValue('K2', 'MEJOR HEMBRA');
         // $hoja->setCellValue('L2', 'MEJOR CACHORRO');
@@ -2460,6 +2478,7 @@ class JuezController extends Controller
             $hoja->setCellValue("G$contador", $eje->propietario);
             $hoja->setCellValue("H$contador", $eje->calificacion);
             $hoja->setCellValue("I$contador", $eje->lugar);
+            // $hoja->setCellValue("J$contador", $eje->pista);
 
             $contador++;
         }

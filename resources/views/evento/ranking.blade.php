@@ -133,6 +133,9 @@
                                                                         <span class="text-primary">MEJOR CACHORRO</span>
                                                                         <br>
                                                                         <h5>{{ $ejemplares[$contadoresRazas]['mejorCachoro']->numero_prefijo }}</h5>
+
+                                                                        <img class="listonMejor" src="{{ url('img/liston2.png') }}" alt="" width="35%">
+
                                                                     @endif
                                                                 </div>
                                                                 <div class="col-md-6">
@@ -140,6 +143,9 @@
                                                                         <span class="text-primary">MEJOR SEXO OPUESTO</span>
                                                                         <br>
                                                                         <h5>{{ $ejemplares[$contadoresRazas]['mejorCachoroSexoOpuesto']->numero_prefijo }}</h5>
+
+                                                                        <img class="listonMejor" src="{{ url('img/liston2.png') }}" alt="" width="35%">
+
                                                                     @endif
                                                                 </div>
                                                             </div>
@@ -154,6 +160,9 @@
                                                                         <span class="text-primary">MEJOR JOVEN</span>
                                                                         <br>
                                                                         <h5>{{ $ejemplares[$contadoresRazas]['mejorJoven']->numero_prefijo }}</h5>
+
+                                                                        <img class="listonMejor" src="{{ url('img/liston.png') }}" alt="" width="40%">
+
                                                                     @endif
                                                                 </div>
                                                                 <div class="col-md-6">
@@ -161,6 +170,8 @@
                                                                         <span class="text-primary">MEJOR SEXO OPUESTO</span>
                                                                         <br>
                                                                         <h5>{{ $ejemplares[$contadoresRazas]['mejorJovenSexoOpuesto']->numero_prefijo }}</h5>
+
+                                                                        <img class="listonMejor" src="{{ url('img/liston.png') }}" alt="" width="40%">
                                                                     @endif
                                                                 </div>
                                                             </div>
@@ -175,13 +186,32 @@
                                                                         <span class="text-primary">MEJOR DE LA RAZA</span>
                                                                         <br>
                                                                         <h5>{{ $ejemplares[$contadoresRazas]['mejorRaza']->numero_prefijo }}</h5>
+                                                                        @if($ejemplares[$contadoresRazas]['mejorRaza']->certificacionCLACAB == "Si")
+                                                                            <i class="fa fa-star text-primary" aria-hidden="true"></i>  
+                                                                        @endif
+                                                                        @if($ejemplares[$contadoresRazas]['mejorRaza']->certificacionCACIB == "Si")
+                                                                            <i class="fa fa-star text-warning" aria-hidden="true"></i>  
+                                                                        @endif
+
+                                                                        <img class="listonMejor" src="{{ url('img/liston1.png') }}" alt="" width="35%">
+
                                                                     @endif
                                                                 </div>
+                                                                {{-- <div class="col-md-6" style="background-image: url({{ url('img/liston.png') }});"> --}}
                                                                 <div class="col-md-6">
                                                                     @if ($ejemplares[$contadoresRazas]['mejorRazaSexoOpuesto'])
                                                                         <span class="text-primary">MEJOR SEXO OPUESTO</span>
                                                                         <br>
                                                                         <h5>{{ $ejemplares[$contadoresRazas]['mejorRazaSexoOpuesto']->numero_prefijo }}</h5>
+                                                                        @if($ejemplares[$contadoresRazas]['mejorRazaSexoOpuesto']->certificacionCLACAB == "Si")
+                                                                            <i class="fa fa-star text-primary" aria-hidden="true"></i>  
+                                                                        @endif
+                                                                        @if($ejemplares[$contadoresRazas]['mejorRazaSexoOpuesto']->certificacionCACIB == "Si")
+                                                                            <i class="fa fa-star text-warning" aria-hidden="true"></i>  
+                                                                        @endif
+
+                                                                        <img class="listonMejor" src="{{ url('img/liston1.png') }}" alt="" width="35%">
+
                                                                     @endif
                                                                 </div>
                                                             </div>
