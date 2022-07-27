@@ -113,6 +113,8 @@ Route::get('Evento/generaBestingPdf/{evento}/{tipo}', 'EventoController@generaBe
 Route::post('Evento/inscribirEjemplar', 'EventoController@inscribirEjemplar');
 Route::post('Evento/buscaExtranjero', 'EventoController@buscaExtranjero');
 Route::get('Evento/ranking/{evento_id}/{pista}', 'EventoController@ranking');
+Route::post('Evento/habilitaEvento', 'EventoController@habilitaEvento');
+
 
 
 // PISTAS

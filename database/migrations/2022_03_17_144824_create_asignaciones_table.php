@@ -39,6 +39,7 @@ class CreateAsignacionesTable extends Migration
 
             $table->string('num_pista',3)->nullable();
             $table->text('grupos')->nullable();
+            $table->text('categorias')->nullable();
             $table->string('estado',50)->nullable();
 
             $table->datetime('deleted_at')->nullable();

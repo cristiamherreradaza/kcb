@@ -2394,7 +2394,7 @@ class JuezController extends Controller
                     $ganador->certificacionCLACAB = null;
                 else
                     $ganador->certificacionCLACAB = "Si";
-                    
+
                 
             }else if($tipoCertificacion == 2){
 
@@ -2427,12 +2427,16 @@ class JuezController extends Controller
                                             'ejemplares_eventos.propietario',
                                             'calificaciones.calificacion',
                                             'calificaciones.lugar',
-                                            'calificaciones.pista'
+                                            'calificaciones.pista',
+                                            'ganadores.certificacionCLACAB',
+                                            'ganadores.certificacionCACIB',
+                                            'ejemplares_eventos.numero_prefijo'
                                             )
                                             ->leftjoin('calificaciones', 'ejemplares_eventos.id','=','calificaciones.ejemplares_eventos_id')
                                             ->leftjoin('ganadores', 'ejemplares_eventos.id','=', 'ganadores.ejemplar_evento_id')
                                             ->leftjoin('bestings', 'ejemplares_eventos.id','=', 'bestings.ejemplar_evento_id')
                                             ->where('ejemplares_eventos.evento_id',$evento->id)
+                                            ->distinct()
                                             ->get();
 
         // generacion del excel
@@ -2441,24 +2445,20 @@ class JuezController extends Controller
 
         $hoja = $libro->getActiveSheet();
         
-        $hoja->setCellValue('A1', 'LISTA DE EJEMPLARES');
+        $hoja->setCellValue('A1', 'LISTA DE EJEMPLARES DEL EVENTO '.strtoupper($evento->nombre));
         $hoja->setCellValue('B2', 'NOMBRE');
-        $hoja->setCellValue('C2', 'RAZA');
-        $hoja->setCellValue('D2', 'KCB');
-        $hoja->setCellValue('E2', 'SEXO');
-        $hoja->setCellValue('F2', 'FECHA NACIMIENTO');
-        $hoja->setCellValue('G2', 'PROPIETARIO');
-        $hoja->setCellValue('H2', 'CALIFICACION');
-        $hoja->setCellValue('I2', 'LUGAR');
-        // $hoja->setCellValue('J2', 'PISTA');
-        // $hoja->setCellValue('J2', 'MEJOR MACHO');
-        // $hoja->setCellValue('K2', 'MEJOR HEMBRA');
-        // $hoja->setCellValue('L2', 'MEJOR CACHORRO');
-        // $hoja->setCellValue('M2', 'SEXO OPUESTO CACHORRO');
-        // $hoja->setCellValue('N2', 'MEJOR JOVEN');
-        // $hoja->setCellValue('O2', 'SEXO OPUESTO JOVEN');
+        $hoja->setCellValue('C2', 'NUMERO');
+        $hoja->setCellValue('D2', 'RAZA');
+        $hoja->setCellValue('E2', 'KCB');
+        $hoja->setCellValue('F2', 'SEXO');
+        $hoja->setCellValue('G2', 'FECHA NACIMIENTO');
+        $hoja->setCellValue('H2', 'PROPIETARIO');
+        $hoja->setCellValue('I2', 'CALIFICACION');
+        $hoja->setCellValue('J2', 'LUGAR');
+        $hoja->setCellValue('K2', 'CERTIFIACION CLACAB');
+        $hoja->setCellValue('L2', 'CERTIFIACION CACIB');
 
-        $libro->getActiveSheet()->mergeCells('A1:I1');
+        $libro->getActiveSheet()->mergeCells('A1:L1');
 
         $contador = 3;
 
@@ -2471,19 +2471,20 @@ class JuezController extends Controller
             }
 
             $hoja->setCellValue("B$contador", $eje->nombre_completo);
-            $hoja->setCellValue("C$contador", ($eje->raza)? $eje->raza->nombre : '');
-            $hoja->setCellValue("D$contador", $kcb);
-            $hoja->setCellValue("E$contador", $eje->sexo);
-            $hoja->setCellValue("F$contador", $eje->fecha_nacimiento);
-            $hoja->setCellValue("G$contador", $eje->propietario);
-            $hoja->setCellValue("H$contador", $eje->calificacion);
-            $hoja->setCellValue("I$contador", $eje->lugar);
-            // $hoja->setCellValue("J$contador", $eje->pista);
+            $hoja->setCellValue("C$contador", $eje->numero_prefijo);
+            $hoja->setCellValue("D$contador", ($eje->raza)? $eje->raza->nombre : '');
+            $hoja->setCellValue("E$contador", $kcb);
+            $hoja->setCellValue("F$contador", $eje->sexo);
+            $hoja->setCellValue("G$contador", $eje->fecha_nacimiento);
+            $hoja->setCellValue("H$contador", $eje->propietario);
+            $hoja->setCellValue("I$contador", $eje->calificacion);
+            $hoja->setCellValue("J$contador", $eje->lugar);
+            $hoja->setCellValue("K$contador", ($eje->certificacionCLACAB != null)? $eje->certificacionCLACAB : '');
+            $hoja->setCellValue("L$contador", ($eje->certificacionCACIB != null)? $eje->certificacionCACIB : '');
+            // $hoja->setCellValue("M$contador", $eje->pista);
 
             $contador++;
         }
-
-        // $contador = 5;
 
         $fuenteNegritaTitulo = array(
         'font'  => array(
@@ -2497,7 +2498,7 @@ class JuezController extends Controller
 
         $estilobor = $contador-1;
 
-        $libro->getActiveSheet()->getStyle("B2:I$estilobor")->applyFromArray(
+        $libro->getActiveSheet()->getStyle("B2:L$estilobor")->applyFromArray(
             array(
                 'borders' => array(
                     'allBorders' => array(
@@ -2514,16 +2515,19 @@ class JuezController extends Controller
         ));
 
         $libro->getActiveSheet()->getColumnDimension('B')->setWidth(50);
-        $libro->getActiveSheet()->getColumnDimension('C')->setWidth(70);
-        $libro->getActiveSheet()->getColumnDimension('D')->setWidth(15);
+        $libro->getActiveSheet()->getColumnDimension('C')->setWidth(10);
+        $libro->getActiveSheet()->getColumnDimension('D')->setWidth(50);
         $libro->getActiveSheet()->getColumnDimension('E')->setWidth(10);
         $libro->getActiveSheet()->getColumnDimension('F')->setWidth(12);
-        $libro->getActiveSheet()->getColumnDimension('G')->setWidth(60);
-        $libro->getActiveSheet()->getColumnDimension('H')->setWidth(10);
-        $libro->getActiveSheet()->getColumnDimension('I')->setWidth(9);
+        $libro->getActiveSheet()->getColumnDimension('G')->setWidth(12);
+        $libro->getActiveSheet()->getColumnDimension('H')->setWidth(60);
+        $libro->getActiveSheet()->getColumnDimension('I')->setWidth(12);
+        $libro->getActiveSheet()->getColumnDimension('J')->setWidth(9);
+        $libro->getActiveSheet()->getColumnDimension('K')->setWidth(15);
+        $libro->getActiveSheet()->getColumnDimension('L')->setWidth(15);
 
 
-        $libro->getActiveSheet()->getStyle('A2:I2')->applyFromArray($fuenteNegrita);
+        $libro->getActiveSheet()->getStyle('A2:L2')->applyFromArray($fuenteNegrita);
 
         $style = array(
             'alignment' => array(
@@ -2533,7 +2537,7 @@ class JuezController extends Controller
         );
 
         $hoja->getStyle("A1")->applyFromArray($style);
-        $hoja->getStyle("A2:I2")->applyFromArray($style);
+        $hoja->getStyle("A2:L2")->applyFromArray($style);
 
         // exportamos el excel
         $writer = new Xlsx($libro);

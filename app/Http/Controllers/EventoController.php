@@ -1492,4 +1492,28 @@ class EventoController extends Controller
 
     }
 
+    public function habilitaEvento(Request $request){
+
+        if($request->ajax()){
+
+            $evento_id = $request->input('evento');
+
+            $evento = Evento::find($evento_id);
+
+            if($evento->habilitado == "No" || $evento->habilitado == null){
+                $evento->habilitado = "Si";
+            }else{
+                $evento->habilitado = "No";
+            }
+
+            $evento->save();
+
+            $data['status'] = 'success';
+    
+            return json_encode($data);
+
+        }
+
+    }
+
 }

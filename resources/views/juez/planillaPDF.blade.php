@@ -360,8 +360,30 @@
                 </div>
 
                 <p class="juez">
-                    {{-- Juez: {{ $asignacion->juez->nombre }} --}}
-                    Juez: {{ $asignacion[0]->juez->nombre }}
+
+                    @if ($asignacion[0]->estado == 1)
+                        
+                        Juez: {{ $asignacion[0]->juez->nombre}}
+                    
+                    @else
+
+                        @php
+                            $grupo = App\EjemplarEvento::getGrupo($er->raza->id);
+
+                            $asigEnco = null;
+
+                            foreach ($asignacion as $a){
+                                if(in_array($grupo->grupo_id, json_decode($a->grupos))){
+                                    $asigEnco = $a;
+                                    break;
+                                }
+                            }
+                        @endphp
+
+                        Juez: {{ ($asigEnco)? $asigEnco->juez->nombre :''}}
+                        
+                    @endif
+                    
                  </p>
 
                 <p class="fecha">
@@ -1482,25 +1504,48 @@
                 <div class="bloque_firmas">
                     <div class="firma_figital">
                         @php
-                            $firmaJuez = $asignacion[0]->juez->estado;
+
+                            if($asignacion[0]->estado == 1){
+                                $firmaJuez = $asignacion[0]->juez->estado;
+                            }else{
+                                if($asigEnco){
+                                    $firmaJuez = $asigEnco->juez->estado;
+                                }
+                            }
+
                         @endphp
-                        <img src="{{ url("imagenesFirmaJuezSecre/$firmaJuez") }}" width="100%" alt="">
+
+                        @if ($asigEnco)
+                            <img src="{{ url("imagenesFirmaJuezSecre/$firmaJuez") }}" width="100%" alt="">
+                        @endif
+
                     </div>
 
                     _____________________________<br>
-                            <b>JUEZ</b>
+                        <b>JUEZ</b>
 
-                            <p class="espacio_firmas"></p>
+                        <p class="espacio_firmas"></p>
 
                     <div class="firma_figital_secretario">
                         @php
-                            $firmaSecre = $asignacion[0]->secretario->estado;
+
+                            if($asignacion[0]->estado == 1){
+                                $firmaSecre = $asignacion[0]->secretario->estado;
+                            }else{
+                                if($asigEnco){
+                                    $firmaSecre = $asigEnco->secretario->estado;
+                                }
+                            }
+
                         @endphp
-                        <img src="{{ url("imagenesFirmaJuezSecre/$firmaSecre") }}" width="100%" alt="">
+
+                        @if ($asigEnco)
+                            <img src="{{ url("imagenesFirmaJuezSecre/$firmaSecre") }}" width="100%" alt="">
+                        @endif
                     </div>
 
                     _____________________________<br>
-                            <b>AYUDANTE DE JUEZ</b>
+                        <b>AYUDANTE DE JUEZ</b>
                 </div>
             </div>
         @endforeach

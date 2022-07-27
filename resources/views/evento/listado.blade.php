@@ -293,7 +293,7 @@
 										<div class="col-3">
 										 <span class="switch switch-outline switch-icon switch-success">
 										  <label>
-										   <input type="checkbox" checked="checked" {{ ($even->habilitado == 'Si' || $even->habilitado == NULL)? 'checked' : '' }} onchange="cerrarEvento({{ $even->id }})"/>
+										   <input type="checkbox" {{ ($even->habilitado == 'Si')? 'checked' : '' }} id="evento_cerrerar_{{ $even->id }}" onchange='cerrarEvento({{ $even->id }}, "{{ $even->nombre }}")'/>
 										   <span></span>
 										  </label>
 										 </span>
@@ -773,9 +773,60 @@
             });
 		}
 
-		function cerrarEvento(evento){
+		function cerrarEvento(evento, nombre){
 
-			console.log(evento);
+			Swal.fire({
+                title: "Esta seguro de cerrar el evento "+nombre,
+                // text: "Ya no podras recuperarlo!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Si, Cerrar!",
+                cancelButtonText: "No!",
+                reverseButtons: true
+            }).then(function(result) {
+                if (result.value) {
+
+					$.ajax({
+						url: "{{ url('Evento/habilitaEvento') }}",
+						data: {
+							evento:evento
+						},
+						dataType: 'json',
+						type: 'POST',
+						success: function(data) {
+
+							if(data.status == 'success'){
+								Swal.fire(
+								    "Exito!",
+								    "Se cambio el estado con exito.",
+								    "success"
+								)
+							}
+							
+						}
+					});
+					
+                } else if (result.dismiss === "cancel") {
+
+					
+					if($('#evento_cerrerar_'+evento).checked)
+						var sw = true;
+					else
+						var sw = false;
+
+					if(sw)
+						$('#evento_cerrerar_'+evento).prop('checked', false)
+					else
+						$('#evento_cerrerar_'+evento).prop('checked', true)
+
+
+                    Swal.fire(
+                        "Cancelado",
+                        "La operacion fue cancelada",
+                        "error"
+                    )
+                }
+            });
 
 		}
 
