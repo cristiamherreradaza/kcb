@@ -728,8 +728,6 @@
 
         function checkEjemplares(ejmplares){
 
-            console.log($('#'+ejmplares).val());
-
             var isChecked = document.getElementById(ejmplares).checked;
 
             if(!isChecked){
@@ -809,8 +807,6 @@
                 dataType: 'json',
                 success: function(data) {
 
-                    console.log(data);
-
                     $(data.ejemplar_enviados).each(function(index, element) {
 
                         $("._"+element).css("display", "none");
@@ -824,12 +820,7 @@
                             $('#ganador_'+data.categoria).html(data.ganadorhtml);
                             $('#ganador_'+data.categoria).toggle('show');
 
-                            console.log("si")
-
-
                         }else{
-
-                            console.log("no")
 
                         }
 
@@ -867,7 +858,6 @@
                 type: 'POST',
                 dataType: 'json',
                 success: function(data) {
-                    {{--  console.log(data.planilla)  --}}
 
                     $('#planilla_final').html(data.planilla);
 
@@ -893,8 +883,6 @@
                 type: 'POST',
                 dataType: 'json',
                 success: function(data) {
-
-                    console.log(data);
 
                     $('#bloques_ganadores').html(data.divGanadoresCategorias);
 
@@ -978,8 +966,6 @@
                 type: 'POST',
                 dataType: 'json',
                 success: function(data){
-
-                    console.log(data)
 
                     if(data.status === 'success'){
 
@@ -1114,8 +1100,6 @@
                         type: 'POST',
                         dataType: 'json',
                         success: function(data){
-
-                            console.log(data)
 
                             if(data.status === "success"){
 
@@ -1397,8 +1381,6 @@
                         type: 'POST',
                         dataType: 'json',
                         success: function(data){
-
-                            console.log(data);
 
                             if(data.status === "success"){
 
