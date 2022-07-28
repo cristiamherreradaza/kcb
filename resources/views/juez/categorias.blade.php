@@ -21,8 +21,6 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    
-
                     <!--begin::Card-->
                     <div class="card card-custom gutter-bs">
                         <!--Begin::Header-->
@@ -1068,45 +1066,59 @@
 
             if(conta > 0){
 
-                $.ajax({
-                    url: "{{ url('Juez/mejorVencedores') }}",
-                    data: {
-                        vencedor : vencedor.value,
-                        pista    : {{ ($asignacion->estado == 1)? $asignacion->num_pista : 0  }}
-                    },
-                    type: 'POST',
-                    dataType: 'json',
-                    success: function(data){
+                Swal.fire({
+                title: 'Esta seguro de calificar mejor '+sexo+'?',
+                text: "No podra revertir eso!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, estoy seguro!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "{{ url('Juez/mejorVencedores') }}",
+                            data: {
+                                vencedor : vencedor.value,
+                                pista    : {{ ($asignacion->estado == 1)? $asignacion->num_pista : 0  }}
+                            },
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function(data){
 
-                        if(data.status === "success"){
+                                if(data.status === "success"){
 
-                            if(data.sexo === 'Macho'){
+                                    if(data.sexo === 'Macho'){
 
-                                $('#mejor_macho_vencedor').html(data.html);
-                                $('#mejor_macho_vencedor').toggle('show');
+                                        $('#mejor_macho_vencedor').html(data.html);
+                                        $('#mejor_macho_vencedor').toggle('show');
 
-                            }else{
-                                
-                                $('#mejor_hembra_vencedor').html(data.html);
-                                $('#mejor_hembra_vencedor').toggle('show');
+                                    }else{
+                                        
+                                        $('#mejor_hembra_vencedor').html(data.html);
+                                        $('#mejor_hembra_vencedor').toggle('show');
+
+                                    }
+
+                                    $('#select_ecoge_mejor_raza').html(data.selectMejoresRaza);
+
+                                    // bloquemos los botones
+                                    $('#button_mejor_'+sexo).prop('disabled', true);
+
+                                }else{
+
+                                }
 
                             }
-
-                            $('#select_ecoge_mejor_raza').html(data.selectMejoresRaza);
-
-                        }else{
-
-                        }
+                        });
 
                     }
-                });
-
+                })
             }else{
                 Swal.fire({
                     icon: 'error',
                     title: 'Debe seleccionar un mejor macho!',
                     text: 'Revise la planilla!',
-                    // footer: '<a href="">Why do I have this issue?</a>'
                 })
             }
         }
@@ -1143,6 +1155,9 @@
 
                                 $('#bloque_mejor_'+data.tipo+'_escogido').toggle('show');
                                 $('#bloque_mejor_'+data.tipo+'_escogido').html(data.mejor);
+
+                                // bloqueamos el boton
+                                $('#button_guarda_mejo_'+data.tipo).prop('disabled', true);
 
                             }else{
 

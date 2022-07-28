@@ -189,27 +189,10 @@ class JuezController extends Controller
             $data['tipo'] = 'vacio';
         }
 
-
-        // if($cantidadAsiganacionesEvento != 0){
-
-        //     $data['vacio'] = 'no';
-            
-        //     if($asiganaciones[0]->estado == 1)
-        //         $sw = true;
-        //     else
-        //         $sw = false;
-
-        // }else{
-
-        //     $data['vacio'] = 'si';
-
-        // }
-
         $data['listado'] = view('evento.ajaxListadoAsignacion', compact('asiganaciones', 'faltantes'))->render();
         $data['cantAsignaciones'] = $faltantes;
         $data['grupos'] = $grupos;
         $data['status'] = 'success';
-        // $data['tipo'] = $sw;
 
         return json_encode($data);
 
@@ -255,15 +238,11 @@ class JuezController extends Controller
 
     public function calificacion(Request $request){
 
-        // return view('juez.calificacion')->with(compact('asiganaciones'));
-
         $user_id = Auth::user()->id;
 
         $asignaciones = Asignacion::where('secretario_id',$user_id)->get();
 
         $cantidadAsignaciones = Asignacion::where('secretario_id',$user_id)->count();
-
-        // dd($cantidadAsignaciones);
 
         return view('juez.calificacion')->with(compact('asignaciones','cantidadAsignaciones'));
 
@@ -273,7 +252,6 @@ class JuezController extends Controller
 
         $raza = Raza::find($raza_id);
 
-        // return view('juez.calificacion')->with(compact());
         $cachorros = EjemplarEvento::where('evento_id',$evento_id)
                                     ->where('raza_id',$raza_id)
                                     ->WhereIn('categoria_pista_id',[1,2,11])
@@ -351,7 +329,6 @@ class JuezController extends Controller
         $evento = Evento::find($evento_id);
 
         return view('juez.ponderacion')->with(compact('array_categorias', 'evento', 'grupo_id', 'raza'));
-        // return view('juez.ponderacion')->with(compact('cachorros', 'jovenes', 'jovenesCampeones', 'intermedia', 'abiertas', 'campeones', 'GranCampeones', 'veteranos', 'evento'));
     }
 
     public function guardaPonderacion(Request $request){
@@ -414,8 +391,6 @@ class JuezController extends Controller
 
         }
 
-        // return redirect('Juez/ponderacion/'.$inscripcion->evento_id);
-        
     }
 
     public function grupos(Request $request, $evento_id){
@@ -1161,8 +1136,6 @@ class JuezController extends Controller
                                                 </div>';
         }
 
-        // dd($arrayGanadores);
-
         $data['ganadoresEscojidos'] = $arrayGanadores;
 
         foreach($categorias as $ca){
@@ -1340,11 +1313,6 @@ class JuezController extends Controller
         // BUSCAMOS Y MANDAMOS LOS GRANDES CAMPEONES MACHOS
         $ejemplaresGrandesCampeoesMacho = Juez::EjemplarCatalogoRaza(14, $raza_id, $evento_id);
 
-
-        // dd($ejemplaresJoven);
-
-        // dd($request->all());
-
         $data['planilla'] = view('juez.planilla', compact('ejemplaresCachorroAbsolutos', 'ejemplaresJoven', 'ejemplaresJovenCampeonMacho', 'ejemplaresIntermediaMacho', 'ejemplaresAbiertaMacho', 'ejemplaresCampeonesMacho', 'ejemplaresGrandesCampeoesMacho'))->render();
 
         return json_encode($data);
@@ -1453,7 +1421,7 @@ class JuezController extends Controller
                                         <div class="col-md-12">
                                             <div class="row">
                                                 <div class="col-md-3">
-                                                    <button type="button" onclick="mejorVencedores('."'macho'".')" class="btn btn-icon btn-success" '.(($sw)? 'disabled' : '').'><i class="fa fa-align-center" aria-hidden="true"></i></button>
+                                                    <button type="button" id="button_mejor_macho" onclick="mejorVencedores('."'macho'".')" class="btn btn-icon btn-success" '.(($sw)? 'disabled' : '').'><i class="fa fa-align-center" aria-hidden="true"></i></button>
                                                 </div>
                                                 <div class="col-md-9">
                                                     <div id="mejor_macho_vencedor" '.((!$sw)? 'style="display: none"' : '').'>'
@@ -1568,7 +1536,7 @@ class JuezController extends Controller
                                         <div class="col-md-12">
                                             <div class="row">
                                                 <div class="col-md-3">
-                                                    <button type="button" onclick="mejorVencedores('."'hembra'".')" class="btn btn-icon" style="background: #F94EE4;" '.(($sw)? 'disabled' : '').'><i class="fa fa-align-center text-white" aria-hidden="true"></i></button>
+                                                    <button id="button_mejor_hembra" type="button" onclick="mejorVencedores('."'hembra'".')" class="btn btn-icon" style="background: #F94EE4;" '.(($sw)? 'disabled' : '').'><i class="fa fa-align-center text-white" aria-hidden="true"></i></button>
                                                 </div>
                                                 <div class="col-md-9">
                                                     <div id="mejor_hembra_vencedor" '.((!$sw)? 'style="display: none"' : '').'>'.
@@ -1646,7 +1614,7 @@ class JuezController extends Controller
                 
                 $data['selectCachorro'] = $selectCachorro.$selectBod.'</select>
                                                                         <br>'.((!$swMC)? '
-                                                                            <button type="button" onclick="guardaMejor('."'".'cachorro'."'".')" class="btn btn-success btn-block">Guardar Mejor Cachorro</button>
+                                                                            <button type="button" id="button_guarda_mejo_cachorro" onclick="guardaMejor('."'".'cachorro'."'".')" class="btn btn-success btn-block">Guardar Mejor Cachorro</button>
                                                                         ' : '').'';
 
             }else{
@@ -1707,7 +1675,7 @@ class JuezController extends Controller
                     
                     $data['selectJoven'] = $selectCachorro.$selectBod.'</select>
                                                                         <br>'.((!$swMJ)? '
-                                                                            <button  type="button" onclick="guardaMejor('."'".'joven'."'".')"  class="btn btn-success btn-block">Guardar Mejor Joven</button>
+                                                                            <button  type="button" id="button_guarda_mejo_joven" onclick="guardaMejor('."'".'joven'."'".')"  class="btn btn-success btn-block">Guardar Mejor Joven</button>
                                                                         ' : '').'';
                 }else{
 
@@ -1813,7 +1781,7 @@ class JuezController extends Controller
                 $bodySelect = $bodySelect.'<option value="'.$d->id.'">'.$d->numero_prefijo.'</option>';
             }
 
-            $data['selectMejoresRaza'] = $selecRaza.$bodySelect.'</select><br><button type="button"  onclick="guardaMejor('."'".'raza'."'".')"   class="btn btn-success btn-block">Guardar Mejor de la Raza</button>';
+            $data['selectMejoresRaza'] = $selecRaza.$bodySelect.'</select><br><button type="button" id="button_guarda_mejo_raza" onclick="guardaMejor('."'".'raza'."'".')"   class="btn btn-success btn-block">Guardar Mejor de la Raza</button>';
 
             return json_encode($data);
 
@@ -1844,8 +1812,6 @@ class JuezController extends Controller
                     $sexoOpuesto->sexo_opuesto_cachorro = "Si";
 
                     $sexoOpuesto->save();
-
-
                 }
 
             }elseif($tipo == "joven"){

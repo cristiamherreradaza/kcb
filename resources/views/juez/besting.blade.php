@@ -160,7 +160,7 @@
                                         $besting = App\Juez::recuperaGanadorBesting($ag[$i]->ejemplar_evento_id, $tipo, $ag[$i]->grupo_id, $evento_id, $num_pista);
 
                                     @endphp
-                                    <div class="col-md-12">
+                                    <div class="col-md-12 text-center">
                                         <select name="grupo_{{ $ag[$i]->grupo_id }}_[]" id="" class="form-control" {{ ($besting)? 'disabled' : '' }}>
                                             <option value="1" {{ (($besting)? (($besting->lugar == '1')? 'selected' : '') : '') }}>Primero</option>
                                             <option value="2" {{ (($besting)? (($besting->lugar == '2')? 'selected' : '') : '') }}>Segundo</option>
@@ -169,6 +169,7 @@
                                             <option value="5" {{ (($besting)? (($besting->lugar == '5')? 'selected' : '') : '') }}>Quinto</option>
                                             <option value="6" {{ (($besting)? (($besting->lugar == '6')? 'selected' : '') : '') }}>Sexto</option>
                                         </select>
+                                        <small id="besting_{{ $tipo }}_{{ $ag[$i]->grupo_id }}_{{ $ag[$i]->ejemplar_evento_id }}" class="text-warning">Dato repedito</small>
                                     </div>
                                 </div>
                         </td>
