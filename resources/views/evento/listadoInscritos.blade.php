@@ -398,13 +398,6 @@
 								</select>
                 			</div>
 						</div>
-						{{-- <div class="col-md-4">
-							<div class="form-group">
-                			    <label for="exampleInputPassword1">Criador
-                			    <span class="text-danger">*</span></label>
-                			    <input type="text" class="form-control" id="inscribe_criador" name="inscribe_criador" />
-                			</div>
-						</div> --}}
 						<div class="col-md-4">
 							<div class="form-group">
                 			    <label for="exampleInputPassword1">Propietario
@@ -457,32 +450,6 @@
 			</div>
 			<div class="card-toolbar">
 				<!--begin::Button-->
-				{{-- <a href="{{ url('Evento/generaBestingPdf', [$evento->id, "especiales"]) }}" target="_target" class="btn btn-success font-weight-bolder">
-					<i class="fa fa-plus-square"></i> Especiales
-				</a>
-				<!--end::Button-->
-				<p style="padding-left: 2px"></p>
-				
-				<!--begin::Button-->
-				<a href="{{ url('Evento/generaBestingPdf', [$evento->id, "absolutos"]) }}" target="_target" class="btn btn-success font-weight-bolder">
-					<i class="fa fa-plus-square"></i> Absolutos
-				</a>
-				<!--end::Button-->
-				<p style="padding-left: 2px"></p>
-				
-				<!--begin::Button-->
-				<a href="{{ url('Evento/generaBestingPdf', [$evento->id, "jovenes"]) }}" target="_target" class="btn btn-success font-weight-bolder">
-					<i class="fa fa-plus-square"></i> Jovenes
-				</a>
-				<!--end::Button-->
-				<p style="padding-left: 2px"></p>
-
-				<!--begin::Button-->
-				<a href="{{ url('Evento/generaBestingPdf', [$evento->id, "adultos"]) }}" target="_target" class="btn btn-success font-weight-bolder">
-					<i class="fa fa-plus-square"></i> Adultos
-				</a>
-				<!--end::Button-->
-				<p style="padding-left: 2px"></p> --}}
 
 				<!--begin::Button-->
 				<button onclick="agregarEjeplarModal()" class="btn btn-info font-weight-bolder"><i class="fa fa-plus-square"></i> Nueva Inscripcion</button>
@@ -554,7 +521,7 @@
 									@endif
 								</td>
 								<td>
-									<button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $ee->id }}', '{{ ($ee->ejemplar)? trim(addslashes($ee->ejemplar->nombre_completo)): trim(addslashes($ee->nombre_completo)) }}', '{{ ($ee->ejemplar)? $ee->ejemplar->raza->id : $ee->raza->id }}', '{{ ($ee->ejemplar)? $ee->ejemplar->kcb: '' }}', '{{ ($ee->ejemplar)? $ee->ejemplar->color: $ee->color }}', '{{ ($ee->ejemplar)? $ee->ejemplar->fecha_nacimiento: $ee->fecha_nacimiento }}', '{{ ($ee->ejemplar)? $ee->ejemplar->sexo : $ee->sexo }}', '{{ $ee->codigo_nacionalizado }}', '{{ ($ee->ejemplar)? $ee->ejemplar->num_tatuaje : $ee->tatuaje }}', '{{ ($ee->ejemplar)? $ee->ejemplar->chip : $ee->chip }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->padre)? $ee->ejemplar->padre->kcb : '') : $ee->kcb_padre }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->padre)? addslashes($ee->ejemplar->padre->nombre) : '') : addslashes($ee->nombre_padre) }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->madre)? $ee->ejemplar->madre->kcb : '') : $ee->kcb_madre }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->madre)?  addslashes($ee->ejemplar->madre->nombre) : '') : addslashes($ee->nombre_madre) }}', '{{ $ee->categoria_pista_id }}', '{{ $ee->criador }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->propietario)? addslashes($ee->ejemplar->propietario->name) : '' ) : addslashes($ee->propietario) }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->propietario)? $ee->ejemplar->propietario->departamento : '') : $ee->ciudad }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->propietario)? $ee->ejemplar->propietario->celulares : '') : $ee->telefono }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->propietario)? $ee->ejemplar->propietario->email : '') : $ee->email }}', '{{ $ee->estado }}', '{{ $ee->extrangero }}' )">
+									<button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $ee->id }}', '{{ ($ee->ejemplar)? trim(addslashes($ee->ejemplar->nombre_completo)): trim(addslashes($ee->nombre_completo)) }}', '{{ ($ee->ejemplar)? $ee->ejemplar->raza->id : $ee->raza->id }}', '{{ ($ee->ejemplar)? $ee->ejemplar->kcb: '' }}', '{{ ($ee->ejemplar)? $ee->ejemplar->color: $ee->color }}', '{{ ($ee->ejemplar)? $ee->ejemplar->fecha_nacimiento: $ee->fecha_nacimiento }}', '{{ ($ee->ejemplar)? $ee->ejemplar->sexo : $ee->sexo }}', '{{ $ee->codigo_nacionalizado }}', '{{ ($ee->ejemplar)? $ee->ejemplar->num_tatuaje : $ee->tatuaje }}', '{{ ($ee->ejemplar)? $ee->ejemplar->chip : $ee->chip }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->padre)? $ee->ejemplar->padre->kcb : '') : $ee->kcb_padre }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->padre)? addslashes($ee->ejemplar->padre->nombre) : '') : addslashes($ee->nombre_padre) }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->madre)? $ee->ejemplar->madre->kcb : '') : $ee->kcb_madre }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->madre)?  addslashes($ee->ejemplar->madre->nombre) : '') : addslashes($ee->nombre_madre) }}', '{{ $ee->categoria_pista_id }}', '{{ addslashes($ee->criador) }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->propietario)? addslashes($ee->ejemplar->propietario->name) : '' ) : addslashes($ee->propietario) }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->propietario)? $ee->ejemplar->propietario->departamento : '') : $ee->ciudad }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->propietario)? $ee->ejemplar->propietario->celulares : '') : $ee->telefono }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->propietario)? $ee->ejemplar->propietario->email : '') : $ee->email }}', '{{ $ee->estado }}', '{{ $ee->extrangero }}' )">
                                         <i class="flaticon2-edit"></i>
                                     </button>
 									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $ee->id }}', '{{ ($ee->ejemplar)? trim(addslashes($ee->ejemplar->nombre_completo)) :  trim(addslashes($ee->nombre_completo)) }}')">

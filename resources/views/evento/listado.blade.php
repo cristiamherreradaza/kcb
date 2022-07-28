@@ -10,7 +10,6 @@
 
 @section('content')
 
-
 {{-- inicio modal  --}}
 
 <!-- Modal-->
