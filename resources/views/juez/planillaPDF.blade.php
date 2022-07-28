@@ -1515,8 +1515,12 @@
 
                         @endphp
 
-                        @if ($asigEnco)
+                        @if ($asignacion[0]->estado == 1)
                             <img src="{{ url("imagenesFirmaJuezSecre/$firmaJuez") }}" width="100%" alt="">
+                        @else
+                            @if ($asigEnco)
+                                <img src="{{ url("imagenesFirmaJuezSecre/$firmaJuez") }}" width="100%" alt="">
+                            @endif
                         @endif
 
                     </div>
@@ -1539,9 +1543,14 @@
 
                         @endphp
 
-                        @if ($asigEnco)
+                        @if ($asignacion[0]->estado == 1)
                             <img src="{{ url("imagenesFirmaJuezSecre/$firmaSecre") }}" width="100%" alt="">
+                        @else
+                            @if ($asigEnco)
+                                <img src="{{ url("imagenesFirmaJuezSecre/$firmaSecre") }}" width="100%" alt="">
+                            @endif
                         @endif
+                        
                     </div>
 
                     _____________________________<br>

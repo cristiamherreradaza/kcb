@@ -232,9 +232,9 @@
             <div class="modal-body">
                 <form action="{{ url('Evento/inscribirEjemplar') }}" method="POST" id="formulario_nueva_inscripcion">
                 	@csrf
-					<input type="text" name="inscribe_ejemplar_id" id="inscribe_ejemplar_id">
-					<input type="text" name="inscribe_evento_id" id="inscribe_evento_id" value="{{ $evento->id }}">
-					<input type="text" name="inscribe_extranjero" id="inscribe_extranjero" value="no">
+					<input type="hidden" name="inscribe_ejemplar_id" id="inscribe_ejemplar_id">
+					<input type="hidden" name="inscribe_evento_id" id="inscribe_evento_id" value="{{ $evento->id }}">
+					<input type="hidden" name="inscribe_extranjero" id="inscribe_extranjero" value="no">
 
 					<div class="form-group">
 						<label>Tipo de ejemplar</label>
@@ -836,8 +836,6 @@
 				$('#inscribe_extranjero').val('si')
 			}
 
-			console.log("cambio");
-
 			// SETEABNDO LOS CAMPOS
 			$('#inscribe_ejemplar_id').val(0);
 			$('#inscribe_nombre').val('');
@@ -889,8 +887,6 @@
 					type: "POST",
 					dateType: 'json',
 					success: function(data) {
-
-						console.log(data);
 
 						if(data.status == 'success'){
 

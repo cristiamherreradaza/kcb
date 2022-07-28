@@ -1954,22 +1954,6 @@ class JuezController extends Controller
                                         <br>'.
                                         ((!$sw)? '<button class="btn btn-success btn-block" onclick="calificaFinal('.$key.', '.$fi->id.', '."'".$fi->numero_prefijo."'".')">CALIFICAR</button>' : '').'
                                     </td>';
-
-                    // $tbody = $tbody.'<td class="text-primary">
-                    //                     <input type="hidden" value="'.$fi->id.'" name="bestinguids[]">
-                    //                     <h2 class="text-center">'.$fi->numero_prefijo.'</h2>
-                    //                     <br>
-                    //                     <select name="posision_'.$key.'" id="calificacion_final_'.$fi->numero_prefijo.'" class="form-control" '.(($sw)? 'disabled' : '').'>
-                    //                         <option '.(($sw)? (($fi->lugar_finalista == 1)? 'selected' : '') : '').' value="1">Mejor</option>
-                    //                         <option '.(($sw)? (($fi->lugar_finalista == 2)? 'selected' : '') : '').' value="2">Segundo</option>
-                    //                         <option '.(($sw)? (($fi->lugar_finalista == 3)? 'selected' : '') : '').' value="3">Tercero</option>
-                    //                         <option '.(($sw)? (($fi->lugar_finalista == 4)? 'selected' : '') : '').' value="4">Cuarto</option>
-                    //                         <option '.(($sw)? (($fi->lugar_finalista == 5)? 'selected' : '') : '').' value="5">Quinto</option>
-                    //                     </select>
-                    //                     <small style="display: none;" class="text-warning" id="_calificacion_final_'.$fi->numero_prefijo.'">Calificacion repetida</small>
-                    //                     <br>'.
-                    //                     ((!$sw)? '<button class="btn btn-success btn-block" onclick="calificaFinal('.$key.', '.$fi->id.', '."'".$fi->numero_prefijo."'".')">CALIFICAR</button>' : '').'
-                    //                 </td>';
                 }
 
             }
@@ -1984,6 +1968,37 @@ class JuezController extends Controller
                                 </table>';
 
             $data['finalistas']  = $tableFinalistas;
+
+            // MADAMOS YA LOS CALIFICADOS
+
+            // PREGUNTAMOS POR LO SLUGARES
+            $primero = Evento::ganadoresBesting($evento_id, $num_pista, $tipo, 1);
+            $segundo = Evento::ganadoresBesting($evento_id, $num_pista, $tipo, 2);
+            $tercer  = Evento::ganadoresBesting($evento_id, $num_pista, $tipo, 3);
+            $cuarto  = Evento::ganadoresBesting($evento_id, $num_pista, $tipo, 4);
+            $quinto  = Evento::ganadoresBesting($evento_id, $num_pista, $tipo, 5);
+
+            $data['tablaFinalistasCalificados'] =  '<h3 class="text-primary text-center">GANADORES DE LA CATEGORIA</h3>
+                                                    <table class="table table-hover text-center">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>1ro</th>
+                                                                <th>2do</th>
+                                                                <th>3ro</th>
+                                                                <th>4to</th>
+                                                                <th>5to</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td><span class="text-info fa-2x">'.(($primero)? $primero->numero_prefijo : '').'</span></td>
+                                                                <td><span class="text-info fa-2x">'.(($segundo)? $segundo->numero_prefijo : '').'</span></td>
+                                                                <td><span class="text-info fa-2x">'.(($tercer)? $tercer->numero_prefijo : '').'</span></td>
+                                                                <td><span class="text-info fa-2x">'.(($cuarto)? $cuarto->numero_prefijo : '').'</span></td>
+                                                                <td><span class="text-info fa-2x">'.(($quinto)? $quinto->numero_prefijo : '').'</span></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>';
 
             return json_encode($data);
 
@@ -2207,6 +2222,31 @@ class JuezController extends Controller
                                 ';
 
             $data['finalistas']  = $tableFinalistas;
+
+
+            // MANDAREMOS LA TABLA CON LOS FINALISTAS
+
+            $data['tablaFinalistasCalificados'] =  '<h3 class="text-primary text-center">GANADORES DE LA CATEGORIA</h3>
+                                                    <table class="table table-hover text-center">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>1ro</th>
+                                                                <th>2do</th>
+                                                                <th>3ro</th>
+                                                                <th>4to</th>
+                                                                <th>5to</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td><span class="text-info fa-2x">'.(($primero)? $primero->numero_prefijo : '').'</span></td>
+                                                                <td><span class="text-info fa-2x">'.(($segundo)? $segundo->numero_prefijo : '').'</span></td>
+                                                                <td><span class="text-info fa-2x">'.(($tercer)? $tercer->numero_prefijo : '').'</span></td>
+                                                                <td><span class="text-info fa-2x">'.(($cuarto)? $cuarto->numero_prefijo : '').'</span></td>
+                                                                <td><span class="text-info fa-2x">'.(($quinto)? $quinto->numero_prefijo : '').'</span></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>';
 
             $data['status'] = 'success';
 

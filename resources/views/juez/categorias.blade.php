@@ -1157,6 +1157,9 @@
                         $('#tabla-finales').html(data.table);
 
                         $('#besting_finalistas').html(data.finalistas);
+
+                        // MOSTRAMOS LOS GANADORES
+                        $('#besting_ya_ganadores').html(data.tablaFinalistasCalificados);
     
                         $('#modalPlanillaFinales').modal('show');
 
@@ -1265,31 +1268,57 @@
 
             var calificacion = $('#calificacion_final_'+numero).val();
 
-            $.ajax({
-                url: "{{ url('Juez/calificaFinales') }}",
-                data: {
-                    ganador         : ganador,
-                    numero          :numero,
-                    calificacion    : calificacion
-                },
-                type: 'POST',
-                dataType: 'json',
-                success: function(data){
+            Swal.fire({
+                title: 'Esta seguro de seleccionar al ejemplar con numero '+numero+' como '+calificacion+' lugar?',
+                text: "No podra revertir eso!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, estoy seguro!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    if(calificacion != null){
+                        $.ajax({
+                            url: "{{ url('Juez/calificaFinales') }}",
+                            data: {
+                                ganador         : ganador,
+                                numero          : numero,
+                                calificacion    : calificacion
+                            },
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function(data){
 
-                    if(data.status === "success"){
+                                if(data.status === "success"){
 
-                        $('#besting_finalistas').html(data.finalistas);
+                                    $('#besting_finalistas').html(data.finalistas);
 
+                                    // MOSTRAMOS LOS GANADORES
+                                    $('#besting_ya_ganadores').html(data.tablaFinalistasCalificados);
+
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Correcto!',
+                                        text: 'Se califico con exito!',
+                                    })
+
+                                }
+
+                            }
+                        });
+
+                    }else{
                         Swal.fire({
-                            icon: 'success',
-                            title: 'Correcto!',
-                            text: 'Se califico con exito!',
+                            icon: 'error',
+                            title: 'Debe escoger un puesto!',
+                            text: 'Escoja un puesto!',
                         })
-
                     }
-
                 }
-            });
+            })
+
+            
 
         }
 
