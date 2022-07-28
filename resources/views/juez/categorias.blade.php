@@ -189,6 +189,9 @@
                         <i aria-hidden="true" class="ki ki-close"></i>
                     </button>
                 </div>
+
+                <input type="hidden" id="valoresGanadores" value="0">
+
                 <div class="modal-body">
                     <div id="ejemplares-categorias" class="row">
 
@@ -797,52 +800,70 @@
 
         function finalizarCalificacion(categoria){
 
-            var datos = $('#formulario_'+categoria).serialize();
+            Swal.fire({
+                title: 'Esta seguro de calificar la categoria?',
+                text: "No podra revertir eso!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, estoy seguro!'
+            }).then((result) => {
+                if (result.isConfirmed) {
 
-            $.ajax({
+                    var datos = $('#formulario_'+categoria).serialize();
 
-                url: "{{ url('Juez/ajaxFinalizarCalificacion') }}",
-                data: datos,
-                type: 'POST',
-                dataType: 'json',
-                success: function(data) {
+                    $.ajax({
 
-                    $(data.ejemplar_enviados).each(function(index, element) {
+                        url: "{{ url('Juez/ajaxFinalizarCalificacion') }}",
+                        data: datos,
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function(data) {
 
-                        $("._"+element).css("display", "none");
+                            $(data.ejemplar_enviados).each(function(index, element) {
 
-                    });
+                                $("._"+element).css("display", "none");
 
-                    if(data.status === 'success'){
+                            });
 
-                        if(data.ganador){
+                            if(data.status === 'success'){
 
-                            $('#ganador_'+data.categoria).html(data.ganadorhtml);
-                            $('#ganador_'+data.categoria).toggle('show');
+                                if(data.ganador){
 
-                        }else{
+                                    $('#ganador_'+data.categoria).html(data.ganadorhtml);
+                                    $('#ganador_'+data.categoria).toggle('show');
+
+                                    // bloqueamos el boton
+                                    $('#button_'+categoria).prop('disabled', true);
+                                    $('#valoresGanadores').val($('#valoresGanadores').val()+","+data.gandadorActivo);
+
+
+                                }else{
+
+                                }
+
+                            }else{
+
+                                $(data.ejemplar_evento_id).each(function(index, element) {
+
+                                    $("._"+element).css("display", "block");
+
+                                });
+
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Hay calificacion repedita!',
+                                    text: 'Revise la planilla!',
+                                })
+                            }
 
                         }
 
-                    }else{
-
-                        $(data.ejemplar_evento_id).each(function(index, element) {
-
-                            $("._"+element).css("display", "block");
-
-                        });
-
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Hay calificacion repedita!',
-                            text: 'Revise la planilla!',
-                            // footer: '<a href="">Why do I have this issue?</a>'
-                        })
-                    }
+                    });
 
                 }
-
-            });
+            })
 
         }
 
@@ -870,6 +891,8 @@
         }
 
         function modalcategorias(array, raza_id, evento_id, nombreRaza, pista){
+
+            $('#valoresGanadores').val(0);
 
             $.ajax({
 
@@ -915,7 +938,7 @@
 
         }
 
-        function escogerMejor(ganador, numero){
+        function escogerMejor(ganador, numero, vendedores){
 
             Swal.fire({
                 title: 'Esta seguro de seleccionar al ejemplar con numero '+numero+' como mejor?',
@@ -941,16 +964,29 @@
                             $('#bloques_mejor_categoria').html(data.mejor);
                             $('#bloques_mejor_categoria').toggle('show');
 
+                            console.log(vendedores);
+
+                            if($('#valoresGanadores').val() == 0){
+                                // bloqueamos el boton
+                                $(vendedores).each(function( index , value) {
+                                    $('#button_escogeMejor_'+value).prop('disabled', true);
+                                });
+
+                            }else{
+
+                                let ganadores = ($('#valoresGanadores').val()).split(",");
+
+                                console.log(ganadores);
+
+                                $(ganadores).each(function( index , value) {
+                                    if(value != 0)
+                                        $('#button_escogeMejor_'+value).prop('disabled', true);
+                                });
+                            }
                         }
-
                     });
-
                 }
             })
-
-
-
-
         }
 
         function modalGanadores(raza, evento, nombre_raza){

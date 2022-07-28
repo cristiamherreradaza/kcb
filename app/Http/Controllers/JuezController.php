@@ -520,8 +520,6 @@ class JuezController extends Controller
 
                 $cantidadEjemplarRepetido = Juez::verificaEjemplar(intval($e), $categoria_id[0], $numero_prefijos[$key], $num_pista);
 
-                // dd($cantidadEjemplarRepetido);
-
                 if($cantidadEjemplarRepetido == 0){
 
                     $calificacion = new  Calificacion();
@@ -572,7 +570,6 @@ class JuezController extends Controller
                     array_push($arrayRepetidos,intval($e));
                 }
 
-    
             }
 
             // preguntamos si hay mejor de la categoria y agregamos al mejor
@@ -611,12 +608,14 @@ class JuezController extends Controller
                                                     <td>'.$ganador->numero_prefijo.'</td>
                                                     <td>'.$ganador->calificacion.'</td>
                                                     <td>'.$ganador->lugar.'</td>
-                                                    <td><button onclick="escogerMejor('.$ganador->id.','."'".$ganador->numero_prefijo."'".')" class="btn btn-success btn-icon"><i class="fa fa-check"></i></button></td>
+                                                    <td><button name="" id="button_escogeMejor_'.$ganador->id.'" onclick="escogerMejor('.$ganador->id.','."'".$ganador->numero_prefijo."'".','.json_encode([$ganador->id]).')" class="btn btn-success btn-icon"><i class="fa fa-check"></i></button></td>
                                                 </tr>
                                             </tbody>
                                         </table>';
 
-                $data['categoria'] = str_replace(['(',')',' '],'',$categoria);;
+                $data['categoria'] = str_replace(['(',')',' '],'',$categoria);
+
+                $data['gandadorActivo'] = $ganador->id;
                 
             }else{
 
@@ -677,8 +676,6 @@ class JuezController extends Controller
 
     public function ajaxCategoriasCalificacion(Request $request){
 
-        // dd($request->all());
-
         $categorias = $request->input('categorias');
         $raza_id    = $request->input('raza');
         $evento_id  = $request->input('evento');
@@ -688,6 +685,8 @@ class JuezController extends Controller
         $data['tables'] = '';
 
         $cantidadCategorias = count($categorias);
+
+        $arrayGanadores = array();
 
         if($cantidadCategorias == 1){
             
@@ -700,6 +699,10 @@ class JuezController extends Controller
                     $sw = false;
                 }
             }
+
+            // para los bloqueos de BOTONES
+            if($ganador)
+                array_push($arrayGanadores, $ganador->id);
 
             $tableGanador = '';
 
@@ -720,7 +723,7 @@ class JuezController extends Controller
                                                     <td>'.$ganador->lugar.'</td>
                                                     <td>
                                                         '.(($sw)? '
-                                                            <button onclick="escogerMejor('.$ganador->id.','."'".$ganador->numero_prefijo."'".')" class="btn btn-success btn-icon"><i class="fa fa-check"></i></button>
+                                                            <button id="button_escogeMejor_'.$ganador->id.'" onclick="escogerMejor('.$ganador->id.','."'".$ganador->numero_prefijo."'".', '.json_encode($arrayGanadores).')" class="btn btn-success btn-icon"><i class="fa fa-check"></i></button>
                                                         ': '').'
                                                     </td>
                                                 </tr>
@@ -755,6 +758,14 @@ class JuezController extends Controller
                 }
             }
 
+            // PARA LOS BOTNES DE BLOQUEO
+            if($ganador1)
+                array_push($arrayGanadores, $ganador1->id);
+
+            if($ganador2)
+                array_push($arrayGanadores, $ganador2->id);
+
+
             // PARA EL GANADOR 1
             $tableGanador1 = '';
 
@@ -775,7 +786,7 @@ class JuezController extends Controller
                                                     <td>'.$ganador1->lugar.'</td>
                                                     <td>
                                                         '.(($sw)? '
-                                                            <button onclick="escogerMejor('.$ganador1->id.','."'".$ganador1->numero_prefijo."'".')" class="btn btn-success btn-icon"><i class="fa fa-check"></i></button>
+                                                            <button  id="button_escogeMejor_'.$ganador1->id.'"  onclick="escogerMejor('.$ganador1->id.','."'".$ganador1->numero_prefijo."'".', '.json_encode($arrayGanadores).')" class="btn btn-success btn-icon"><i class="fa fa-check"></i></button>
                                                         ' : '').'
                                                     </td>
                                                 </tr>
@@ -805,13 +816,13 @@ class JuezController extends Controller
                                                     <td>'.$ganador2->lugar.'</td>
                                                     <td>
                                                         '.(($sw)? '
-                                                            <button onclick="escogerMejor('.$ganador2->id.','."'".$ganador2->numero_prefijo."'".')" class="btn btn-success btn-icon"><i class="fa fa-check"></i></button>
+                                                            <button  id="button_escogeMejor_'.$ganador2->id.'"  onclick="escogerMejor('.$ganador2->id.','."'".$ganador2->numero_prefijo."'".', '.json_encode($arrayGanadores).')" class="btn btn-success btn-icon"><i class="fa fa-check"></i></button>
                                                         ' : '').'
                                                     </td>
                                                 </tr>
                                             </tbody>
-                                        </table>';
-
+                                        </table>'
+                                        ;
             }
 
             $columna = 'class="col-md-6"';
@@ -847,6 +858,16 @@ class JuezController extends Controller
                     $sw = false; 
                 }
             }
+            
+            // PARA LOS BOTNES DE BLOQUEO
+            if($ganador1)
+                array_push($arrayGanadores, $ganador1->id);
+
+            if($ganador2)
+                array_push($arrayGanadores, $ganador2->id);
+
+            if($ganador3)
+                array_push($arrayGanadores, $ganador3->id);
 
 
             // PARA EL GANADOR 1
@@ -869,7 +890,7 @@ class JuezController extends Controller
                                                     <td>'.$ganador1->lugar.'</td>
                                                     <td>
                                                         '.(($sw)? '
-                                                            <button onclick="escogerMejor('.$ganador1->id.','."'".$ganador1->numero_prefijo."'".')" class="btn btn-success btn-icon"><i class="fa fa-check"></i></button>
+                                                            <button id="button_escogeMejor_'.$ganador1->id.'" onclick="escogerMejor('.$ganador1->id.','."'".$ganador1->numero_prefijo."'".', '.json_encode($arrayGanadores).')" class="btn btn-success btn-icon"><i class="fa fa-check"></i></button>
                                                         ' : '').'
                                                     </td>
                                                 </tr>
@@ -899,7 +920,7 @@ class JuezController extends Controller
                                                     <td>'.$ganador2->lugar.'</td>
                                                     <td>
                                                         '.(($sw)? '
-                                                            <button onclick="escogerMejor('.$ganador2->id.','."'".$ganador2->numero_prefijo."'".')" class="btn btn-success btn-icon"><i class="fa fa-check"></i></button>
+                                                            <button onclick="escogerMejor('.$ganador2->id.','."'".$ganador2->numero_prefijo."'".', '.json_encode($arrayGanadores).')" class="btn btn-success btn-icon"><i class="fa fa-check"></i></button>
                                                         ' : '').'
                                                     </td>
                                                 </tr>
@@ -928,7 +949,7 @@ class JuezController extends Controller
                                                     <td>'.$ganador3->lugar.'</td>
                                                     <td>
                                                         '.(($sw)? '
-                                                            <button onclick="escogerMejor('.$ganador3->id.','."'".$ganador3->numero_prefijo."'".')" class="btn btn-success btn-icon"><i class="fa fa-check"></i></button>
+                                                            <button onclick="escogerMejor('.$ganador3->id.','."'".$ganador3->numero_prefijo."'".', '.json_encode($arrayGanadores).')" class="btn btn-success btn-icon"><i class="fa fa-check"></i></button>
                                                         ' : '').'
                                                     </td>
                                                 </tr>
@@ -980,6 +1001,19 @@ class JuezController extends Controller
                 }
             }
 
+            // PARA LOS BOTNES DE BLOQUEO
+            if($ganador1)
+                array_push($arrayGanadores, $ganador1->id);
+
+            if($ganador2)
+                array_push($arrayGanadores, $ganador2->id);
+
+            if($ganador3)
+                array_push($arrayGanadores, $ganador3->id);
+
+            if($ganador4)
+                array_push($arrayGanadores, $ganador4->id);
+
             // PARA EL GANADOR 1
             $tableGanador1 = '';
 
@@ -1000,7 +1034,7 @@ class JuezController extends Controller
                                                     <td>'.$ganador1->lugar.'</td>
                                                     <td>
                                                         '.(($sw)? '
-                                                            <button onclick="escogerMejor('.$ganador1->id.','."'".$ganador1->numero_prefijo."'".')" class="btn btn-success btn-icon"><i class="fa fa-check"></i></button>
+                                                            <button onclick="escogerMejor('.$ganador1->id.','."'".$ganador1->numero_prefijo."'".', '.json_encode($arrayGanadores).')" class="btn btn-success btn-icon"><i class="fa fa-check"></i></button>
                                                         ' : '').'
                                                     </td>
                                                 </tr>
@@ -1030,12 +1064,13 @@ class JuezController extends Controller
                                                     <td>'.$ganador2->lugar.'</td>
                                                     <td>
                                                         '.(($sw)? '
-                                                            <button onclick="escogerMejor('.$ganador2->id.','."'".$ganador2->numero_prefijo."'".')" class="btn btn-success btn-icon"><i class="fa fa-check"></i></button>
+                                                            <button onclick="escogerMejor('.$ganador2->id.','."'".$ganador2->numero_prefijo."'".', '.json_encode($arrayGanadores).')" class="btn btn-success btn-icon"><i class="fa fa-check"></i></button>
                                                         ' : '').'
                                                     </td>
                                                 </tr>
                                             </tbody>
                                         </table>';
+
 
             }
 
@@ -1060,7 +1095,7 @@ class JuezController extends Controller
                                                     <td>'.$ganador3->lugar.'</td>
                                                     <td>
                                                         '.(($sw)? '
-                                                            <button onclick="escogerMejor('.$ganador3->id.','."'".$ganador3->numero_prefijo."'".')" class="btn btn-success btn-icon"><i class="fa fa-check"></i></button>
+                                                            <button onclick="escogerMejor('.$ganador3->id.','."'".$ganador3->numero_prefijo."'".', '.json_encode($arrayGanadores).')" class="btn btn-success btn-icon"><i class="fa fa-check"></i></button>
                                                         ' : '').'
                                                     </td>
                                                 </tr>
@@ -1090,7 +1125,7 @@ class JuezController extends Controller
                                                     <td>'.$ganador4->lugar.'</td>
                                                     <td>
                                                         '.(($sw)? '
-                                                            <button onclick="escogerMejor('.$ganador4->id.','."'".$ganador4->numero_prefijo."'".')" class="btn btn-success btn-icon"><i class="fa fa-check"></i></button>
+                                                            <button onclick="escogerMejor('.$ganador4->id.','."'".$ganador4->numero_prefijo."'".', '.json_encode($arrayGanadores).')" class="btn btn-success btn-icon"><i class="fa fa-check"></i></button>
                                                         ' : '').'
                                                     </td>
                                                 </tr>
@@ -1125,6 +1160,10 @@ class JuezController extends Controller
                                                     </div>
                                                 </div>';
         }
+
+        // dd($arrayGanadores);
+
+        $data['ganadoresEscojidos'] = $arrayGanadores;
 
         foreach($categorias as $ca){
 
@@ -1762,29 +1801,6 @@ class JuezController extends Controller
                                     </div>
                                 </div>
                             </div>';
-            // $data['html'] = '<div class="row">
-            //                 <div class="col-md-8">
-            //                     <h5 class="text-success text-center"> MEJOR '.(($ganador->sexo == 'Macho')? 'MACHO =>': 'HEMBRA =>').'<span class="text-info">'.$ganador->numero_prefijo.'</span></h5>
-            //                 </div>
-            //                 <div class="col-md-4">
-            //                     <div class="form-group row">
-            //                         <div class="col-9 col-form-label">
-            //                             <div class="checkbox-inline">
-            //                                 <label class="checkbox">
-            //                                     <input type="checkbox" id="certificacionCACPan2_'.$ganador->id.'" onclick="agregaCertificado(1, '.$ganador->id.')" name="Checkboxes6"/>
-            //                                     <span></span>
-            //                                     CACPan2
-            //                                 </label>
-            //                                 <label class="checkbox">
-            //                                     <input type="checkbox" id="certificacionCACPan_'.$ganador->id.'" onclick="agregaCertificado(2, '.$ganador->id.')" name="Checkboxes6"/>
-            //                                     <span></span>
-            //                                     CACPan
-            //                                 </label>
-            //                             </div>
-            //                         </div>
-            //                     </div>
-            //                 </div>
-            //             </div>';
 
             // PARA EL SELCE DE MEJRO RAZA
             $selecRaza = 'SELECCION MEJOR MEJOR RAZA<br><select  name="select_raza_mejor" id="select_raza_mejor" class="form-control">';
