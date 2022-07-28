@@ -773,13 +773,21 @@
 		}
 
 		function cerrarEvento(evento, nombre){
+			
+			if($('#evento_cerrerar_'+evento).prop('checked')){
+				var texto = 'habilitar';
+				var sw = true;
+			}else{
+				var sw = false;
+				var texto = 'cerrar';
+			}
 
 			Swal.fire({
-                title: "Esta seguro de cerrar el evento "+nombre,
+                title: "Esta seguro de "+texto+" el evento "+nombre,
                 // text: "Ya no podras recuperarlo!",
                 icon: "warning",
                 showCancelButton: true,
-                confirmButtonText: "Si, Cerrar!",
+                confirmButtonText: "Si, "+texto+"!",
                 cancelButtonText: "No!",
                 reverseButtons: true
             }).then(function(result) {
@@ -806,11 +814,6 @@
 					});
 					
                 } else if (result.dismiss === "cancel") {
-
-					if($('#evento_cerrerar_'+evento).prop('checked'))
-						var sw = true;
-					else
-						var sw = false;
 
 					if(sw)
 						$('#evento_cerrerar_'+evento).prop('checked', false)

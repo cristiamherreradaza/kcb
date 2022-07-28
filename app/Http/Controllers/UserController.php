@@ -57,8 +57,10 @@ class UserController extends Controller
     {
 
         if($request->filled('user_id')){
+            $sw = false;
             $persona = User::find($request->input('user_id'));
         }else{
+            $sw = true;
             $persona = new User();
         }
 
@@ -92,26 +94,39 @@ class UserController extends Controller
         
         $persona->save();
 
-        $user_id = $persona->id;
-
-        $menus = MenuPerfil::where('perfil_id',$persona->perfil_id)->get();
-
-        foreach($menus as $m){
-            $menuUser = new MenuUsers();
-
-            $menuUser->user_id      = $user_id;
-            $menuUser->menu_id      = $m->menu_id;
-            $menuUser->estado       = $m->estado;
-
-            $menuUser->save();
-        }     
+        if($sw){
+            $user_id = $persona->id;
+    
+            $menus = MenuPerfil::where('perfil_id',$persona->perfil_id)->get();
+    
+            foreach($menus as $m){
+                $menuUser = new MenuUsers();
+    
+                $menuUser->user_id      = $user_id;
+                $menuUser->menu_id      = $m->menu_id;
+                $menuUser->estado       = $m->estado;
+    
+                $menuUser->save();
+            }     
+        }
             
         return redirect('User/listado');
     }
 
     public function elimina(Request $request)
     {
+        // ELIMINAMOS EL USUARIO
         User::destroy($request->id);
+
+        // ELIMINAMOS SUS PERFILES
+        $menus = MenuUsers::where('user_id',$request->id)->get();
+
+        foreach($menus as $m){
+
+            MenuUsers::destroy($m->id);
+
+        }
+
         return redirect('User/listado');
 
     }
