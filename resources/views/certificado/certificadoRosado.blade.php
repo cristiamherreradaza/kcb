@@ -855,7 +855,9 @@
         <div id="datos-ejemplar-2">
             <div class="datos-secundarios">
                 <div class="afijo"> <span class="afijos">{{ ($ejemplar->criadero)? $ejemplar->criadero->nombre." FCI: ".$ejemplar->criadero->registro_fci : '' }}</span></div>
-                <div class="criador"><span class="criadors">{{ ($ejemplar->propietario)? $ejemplar->propietario->name : '' }}</span></div>
+                {{-- @dd($ejemplar->criadero) --}}
+                <div class="criador"><span class="criadors">{{ ($ejemplar->criadero)? $ejemplar->criadero->copropietario->name : '' }}</span></div>
+                {{-- <div class="criador"><span class="criadors">{{ ($ejemplar->propietario)? $ejemplar->propietario->name : '' }}</span></div> --}}
                 <div class="direccion">{{ ($ejemplar->propietario)?  $ejemplar->propietario->direccion : ''}}</div>
                 <div class="telefonos">{{  ($ejemplar->propietario)? $ejemplar->propietario->celulares : ''}}</div>
                 <div class="correo">{{ ($ejemplar->propietario)? $ejemplar->propietario->email :'' }}</div>
