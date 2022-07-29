@@ -273,6 +273,8 @@
                     <input type="hidden" value="{{ $evento->id }}" name="evento_id">
                     <input type="hidden" value="{{ ($asignacion->estado == 1)? $asignacion->num_pista : 0  }}" name="asignacion_id">
 
+                    {{-- @dd($arrayEjemplaresTotal) --}}
+
                     @foreach ($arrayEjemplaresTotal as $key => $a)
 
                         @if(count($a['ejemplares']) > 0)
@@ -317,7 +319,6 @@
                                                                 </div>
                                                                 <div class="col-md-1">
                                                                     <button class="btn btn-primary btn-icon btn-sm" type="button" onclick="modalGanadores('{{ $razas->raza->id }}', '{{ $evento->id }}', '{{ $razas->raza->nombre }}')"><i class="fa fa-list"></i></button>
-                                                                    {{-- <button class="btn btn-info btn-icon btn-sm" type="button" onclick="modalPlanilla('{{ $razas->raza->id }}', '{{ $razas->raza->nombre }}', '{{ $evento->id }}')"><i class="fa fa-list"></i></button> --}}
                                                                 </div>
                                                             </div>
                                                         </h5>
@@ -341,7 +342,6 @@
 
                                                                 $categoriaHembra = array();
                                                                 $categoriaMacho  = array();
-
 
                                                                 // para las categorias
                                                                 $categoriasCachorroAbsolutosMacho        = array();
@@ -811,6 +811,8 @@
 
                     var datos = $('#formulario_'+categoria).serialize();
 
+                    console.log(datos);
+
                     $.ajax({
 
                         url: "{{ url('Juez/ajaxFinalizarCalificacion') }}",
@@ -830,7 +832,8 @@
                                 if(data.ganador){
 
                                     $('#ganador_'+data.categoria).html(data.ganadorhtml);
-                                    $('#ganador_'+data.categoria).toggle('show');
+                                    $('#ganador_'+data.categoria).show('toggle');
+                                    // $('#ganador_'+data.categoria).toggle('show');
 
                                     // bloqueamos el boton
                                     $('#button_'+categoria).prop('disabled', true);

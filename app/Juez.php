@@ -492,7 +492,6 @@ class Juez extends Model
 
         $grupos = EjemplarEvento::select('grupos_razas.grupo_id')
                                 ->join('grupos_razas','ejemplares_eventos.raza_id','=','grupos_razas.raza_id')
-                                // ->join('grupos_razas','ejemplares_eventos.raza_id','=','grupos_razas.id')
                                 ->where('ejemplares_eventos.evento_id',$evento_id)
                                 ->groupBy('grupos_razas.grupo_id')
                                 ->get();
@@ -500,5 +499,30 @@ class Juez extends Model
         return $grupos;
         
     }
-}
 
+    /**
+     * esta funcion saca la calificaion del ejemplar ya calificado
+     */
+    public static function getCalificacion($ejemplar_evento_id, $pista, $numero_prefijo){
+
+        $calificacion = Calificacion::where('ejemplares_eventos_id', $ejemplar_evento_id)
+                                    ->where('numero_prefijo', $numero_prefijo)
+                                    ->where('pista', $pista)
+                                    ->first();
+
+        return $calificacion;
+
+    }
+
+    /**
+     * Esta funcion devuelve el ganador segun la calificacion
+     */
+    public static function getGanador($calificacion_id){
+
+        $ganador = Ganador::where('calificacion_id', $calificacion_id)
+                          ->first();
+
+        return $ganador;
+
+    }
+}

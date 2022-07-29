@@ -197,7 +197,6 @@ class EventoController extends Controller
     }
     
     public function inscribirEvento(Request $request){
-        // dd($request->all());
 
         $ejemplarEvento = new EjemplarEvento();
 

@@ -468,6 +468,7 @@
 							<th>Kbc</th>
 							<th>Nombre</th>
 							<th>Raza</th>
+							<th>Sexo</th>
 							<th>Grupo</th>
 							<th>Categoria</th>
 							<th>Propietario</th>
@@ -484,6 +485,7 @@
 								<td>{{ ($ee->ejemplar)? $ee->ejemplar->kcb: ''}}</td>
 								<td>{{ ($ee->ejemplar)? $ee->ejemplar->nombre_completo : $ee->nombre_completo}}</td>
 								<td>{{ ($ee->ejemplar)? $ee->ejemplar->raza->nombre : $ee->raza->nombre}}</td>
+								<td>{{ ($ee->ejemplar)? $ee->ejemplar->sexo : $ee->sexo}}</td>
 								<td>
 									@php
 										$grupo = App\EjemplarEvento::getGrupo($ee->raza_id);

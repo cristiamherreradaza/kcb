@@ -429,7 +429,6 @@ class JuezController extends Controller
         $arrayEjemplaresTotal = array();
 
         if($asignacion->estado == 1){
-
     
             for($i = 1; $i <= 10 ; $i++){
     
@@ -469,6 +468,8 @@ class JuezController extends Controller
 
     public function ajaxFinalizarCalificacion(Request $request){
 
+        // dd($request->all());
+
         $ejemplares_eventos = $request->input('ejemplar_evento_id_ejemplar');
         $raza_id            = $request->input('raza_id_ejemplar');
         $evento_id          = $request->input('evento_id_ejemplar');
@@ -482,6 +483,8 @@ class JuezController extends Controller
         $num_pista          = $request->input('num_pista');
 
         $categoria = CategoriasPista::find($categoria_id)[0]->nombre;
+
+        // dd($ejemplares_eventos, $calificaciones, $lugares);
         
         // verificamos si las calificaciones o el lugar esta repoedido 
         $valida = $this->validaCalificaciones($ejemplares_eventos, $calificaciones, $lugares);
@@ -490,6 +493,8 @@ class JuezController extends Controller
         $arrayMejorEjemplar = array();
 
         if($valida['status']){
+
+            $ganadorUnico = null;
 
             foreach ($ejemplares_eventos as $key => $e){
 
@@ -519,31 +524,52 @@ class JuezController extends Controller
         
                     $calificacion->save();
 
-                    // if($calificaciones[$key] == "Excelente" && $lugares[$key] == 1){
-                    if($lugares[$key] == 1){
-
-                        $arrayMejorEjemplar = array(
-
-                            'calificacion_id'       => $calificacion->id,
-                            'ejemplar_id'           => $ejemplares[$key],
-                            'evento_id'             => $evento_id[0],
-                            'ejemplar_evento_id'    => intval($e),
-                            'categoria_id'          => $categoria_id[0],
-                            'numero_prefijo'        => $numero_prefijos[$key],
-                            'calificacion'          => $calificaciones[$key],
-                            'raza'                  => $raza_id[0],
-                            'sexo'                  => $sexo[0],
-                            'grupo'                 => $grupo[0],
-                            'lugar'                 => $lugares[$key],
-                            'pista'                 => $num_pista
-
-                        );
-
-                    }
+                    $ganador = null;
 
                 }else{
 
+                    // MODIFICAMOS LOS DATOS SI ES QUE YA ESTAN CALIFICADOS
+                    $calificacion = Juez::getCalificacion(intval($e), $num_pista, $numero_prefijos[$key]);
+
+                    $calificacion->calificacion = $calificaciones[$key];
+                    $calificacion->lugar        = $lugares[$key];
+
+                    $calificacion->save();
+
+                    // aqui eliminamos de la tabla ganadores
+                    $ganador = Juez::getGanador($calificacion->id);
+
+                    if($ganador)
+                        $ganadorUnico = $ganador;
+
+                    // dd($ganador);
+
+                    // if($ganador)
+                    //     Ganador::destroy($ganador->id);
+
                     array_push($arrayRepetidos,intval($e));
+                }
+
+                // if($calificaciones[$key] == "Excelente" && $lugares[$key] == 1){
+                if($lugares[$key] == 1){
+
+                    $arrayMejorEjemplar = array(
+
+                        'calificacion_id'       => $calificacion->id,
+                        'ejemplar_id'           => $ejemplares[$key],
+                        'evento_id'             => $evento_id[0],
+                        'ejemplar_evento_id'    => intval($e),
+                        'categoria_id'          => $categoria_id[0],
+                        'numero_prefijo'        => $numero_prefijos[$key],
+                        'calificacion'          => $calificaciones[$key],
+                        'raza'                  => $raza_id[0],
+                        'sexo'                  => $sexo[0],
+                        'grupo'                 => $grupo[0],
+                        'lugar'                 => $lugares[$key],
+                        'pista'                 => $num_pista
+
+                    );
+
                 }
 
             }
@@ -551,7 +577,13 @@ class JuezController extends Controller
             // preguntamos si hay mejor de la categoria y agregamos al mejor
             if(count($arrayMejorEjemplar) > 0){
 
-                $ganador = new Ganador();
+                // dd($ganador);
+
+                if($ganadorUnico)
+                    $ganador = Ganador::find($ganadorUnico->id);
+                else
+                    $ganador = new Ganador();
+
 
                 $ganador->creador_id            = Auth::user()->id;
                 $ganador->calificacion_id       = $arrayMejorEjemplar['calificacion_id'];
@@ -1047,7 +1079,6 @@ class JuezController extends Controller
                                             </tbody>
                                         </table>';
 
-
             }
 
 
@@ -1181,7 +1212,7 @@ class JuezController extends Controller
                                                     <small style="display: none;" class="_'.$eje->id.' text-warning">Dato repetido</small>
                                                 </td>
                                                 <td>
-                                                    <select name="calificacion_ejemplar[]" id="calificacion_ejemplar" class="form-control" '.(($cali)? 'disabled' : '').' >
+                                                    <select name="calificacion_ejemplar[]" id="calificacion_ejemplar" class="form-control" >
                                                         <option '.(($cali)? (($cali->calificacion == 'Excelente')? 'selected' : '') : '').'  value="Excelente">Excelente</option>
                                                         <option '.(($cali)? (($cali->calificacion == 'Muy Bien')? 'selected' : '') : '').'  value="Muy Bien">Muy Bien</option>
                                                         <option '.(($cali)? (($cali->calificacion == 'Bien')? 'selected' : '') : '').'  value="Bien">Bien</option>
@@ -1191,7 +1222,7 @@ class JuezController extends Controller
                                                     <small style="display: none;" class="_'.$eje->id.' text-warning">Dato repetido</small>
                                                 </td>
                                                 <td>
-                                                    <select name="lugar_ejemplar[]" id="lugar_ejemplar" class="form-control" '.(($cali)? 'disabled' : '').' >
+                                                    <select name="lugar_ejemplar[]" id="lugar_ejemplar" class="form-control" >
                                                         <option '.(($cali)? (($cali->lugar == 1)? 'selected' : '') : '').' value="1">Primero</option>
                                                         <option '.(($cali)? (($cali->lugar == 2)? 'selected' : '') : '').' value="2">Segundo</option>
                                                         <option '.(($cali)? (($cali->lugar == 3)? 'selected' : '') : '').' value="3">Tercero</option>
@@ -1202,19 +1233,65 @@ class JuezController extends Controller
                                                 </td>
                                             </tr>';
 
+                    // $tableBody = $tableBody.'<tr>
+                    //                             <td>
+                    //                                 <input type="hidden" name="ejemplar_evento_id_ejemplar[]" value="'.$eje->id.'">
+                    //                                 <input type="hidden" name="raza_id_ejemplar[]" value="'.$raza_id.'">
+                    //                                 <input type="hidden" name="evento_id_ejemplar[]" value="'.$evento_id.'">
+                    //                                 <input type="hidden" name="categoria_id_ejemplar[]" value="'.$ca['categoria_id'].'">
+                    //                                 <input type="hidden" name="sexo_ejemplar[]" value="'.$eje->sexo.'">
+                    //                                 <input type="hidden" name="numero_prefijo_ejemplar[]" value="'.$eje->numero_prefijo.'">
+                    //                                 <input type="hidden" name="ejemplar_id_ejemplar[]" value="'.$eje->ejemplar_id.'">
+                    //                                 <input type="hidden" name="grupo_id[]" value="'.$grupo->grupo_id.'">
+                    //                                 <input type="hidden" name="num_pista" value="'.$num_pista.'">
+                    //                                 <h1 class="text-primary">'.$eje->numero_prefijo.'</h1>
+                    //                                 <small style="display: none;" class="_'.$eje->id.' text-warning">Dato repetido</small>
+                    //                             </td>
+                    //                             <td>
+                    //                                 <select name="calificacion_ejemplar[]" id="calificacion_ejemplar" class="form-control" '.(($cali)? 'disabled' : '').' >
+                    //                                     <option '.(($cali)? (($cali->calificacion == 'Excelente')? 'selected' : '') : '').'  value="Excelente">Excelente</option>
+                    //                                     <option '.(($cali)? (($cali->calificacion == 'Muy Bien')? 'selected' : '') : '').'  value="Muy Bien">Muy Bien</option>
+                    //                                     <option '.(($cali)? (($cali->calificacion == 'Bien')? 'selected' : '') : '').'  value="Bien">Bien</option>
+                    //                                     <option '.(($cali)? (($cali->calificacion == 'Descalificado')? 'selected' : '') : '').'  value="Descalificado">Descalificado</option>
+                    //                                     <option '.(($cali)? (($cali->calificacion == 'Ausente')? 'selected' : '') : '').'  value="Ausente">Ausente</option>
+                    //                                 </select>
+                    //                                 <small style="display: none;" class="_'.$eje->id.' text-warning">Dato repetido</small>
+                    //                             </td>
+                    //                             <td>
+                    //                                 <select name="lugar_ejemplar[]" id="lugar_ejemplar" class="form-control" '.(($cali)? 'disabled' : '').' >
+                    //                                     <option '.(($cali)? (($cali->lugar == 1)? 'selected' : '') : '').' value="1">Primero</option>
+                    //                                     <option '.(($cali)? (($cali->lugar == 2)? 'selected' : '') : '').' value="2">Segundo</option>
+                    //                                     <option '.(($cali)? (($cali->lugar == 3)? 'selected' : '') : '').' value="3">Tercero</option>
+                    //                                     <option '.(($cali)? (($cali->lugar == 4)? 'selected' : '') : '').' value="4">Cuarto</option>
+                    //                                     <option '.(($cali)? (($cali->lugar == 5)? 'selected' : '') : '').' value="5">Quinto</option>
+                    //                                 </select>
+                    //                                 <small style="display: none;" class="_'.$eje->id.' text-warning">Dato repetido</small>
+                    //                             </td>
+                    //                         </tr>';
+
                 }
 
+                    // $tableFoooter = $tableFoooter.'</tbody>
+                    //                             </table>
+                    //                             '.(($cali == null)? '
+                    //                                 <div class="row">
+                    //                                     <div class="col-md-12">
+                    //                                         <button id="button_'.str_replace([' ','(',')'],'',$ca['nombre']).'" type="button" class="btn btn-success btn-block" onclick="finalizarCalificacion('."'".str_replace([' ','(',')'],'',$ca['nombre'])."'".')">Finalizar</button>
+                    //                                     </div>
+                    //                                 </div>
+                    //                             ' : '').'
+                    //                         </form>
+                    //                     </div>';
+
                     $tableFoooter = $tableFoooter.'</tbody>
-                                                </table>
-                                                '.(($cali == null)? '
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <button id="button_'.str_replace([' ','(',')'],'',$ca['nombre']).'" type="button" class="btn btn-success btn-block" onclick="finalizarCalificacion('."'".str_replace([' ','(',')'],'',$ca['nombre'])."'".')">Finalizar</button>
-                                                        </div>
-                                                    </div>
-                                                ' : '').'
-                                            </form>
-                                        </div>';
+                                        </table>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <button id="button_'.str_replace([' ','(',')'],'',$ca['nombre']).'" type="button" class="btn btn-success btn-block" onclick="finalizarCalificacion('."'".str_replace([' ','(',')'],'',$ca['nombre'])."'".')">Finalizar</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>';
 
             $data['tables'] = $data['tables'].$tablePrincipal.$tableCabeza.$tableBody.$tableFoooter;
 
