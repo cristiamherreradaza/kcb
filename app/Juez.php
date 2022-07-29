@@ -491,7 +491,8 @@ class Juez extends Model
     public static function getGruposParticipantes($evento_id){
 
         $grupos = EjemplarEvento::select('grupos_razas.grupo_id')
-                                ->join('grupos_razas','ejemplares_eventos.raza_id','=','grupos_razas.id')
+                                ->join('grupos_razas','ejemplares_eventos.raza_id','=','grupos_razas.raza_id')
+                                // ->join('grupos_razas','ejemplares_eventos.raza_id','=','grupos_razas.id')
                                 ->where('ejemplares_eventos.evento_id',$evento_id)
                                 ->groupBy('grupos_razas.grupo_id')
                                 ->get();
