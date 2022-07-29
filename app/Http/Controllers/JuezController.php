@@ -519,7 +519,8 @@ class JuezController extends Controller
         
                     $calificacion->save();
 
-                    if($calificaciones[$key] == "Excelente" && $lugares[$key] == 1){
+                    // if($calificaciones[$key] == "Excelente" && $lugares[$key] == 1){
+                    if($lugares[$key] == 1){
 
                         $arrayMejorEjemplar = array(
 
