@@ -32,8 +32,8 @@
                 			    <label for="exampleInputPassword1">Nombre Ejemplar
                 			    <span class="text-danger">*</span></label>
                 			    <input type="text" class="form-control" id="nombre" name="nombre" required />
-                			    <input type="hidden" id="ejemplarEvento" name="ejemplarEvento"/>
-                			    <input type="hidden" id="extranjero" name="extranjero"/>
+                			    <input type="text" id="ejemplarEvento" name="ejemplarEvento"/>
+                			    <input type="text" id="extranjero" name="extranjero"/>
                 			</div>
                 		</div>
 
@@ -195,7 +195,7 @@
 						</div>
 					</div>
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
                 			    <label for="exampleInputPassword1">Estado
                 			    <span class="text-danger">*</span></label>
@@ -205,6 +205,16 @@
                                 </select>
                 			</div>
                         </div>
+						<div class="col-md-6">
+							<div class="form-group">
+                			    <label for="exampleInputPassword1">Extrangero
+                			    <span class="text-danger">*</span></label>
+                                <select class="form-control" name="extrangero" id="extrangero" >
+                                    <option value="si">Si</option>
+                                    <option value="no">No</option>
+                                </select>
+                			</div>
+						</div>
                     </div>
 
                 </form>
@@ -593,6 +603,8 @@
 			$('#email').val(email);
 			$('#estado').val(estado);
 			$('#extranjero').val(extranjero);
+			$('#extrangero').val(extranjero);
+			
 
             if(kcb != '' && cod_extrangero == ''){
 				$("#nombre").prop('disabled', true);

@@ -30,6 +30,7 @@ class UserController extends Controller
     public function listado()
     {
         $usuarios = User::where('perfil_id', '<>', 4)
+                        ->where('perfil_id', '<>', 7)
                         ->get();
         $sucursales = Sucursal::all();
         $perfiles = Perfil::all();
@@ -140,7 +141,6 @@ class UserController extends Controller
 
     public function validaEmail(Request $request)
     {
-        // dd($request->all());
         $verificaEmail = User::where('email', $request->email)
                             ->count();
 
@@ -479,5 +479,20 @@ class UserController extends Controller
         $menusPerfiles =  MenuPerfil::where('perfil_id',$menuUsers->perfil_id)->get();
 
         return view('user.ajaxPermisosPerfiles')->with(compact('menusPerfiles'));
+    }
+
+    public function listadoSecretario(Request $request){
+
+        $usuarios = User::where('perfil_id',7)
+                        ->get();
+
+        return view('user.listadoSecretario')->with(compact('usuarios'));
+
+    }
+
+    public function guardaSecretario(Request $request){
+
+        dd($request->all());
+
     }
 }

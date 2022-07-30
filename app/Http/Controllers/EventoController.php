@@ -303,6 +303,7 @@ class EventoController extends Controller
         $ejemplarEvento->categoria_pista_id     = $request->input('categoria_pista_id');
         $ejemplarEvento->email                  = $request->input('email');
         $ejemplarEvento->estado                 = $request->input('estado');
+        $ejemplarEvento->extrangero             = $request->input('extrangero');
 
         $ejemplarEvento->save();
 
