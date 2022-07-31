@@ -136,7 +136,7 @@
 								<td>{{ $u->celulares }}</td>
 								<td>{{ $u->ci }}</td>
 								<td>
-									<img src="{{ url('imagenesFirmaJuezSecre',[$u->estado]) }}" alt="Firma" width="30%">	
+									<img src="{{ url('imagenesFirmaJuezSecre',[$u->estado]) }}" alt="Firma" width="20%">	
 								</td>
 								<td>
 									<button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $u->id }}', '{{ $u->name }}', '{{ $u->email }}', '{{ $u->celulares }}', '{{ $u->ci }}', '{{ $u->estado }}')">
