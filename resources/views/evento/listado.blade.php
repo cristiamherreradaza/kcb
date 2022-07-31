@@ -60,7 +60,7 @@
             <div class="modal-body">
 				<form action="{{ url('Evento/clonarEvento') }}" id="formularioClonarEvento" method="POST">
 					@csrf
-					<input type="text" name="evento_id_clonar" id="evento_id_clonar">
+					<input type="hidden" name="evento_id_clonar" id="evento_id_clonar">
 					<div class="row">
 						<div class="col-md-12">
 							<div class="form-group">
