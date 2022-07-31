@@ -1212,7 +1212,7 @@ class JuezController extends Controller
                                                     <small style="display: none;" class="_'.$eje->id.' text-warning">Dato repetido</small>
                                                 </td>
                                                 <td>
-                                                    <select name="calificacion_ejemplar[]" id="calificacion_ejemplar" class="form-control" >
+                                                    <select name="calificacion_ejemplar[]" id="calificacion_ejemplar" class="form-control" '.((!$sw)? "disabled" : '').' >
                                                         <option '.(($cali)? (($cali->calificacion == 'Excelente')? 'selected' : '') : '').'  value="Excelente">Excelente</option>
                                                         <option '.(($cali)? (($cali->calificacion == 'Muy Bien')? 'selected' : '') : '').'  value="Muy Bien">Muy Bien</option>
                                                         <option '.(($cali)? (($cali->calificacion == 'Bien')? 'selected' : '') : '').'  value="Bien">Bien</option>
@@ -1222,7 +1222,7 @@ class JuezController extends Controller
                                                     <small style="display: none;" class="_'.$eje->id.' text-warning">Dato repetido</small>
                                                 </td>
                                                 <td>
-                                                    <select name="lugar_ejemplar[]" id="lugar_ejemplar" class="form-control" >
+                                                    <select name="lugar_ejemplar[]" id="lugar_ejemplar" class="form-control" '.((!$sw)? "disabled" : '').'>
                                                         <option '.(($cali)? (($cali->lugar == 1)? 'selected' : '') : '').' value="1">Primero</option>
                                                         <option '.(($cali)? (($cali->lugar == 2)? 'selected' : '') : '').' value="2">Segundo</option>
                                                         <option '.(($cali)? (($cali->lugar == 3)? 'selected' : '') : '').' value="3">Tercero</option>
@@ -1270,7 +1270,7 @@ class JuezController extends Controller
                     //                         </tr>';
 
                 }
-
+                    // PRIMERA VERSION LA QUE ESTA FUNCIONADO
                     // $tableFoooter = $tableFoooter.'</tbody>
                     //                             </table>
                     //                             '.(($cali == null)? '
@@ -1283,15 +1283,30 @@ class JuezController extends Controller
                     //                         </form>
                     //                     </div>';
 
+                    // SEGUNDA VERSION LA QUE NO TIEN RESTRICCIONES PERO FUNCION
+                    // $tableFoooter = $tableFoooter.'</tbody>
+                    //                     </table>
+                    //                     <div class="row">
+                    //                         <div class="col-md-12">
+                    //                             <button id="button_'.str_replace([' ','(',')'],'',$ca['nombre']).'" type="button" class="btn btn-success btn-block" onclick="finalizarCalificacion('."'".str_replace([' ','(',')'],'',$ca['nombre'])."'".')">Finalizar</button>
+                    //                         </div>
+                    //                     </div>
+                    //                 </form>
+                    //             </div>';
+
+                    // SEGUNDA VERSION LA QUE NO TIEN RESTRICCIONES PERO FUNCION
                     $tableFoooter = $tableFoooter.'</tbody>
                                         </table>
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <button id="button_'.str_replace([' ','(',')'],'',$ca['nombre']).'" type="button" class="btn btn-success btn-block" onclick="finalizarCalificacion('."'".str_replace([' ','(',')'],'',$ca['nombre'])."'".')">Finalizar</button>
+                                                '.(($sw)? '
+                                                    <button id="button_'.str_replace([' ','(',')'],'',$ca['nombre']).'" type="button" class="btn btn-success btn-block" onclick="finalizarCalificacion('."'".str_replace([' ','(',')'],'',$ca['nombre'])."'".')">Finalizar</button>
+                                                ' : '').'
                                             </div>
                                         </div>
                                     </form>
                                 </div>';
+
 
             $data['tables'] = $data['tables'].$tablePrincipal.$tableCabeza.$tableBody.$tableFoooter;
 
@@ -1344,12 +1359,47 @@ class JuezController extends Controller
 
         $ganador->save();
 
+        $arrayCategorias = array();
+
         if($ganador->categoria_id == 2 || $ganador->categoria_id == 11) {
             $mejor = "MEJOR CACHORRO";
+
+            $categoria = CategoriasPista::find(2);
+            array_push($arrayCategorias, str_replace([' ','(',')'],'',$categoria->nombre));
+            $categoria = CategoriasPista::find(11);
+            array_push($arrayCategorias, str_replace([' ','(',')'],'',$categoria->nombre));
+
         }else if($ganador->categoria_id == 3 || $ganador->categoria_id == 4 || $ganador->categoria_id == 12 || $ganador->categoria_id == 13){  
             $mejor = "MEJOR JOVEN";
+            
+            $categoria = CategoriasPista::find(3);
+            array_push($arrayCategorias, str_replace([' ','(',')'],'',$categoria->nombre));
+            $categoria = CategoriasPista::find(4);
+            array_push($arrayCategorias, str_replace([' ','(',')'],'',$categoria->nombre));
+            $categoria = CategoriasPista::find(12);
+            array_push($arrayCategorias, str_replace([' ','(',')'],'',$categoria->nombre));
+            $categoria = CategoriasPista::find(13);
+            array_push($arrayCategorias, str_replace([' ','(',')'],'',$categoria->nombre));
+
         }else if($ganador->categoria_id == 5 || $ganador->categoria_id == 6 || $ganador->categoria_id == 7 || $ganador->categoria_id == 8 || $ganador->categoria_id == 9 || $ganador->categoria_id == 10 || $ganador->categoria_id == 14 || $ganador->categoria_id == 15){
             $mejor = "MEJOR ADULTO";
+
+            $categoria = CategoriasPista::find(5);
+            array_push($arrayCategorias, str_replace([' ','(',')'],'',$categoria->nombre));
+            $categoria = CategoriasPista::find(6);
+            array_push($arrayCategorias, str_replace([' ','(',')'],'',$categoria->nombre));
+            $categoria = CategoriasPista::find(7);
+            array_push($arrayCategorias, str_replace([' ','(',')'],'',$categoria->nombre));
+            $categoria = CategoriasPista::find(8);
+            array_push($arrayCategorias, str_replace([' ','(',')'],'',$categoria->nombre));
+            $categoria = CategoriasPista::find(9);
+            array_push($arrayCategorias, str_replace([' ','(',')'],'',$categoria->nombre));
+            $categoria = CategoriasPista::find(10);
+            array_push($arrayCategorias, str_replace([' ','(',')'],'',$categoria->nombre));
+            $categoria = CategoriasPista::find(14);
+            array_push($arrayCategorias, str_replace([' ','(',')'],'',$categoria->nombre));
+            $categoria = CategoriasPista::find(15);
+            array_push($arrayCategorias, str_replace([' ','(',')'],'',$categoria->nombre));
         }
 
         $data['mejor'] = '<div class="row text-center">
@@ -1360,6 +1410,8 @@ class JuezController extends Controller
                                 <h3 class="text-info">'.$ganador->numero_prefijo.'</h3>
                             </div>
                         </div>';
+
+        $data['categoria'] = $arrayCategorias;
 
         return json_encode($data);
 
@@ -2644,6 +2696,49 @@ class JuezController extends Controller
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment; filename="'. urlencode($fileName).'"');
         $writer->save('php://output');
+
+    }
+
+    public function addCategoriaAsignacion(Request $request){
+
+        if($request->ajax()){
+
+            // dd($request->all());
+            $asignacion_id = $request->input('add_categoria_asignacion_id');
+
+            $asignacion = Asignacion::find($asignacion_id);
+
+            $asignacion->categorias = $request->input('categoriasAdd');
+
+            $asignacion->save();
+
+            $data['status'] = 'success';
+
+            $asiganaciones = Asignacion::where('evento_id',$asignacion->evento_id)->get();
+            $faltantes = 0;
+
+            $data['listado'] = view('evento.ajaxListadoAsignacion', compact('asiganaciones', 'faltantes'))->render();
+
+            return json_encode($data);
+
+        }
+
+    }
+
+    public function categoriasAsignadas(Request $request){
+
+        if($request->ajax()){
+
+            $asignacion_id = $request->input('asigancion');
+
+            $asignacion = Asignacion::find($asignacion_id);
+
+            $data['status'] = 'success';
+
+            $data['categorias'] = json_decode($asignacion->categorias);
+
+            return json_encode($data);
+        }
 
     }
 }

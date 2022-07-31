@@ -23,7 +23,7 @@
 				</div>
 				<div class="modal-body">
 					<form action="{{ url('User/guardaSecretario') }}" method="POST" id="formularioSecretario" enctype="multipart/form-data">
-                        <input type="text" value="0" name="secretario_id" id="secretario_id">
+                        <input type="hidden" value="0" name="secretario_id" id="secretario_id">
 						@csrf
                         <div class="row">
                             <div class="col-md-6">
@@ -37,7 +37,8 @@
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Correo
                                     <span class="text-danger">*</span></label>
-                                    <input type="email" class="form-control" id="correo" name="correo" onchange="validaEmail()">
+                                    <input type="email" class="form-control" id="correo" name="correo" onfocusout="validaEmail()">
+									<span class="form-text text-danger" id="msg-error-email" style="display: none;">Correo duplicado, cambielo!!!</span>
                                 </div>
                             </div>
                         </div>
@@ -73,6 +74,7 @@
                                     <label for="exampleInputPassword1">Contraseña
                                     <span class="text-danger">*</span></label>
                                     <input type="password" class="form-control" id="password" name="password">
+									<span class="form-text text-info">Si desea cambiar o crear llenar</span>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -121,6 +123,7 @@
 							<th>Email</th>
 							<th>Celular</th>
 							<th>Cedula</th>
+							<th>Firma</th>
 							<th>Actions</th>
 						</tr>
 					</thead>
@@ -133,11 +136,11 @@
 								<td>{{ $u->celulares }}</td>
 								<td>{{ $u->ci }}</td>
 								<td>
-									<button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $u->id }}')">
+									<img src="{{ url('imagenesFirmaJuezSecre',[$u->estado]) }}" alt="Firma" width="80%">	
+								</td>
+								<td>
+									<button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $u->id }}', '{{ $u->name }}', '{{ $u->email }}', '{{ $u->celulares }}', '{{ $u->ci }}', '{{ $u->estado }}')">
 										<i class="flaticon2-edit"></i>
-									</button>
-									<button type="button" class="btn btn-icon btn-primary" onclick="permisos('{{ $u->id }}')">
-										<i class="far fa-list-alt"></i>
 									</button>
 									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $u->id }}', '{{ $u->name }}')">
 										<i class="flaticon2-cross"></i>
@@ -181,9 +184,24 @@
 
 		function nuevo(){
 
+			$('#formularioSecretario')[0].reset();
+
             $('#modalNuevoSecretario').modal('show');
 
     	}
+
+		function edita(secretario, nombre, email, celular, cedula, firma){
+
+			$('#secretario_id').val(secretario);
+			$('#nombre').val(nombre);
+			$('#correo').val(email);
+			$('#cedula').val(cedula);
+			$('#celular').val(celular);
+			$('#password').val();
+
+            $('#modalNuevoSecretario').modal('show');
+
+		}
 
 		function elimina(id, nombre)
         {
@@ -226,7 +244,20 @@
 		}
 
         function validaEmail(){
-            
-        }
+
+			let email = $("#email").val();
+
+			$.ajax({
+				url: "{{ url('User/validaEmail') }}",
+				data: {email: email},
+				type: 'POST',
+				success: function(data) {
+					if(data.vEmail > 0)
+						$("#msg-error-email").show();
+					else
+						$("#msg-error-email").hide();
+				}
+			});
+		}
     </script>
 @endsection

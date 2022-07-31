@@ -339,8 +339,20 @@
             </h1>
             
             <div class="cabeza-datos">
-                {{-- <div id="juez">JUEZ: {{ $juez->juez->nombre }}</div> --}}
-                <div id="juez">JUEZ: {{ $juez[0]->juez->nombre }}</div>
+                @php
+                    if($juez[0]->estado == 2){
+                        $juezEscojido = null;
+                        foreach ($juez as $j){
+                            if(in_array(ucfirst($aT['tipo']), json_decode($j->categorias))){
+                                $juezEscojido = $j;
+                                break;
+                            }
+                        }
+                    }else{
+                        $juezEscojido = $juez[0];
+                    }
+                @endphp
+                <div id="juez">JUEZ: {{ $juezEscojido->juez->nombre }}</div>
                 <div id="lugar">LUGAR Y FECHA: {{ date('d/m/Y') }}</div>
             </div>
         
@@ -508,7 +520,20 @@
 
             <div id="firma_figital">
                 @php
-                    $firmaJuez = $juez[0]->juez->estado;
+                    if($juez[0]->estado == 2){
+                        $juezEscojido = null;
+                        foreach ($juez as $j){
+                            if(in_array(ucfirst($aT['tipo']), json_decode($j->categorias))){
+                                $juezEscojido = $j;
+                                break;
+                            }
+                        }
+                    }else{
+                        $juezEscojido = $juez[0];
+                    }
+
+
+                    $firmaJuez = $juezEscojido->juez->estado;
                 @endphp
                 <img src="{{ url("imagenesFirmaJuezSecre/$firmaJuez") }}" width="100%" alt="">
             </div>
@@ -521,7 +546,7 @@
 
             <div id="firma_figital_secretario">
                 @php
-                    $firmaSecre = $juez[0]->secretario->estado;
+                    $firmaSecre = $juezEscojido->secretario->estado;
                 @endphp
                 <img src="{{ url("imagenesFirmaJuezSecre/$firmaSecre") }}" width="100%" alt="">
             </div>

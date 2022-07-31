@@ -10,9 +10,99 @@
 
 @section('content')
 
-{{-- inicio modal  --}}
 
-<!-- Modal-->
+{{-- inicio modal ADD CATEGORIAS  --}}
+<div class="modal fade" id="modalAddCategoria" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">FORMULARIO DE ADICION DE CATEGORIA AL JUEZ <span class="text-info" id="nombreJuezAdd"></span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+				<form action="" id="formularioAddCategoria" method="POST">
+					@csrf
+					<input type="hidden" name="add_categoria_asignacion_id" id="add_categoria_asignacion_id">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label>Categorias <span class="text-danger">*</span></label>
+								<select class="form-control select2" id="categoriasAdd" name="categoriasAdd[]" multiple="multiple" style="width:100%;">
+									
+								</select>
+							</div>
+						</div>
+					</div>
+				</form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light-dark font-weight-bold" onclick="cerrarModalAddCategoria()">Cerrar</button>
+                <button type="button" class="btn btn-success font-weight-bold" onclick="addCategoria()">Adicion Categoria</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- fin inicio modal ADD CATEGORIAS --}}
+
+
+{{-- inicio modal CLONAR  --}}
+<div class="modal fade" id="modalClonarEvento" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">FORMULARIO DE CLONACION DE VENTO <span class="text-info" id="nombreEventoClonar"></span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+				<form action="{{ url('Evento/clonarEvento') }}" id="formularioClonarEvento" method="POST">
+					@csrf
+					<input type="text" name="evento_id_clonar" id="evento_id_clonar">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label for="exampleInputPassword1">Nombre del evento
+								<span class="text-danger">*</span></label>
+								<input type="text" name="nombre_clonar" class="form-control" id="nombre_clonar"/>
+							</div>
+						</div>
+					</div>
+					<label>Tipo de evento</label>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="radio radio-lg">
+									<input type="radio" checked="checked" name="radios3_1" value="Nacional"/>
+									<span></span>
+									Nacional
+								</label>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="radio radio-lg">
+									<input type="radio" name="radios3_1" checked="checked" value="Internacional"/>
+									<span></span>
+									Internacional
+								</label>
+							</div>
+						</div>
+					</div>
+				</form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-success font-weight-bold" onclick="clonar()">Clonar</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- fin inicio modal CLONAR --}}
+
+{{-- inicio modal  --}}
 <div class="modal fade" id="modalAddJuez" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -318,6 +408,9 @@
 									<a href="{{ url('Juez/exportarExcel', [$even->id]) }}" class="btn btn-icon btn-success">
 										<i class="fas fa-file-excel"></i>
 									</a>
+									<button type="button" class="btn btn-icon btn-white" onclick="clonarEvento('{{ $even->id }}', '{{ $even->nombre }}')">
+										<i class="fas fa-copy"></i>
+									</button>
 									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $even->id }}', '{{ $even->nombre }}')">
 										<i class="flaticon2-cross"></i>
 									</button>
@@ -375,6 +468,11 @@
          $('#kt_select2_3_modal').select2({
           placeholder: "Select los grupos",
          });
+
+		 $('#categoriasAdd').select2({
+          placeholder: "Seleccion las categorias",
+         });
+		 
 
     	$(function () {
     	    $('#tabla-insumos').DataTable({
@@ -500,7 +598,6 @@
 
 			$('#num_pista').append(option);
 
-
 			$.ajax({
 				url: "{{ url('Juez/ajaxListadoAsignacion') }}",
 				data: {
@@ -530,19 +627,6 @@
 
 							$('#checkPista').prop('disabled', true);
 							$('#checkGrupo').prop('disabled', true);
-
-
-							// if(data.cantAsignaciones == 0){
-	
-							// 	$('#juez_id').prop('disabled', true);
-							// 	$('#secretario_id').prop('disabled', true);
-	
-							// }else{
-	
-							// 	$('#juez_id').prop('disabled', false);
-							// 	$('#secretario_id').prop('disabled', false);
-	
-							// }
 
 						}else{
 
@@ -616,24 +700,6 @@
 								$('#checkGrupo').prop('disabled', false);
 
 							}
-
-							// if(data.tipo){
-
-							// 	if(data.cantAsignaciones == 0){
-
-							// 		$('#juez_id').prop('disabled', true);
-							// 		$('#secretario_id').prop('disabled', true);
-
-							// 	}else{
-
-							// 		$('#juez_id').prop('disabled', false);
-							// 		$('#secretario_id').prop('disabled', false);
-
-							// 	}
-
-							// }else{
-
-							// }
 	
 							Swal.fire(
 								"Exito!",
@@ -702,19 +768,6 @@
 									$('#checkGrupo').prop('disabled', false);
 
 								}
-
-								// if(data.cantAsignaciones == 0){
-
-								// 	$('#juez_id').prop('disabled', true);
-								// 	$('#secretario_id').prop('disabled', true);
-
-								// }else{
-
-								// 	$('#juez_id').prop('disabled', false);
-								// 	$('#secretario_id').prop('disabled', false);
-
-								// }
-
 								$('#listaAsignaciones').html(data.listado);
 								
 								Swal.fire(
@@ -850,6 +903,133 @@
 
 			}
 			
+		}
+
+		function clonarEvento(evento, nombre){
+
+			$('#evento_id_clonar').val(evento);
+			$('#nombre_clonar').val(nombre);
+			$('#nombreEventoClonar').text(nombre);
+
+			$('#modalClonarEvento').modal('show');
+
+		}
+
+		function clonar(evento, nombre){
+
+			Swal.fire({
+                title: "Esta seguro de clonar el evento "+nombre+"?",
+                text: "Ya no podras recuperarlo!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Si, estoy seguro!",
+                cancelButtonText: "No!",
+                reverseButtons: true
+            }).then(function(result) {
+                if (result.value) {
+
+					$('#formularioClonarEvento').submit();
+
+                } else if (result.dismiss === "cancel") {
+
+                    Swal.fire(
+                        "Cancelado",
+                        "La operacion fue cancelada",
+                        "error"
+                    )
+                }
+            });
+
+		}
+
+		function agregarCategoria(asignacion, nombre){
+
+			$('#add_categoria_asignacion_id').val(asignacion);
+			$('#nombreJuezAdd').text(nombre);
+
+			$.ajax({
+				url: "{{ url('Juez/categoriasAsignadas') }}",
+				data: {asigancion: asignacion},
+				dataType: 'json',
+				type: 'POST',
+				success: function(data) {
+
+					if(data.status == 'success'){
+
+						$('#categoriasAdd').empty();
+
+						$('#categoriasAdd').append("<option "+( ((data.categorias).indexOf('Especiales') != -1)? 'selected' : '' )+" value='Especiales'>Especiales</option>");
+						$('#categoriasAdd').append("<option "+( ((data.categorias).indexOf('Absolutos') != -1)? 'selected' : '' )+" value='Absolutos'>Absolutos</option>");
+						$('#categoriasAdd').append("<option "+( ((data.categorias).indexOf('Jovenes') != -1)? 'selected' : '' )+" value='Jovenes'>Jovenes</option>");
+						$('#categoriasAdd').append("<option "+( ((data.categorias).indexOf('Adultos') != -1)? 'selected' : '' )+" value='Adultos'>Adultos</option>");
+
+					}
+					
+				}
+			});
+
+			$('#modalAddJuez').modal('hide');
+			$('#modalAddCategoria').modal('show');
+
+		}
+
+		function addCategoria(){
+
+			Swal.fire({
+                title: "Esta seguro de adicionar las categorias?",
+                text: "Ya no podras recuperarlo!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Si, estoy seguro!",
+                cancelButtonText: "No!",
+                reverseButtons: true
+            }).then(function(result) {
+                if (result.value) {
+
+					var datos = $('#formularioAddCategoria').serializeArray();
+
+					$.ajax({
+						url: "{{ url('Juez/addCategoriaAsignacion') }}",
+						data: datos,
+						dataType: 'json',
+						type: 'POST',
+						success: function(data) {
+
+							if(data.status == 'success'){
+
+								Swal.fire({
+								    title: "Exito!",
+								    text: "Se cambio el estado con exito.",
+								    icon: "success",
+									timer: 1000
+								})
+
+								$('#listaAsignaciones').html(data.listado);
+
+								$('#modalAddCategoria').modal('hide');
+								$('#modalAddJuez').modal('show');
+
+							}
+							
+						}
+					});
+
+                } else if (result.dismiss === "cancel") {
+
+                    Swal.fire(
+                        "Cancelado",
+                        "La operacion fue cancelada",
+                        "error"
+                    )
+                }
+            });
+		}
+
+		function cerrarModalAddCategoria(){
+
+			$('#modalAddCategoria').modal('hide');
+			$('#modalAddJuez').modal('show');
+
 		}
 
     </script>

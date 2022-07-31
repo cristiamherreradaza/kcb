@@ -1333,4 +1333,68 @@ class EventoController extends Controller
 
     }
 
+    public function clonarEvento(Request $request){
+
+        $evento_id = $request->input('evento_id_clonar');
+
+        $evento  = Evento::find($evento_id);
+
+        // CREAMOS EL NUEVO EVENTO
+        $eventoNuevo = new Evento();
+        
+        $eventoNuevo->nombre        = $request->input('nombre_clonar');
+        $eventoNuevo->fecha_inicio  = $evento->fecha_inicio;
+        $eventoNuevo->fecha_fin     = $evento->fecha_fin;
+        $eventoNuevo->direccion     = $evento->direccion;
+        $eventoNuevo->departamento  = $evento->departamento;
+        $eventoNuevo->numero_pista  = $evento->numero_pista;
+        $eventoNuevo->circuito      = $evento->circuito;
+        $eventoNuevo->habilitado    = $evento->habilitado;
+        $eventoNuevo->tipo_evento   = $request->input('radios3_1');
+
+        $eventoNuevo->save();
+
+        // AHORA VAMOS POR LOS INSCRITOS A UN EVENO
+        $ejemplaresEventosInscritos = EjemplarEvento::where('evento_id',$evento->id)->get();
+
+        foreach ($ejemplaresEventosInscritos as $ei){
+
+            $ejemplar_evento = new EjemplarEvento();
+
+            $ejemplar_evento->user_id               = Auth::user()->id;
+            $ejemplar_evento->evento_id             = $eventoNuevo->id;
+
+            $ejemplar_evento->ejemplar_id           = $ei->ejemplar_id;
+            $ejemplar_evento->raza_id               = $ei->raza_id;
+            $ejemplar_evento->categoria_pista_id    = $ei->categoria_pista_id;
+            $ejemplar_evento->extrangero            = $ei->extrangero;
+            $ejemplar_evento->codigo_nacionalizado  = $ei->codigo_nacionalizado;
+            $ejemplar_evento->nombre_completo       = $ei->nombre_completo;
+            $ejemplar_evento->color                 = $ei->color;
+            $ejemplar_evento->tatuaje               = $ei->tatuaje;
+            $ejemplar_evento->fecha_nacimiento      = $ei->fecha_nacimiento;
+            $ejemplar_evento->sexo                  = $ei->sexo;
+            $ejemplar_evento->chip                  = $ei->chip;
+            $ejemplar_evento->kcb_padre             = $ei->kcb_padre;
+            $ejemplar_evento->nombre_padre          = $ei->nombre_padre;
+            $ejemplar_evento->kcb_madre             = $ei->kcb_madre;
+            $ejemplar_evento->nombre_madre          = $ei->nombre_madre;
+            $ejemplar_evento->criador               = $ei->criador;
+            $ejemplar_evento->propietario           = $ei->propietario;
+            $ejemplar_evento->ciudad                = $ei->ciudad;
+            $ejemplar_evento->telefono              = $ei->telefono;
+            $ejemplar_evento->email                 = $ei->email;
+            $ejemplar_evento->edad                  = $ei->edad;
+            $ejemplar_evento->carnet                = $ei->carnet;
+            $ejemplar_evento->numero                = $ei->numero;
+            $ejemplar_evento->numero_prefijo        = $ei->numero_prefijo;
+            $ejemplar_evento->estado                = $ei->estado;
+
+            $ejemplar_evento->save();
+
+        }
+
+        return redirect('Evento/listado');
+    }
+
 }

@@ -18,6 +18,7 @@
             <th>SECRETARIO</th>
             <th>PISTA</th>
             <th>GRUPOS</th>
+            <th>CATEGORIAS</th>
             <th></th> 
         </tr>
     </thead>
@@ -28,6 +29,7 @@
             <td>{{ $asig->secretario->name}}</td>
             <td>{{ $asig->num_pista}}</td>
             <td>{{ str_replace(['[',']', '"'],' ' , $asig->grupos) }}</td>
+            <td>{{ str_replace(['[',']', '"'],' ' , $asig->categorias) }}</td>
             <td>
                 <a href="{{ url('Juez/planillaPDF', [$asig->evento_id, ($asig->estado == 1)? $asig->num_pista : 0]) }}" class="btn btn-icon btn-info" target="_target" title="Planilla">
                     <i class="fa fa-list"></i>
@@ -38,6 +40,12 @@
                 <a href="{{ url('Evento/ranking', [$asig->evento_id, ($asig->estado == 1)? $asig->num_pista : 0]) }}" class="btn btn-icon btn-primary">
                     <i class="flaticon-map"></i>
                 </a>
+
+                @if ($asig->estado == 2)
+                    <button type="button" class="btn btn-icon btn-warning" onclick="agregarCategoria('{{ $asig->id }}', '{{$asig->juez->nombre  }}')">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                @endif
 
                 <button type="button" class="btn btn-icon btn-danger" onclick="eliminaAsigancion('{{ $asig->id }}', '{{$asig->juez->nombre  }}')">
                     <i class="flaticon2-cross"></i>

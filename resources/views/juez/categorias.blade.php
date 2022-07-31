@@ -836,7 +836,9 @@
                                     // $('#ganador_'+data.categoria).toggle('show');
 
                                     // bloqueamos el boton
-                                    $('#button_'+categoria).prop('disabled', true);
+
+                                    // $('#button_'+categoria).prop('disabled', true);
+
                                     $('#valoresGanadores').val($('#valoresGanadores').val()+","+data.gandadorActivo);
 
 
@@ -962,10 +964,10 @@
                         dataType: 'json',
                         success: function(data) {
 
+                            console.log(data);
+
                             $('#bloques_mejor_categoria').html(data.mejor);
                             $('#bloques_mejor_categoria').toggle('show');
-
-                            console.log(vendedores);
 
                             if($('#valoresGanadores').val() == 0){
                                 // bloqueamos el boton
@@ -977,13 +979,16 @@
 
                                 let ganadores = ($('#valoresGanadores').val()).split(",");
 
-                                console.log(ganadores);
-
                                 $(ganadores).each(function( index , value) {
                                     if(value != 0)
                                         $('#button_escogeMejor_'+value).prop('disabled', true);
                                 });
                             }
+
+                            // bloqueamos los botones
+                            $(data.categoria).each(function(index, value){
+                                $('#button_'+value).prop('disabled', true);
+                            });
                         }
                     });
                 }

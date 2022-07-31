@@ -32,8 +32,8 @@
                 			    <label for="exampleInputPassword1">Nombre Ejemplar
                 			    <span class="text-danger">*</span></label>
                 			    <input type="text" class="form-control" id="nombre" name="nombre" required />
-                			    <input type="text" id="ejemplarEvento" name="ejemplarEvento"/>
-                			    <input type="text" id="extranjero" name="extranjero"/>
+                			    <input type="hidden" id="ejemplarEvento" name="ejemplarEvento"/>
+                			    <input type="hidden" id="extranjero" name="extranjero"/>
                 			</div>
                 		</div>
 

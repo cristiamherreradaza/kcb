@@ -492,7 +492,43 @@ class UserController extends Controller
 
     public function guardaSecretario(Request $request){
 
-        dd($request->all());
+        $secretario_id = $request->input('secretario_id');
 
+        if($secretario_id == 0)
+            $secretario = new User();
+        else
+            $secretario = User::find($secretario_id);
+        
+
+        $secretario->name           = $request->input('nombre');
+        $secretario->email          = $request->input('correo');
+        $secretario->ci             = $request->input('cedula');
+        $secretario->celulares      = $request->input('celular');
+        $secretario->genero         = $request->input('genero');
+
+        if($request->filled('password')){
+            $secretario->password = Hash::make($request->input('password'));
+        }
+
+        // esto es para la firma digital de los secretarios
+        if($request->file('firma')){
+            
+            // subiendo el archivo al servidor
+            $archivo    = $request->file('firma');
+
+            $direcion   = "imagenesFirmaJuezSecre/";
+            $nombreArchivo = date('YmdHis').".".$archivo->getClientOriginalExtension();
+            $archivo->move($direcion,$nombreArchivo);
+
+            $secretario->estado    = $nombreArchivo;
+
+        }
+
+        $secretario->perfil_id     = 7;
+
+        $secretario->save();
+
+        return redirect('User/listadoSecretario');
+            
     }
 }
