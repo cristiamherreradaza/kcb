@@ -958,10 +958,10 @@
 
 						$('#categoriasAdd').empty();
 
-						$('#categoriasAdd').append("<option "+( ((data.categorias).indexOf('Especiales') != -1)? 'selected' : '' )+" value='Especiales'>Especiales</option>");
-						$('#categoriasAdd').append("<option "+( ((data.categorias).indexOf('Absolutos') != -1)? 'selected' : '' )+" value='Absolutos'>Absolutos</option>");
-						$('#categoriasAdd').append("<option "+( ((data.categorias).indexOf('Jovenes') != -1)? 'selected' : '' )+" value='Jovenes'>Jovenes</option>");
-						$('#categoriasAdd').append("<option "+( ((data.categorias).indexOf('Adultos') != -1)? 'selected' : '' )+" value='Adultos'>Adultos</option>");
+						$('#categoriasAdd').append("<option "+( (data.categorias)? (((data.categorias).indexOf('Especiales') != -1)? 'selected' : '') : '' )+" value='Especiales'>Especiales</option>");
+						$('#categoriasAdd').append("<option "+( (data.categorias)? (((data.categorias).indexOf('Absolutos') != -1)? 'selected' : '') : '' )+" value='Absolutos'>Absolutos</option>");
+						$('#categoriasAdd').append("<option "+( (data.categorias)? (((data.categorias).indexOf('Jovenes') != -1)? 'selected' : '') : '' )+" value='Jovenes'>Jovenes</option>");
+						$('#categoriasAdd').append("<option "+( (data.categorias)? (((data.categorias).indexOf('Adultos') != -1)? 'selected' : '') : '' )+" value='Adultos'>Adultos</option>");
 
 					}
 					
