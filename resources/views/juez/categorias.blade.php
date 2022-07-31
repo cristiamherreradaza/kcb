@@ -811,8 +811,6 @@
 
                     var datos = $('#formulario_'+categoria).serialize();
 
-                    console.log(datos);
-
                     $.ajax({
 
                         url: "{{ url('Juez/ajaxFinalizarCalificacion') }}",
@@ -963,8 +961,6 @@
                         type: 'POST',
                         dataType: 'json',
                         success: function(data) {
-
-                            console.log(data);
 
                             $('#bloques_mejor_categoria').html(data.mejor);
                             $('#bloques_mejor_categoria').toggle('show');
