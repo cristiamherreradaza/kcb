@@ -135,7 +135,7 @@
 								<td>{{ $u->email }}</td>
 								<td>{{ $u->celulares }}</td>
 								<td>{{ $u->ci }}</td>
-								<td>
+								<td width="50px">
 									<img src="{{ url('imagenesFirmaJuezSecre',[$u->estado]) }}" alt="Firma" width="20%">	
 								</td>
 								<td>
