@@ -188,7 +188,8 @@
                     </button>
                 </div>
 
-                <input type="hidden" id="valoresGanadores" value="0">
+                <input type="text" id="valoresGanadores" value="0">
+                <input type="text" id="valorCambiaCertificado" value="0">
 
                 <div class="modal-body">
                     <div id="ejemplares-categorias" class="row">
@@ -839,6 +840,10 @@
 
                                     $('#valoresGanadores').val($('#valoresGanadores').val()+","+data.gandadorActivo);
 
+                                    // ESTO PARA CAMBIAR DEL CERTIFICADO
+                                    if(data.intercambioCertificado){
+                                        $('#valorCambiaCertificado').val($('#valorCambiaCertificado').val()+","+data.intercambioCertificado);
+                                    }
 
                                 }else{
 
@@ -894,6 +899,7 @@
         function modalcategorias(array, raza_id, evento_id, nombreRaza, pista){
 
             $('#valoresGanadores').val(0);
+            $('#valorCambiaCertificado').val(0);
 
             $.ajax({
 
@@ -1457,6 +1463,117 @@
                         $('#'+certif+ganador).prop("checked", true);
                 }
             })
+        }
+
+        function cambiaCertificado(ganador, existentes){
+
+            Swal.fire({
+                title: 'Esta seguro de agregar la certificacion?',
+                text: "No podra revertir eso!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, estoy seguro!'
+            }).then((result) => {
+
+                // if(certificado == 1)
+                //     var certif = 'certificacionCLACAB_';
+                // else
+                //     var certif = 'certificacionCACIB_';
+
+                if( $('#darCertificacion_'+ganador).prop('checked') )
+                    var sw = true;
+                else
+                    var sw = false;
+
+
+                if (result.isConfirmed) {
+
+                    console.log(ganador, existentes[0]);
+
+                    if(existentes[0] == 0){
+                        existentes = ($('#valorCambiaCertificado').val()).split(',');
+                    }
+
+                    $.ajax({
+                        url: "{{ url('Juez/cambiaCertificado') }}",
+                        data: {
+                            existentes : existentes,
+                            ganador    : ganador
+                        },
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function(data){
+
+                            if(data.status === "success"){
+
+                                console.log("pSERDEOR=> "+data.perdedor, "GANADORS=> "+ganador);
+
+                                $('#bloque_btn_escogeMejor_'+ganador).show('toggle');
+                                $('#bloque_radio_escogeMejor_'+ganador).hide('toggle');
+
+                                $('#bloque_radio_escogeMejor_'+data.perdedor).show('toggle');
+                                $('#bloque_btn_escogeMejor_'+data.perdedor).hide('toggle');
+
+
+                                if($('#bloque_btn_escogeMejor_'+ganador).css('display') == 'none'){
+                                    // Acción si el elemento no es visible
+                                    console.log('si visuble el btn'+" bloque_btn_escogeMejor_"+ganador)
+                                }else{
+                                    // Acción si el elemento es visible
+                                    console.log('nadaa el btn'+" bloque_btn_escogeMejor_"+ganador)
+                                }
+
+
+                                if($('#bloque_radio_escogeMejor_'+ganador).css('display') == 'none'){
+                                    // Acción si el elemento no es visible
+                                    console.log('si visuble el radio'+" bloque_radio_escogeMejor_"+ganador)
+                                }else{
+                                    // Acción si el elemento es visible
+                                    console.log('nadaa el radio'+" bloque_radio_escogeMejor_"+ganador)
+                                }
+
+
+                                if($('#bloque_btn_escogeMejor_'+data.perdedor).css('display') == 'none'){
+                                    // Acción si el elemento no es visible
+                                    console.log('si visuble el btn data.perdedor'+" bloque_btn_escogeMejor_"+data.perdedor)
+                                }else{
+                                    // Acción si el elemento es visible
+                                    console.log('nadaa el btn data.perdedor'+" bloque_btn_escogeMejor_"+data.perdedor)
+                                }
+
+
+                                if($('#bloque_radio_escogeMejor_'+data.perdedor).css('display') == 'none'){
+                                    // Acción si el elemento no es visible
+                                    console.log('si visuble el radio data.perdedor '+" bloque_radio_escogeMejor_"+data.perdedor)
+                                }else{
+                                    // Acción si el elemento es visible
+                                    console.log('nadaa el radio data.perdedor'+" bloque_radio_escogeMejor_"+data.perdedor)
+                                }
+
+
+
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Correcto!',
+                                    text: 'Se cambio  con exito!',
+                                })
+
+                            }
+                            
+                        }
+                    });
+
+                }else{
+                    if(sw)
+                        $('#darCertificacion_'+ganador).prop("checked", false);
+                    else
+                        $('#darCertificacion_'+ganador).prop("checked", true);
+                }
+            })
+
+
         }
 
     </script>

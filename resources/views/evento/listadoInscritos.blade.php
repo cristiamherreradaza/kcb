@@ -234,7 +234,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">REGISTRADO DE NUEVO EJEMPLAR AL EVENTO</h5>
+                <h5 class="modal-title" id="exampleModalLabel">REGISTRO DE NUEVO EJEMPLAR AL EVENTO</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <i aria-hidden="true" class="ki ki-close"></i>
                 </button>
@@ -332,7 +332,11 @@
 							<div class="form-group">
                 			    <label for="exampleInputPassword1">Sexo
                 			    <span class="text-danger">*</span></label>
-                			    <input type="text" class="form-control" id="inscribe_sexo" name="inscribe_sexo" />
+								<select name="inscribe_sexo" id="inscribe_sexo" class="form-control">
+									<option value="Macho">Macho</option>
+									<option value="Hembra">Hembra</option>
+								</select>
+                			    {{-- <input type="text" class="form-control" id="inscribe_sexo" name="inscribe_sexo" /> --}}
                 			</div>
 						</div>
 					</div>

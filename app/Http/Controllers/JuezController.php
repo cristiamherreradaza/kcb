@@ -484,7 +484,7 @@ class JuezController extends Controller
 
         $categoria = CategoriasPista::find($categoria_id)[0]->nombre;
 
-        // dd($ejemplares_eventos, $calificaciones, $lugares);
+        // dd($ejemplares_eventos, $calificaciones, $lugares, $categoria_id[0]);
         
         // verificamos si las calificaciones o el lugar esta repoedido 
         $valida = $this->validaCalificaciones($ejemplares_eventos, $calificaciones, $lugares);
@@ -550,8 +550,8 @@ class JuezController extends Controller
                     array_push($arrayRepetidos,intval($e));
                 }
 
-                // if($calificaciones[$key] == "Excelente" && $lugares[$key] == 1){
-                if($lugares[$key] == 1){
+                if($calificaciones[$key] == "Excelente" && $lugares[$key] == 1){
+                // if($lugares[$key] == 1){
 
                     $arrayMejorEjemplar = array(
 
@@ -598,10 +598,20 @@ class JuezController extends Controller
                 $ganador->calificacion          = $arrayMejorEjemplar['calificacion'];
                 $ganador->lugar                 = $arrayMejorEjemplar['lugar'];
                 $ganador->pista                 = $arrayMejorEjemplar['pista'];
+                $ganador->estado                = 0;
 
                 $ganador->save();
 
                 $ganadorConfir = true;
+
+                // pra las categorias abiertas e intermedi
+                if($ganador->categoria_id == 5 || $ganador->categoria_id == 6 || $ganador->categoria_id == 7 || $ganador->categoria_id == 8){
+                    $data['intercambioCertificado'] = $ganador->id;
+                    $swCambioCertificado = true;
+                }else{
+                    $data['intercambioCertificado'] = false;
+                    $swCambioCertificado = false;
+                }
                                         
                 $data['ganadorhtml'] = '<table class="table table-hover" id="tabla_ganador">
                                             <thead>
@@ -616,7 +626,21 @@ class JuezController extends Controller
                                                     <td>'.$ganador->numero_prefijo.'</td>
                                                     <td>'.$ganador->calificacion.'</td>
                                                     <td>'.$ganador->lugar.'</td>
-                                                    <td><button name="" id="button_escogeMejor_'.$ganador->id.'" onclick="escogerMejor('.$ganador->id.','."'".$ganador->numero_prefijo."'".','.json_encode([$ganador->id]).')" class="btn btn-success btn-icon"><i class="fa fa-check"></i></button></td>
+                                                    <td>
+                                                        <div class="row">
+                                                            <div class="col-md-6" id="bloque_radio_escogeMejor_'.$ganador->id.'">
+                                                                '.(($swCambioCertificado)? '
+                                                                    <input type="radio" id="darCertificacion_'.$ganador->id.'" name="darCertificacion" onclick="cambiaCertificado('.$ganador->id.',[0])"/>
+                                                                ' : '').'
+                                                            </div>
+                                                            <div class="col-md-6" id="bloque_btn_escogeMejor_'.$ganador->id.'" '.(($swCambioCertificado)? 'style="display: none"' : '').'>
+                                                                '.
+                                                                ((true)? '
+                                                                    <button name="" id="button_escogeMejor_'.$ganador->id.'" onclick="escogerMejor('.$ganador->id.','."'".$ganador->numero_prefijo."'".','.json_encode([$ganador->id]).')" class="btn btn-success btn-icon btn-sm"><i class="fa fa-check"></i></button>
+                                                                ' : '').'
+                                                            </div>
+                                                        </div>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>';
@@ -878,6 +902,26 @@ class JuezController extends Controller
                 array_push($arrayGanadores, $ganador3->id);
 
 
+            // PARA LOS INTERMEDIA Y LOS ABIERTAS
+            $arrayAbiertaIntermedia = array();            
+
+            if($ganador1){
+                if($ganador1->categoria_id == 5 || $ganador1->categoria_id == 6 || $ganador1->categoria_id == 7 || $ganador1->categoria_id == 8)
+                    array_push($arrayAbiertaIntermedia, $ganador1->id);
+            }
+
+            if($ganador2){
+                if($ganador2->categoria_id == 5 || $ganador2->categoria_id == 6 || $ganador2->categoria_id == 7 || $ganador2->categoria_id == 8)
+                    array_push($arrayAbiertaIntermedia, $ganador2->id);
+            }
+
+            if($ganador3){
+                if($ganador3->categoria_id == 5 || $ganador3->categoria_id == 6 || $ganador3->categoria_id == 7 || $ganador3->categoria_id == 8)
+                    array_push($arrayAbiertaIntermedia, $ganador3->id);
+            }
+
+            
+
             // PARA EL GANADOR 1
             $tableGanador1 = '';
 
@@ -889,6 +933,7 @@ class JuezController extends Controller
                                                     <th>N~</th>
                                                     <th>Calificacion</th>
                                                     <th>Lugar</th>
+                                                    <th>Puntos</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -897,9 +942,26 @@ class JuezController extends Controller
                                                     <td>'.$ganador1->calificacion.'</td>
                                                     <td>'.$ganador1->lugar.'</td>
                                                     <td>
-                                                        '.(($sw)? '
-                                                            <button id="button_escogeMejor_'.$ganador1->id.'" onclick="escogerMejor('.$ganador1->id.','."'".$ganador1->numero_prefijo."'".', '.json_encode($arrayGanadores).')" class="btn btn-success btn-icon"><i class="fa fa-check"></i></button>
-                                                        ' : '').'
+                                                        <select name="" id="" class="form-control">
+                                                            <option value="">Seleccione</option>
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                    <div class="row">
+                                                        <div class="col-md-6" id="bloque_radio_escogeMejor_'.$ganador1->id.'" '.(($ganador1->estado == 1)? 'style="display: none"' : '').'>
+                                                            '.((($ganador1->categoria_id == 5 || $ganador1->categoria_id == 6 || $ganador1->categoria_id == 7 || $ganador1->categoria_id == 8))?
+                                                                '<input type="radio" id="darCertificacion_'.$ganador1->id.'" name="darCertificacion" onclick="cambiaCertificado('.$ganador1->id.','.json_encode($arrayAbiertaIntermedia).')"/>'
+                                                                : '').'
+                                                        </div>
+                                                        <div class="col-md-6" id="bloque_btn_escogeMejor_'.$ganador1->id.'" '.(($ganador1->estado == 0)? 'style="display: none"' : '').'>
+                                                            <button id="button_escogeMejor_'.$ganador1->id.'" onclick="escogerMejor('.$ganador1->id.','."'".$ganador1->numero_prefijo."'".', '.json_encode($arrayGanadores).')" class="btn btn-success btn-icon btn-sm"><i class="fa fa-check"></i></button>
+                                                        </div>
+                                                    </div>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -919,6 +981,7 @@ class JuezController extends Controller
                                                     <th>N~</th>
                                                     <th>Calificacion</th>
                                                     <th>Lugar</th>
+                                                    <th>Puntos</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -927,9 +990,25 @@ class JuezController extends Controller
                                                     <td>'.$ganador2->calificacion.'</td>
                                                     <td>'.$ganador2->lugar.'</td>
                                                     <td>
-                                                        '.(($sw)? '
-                                                            <button onclick="escogerMejor('.$ganador2->id.','."'".$ganador2->numero_prefijo."'".', '.json_encode($arrayGanadores).')" class="btn btn-success btn-icon"><i class="fa fa-check"></i></button>
-                                                        ' : '').'
+                                                        <select name="" id="" class="form-control">
+                                                            <option value="">Seleccione</option>
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <div class="row">
+                                                            <div class="col-md-6" id="bloque_radio_escogeMejor_'.$ganador2->id.'" '.(($ganador2->estado == 1)? 'style="display: none;"' : '').'>
+                                                                '.((($ganador2->categoria_id == 5 || $ganador2->categoria_id == 6 || $ganador2->categoria_id == 7 || $ganador2->categoria_id == 8))?
+                                                                    '<input type="radio" id="darCertificacion_'.$ganador2->id.'" name="darCertificacion" onclick="cambiaCertificado('.$ganador2->id.','.json_encode($arrayAbiertaIntermedia).')"/>' : '').'
+                                                            </div>
+                                                            <div class="col-md-6" id="bloque_btn_escogeMejor_'.$ganador2->id.'" '.(($ganador2->estado == 0)? 'style="display: none"' : '').'>
+                                                                <button onclick="escogerMejor('.$ganador2->id.','."'".$ganador2->numero_prefijo."'".', '.json_encode($arrayGanadores).')" class="btn btn-success btn-icon btn-sm"><i class="fa fa-check"></i></button>
+                                                            </div>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -948,6 +1027,8 @@ class JuezController extends Controller
                                                     <th>N~</th>
                                                     <th>Calificacion</th>
                                                     <th>Lugar</th>
+                                                    <th>Puntos</th>
+                                                    <td></td>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -956,9 +1037,15 @@ class JuezController extends Controller
                                                     <td>'.$ganador3->calificacion.'</td>
                                                     <td>'.$ganador3->lugar.'</td>
                                                     <td>
-                                                        '.(($sw)? '
-                                                            <button onclick="escogerMejor('.$ganador3->id.','."'".$ganador3->numero_prefijo."'".', '.json_encode($arrayGanadores).')" class="btn btn-success btn-icon"><i class="fa fa-check"></i></button>
-                                                        ' : '').'
+                                                        <div class="row">
+                                                            <div class="col-md-6" id="bloque_radio_escogeMejor_'.$ganador3->id.'" '.(($ganador3->estado == 1)? 'display:noneñ' : '').'>
+                                                                '.((($ganador3->categoria_id == 5 || $ganador3->categoria_id == 6 || $ganador3->categoria_id == 7 || $ganador3->categoria_id == 8))?
+                                                                    '<input type="radio" id="darCertificacion_'.$ganador3->id.'" name="darCertificacion" onclick="cambiaCertificado('.$ganador3->id.','.json_encode($arrayAbiertaIntermedia).')"/>' : '').'
+                                                            </div>
+                                                            <div class="col-md-6" id="bloque_btn_escogeMejor_'.$ganador3->id.'" '.(($ganador3->estado == 1)? 'style="display: none"' : '').'>
+                                                                <button onclick="escogerMejor('.$ganador3->id.','."'".$ganador3->numero_prefijo."'".', '.json_encode($arrayGanadores).')" class="btn btn-success btn-icon btn-sm"><i class="fa fa-check"></i></button>
+                                                            </div>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -1214,10 +1301,11 @@ class JuezController extends Controller
                                                 <td>
                                                     <select name="calificacion_ejemplar[]" id="calificacion_ejemplar" class="form-control" '.((!$sw)? "disabled" : '').' >
                                                         <option '.(($cali)? (($cali->calificacion == 'Excelente')? 'selected' : '') : '').'  value="Excelente">Excelente</option>
-                                                        <option '.(($cali)? (($cali->calificacion == 'Muy Bien')? 'selected' : '') : '').'  value="Muy Bien">Muy Bien</option>
-                                                        <option '.(($cali)? (($cali->calificacion == 'Bien')? 'selected' : '') : '').'  value="Bien">Bien</option>
+                                                        <option '.(($cali)? (($cali->calificacion == 'Muy Bueno')? 'selected' : '') : '').'  value="Muy Bueno">Muy Bueno</option>
+                                                        <option '.(($cali)? (($cali->calificacion == 'Bueno')? 'selected' : '') : '').'  value="Bueno">Bueno</option>
                                                         <option '.(($cali)? (($cali->calificacion == 'Descalificado')? 'selected' : '') : '').'  value="Descalificado">Descalificado</option>
                                                         <option '.(($cali)? (($cali->calificacion == 'Ausente')? 'selected' : '') : '').'  value="Ausente">Ausente</option>
+                                                        <option '.(($cali)? (($cali->calificacion == 'Dispenzado')? 'selected' : '') : '').'  value="Dispenzado">Dispenzado</option>
                                                     </select>
                                                     <small style="display: none;" class="_'.$eje->id.' text-warning">Dato repetido</small>
                                                 </td>
@@ -2740,5 +2828,51 @@ class JuezController extends Controller
             return json_encode($data);
         }
 
+    }
+
+    public function cambiaCertificado(Request $request){
+        if($request->ajax()){
+
+            $participantes  = $request->input('existentes');
+            $eligido        = $request->input('ganador');
+
+            // dd($request->all());
+
+            foreach ($participantes as $p){
+
+
+                if($eligido != $p && $p != 0){
+
+                    $participante = Ganador::find($p);
+
+                    if($participante){
+                        // Ganador::destroy($participante->id);
+
+                        $participante->estado = 0;
+                        $participante->save();
+                    }
+
+                }else{
+
+                    $restaurar = Ganador::find($p);
+
+                    if($restaurar){
+                        $restaurar->estado = 1;
+                        $restaurar->save();
+                    }
+
+                    // $restaurar = Ganador::withTrashed()->find($p);
+
+                    //     if($restaurar)
+                    //         $restaurar->restore();
+                }
+            }
+
+            $data['status'] = 'success';
+            $data['perdedor'] = $participante->id;
+
+            return json_encode($data);
+
+        }
     }
 }

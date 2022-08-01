@@ -239,6 +239,7 @@ Route::post('Juez/certificacionExtrangero', 'JuezController@certificacionExtrang
 Route::get('Juez/exportarExcel/{evento_id}', 'JuezController@exportarExcel');
 Route::post('Juez/addCategoriaAsignacion', 'JuezController@addCategoriaAsignacion');
 Route::post('Juez/categoriasAsignadas', 'JuezController@categoriasAsignadas');
+Route::post('Juez/cambiaCertificado', 'JuezController@cambiaCertificado');
 
 // ---------- MIGRACIONES ----------
 Route::get('Migracion/razas', 'MigracionController@razas');
