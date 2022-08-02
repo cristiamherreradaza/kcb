@@ -188,8 +188,8 @@
                     </button>
                 </div>
 
-                <input type="text" id="valoresGanadores" value="0">
-                <input type="text" id="valorCambiaCertificado" value="0">
+                <input type="hidden" id="valoresGanadores" value="0">
+                <input type="hidden" id="valorCambiaCertificado" value="0">
 
                 <div class="modal-body">
                     <div id="ejemplares-categorias" class="row">
@@ -832,10 +832,8 @@
 
                                     $('#ganador_'+data.categoria).html(data.ganadorhtml);
                                     $('#ganador_'+data.categoria).show('toggle');
-                                    // $('#ganador_'+data.categoria).toggle('show');
 
                                     // bloqueamos el boton
-
                                     // $('#button_'+categoria).prop('disabled', true);
 
                                     $('#valoresGanadores').val($('#valoresGanadores').val()+","+data.gandadorActivo);
@@ -846,7 +844,7 @@
                                     }
 
                                 }else{
-
+                                    $('#ganador_'+data.categoria).html('');
                                 }
 
                             }else{
@@ -1477,11 +1475,6 @@
                 confirmButtonText: 'Si, estoy seguro!'
             }).then((result) => {
 
-                // if(certificado == 1)
-                //     var certif = 'certificacionCLACAB_';
-                // else
-                //     var certif = 'certificacionCACIB_';
-
                 if( $('#darCertificacion_'+ganador).prop('checked') )
                     var sw = true;
                 else
@@ -1498,76 +1491,86 @@
 
                     var puntos = $('#puntos_calificados_'+ganador).val();
 
-                    $.ajax({
-                        url: "{{ url('Juez/cambiaCertificado') }}",
-                        data: {
-                            existentes : existentes,
-                            ganador    : ganador,
-                            puntos     : puntos
-                        },
-                        type: 'POST',
-                        dataType: 'json',
-                        success: function(data){
+                    if(puntos != ""){
 
-                            if(data.status === "success"){
+                        $.ajax({
+                            url: "{{ url('Juez/cambiaCertificado') }}",
+                            data: {
+                                existentes : existentes,
+                                ganador    : ganador,
+                                puntos     : puntos
+                            },
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function(data){
 
-                                console.log("pSERDEOR=> "+data.perdedor, "GANADORS=> "+ganador);
+                                if(data.status === "success"){
 
-                                $('#bloque_btn_escogeMejor_'+ganador).show('toggle');
-                                $('#bloque_radio_escogeMejor_'+ganador).hide('toggle');
+                                    console.log("pSERDEOR=> "+data.perdedor, "GANADORS=> "+ganador);
 
-                                $('#bloque_radio_escogeMejor_'+data.perdedor).show('toggle');
-                                $('#bloque_btn_escogeMejor_'+data.perdedor).hide('toggle');
+                                    $('#bloque_btn_escogeMejor_'+ganador).show('toggle');
+                                    $('#bloque_radio_escogeMejor_'+ganador).hide('toggle');
+
+                                    $('#bloque_radio_escogeMejor_'+data.perdedor).show('toggle');
+                                    $('#bloque_btn_escogeMejor_'+data.perdedor).hide('toggle');
 
 
-                                if($('#bloque_btn_escogeMejor_'+ganador).css('display') == 'none'){
-                                    // Acción si el elemento no es visible
-                                    console.log('si visuble el btn'+" bloque_btn_escogeMejor_"+ganador)
-                                }else{
-                                    // Acción si el elemento es visible
-                                    console.log('nadaa el btn'+" bloque_btn_escogeMejor_"+ganador)
+                                    if($('#bloque_btn_escogeMejor_'+ganador).css('display') == 'none'){
+                                        // Acción si el elemento no es visible
+                                        console.log('si visuble el btn'+" bloque_btn_escogeMejor_"+ganador)
+                                    }else{
+                                        // Acción si el elemento es visible
+                                        console.log('nadaa el btn'+" bloque_btn_escogeMejor_"+ganador)
+                                    }
+
+
+                                    if($('#bloque_radio_escogeMejor_'+ganador).css('display') == 'none'){
+                                        // Acción si el elemento no es visible
+                                        console.log('si visuble el radio'+" bloque_radio_escogeMejor_"+ganador)
+                                    }else{
+                                        // Acción si el elemento es visible
+                                        console.log('nadaa el radio'+" bloque_radio_escogeMejor_"+ganador)
+                                    }
+
+
+                                    if($('#bloque_btn_escogeMejor_'+data.perdedor).css('display') == 'none'){
+                                        // Acción si el elemento no es visible
+                                        console.log('si visuble el btn data.perdedor'+" bloque_btn_escogeMejor_"+data.perdedor)
+                                    }else{
+                                        // Acción si el elemento es visible
+                                        console.log('nadaa el btn data.perdedor'+" bloque_btn_escogeMejor_"+data.perdedor)
+                                    }
+
+
+                                    if($('#bloque_radio_escogeMejor_'+data.perdedor).css('display') == 'none'){
+                                        // Acción si el elemento no es visible
+                                        console.log('si visuble el radio data.perdedor '+" bloque_radio_escogeMejor_"+data.perdedor)
+                                    }else{
+                                        // Acción si el elemento es visible
+                                        console.log('nadaa el radio data.perdedor'+" bloque_radio_escogeMejor_"+data.perdedor)
+                                    }
+
+
+
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Correcto!',
+                                        text: 'Se cambio  con exito!',
+                                    })
+
                                 }
-
-
-                                if($('#bloque_radio_escogeMejor_'+ganador).css('display') == 'none'){
-                                    // Acción si el elemento no es visible
-                                    console.log('si visuble el radio'+" bloque_radio_escogeMejor_"+ganador)
-                                }else{
-                                    // Acción si el elemento es visible
-                                    console.log('nadaa el radio'+" bloque_radio_escogeMejor_"+ganador)
-                                }
-
-
-                                if($('#bloque_btn_escogeMejor_'+data.perdedor).css('display') == 'none'){
-                                    // Acción si el elemento no es visible
-                                    console.log('si visuble el btn data.perdedor'+" bloque_btn_escogeMejor_"+data.perdedor)
-                                }else{
-                                    // Acción si el elemento es visible
-                                    console.log('nadaa el btn data.perdedor'+" bloque_btn_escogeMejor_"+data.perdedor)
-                                }
-
-
-                                if($('#bloque_radio_escogeMejor_'+data.perdedor).css('display') == 'none'){
-                                    // Acción si el elemento no es visible
-                                    console.log('si visuble el radio data.perdedor '+" bloque_radio_escogeMejor_"+data.perdedor)
-                                }else{
-                                    // Acción si el elemento es visible
-                                    console.log('nadaa el radio data.perdedor'+" bloque_radio_escogeMejor_"+data.perdedor)
-                                }
-
-
-
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Correcto!',
-                                    text: 'Se cambio  con exito!',
-                                })
-
+                                
                             }
-                            
-                        }
-                    });
+                        });
 
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Falta puntuacion!',
+                            text: 'Debe seleccionar un puntaje!',
+                            timer: 2000
+                        })
+                    }
                 }else{
                     if(sw)
                         $('#darCertificacion_'+ganador).prop("checked", false);

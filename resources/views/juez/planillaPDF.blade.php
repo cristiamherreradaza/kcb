@@ -259,7 +259,7 @@
     .certificadosIntermediaHembra{
         position: absolute;
         border: 1px solid black;
-        width: 118px;
+        width: 237px;
         margin-top: 448px;
         font-size:10px;
         margin-left: 357px;
@@ -629,7 +629,7 @@
                     </tbody>
                 </table>
                 <div class="certificadosIntermedia bordes">
-                    CJCGB
+                    CACB
                     @php
                         $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, [5,7], $pista, $er->raza_id);
                     @endphp
@@ -1145,7 +1145,7 @@
                     </tbody>
                 </table>
                 <div class="certificadosJovenCampeonHembra bordes">
-                    CJGB
+                    CJCGB
                     @php
                         $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, [13], $pista, $er->raza_id);
                     @endphp
@@ -1196,9 +1196,9 @@
                     </tbody>
                 </table>
                 <div class="certificadosIntermediaHembra bordes">
-                    CCCB
+                    CACB
                     @php
-                        $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, [6], $pista, $er->raza_id);
+                        $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, [6, 8], $pista, $er->raza_id);
                     @endphp
                     <table class="tableCertificado">
                         <thead class="bordes">
@@ -1208,6 +1208,19 @@
                             <tr>
                                 <td class="contenidoCeldasLlenas">
                                     {{ ($mejorCategoria)? $mejorCategoria->numero_prefijo : '' }}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="tableCertificadoAbierta">
+                        <thead class="bordes">
+                            <th>Puntos</th>                            
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="contenidoCeldasLlenas">
+                                    {{ ($mejorCategoria)? $mejorCategoria->puntos : '' }}
                                 </td>
                             </tr>
                         </tbody>
@@ -1246,7 +1259,7 @@
                         @endfor
                     </tbody>
                 </table>
-                <div class="certificadosAbiertaHembra bordes">
+                {{-- <div class="certificadosAbiertaHembra bordes">
                     CCCB
                     @php
                         $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, [8], $pista, $er->raza_id);
@@ -1263,7 +1276,7 @@
                             </tr>
                         </tbody>
                     </table>
-                </div>
+                </div> --}}
 
                 <table class="tableHembra campoeonesHembra">
                     <thead>
@@ -1298,7 +1311,7 @@
                     </tbody>
                 </table>
                 <div class="certificadosCampeonesHembra bordes">
-                    CCCB
+                    CGCB
                     @php
                         $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, [10], $pista, $er->raza_id);
                     @endphp
@@ -1349,7 +1362,7 @@
                     </tbody>
                 </table>
                 <div class="certificadosGrandesCampeonesHembra bordes">
-                    CCCB
+                    <div style="margin-top:12px"></div>
                     @php
                         $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, [15], $pista, $er->raza_id);
                     @endphp
@@ -1400,7 +1413,7 @@
                     </tbody>
                 </table>
                 <div class="certificadosVeteranoHembra bordes">
-                    CCCB
+                    CACV
                     @php
                         $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, [16], $pista, $er->raza_id);
                     @endphp
@@ -1600,6 +1613,7 @@
                 </div>
             </div>
         @endforeach
+        {{-- @break --}}
     @endforeach
 </body>
 </html>

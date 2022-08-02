@@ -389,7 +389,14 @@ class Juez extends Model
 
     public static function getReservaSinCalificarSiguiente($num_pista, $tipo, $grupo_id, $lugar){
 
-        while($lugar < 4){
+        if($tipo == 'especiales')
+            $hasta = 4;
+        else
+            $hasta = 2;
+
+
+        // while($lugar < $hasta){
+        while($lugar < ($hasta-1)){
 
             $lugarRecerva = $lugar+1;
 
@@ -408,7 +415,8 @@ class Juez extends Model
             
         }
 
-        if($lugar < 4 && $recerba){
+        // if($lugar < $hasta && $recerba){
+        if($lugar < ($hasta-1) && $recerba){
 
             return $recerba;
             
