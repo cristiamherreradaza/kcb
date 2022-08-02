@@ -24,6 +24,7 @@ class Ganador extends Model
         'sexo',
         'numero_prefijo',
         'calificacion',
+        'puntos',
         'lugar',
         'mejor_escogido',
         'mejor_macho',

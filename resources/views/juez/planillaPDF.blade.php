@@ -478,7 +478,7 @@
                 <div class="certificados bordes">
                     CCCB
                     @php
-                        $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, 11, $pista, $er->raza_id);
+                        $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, [11], $pista, $er->raza_id);
                     @endphp
                     <table class="tableCertificado">
                         <thead class="bordes">
@@ -529,7 +529,7 @@
                 <div class="certificadosJoven bordes">
                     CJCB
                     @php
-                        $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, 3, $pista, $er->raza_id);
+                        $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, [3], $pista, $er->raza_id);
                     @endphp
                     <table class="tableCertificado">
                         <thead class="bordes">
@@ -580,7 +580,7 @@
                 <div class="certificadosJovenCampeon bordes">
                     CJCGB
                     @php
-                        $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, 12, $pista, $er->raza_id);
+                        $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, [12], $pista, $er->raza_id);
                     @endphp
                     <table class="tableCertificado">
                         <thead class="bordes">
@@ -631,7 +631,7 @@
                 <div class="certificadosIntermedia bordes">
                     CJCGB
                     @php
-                        $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, 5, $pista, $er->raza_id);
+                        $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, [5,7], $pista, $er->raza_id);
                     @endphp
                     <table class="tableCertificado">
                         <thead class="bordes">
@@ -646,7 +646,20 @@
                         </tbody>
                     </table>
 
-                    @php
+                    <table class="tableCertificadoAbierta">
+                        <thead class="bordes">
+                            <th>Puntos</th>                            
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="contenidoCeldasLlenas">
+                                    {{ ($mejorCategoria)? $mejorCategoria->puntos : '' }}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    {{--  @php
                         $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, 7, $pista, $er->raza_id);
                     @endphp
                     <table class="tableCertificadoAbierta">
@@ -660,7 +673,7 @@
                                 </td>
                             </tr>
                         </tbody>
-                    </table>
+                    </table>  --}}
                 </div>
 
                 <table class="table abierta">
@@ -750,7 +763,7 @@
                 <div class="certificadosCampeones bordes">
                     CGCB
                     @php
-                        $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, 9, $pista, $er->raza_id);
+                        $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, [9], $pista, $er->raza_id);
                     @endphp
                     <table class="tableCertificado">
                         <thead class="bordes">
@@ -803,7 +816,7 @@
                     <div style="margin-top:12px"></div>
                     {{-- <div style="padding-top:10px"></div> --}}
                     @php
-                        $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, 14, $pista, $er->raza_id);
+                        $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, [14], $pista, $er->raza_id);
                     @endphp
                     <table class="tableCertificado">
                         <thead class="bordes">
@@ -854,7 +867,7 @@
                 <div class="certificadosVeterano bordes">
                     CACV
                     @php
-                        $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, 16, $pista, $er->raza_id);
+                        $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, [16], $pista, $er->raza_id);
                     @endphp
                     <table class="tableCertificado">
                         <thead class="bordes">
@@ -1032,7 +1045,7 @@
                 <div class="certificadosHembra bordes">
                     CCCB
                     @php
-                        $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, 2, $pista, $er->raza_id);
+                        $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, [2], $pista, $er->raza_id);
                     @endphp
                     <table class="tableCertificado">
                         <thead class="bordes">
@@ -1083,7 +1096,7 @@
                 <div class="certificadosJovenHembra bordes">
                     CJCB
                     @php
-                        $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, 4, $pista, $er->raza_id);
+                        $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, [4], $pista, $er->raza_id);
                     @endphp
                     <table class="tableCertificado">
                         <thead class="bordes">
@@ -1134,7 +1147,7 @@
                 <div class="certificadosJovenCampeonHembra bordes">
                     CJGB
                     @php
-                        $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, 13, $pista, $er->raza_id);
+                        $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, [13], $pista, $er->raza_id);
                     @endphp
                     <table class="tableCertificado">
                         <thead class="bordes">
@@ -1185,7 +1198,7 @@
                 <div class="certificadosIntermediaHembra bordes">
                     CCCB
                     @php
-                        $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, 6, $pista, $er->raza_id);
+                        $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, [6], $pista, $er->raza_id);
                     @endphp
                     <table class="tableCertificado">
                         <thead class="bordes">
@@ -1236,7 +1249,7 @@
                 <div class="certificadosAbiertaHembra bordes">
                     CCCB
                     @php
-                        $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, 8, $pista, $er->raza_id);
+                        $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, [8], $pista, $er->raza_id);
                     @endphp
                     <table class="tableCertificado">
                         <thead class="bordes">
@@ -1287,7 +1300,7 @@
                 <div class="certificadosCampeonesHembra bordes">
                     CCCB
                     @php
-                        $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, 10, $pista, $er->raza_id);
+                        $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, [10], $pista, $er->raza_id);
                     @endphp
                     <table class="tableCertificado">
                         <thead class="bordes">
@@ -1338,7 +1351,7 @@
                 <div class="certificadosGrandesCampeonesHembra bordes">
                     CCCB
                     @php
-                        $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, 15, $pista, $er->raza_id);
+                        $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, [15], $pista, $er->raza_id);
                     @endphp
                     <table class="tableCertificado">
                         <thead class="bordes">
@@ -1389,7 +1402,7 @@
                 <div class="certificadosVeteranoHembra bordes">
                     CCCB
                     @php
-                        $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, 16, $pista, $er->raza_id);
+                        $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, [16], $pista, $er->raza_id);
                     @endphp
                     <table class="tableCertificado">
                         <thead class="bordes">

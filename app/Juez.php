@@ -437,7 +437,9 @@ class Juez extends Model
         $mejor = Ganador::where('pista',$pista)
                         ->where('evento_id',$evento_id)
                         ->where('raza_id',$raza_id)
-                        ->where('categoria_id',$categoria_id)
+                        ->whereIn('categoria_id',$categoria_id)
+                        // ->where('categoria_id',$categoria_id)
+                        ->where('estado',1)
                         ->first();
 
         return $mejor;

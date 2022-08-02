@@ -1496,11 +1496,14 @@
                         existentes = ($('#valorCambiaCertificado').val()).split(',');
                     }
 
+                    var puntos = $('#puntos_calificados_'+ganador).val();
+
                     $.ajax({
                         url: "{{ url('Juez/cambiaCertificado') }}",
                         data: {
                             existentes : existentes,
-                            ganador    : ganador
+                            ganador    : ganador,
+                            puntos     : puntos
                         },
                         type: 'POST',
                         dataType: 'json',

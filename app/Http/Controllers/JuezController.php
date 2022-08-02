@@ -619,6 +619,8 @@ class JuezController extends Controller
                                                     <th>N~</th>
                                                     <th>Calificacion</th>
                                                     <th>Lugar</th>
+                                                    <th>Puntos</th>
+                                                    <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -626,6 +628,16 @@ class JuezController extends Controller
                                                     <td>'.$ganador->numero_prefijo.'</td>
                                                     <td>'.$ganador->calificacion.'</td>
                                                     <td>'.$ganador->lugar.'</td>
+                                                    <td>
+                                                        <select id="puntos_calificados_'.$ganador->id.'" name="puntos_calificados_'.$ganador->id.'" class="form-control">
+                                                            <option>Seleccione</option>                                                            
+                                                            <option>1</option>                                                            
+                                                            <option>2</option>                                                            
+                                                            <option>3</option>                                                            
+                                                            <option>4</option>                                                            
+                                                            <option>5</option>                                                            
+                                                        </select>
+                                                    </td>
                                                     <td>
                                                         <div class="row">
                                                             <div class="col-md-6" id="bloque_radio_escogeMejor_'.$ganador->id.'">
@@ -942,13 +954,13 @@ class JuezController extends Controller
                                                     <td>'.$ganador1->calificacion.'</td>
                                                     <td>'.$ganador1->lugar.'</td>
                                                     <td>
-                                                        <select name="" id="" class="form-control">
+                                                        <select name="puntos_calificados_'.$ganador1->id.'" id="puntos_calificados_'.$ganador1->id.'" class="form-control">
                                                             <option value="">Seleccione</option>
-                                                            <option value="1">1</option>
-                                                            <option value="2">2</option>
-                                                            <option value="3">3</option>
-                                                            <option value="4">4</option>
-                                                            <option value="5">5</option>
+                                                            <option '.(($ganador1->puntos == 1)? 'selected' : '').' value="1">1</option>
+                                                            <option '.(($ganador1->puntos == 2)? 'selected' : '').' value="2">2</option>
+                                                            <option '.(($ganador1->puntos == 3)? 'selected' : '').' value="3">3</option>
+                                                            <option '.(($ganador1->puntos == 4)? 'selected' : '').' value="4">4</option>
+                                                            <option '.(($ganador1->puntos == 5)? 'selected' : '').' value="5">5</option>
                                                         </select>
                                                     </td>
                                                     <td>
@@ -990,13 +1002,13 @@ class JuezController extends Controller
                                                     <td>'.$ganador2->calificacion.'</td>
                                                     <td>'.$ganador2->lugar.'</td>
                                                     <td>
-                                                        <select name="" id="" class="form-control">
+                                                        <select name="puntos_calificados_'.$ganador2->id.'" id="puntos_calificados_'.$ganador2->id.'" class="form-control">
                                                             <option value="">Seleccione</option>
-                                                            <option value="1">1</option>
-                                                            <option value="2">2</option>
-                                                            <option value="3">3</option>
-                                                            <option value="4">4</option>
-                                                            <option value="5">5</option>
+                                                            <option '.(($ganador2->puntos == 2)? 'selected' : '').' value="1">1</option>
+                                                            <option '.(($ganador2->puntos == 3)? 'selected' : '').' value="2">2</option>
+                                                            <option '.(($ganador2->puntos == 4)? 'selected' : '').' value="3">3</option>
+                                                            <option '.(($ganador2->puntos == 5)? 'selected' : '').' value="4">4</option>
+                                                            <option '.(($ganador2->puntos == 6)? 'selected' : '').' value="5">5</option>
                                                         </select>
                                                     </td>
                                                     <td>
@@ -2837,22 +2849,37 @@ class JuezController extends Controller
             $eligido        = $request->input('ganador');
 
             // dd($request->all());
+            $participante = null;
 
             foreach ($participantes as $p){
 
-
+                
                 if($eligido != $p && $p != 0){
-
+                    
                     $participante = Ganador::find($p);
 
                     if($participante){
-                        // Ganador::destroy($participante->id);
-
                         $participante->estado = 0;
+                        $participante->puntos = null;
                         $participante->save();
+
+                        // $data['perdedor'] = $participante->id;
                     }
 
                 }else{
+
+                    if($eligido == $p){
+
+                        $ganador = Ganador::find($p);
+
+                        // dd($gandor, $request->input('puntos'));
+                        // dd($ganador->puntos);
+
+                        $ganador->puntos = $request->input('puntos');
+
+                        $ganador->save();
+
+                    }
 
                     $restaurar = Ganador::find($p);
 
@@ -2861,15 +2888,17 @@ class JuezController extends Controller
                         $restaurar->save();
                     }
 
-                    // $restaurar = Ganador::withTrashed()->find($p);
+                    // $data['perdedor'] = 0;
 
-                    //     if($restaurar)
-                    //         $restaurar->restore();
                 }
             }
 
             $data['status'] = 'success';
-            $data['perdedor'] = $participante->id;
+
+            if($participante)
+                $data['perdedor'] = $participante->id;
+            else
+                $data['perdedor'] = 0;
 
             return json_encode($data);
 
