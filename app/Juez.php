@@ -367,8 +367,9 @@ class Juez extends Model
                             ->where('ganadores.categoria_id',$categoria_pista_id)
                             ->where('ganadores.raza_id',$raza_id)
                             ->where('ganadores.pista', $pista)
-                            ->first();
-
+                            // ->first();
+                            ->toSql();
+                            dd($ganador, $evento_id, $secretario_id, $categoria_pista_id, $raza_id, $pista);
         return $ganador;
 
     }
