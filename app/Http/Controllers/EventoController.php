@@ -1397,4 +1397,30 @@ class EventoController extends Controller
         return redirect('Evento/listado');
     }
 
+    public function jucesEvento(Request $request){
+
+        if($request->ajax()){
+
+            $evento_id = $request->input('evento');
+
+            $asignaciones  = Asignacion::where('evento_id',$evento_id)
+                                        ->get();
+
+            $select = "<select class='form-control' name='asignaciones' id='asignaciones'>";
+            $selectBody = "<option value=''>Seleccione el juez</option>";
+            $selectFin = "</select>";
+
+            foreach ($asignaciones as $as){
+                $selectBody = $selectBody."<option value=''>".$as->juez->nombre."</option>";
+            }   
+
+            $data['status'] = 'success';
+            $data['select'] = $select.$selectBody.$selectFin;
+
+            return json_encode($data);
+
+        }
+        
+    }
+
 }

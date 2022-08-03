@@ -10,6 +10,44 @@
 
 @section('content')
 
+{{-- inicio modal SEGUIMIENTO DE EJEMPLAR  --}}
+<div class="modal fade" id="seguimientoEjemplar" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">FORMULARIO DE ADICION DE CATEGORIA AL JUEZ <span class="text-info" id="nombreJuezAdd"></span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+				<form action="" id="formularioAddCategoria" method="POST">
+					@csrf
+					<input type="hidden" name="add_categoria_asignacion_id" id="add_categoria_asignacion_id">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label>Jueces <span class="text-danger">*</span></label>
+								<div id="select_juces">
+
+								</div>
+								<select class="form-control" id="juecesDesigandos" name="juecesDesigandos" style="width:100%;">
+									
+								</select>
+							</div>
+						</div>
+					</div>
+				</form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light-dark font-weight-bold" onclick="cerrarModalAddCategoria()">Cerrar</button>
+                <button type="button" class="btn btn-success font-weight-bold" onclick="addCategoria()">Adicion Categoria</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- fin inicio modal SEGUIMIENTO DE EJEMPLAR --}}
+
 
 {{-- inicio modal ADD CATEGORIAS  --}}
 <div class="modal fade" id="modalAddCategoria" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
@@ -408,8 +446,11 @@
 									<a href="{{ url('Juez/exportarExcel', [$even->id]) }}" class="btn btn-icon btn-success">
 										<i class="fas fa-file-excel"></i>
 									</a>
-									<button type="button" class="btn btn-icon btn-white" onclick="clonarEvento('{{ $even->id }}', '{{ $even->nombre }}')">
+									<button type="button" class="btn btn-icon btn-white" onclick="clonarEvento('{{ $even->id }}', '{{ $even->nombre }}')" title="Clonanr evento">
 										<i class="fas fa-copy"></i>
+									</button>
+									<button type="button" class="btn btn-icon btn-dark" onclick="seguimientoEjemplares('{{ $even->id }}')" title="Seguimietno de Ejemplares">
+										<i class="fas fa-list"></i>
 									</button>
 									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $even->id }}', '{{ $even->nombre }}')">
 										<i class="flaticon2-cross"></i>
@@ -1029,6 +1070,47 @@
 
 			$('#modalAddCategoria').modal('hide');
 			$('#modalAddJuez').modal('show');
+
+		}
+
+		function seguimientoEjemplares(evento){
+			console.log(evento);
+
+			$.ajax({
+				url: "{{ url('Evento/jucesEvento') }}",
+				data: {
+					evento : evento,
+				},
+				dataType: 'json',
+				type: 'POST',
+				success: function(data) {
+
+					if(data.status == 'success'){
+
+						console.log(data)
+
+						if(data.status == 'success'){
+							$('#select_juces').html(data.select);
+						}
+
+						{{--  Swal.fire({
+							title: "Exito!",
+							text: "Se cambio el estado con exito.",
+							icon: "success",
+							timer: 1000
+						})
+
+						$('#listaAsignaciones').html(data.listado);
+
+						$('#modalAddCategoria').modal('hide');
+						$('#modalAddJuez').modal('show');  --}}
+
+					}
+					
+				}
+			});
+
+			$('#seguimientoEjemplar').modal('show');
 
 		}
 
