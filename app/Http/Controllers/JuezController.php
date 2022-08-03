@@ -2689,7 +2689,7 @@ class JuezController extends Controller
                     if($fi->lugar_finalista == '' || $fi->lugar_finalista == null){
 
                         $tbody = $tbody.'<td class="text-primary">
-                                            <input type="hidden" value="'.$fi->id.'" name="bestinguids[]">
+                                            <input type="text" value="'.$fi->id.'" name="bestinguids[]">
                                             <h2 class="text-center">'.$fi->numero_prefijo.'</h2>
                                             <br>
                                             <select name="posision[]" id="calificacion_final_'.$fi->numero_prefijo.'" class="form-control" required>
@@ -2704,30 +2704,31 @@ class JuezController extends Controller
                                             <button class="btn btn-success btn-block" onclick="calificaFinal('.$key.', '.$fi->id.', '."'".$fi->numero_prefijo."'".')">CALIFICAR</button>
                                         </td>';
 
-                    }else{
-
-                        $recervaSiguiente = Juez::getReservaSinCalificarSiguiente($fi->pista, $fi->tipo, $fi->grupo_id, $fi->lugar);
-
-                        if($recervaSiguiente){
-
-                            $tbody = $tbody.'<td class="text-primary">
-                                                <input type="hidden" value="'.$recervaSiguiente->id.'" name="bestinguids[]">
-                                                <h2 class="text-center">'.$recervaSiguiente->numero_prefijo.'</h2>
-                                                <br>
-                                                <select name="posision[]" id="calificacion_final_'.$recervaSiguiente->numero_prefijo.'" class="form-control" required>
-                                                    <option '.(($primero)? 'disabled' : '').' value="1">Mejor</option>
-                                                    <option '.(($segundo)? 'disabled' : '').' value="2">Segundo</option>
-                                                    <option '.(($tercer)? 'disabled' : '').' value="3">Tercero</option>
-                                                    <option '.(($cuarto)? 'disabled' : '').' value="4">Cuarto</option>
-                                                    <option '.(($quinto)? 'disabled' : '').' value="5">Quinto</option>
-                                                </select>
-                                                <small style="display: none;" class="text-warning" id="_calificacion_final_'.$recervaSiguiente->numero_prefijo.'">Calificacion repetida</small>
-                                                <br>
-                                                <button class="btn btn-success btn-block" onclick="calificaFinal('.$key.', '.$recervaSiguiente->id.', '."'".$recervaSiguiente->numero_prefijo."'".')">CALIFICAR</button>
-                                            </td>';
-                        }
-
                     }
+                    // else{
+
+                    //     $recervaSiguiente = Juez::getReservaSinCalificarSiguiente($fi->pista, $fi->tipo, $fi->grupo_id, $fi->lugar);
+
+                    //     if($recervaSiguiente){
+
+                    //         $tbody = $tbody.'<td class="text-primary">
+                    //                             <input type="hidden" value="'.$recervaSiguiente->id.'" name="bestinguids[]">
+                    //                             <h2 class="text-center">'.$recervaSiguiente->numero_prefijo.'</h2>
+                    //                             <br>
+                    //                             <select name="posision[]" id="calificacion_final_'.$recervaSiguiente->numero_prefijo.'" class="form-control" required>
+                    //                                 <option '.(($primero)? 'disabled' : '').' value="1">Mejor</option>
+                    //                                 <option '.(($segundo)? 'disabled' : '').' value="2">Segundo</option>
+                    //                                 <option '.(($tercer)? 'disabled' : '').' value="3">Tercero</option>
+                    //                                 <option '.(($cuarto)? 'disabled' : '').' value="4">Cuarto</option>
+                    //                                 <option '.(($quinto)? 'disabled' : '').' value="5">Quinto</option>
+                    //                             </select>
+                    //                             <small style="display: none;" class="text-warning" id="_calificacion_final_'.$recervaSiguiente->numero_prefijo.'">Calificacion repetida</small>
+                    //                             <br>
+                    //                             <button class="btn btn-success btn-block" onclick="calificaFinal('.$key.', '.$recervaSiguiente->id.', '."'".$recervaSiguiente->numero_prefijo."'".')">CALIFICAR</button>
+                    //                         </td>';
+                    //     }
+
+                    // }
                 }
             }
 
@@ -2745,7 +2746,6 @@ class JuezController extends Controller
 
 
             // MANDAREMOS LA TABLA CON LOS FINALISTAS
-
             $data['tablaFinalistasCalificados'] =  '<h3 class="text-primary text-center">GANADORES DE LA CATEGORIA</h3>
                                                     <table class="table table-hover text-center">
                                                         <thead>

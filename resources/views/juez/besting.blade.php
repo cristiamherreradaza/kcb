@@ -162,12 +162,13 @@
                                     @endphp
                                     <div class="col-md-12 text-center">
                                         <select name="grupo_{{ $ag[$i]->grupo_id }}_[]" id="" class="form-control" {{ ($besting)? 'disabled' : '' }}>
+                                            <option value="">Seleccione</option>
                                             <option value="1" {{ (($besting)? (($besting->lugar == '1')? 'selected' : '') : '') }}>Primero</option>
                                             <option value="2" {{ (($besting)? (($besting->lugar == '2')? 'selected' : '') : '') }}>Segundo</option>
                                             <option value="3" {{ (($besting)? (($besting->lugar == '3')? 'selected' : '') : '') }}>Tercero</option>
                                             <option value="4" {{ (($besting)? (($besting->lugar == '4')? 'selected' : '') : '') }}>Cuarto</option>
-                                            <option value="5" {{ (($besting)? (($besting->lugar == '5')? 'selected' : '') : '') }}>Quinto</option>
-                                            <option value="6" {{ (($besting)? (($besting->lugar == '6')? 'selected' : '') : '') }}>Sexto</option>
+                                            {{-- <option value="5" {{ (($besting)? (($besting->lugar == '5')? 'selected' : '') : '') }}>Quinto</option>
+                                            <option value="6" {{ (($besting)? (($besting->lugar == '6')? 'selected' : '') : '') }}>Sexto</option> --}}
                                         </select>
                                         <small id="besting_{{ $tipo }}_{{ $ag[$i]->grupo_id }}_{{ $ag[$i]->ejemplar_evento_id }}" class="text-warning">Dato repedito</small>
                                     </div>

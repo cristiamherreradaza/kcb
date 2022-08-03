@@ -35,8 +35,16 @@
 
     .espacioPadingVacio{
 
-        padding:8px
+        text-align: center;
+        height: 10px;
 
+        /* padding:8px */
+        /* padding-top: 4px;
+        padding-bottom: 4px; */
+
+    }
+    .espacioPadingVacioTd{
+        padding:9px
     }
     .centreado{
         text-align: center:
@@ -46,7 +54,9 @@
         padding-left: 3px;
         padding-right: 2px;
         border:1 solid black;
-        background: #D4D2D4
+        background: #D4D2D4;
+
+        width: 78px;
     }
 
     #divPadre {
@@ -377,38 +387,39 @@
                 <tbody>
                     <tr class="texto_mejor_recerva tabla_planilla">
                         <td class="tabla_planilla">MEJOR DE <br> RAZA</td>
-                        <td class="tabla_planilla">RECERVA</td>
+                        <td class="tabla_planilla">LUGAR</td>
                         <td class="tabla_planilla">MEJOR DE <br> RAZA</td>
-                        <td class="tabla_planilla">RECERVA</td>
+                        <td class="tabla_planilla">LUGAR</td>
                         <td class="tabla_planilla">MEJOR DE <br> RAZA</td>
-                        <td class="tabla_planilla">RECERVA</td>
+                        <td class="tabla_planilla">LUGAR</td>
                         <td class="tabla_planilla">MEJOR DE <br> RAZA</td>
-                        <td class="tabla_planilla">RECERVA</td>
+                        <td class="tabla_planilla">LUGAR</td>
                         <td class="tabla_planilla">MEJOR DE <br> RAZA</td>
-                        <td class="tabla_planilla">RECERVA</td>
+                        <td class="tabla_planilla">LUGAR</td>
                         <td class="tabla_planilla">MEJOR DE <br> RAZA</td>
-                        <td class="tabla_planilla">RECERVA</td>
+                        <td class="tabla_planilla">LUGAR</td>
                         <td class="tabla_planilla">MEJOR DE <br> RAZA</td>
-                        <td class="tabla_planilla">RECERVA</td>
+                        <td class="tabla_planilla">LUGAR</td>
                         <td class="tabla_planilla">MEJOR DE <br> RAZA</td>
-                        <td class="tabla_planilla">RECERVA</td>
+                        <td class="tabla_planilla">LUGAR</td>
                         <td class="tabla_planilla">MEJOR DE <br> RAZA</td>
-                        <td class="tabla_planilla">RECERVA</td>
+                        <td class="tabla_planilla">LUGAR</td>
                         <td class="tabla_planilla">MEJOR DE <br> RAZA</td>
-                        <td class="tabla_planilla">RECERVA</td>
+                        <td class="tabla_planilla">LUGAR</td>
                         <td class="tabla_planilla">MEJOR DE <br> RAZA</td>
-                        <td class="tabla_planilla">RECERVA</td>
+                        <td class="tabla_planilla">LUGAR</td>
                     </tr>
 
-                    @for($i = 0; $i < 14; $i++)
+                    @for($i = 0; $i < 9; $i++)
+                    {{-- @for($i = 0; $i < 14; $i++) --}}
                         <tr class="tabla_planilla">
                             @foreach ( $aT['grupos'] as $ag )
                                 @if(count($ag) > $i)
                                     <td class="tabla_planilla centreado">{{ $ag[$i]->numero_prefijo }}</td>   
                                     <td class="tabla_planilla centreado">{{ $ag[$i]->lugar }}</td>   
                                 @else
-                                    <td class="tabla_planilla espacioPadingVacio"></td>
-                                    <td class="tabla_planilla espacioPadingVacio"></td>
+                                    <td class="tabla_planilla espacioPadingVacioTd"></td>
+                                    <td class="tabla_planilla espacioPadingVacioTd"></td>
                                 @endif
                             @endforeach
                         </tr>
@@ -450,7 +461,7 @@
                                     @endphp
                                     <td class="tabla_planilla espacioPadingVacio">{{ (($mejoGrupo)? $mejoGrupo->numero_prefijo : '') }}</td>
                                 @else
-                                    <td class="tabla_planilla espacioPadingVacio"></td>
+                                    <td class="tabla_planilla espacioPadingVacioTd"></td>
                                 @endif
                             @endforeach
                         </tr>
@@ -477,17 +488,93 @@
                             @foreach ( $aT['grupos'] as $ag )
                                 @if (count($ag) > 0)
                                     @php
-                                        $mejoRecerva = null;
+                                        $recerva_grupo = null;
         
                                         foreach ($ag as $g){
                                             if($g->recerva_grupo == "Si"){
-                                                $mejoRecerva = $g;
+                                                $recerva_grupo = $g;
                                             }
                                         }
                                     @endphp
-                                    <td class="tabla_planilla espacioPadingVacio">{{ (($mejoRecerva)? $mejoRecerva->numero_prefijo: '') }}</td>
+                                    <td class="tabla_planilla espacioPadingVacio">{{ (($recerva_grupo)? $recerva_grupo->numero_prefijo: '') }}</td>
                                 @else
-                                    <td class="tabla_planilla espacioPadingVacio"></td>
+                                    <td class="tabla_planilla espacioPadingVacioTd"></td>
+                                @endif
+                            @endforeach
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="tabla_planilla">
+                    <thead>
+                        <tr>
+                            <th class="texto_mejor_grupo">3ro de Grupo</th>
+                            <th class="texto_mejor_grupo">3ro de Grupo</th>
+                            <th class="texto_mejor_grupo">3ro de Grupo</th>
+                            <th class="texto_mejor_grupo">3ro de Grupo</th>
+                            <th class="texto_mejor_grupo">3ro de Grupo</th>
+                            <th class="texto_mejor_grupo">3ro de Grupo</th>
+                            <th class="texto_mejor_grupo">3ro de Grupo</th>
+                            <th class="texto_mejor_grupo">3ro de Grupo</th>
+                            <th class="texto_mejor_grupo">3ro de Grupo</th>
+                            <th class="texto_mejor_grupo">3ro de Grupo</th>
+                            <th class="texto_mejor_grupo">3ro de Grupo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            @foreach ( $aT['grupos'] as $ag )
+                                @if (count($ag) > 0)
+                                    @php
+                                        $tercerLugar = null;
+        
+                                        foreach ($ag as $g){
+                                            if($g->lugar == 3){
+                                            // if($g->recerva_grupo == "Si"){
+                                                $tercerLugar = $g;
+                                            }
+                                        }
+                                    @endphp
+                                    <td class="tabla_planilla espacioPadingVacio">{{ (($tercerLugar)? $tercerLugar->numero_prefijo: '') }}</td>
+                                @else
+                                    <td class="tabla_planilla espacioPadingVacioTd"></td>
+                                @endif
+                            @endforeach
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="tabla_planilla">
+                    <thead>
+                        <tr>
+                            <th class="texto_mejor_grupo">4to de Grupo</th>
+                            <th class="texto_mejor_grupo">4to de Grupo</th>
+                            <th class="texto_mejor_grupo">4to de Grupo</th>
+                            <th class="texto_mejor_grupo">4to de Grupo</th>
+                            <th class="texto_mejor_grupo">4to de Grupo</th>
+                            <th class="texto_mejor_grupo">4to de Grupo</th>
+                            <th class="texto_mejor_grupo">4to de Grupo</th>
+                            <th class="texto_mejor_grupo">4to de Grupo</th>
+                            <th class="texto_mejor_grupo">4to de Grupo</th>
+                            <th class="texto_mejor_grupo">4to de Grupo</th>
+                            <th class="texto_mejor_grupo">4to de Grupo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            @foreach ( $aT['grupos'] as $ag )
+                                @if (count($ag) > 0)
+                                    @php
+                                        $cuartoLugar = null;
+        
+                                        foreach ($ag as $g){
+                                            if($g->lugar == 4){
+                                            // if($g->recerva_grupo == "Si"){
+                                                $cuartoLugar = $g;
+                                            }
+                                        }
+                                    @endphp
+                                    <td class="tabla_planilla espacioPadingVacio">{{ (($cuartoLugar)? $cuartoLugar->numero_prefijo: '') }}</td>
+                                @else
+                                    <td class="tabla_planilla espacioPadingVacioTd"></td>
                                 @endif
                             @endforeach
                         </tr>

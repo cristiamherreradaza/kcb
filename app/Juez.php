@@ -301,20 +301,26 @@ class Juez extends Model
         //                         ->where('pista', $num_pista)
         //                         ->get();
 
+        if($tipo == 'especiales')
+            $hasta = 4;
+        else
+            $hasta = 2;
+
         $finalistas = Besting::select('*')
                                 ->where('tipo',$tipo)
                                 ->where('pista',$num_pista)
                                 ->where('evento_id',$evento_id)
                                 ->whereNull('lugar_finalista')
-                                ->whereIn('lugar', function($query) use ($tipo, $evento_id, $num_pista){
+                                ->whereIn('lugar', function($query) use ($tipo, $evento_id, $num_pista, $hasta){
                                     $query->selectRaw('min(lugar)')
-                                          ->from('bestings')
-                                          ->where('tipo',$tipo)
-                                          ->where('pista',$num_pista)
-                                          ->where('evento_id',$evento_id)
-                                          ->whereNull('lugar_finalista')
-                                          ->groupBy('bestings.grupo_id')
-                                          ->get();
+                                        ->from('bestings')
+                                        ->where('tipo',$tipo)
+                                        ->where('pista',$num_pista)
+                                        ->where('evento_id',$evento_id)
+                                        ->where('lugar', '<=', $hasta)
+                                        ->whereNull('lugar_finalista')
+                                        ->groupBy('bestings.grupo_id')
+                                        ->get();
                                 })
                                 ->get();
 
@@ -367,9 +373,9 @@ class Juez extends Model
                             ->where('ganadores.categoria_id',$categoria_pista_id)
                             ->where('ganadores.raza_id',$raza_id)
                             ->where('ganadores.pista', $pista)
-                            // ->first();
-                            ->toSql();
-                            dd($ganador, $evento_id, $secretario_id, $categoria_pista_id, $raza_id, $pista);
+                            ->first();
+                            // ->toSql();
+                            // dd($ganador, $evento_id, $secretario_id, $categoria_pista_id, $raza_id, $pista);
         return $ganador;
 
     }
@@ -390,42 +396,44 @@ class Juez extends Model
 
     public static function getReservaSinCalificarSiguiente($num_pista, $tipo, $grupo_id, $lugar){
 
-        if($tipo == 'especiales')
-            $hasta = 4;
-        else
-            $hasta = 2;
+        dd($num_pista, $tipo, $grupo_id, $lugar);
+
+        // if($tipo == 'especiales')
+        //     $hasta = 4;
+        // else
+        //     $hasta = 2;
 
 
-        // while($lugar < $hasta){
-        while($lugar < ($hasta-1)){
+        // // while($lugar < $hasta){
+        // while($lugar < ($hasta-1)){
 
-            $lugarRecerva = $lugar+1;
+        //     $lugarRecerva = $lugar+1;
 
-            $recerba = Besting::where('pista', $num_pista)
-                                ->where('tipo', $tipo)
-                                ->where('lugar', $lugarRecerva)
-                                ->whereNull('lugar_finalista')
-                                ->where('grupo_id', $grupo_id)
-                                ->first();
+        //     $recerba = Besting::where('pista', $num_pista)
+        //                         ->where('tipo', $tipo)
+        //                         ->where('lugar', $lugarRecerva)
+        //                         ->whereNull('lugar_finalista')
+        //                         ->where('grupo_id', $grupo_id)
+        //                         ->first();
 
-            if($recerba){
-                break;
-            }else{
-                $lugar++;
-            }
+        //     if($recerba){
+        //         break;
+        //     }else{
+        //         $lugar++;
+        //     }
             
-        }
+        // }
 
-        // if($lugar < $hasta && $recerba){
-        if($lugar < ($hasta-1) && $recerba){
+        // // if($lugar < $hasta && $recerba){
+        // if($lugar < ($hasta-1) && $recerba){
 
-            return $recerba;
+        //     return $recerba;
             
-        }else{
+        // }else{
 
-            return null;
+        //     return null;
 
-        }
+        // }
 
     }
 
