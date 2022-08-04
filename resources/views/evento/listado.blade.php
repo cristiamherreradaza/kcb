@@ -10,20 +10,19 @@
 
 @section('content')
 
-{{-- inicio modal SEGUIMIENTO DE EJEMPLAR  --}}
-<div class="modal fade" id="seguimientoEjemplar" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+{{-- inicio modal MODAL EDICION DE CALIFICACION  --}}
+<div class="modal fade" id="modalEdicionCalificacionDatos" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">FORMULARIO DE ADICION DE CATEGORIA AL JUEZ <span class="text-info" id="nombreJuezAdd"></span></h5>
+                <h5 class="modal-title" id="exampleModalLabel">FORMULARIO DE EDICION DE CALIFICACIONES</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <i aria-hidden="true" class="ki ki-close"></i>
                 </button>
             </div>
             <div class="modal-body">
-				<form action="" id="formularioAddCategoria" method="POST">
+				{{-- <form action="" id="formularioAddCategoria" method="POST">
 					@csrf
-					<input type="hidden" name="add_categoria_asignacion_id" id="add_categoria_asignacion_id">
 					<div class="row">
 						<div class="col-md-12">
 							<div class="form-group">
@@ -31,17 +30,60 @@
 								<div id="select_juces">
 
 								</div>
-								<select class="form-control" id="juecesDesigandos" name="juecesDesigandos" style="width:100%;">
-									
-								</select>
 							</div>
 						</div>
 					</div>
 				</form>
+				<div class="row">
+					<div class="col-md-12">
+						<div id="listadoEjemplares">
+
+						</div>
+					</div>
+				</div> --}}
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-light-dark font-weight-bold" onclick="cerrarModalAddCategoria()">Cerrar</button>
-                <button type="button" class="btn btn-success font-weight-bold" onclick="addCategoria()">Adicion Categoria</button>
+                <button type="button" class="btn btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- fin inicio modal MODAL EDICION DE CALIFICACION --}}
+
+{{-- inicio modal SEGUIMIENTO DE EJEMPLAR  --}}
+<div class="modal fade" id="seguimientoEjemplar" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">INFORMACION DE EJEMPLARES</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+				<form action="" id="formularioAddCategoria" method="POST">
+					@csrf
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label>Jueces <span class="text-danger">*</span></label>
+								<div id="select_juces">
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+				<div class="row">
+					<div class="col-md-12">
+						<div id="listadoEjemplares">
+
+						</div>
+					</div>
+				</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
@@ -1074,8 +1116,6 @@
 		}
 
 		function seguimientoEjemplares(evento){
-			console.log(evento);
-
 			$.ajax({
 				url: "{{ url('Evento/jucesEvento') }}",
 				data: {
@@ -1111,6 +1151,34 @@
 			});
 
 			$('#seguimientoEjemplar').modal('show');
+
+		}
+
+		function buscaEjemplaresCalificados(){
+
+			var asiganacion = $('#buscar_ejemplares').val();
+
+			$.ajax({
+				url: "{{ url('Evento/listadoEjemplaresCalificados') }}",
+				data: {
+					asiganacion : asiganacion,
+				},
+				dataType: 'json',
+				type: 'POST',
+				success: function(data) {
+
+					if(data.status == 'success'){
+						$('#listadoEjemplares').html(data.listado);
+					}
+
+				}
+			});
+		}
+
+		function verDetalleCalificacion(ejemplar_evento_id, pista){
+
+			$('#seguimientoEjemplar').modal('hide');
+			$('#modalEdicionCalificacionDatos').modal('show');
 
 		}
 

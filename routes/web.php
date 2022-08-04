@@ -119,6 +119,7 @@ Route::get('Evento/ranking/{evento_id}/{pista}', 'EventoController@ranking');
 Route::post('Evento/habilitaEvento', 'EventoController@habilitaEvento');
 Route::post('Evento/clonarEvento', 'EventoController@clonarEvento');
 Route::post('Evento/jucesEvento', 'EventoController@jucesEvento');
+Route::post('Evento/listadoEjemplaresCalificados', 'EventoController@listadoEjemplaresCalificados');
 
 
 // PISTAS

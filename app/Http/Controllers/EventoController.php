@@ -1406,12 +1406,12 @@ class EventoController extends Controller
             $asignaciones  = Asignacion::where('evento_id',$evento_id)
                                         ->get();
 
-            $select = "<select class='form-control' name='asignaciones' id='asignaciones'>";
+            $select = "<select class='form-control' name='buscar_ejemplares' id='buscar_ejemplares' onchange='buscaEjemplaresCalificados()'>";
             $selectBody = "<option value=''>Seleccione el juez</option>";
             $selectFin = "</select>";
 
             foreach ($asignaciones as $as){
-                $selectBody = $selectBody."<option value=''>".$as->juez->nombre."</option>";
+                $selectBody = $selectBody."<option value='".$as->id."'>".$as->juez->nombre."</option>";
             }   
 
             $data['status'] = 'success';
@@ -1421,6 +1421,36 @@ class EventoController extends Controller
 
         }
         
+    }
+
+    public function listadoEjemplaresCalificados(Request $request){
+
+        if($request->ajax()){
+
+            $asignacion_id = $request->input('asiganacion');
+
+            $asignacion = Asignacion::find($asignacion_id);
+
+            if($asignacion){
+                $num_pista = $asignacion->num_pista;
+
+                $ejemplaresEventos = EjemplarEvento::where('evento_id',$asignacion->evento_id)
+                                                    ->orderBy('numero_prefijo', 'asc')
+                                                    ->get();
+            }else{
+                $ejemplaresEventos = [];   
+                $num_pista = 0;
+            }
+
+
+            $data['status'] = 'success';
+
+            $data['listado'] = view('evento.ajaxListadoEjemplaresEventos', compact('ejemplaresEventos', 'asignacion', 'num_pista'))->render();
+
+            return json_encode($data);
+
+        }
+
     }
 
 }
