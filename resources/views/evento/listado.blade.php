@@ -44,7 +44,7 @@
                 </button>
             </div>
             <div class="modal-body">
-				<form action="" id="formularioAddCategoria" method="POST">
+				<form action="" id="" method="POST">
 					@csrf
 					<div class="row">
 						<div class="col-md-12">
