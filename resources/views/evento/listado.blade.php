@@ -21,29 +21,12 @@
                 </button>
             </div>
             <div class="modal-body">
-				{{-- <form action="" id="formularioAddCategoria" method="POST">
-					@csrf
-					<div class="row">
-						<div class="col-md-12">
-							<div class="form-group">
-								<label>Jueces <span class="text-danger">*</span></label>
-								<div id="select_juces">
+				<div id="calificacionEjemplar">
 
-								</div>
-							</div>
-						</div>
-					</div>
-				</form>
-				<div class="row">
-					<div class="col-md-12">
-						<div id="listadoEjemplares">
-
-						</div>
-					</div>
-				</div> --}}
+				</div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-light-dark font-weight-bold" data-dismiss="modal" onclick="cerrarEdicionCalificacion()">Cerrar</button>
             </div>
         </div>
     </div>
@@ -1175,11 +1158,111 @@
 			});
 		}
 
-		function verDetalleCalificacion(ejemplar_evento_id, pista){
+		function verDetalleCalificacion(ejemplar_evento_id, pista, evento){
+
+			$.ajax({
+				url: "{{ url('Evento/calificacionesEjemplar') }}",
+				data: {
+					ejemplar_evento_id : ejemplar_evento_id,
+					pista : pista,
+					evento : evento,
+				},
+				dataType: 'json',
+				type: 'POST',
+				success: function(data) {
+
+					if(data.status == 'success'){
+
+						$('#calificacionEjemplar').html(data.calificaciones);
+
+						// $('#listadoEjemplares').html(data.listado);
+					}
+
+				}
+			});
 
 			$('#seguimientoEjemplar').modal('hide');
 			$('#modalEdicionCalificacionDatos').modal('show');
 
+		}
+
+		function cerrarEdicionCalificacion(){
+			$('#seguimientoEjemplar').modal('show');
+			$('#modalEdicionCalificacionDatos').modal('hide');
+		}
+
+		function modificaCalificacionFinal(tipo, number, ganador){
+
+			Swal.fire({
+                title: "Esta seguro de modificar la calificacion?",
+                text: "Ya no podras recuperarlo!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Si, estoy seguro!",
+                cancelButtonText: "No!",
+                reverseButtons: true
+            }).then(function(result) {
+                if (result.value) {
+
+					var valor = $('#'+tipo+"_"+number).val();
+
+					$.ajax({
+						url: "{{ url('Evento/modificaCalificacionFinal') }}",
+						data: {
+							tipo 	: tipo,
+							valor 	: valor,
+							ganador : ganador,
+						},
+						dataType: 'json',
+						type: 'POST',
+						success: function(data) {
+
+							if(data.status == 'success'){
+
+							}
+
+						}
+					});
+
+					console.log($('#'+tipo+"_"+number).val());
+
+					// var datos = $('#formularioAddCategoria').serializeArray();
+
+					// $.ajax({
+					// 	url: "{{ url('Juez/addCategoriaAsignacion') }}",
+					// 	data: datos,
+					// 	dataType: 'json',
+					// 	type: 'POST',
+					// 	success: function(data) {
+
+					// 		if(data.status == 'success'){
+
+					// 			Swal.fire({
+					// 			    title: "Exito!",
+					// 			    text: "Se cambio el estado con exito.",
+					// 			    icon: "success",
+					// 				timer: 1000
+					// 			})
+
+					// 			$('#listaAsignaciones').html(data.listado);
+
+					// 			$('#modalAddCategoria').modal('hide');
+					// 			$('#modalAddJuez').modal('show');
+
+					// 		}
+							
+					// 	}
+					// });
+
+                } else if (result.dismiss === "cancel") {
+
+                    Swal.fire(
+                        "Cancelado",
+                        "La operacion fue cancelada",
+                        "error"
+                    )
+                }
+            });
 		}
 
     </script>

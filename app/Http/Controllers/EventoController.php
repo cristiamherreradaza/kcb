@@ -7,13 +7,15 @@ use App\Juez;
 use App\Raza;
 use App\User;
 use App\Evento;
+use App\Ganador;
 use App\Ejemplar;
 use App\GrupoRaza;
 use App\Asignacion;
+use App\Calificacion;
 use App\Transferencia;
+// use Barryvdh\DomPDF\PDF;
 use App\EjemplarEvento;
 use App\CategoriasPista;
-// use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\Foreach_;
 use Illuminate\Support\Facades\DB;
@@ -1448,6 +1450,108 @@ class EventoController extends Controller
             $data['listado'] = view('evento.ajaxListadoEjemplaresEventos', compact('ejemplaresEventos', 'asignacion', 'num_pista'))->render();
 
             return json_encode($data);
+
+        }
+
+    }
+
+    public function calificacionesEjemplar(Request $request){
+
+        if($request->ajax()){
+
+            $ejemplar_evento_id = $request->input('ejemplar_evento_id');
+            $pista = $request->input('pista');
+            $evento = $request->input('evento');
+
+            $ejemplar_evento = EjemplarEvento::find($ejemplar_evento_id);
+
+            // CALIFICACION
+            $calificacion = Calificacion::where('ejemplares_eventos_id', $ejemplar_evento_id)
+                                        ->where('pista', $pista)
+                                        ->where('evento_id', $evento)
+                                        ->first();
+
+            // GANADORES
+            $ganador = Ganador::where('evento_id', $evento)
+                                ->where('pista', $pista)
+                                ->where('ejemplar_evento_id',$ejemplar_evento_id)
+                                ->first();
+
+            $data['status'] = 'success';
+
+            $data['calificaciones'] = view('evento.ajaxCalificacionEjemplar', compact('calificacion', 'ejemplar_evento', 'ganador'))->render();
+
+            return json_encode($data);
+
+        }
+
+    }
+
+    public function modificaCalificacionFinal(Request $request){
+
+        if($request->ajax()){
+
+            // dd($request->all());
+
+            $ganador_id = $request->input('ganador');
+            $tipo       = $request->input('tipo');
+            $valor      = $request->input('valor');
+
+            $valorCombo = explode("_", $valor);
+
+            dd($valorCombo);
+
+            $ganador = Ganador::find($ganador_id);
+
+            $sexoGanador = $ganador->sexo;
+            $arrayCategoriasMacho = [];
+            $arrayCategoriasHembra = [];
+
+            if($sexoGanador == "Macho")
+                $sexoCambio = 'Hembra';
+            else
+                $sexoCambio = 'Macho';
+
+
+            if($valorCombo[0] == 'mejor'){
+
+                if($valorCombo[1] == 'raza'){
+                    $ganador->mejor_raza = "Si";
+
+                    // BUSCAMOS SU OPUESTO
+                    if($sexoGanador == "Macho"){
+                        
+                    }else{
+
+                    }
+
+                }elseif($valorCombo[1] == 'joven'){
+                    $ganador->mejor_joven = "Si";
+
+                    // BUSCAMOS SU OPUESTO
+                    if($sexoGanador == "Macho"){
+
+                    }else{
+
+                    }
+
+                }elseif($valorCombo[1] == 'cachorro'){
+                    $ganador->cachorro = "Si";
+
+                    // BUSCAMOS SU OPUESTO
+                    if($sexoGanador == "Macho"){
+
+                    }else{
+
+                    }
+
+                }
+
+            }else{
+
+            }
+
+
 
         }
 

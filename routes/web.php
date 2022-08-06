@@ -120,6 +120,8 @@ Route::post('Evento/habilitaEvento', 'EventoController@habilitaEvento');
 Route::post('Evento/clonarEvento', 'EventoController@clonarEvento');
 Route::post('Evento/jucesEvento', 'EventoController@jucesEvento');
 Route::post('Evento/listadoEjemplaresCalificados', 'EventoController@listadoEjemplaresCalificados');
+Route::post('Evento/calificacionesEjemplar', 'EventoController@calificacionesEjemplar');
+Route::post('Evento/modificaCalificacionFinal', 'EventoController@modificaCalificacionFinal');
 
 
 // PISTAS

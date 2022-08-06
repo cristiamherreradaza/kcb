@@ -113,7 +113,7 @@
                     @endif
                 </td>
                 <td>
-                    <button class="btn btn-warning btn-icon btn-sm" onclick="verDetalleCalificacion('{{ $e->id }}', '{{ $num_pista }}')"><i class="fa fa-eye"></i></button>
+                    <button class="btn btn-warning btn-icon btn-sm" onclick="verDetalleCalificacion('{{ $e->id }}', '{{ $num_pista }}', '{{ $e->evento_id }}')"><i class="fa fa-eye"></i></button>
                 </td>
             </tr>
         @empty
