@@ -244,12 +244,33 @@ class Juez extends Model
 
     public static function getGanadores($evento_id, $categoria, $tipo_campo, $num_pista){
 
-        $ganadores = Ganador::whereIn('categoria_id',$categoria)
-                                ->where($tipo_campo, "Si")
-                                ->where('evento_id', $evento_id)
-                                ->where('pista', $num_pista)
-                                ->orderBy('grupo_id','asc')
-                                ->get();
+        // $ganadores = Ganador::whereIn('categoria_id',$categoria)
+        //                         ->where($tipo_campo, "Si")
+        //                         ->where('evento_id', $evento_id)
+        //                         ->where('pista', $num_pista)
+        //                         ->orderBy('grupo_id','asc')
+        //                         ->get();
+
+                                
+        $ganadoresQuery = Ganador::whereIn('categoria_id',$categoria)
+                            ->where('evento_id', $evento_id)
+                            ->where('pista', $num_pista);
+
+                            if($tipo_campo == 'mejor_joven'){
+
+                                $ganadoresQuery  = $ganadoresQuery->where(function($query) use ($tipo_campo){
+                                                                        $query->where($tipo_campo, "Si")
+                                                                        ->orwhere('mejor_raza', "Si");
+                                                                    });
+                            }else{
+
+                                $ganadoresQuery  = $ganadoresQuery->where($tipo_campo, "Si");
+                            }
+
+
+                            $ganadoresQuery  = $ganadoresQuery->orderBy('grupo_id','asc');
+
+        $ganadores = $ganadoresQuery->get();
 
         return $ganadores;
 

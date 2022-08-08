@@ -2404,8 +2404,6 @@ class JuezController extends Controller
             $evento_id  = $request->input('evento');
             $num_pista  = $request->input('pista');
 
-            // dd($request->all());
-
             if($tipo == "especiales"){
                 $ganadores = Juez::ejemplaresCategoria('Especiales', $evento_id,[1,2,3,4,5,6,7,8,9,10], $num_pista); 
             }elseif($tipo == "absolutos"){

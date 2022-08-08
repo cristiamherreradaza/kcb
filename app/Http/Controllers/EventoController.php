@@ -1499,7 +1499,7 @@ class EventoController extends Controller
 
             $valorCombo = explode("_", $valor);
 
-            dd($valorCombo);
+            // dd($valorCombo);
 
             $ganador = Ganador::find($ganador_id);
 
@@ -1516,36 +1516,70 @@ class EventoController extends Controller
             if($valorCombo[0] == 'mejor'){
 
                 if($valorCombo[1] == 'raza'){
+
+                    if($ganador->sexo_opuesto_raza == "Si")
+                        $tipoBusqueda = "mejor_raza";
+                    else
+                        $tipoBusqueda = "sexo_opuesto_raza";
+                    
+
+                    $sexoOpuesto =  Juez::mejorCategoria($ganador->evento_id, $ganador->pista, $ganador->raza_id, $tipoBusqueda);
+
+                    $sexoOpuesto->sexo_opuesto_raza = "Si";
+                    $sexoOpuesto->mejor_raza = null;
+
+                    $sexoOpuesto->save();
+
+
                     $ganador->mejor_raza = "Si";
+                    $ganador->sexo_opuesto_raza = null;
 
-                    // BUSCAMOS SU OPUESTO
-                    if($sexoGanador == "Macho"){
-                        
-                    }else{
-
-                    }
+                    $ganador->save();
 
                 }elseif($valorCombo[1] == 'joven'){
+
+                    if($ganador->sexo_opuesto_joven == "Si")
+                        $tipoBusqueda = "mejor_joven";
+                    else
+                        $tipoBusqueda = "sexo_opuesto_joven";
+
+
+                    $sexoOpuesto =  Juez::mejorCategoria($ganador->evento_id, $ganador->pista, $ganador->raza_id, $tipoBusqueda);
+
+                    $sexoOpuesto->sexo_opuesto_joven = "Si";
+                    $sexoOpuesto->mejor_joven = null;
+
+                    $sexoOpuesto->save();
+
+
                     $ganador->mejor_joven = "Si";
+                    $ganador->sexo_opuesto_joven = null;
 
-                    // BUSCAMOS SU OPUESTO
-                    if($sexoGanador == "Macho"){
-
-                    }else{
-
-                    }
+                    $ganador->save();
 
                 }elseif($valorCombo[1] == 'cachorro'){
-                    $ganador->cachorro = "Si";
 
-                    // BUSCAMOS SU OPUESTO
-                    if($sexoGanador == "Macho"){
+                    if($ganador->sexo_opuesto_cachorro == "Si")
+                        $tipoBusqueda = "mejor_cachorro";
+                    else
+                        $tipoBusqueda = "sexo_opuesto_cachorro";
 
-                    }else{
 
-                    }
+                    $sexoOpuesto =  Juez::mejorCategoria($ganador->evento_id, $ganador->pista, $ganador->raza_id, $tipoBusqueda);
+
+                    $sexoOpuesto->sexo_opuesto_cachorro = "Si";
+                    $sexoOpuesto->mejor_cachorro = null;
+
+                    $sexoOpuesto->save();
+
+
+                    $ganador->mejor_cachorro = "Si";
+                    $ganador->sexo_opuesto_cachorro = null;
+
+                    $ganador->save();
 
                 }
+                
 
             }else{
 

@@ -45,31 +45,38 @@
         border-collapse:collapse;
     }
     .joven{
-        margin-left: 119px;
+        /* margin-left: 119px; */
+        margin-left: 129px;
+        background-color: #c2ddf3;
     }
 
     .jovenCampeon{
-        margin-left: 239px;
+        margin-left: 249px;
+        background-color: #c2ddf3;
     }
 
     .intermedia{
-        margin-left: 358px;
+        margin-left: 368px;
+        background-color: #ededdd;
     }
 
     .abierta{
-        margin-left: 476px;
+        margin-left: 486px;
+        background-color: #ededdd;
     }
 
     .campoeones{
-        margin-left: 595px;
+        margin-left: 605px;
+        background-color: #ededdd;
     }
 
     .grandesCampeones{
-        margin-left: 714px;
+        margin-left: 724px;
+        background-color: #ededdd;
     }
 
     .veteranos{
-        margin-left: 833px;
+        margin-left: 843px;
     }
 
     /* ESPASCION BORDES */
@@ -122,7 +129,8 @@
         width: 118px;
         margin-top: 178px;
         font-size:10px;
-        margin-left: 119px;
+        margin-left: 129px;
+        background-color: #c2ddf3;
     }
 
     .certificadosJovenCampeon{
@@ -131,7 +139,8 @@
         width: 118px;
         margin-top: 178px;
         font-size:10px;
-        margin-left: 238px;
+        margin-left: 248px;
+        background-color: #c2ddf3;
     }
 
     .certificadosIntermedia{
@@ -140,7 +149,8 @@
         width: 237px;
         margin-top: 178px;
         font-size:10px;
-        margin-left: 357px;
+        margin-left: 367px;
+        background-color: #ededdd;
     }
 
     .certificadosAbierta{
@@ -149,7 +159,8 @@
         width: 118px;
         margin-top: 178px;
         font-size:10px;
-        margin-left: 476px;
+        margin-left: 486px;
+        background-color: #ededdd;
     }
 
     .certificadosCampeones{
@@ -158,7 +169,8 @@
         width: 118px;
         margin-top: 178px;
         font-size:10px;
-        margin-left: 595px;
+        margin-left: 605px;
+        background-color: #ededdd;
     }
 
     .certificadosGrandesCampeones{
@@ -167,7 +179,8 @@
         width: 118px;
         margin-top: 178px;
         font-size:10px;
-        margin-left: 714px;
+        margin-left: 724px;
+        background-color: #ededdd;
     }
 
     .certificadosVeterano{
@@ -176,14 +189,50 @@
         width: 118px;
         margin-top: 178px;
         font-size:10px;
-        margin-left: 833px;
+        margin-left: 843px;
+    }
+    .adentroMejor{
+        border: 1px solid black;
+        width: 30px;
+        height: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        font-size:16px;
+    }
+
+    .machosVEncedoresCachorro{
+        position: absolute;
+        width: 118px;
+        margin-top: 200px;
+        text-align:center;
+        font-size: 10px;
+    }
+    .machosVEncedoresJoven{
+        position: absolute;
+        width: 238px;
+        height: 20px;
+        margin-top: 230px;
+        text-align:center;
+        font-size: 9px;
+        margin-left: 97;
+        border-collapse:collapse;
+    }
+    .machosVEncedoresAdulto{
+        position: absolute;
+        width: 356px;
+        height: 20px;
+        margin-top: 230px;
+        text-align:center;
+        font-size: 9px;
+        margin-left: 367px;
+        border-collapse:collapse;
     }
 
     .machosVEncedores{
         position: absolute;
         margin-top: 225px;
         font-size: 12px;
-        width: 590px;
+        margin-left: 100px;
     }
     .celdasMejores{
         width: 50px;
@@ -192,7 +241,6 @@
     .mejoresVencedoresLetras{
         text-align: right;
     }
-
 
     /* PARA LAS HEMBRAS */
     .tableHembra{
@@ -204,31 +252,37 @@
         border-collapse:collapse;
     }
     .jovenHembra{
-        margin-left: 119px;
+        margin-left: 129px;
+        background-color: #c2ddf3;
     }
 
     .jovenCampeonHembra{
-        margin-left: 239px;
+        margin-left: 249px;
+        background-color: #c2ddf3;
     }
 
     .intermediaHembra{
-        margin-left: 358px;
+        margin-left: 368px;
+        background-color:#ededdd;
     }
 
     .abiertaHembra{
-        margin-left: 476px;
+        margin-left: 486px;
+        background-color:#ededdd;
     }
 
     .campoeonesHembra{
-        margin-left: 595px;
+        margin-left: 605px;
+        background-color:#ededdd;
     }
 
     .grandesCampeonesHembra{
-        margin-left: 714px;
+        margin-left: 724px;
+        background-color:#ededdd;
     }
 
     .veteranosHembra{
-        margin-left: 833px;
+        margin-left: 843px;
     }
 
     .certificadosHembra{
@@ -244,7 +298,8 @@
         width: 118px;
         margin-top: 448px;
         font-size:10px;
-        margin-left: 119px;
+        margin-left: 129px;
+        background-color: #c2ddf3;
     }
 
     .certificadosJovenCampeonHembra{
@@ -253,7 +308,8 @@
         width: 118px;
         margin-top: 448px;
         font-size:10px;
-        margin-left: 238px;
+        margin-left: 248px;
+        background-color: #c2ddf3;
     }
 
     .certificadosIntermediaHembra{
@@ -262,7 +318,8 @@
         width: 237px;
         margin-top: 448px;
         font-size:10px;
-        margin-left: 357px;
+        margin-left: 367px;
+        background-color:#ededdd;
     }
 
     .certificadosAbiertaHembra{
@@ -271,7 +328,8 @@
         width: 118px;
         margin-top: 448px;
         font-size:10px;
-        margin-left: 476px;
+        margin-left: 486px;
+        background-color:#ededdd;
     }
 
     .certificadosCampeonesHembra{
@@ -280,7 +338,8 @@
         width: 118px;
         margin-top: 448px;
         font-size:10px;
-        margin-left: 595px;
+        margin-left: 605px;
+        background-color:#ededdd;
     }
 
     .certificadosGrandesCampeonesHembra{
@@ -289,7 +348,8 @@
         width: 118px;
         margin-top: 448px;
         font-size:10px;
-        margin-left: 714px;
+        margin-left: 724px;
+        background-color:#ededdd;
     }
 
     .certificadosVeteranoHembra{
@@ -298,13 +358,37 @@
         width: 118px;
         margin-top: 448px;
         font-size:10px;
-        margin-left: 833px;
+        margin-left: 843px;
     }
     .hembraVencedores{
         position: absolute;
         margin-top: 495px;
         font-size: 12px;
         width: 590px;
+        margin-left: 102px;
+    }
+    .hembraVencedoresCachorro{
+        position: absolute;
+        margin-top: 500px;
+        font-size: 9px;
+        width: 118px;
+        /* margin-left: 102px; */
+    }
+    .hembraVencedoresJoven{
+        position: absolute;
+        margin-top: 500px;
+        font-size: 9px;
+        width: 238px;
+        margin-left: 130px;
+        border-collapse: collapse;
+    }
+    .hembraVencedoresAdulto{
+        position: absolute;
+        margin-top: 500px;
+        font-size: 9px;
+        width: 359px;
+        margin-left: 367px;
+        border-collapse: collapse;
     }
     .mejorRazaCJA{
         position: absolute;
@@ -335,12 +419,17 @@
         margin-top: -40px;
         width: 180px;
     }
+
+    .machosVEncedoresExtragero{
+
+    }
     
     .extrangeroMacho{
         position: absolute;
         margin-left: 643px;
         font-size: 10px;
-        margin-top: -55px;
+        /* margin-top: -55px; */
+        margin-top: 5px;
     }
     .tablaEstrangero{
         border-collapse:collapse;
@@ -353,7 +442,35 @@
         position: absolute;
         margin-left: 712px;
         font-size: 10px;
-        margin-top: -55px;
+        margin-top: 5px;
+        /* margin-top: -55px; */
+    }
+
+    /* para los machos */
+    .machos{
+        margin-left: -30px;
+        position: absolute;
+        border: 0.7px solid black;;
+        padding: 1px;
+        padding-top: 19px;
+        padding-bottom: 19px;
+        margin-top: 30px;
+    }
+
+    .hembras{
+        margin-left: -30px;
+        position: absolute;
+        border: 0.7px solid black;;
+        padding: 1px;
+        padding-top: 9px;
+        padding-bottom: 9px;
+        margin-top: 300px;
+    }
+
+    h3 span { 
+        display: block; 
+        writing-mode: vertical-lr;
+        transform: rotate(-90deg);
     }
 </style>
 <body>
@@ -441,6 +558,15 @@
                     $categoriaVeteranosMacho         = App\Juez::EjemplarCatalogoRaza(16, $er->raza_id, $evento_id);
 
                 @endphp
+                <div class="machos">
+                    <h3>
+                        <span> O </span>
+                        <span> H </span>
+                        <span> C </span>
+                        <span> A </span>
+                        <span> M </span>
+                    </h3>
+                </div>
 
                 {{-- PARA LOS MACHOS --}}
                 <table class="table cachorro">
@@ -883,8 +1009,76 @@
                     </table>
                 </div>
 
-                <div class="machosVEncedores bordes">
-                    <table style="width: 100%;">
+                <div class="machosVEncedoresCachorro">
+                    <table class="table bordes">
+                        <thead>
+                            <tr class="bordes" style="background-color: #D2FECC;">
+                                <th>MEJOR CACHORO</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td height="25px">
+                                    <div class="adentroMejor">
+                                        @php
+                                            $mejorVencedor = App\Juez::ganadorEjemplarEvento($er->raza_id, $evento_id, [11], "Macho", $pista);
+
+                                            if($mejorVencedor)
+                                                echo $mejorVencedor->numero_prefijo;
+                                        @endphp
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <table class="machosVEncedoresJoven bordes">
+                    <thead>
+                        <tr class="bordes" style="background-color: #17D8FF;">
+                            <th>MEJOR JOVEN MACHO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td height="25px">
+                                <div class="adentroMejor">
+                                    @php
+                                        $mejorVencedor = App\Juez::ganadorEjemplarEvento($er->raza_id, $evento_id, [3, 12], "Macho", $pista);
+
+                                        if($mejorVencedor)
+                                            echo $mejorVencedor->numero_prefijo;
+                                    @endphp
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table class="machosVEncedoresAdulto bordes">
+                    <thead>
+                        <tr class="bordes" style="background-color: #F9FF86;">
+                            <th>MEJOR ADULTO MACHO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td height="25px">
+                                <div class="adentroMejor">
+                                    @php
+                                        $mejorVencedor = App\Juez::ganadorEjemplarEvento($er->raza_id, $evento_id, [5, 7, 9, 14], "Macho", $pista);
+
+                                        if($mejorVencedor)
+                                            echo $mejorVencedor->numero_prefijo;
+                                    @endphp
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="machosVEncedores">
+                    {{-- <table style="width: 100%;">
                         <thead>
                             <tr>
                                 <th colspan="8" style="background: #C1BEC1: width=100%;;">
@@ -927,7 +1121,7 @@
                                 <th class="bordes celdasMejores">{{ ($mejorMAcho)? $mejorMAcho->numero_prefijo : '' }}</th>
                             </tr>
                         </tfoot>
-                    </table>
+                    </table> --}}
                     
                     <div class="extrangeroMacho">
                         <table class="bordes tablaEstrangero">
@@ -1008,6 +1202,16 @@
                     $categoriaVeteranosHembras         = App\Juez::EjemplarCatalogoRaza(17, $er->raza_id, $evento_id);
 
                 @endphp
+                <div class="hembras">
+                    <h3>
+                        <span> A </span>
+                        <span> R </span>
+                        <span> B </span>
+                        <span> M </span>
+                        <span> E </span>
+                        <span> H </span>
+                    </h3>
+                </div>
 
                  {{-- PARA LOS HEMBRAS --}}
                  <table class="tableHembra cachorro">
@@ -1431,8 +1635,76 @@
                     </table>
                 </div>
 
-                <div class="hembraVencedores bordes">
-                    <table style="width: 100%;">
+                {{-- <div class="hembraVencedores"> --}}
+                    <table class="hembraVencedoresCachorro table bordes">
+                        <thead>
+                            <tr class="bordes" style="background-color: #D2FECC;">
+                                <th>MEJOR CACHORO</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td height="25px">
+                                    <div class="adentroMejor">
+                                        @php
+                                            $mejorVencedor = App\Juez::ganadorEjemplarEvento($er->raza_id, $evento_id, [2], "Hembra", $pista);
+
+                                            if($mejorVencedor)
+                                                echo $mejorVencedor->numero_prefijo;
+                                        @endphp
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                {{-- </div> --}}
+
+                <table class="hembraVencedoresJoven bordes">
+                    <thead>
+                        <tr class="bordes" style="background-color: #17D8FF;">
+                            <th>MEJOR JOVEN MACHO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td height="25px">
+                                <div class="adentroMejor">
+                                    @php
+                                        $mejorVencedor = App\Juez::ganadorEjemplarEvento($er->raza_id, $evento_id, [4, 13], "Hembra", $pista);
+
+                                        if($mejorVencedor)
+                                            echo $mejorVencedor->numero_prefijo;
+                                    @endphp
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table class="hembraVencedoresAdulto bordes">
+                    <thead>
+                        <tr class="bordes" style="background-color: #F9FF86;">
+                            <th>MEJOR ADULTO MACHO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td height="25px">
+                                <div class="adentroMejor">
+                                    @php
+                                        $mejorVencedor = App\Juez::ganadorEjemplarEvento($er->raza_id, $evento_id, [6, 8, 10, 15], "Hembra", $pista);
+
+                                        if($mejorVencedor)
+                                            echo $mejorVencedor->numero_prefijo;
+                                    @endphp
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="hembraVencedores">
+                    {{-- <table style="width: 100%;">
                         <thead>
                             <tr>
                                 <th colspan="8" style="background: #C1BEC1: width=100%;;">
@@ -1475,7 +1747,7 @@
                                 <th class="bordes celdasMejores">{{ ($mejorHembra)? $mejorHembra->numero_prefijo : '' }}</th>
                             </tr>
                         </tfoot>
-                    </table>
+                    </table> --}}
 
                     <div class="extrangeroMacho">
                         <table class="bordes tablaEstrangero">
@@ -1613,7 +1885,7 @@
                 </div>
             </div>
         @endforeach
-        {{-- @break --}}
+        @break
     @endforeach
 </body>
 </html>
