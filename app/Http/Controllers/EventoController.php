@@ -1943,20 +1943,29 @@ class EventoController extends Controller
 
             $asignacion_id = $request->input('asiganacion');
 
+            // dd($asignacion_id);
+
             $asignacion = Asignacion::find($asignacion_id);
 
             if($asignacion){
-                $num_pista = $asignacion->num_pista;
+
+                if($asignacion->num_pista)
+                    $num_pista = $asignacion->num_pista;
+                else
+                    $num_pista = 0;
+
 
                 $ejemplaresEventos = EjemplarEvento::where('evento_id',$asignacion->evento_id)
                                                     ->orderBy('numero_prefijo', 'asc')
                                                     ->get();
+                                                    
             }else{
                 $ejemplaresEventos = [];   
                 $num_pista = 0;
             }
 
-
+            // dd($ejemplaresEventos, $asignacion, $num_pista);
+            
             $data['status'] = 'success';
 
             $data['listado'] = view('evento.ajaxListadoEjemplaresEventos', compact('ejemplaresEventos', 'asignacion', 'num_pista'))->render();

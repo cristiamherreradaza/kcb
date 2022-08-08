@@ -30,9 +30,11 @@
                 <td width="2px"><h3 class="text-primary text-center">{{ $e->numero_prefijo }}</h3></td>
                 <td width="2px">
                     @php
+
                         $calificacion = App\Calificacion::where('ejemplares_eventos_id', $e->id)
                                                         ->where('pista', $num_pista)
                                                         ->first();
+
                         if($calificacion)
                             echo "<span class='text-info text-center'>".$calificacion->calificacion." : ".$calificacion->lugar."</span>";
 
@@ -113,7 +115,7 @@
                     @endif
                 </td>
                 <td>
-                    <button class="btn btn-warning btn-icon btn-sm" onclick="verDetalleCalificacion('{{ $e->id }}', '{{ $num_pista }}', '{{ $e->evento_id }}')"><i class="fa fa-eye"></i></button>
+                    <button class="btn btn-warning btn-icon btn-sm" onclick="verDetalleCalificacion('{{ $e->id }}', '{{ (($num_pista)? $num_pista : 0) }}', '{{ $e->evento_id }}')"><i class="fa fa-eye"></i></button>
                 </td>
             </tr>
         @empty

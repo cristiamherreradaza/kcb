@@ -1114,19 +1114,10 @@
 
 						if(data.status == 'success'){
 							$('#select_juces').html(data.select);
+
+							$('#listadoEjemplares').html('');
+
 						}
-
-						{{--  Swal.fire({
-							title: "Exito!",
-							text: "Se cambio el estado con exito.",
-							icon: "success",
-							timer: 1000
-						})
-
-						$('#listaAsignaciones').html(data.listado);
-
-						$('#modalAddCategoria').modal('hide');
-						$('#modalAddJuez').modal('show');  --}}
 
 					}
 					
