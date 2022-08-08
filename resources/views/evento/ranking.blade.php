@@ -88,6 +88,16 @@
                                 <span class="nav-text">PODIO</span>
                             </a>
                         </li>
+                        <li class="nav-item mr-3">
+                            <a class="nav-link" data-toggle="tab" href="#kt_apps_contacts_view_tab_3">
+                                <span class="nav-icon mr-2">
+                                    <span class="svg-icon mr-3">
+                                        <i class="fa fa-users"></i>
+                                    </span>
+                                </span>
+                                <span class="nav-text">GRUPOS</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -359,6 +369,126 @@
                             </div>
                         </div>
                     </div>
+                    <!--end::Tab Content-->
+                    <!--begin::Tab Content-->
+                    <div class="tab-pane" id="kt_apps_contacts_view_tab_3" role="tabpanel">
+                        <div class="container">
+                            <div class="row text-center">
+                                <div class="col-md-6">
+                                    <h1>CACHORROS ESPECIALES</h1>
+                                    <table class="table table-bordered table-hover table-striped" style="width:100%;">
+                                        <thead>
+                                            <tr>
+                                                @foreach ( $array_grupoEspeciales as $ag )
+                                                    <th>GRUPO {{ $ag[0]['grupo_id'] }}</th>
+                                                @endforeach
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @for ($i = 0; $i < $mayorEspecial; $i++)
+                                                <tr>
+                                                    @foreach ($array_grupoEspeciales as $ag)
+                                                        @if (count($ag) > $i)
+                                                            <td>
+                                                                {{ $ag[$i]->numero_prefijo }}
+                                                            </td>
+                                                        @else
+                                                            <td></td>                        
+                                                        @endif
+                                                    @endforeach
+                                                </tr>
+                                            @endfor
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-6">
+                                    <h1>CACHORROS ABSOLUTOS</h1>
+                                    <table class="table table-bordered table-hover table-striped" style="width:100%;">
+                                        <thead>
+                                            <tr>
+                                                @foreach ( $array_grupoAbsoluto as $ag )
+                                                    <th>GRUPO {{ $ag[0]['grupo_id'] }}</th>
+                                                @endforeach
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @for ($i = 0; $i < $mayorAbsoluto; $i++)
+                                                <tr>
+                                                    @foreach ($array_grupoAbsoluto as $ag)
+                                                        @if (count($ag) > $i)
+                                                            <td>
+                                                                {{ $ag[$i]->numero_prefijo }}
+                                                            </td>
+                                                        @else
+                                                            <td></td>                        
+                                                        @endif
+                                                    @endforeach
+                                                </tr>
+                                            @endfor
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row text-center">
+                                <div class="col-md-6">
+                                    <h1>JOVENES</h1>
+                                    <table class="table table-bordered table-hover table-striped" style="width:100%;">
+                                        <thead>
+                                            <tr>
+                                                @foreach ( $array_grupoJovenes as $ag )
+                                                    <th>GRUPO {{ $ag[0]['grupo_id'] }}</th>
+                                                @endforeach
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @for ($i = 0; $i < $mayorJovenes; $i++)
+                                                <tr>
+                                                    @foreach ($array_grupoJovenes as $ag)
+                                                        @if (count($ag) > $i)
+                                                            <td>
+                                                                {{ $ag[$i]->numero_prefijo }}
+                                                            </td>
+                                                        @else
+                                                            <td></td>                        
+                                                        @endif
+                                                    @endforeach
+                                                </tr>
+                                            @endfor
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-6">
+                                    <h1>ADULTOS</h1>
+                                    <table class="table table-bordered table-hover table-striped" style="width:100%;">
+                                        <thead>
+                                            <tr>
+                                                @foreach ( $array_grupoAdultos as $ag )
+                                                    <th>GRUPO {{ $ag[0]['grupo_id'] }}</th>
+                                                @endforeach
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @for ($i = 0; $i < $mayorAdultos; $i++)
+                                                <tr>
+                                                    @foreach ($array_grupoAdultos as $ag)
+                                                        @if (count($ag) > $i)
+                                                            <td>
+                                                                {{ $ag[$i]->numero_prefijo }}
+                                                            </td>
+                                                        @else
+                                                            <td></td>                        
+                                                        @endif
+                                                    @endforeach
+                                                </tr>
+                                            @endfor
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end::Tab Content-->
                 </div>
             </div>
             <!--end::Body-->

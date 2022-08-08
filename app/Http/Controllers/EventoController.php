@@ -1306,8 +1306,520 @@ class EventoController extends Controller
             'cuarto' => $cuartoAdulto,
             'quinto' => $quintoAdulto
         );
+
         
-        return view('evento.ranking')->with(compact('evento', 'razas', 'ejemplares', 'primeroEspecial', 'arrarEspeciales', 'arrarAbsoluto', 'arrarJoven', 'arrarAdulto'));
+        // AQUI MANDAREMOS LOS BESTING DE RAZAS
+        $arrayGrupos = array();
+
+        // PRA LOS ESPECIALES
+        $especiales = Juez::ejemplaresCategoria('Especiales', $evento_id,[1,2,3,4,5,6,7,8,9,10], $pista);
+        $grupo1  = array();
+        $grupo2  = array();
+        $grupo3  = array();
+        $grupo4  = array();
+        $grupo5  = array();
+        $grupo6  = array();
+        $grupo7  = array();
+        $grupo8  = array();
+        $grupo9  = array();
+        $grupo10 = array();
+
+        // vamos separando en arrary difrerentes
+        foreach ( $especiales as $g ){
+
+            switch ($g->grupo_id) {
+                case 1:
+                    array_push($grupo1, $g);
+                    break;
+                case 2:
+                    array_push($grupo2, $g);
+                    break;
+                case 3:
+                    array_push($grupo3, $g);
+                    break;
+                case 4:
+                    array_push($grupo4, $g);
+                    break;
+                case 5:
+                    array_push($grupo5, $g);
+                    break;
+                case 6:
+                    array_push($grupo6, $g);
+                    break;
+                case 7:
+                    array_push($grupo7, $g);
+                    break;
+                case 8:
+                    array_push($grupo8, $g);
+                    break;
+                case 9:
+                    array_push($grupo9, $g);
+                    break;
+                case 10:
+                    array_push($grupo10, $g);
+                    break;
+            }
+            
+        }
+
+        // creamos el array para que recorramos mas facil
+
+        $mayorEspecial = 0;
+        $array_grupoEspeciales  = array();
+        if(!empty($grupo1)){
+
+            if(count($grupo1) > $mayorEspecial){
+                $mayorEspecial  = count($grupo1);
+            }
+
+            array_push($array_grupoEspeciales, $grupo1);
+        }
+        if(!empty($grupo2)){
+            array_push($array_grupoEspeciales, $grupo2);
+
+            if(count($grupo2) > $mayorEspecial){
+                $mayorEspecial  = count($grupo2);
+            }
+        }
+        if(!empty($grupo3)){
+            array_push($array_grupoEspeciales, $grupo3);
+
+            if(count($grupo3) > $mayorEspecial){
+                $mayorEspecial  = count($grupo3);
+            }
+        }
+        if(!empty($grupo4)){
+            array_push($array_grupoEspeciales, $grupo4);
+
+            if(count($grupo4) > $mayorEspecial){
+                $mayorEspecial  = count($grupo4);
+            }
+        }
+        if(!empty($grupo5)){
+            array_push($array_grupoEspeciales, $grupo5);
+
+            if(count($grupo5) > $mayorEspecial){
+                $mayorEspecial  = count($grupo5);
+            }
+        }
+        if(!empty($grupo6)){
+            array_push($array_grupoEspeciales, $grupo6);
+
+            if(count($grupo6) > $mayorEspecial){
+                $mayorEspecial  = count($grupo6);
+            }
+        }
+        if(!empty($grupo7)){
+            array_push($array_grupoEspeciales, $grupo7);
+
+            if(count($grupo7) > $mayorEspecial){
+                $mayorEspecial  = count($grupo7);
+            }
+        }
+        if(!empty($grupo8)){
+            array_push($array_grupoEspeciales, $grupo8);
+
+            if(count($grupo8) > $mayorEspecial){
+                $mayorEspecial  = count($grupo8);
+            }
+        }
+        if(!empty($grupo9)){
+            array_push($array_grupoEspeciales, $grupo9);
+
+            if(count($grupo9) > $mayorEspecial){
+                $mayorEspecial  = count($grupo9);
+            }
+        }
+        if(!empty($grupo10)){
+            array_push($array_grupoEspeciales, $grupo10);
+
+            if(count($grupo10) > $mayorEspecial){
+                $mayorEspecial  = count($grupo10);
+            }
+        }
+
+        // AHORA PARA LOS ABSOLUTOS
+        $absolutos = Juez::getGanadores($evento_id, [2,11], 'mejor_cachorro', $pista);
+        $grupo1  = array();
+        $grupo2  = array();
+        $grupo3  = array();
+        $grupo4  = array();
+        $grupo5  = array();
+        $grupo6  = array();
+        $grupo7  = array();
+        $grupo8  = array();
+        $grupo9  = array();
+        $grupo10 = array();
+
+        // vamos separando en arrary difrerentes
+        foreach ( $absolutos as $g ){
+
+            switch ($g->grupo_id) {
+                case 1:
+                    array_push($grupo1, $g);
+                    break;
+                case 2:
+                    array_push($grupo2, $g);
+                    break;
+                case 3:
+                    array_push($grupo3, $g);
+                    break;
+                case 4:
+                    array_push($grupo4, $g);
+                    break;
+                case 5:
+                    array_push($grupo5, $g);
+                    break;
+                case 6:
+                    array_push($grupo6, $g);
+                    break;
+                case 7:
+                    array_push($grupo7, $g);
+                    break;
+                case 8:
+                    array_push($grupo8, $g);
+                    break;
+                case 9:
+                    array_push($grupo9, $g);
+                    break;
+                case 10:
+                    array_push($grupo10, $g);
+                    break;
+            }
+            
+        }
+
+        // creamos el array para que recorramos mas facil
+
+        $mayorAbsoluto = 0;
+        $array_grupoAbsoluto  = array();
+        if(!empty($grupo1)){
+
+            if(count($grupo1) > $mayorAbsoluto){
+                $mayorAbsoluto  = count($grupo1);
+            }
+
+            array_push($array_grupoAbsoluto, $grupo1);
+        }
+        if(!empty($grupo2)){
+            array_push($array_grupoAbsoluto, $grupo2);
+
+            if(count($grupo2) > $mayorAbsoluto){
+                $mayorAbsoluto  = count($grupo2);
+            }
+        }
+        if(!empty($grupo3)){
+            array_push($array_grupoAbsoluto, $grupo3);
+
+            if(count($grupo3) > $mayorAbsoluto){
+                $mayorAbsoluto  = count($grupo3);
+            }
+        }
+        if(!empty($grupo4)){
+            array_push($array_grupoAbsoluto, $grupo4);
+
+            if(count($grupo4) > $mayorAbsoluto){
+                $mayorAbsoluto  = count($grupo4);
+            }
+        }
+        if(!empty($grupo5)){
+            array_push($array_grupoAbsoluto, $grupo5);
+
+            if(count($grupo5) > $mayorAbsoluto){
+                $mayorAbsoluto  = count($grupo5);
+            }
+        }
+        if(!empty($grupo6)){
+            array_push($array_grupoAbsoluto, $grupo6);
+
+            if(count($grupo6) > $mayorAbsoluto){
+                $mayorAbsoluto  = count($grupo6);
+            }
+        }
+        if(!empty($grupo7)){
+            array_push($array_grupoAbsoluto, $grupo7);
+
+            if(count($grupo7) > $mayorAbsoluto){
+                $mayorAbsoluto  = count($grupo7);
+            }
+        }
+        if(!empty($grupo8)){
+            array_push($array_grupoAbsoluto, $grupo8);
+
+            if(count($grupo8) > $mayorAbsoluto){
+                $mayorAbsoluto  = count($grupo8);
+            }
+        }
+        if(!empty($grupo9)){
+            array_push($array_grupoAbsoluto, $grupo9);
+
+            if(count($grupo9) > $mayorAbsoluto){
+                $mayorAbsoluto  = count($grupo9);
+            }
+        }
+        if(!empty($grupo10)){
+            array_push($array_grupoAbsoluto, $grupo10);
+
+            if(count($grupo10) > $mayorAbsoluto){
+                $mayorAbsoluto  = count($grupo10);
+            }
+        }
+
+        // AHORA PARA LOS JOVENES
+        $jovenes = Juez::getGanadores($evento_id, [3,4,12,13], 'mejor_joven', $pista);
+        $grupo1  = array();
+        $grupo2  = array();
+        $grupo3  = array();
+        $grupo4  = array();
+        $grupo5  = array();
+        $grupo6  = array();
+        $grupo7  = array();
+        $grupo8  = array();
+        $grupo9  = array();
+        $grupo10 = array();
+
+        // vamos separando en arrary difrerentes
+        foreach ( $jovenes as $g ){
+
+            switch ($g->grupo_id) {
+                case 1:
+                    array_push($grupo1, $g);
+                    break;
+                case 2:
+                    array_push($grupo2, $g);
+                    break;
+                case 3:
+                    array_push($grupo3, $g);
+                    break;
+                case 4:
+                    array_push($grupo4, $g);
+                    break;
+                case 5:
+                    array_push($grupo5, $g);
+                    break;
+                case 6:
+                    array_push($grupo6, $g);
+                    break;
+                case 7:
+                    array_push($grupo7, $g);
+                    break;
+                case 8:
+                    array_push($grupo8, $g);
+                    break;
+                case 9:
+                    array_push($grupo9, $g);
+                    break;
+                case 10:
+                    array_push($grupo10, $g);
+                    break;
+            }
+            
+        }
+
+        // creamos el array para que recorramos mas facil
+
+        $mayorJovenes = 0;
+        $array_grupoJovenes  = array();
+        if(!empty($grupo1)){
+
+            if(count($grupo1) > $mayorJovenes){
+                $mayorJovenes  = count($grupo1);
+            }
+
+            array_push($array_grupoJovenes, $grupo1);
+        }
+        if(!empty($grupo2)){
+            array_push($array_grupoJovenes, $grupo2);
+
+            if(count($grupo2) > $mayorJovenes){
+                $mayorJovenes  = count($grupo2);
+            }
+        }
+        if(!empty($grupo3)){
+            array_push($array_grupoJovenes, $grupo3);
+
+            if(count($grupo3) > $mayorJovenes){
+                $mayorJovenes  = count($grupo3);
+            }
+        }
+        if(!empty($grupo4)){
+            array_push($array_grupoJovenes, $grupo4);
+
+            if(count($grupo4) > $mayorJovenes){
+                $mayorJovenes  = count($grupo4);
+            }
+        }
+        if(!empty($grupo5)){
+            array_push($array_grupoJovenes, $grupo5);
+
+            if(count($grupo5) > $mayorJovenes){
+                $mayorJovenes  = count($grupo5);
+            }
+        }
+        if(!empty($grupo6)){
+            array_push($array_grupoJovenes, $grupo6);
+
+            if(count($grupo6) > $mayorJovenes){
+                $mayorJovenes  = count($grupo6);
+            }
+        }
+        if(!empty($grupo7)){
+            array_push($array_grupoJovenes, $grupo7);
+
+            if(count($grupo7) > $mayorJovenes){
+                $mayorJovenes  = count($grupo7);
+            }
+        }
+        if(!empty($grupo8)){
+            array_push($array_grupoJovenes, $grupo8);
+
+            if(count($grupo8) > $mayorJovenes){
+                $mayorJovenes  = count($grupo8);
+            }
+        }
+        if(!empty($grupo9)){
+            array_push($array_grupoJovenes, $grupo9);
+
+            if(count($grupo9) > $mayorJovenes){
+                $mayorJovenes  = count($grupo9);
+            }
+        }
+        if(!empty($grupo10)){
+            array_push($array_grupoJovenes, $grupo10);
+
+            if(count($grupo10) > $mayorJovenes){
+                $mayorJovenes  = count($grupo10);
+            }
+        }
+
+        // AHORA PARA LOS ADULTOS
+        $adultos = Juez::getGanadores($evento_id, [5,6,7,8,9,10,14,15], 'mejor_raza', $pista);
+        $grupo1  = array();
+        $grupo2  = array();
+        $grupo3  = array();
+        $grupo4  = array();
+        $grupo5  = array();
+        $grupo6  = array();
+        $grupo7  = array();
+        $grupo8  = array();
+        $grupo9  = array();
+        $grupo10 = array();
+
+        // vamos separando en arrary difrerentes
+        foreach ( $adultos as $g ){
+
+            switch ($g->grupo_id) {
+                case 1:
+                    array_push($grupo1, $g);
+                    break;
+                case 2:
+                    array_push($grupo2, $g);
+                    break;
+                case 3:
+                    array_push($grupo3, $g);
+                    break;
+                case 4:
+                    array_push($grupo4, $g);
+                    break;
+                case 5:
+                    array_push($grupo5, $g);
+                    break;
+                case 6:
+                    array_push($grupo6, $g);
+                    break;
+                case 7:
+                    array_push($grupo7, $g);
+                    break;
+                case 8:
+                    array_push($grupo8, $g);
+                    break;
+                case 9:
+                    array_push($grupo9, $g);
+                    break;
+                case 10:
+                    array_push($grupo10, $g);
+                    break;
+            }
+            
+        }
+
+        // creamos el array para que recorramos mas facil
+
+        $mayorAdultos = 0;
+        $array_grupoAdultos  = array();
+        if(!empty($grupo1)){
+
+            if(count($grupo1) > $mayorAdultos){
+                $mayorAdultos  = count($grupo1);
+            }
+
+            array_push($array_grupoAdultos, $grupo1);
+        }
+        if(!empty($grupo2)){
+            array_push($array_grupoAdultos, $grupo2);
+
+            if(count($grupo2) > $mayorAdultos){
+                $mayorAdultos  = count($grupo2);
+            }
+        }
+        if(!empty($grupo3)){
+            array_push($array_grupoAdultos, $grupo3);
+
+            if(count($grupo3) > $mayorAdultos){
+                $mayorAdultos  = count($grupo3);
+            }
+        }
+        if(!empty($grupo4)){
+            array_push($array_grupoAdultos, $grupo4);
+
+            if(count($grupo4) > $mayorAdultos){
+                $mayorAdultos  = count($grupo4);
+            }
+        }
+        if(!empty($grupo5)){
+            array_push($array_grupoAdultos, $grupo5);
+
+            if(count($grupo5) > $mayorAdultos){
+                $mayorAdultos  = count($grupo5);
+            }
+        }
+        if(!empty($grupo6)){
+            array_push($array_grupoAdultos, $grupo6);
+
+            if(count($grupo6) > $mayorAdultos){
+                $mayorAdultos  = count($grupo6);
+            }
+        }
+        if(!empty($grupo7)){
+            array_push($array_grupoAdultos, $grupo7);
+
+            if(count($grupo7) > $mayorAdultos){
+                $mayorAdultos  = count($grupo7);
+            }
+        }
+        if(!empty($grupo8)){
+            array_push($array_grupoAdultos, $grupo8);
+
+            if(count($grupo8) > $mayorAdultos){
+                $mayorAdultos  = count($grupo8);
+            }
+        }
+        if(!empty($grupo9)){
+            array_push($array_grupoAdultos, $grupo9);
+
+            if(count($grupo9) > $mayorAdultos){
+                $mayorAdultos  = count($grupo9);
+            }
+        }
+        if(!empty($grupo10)){
+            array_push($array_grupoAdultos, $grupo10);
+
+            if(count($grupo10) > $mayorAdultos){
+                $mayorAdultos  = count($grupo10);
+            }
+        }
+
+        return view('evento.ranking')->with(compact('evento', 'razas', 'ejemplares', 'primeroEspecial', 'arrarEspeciales', 'arrarAbsoluto', 'arrarJoven', 'arrarAdulto', 'array_grupoEspeciales', 'mayorEspecial', 'array_grupoAbsoluto', 'mayorAbsoluto', 'array_grupoJovenes', 'mayorJovenes', 'array_grupoAdultos', 'mayorAdultos'));
 
     }
 

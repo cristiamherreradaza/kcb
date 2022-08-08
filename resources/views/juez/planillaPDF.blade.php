@@ -24,6 +24,7 @@
     .juez{
         position: absolute;
         font-size:11px;
+        {{--  margin-top: 2px;  --}}
     }
 
     .fecha{
@@ -34,6 +35,24 @@
 
     #header{
         text-align: center;
+    }
+    .headerCabezera{
+        margin-left: 50px;
+        margin-top:-30px;
+    }
+    .nombreKennel{
+        margin-top: -10px;
+        font-weight: bold;
+    }
+    .imgLogo{
+        position: relative;
+        margin-top: -40px;
+    }
+    .imgLogoFci{
+        position: absolute;
+        float: right;
+        margin-right: -450px;
+        margin-top: -35px;
     }
 
     .table{
@@ -394,13 +413,13 @@
         position: absolute;
         margin-top: 570px;
         font-size: 12px;
-        width: 715px;
+        width: 725px;
     }
 
     /* FIRMAS DIGITALES */
     .bloque_firmas{
         position: absolute;
-        margin-top: 570px;
+        margin-top: 600px;
         margin-left: 750px;
         text-align: center;
         font-size: 12px;
@@ -413,6 +432,7 @@
         position: absolute;
         margin-top: -50px;
         width: 180px;
+        margin-left: 350px;
     }
     .firma_figital_secretario{
         position: absolute;
@@ -472,6 +492,58 @@
         writing-mode: vertical-lr;
         transform: rotate(-90deg);
     }
+    .mejorCachorro{
+        width: 118px;
+        height: 90px;
+        position: absolute;
+    }
+    .mejorJoven{
+        width: 235px;
+        height: 90px;
+        margin-left: 132px;
+        position: absolute;
+    }
+    .mejorTitulo{
+        font-size:9px;
+        text-align: center;
+        font-weight: bold;
+        padding: 1px;
+    }
+    .mejorTituloJoven{
+        font-size:9px;
+        {{--  text-align: center;  --}}
+        text-align: right;
+        font-weight: bold;
+        padding: 1px;
+    }
+    .textoTituloMejor{
+        text-align: center;
+        font-size:8px;
+        position: absolute;
+    }
+    .textoTituloMejorJoven{
+        width: 100%;
+        text-align: center;
+        font-size:16px;
+        position: absolute;
+        {{--  border: 1px solid ;  --}}
+    }
+    .textMejoNumero{
+        width:40px;
+        height: 20px;
+        position: absolute;
+    }
+    .textMejoNumeroJoven{
+        width:40px;
+        height: 20px;
+        position: absolute;
+    }
+    .mejorRaza{
+        width: 355px;
+        height: 90px;
+        margin-left: 368px;
+        position: absolute;
+    }
 </style>
 <body>
 
@@ -480,10 +552,27 @@
             $ejempleresRazas = $aet['ejemplares'];
         @endphp
         @foreach ( $ejempleresRazas as $er)
-
+        
+        {{--  <div class="headerCabezera">
+            Kennel Club Boliviano
+        </div>  --}}
             <div class="planilla">
+                
+                <div class="imgLogo">
+                    <img src="{{ url('img/logo.png') }}" width="4%" alt="">
+                </div>
+
+                <div class="headerCabezera">
+                    Kennel Club Boliviano
+                </div>
+
                 <div id="header">   
                     PLANILLA DE RAZA
+                </div>
+
+                <div class="imgLogoFci">
+                    <img src="{{ url('img/logo.gif') }}" width="6%" alt="">
+                    <img src="{{ url('img/fci.jpg') }}" width="6%" alt="">
                 </div>
 
                 <p class="juez">
@@ -1787,8 +1876,99 @@
                     </div>
                 </div>
 
-                <div class="mejorRazaCJA bordes">
-                    <table width="100%">
+                <div class="mejorRazaCJA">
+                    <div class="mejorCachorro bordes">
+                        <div class="mejorTitulo">
+                            CACHORRO ABSOLUTO
+                        </div>
+                        <br>
+                        <table width="90%" style="float: right;">
+                            <thead>
+                                <tr>
+                                    @php
+                                        $mejor = App\Juez::mejorCategoria($evento_id, $pista, $er->raza_id, 'mejor_cachorro');
+                                    @endphp
+                                    <th class="bordes textMejoNumero">{{ ($mejor)? $mejor->numero_prefijo : '' }}</th>
+                                    <th class="textoTituloMejor">Mejor <br> Cachorro</th>
+                                </tr>
+                            </thead>
+                        </table>
+                        <br>
+                        <br>
+                        <table width="90%" style="float: right;">
+                            <thead>
+                                <tr>
+                                    @php
+                                        $sexoOpuesto = App\Juez::mejorCategoria($evento_id, $pista, $er->raza_id, 'sexo_opuesto_cachorro');
+                                    @endphp
+                                    <th class="bordes textMejoNumero">{{ ($sexoOpuesto)? $sexoOpuesto->numero_prefijo : '' }}</th>
+                                    <th class="textoTituloMejor">Sexo <br> Opuesto</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+
+                    <div class="mejorJoven bordes">
+                        <div class="mejorTituloJoven">
+                            JOVENES
+                        </div>
+                        <br>
+                        <table width="90%" style="float: right;">
+                            <thead>
+                                <tr>
+                                    @php
+                                        $mejor = App\Juez::mejorCategoria($evento_id, $pista, $er->raza_id, 'mejor_joven');
+                                    @endphp
+                                    <th class="bordes textMejoNumeroJoven">{{ ($mejor)? $mejor->numero_prefijo : '' }}</th>
+                                    <th class="textoTituloMejorJoven">MEJOR JOVEN</th>
+                                </tr>
+                            </thead>
+                        </table>
+                        <br>
+                        <br>
+                        <table width="90%" style="float: right;">
+                            <thead>
+                                <tr>
+                                    @php
+                                        $sexoOpuesto = App\Juez::mejorCategoria($evento_id, $pista, $er->raza_id, 'sexo_opuesto_joven');
+                                    @endphp
+                                    <th class="bordes textMejoNumeroJoven">{{ ($sexoOpuesto)? $sexoOpuesto->numero_prefijo : '' }}</th>
+                                    <th class="textoTituloMejorJoven">SEXO OPUESTO</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+
+                    <div class="mejorRaza bordes">
+                        <br>
+                        <br>
+                        <table width="90%" style="float: right;">
+                            <thead>
+                                <tr>
+                                    @php
+                                        $mejor = App\Juez::mejorCategoria($evento_id, $pista, $er->raza_id, 'mejor_raza');
+                                    @endphp
+                                    <th class="bordes textMejoNumeroJoven">{{ ($mejor)? $mejor->numero_prefijo : '' }}</th>
+                                    <th class="textoTituloMejorJoven">MEJOR DE LA RAZA</th>
+                                </tr>
+                            </thead>
+                        </table>
+                        <br>
+                        <br>
+                        <table width="90%" style="float: right;">
+                            <thead>
+                                <tr>
+                                    @php
+                                        $sexoOpuesto = App\Juez::mejorCategoria($evento_id, $pista, $er->raza_id, 'sexo_opuesto_raza');
+                                    @endphp
+                                    <th class="bordes textMejoNumeroJoven">{{ ($sexoOpuesto)? $sexoOpuesto->numero_prefijo : '' }}</th>
+                                    <th class="textoTituloMejorJoven">SEXO OPUESTO</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+
+                    {{--  <table width="100%">
                         <tbody>
                             <tr>
                                 <td class="mejoresVencedoresLetras">MEJOR CACHORRO</td>
@@ -1825,8 +2005,9 @@
                                 <td class="bordes celdasMejores">{{ ($sexoOpuesto)? $sexoOpuesto->numero_prefijo : '' }}</td>
                             </tr>
                         </tbody>
-                    </table>
+                    </table>  --}}
                 </div>
+                
                 
                 <div class="bloque_firmas">
                     <div class="firma_figital">
@@ -1885,7 +2066,6 @@
                 </div>
             </div>
         @endforeach
-        @break
     @endforeach
 </body>
 </html>
