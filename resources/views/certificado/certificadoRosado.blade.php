@@ -857,8 +857,6 @@
                 <div class="afijo"> <span class="afijos">{{ ($ejemplar->criadero)? $ejemplar->criadero->nombre." FCI: ".$ejemplar->criadero->registro_fci : '' }}</span></div>
                 @php
                     $propietarioCriadero  = App\PropietarioCriadero::where('criadero_id', $ejemplar->criadero->id)->first();
-
-                    // dd($propietarioCriadero);
                 @endphp
                 <div class="criador"><span class="criadors">{{ ($propietarioCriadero)? (($propietarioCriadero->propietario)? $propietarioCriadero->propietario->name : '') : '' }}</span></div>
                 {{-- <div class="criador"><span class="criadors">{{ ($propietarioCriadero->propietario)? $propietarioCriadero->propietario->name : '' }}</span></div> --}}

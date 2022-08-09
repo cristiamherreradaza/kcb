@@ -177,10 +177,7 @@ class CriaderoController extends Controller
 
 
             
-        $datosCriaderos = $criaderos 
-                    //         ->toSql();
-                    //    dd($datosCriaderos);     
-                            ->get();
+        $datosCriaderos = $criaderos->get();
 
         return view('criaderos.ajaxListadoCriadero')->with(compact('datosCriaderos'));
     }
