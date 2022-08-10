@@ -122,6 +122,7 @@ Route::post('Evento/jucesEvento', 'EventoController@jucesEvento');
 Route::post('Evento/listadoEjemplaresCalificados', 'EventoController@listadoEjemplaresCalificados');
 Route::post('Evento/calificacionesEjemplar', 'EventoController@calificacionesEjemplar');
 Route::post('Evento/modificaCalificacionFinal', 'EventoController@modificaCalificacionFinal');
+Route::post('Evento/editaCalificacion', 'EventoController@editaCalificacion');
 
 
 // PISTAS

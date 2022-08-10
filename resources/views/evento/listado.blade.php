@@ -1164,9 +1164,10 @@
 
 					if(data.status == 'success'){
 
+						$('#ejemplar_evento_id_edita_calificacion').val(ejemplar_evento_id);
+
 						$('#calificacionEjemplar').html(data.calificaciones);
 
-						// $('#listadoEjemplares').html(data.listado);
 					}
 
 				}
@@ -1254,6 +1255,47 @@
                     )
                 }
             });
+		}
+
+		function editaCalificacion(){
+
+			Swal.fire({
+                title: "Esta seguro de modificar la calificacion?",
+                text: "Ya no podras recuperarlo!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Si, estoy seguro!",
+                cancelButtonText: "No!",
+                reverseButtons: true
+            }).then(function(result) {
+                if (result.value) {
+
+					var datos = $('#formularioEditaCalificacionEjemplar').serializeArray();
+
+					$.ajax({
+						url: "{{ url('Evento/editaCalificacion') }}",
+						data: datos,
+						dataType: 'json',
+						type: 'POST',
+						success: function(data) {
+
+							if(data.status == 'success'){
+
+							}
+
+						}
+					});
+
+                } else if (result.dismiss === "cancel") {
+
+                    Swal.fire(
+                        "Cancelado",
+                        "La operacion fue cancelada",
+                        "error"
+                    )
+                }
+            });
+
 		}
 
     </script>

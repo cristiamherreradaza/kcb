@@ -530,7 +530,7 @@ class JuezController extends Controller
                 }else{
 
                     // MODIFICAMOS LOS DATOS SI ES QUE YA ESTAN CALIFICADOS
-                    $calificacion = Juez::getCalificacion(intval($e), $num_pista, $numero_prefijos[$key]);
+                    $calificacion = Juez::getCalificacion(intval($e), $num_pista, $numero_prefijos[$key], $evento_id);
 
                     $calificacion->calificacion = $calificaciones[$key];
                     $calificacion->lugar        = $lugares[$key];

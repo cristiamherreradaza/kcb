@@ -543,11 +543,12 @@ class Juez extends Model
     /**
      * esta funcion saca la calificaion del ejemplar ya calificado
      */
-    public static function getCalificacion($ejemplar_evento_id, $pista, $numero_prefijo){
+    public static function getCalificacion($ejemplar_evento_id, $pista, $numero_prefijo, $evento_id){
 
         $calificacion = Calificacion::where('ejemplares_eventos_id', $ejemplar_evento_id)
                                     ->where('numero_prefijo', $numero_prefijo)
                                     ->where('pista', $pista)
+                                    ->where('evento_id', $evento_id)
                                     ->first();
 
         return $calificacion;

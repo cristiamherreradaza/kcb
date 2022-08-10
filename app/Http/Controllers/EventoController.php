@@ -1943,8 +1943,6 @@ class EventoController extends Controller
 
             $asignacion_id = $request->input('asiganacion');
 
-            // dd($asignacion_id);
-
             $asignacion = Asignacion::find($asignacion_id);
 
             if($asignacion){
@@ -1964,8 +1962,6 @@ class EventoController extends Controller
                 $num_pista = 0;
             }
 
-            // dd($ejemplaresEventos, $asignacion, $num_pista);
-            
             $data['status'] = 'success';
 
             $data['listado'] = view('evento.ajaxListadoEjemplaresEventos', compact('ejemplaresEventos', 'asignacion', 'num_pista'))->render();
@@ -2000,7 +1996,7 @@ class EventoController extends Controller
 
             $data['status'] = 'success';
 
-            $data['calificaciones'] = view('evento.ajaxCalificacionEjemplar', compact('calificacion', 'ejemplar_evento', 'ganador'))->render();
+            $data['calificaciones'] = view('evento.ajaxCalificacionEjemplar', compact('calificacion', 'ejemplar_evento', 'ganador', 'pista'))->render();
 
             return json_encode($data);
 
@@ -2106,6 +2102,99 @@ class EventoController extends Controller
 
             }
 
+
+
+        }
+
+    }
+
+    public function editaCalificacion(Request $request){
+
+        if($request->ajax()){
+
+            dd($request->all());
+
+            $ejemplar_evento_id = $request->input('ejemplar_evento_id_edita_calificacion');
+            $num_pista = $request->input('pista_edita_calificacion');
+            $ejemplar_evento = EjemplarEvento::find($ejemplar_evento_id);
+
+            // PRIMERO PARA LA CALIFICACION
+            if($request->filled('calificacion_ejemplar')){
+
+                $calificacionEjemplar = $request->input('calificacion_ejemplar');
+                $lugarEjemplar        = $request->input('lugar_ejemplar');
+
+                $calificacion  = Juez::getCalificacion($ejemplar_evento_id, $num_pista, $ejemplar_evento->numero_prefijo, $ejemplar_evento->evento_id);
+
+                if($calificacion){
+
+                    // esto ahcemos en el caso que exista
+                    $calificacion->calificacion      = $calificacionEjemplar;
+                    $calificacion->lugar             = $lugarEjemplar;
+
+                    $calificacion->save();
+
+                }else{
+                    // en el caso que no exista creamos la calificaionc
+
+                    $calificacion = new Calificacion();
+
+                    $calificacion->creador_id               = Auth::user()->id;
+                    $calificacion->ejemplares_eventos_id    = $ejemplar_evento_id;
+                    $calificacion->evento_id                = $ejemplar_evento->evento_id;
+                    $calificacion->ejemplar_id              = $ejemplar_evento->ejemplar_id;
+                    $calificacion->raza_id                  = $ejemplar_evento->raza_id;
+                    $calificacion->categoria_id             = $ejemplar_evento->categoria_pista_id;
+                    $calificacion->grupo_id                 = (Juez::getGrupo($ejemplar_evento->raza_id))->grupo_id;
+                    $calificacion->sexo                     = $ejemplar_evento->sexo;
+                    $calificacion->numero_prefijo           = $ejemplar_evento->numero_prefijo;
+                    $calificacion->calificacion             = $calificacionEjemplar;
+                    $calificacion->lugar                    = $lugarEjemplar;
+                    $calificacion->pista                    = $num_pista;
+
+                    $calificacion->save();
+                }
+
+                // AHORA PARA LA TABLA GANADORES
+                $ganador = Juez::getGanador($calificacion->id);
+
+                if(!$ganador){
+                    if($calificacionEjemplar == "Excelente" && $lugarEjemplar == 1){
+
+                        $ganadorNew = new Ganador();
+
+                        $ganadorNew->creador_id                 = Auth::user()->id; 
+                        $ganadorNew->calificacion_id            = $calificacion->id; 
+                        $ganadorNew->ejemplar_id                = $ejemplar_evento->ejemplar_id; 
+                        $ganadorNew->evento_id                  = $ejemplar_evento->evento_id; 
+                        $ganadorNew->ejemplar_evento_id         = $ejemplar_evento_id; 
+                        $ganadorNew->categoria_id               = $ejemplar_evento->categoria_pista_id; 
+                        $ganadorNew->raza_id                    = $ejemplar_evento->raza_id; 
+                        $ganadorNew->grupo_id                   = (Juez::getGrupo($ejemplar_evento->raza_id))->grupo_id; 
+                        $ganadorNew->sexo                       = $ejemplar_evento->sexo; 
+                        $ganadorNew->numero_prefijo             = $ejemplar_evento->numero_prefijo; 
+                        $ganadorNew->calificacion               = $calificacionEjemplar; 
+                        $ganadorNew->lugar                      = $lugarEjemplar; 
+
+                        if($request->filled('mejor_categoria_hembra_macho')){
+                            $ganadorNew->mejor_escogido         = "Si"; 
+                        }else{
+                            $ganadorNew->mejor_escogido         = null;
+                        }
+
+
+
+
+
+                    }
+                }
+
+
+
+
+            }else{
+                dd("No");
+            }
 
 
         }
