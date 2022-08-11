@@ -1110,8 +1110,6 @@
 
 					if(data.status == 'success'){
 
-						console.log(data)
-
 						if(data.status == 'success'){
 							$('#select_juces').html(data.select);
 

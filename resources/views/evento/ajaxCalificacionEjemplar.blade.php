@@ -9,8 +9,11 @@
                 <th>Numero</th>
                 <th>Calificacion</th>
                 <th>Lugar</th>
+                @if ($ejemplar_evento->categoria_pista_id == 5 || $ejemplar_evento->categoria_pista_id == 6 || $ejemplar_evento->categoria_pista_id == 7 || $ejemplar_evento->categoria_pista_id == 8)
+                    <th>Puntos</th>
+                @endif
                 @if($ganador)
-                <th>certificado</th>
+                    <th>certificado</th>
                 @endif
             </tr>
         </thead>
@@ -42,6 +45,34 @@
                         <option {{ ($calificacion)? (($calificacion->lugar == 5)? 'selected' : '') : '' }} value="5">Quinto</option>
                     </select>
                 </td>
+                @if ($ejemplar_evento->categoria_pista_id == 5 || $ejemplar_evento->categoria_pista_id == 6 || $ejemplar_evento->categoria_pista_id == 7 || $ejemplar_evento->categoria_pista_id == 8)
+                    <td>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <select name="" id="" class="form-control">
+                                    <option value="">Seleccione</option>
+                                    <option {{ ($ganador)? (($ganador->puntos == '1')? 'selected' : '') : '' }} value="1">1</option>
+                                    <option {{ ($ganador)? (($ganador->puntos == '2')? 'selected' : '') : '' }} value="2">2</option>
+                                    <option {{ ($ganador)? (($ganador->puntos == '3')? 'selected' : '') : '' }} value="3">3</option>
+                                    <option {{ ($ganador)? (($ganador->puntos == '4')? 'selected' : '') : '' }} value="4">4</option>
+                                    <option {{ ($ganador)? (($ganador->puntos == '5')? 'selected' : '') : '' }} value="5">5</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <p></p>
+                                <div class="form-group">
+                                    <div class="checkbox-inline">
+                                        <label class="checkbox checkbox-lg">
+                                            <input type="checkbox" checked="checked" name="Checkboxes3_1"/>
+                                            <span></span>
+                                            CACB
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                @endif
                 @if ($ganador)
                     <td>
                         @php
@@ -52,7 +83,9 @@
                             elseif($ganador->categoria_id == 12 || $ganador->categoria_id == 13)
                                 echo "<h3 class='text-info'>CJCGB</h3>";
                             elseif($ganador->categoria_id == 5 || $ganador->categoria_id == 6 || $ganador->categoria_id == 7 || $ganador->categoria_id == 8)
-                                echo "<h3 class='text-info'>CACB</h3>";
+                                if($ganador->estado == 1){
+                                    echo "<h3 class='text-info'>CACB</h3>";
+                                }
                             elseif($ganador->categoria_id == 9 || $ganador->categoria_id == 10)
                                 echo "<h3 class='text-info'>CGCB</h3>";
                             elseif($ganador->categoria_id == 9 || $ganador->categoria_id == 10)
@@ -175,21 +208,6 @@
                 <option {{ ($calificacion && $ganador)? (($ganador->mejor_escogido == "Si")? (($ganador->sexo_opuesto_raza == "Si")? 'selected' : '') : '') : '' }} value="sexoopuesto_raza">Sexo opuesto</option>
             </select>
         </div>
-
-
-        {{-- @if($calificacion && $ganador)
-            @if($ganador->mejor_escogido == "Si")
-                @if($ganador->categoria_id == 2 || $ganador->categoria_id == 11)
-                    <div class="col-md-12">
-                        <h4 class="text-primary text-center">Calificacion de cachorro</h4>
-                        <select name="cachorro_2" id="cachorro_2" class="form-control">
-                            <option {{ ($ganador->mejor_cachorro == "Si")? 'selected' : '' }} value="mejor_cachorro">Mejor Cachorro</option>
-                            <option {{ ($ganador->sexo_opuesto_cachorro == "Si")? 'selected' : '' }} value="sexoopuesto_cachorro">Sexo Opuesto</option>
-                        </select>
-                    </div>
-                @endif
-            @endif
-        @endif --}}
     </div>
 </form>
 

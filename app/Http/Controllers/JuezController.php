@@ -748,6 +748,8 @@ class JuezController extends Controller
             // PREGUNTAMOS POR EL GANADOR
             $ganador = Juez::getGanadoEventoSecretario($evento_id, Auth::user()->id, $categorias[0]['categoria_id'], $raza_id, $num_pista);
 
+            // dd($ganador);
+
             $sw = true;
             if($ganador){
                 if($ganador->mejor_escogido == "Si"){

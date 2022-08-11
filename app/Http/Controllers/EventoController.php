@@ -2004,11 +2004,89 @@ class EventoController extends Controller
 
     }
 
+    private function modificaMejoresRaza($ganador_id, $valor){
+        
+        $valorCombo = explode("_", $valor);
+
+        $ganador = Ganador::find($ganador_id);
+
+        if($valorCombo[0] == 'mejor'){
+
+            if($valorCombo[1] == 'raza'){
+
+                if($ganador->sexo_opuesto_raza == "Si")
+                    $tipoBusqueda = "mejor_raza";
+                else
+                    $tipoBusqueda = "sexo_opuesto_raza";
+                
+
+                $sexoOpuesto =  Juez::mejorCategoria($ganador->evento_id, $ganador->pista, $ganador->raza_id, $tipoBusqueda);
+
+                $sexoOpuesto->sexo_opuesto_raza = "Si";
+                $sexoOpuesto->mejor_raza = null;
+
+                $sexoOpuesto->save();
+
+
+                $ganador->mejor_raza = "Si";
+                $ganador->sexo_opuesto_raza = null;
+
+                $ganador->save();
+
+            }elseif($valorCombo[1] == 'joven'){
+
+                if($ganador->sexo_opuesto_joven == "Si")
+                    $tipoBusqueda = "mejor_joven";
+                else
+                    $tipoBusqueda = "sexo_opuesto_joven";
+
+
+                $sexoOpuesto =  Juez::mejorCategoria($ganador->evento_id, $ganador->pista, $ganador->raza_id, $tipoBusqueda);
+
+                $sexoOpuesto->sexo_opuesto_joven = "Si";
+                $sexoOpuesto->mejor_joven = null;
+
+                $sexoOpuesto->save();
+
+
+                $ganador->mejor_joven = "Si";
+                $ganador->sexo_opuesto_joven = null;
+
+                $ganador->save();
+
+            }elseif($valorCombo[1] == 'cachorro'){
+
+                if($ganador->sexo_opuesto_cachorro == "Si")
+                    $tipoBusqueda = "mejor_cachorro";
+                else
+                    $tipoBusqueda = "sexo_opuesto_cachorro";
+
+
+                $sexoOpuesto =  Juez::mejorCategoria($ganador->evento_id, $ganador->pista, $ganador->raza_id, $tipoBusqueda);
+
+                $sexoOpuesto->sexo_opuesto_cachorro = "Si";
+                $sexoOpuesto->mejor_cachorro = null;
+
+                $sexoOpuesto->save();
+
+
+                $ganador->mejor_cachorro = "Si";
+                $ganador->sexo_opuesto_cachorro = null;
+
+                $ganador->save();
+
+            }
+            
+
+        }else{
+
+        }
+
+    }
+
     public function modificaCalificacionFinal(Request $request){
 
         if($request->ajax()){
-
-            // dd($request->all());
 
             $ganador_id = $request->input('ganador');
             $tipo       = $request->input('tipo');
@@ -2016,19 +2094,7 @@ class EventoController extends Controller
 
             $valorCombo = explode("_", $valor);
 
-            // dd($valorCombo);
-
             $ganador = Ganador::find($ganador_id);
-
-            $sexoGanador = $ganador->sexo;
-            $arrayCategoriasMacho = [];
-            $arrayCategoriasHembra = [];
-
-            if($sexoGanador == "Macho")
-                $sexoCambio = 'Hembra';
-            else
-                $sexoCambio = 'Macho';
-
 
             if($valorCombo[0] == 'mejor'){
 
@@ -2112,7 +2178,7 @@ class EventoController extends Controller
 
         if($request->ajax()){
 
-            dd($request->all());
+            // dd($request->all());
 
             $ejemplar_evento_id = $request->input('ejemplar_evento_id_edita_calificacion');
             $num_pista = $request->input('pista_edita_calificacion');
@@ -2182,16 +2248,167 @@ class EventoController extends Controller
                             $ganadorNew->mejor_escogido         = null;
                         }
 
+                        // PARA EL MEJOR MACHO
+                        if($request->filled('mejor_hembra_macho')){
+                            if($ganadorNew->sexo == 'Macho'){
+                                $ganadorNew->mejor_macho = "Si";
+                            }else{
+                                $ganadorNew->mejor_hembra = "Si";
+                            }
+                        }else{
+                            if($ganadorNew->sexo == 'Macho'){
+                                $ganadorNew->mejor_macho = null;
+                            }else{
+                                $ganadorNew->mejor_hembra = null;
+                            }
+                        }
+
+                        // PARA EL MEJOR CACHORRO
+                        if($request->filled('mejor_raza_cachorro')){
+
+                            $valor = $request->input('mejor_raza_cachorro');
+
+                            $valorCombo = explode('_', $valor);
+
+                            if($valorCombo[0] == "mejor"){
+                                $ganadorNew->mejor_cachorro = "Si";
+                            }else{
+                                $ganadorNew->sexo_opuesto_cachorro = "Si";
+                            }
+                        }else{
+                            $ganadorNew->sexo_opuesto_cachorro = null;
+                            $ganadorNew->mejor_cachorro = null;
+                        }
 
 
+                        // PARA EL MEJOR JOVEN
+                        if($request->filled('mejor_raza_joven')){
 
+                            $valor = $request->input('mejor_raza_joven');
+
+                            $valorCombo = explode('_', $valor);
+
+                            if($valorCombo[0] == "mejor"){
+                                $ganadorNew->mejor_joven = "Si";
+                            }else{
+                                $ganadorNew->sexo_opuesto_joven = "Si";
+                            }
+                        }else{
+                            $ganadorNew->sexo_opuesto_joven = null;
+                            $ganadorNew->mejor_joven = null;
+                        }
+
+
+                        // PARA EL MEJOR RAZA
+                        if($request->filled('mejor_raza_raza')){
+
+                            $valor = $request->input('mejor_raza_raza');
+
+                            $valorCombo = explode('_', $valor);
+
+                            if($valorCombo[0] == "mejor"){
+                                $ganadorNew->mejor_raza = "Si";
+                            }else{
+                                $ganadorNew->sexo_opuesto_raza = "Si";
+                            }
+                        }else{
+                            $ganadorNew->sexo_opuesto_raza = null;
+                            $ganadorNew->mejor_raza = null;
+                        }
+
+                        $ganadorNew->pista = $num_pista;
+                        $ganadorNew->estado = 1;
+
+                        $ganadorNew->save();
+                    }
+                }else{
+
+                    if($calificacionEjemplar == "Excelente" && $lugarEjemplar == 1){
+                         // MEJOR DE LA CATEGORIA
+                        if($request->filled('mejor_categoria_hembra_macho')){
+                            $ganador->mejor_escogido         = "Si"; 
+                        }else{
+                            $ganador->mejor_escogido         = null; 
+                            $ganador->mejor_macho = null;
+                            $ganador->mejor_hembra = null;
+                        }
+
+                        // MEJOR MACHO O HEMBRA
+                        if($request->filled('mejor_hembra_macho')){
+                            if($ganador->sexo == 'Macho'){
+                                $ganador->mejor_macho = "Si";
+                            }else{
+                                $ganador->mejor_hembra = "Si";
+                            }
+                        }else{
+                            if($ganador->sexo == 'Macho'){
+                                $ganador->mejor_macho = null;
+                            }else{
+                                $ganador->mejor_hembra = null;
+                            }
+                        }
+
+                        // MORJOR CACHORRO
+                        if($request->filled('mejor_raza_cachorro')){
+                            $valor = $request->input('mejor_raza_cachorro');
+
+                            $valorCombo = explode('_', $valor);
+
+                            if($valorCombo[0] == 'mejor'){
+                                $ganador->mejor_cachorro = "Si";
+                                $ganador->sexo_opuesto_cachorro = null;
+                            }elseif($valorCombo[0] == 'sexoopuesto'){
+                                $ganador->sexo_opuesto_cachorro = "Si";
+                                $ganador->mejor_cachorro = null;
+                            }else{
+                                $ganador->mejor_cachorro = null;
+                                $ganador->sexo_opuesto_cachorro = null;
+                            }
+                        }
+
+                        // MORJOR JOVEN
+                        if($request->filled('mejor_raza_joven')){
+                            $valor = $request->input('mejor_raza_joven');
+
+                            $valorCombo = explode('_', $valor);
+
+                            if($valorCombo[0] == 'mejor'){
+                                $ganador->mejor_joven = "Si";
+                                $ganador->sexo_opuesto_joven = null;
+                            }elseif($valorCombo[0] == 'sexoopuesto'){
+                                $ganador->sexo_opuesto_joven = "Si";
+                                $ganador->mejor_joven = null;
+                            }else{
+                                $ganador->mejor_joven = null;
+                                $ganador->sexo_opuesto_joven = null;
+                            }
+                        }
+
+                        // MORJOR DE LA RAZA
+                        if($request->filled('mejor_raza_raza')){
+                            $valor = $request->input('mejor_raza_raza');
+
+                            $valorCombo = explode('_', $valor);
+
+                            if($valorCombo[0] == 'mejor'){
+                                $ganador->mejor_raza = "Si";
+                                $ganador->sexo_opuesto_raza = null;
+                            }elseif($valorCombo[0] == 'sexoopuesto'){
+                                $ganador->sexo_opuesto_raza = "Si";
+                                $ganador->mejor_raza = null;
+                            }else{
+                                $ganador->mejor_raza = null;
+                                $ganador->sexo_opuesto_raza = null;
+                            }
+                        }
+
+                        $ganador->save();
+                    }else{
+
+                        Ganador::destroy($ganador->id);
 
                     }
                 }
-
-
-
-
             }else{
                 dd("No");
             }

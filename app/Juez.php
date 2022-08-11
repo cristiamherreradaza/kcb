@@ -387,6 +387,8 @@ class Juez extends Model
 
     public static function getGanadoEventoSecretario($evento_id, $secretario_id, $categoria_pista_id, $raza_id, $pista){
 
+        // dd($evento_id, $secretario_id, $categoria_pista_id, $raza_id, $pista);
+
         $ganador = Ganador::select('ganadores.*')
                             ->join('calificaciones','ganadores.calificacion_id', '=','calificaciones.id')
                             ->where('ganadores.evento_id',$evento_id)
