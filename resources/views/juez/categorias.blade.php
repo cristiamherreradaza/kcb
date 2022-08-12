@@ -42,7 +42,7 @@
                                                     <!--end::Svg Icon-->
                                                 </span>
                                             </span>
-                                            <span class="nav-text font-weight-bold">PLANILLA BESTING</span>
+                                            <span class="nav-text font-weight-bold">GANADORES DE RAZA</span>
                                         </a>
                                     </li>
                                     <li class="nav-item mr-3">
@@ -60,7 +60,7 @@
                                                     <!--end::Svg Icon-->
                                                 </span>
                                             </span>
-                                            <span class="nav-text font-weight-bold">CALIFICACION</span>
+                                            <span class="nav-text font-weight-bold">BEST IN SHOW <span class="text-info" id="finales1"></span></span>
                                         </a>
                                     </li>
                                 </ul>
@@ -119,7 +119,7 @@
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">VENCEDORES DE LA RAZA <span class="text-info" id="vencedor_raza"></span></h5>
+                    <h5 class="modal-title" id="exampleModalLabel">GANADORES DE RAZA <span class="text-info" id="vencedor_raza"></span></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <i aria-hidden="true" class="ki ki-close"></i>
                     </button>
@@ -312,13 +312,14 @@
                                                                     <center>
                                                                         <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseOneRazas{{ $keyRazas."_".$key }}" aria-expanded="true" aria-controls="collapseOneRazas{{ $keyRazas."_".$key }}">
                                                                             <h6>
-                                                                                <span class="text-info">{{ $razas->raza->nombre." --->".$razas->raza->id }}</span>
+                                                                                <span class="text-info">{{ str_replace([1,2,3,4,5,6,7,8,9,0, '(', ')'], '', $razas->raza->nombre) }}</span>
                                                                             </h3>
                                                                         </button>
                                                                     </center>
                                                                 </div>
                                                                 <div class="col-md-1">
-                                                                    <button class="btn btn-primary btn-icon btn-sm" type="button" onclick="modalGanadores('{{ $razas->raza->id }}', '{{ $evento->id }}', '{{ $razas->raza->nombre }}')"><i class="fa fa-list"></i></button>
+                                                                    <button class="btn btn-primary btn-icon btn-sm" type="button" onclick="modalGanadores('{{ $razas->raza->id }}', '{{ $evento->id }}', '{{ str_replace([1,2,3,4,5,6,7,8,9,0, '(', ')'], '', $razas->raza->nombre) }}')"><i class="fa fa-list"></i></button>
+                                                                    {{-- <button class="btn btn-primary btn-icon btn-sm" type="button" onclick="modalGanadores('{{ $razas->raza->id }}', '{{ $evento->id }}', '{{ $razas->raza->nombre }}')"><i class="fa fa-list"></i></button> --}}
                                                                 </div>
                                                             </div>
                                                         </h5>
@@ -489,7 +490,7 @@
                                                                                             $contadorMacho1 = 0;
                                                                                         @endphp 
 
-                                                                                        <button class="btn btn-primary btn-block" type="button" onclick="modalcategorias({{ json_encode($arrayCategoriasMachos[$contadorArryaMacho]) }}, '{{ $razas->raza_id }}', '{{ $evento->id }}', '{{ $razas->raza->nombre }}', '{{ ($asignacion->estado == 1)? $asignacion->num_pista : 0  }}')">
+                                                                                        <button class="btn btn-primary btn-block" type="button" onclick="modalcategorias({{ json_encode($arrayCategoriasMachos[$contadorArryaMacho]) }}, '{{ $razas->raza_id }}', '{{ $evento->id }}', '{{ str_replace([1,2,3,4,5,6,7,8,9,0 ,'(',')'], '',$razas->raza->nombre) }}', '{{ ($asignacion->estado == 1)? $asignacion->num_pista : 0  }}')">
                                                                                             @foreach ( $arrayCategoriasMachos[$contadorArryaMacho] as $cate)
 
                                                                                                 {{ $cate['nombre'].' <-> ' }}
@@ -537,7 +538,7 @@
                                                                                             <thead>
                                                                                                 <tr>
                                                                                                     <th class="text-primary">
-                                                                                                        <button class="btn btn-primary btn-block" type="button" onclick="modalcategorias({{ json_encode($arrayCategoriasMachos[$contadorArryaMacho]) }}, '{{ $razas->raza_id }}', '{{ $evento->id }}', '{{ $razas->raza->nombre}}', '{{ ($asignacion->estado == 1)? $asignacion->num_pista : 0  }}')">
+                                                                                                        <button class="btn btn-primary btn-block" type="button" onclick="modalcategorias({{ json_encode($arrayCategoriasMachos[$contadorArryaMacho]) }}, '{{ $razas->raza_id }}', '{{ $evento->id }}', '{{ str_replace([1,2,3,4,5,6,7,8,9,0 ,'(',')'], '',$razas->raza->nombre) }}', '{{ ($asignacion->estado == 1)? $asignacion->num_pista : 0  }}')">
                                                                                                             {{ $arrayCategoriasMachos[$contadorArryaMacho][0]['nombre'] }}
                                                                                                         </button>
                                                                                                     </th>
@@ -596,7 +597,7 @@
                                                                                             $contadorHembra1 = 0;
                                                                                         @endphp 
 
-                                                                                        <button class="btn btn-block" type="button"  style="background: #F94EE4 ; color:white" onclick="modalcategorias({{ json_encode($arrayCategoriasHembras[$contadorArryaHembra]) }}, '{{ $razas->raza_id }}', '{{ $evento->id }}', '{{ $razas->raza->nombre }}', '{{ ($asignacion->estado == 1)? $asignacion->num_pista : 0  }}')">
+                                                                                        <button class="btn btn-block" type="button"  style="background: #F94EE4 ; color:white" onclick="modalcategorias({{ json_encode($arrayCategoriasHembras[$contadorArryaHembra]) }}, '{{ $razas->raza_id }}', '{{ $evento->id }}', '{{ str_replace([1,2,3,4,5,6,7,8,9,0 ,'(',')'], '',$razas->raza->nombre) }}', '{{ ($asignacion->estado == 1)? $asignacion->num_pista : 0  }}')">
                                                                                             @foreach ( $arrayCategoriasHembras[$contadorArryaHembra] as $cate)
                                                                                                 {{ $cate['nombre'].' <-> ' }}
                                                                                             @endforeach
@@ -641,7 +642,7 @@
                                                                                             <thead>
                                                                                                 <tr>
                                                                                                     <th class="text-primary">
-                                                                                                        <button class="btn btn-block" type="button" style="color: white;background: #F94EE4 ;" onclick="modalcategorias({{ json_encode($arrayCategoriasHembras[$contadorArryaHembra]) }}, '{{ $razas->raza_id }}', '{{ $evento->id }}', '{{ $razas->raza->nombre }}', '{{ ($asignacion->estado == 1)? $asignacion->num_pista : 0  }}')">
+                                                                                                        <button class="btn btn-block" type="button" style="color: white;background: #F94EE4 ;" onclick="modalcategorias({{ json_encode($arrayCategoriasHembras[$contadorArryaHembra]) }}, '{{ $razas->raza_id }}', '{{ $evento->id }}', '{{ str_replace([1,2,3,4,5,6,7,8,9,0 ,'(',')'], '',$razas->raza->nombre) }}', '{{ ($asignacion->estado == 1)? $asignacion->num_pista : 0  }}')">
                                                                                                             {{ $arrayCategoriasHembras[$contadorArryaHembra][0]['nombre'] }}
                                                                                                         </button>
                                                                                                     </th>
@@ -1195,6 +1196,7 @@
                     if(data.status === "success"){
                         
                         $('#finales').text((tipo.toString()).toUpperCase());
+                        $('#finales1').text((tipo.toString()).toUpperCase());
     
                         $('#tabla-finales').html(data.table);
 

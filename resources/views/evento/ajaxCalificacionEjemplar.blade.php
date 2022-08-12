@@ -1,8 +1,8 @@
 {{-- @if ($calificacion) --}}
 <h5 class="text-primary text-center">CALIFICACIONES</h5>
 <form action="" id="formularioEditaCalificacionEjemplar">
-    <input type="text" value="{{ $ejemplar_evento->id }}" name="ejemplar_evento_id_edita_calificacion">
-    <input type="text" value="{{ $pista }}" name="pista_edita_calificacion">
+    <input type="hidden" value="{{ $ejemplar_evento->id }}" name="ejemplar_evento_id_edita_calificacion">
+    <input type="hidden" value="{{ $pista }}" name="pista_edita_calificacion">
     <table class="table text-center">
         <thead>
             <tr>
@@ -49,7 +49,7 @@
                     <td>
                         <div class="row">
                             <div class="col-md-8">
-                                <select name="" id="" class="form-control">
+                                <select name="certificacion_cacb_puntos" id="certificacion_cacb_puntos" class="form-control">
                                     <option value="">Seleccione</option>
                                     <option {{ ($ganador)? (($ganador->puntos == '1')? 'selected' : '') : '' }} value="1">1</option>
                                     <option {{ ($ganador)? (($ganador->puntos == '2')? 'selected' : '') : '' }} value="2">2</option>
@@ -63,7 +63,7 @@
                                 <div class="form-group">
                                     <div class="checkbox-inline">
                                         <label class="checkbox checkbox-lg">
-                                            <input type="checkbox" checked="checked" name="Checkboxes3_1"/>
+                                            <input type="checkbox" {{ ($ganador)? (($ganador->estado == 1)? 'checked' :'') : '' }} name="certificacion_cacb"/>
                                             <span></span>
                                             CACB
                                         </label>
@@ -99,9 +99,9 @@
     </table>
 
     <hr>
-
+    <h5 class="text-primary text-center">MEJOR VENCEDOR DE CATEGORIA</h5>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <p style="padding-top: 20px;"></p>
             <div class="form-group">
                 <div class="checkbox-inline">
@@ -140,44 +140,55 @@
                 </div>
             </div>
         </div>
-        {{-- <div class="col-md-4">
-            <div class="form-group">
-                <p style="padding-top: 20px;"></p>
-                {{ ($ganador)? (($ganador->mejor_escogido == "Si")? (($ganador->categoria_id == 2 || $ganador->categoria_id == 11)? '<h3 class="text-info">Cachorro</h3>' : '') : '') : '' }}
-                {{ ($ganador)? (($ganador->mejor_escogido == "Si")? (($ganador->categoria_id == 3 || $ganador->categoria_id == 4 || $ganador->categoria_id == 12 || $ganador->categoria_id == 13)? 'Joven' : '') : '') : '' }}
-                {{ ($ganador)? (($ganador->mejor_escogido == "Si")? (($ganador->categoria_id == 5 || $ganador->categoria_id == 6 || $ganador->categoria_id == 7 || $ganador->categoria_id == 8 || $ganador->categoria_id == 9 || $ganador->categoria_id == 10 || $ganador->categoria_id == 14 || $ganador->categoria_id == 15)? 'Adulto' : '') : '') : '' }}
-                {{ ($ganador)? (($ganador->mejor_escogido == "Si")? (($ganador->categoria_id == 16 || $ganador->categoria_id == 17)? 'Veterano' : '') : '') : '' }}
-                <label for="">{{ $ejemplar_evento->sexo." " }} Vencedor</label>
-                <select name="mejor_vendedor" id="mejor_vendedor" class="form-control">
-                    <option  value="">Seleccione</option>
-                    <option {{ ($ganador)? (($ganador->mejor_escogido == "Si")? (($ganador->categoria_id == 2 || $ganador->categoria_id == 11)? 'selected' : '') : '') : '' }} value="Cachorro">Cachorro</option>
-                    <option {{ ($ganador)? (($ganador->mejor_escogido == "Si")? (($ganador->categoria_id == 3 || $ganador->categoria_id == 4 || $ganador->categoria_id == 12 || $ganador->categoria_id == 13)? 'selected' : '') : '') : '' }} value="Joven">Joven</option>
-                    <option {{ ($ganador)? (($ganador->mejor_escogido == "Si")? (($ganador->categoria_id == 5 || $ganador->categoria_id == 6 || $ganador->categoria_id == 7 || $ganador->categoria_id == 8 || $ganador->categoria_id == 9 || $ganador->categoria_id == 10 || $ganador->categoria_id == 14 || $ganador->categoria_id == 15)? 'selected' : '') : '') : '' }} value="Adulto">Adulto</option>
-                    <option {{ ($ganador)? (($ganador->mejor_escogido == "Si")? (($ganador->categoria_id == 16 || $ganador->categoria_id == 17)? 'selected' : '') : '') : '' }} value="Veterano">Veterano</option>
-                </select>
-            </div>
-        </div> --}}
-        <div class="col-md-6">
+        <div class="col-md-4">
             <p style="padding-top: 20px;"></p>
             <div class="form-group">
                 <div class="checkbox-inline">
                     <label class="checkbox checkbox-lg">
-                        <input type="checkbox" {{ ($calificacion && $ganador)? (($calificacion->sexo == 'Macho')? (($ganador->mejor_macho == "Si")? 'checked' : '') : (($ganador->mejor_hembra == "Si")? 'checked' : '')) : '' }} name="mejor_hembra_macho"/>
-                        <span></span>
-                            @php
-                                if($calificacion){
-                                    if($calificacion->sexo == 'Macho')
-                                        echo "Mejor Macho";
-                                    else
-                                        echo "Mejor Hembra";
-                                }else{
-                                    echo "Mejor ".$ejemplar_evento->sexo;
-                                }
-                            @endphp
-                        </label>
-                    </div>
+                    <input type="checkbox" {{ ($calificacion && $ganador)? (($calificacion->sexo == 'Macho')? (($ganador->mejor_macho == "Si")? 'checked' : '') : (($ganador->mejor_hembra == "Si")? 'checked' : '')) : '' }} name="mejor_hembra_macho"/>
+                    <span></span>
+                        @php
+                            if($calificacion){
+                                if($calificacion->sexo == 'Macho')
+                                    echo "Mejor Macho";
+                                else
+                                    echo "Mejor Hembra";
+                            }else{
+                                echo "Mejor ".$ejemplar_evento->sexo;
+                            }
+                        @endphp
+                    </label>
                 </div>
             </div>
+        </div>
+        <div class="col-md-4">
+            @if ($ejemplar_evento->categoria_pista_id != 1 && $ejemplar_evento->categoria_pista_id != 2 && $ejemplar_evento->categoria_pista_id != 3 && $ejemplar_evento->categoria_pista_id != 4 && $ejemplar_evento->categoria_pista_id != 11 && $ejemplar_evento->categoria_pista_id != 12 && $ejemplar_evento->categoria_pista_id != 13)
+                <p style="padding-top: 20px;"></p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="checkbox-inline">
+                                <label class="checkbox checkbox-lg">
+                                    <input type="checkbox" {{ ($ganador)? (($ganador->certificacionCLACAB == "Si")? 'checked' :'') : '' }} name="certificacion_clacab"/>
+                                    <span></span>
+                                    CLACAB
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="checkbox-inline">
+                                <label class="checkbox checkbox-lg">
+                                    <input type="checkbox" {{ ($ganador)? (($ganador->certificacionCACIB == "Si")? 'checked' :'') : '' }} name="certificacion_cacib"/>
+                                    <span></span>
+                                    CACIB
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
 
@@ -186,7 +197,7 @@
     <div class="row">
         <div class="col-md-4">
             <h4 class="text-primary text-center">Calificacion de cachorro</h4>
-            <select name="mejor_raza_cachorro" id="mejor_raza_cachorro" class="form-control" {{ ($calificacion && $ganador)? (($ganador->mejor_escogido == "Si")? (($ganador->categoria_id != 2 && $ganador->categoria_id != 11)? 'disabled' : '') : '') : (($ejemplar_evento->categoria_pista_id != 2 || $ejemplar_evento->categoria_pista_id != 11)? 'disabled' : '') }}>
+            <select name="mejor_raza_cachorro" id="mejor_raza_cachorro" class="form-control" {{ ($ejemplar_evento->categoria_pista_id == 2 || $ejemplar_evento->categoria_pista_id == 11)? "" : "disabled" }}>
                 <option value="">Seleccione</option>
                 <option {{ ($calificacion && $ganador)? (($ganador->mejor_escogido == "Si")? (($ganador->mejor_cachorro == "Si")? 'selected' : '') : '') : '' }} value="mejor_cachorro">Mejor Cachorro</option>
                 <option {{ ($calificacion && $ganador)? (($ganador->mejor_escogido == "Si")? (($ganador->sexo_opuesto_cachorro == "Si")? 'selected' : '') : '') : '' }} value="sexoopuesto_cachorro">Sexo Opuesto</option>
@@ -194,7 +205,7 @@
         </div>
         <div class="col-md-4">
             <h4 class="text-primary text-center">Calificacion de joven</h4>
-            <select name="mejor_raza_joven" id="mejor_raza_joven" class="form-control" {{ ($calificacion && $ganador)? (($ganador->mejor_escogido == "Si")? (($ganador->categoria_id == 2 || $ganador->categoria_id == 11)? 'disabled' : '') : '') : (($ejemplar_evento->categoria_pista_id == 2 || $ejemplar_evento->categoria_pista_id == 11)? 'disabled' : '') }}>
+            <select name="mejor_raza_joven" id="mejor_raza_joven" class="form-control" {{ ($ejemplar_evento->categoria_pista_id == 3 || $ejemplar_evento->categoria_pista_id == 4 || $ejemplar_evento->categoria_pista_id == 12 || $ejemplar_evento->categoria_pista_id == 13)? '' : 'disabled' }}>
                 <option value="">Seleccione</option>
                 <option {{ ($calificacion && $ganador)? (($ganador->mejor_escogido == "Si")? (($ganador->mejor_joven == "Si")? 'selected' : '') : '') : '' }} value="mejor_joven">Mejor Joven</option>
                 <option {{ ($calificacion && $ganador)? (($ganador->mejor_escogido == "Si")? (($ganador->sexo_opuesto_joven == "Si")? 'selected' : '') : '') : '' }} value="sexoopuesto_joven">Sexo opuesto</option>
@@ -202,7 +213,7 @@
         </div>
         <div class="col-md-4">
             <h4 class="text-primary text-center">Calificacion de raza</h4>
-            <select name="mejor_raza_raza" id="mejor_raza_raza" class="form-control" {{ ($calificacion && $ganador)? (($ganador->mejor_escogido == "Si")? (($ganador->categoria_id == 2 || $ganador->categoria_id == 11)? 'disabled' : '') : '') : (($ejemplar_evento->categoria_pista_id == 2 || $ejemplar_evento->categoria_pista_id == 11)? 'disabled' : '') }}>
+            <select name="mejor_raza_raza" id="mejor_raza_raza" class="form-control" {{ ($ejemplar_evento->categoria_pista_id == 3 || $ejemplar_evento->categoria_pista_id == 4 || $ejemplar_evento->categoria_pista_id == 12 || $ejemplar_evento->categoria_pista_id == 13 || $ejemplar_evento->categoria_pista_id == 5 || $ejemplar_evento->categoria_pista_id == 6 || $ejemplar_evento->categoria_pista_id == 7 || $ejemplar_evento->categoria_pista_id == 8 || $ejemplar_evento->categoria_pista_id == 9 || $ejemplar_evento->categoria_pista_id == 10 || $ejemplar_evento->categoria_pista_id == 11 || $ejemplar_evento->categoria_pista_id == 14 || $ejemplar_evento->categoria_pista_id == 15)? '' : '' }}>
                 <option value="">Seleccione</option>
                 <option {{ ($calificacion && $ganador)? (($ganador->mejor_escogido == "Si")? (($ganador->mejor_raza == "Si")? 'selected' : '') : '') : '' }} value="mejor_raza">Mejor Raza</option>
                 <option {{ ($calificacion && $ganador)? (($ganador->mejor_escogido == "Si")? (($ganador->sexo_opuesto_raza == "Si")? 'selected' : '') : '') : '' }} value="sexoopuesto_raza">Sexo opuesto</option>

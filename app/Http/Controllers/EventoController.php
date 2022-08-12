@@ -1233,6 +1233,7 @@ class EventoController extends Controller
 
             $raza = array(
                 'nombre'                    => $ra->raza->nombre,
+                'raza_id'                   => $ra->raza->id,
                 'mejorCachoro'              => $mejorCachorro,
                 'mejorCachoroSexoOpuesto'   => $mejorCachorroSexoOpuesto,
                 
@@ -2280,7 +2281,6 @@ class EventoController extends Controller
                             $ganadorNew->mejor_cachorro = null;
                         }
 
-
                         // PARA EL MEJOR JOVEN
                         if($request->filled('mejor_raza_joven')){
 
@@ -2297,7 +2297,6 @@ class EventoController extends Controller
                             $ganadorNew->sexo_opuesto_joven = null;
                             $ganadorNew->mejor_joven = null;
                         }
-
 
                         // PARA EL MEJOR RAZA
                         if($request->filled('mejor_raza_raza')){
@@ -2317,7 +2316,21 @@ class EventoController extends Controller
                         }
 
                         $ganadorNew->pista = $num_pista;
-                        $ganadorNew->estado = 1;
+
+                        // PARA EL CERTIFICADO CACB
+                        if($calificacion->categoria_id == 5 || $calificacion->categoria_id == 6 || $calificacion->categoria_id == 7 || $calificacion->categoria_id == 8){
+
+                            if($request->filled('certificacion_cacb')){
+                                $ganadorNew->estado = 1;
+                                $ganadorNew->puntos = $request->input('certificacion_cacb_puntos');
+                            }else{
+                                $ganadorNew->estado = 0;
+                                $ganadorNew->puntos = null;
+                            }
+
+                        }else{
+                            $ganadorNew->estado = 1;
+                        }
 
                         $ganadorNew->save();
                     }
@@ -2401,6 +2414,31 @@ class EventoController extends Controller
                                 $ganador->sexo_opuesto_raza = null;
                             }
                         }
+
+                        // PARA EL CERTIFICADO CACB
+                        if($calificacion->categoria_id == 5 || $calificacion->categoria_id == 6 || $calificacion->categoria_id == 7 || $calificacion->categoria_id == 8){
+                            if($request->filled('certificacion_cacb')){
+                                $ganador->estado = 1;
+                                $ganador->puntos = $request->input('certificacion_cacb_puntos');
+                            }else{
+                                $ganador->estado = 0;
+                                $ganador->puntos = null;
+                            }
+                        }
+
+                        // PARA LA CERTIFICACION DE CLACAB O CACIB
+                        if($request->filled('certificacion_clacab')){
+                            $ganador->certificacionCLACAB = "Si";
+                        }else{
+                            $ganador->certificacionCLACAB = null;
+                        }
+
+                        if($request->filled('certificacion_cacib')){
+                            $ganador->certificacionCACIB = "Si";
+                        }else{
+                            $ganador->certificacionCACIB = null;
+                        }
+                        
 
                         $ganador->save();
                     }else{
