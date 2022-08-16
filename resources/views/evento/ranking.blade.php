@@ -112,6 +112,7 @@
 
                             <div id="#aquiche">
                                 holas
+                                <a href="#" id="imga_dowloan">D</a>
                             </div>
 
                             @php
@@ -132,9 +133,7 @@
                                                             <center>
                                                                 <!--begin::Title-->
                                                                 <div class="d-flex flex-column">
-                                                                    {{-- @dd($ejemplares[$contadoresRazas]['raza_id']) --}}
-                                                                    <a id="download">
-                                                                    {{-- <a onclick="sacarCaptura('{{ $ejemplares[$contadoresRazas]['raza_id'] }}')"> --}}
+                                                                    <a id="download_{{ $ejemplares[$contadoresRazas]['raza_id'] }}" onclick="sacarCaptura('{{ $ejemplares[$contadoresRazas]['raza_id'] }}')">
                                                                         <h4 style="height: 50px;" class="text-success font-weight-bold text-hover-primary mb-0">{{ str_replace(['(', ')', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'], '' , $ejemplares[$contadoresRazas]['nombre']) }}</h4>
                                                                     </a>
                                                                 </div>
@@ -513,6 +512,9 @@
     <script src="https://superal.github.io/canvas2image/canvas2image.js"></script> --}}
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script> --}}
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js"></script>
+
     <script type="text/javascript">
 
 		$.ajaxSetup({
@@ -521,55 +523,22 @@
 			}
 		});
 
-        function download(canvas, filename) {
+        function download(canvas, filename, raza) {
 
-            // console.log(canvas, filename)
-            const data = canvas.toDataURL("image/png;base64");
-            const donwloadLink = document.querySelector("#download");
-            donwloadLink.download = filename;
-            donwloadLink.href = data;
+            // const data = canvas.toDataURL("image/png;base64");
+            // const donwloadLink = document.querySelector("#download_"+raza);
+
+            // donwloadLink.download = filename;
+            // donwloadLink.href = data;
+
         }
 
-        html2canvas(document.querySelector("#bloque_raza_13")).then((canvas) => {
-        // html2canvas(document.querySelector(".card")).then((canvas) => {
-            // document.body.appendChild(canvas);
-            download(canvas, "asd");
-        });
-
         function sacarCaptura(raza){
-            console.log("bloque_raza_"+raza);
 
-            var test = $('#bloque_raza_'+raza).get(0);
-
-            console.log(test);
-
-            // getScreenShot(){
-                // let c = this.elem.nativeElement.querySelector('.chartContainer'); // or document.getElementById('canvas');
-                // let c = document.getElementById('#bloque_raza_'+raza); // or document.getElementById('canvas');
-                // html2canvas(c).then((canvas:any)=>{
-                //     var t = canvas.toDataURL().replace("data:image/png;base64,", "");
-                //     this.downloadBase64File('image/png',t,'image');
-                // })
-            // }
-
-            // downloadBase64File(contentType:any, base64Data:any, fileName:any) {
-            //     const linkSource = `data:${contentType};base64,${base64Data}`;
-            //     const downloadLink = document.createElement("a");
-            //     downloadLink.href = linkSource;
-            //     downloadLink.download = fileName;
-            //     downloadLink.click();
-            // }
-
-            // html2canvas(test).then(function(canvas){
-
-            //     var canvasWidth     = canvas.width;
-            //     var canvasHeight    = canvas.height;
-
-            //     var image = Canvas2image.convertToImage(canvas, canvasWidth, canvasHeight);
-
-            //     $('#aquiche').html(image);
-
-            // })
+            html2canvas(document.querySelector("#bloque_raza_"+raza)).then((canvas) => {
+                download(canvas, "asd", raza);
+            });           
+            
         }
 
     </script>
