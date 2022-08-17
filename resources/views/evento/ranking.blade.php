@@ -12,23 +12,23 @@
         }
         #primeroEspecial{
             margin-left:280px;
-            margin-top:70px;
+            margin-top:50px;
         }
         #segundoEspecial{
             margin-left:160px;
-            margin-top:90px;
+            margin-top:60px;
         }
         #terceroEspecial{
             margin-left:395px;
-            margin-top:100px;
+            margin-top:70px;
         }
         #cuartoEspecial{
             margin-left:25px;
-            margin-top:110px;
+            margin-top:80px;
         }
         #quintooEspecial{
             margin-left:515px;
-            margin-top:115px;
+            margin-top:85px;
         }
         
     </style>
@@ -108,13 +108,6 @@
                     <!--begin::Tab Content-->
                     <div class="tab-pane active" id="kt_apps_contacts_view_tab_1" role="tabpanel">
                         <div class="container">
-
-
-                            <div id="#aquiche">
-                                holas
-                                <a href="#" id="imga_dowloan">D</a>
-                            </div>
-
                             @php
                                 $contadoresRazas = 0;
                                 $cantidadRazas = count($ejemplares);
@@ -254,10 +247,19 @@
                     <!--end::Tab Content-->
                     <!--begin::Tab Content-->
                     <div class="tab-pane" id="kt_apps_contacts_view_tab_2" role="tabpanel">
-                        <div class="container">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn btn-block btn-success" onclick="sacarCapturaPodio()">Sacar captura</button>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="container bg-white" id="contenedor_final_podio">
                             <div class="row text-center">
-                                <div class="col-md-6">
-                                    <h1>CACHORROS ESPECIALES</h1>
+                                <div class="col-md-6" style="background-image: url({{ url('img/podioKennel2.jpg') }}); background-size: 100%; background-repeat: no-repeat;">
+                                    <h1 class="text-dark text-bold bg-white">CACHORROS ESPECIALES</h1>
                                     <p id="primeroEspecial" class="especiales">
                                         @if ($arrarEspeciales['primero'])
                                             {{ $arrarEspeciales['primero']->numero_prefijo }}
@@ -283,10 +285,10 @@
                                             {{ $arrarEspeciales['quinto']->numero_prefijo }}
                                         @endif
                                     </p>
-                                    <img src="{{ url('img/podioKennel.jpg') }}" alt="" width="100%">
+                                    <div style="height: 250px;"></div>
                                 </div>
-                                <div class="col-md-6">
-                                    <h1>CACHORROS ABSOLUTOS</h1>
+                                <div class="col-md-6" style="background-image: url({{ url('img/podioKennel2.jpg') }}); background-size: 100%; background-repeat: no-repeat;">
+                                    <h1 class="text-dark text-bold bg-white">CACHORROS ABSOLUTOS</h1>
                                     <p id="primeroEspecial" class="especiales">
                                         @if ($arrarAbsoluto['primero'])
                                             {{ $arrarAbsoluto['primero']->numero_prefijo }}
@@ -312,13 +314,13 @@
                                             {{ $arrarAbsoluto['quinto']->numero_prefijo }}
                                         @endif
                                     </p>
-                                    <img src="{{ url('img/podioKennel.jpg') }}" alt="" width="100%">
+                                    {{-- <img src="{{ url('img/podioKennel.jpg') }}" alt="" width="100%"> --}}
                                 </div>
                             </div>
                             <br>
                             <div class="row text-center">
-                                <div class="col-md-6">
-                                    <h1>JOVENES</h1>
+                                <div class="col-md-6" style="background-image: url({{ url('img/podioKennel2.jpg') }}); background-size: 100%; background-repeat: no-repeat;">
+                                    <h1 class="text-dark text-bold bg-white">JOVENES</h1>
                                     <p id="primeroEspecial" class="especiales">
                                         @if ($arrarJoven['primero'])
                                             {{ $arrarJoven['primero']->numero_prefijo }}
@@ -344,10 +346,11 @@
                                             {{ $arrarJoven['quinto']->numero_prefijo }}
                                         @endif
                                     </p>
-                                    <img src="{{ url('img/podioKennel.jpg') }}" alt="" width="100%">
+                                    <div style="height: 250px;"></div>
+                                    {{-- <img src="{{ url('img/podioKennel.jpg') }}" alt="" width="100%"> --}}
                                 </div>
-                                <div class="col-md-6">
-                                    <h1>ADULTOS</h1>
+                                <div class="col-md-6" style="background-image: url({{ url('img/podioKennel2.jpg') }}); background-size: 100%; background-repeat: no-repeat;">
+                                    <h1 class="text-dark text-bold bg-white">ADULTOS</h1>
                                     <p id="primeroEspecial" class="especiales">
                                         @if ($arrarAdulto['primero'])
                                             {{ $arrarAdulto['primero']->numero_prefijo }}
@@ -373,7 +376,7 @@
                                             {{ $arrarAdulto['quinto']->numero_prefijo }}
                                         @endif
                                     </p>
-                                    <img src="{{ url('img/podioKennel.jpg') }}" alt="" width="100%">
+                                    {{-- <img src="{{ url('img/podioKennel.jpg') }}" alt="" width="100%"> --}}
                                 </div>
                             </div>
                         </div>
@@ -383,8 +386,10 @@
                     <div class="tab-pane" id="kt_apps_contacts_view_tab_3" role="tabpanel">
                         <div class="container">
                             <div class="row text-center">
-                                <div class="col-md-6">
-                                    <h1>CACHORROS ESPECIALES</h1>
+                                <div class="col-md-6 bg-white" id="grupo_1">
+                                    <a onclick="sacarCapturaGrupos(1)">
+                                        <h1>CACHORROS ESPECIALES</h1>
+                                    </a>
                                     <table class="table table-bordered table-hover table-striped" style="width:100%;">
                                         <thead>
                                             <tr>
@@ -410,8 +415,10 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="col-md-6">
-                                    <h1>CACHORROS ABSOLUTOS</h1>
+                                <div class="col-md-6 bg-white" id="grupo_2">
+                                    <a onclick="sacarCapturaGrupos(2)">
+                                        <h1>CACHORROS ABSOLUTOS</h1>
+                                    </a>
                                     <table class="table table-bordered table-hover table-striped" style="width:100%;">
                                         <thead>
                                             <tr>
@@ -440,8 +447,10 @@
                             </div>
                             <br>
                             <div class="row text-center">
-                                <div class="col-md-6">
-                                    <h1>JOVENES</h1>
+                                <div class="col-md-6 bg-white" id="grupo_3">
+                                    <a onclick="sacarCapturaGrupos(3)">
+                                        <h1>JOVENES</h1>
+                                    </a>
                                     <table class="table table-bordered table-hover table-striped" style="width:100%;">
                                         <thead>
                                             <tr>
@@ -467,8 +476,10 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="col-md-6">
-                                    <h1>ADULTOS</h1>
+                                <div class="col-md-6 bg-white" id="grupo_4">
+                                    <a onclick="sacarCapturaGrupos(4)">
+                                        <h1>ADULTOS</h1>
+                                    </a>
                                     <table class="table table-bordered table-hover table-striped" style="width:100%;">
                                         <thead>
                                             <tr>
@@ -508,12 +519,8 @@
 
 @section('js')
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://superal.github.io/canvas2image/canvas2image.js"></script> --}}
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script> --}}
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js"></script>
+    <script src="https://superal.github.io/canvas2image/canvas2image.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
 
     <script type="text/javascript">
 
@@ -523,22 +530,32 @@
 			}
 		});
 
-        function download(canvas, filename, raza) {
-
-            // const data = canvas.toDataURL("image/png;base64");
-            // const donwloadLink = document.querySelector("#download_"+raza);
-
-            // donwloadLink.download = filename;
-            // donwloadLink.href = data;
-
+        function sacarCaptura(raza){
+            html2canvas(document.querySelector("#bloque_raza_"+raza), {
+                onrendered: function(canvas) {
+                    return Canvas2Image.saveAsPNG(canvas,4128,2500);
+                }
+            });
         }
 
-        function sacarCaptura(raza){
+        function sacarCapturaPodio(){
+            html2canvas(document.querySelector("#contenedor_final_podio"), {
+                onrendered: function(canvas1) {
+                    // return Canvas2Image.saveAsPNG(canvas,4128,2500);
+                    return Canvas2Image.saveAsJPEG(canvas1,4128,2500);
+                    // return Canvas2Image.convertToJPEG(canvas1,4128,2500);
+                }
+            });
+        }
 
-            html2canvas(document.querySelector("#bloque_raza_"+raza)).then((canvas) => {
-                download(canvas, "asd", raza);
-            });           
-            
+        function sacarCapturaGrupos(grupo){
+            html2canvas(document.querySelector("#grupo_"+grupo), {
+                onrendered: function(canvas1) {
+                    // return Canvas2Image.saveAsPNG(canvas,4128,2500);
+                    return Canvas2Image.saveAsJPEG(canvas1,4128,2500);
+                    // return Canvas2Image.convertToJPEG(canvas1,4128,2500);
+                }
+            });
         }
 
     </script>

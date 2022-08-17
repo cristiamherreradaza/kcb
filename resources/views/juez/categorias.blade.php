@@ -116,7 +116,7 @@
 
     {{-- inicio modal  --}}
     <div class="modal fade" id="modalGanadores" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
-        <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">GANADORES DE RAZA <span class="text-info" id="vencedor_raza"></span></h5>
@@ -126,16 +126,32 @@
                 </div>
                 <div class="modal-body">
                     <h6 class="text-primary text-center">Vencedores Machos</h6>
-                    <div id="vencedores_machos">
+                    <div id="vencedores_machos" class="table-responsive">
 
                     </div>
 
                     <hr>
 
                     <h6 style="text-align: center; color:#F94EE4;">Vencedores Hembras</h6>
-                    <div id="vencedores_hembras">
+                    <div id="vencedores_hembras" class="table-responsive">
 
                     </div>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="mejor_macho_vencedor">
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="mejor_hembra_vencedor">
+
+                            </div>
+                        </div>
+                    </div>
+
                     <hr>
 
                     <div class="row">
@@ -1039,13 +1055,23 @@
 
                         }
 
+                        console.log(data.mejorRaza)
+
                         // para el mejro de la raza
-                        if(data.mejorRaza){
+                        if(data.mejorRaza == "mejor_raza_calificado"){
 
                             $('#bloque_mejor_raza_escogido').html(data.mejorRazaHtml);
                             $('#bloque_mejor_raza_escogido').show('toggle');
 
+                        }else if(data.mejorRaza == "mejor_raza_sin_calificado"){
+
+                            $('#select_ecoge_mejor_raza').html(data.mejorRazaHtml);
+                            
                         }
+
+                        // para los mejores vencedores
+                        $('#mejor_macho_vencedor').html(data.mejor_vencedor_macho);
+                        $('#mejor_hembra_vencedor').html(data.mejor_vencedor_hembra);
 
                     }
 
@@ -1099,12 +1125,12 @@
                                     if(data.sexo === 'Macho'){
 
                                         $('#mejor_macho_vencedor').html(data.html);
-                                        $('#mejor_macho_vencedor').toggle('show');
+                                        // $('#mejor_macho_vencedor').toggle('show');
 
                                     }else{
                                         
                                         $('#mejor_hembra_vencedor').html(data.html);
-                                        $('#mejor_hembra_vencedor').toggle('show');
+                                        // $('#mejor_hembra_vencedor').toggle('show');
 
                                     }
 

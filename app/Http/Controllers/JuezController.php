@@ -1924,49 +1924,103 @@ class JuezController extends Controller
             }
 
             $tableMacho = '<div class="row">
-                                <div class="col-md-6">
-                                    <div class="radio-inline">
-                                        <label class="radio radio-rounded radio-primary">
-                                            CACHORRO => <small style="font-size:15px" class="text-primary border p-1">'.(($cachorro)? $cachorro->numero_prefijo : "").'</small>
-                                        </label>
-
-                                        <label class="radio radio-rounded radio-primary">
-                                            JOVEN => <small style="font-size:15px" class="text-primary border p-1">'.(($joven)? $joven->numero_prefijo : "").'</small>
-                                            '.(($joven)? '<p class="pl-1"></p><input type="radio" id="mejor_macho_joven" value="'.$joven->id.'" name="mejor_macho" '.(($sw)? 'disabled' : '').' '.(($sw)? (($mejorMacho->id == $joven->id)? 'checked' : '') : '').' /><span></span>' : '').'
-                                        </label>
-                                        <label class="radio radio-rounded radio-primary">
-                                            ADULTO => <small style="font-size:15px" class="text-primary border p-1">'.(($adulto)? $adulto->numero_prefijo : "").'</small>
-                                            '.(($adulto)? '<p class="pl-1"></p><input type="radio" id="mejor_macho_adulto" value="'.$adulto->id.'" name="mejor_macho" '.(($sw)? 'disabled' : '').' '.(($sw)? (($mejorMacho->id == $adulto->id)? 'checked' : '') : '').' /><span></span>' : '').'
-                                        </label>
-                                        <label class="radio radio-rounded radio-primary">
-                                            VETERANO => <small style="font-size:15px" class="text-primary border p-1">'.(($veterano)? $veterano->numero_prefijo : "").'</small>
-                                            '.(($veterano)? '<p class="pl-1"></p><input type="radio" id="mejor_macho_veterano" value="'.$veterano->id.'" name="mejor_macho" '.(($sw)? 'disabled' : '').' '.(($sw)? (($mejorMacho->id == $veterano->id)? 'checked' : '') : '').' /><span></span>' : '').'
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="row">
-                                                <div class="col-md-3">
+                                <div class="col-md-12">
+                                    <table class="table table-bordered text-center">
+                                        <thead>
+                                            <tr>
+                                                <th>CACHORRO</th>
+                                                <th>JOVEN</th>
+                                                <th>ADULTO</th>
+                                                <th>VETERANO</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td> 
+                                                    <center>
+                                                        <label class="radio radio-rounded radio-primary">
+                                                            <small style="font-size:20px" class="text-primary">'.(($cachorro)? $cachorro->numero_prefijo : "").'</small>
+                                                        </label>
+                                                    </center>
+                                                </td>
+                                                <td>
+                                                    <label class="radio radio-rounded radio-success">
+                                                        <small style="font-size:20px" class="text-primary">'.(($joven)? $joven->numero_prefijo : "").'</small>
+                                                        '.(($joven)? '<p class="pl-1"></p><input type="radio" id="mejor_macho_joven" value="'.$joven->id.'" name="mejor_macho" '.(($sw)? 'disabled' : '').' '.(($sw)? (($mejorMacho->id == $joven->id)? 'checked' : '') : '').' /><span></span>' : '').'
+                                                    </label>
+                                                </td>
+                                                <td>
+                                                    <label class="radio radio-rounded radio-success">
+                                                        <small style="font-size:20px" class="text-primary">'.(($adulto)? $adulto->numero_prefijo : "").'</small>
+                                                        '.(($adulto)? '<p class="pl-1"></p><input type="radio" id="mejor_macho_adulto" value="'.$adulto->id.'" name="mejor_macho" '.(($sw)? 'disabled' : '').' '.(($sw)? (($mejorMacho->id == $adulto->id)? 'checked' : '') : '').' /><span></span>' : '').'
+                                                    </label>
+                                                </td>
+                                                <td>
+                                                    <label class="radio radio-rounded radio-success">
+                                                        <small style="font-size:20px" class="text-primary">'.(($veterano)? $veterano->numero_prefijo : "").'</small>
+                                                        '.(($veterano)? '<p class="pl-1"></p><input type="radio" id="mejor_macho_veterano" value="'.$veterano->id.'" name="mejor_macho" '.(($sw)? 'disabled' : '').' '.(($sw)? (($mejorMacho->id == $veterano->id)? 'checked' : '') : '').' /><span></span>' : '').'
+                                                    </label>
+                                                </td>
+                                                <td>
                                                     <button type="button" id="button_mejor_macho" onclick="mejorVencedores('."'macho'".')" class="btn btn-icon btn-success" '.(($sw)? 'disabled' : '').'><i class="fa fa-align-center" aria-hidden="true"></i></button>
-                                                </div>
-                                                <div class="col-md-9">
-                                                    <div id="mejor_macho_vencedor" '.((!$sw)? 'style="display: none"' : '').'>'
-                                                        .(($sw)? '<div class="row">
-                                                                    <div class="col-md-12">
-                                                                        <h5 class="text-success text-center"> MEJOR MACHO => <span class="text-info">'.$mejorMacho->numero_prefijo.'</span></h5>
-                                                                    </div>
-                                                                </div>' : '').
-                                                    '</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                            </div>
                             ';
 
+            // $tableMacho = '<div class="row">
+            //                     <div class="col-md-6">
+            //                         <div class="radio-inline">
+            //                             <label class="radio radio-rounded radio-primary">
+            //                                 CACHORRO => <small style="font-size:15px" class="text-primary border p-1">'.(($cachorro)? $cachorro->numero_prefijo : "").'</small>
+            //                             </label>
+
+            //                             <label class="radio radio-rounded radio-primary">
+            //                                 JOVEN => <small style="font-size:15px" class="text-primary border p-1">'.(($joven)? $joven->numero_prefijo : "").'</small>
+            //                                 '.(($joven)? '<p class="pl-1"></p><input type="radio" id="mejor_macho_joven" value="'.$joven->id.'" name="mejor_macho" '.(($sw)? 'disabled' : '').' '.(($sw)? (($mejorMacho->id == $joven->id)? 'checked' : '') : '').' /><span></span>' : '').'
+            //                             </label>
+            //                             <label class="radio radio-rounded radio-primary">
+            //                                 ADULTO => <small style="font-size:15px" class="text-primary border p-1">'.(($adulto)? $adulto->numero_prefijo : "").'</small>
+            //                                 '.(($adulto)? '<p class="pl-1"></p><input type="radio" id="mejor_macho_adulto" value="'.$adulto->id.'" name="mejor_macho" '.(($sw)? 'disabled' : '').' '.(($sw)? (($mejorMacho->id == $adulto->id)? 'checked' : '') : '').' /><span></span>' : '').'
+            //                             </label>
+            //                             <label class="radio radio-rounded radio-primary">
+            //                                 VETERANO => <small style="font-size:15px" class="text-primary border p-1">'.(($veterano)? $veterano->numero_prefijo : "").'</small>
+            //                                 '.(($veterano)? '<p class="pl-1"></p><input type="radio" id="mejor_macho_veterano" value="'.$veterano->id.'" name="mejor_macho" '.(($sw)? 'disabled' : '').' '.(($sw)? (($mejorMacho->id == $veterano->id)? 'checked' : '') : '').' /><span></span>' : '').'
+            //                             </label>
+            //                         </div>
+            //                     </div>
+            //                     <div class="col-md-6">
+            //                         <div class="row">
+            //                             <div class="col-md-12">
+            //                                 <div class="row">
+            //                                     <div class="col-md-3">
+            //                                         <button type="button" id="button_mejor_macho" onclick="mejorVencedores('."'macho'".')" class="btn btn-icon btn-success" '.(($sw)? 'disabled' : '').'><i class="fa fa-align-center" aria-hidden="true"></i></button>
+            //                                     </div>
+            //                                     <div class="col-md-9">
+            //                                         <div id="mejor_macho_vencedor" '.((!$sw)? 'style="display: none"' : '').'>'
+            //                                             .(($sw)? '<div class="row">
+            //                                                         <div class="col-md-12">
+            //                                                             <h5 class="text-success text-center"> MEJOR MACHO => <span class="text-info">'.$mejorMacho->numero_prefijo.'</span></h5>
+            //                                                         </div>
+            //                                                     </div>' : '').
+            //                                         '</div>
+            //                                     </div>
+            //                                 </div>
+            //                             </div>
+            //                         </div>
+            //                     </div>
+            //                </div>
+            //                 ';
+
+            if($sw){
+                $data['mejor_vencedor_macho'] = '<h5 class="text-success text-center">MEJOR MACHO <span class="text-info">'.($mejorMacho->numero_prefijo).'</span></h5>';
+            }else{
+                $data['mejor_vencedor_macho'] = '';
+            }
 
             
             // SEGUNDO PARA LOS HEMBRAS
@@ -2037,50 +2091,103 @@ class JuezController extends Controller
  
              }
             
-            $tableHembra = '
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="radio-inline">
-                                        <label class="radio radio-rounded radio-danger">
-                                            CACHORRO => <small style="color: #F94EE4;  font-size:15px" class="border p-1">'.(($cachorroHembra)? $cachorroHembra->numero_prefijo : "").'</small>
-                                        </label>
-
-                                        <label class="radio radio-rounded radio-danger">
-                                            JOVEN => <small style="color: #F94EE4;  font-size:15px" class="border p-1">'.(($jovenHembra)? $jovenHembra->numero_prefijo : "").'</small>
-                                            '.(($jovenHembra)? '<p class="pl-1"></p><input type="radio" id="mejor_hembra_joven" value="'.$jovenHembra->id.'" name="mejor_hembra" '.(($sw)? 'disabled' : '').' '.(($sw)? (($mejorHembra->id == $jovenHembra->id)? 'checked' : '') : '').' /><span></span>' : '').'
-                                        </label>
-                                        <label class="radio radio-rounded radio-danger">
-                                            ADULTO => <small style="color: #F94EE4;  font-size:15px" class="border p-1">'.(($adultoHembra)? $adultoHembra->numero_prefijo : "").'</small>
-                                            '.(($adultoHembra)? '<p class="pl-1"></p><input type="radio" id="mejor_hembra_adulto" value="'.$adultoHembra->id.'" name="mejor_hembra" '.(($sw)? 'disabled' : '').' '.(($sw)? (($mejorHembra->id == $adultoHembra->id)? 'checked' : '') : '').' /><span></span>' : '').'
-                                        </label>
-                                        <label class="radio radio-rounded radio-danger">
-                                            VETERANO => <small style="color: #F94EE4;  font-size:15px" class="border p-1">'.(($veteranoHembra)? $veteranoHembra->numero_prefijo : "").'</small>
-                                            '.(($veteranoHembra)? '<p class="pl-1"></p><input type="radio" id="mejor_hembra_jveterano" value="'.$veteranoHembra->id.'" name="mejor_hembra" '.(($sw)? 'disabled' : '').' '.(($sw)? (($mejorHembra->id == $veteranoHembra->id)? 'checked' : '') : '').' /><span></span>' : '').'
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="row">
-                                                <div class="col-md-3">
+            $tableHembra = '<div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-bordered text-center">
+                                        <thead>
+                                            <tr>
+                                                <th>CACHORRO</th>
+                                                <th>JOVEN</th>
+                                                <th>ADULTO</th>
+                                                <th>VETERANO</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td> 
+                                                    <label class="radio radio-rounded radio-danger">
+                                                        <small style="color: #F94EE4;  font-size:20px">'.(($cachorroHembra)? $cachorroHembra->numero_prefijo : "").'</small>
+                                                    </label>
+                                                </td>
+                                                <td>
+                                                    <label class="radio radio-rounded radio-danger">
+                                                        <small style="color: #F94EE4;  font-size:20px">'.(($jovenHembra)? $jovenHembra->numero_prefijo : "").'</small>
+                                                        '.(($jovenHembra)? '<p class="pl-1"></p><input type="radio" id="mejor_hembra_joven" value="'.$jovenHembra->id.'" name="mejor_hembra" '.(($sw)? 'disabled' : '').' '.(($sw)? (($mejorHembra->id == $jovenHembra->id)? 'checked' : '') : '').' /><span></span>' : '').'
+                                                    </label>
+                                                </td>
+                                                <td>
+                                                    <label class="radio radio-rounded radio-danger">
+                                                        <small style="color: #F94EE4;  font-size:20px">'.(($adultoHembra)? $adultoHembra->numero_prefijo : "").'</small>
+                                                        '.(($adultoHembra)? '<p class="pl-1"></p><input type="radio" id="mejor_hembra_adulto" value="'.$adultoHembra->id.'" name="mejor_hembra" '.(($sw)? 'disabled' : '').' '.(($sw)? (($mejorHembra->id == $adultoHembra->id)? 'checked' : '') : '').' /><span></span>' : '').'
+                                                    </label>
+                                                </td>
+                                                <td>
+                                                    <label class="radio radio-rounded radio-danger">
+                                                        <small style="color: #F94EE4;  font-size:20px">'.(($veteranoHembra)? $veteranoHembra->numero_prefijo : "").'</small>
+                                                        '.(($veteranoHembra)? '<p class="pl-1"></p><input type="radio" id="mejor_hembra_jveterano" value="'.$veteranoHembra->id.'" name="mejor_hembra" '.(($sw)? 'disabled' : '').' '.(($sw)? (($mejorHembra->id == $veteranoHembra->id)? 'checked' : '') : '').' /><span></span>' : '').'
+                                                    </label>
+                                                </td>
+                                                <td>
                                                     <button id="button_mejor_hembra" type="button" onclick="mejorVencedores('."'hembra'".')" class="btn btn-icon" style="background: #F94EE4;" '.(($sw)? 'disabled' : '').'><i class="fa fa-align-center text-white" aria-hidden="true"></i></button>
-                                                </div>
-                                                <div class="col-md-9">
-                                                    <div id="mejor_hembra_vencedor" '.((!$sw)? 'style="display: none"' : '').'>'.
-                                                    (($sw)? ('<div class="row">
-                                                                <div class="col-md-12">
-                                                                    <h5 class="text-success text-center"> MEJOR HEMBRA => <span class="text-info">'.$mejorHembra->numero_prefijo.'</span></h5>
-                                                                </div>
-                                                            </div>') : '')
-                                                    .'</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                             ';
+
+            // $tableHembra = '
+            //                 <div class="row">
+            //                     <div class="col-md-6">
+            //                         <div class="radio-inline">
+            //                             <label class="radio radio-rounded radio-danger">
+            //                                 CACHORRO => <small style="color: #F94EE4;  font-size:15px" class="border p-1">'.(($cachorroHembra)? $cachorroHembra->numero_prefijo : "").'</small>
+            //                             </label>
+
+            //                             <label class="radio radio-rounded radio-danger">
+            //                                 JOVEN => <small style="color: #F94EE4;  font-size:15px" class="border p-1">'.(($jovenHembra)? $jovenHembra->numero_prefijo : "").'</small>
+            //                                 '.(($jovenHembra)? '<p class="pl-1"></p><input type="radio" id="mejor_hembra_joven" value="'.$jovenHembra->id.'" name="mejor_hembra" '.(($sw)? 'disabled' : '').' '.(($sw)? (($mejorHembra->id == $jovenHembra->id)? 'checked' : '') : '').' /><span></span>' : '').'
+            //                             </label>
+            //                             <label class="radio radio-rounded radio-danger">
+            //                                 ADULTO => <small style="color: #F94EE4;  font-size:15px" class="border p-1">'.(($adultoHembra)? $adultoHembra->numero_prefijo : "").'</small>
+            //                                 '.(($adultoHembra)? '<p class="pl-1"></p><input type="radio" id="mejor_hembra_adulto" value="'.$adultoHembra->id.'" name="mejor_hembra" '.(($sw)? 'disabled' : '').' '.(($sw)? (($mejorHembra->id == $adultoHembra->id)? 'checked' : '') : '').' /><span></span>' : '').'
+            //                             </label>
+            //                             <label class="radio radio-rounded radio-danger">
+            //                                 VETERANO => <small style="color: #F94EE4;  font-size:15px" class="border p-1">'.(($veteranoHembra)? $veteranoHembra->numero_prefijo : "").'</small>
+            //                                 '.(($veteranoHembra)? '<p class="pl-1"></p><input type="radio" id="mejor_hembra_jveterano" value="'.$veteranoHembra->id.'" name="mejor_hembra" '.(($sw)? 'disabled' : '').' '.(($sw)? (($mejorHembra->id == $veteranoHembra->id)? 'checked' : '') : '').' /><span></span>' : '').'
+            //                             </label>
+            //                         </div>
+            //                     </div>
+            //                     <div class="col-md-6">
+            //                         <div class="row">
+            //                             <div class="col-md-12">
+            //                                 <div class="row">
+            //                                     <div class="col-md-3">
+            //                                         <button id="button_mejor_hembra" type="button" onclick="mejorVencedores('."'hembra'".')" class="btn btn-icon" style="background: #F94EE4;" '.(($sw)? 'disabled' : '').'><i class="fa fa-align-center text-white" aria-hidden="true"></i></button>
+            //                                     </div>
+            //                                     <div class="col-md-9">
+            //                                         <div id="mejor_hembra_vencedor" '.((!$sw)? 'style="display: none"' : '').'>'.
+            //                                         (($sw)? ('<div class="row">
+            //                                                     <div class="col-md-12">
+            //                                                         <h5 class="text-success text-center"> MEJOR HEMBRA => <span class="text-info">'.$mejorHembra->numero_prefijo.'</span></h5>
+            //                                                     </div>
+            //                                                 </div>') : '')
+            //                                         .'</div>
+            //                                     </div>
+            //                                 </div>
+            //                             </div>
+            //                         </div>
+            //                     </div>
+            //                 </div>
+            //                 ';
+
+            if($sw){
+                $data['mejor_vencedor_hembra'] = '<h5 class="text-success text-center">MEJOR HEMBRA <span class="text-info">'.($mejorMacho->numero_prefijo).'</span></h5>';
+            }else{
+                $data['mejor_vencedor_hembra'] = '';
+            }
 
             $data['status'] = 'success';
             $data['tableMachos'] = $tableMacho;
@@ -2104,12 +2211,32 @@ class JuezController extends Controller
 
             if($swMR){
 
-                $data['mejorRaza'] = true;
+                $data['mejorRaza'] = "mejor_raza_calificado";
+
                 $mejorRazaHtml = $mejorRazaHtml. '<div class="row">
                                                     <div class="col-md-12">
                                                         <h5> MEJOR DE LA RAZA => <span class="text-info">'.$mejorRaza->numero_prefijo.'</span></h5>
                                                     </div>
                                                 </div>'.$mejorRazaSexoOpuestoHtml;
+
+            }else{
+
+                // PARA EL SELCE DE MEJRO RAZA
+                $selecRaza = 'SELECCION MEJOR MEJOR RAZA<br><select  name="select_raza_mejor" id="select_raza_mejor" class="form-control">';
+
+                $bodySelect = '';
+
+                $datos = Juez::getMejorMachooHebra($raza_id, $evento_id, [3,4,5,6,7,8,9,10,12,13,14,15], $num_pista);
+
+
+                if(count($datos) > 0)
+                    $data['mejorRaza'] = "mejor_raza_sin_calificado";
+
+                foreach ($datos as $d){
+                    $bodySelect = $bodySelect.'<option value="'.$d->id.'">'.$d->numero_prefijo.'</option>';
+                }
+
+                $mejorRazaHtml = $selecRaza.$bodySelect.'</select><br><button type="button" id="button_guarda_mejo_raza" onclick="guardaMejor('."'".'raza'."'".')"   class="btn btn-success btn-block">Guardar Mejor de la Raza</button>';
 
             }
 
@@ -2297,6 +2424,30 @@ class JuezController extends Controller
                                     </div>
                                 </div>
                             </div>';
+
+            // $data['html'] = '<div class="row">
+            //                     <div class="col-md-8">
+            //                         <h5 class="text-success text-center"> MEJOR '.(($ganador->sexo == 'Macho')? 'MACHO =>': 'HEMBRA =>').'<span class="text-info">'.$ganador->numero_prefijo.'</span></h5>
+            //                     </div>
+            //                     <div class="col-md-4">
+            //                         <div class="form-group row">
+            //                             <div class="col-9 col-form-label">
+            //                                 <div class="checkbox-inline">
+            //                                     <label class="checkbox">
+            //                                         <input type="checkbox" id="certificacionCLACAB_'.$ganador->id.'" onclick="agregaCertificado(1, '.$ganador->id.')" name="Checkboxes6"/>
+            //                                         <span></span>
+            //                                         CLACAB
+            //                                     </label>
+            //                                     <label class="checkbox">
+            //                                         <input type="checkbox" id="certificacionCACIB_'.$ganador->id.'" onclick="agregaCertificado(2, '.$ganador->id.')" name="Checkboxes6"/>
+            //                                         <span></span>
+            //                                         CA CIB
+            //                                     </label>
+            //                                 </div>
+            //                             </div>
+            //                         </div>
+            //                     </div>
+            //                 </div>';
 
             // PARA EL SELCE DE MEJRO RAZA
             $selecRaza = 'SELECCION MEJOR MEJOR RAZA<br><select  name="select_raza_mejor" id="select_raza_mejor" class="form-control">';
