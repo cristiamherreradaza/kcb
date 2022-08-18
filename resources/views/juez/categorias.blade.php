@@ -860,7 +860,9 @@
                                     }
 
                                 }else{
-                                    $('#ganador_'+data.categoria).html('');
+                                    $('#ganador_'+data.categoria).html(data.ganadorhtml);
+                                    $('#ganador_'+data.categoria).show('toggle');
+                                    // $('#ganador_'+data.categoria).html('');
                                 }
 
                             }else{
@@ -928,7 +930,9 @@
                 dataType: 'json',
                 success: function(data) {
 
-                    $('#bloques_ganadores').html(data.divGanadoresCategorias);
+                    // console.log(data);
+
+                    $('#bloques_ganadores').html(data.divGanadoresCategorias);  
 
                     $('#bloque_ganador').css('display', 'none');
                     $('#bloques_mejor_categoria').css('display', 'none');

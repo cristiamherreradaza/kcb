@@ -669,7 +669,7 @@ class JuezController extends Controller
                 if($ganador)
                     Ganador::destroy($ganador->id);
 
-                $data['ganadorhtml'] = '';
+                $data['ganadorhtml'] = '<h1 class="text-success text-center">Se califico con exito!!</h1>';
 
 
                 $ganadorConfir = false;
@@ -748,8 +748,6 @@ class JuezController extends Controller
             // PREGUNTAMOS POR EL GANADOR
             $ganador = Juez::getGanadoEventoSecretario($evento_id, Auth::user()->id, $categorias[0]['categoria_id'], $raza_id, $num_pista);
 
-            // dd($ganador);
-
             $sw = true;
             if($ganador){
                 if($ganador->mejor_escogido == "Si"){
@@ -771,10 +769,6 @@ class JuezController extends Controller
                     array_push($arrayAbiertaIntermedia, $ganador->id);
                 }
             }
-
-
-
-            $tableGanador = '';
 
             if($ganador){
 
@@ -824,7 +818,6 @@ class JuezController extends Controller
                                                 </tr>
                                             </tbody>
                                         </table>';
-
             }
 
             $columna = 'class="col-md-12"';
