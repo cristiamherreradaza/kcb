@@ -1411,46 +1411,46 @@
 
         }
 
-        function cambiaMejor(mejor, recerva, numeroMejor){
+        // function cambiaMejor(mejor, recerva, numeroMejor){
 
-            Swal.fire({
-                title: 'Esta seguro de seleccionar al ejemplar con numero '+numeroMejor+' como mejor?',
-                text: "No podra revertir eso!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Si, estoy seguro!'
-            }).then((result) => {
-                if (result.isConfirmed) {
+        //     Swal.fire({
+        //         title: 'Esta seguro de seleccionar al ejemplar con numero '+numeroMejor+' como mejor?',
+        //         text: "No podra revertir eso!",
+        //         icon: 'warning',
+        //         showCancelButton: true,
+        //         confirmButtonColor: '#3085d6',
+        //         cancelButtonColor: '#d33',
+        //         confirmButtonText: 'Si, estoy seguro!'
+        //     }).then((result) => {
+        //         if (result.isConfirmed) {
 
-                    $.ajax({
-                        url: "{{ url('Juez/cambiaMejorRecerva') }}",
-                        data: {
-                            mejor : mejor,
-                            recerva : recerva
-                        },
-                        type: 'POST',
-                        dataType: 'json',
-                        success: function(data){
+        //             $.ajax({
+        //                 url: "{{ url('Juez/cambiaMejorRecerva') }}",
+        //                 data: {
+        //                     mejor : mejor,
+        //                     recerva : recerva
+        //                 },
+        //                 type: 'POST',
+        //                 dataType: 'json',
+        //                 success: function(data){
 
-                            if(data.status === "success"){
+        //                     if(data.status === "success"){
 
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Correcto!',
-                                    text: 'Se cambio  con exito!',
-                                })
+        //                         Swal.fire({
+        //                             icon: 'success',
+        //                             title: 'Correcto!',
+        //                             text: 'Se cambio  con exito!',
+        //                         })
 
-                                $('#besting_finalistas').html(data.finalistas);
-                            }
+        //                         $('#besting_finalistas').html(data.finalistas);
+        //                     }
                             
-                        }
-                    });
+        //                 }
+        //             });
 
-                }
-            })
-        }
+        //         }
+        //     })
+        // }
 
         function agregaCertificado(certificado, ganador){
 

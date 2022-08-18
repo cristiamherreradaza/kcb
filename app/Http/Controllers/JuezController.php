@@ -2617,14 +2617,16 @@ class JuezController extends Controller
 
             }
 
-            $tableFinalistas = '
-                                <table class="table table-bordered table-hover table-striped" style="width:100%;">
-                                    <tbody>
-                                        <tr>
-                                        '.$tbody.'
-                                        </tr>
-                                    </tbody>
-                                </table>';
+            $tableFinalistas = '<div class="table-responsive">
+                                    <table class="table table-bordered table-hover table-striped" style="width:100%;">
+                                        <tbody>
+                                            <tr>
+                                            '.$tbody.'
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                ';
 
             $data['finalistas']  = $tableFinalistas;
 
@@ -2802,13 +2804,15 @@ class JuezController extends Controller
             }
 
             $tableFinalistas = '
-                                <table class="table table-bordered table-hover table-striped" style="width:100%;">
-                                    <tbody>
-                                        <tr>
-                                        '.$tbody.'
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-hover table-striped" style="width:100%;">
+                                        <tbody>
+                                            <tr>
+                                            '.$tbody.'
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                                 ';
 
             $data['finalistas']  = $tableFinalistas;
@@ -2941,13 +2945,15 @@ class JuezController extends Controller
             }
 
             $tableFinalistas = '
-                                <table class="table table-bordered table-hover table-striped" style="width:100%;">
-                                    <tbody>
-                                        <tr>
-                                        '.$tbody.'
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-hover table-striped" style="width:100%;">
+                                        <tbody>
+                                            <tr>
+                                            '.$tbody.'
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                                 ';
 
             $data['finalistas']  = $tableFinalistas;
