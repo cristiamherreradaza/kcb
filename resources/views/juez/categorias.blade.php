@@ -1289,6 +1289,11 @@
 
                     var tipo = $('#tipo_besting').val();
 
+                    // SETEAMOS TODO
+                    $(ejemplares_eventos).each(function(index, value){
+                        $("#besting_"+tipo+"_"+grupo+"_"+value).css("display", "none");
+                    })
+
                     $.ajax({
                         url: "{{ url('Juez/calificabesting') }}",
                         data: {
@@ -1308,6 +1313,8 @@
                         dataType: 'json',
                         success: function(data){
 
+                            console.log(data);
+
                             if(data.status === "success"){
 
                                 if(data.mejor_grupo != null){
@@ -1325,6 +1332,18 @@
                                 // BLOQUEAMOS LOS BOTONES
                                 $('#btn_grupo_'+grupo).prop('disabled', true);
 
+                            }else if(data.status === "error_repeat"){
+
+                                $(data.ejemplares_repetidos).each(function(index, value){
+                                    $("#besting_"+data.tipo+"_"+data.grupo+"_"+value).css("display", "block");
+                                })
+
+                            }else if(data.status === "error_no_calificado"){
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Debe calificar como minimo a '+data.cantidad+' participipantes del grupo!',
+                                    text: 'Revise la planilla!',
+                                })   
                             }
 
                         }

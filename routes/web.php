@@ -45,7 +45,7 @@ Route::post('User/ajaxOtb', 'UserController@ajaxOtb');
 Route::post('User/guarda', 'UserController@guarda');
 Route::get('User/ajax_listado', 'UserController@ajax_listado');
 Route::get('User/edita/{id}', 'UserController@edita');
-Route::get('User/elimina/{id}', 'UserController@elimina');
+Route::get('User/elimina/{id}/{tipo}', 'UserController@elimina');
 Route::get('User/pagos/{user_id}', 'UserController@pagos');
 Route::get('User/cambiaPago/{id}/{estado}', 'UserController@cambiaPago');
 Route::get('User/formulario/{id}', 'UserController@formulario');

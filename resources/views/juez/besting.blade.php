@@ -170,7 +170,7 @@
                                             {{-- <option value="5" {{ (($besting)? (($besting->lugar == '5')? 'selected' : '') : '') }}>Quinto</option>
                                             <option value="6" {{ (($besting)? (($besting->lugar == '6')? 'selected' : '') : '') }}>Sexto</option> --}}
                                         </select>
-                                        <small id="besting_{{ $tipo }}_{{ $ag[$i]->grupo_id }}_{{ $ag[$i]->ejemplar_evento_id }}" class="text-warning">Dato repedito</small>
+                                        <small style="display: none;" id="besting_{{ $tipo }}_{{ $ag[$i]->grupo_id }}_{{ $ag[$i]->ejemplar_evento_id }}" class="text-warning">Dato repedito</small>
                                     </div>
                                 </div>
                         </td>

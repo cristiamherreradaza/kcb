@@ -82,7 +82,7 @@
 									<button type="button" class="btn btn-icon btn-primary" onclick="permisos('{{ $u->id }}')">
 										<i class="far fa-list-alt"></i>
 									</button>
-									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $u->id }}', '{{ $u->name }}')">
+									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $u->id }}', '{{ $u->name }}', 0)">
 										<i class="flaticon2-cross"></i>
 									</button>
 								</td>
@@ -132,7 +132,7 @@
 			window.location.href = "{{ url('User/formulario') }}/"+id;
 		}
 
-		function elimina(id, nombre)
+		function elimina(id, nombre, tipo)
         {
             Swal.fire({
                 title: "Quieres eliminar "+nombre,
@@ -144,7 +144,7 @@
                 reverseButtons: true
             }).then(function(result) {
                 if (result.value) {
-                    window.location.href = "{{ url('User/elimina') }}/"+id;
+                    window.location.href = "{{ url('User/elimina') }}/"+id+"/"+tipo;
                     Swal.fire(
                         "Borrado!",
                         "El registro fue eliminado.",

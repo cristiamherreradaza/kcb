@@ -114,8 +114,8 @@ class UserController extends Controller
         return redirect('User/listado');
     }
 
-    public function elimina(Request $request)
-    {
+    public function elimina(Request $request){
+
         // ELIMINAMOS EL USUARIO
         User::destroy($request->id);
 
@@ -128,7 +128,10 @@ class UserController extends Controller
 
         }
 
-        return redirect('User/listado');
+        if($request->tipo == 0)
+            return redirect('User/listado');
+        else
+            return redirect('User/listadoSecretario');
 
     }
 

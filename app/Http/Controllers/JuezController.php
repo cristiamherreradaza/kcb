@@ -2679,75 +2679,103 @@ class JuezController extends Controller
             $ganadores_id       = $request->input('ganadores_id');
             $ejemplares_eventos = $request->input('ejemplares_eventos');
             $razas_ids          = $request->input('razas_ids');
-
             $num_pistas         = $request->input('pista');
 
             $mejorGrupo = null;
             $mejorReserva = null;
 
-            foreach($numero_prefijos as $key => $npr){
+            $validacion = $this->verificaBesting($ejemplares_eventos, $calificaciones);
 
-                $besting =  new  Besting();
+            if(count($ejemplares_eventos) >= 4)
+                $maximo = 4;
+            else
+                $maximo = count($ejemplares_eventos);
 
-                $besting->creador_id            = Auth::user()->id;
-                $besting->categoria_pista_id    = $categorias_pistas[$key];
-                $besting->ejemplar_evento_id    = $ejemplares_eventos[$key];
-                $besting->raza_id               = $razas_ids[$key];
-                $besting->grupo_id              = $grupo_id;
-                $besting->evento_id             = $evento_id;
-                $besting->ejemplar_id           = $ejempleres_id[$key];
-                $besting->ganador_id            = $ganadores_id[$key];
-                $besting->numero_prefijo        = $npr;
-                $besting->lugar                 = $calificaciones[$key];
-                $besting->tipo                  = $tipo;
-                $besting->pista                 = $num_pistas;
 
-                $besting->save();
+            if($validacion['status'] && $validacion['contador'] == $maximo){
 
-                // buscamos a al mejor del grupo
-                if($besting->lugar == 1)
-                    $mejorGrupo = $besting;
+                foreach($numero_prefijos as $key => $npr){
 
-                // buscamos a la reserva
-                if($besting->lugar == 2)
-                    $mejorReserva = $besting;
+                    $besting =  new  Besting();
 
-            }
+                    $besting->creador_id            = Auth::user()->id;
+                    $besting->categoria_pista_id    = $categorias_pistas[$key];
+                    $besting->ejemplar_evento_id    = $ejemplares_eventos[$key];
+                    $besting->raza_id               = $razas_ids[$key];
+                    $besting->grupo_id              = $grupo_id;
+                    $besting->evento_id             = $evento_id;
+                    $besting->ejemplar_id           = $ejempleres_id[$key];
+                    $besting->ganador_id            = $ganadores_id[$key];
+                    $besting->numero_prefijo        = $npr;
+                    $besting->lugar                 = $calificaciones[$key];
+                    $besting->tipo                  = $tipo;
+                    $besting->pista                 = $num_pistas;
 
-            if($mejorGrupo){
-                $mejorGrupo->mejor_grupo = "Si";
-                $mejorGrupo->save();
-            }
+                    $besting->save();
 
-            if($mejorReserva){
-                $mejorReserva->recerva_grupo = "Si";
-                $mejorReserva->save();
-            }
+                    // buscamos a al mejor del grupo
+                    if($besting->lugar == 1)
+                        $mejorGrupo = $besting;
 
-            $data['status']         = 'success';
-            $data['mejor_grupo']    = ($mejorGrupo)? $mejorGrupo->numero_prefijo : null;
-            $data['reserva_grupo']  = ($mejorReserva)? $mejorReserva->numero_prefijo : null;
-            $data['grupo']          = $besting->grupo_id;
+                    // buscamos a la reserva
+                    if($besting->lugar == 2)
+                        $mejorReserva = $besting;
 
-            // madamos al mejor y a la reserva apra que peudan modificar
-            if($mejorGrupo){
+                }
 
-                $data['finalistaMejor'] = '<div>
-                                <div class="form-group">
-                                    <label>MEJOR DE GRUPO</label><br>
-                                    Mejor de grupo => <small style="font-size: 15px" class="text-info">'.$mejorGrupo->numero_prefijo.'</small>
-                                </div>
-                            </div>';
-            }
+                if($mejorGrupo){
+                    $mejorGrupo->mejor_grupo = "Si";
+                    $mejorGrupo->save();
+                }
 
-            if($mejorReserva){
+                if($mejorReserva){
+                    $mejorReserva->recerva_grupo = "Si";
+                    $mejorReserva->save();
+                }
 
-                $data['finalistaMejorRecerva'] = '<div>
-                                <div class="form-group">
-                                    <label>RECERVA DE GRUPO</label><br>
-                                    Recerva de grupo => <small style="font-size: 15px" class="text-info">'.$mejorReserva->numero_prefijo.'</small>
-                                </div>
-                            </div>';
+                $data['status']         = 'success';
+                $data['mejor_grupo']    = ($mejorGrupo)? $mejorGrupo->numero_prefijo : null;
+                $data['reserva_grupo']  = ($mejorReserva)? $mejorReserva->numero_prefijo : null;
+                $data['grupo']          = $besting->grupo_id;
+
+                // madamos al mejor y a la reserva apra que peudan modificar
+                if($mejorGrupo){
+
+                    $data['finalistaMejor'] = '<div>
+                                    <div class="form-group">
+                                        <label>MEJOR DE GRUPO</label><br>
+                                        Mejor de grupo => <small style="font-size: 15px" class="text-info">'.$mejorGrupo->numero_prefijo.'</small>
+                                    </div>
+                                </div>';
+                }
+
+                if($mejorReserva){
+
+                    $data['finalistaMejorRecerva'] = '<div>
+                                    <div class="form-group">
+                                        <label>RECERVA DE GRUPO</label><br>
+                                        Recerva de grupo => <small style="font-size: 15px" class="text-info">'.$mejorReserva->numero_prefijo.'</small>
+                                    </div>
+                                </div>';
+                }
+
+                
+            }else{
+
+                if($validacion['status']){
+
+                    $data['status']                 = 'error_no_calificado';
+                    $data['cantidad']               = $maximo;
+
+                }else if($validacion['contador'] != $maximo){
+
+                    $data['status']                 = 'error_repeat';
+                    $data['ejemplares_repetidos']   = $validacion['ejemplares_repetidos'];
+                    $data['grupo']                  = $grupo_id;
+                    $data['tipo']                   = $tipo;
+
+                }
+
             }
 
 
@@ -2756,7 +2784,7 @@ class JuezController extends Controller
 
             $tbody = '';
 
-            foreach ($finalistas as $fi){
+            foreach ($finalistas as $key => $fi){
                 $tbody = $tbody.'<td class="text-primary">
                                     <input type="hidden" value="'.$fi->id.'" name="bestinguids[]">
                                     <h2 class="text-center">'.$fi->numero_prefijo.'</h2>
@@ -2791,6 +2819,39 @@ class JuezController extends Controller
 
     }
 
+    private function verificaBesting($arryEjemplaresEventos, $arrayCalificacionesEnviados){
+
+        $arrayEjemplaresRepetidos = array();
+        $arrayCalificaciones = array();
+
+        $data['status'] = true ;
+
+        $contadorCalificaciones = 0;
+
+        foreach ($arryEjemplaresEventos  as $key => $eje){
+
+            if($arrayCalificacionesEnviados[$key]){
+                if(!in_array($arrayCalificacionesEnviados[$key], $arrayCalificaciones)){
+
+                    array_push($arrayCalificaciones, $arrayCalificacionesEnviados[$key]);
+
+                    $contadorCalificaciones++;
+
+                }else{
+                    array_push($arrayEjemplaresRepetidos, $eje );
+                    $data['status'] = false ;
+                }
+            }
+
+
+        }
+        $data['contador'] = $contadorCalificaciones;
+        $data['ejemplares_repetidos'] = $arrayEjemplaresRepetidos;
+
+        return $data;
+
+    }
+
     public function calificaFinales(Request $request){
 
         if($request->ajax()){
@@ -2804,12 +2865,8 @@ class JuezController extends Controller
 
             $ganador->save();
 
-            // dd($ganador->evento_id, $ganador->tipo, $ganador->pista);
-
             // ********************* MANDAMOS A LOS GANADORES ********************
             $finalistas = Juez::finalistasBesting($ganador->evento_id, $ganador->tipo, $ganador->pista);
-
-            // dd($finalistas);
 
             $tbody = '';
             
@@ -2840,7 +2897,7 @@ class JuezController extends Controller
                     if($fi->lugar_finalista == '' || $fi->lugar_finalista == null){
 
                         $tbody = $tbody.'<td class="text-primary">
-                                            <input type="text" value="'.$fi->id.'" name="bestinguids[]">
+                                            <input type="hidden" value="'.$fi->id.'" name="bestinguids[]">
                                             <h2 class="text-center">'.$fi->numero_prefijo.'</h2>
                                             <br>
                                             <select name="posision[]" id="calificacion_final_'.$fi->numero_prefijo.'" class="form-control" required>
