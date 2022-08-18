@@ -2184,7 +2184,7 @@ class JuezController extends Controller
             //                 ';
 
             if($sw){
-                $data['mejor_vencedor_hembra'] = '<h5 class="text-success text-center">MEJOR HEMBRA <span class="text-info">'.($mejorMacho->numero_prefijo).'</span></h5>';
+                $data['mejor_vencedor_hembra'] = '<h5 class="text-success text-center">MEJOR HEMBRA <span class="text-info">'.($mejorHembra->numero_prefijo).'</span></h5>';
             }else{
                 $data['mejor_vencedor_hembra'] = '';
             }
