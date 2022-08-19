@@ -769,6 +769,7 @@ class JuezController extends Controller
                     array_push($arrayAbiertaIntermedia, $ganador->id);
                 }
             }
+            $tableGanador = "";
 
             if($ganador){
 
