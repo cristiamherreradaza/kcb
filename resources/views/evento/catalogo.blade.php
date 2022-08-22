@@ -12,7 +12,7 @@
 
 @section('content')
 
-    {{-- <div class="row">
+    <div class="row">
         <div class="col-md-12">
             <h2>CATEGORIA CACHORROS ESPECIALES</h2>
             @php
@@ -177,9 +177,9 @@
                 @endphp
             @endif
         </div>
-    </div> --}}
+    </div>
 
-    {{-- <div class="row">
+    <div class="row">
         <div class="col-md-12">
             <h2>CATEGORIA CACHORROS ABSOLUTOS</h2>
 
@@ -344,9 +344,9 @@
             @endphp
         @endif
         </div>
-    </div> --}}
+    </div>
 
-    {{-- <div class="row">
+    <div class="row">
         <div class="col-md-12">
             <h2>CATEGORIA JOVENES</h2>
 
@@ -510,7 +510,7 @@
             @endphp
         @endif
         </div>
-    </div> --}}
+    </div>
 
     <div class="row">
         <div class="col-md-12">
@@ -589,29 +589,29 @@
                         }
                     }
                 }
-                echo '<br><br>grupo I -> ';
-                print_r($grupo1);
-                echo '<br><br>grupo II -> ';
-                print_r($grupo2);
-                echo '<br><br>grupo III -> ';
-                print_r($grupo3);
-                echo '<br><br>grupo IV -> ';
-                print_r($grupo4);
-                echo '<br><br>grupo V -> ';
-                print_r($grupo5);
-                echo '<br><br>grupo VI -> ';
-                print_r($grupo6);
-                echo '<br><br>grupo VII -> ';
-                print_r($grupo7);
-                echo '<br><br>grupo VIII -> ';
-                print_r($grupo8);
-                echo '<br><br>grupo IX -> ';
-                print_r($grupo9);
-                echo '<br><br>grupo X -> ';
-                print_r($grupo10);
+                // echo '<br><br>grupo I -> ';
+                // print_r($grupo1);
+                // echo '<br><br>grupo II -> ';
+                // print_r($grupo2);
+                // echo '<br><br>grupo III -> ';
+                // print_r($grupo3);
+                // echo '<br><br>grupo IV -> ';
+                // print_r($grupo4);
+                // echo '<br><br>grupo V -> ';
+                // print_r($grupo5);
+                // echo '<br><br>grupo VI -> ';
+                // print_r($grupo6);
+                // echo '<br><br>grupo VII -> ';
+                // print_r($grupo7);
+                // echo '<br><br>grupo VIII -> ';
+                // print_r($grupo8);
+                // echo '<br><br>grupo IX -> ';
+                // print_r($grupo9);
+                // echo '<br><br>grupo X -> ';
+                // print_r($grupo10);
 
             @endphp
-        {{-- @if (!empty($grupo1))
+        @if (!empty($grupo1))
             <h5 class="text-primary">Grupo I</h5>
             @php
                 EventoController::armaCatalogo($grupo1, $evento->id, 1,4);
@@ -634,7 +634,7 @@
             @php
                 EventoController::armaCatalogo($grupo4, $evento->id, 4,4);
             @endphp
-        @endif --}}
+        @endif
         @if (!empty($grupo5))
             <h5 class="text-primary">Grupo V</h5>
             @php

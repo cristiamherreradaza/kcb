@@ -592,7 +592,7 @@ class EventoController extends Controller
                         $celulares_propietario      = $eje->telefono;
                         $email_propietario          = $eje->email;
 
-                        echo '<b>'.$g2h." <->".$eje->numero_prefijo.". - ".$eje->nombre_completo.'</b><span class="text-danger">'.$nacionalidad."</span><br>" ;
+                        echo '<b>'.$eje->numero_prefijo.". - ".$eje->nombre_completo.'</b><span class="text-danger">'.$nacionalidad."</span><br>" ;
                         echo '<b>COD EXTRANJERO: </b>'.$kcb.' - <b> FECHA NACIMIENTO: </b>'.date('d/m/Y',strtotime($eje->fecha_nacimiento)).' - <b> POR: </b>'.$padre.' y '.$madre.'<br>';
                         echo '<b> PROPIETARIO: </b>'.$nombre_propietario.' - <b> CIUDAD/PAIS: </b>'.$departamento_propietario.' - <b> TELEFONOS: </b>'.$celulares_propietario.' - <b> EMAIL: </b>'.$email_propietario.'<br><br>';
                     }
