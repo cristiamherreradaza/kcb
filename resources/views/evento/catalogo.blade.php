@@ -12,7 +12,7 @@
 
 @section('content')
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-md-12">
             <h2>CATEGORIA CACHORROS ESPECIALES</h2>
             @php
@@ -26,6 +26,8 @@
                 $grupo8  = array();
                 $grupo9  = array();
                 $grupo10 = array();
+                $grupo11 = array();
+
                 foreach ($ejemplares as $key => $e){
 
                     $cant = App\GrupoRaza::where('raza_id',$e->raza_id)
@@ -79,6 +81,10 @@
                                 array_push($grupo10, "$ejemplar");
                                 // echo "i equals 2";
                                 break;
+                            case 11:
+                                array_push($grupo11, "$ejemplar");
+                                // echo "i equals 2";
+                                break;
                         }
                     }
                 }
@@ -114,88 +120,6 @@
                 @php
                     EventoController::armaCatalogo($grupo2, $evento->id, 2,1);
                 @endphp
-                {{--
-                <h5 class="text-primary">Grupo II</h5>
-                @php
-                    $g2machos = array();
-                    $g2hembras = array();
-                    foreach ($grupo2 as $g2){
-                        $eje = App\Ejemplar::find($g2);
-                        if($eje){
-                            if($eje->sexo == 'Macho'){
-                                array_push($g2machos, "$eje->id");
-                            }else{
-                                array_push($g2hembras, "$eje->id");
-                            }    
-                        }
-                        
-                    }
-                    $razas = Illuminate\Support\Facades\DB::table('ejemplares_eventos')
-                                    ->join('razas', 'ejemplares_eventos.raza_id', '=', 'razas.id')
-                                    ->join('grupos_razas', 'grupos_razas.raza_id', '=', 'razas.id')
-                                    ->join('grupos', 'grupos.id', '=', 'grupos_razas.grupo_id')
-                                    ->where('ejemplares_eventos.evento_id',$evento->id)
-                                    ->where('ejemplares_eventos.categoria_pista_id',1)
-                                    ->where('grupos.id',2)
-                                    ->groupBy('razas.id')
-                                    ->orderBy('razas.nombre','asc')
-                                    ->select('razas.*')
-                                    ->get();
-                    $swm = true;
-                    $swh = true;
-                @endphp
-                @foreach ($razas as $r)
-                    <h5 class="text-primary"> - {{ $r->nombre }}</h5>
-                    @if (!empty($g2machos))
-                        @php
-                            $swm = true;
-                            EventoController::catalogoDevuelveEjemplar($g2machos,$swm,$r);
-                        @endphp
-                    @endif
-                    @if (!empty($g2hembras))
-                        @php
-                            $swh = true;
-                            EventoController::catalogoDevuelveEjemplar($g2hembras,$swh,$r);
-                        @endphp
-                        @foreach ($g2hembras as $g2h)
-                            @php
-                                $eje = App\Ejemplar::find($g2h);
-                                if($eje){
-                                    if($eje->raza_id == $r->id){
-                                        if($swh){
-                                            echo '<h6> <span class="text-danger">CACHORRO ESPECIAL (3 A 6 MESES)</span>Hembras </h6>';
-                                            $swh = false;
-                                        }
-
-                                        if($eje->kcb == null && ($eje->codigo_nacionalizado != '' || $eje->codigo_nacionalizado != null)){
-                                            $nacionalidad = '(Extranjero)';
-                                            $kcb =  $eje->codigo_nacionalizado; 
-                                        }else{
-                                            $nacionalidad = '(Nacional)';
-                                            $kcb =  $eje->kcb; 
-                                        }
-
-                                        if($eje->padre){
-                                            $padre = $eje->padre->nombre_completo;
-                                        }else{
-                                            $padre = '';
-                                        }
-
-                                        if($eje->madre){
-                                            $madre = $eje->madre->nombre_completo;
-                                        }else{
-                                            $madre = '';
-                                        }
-                                        // $nacionalidad = ($eje->kcb == null && ($eje->codigo_nacionalizado != '' || $eje->codigo_nacionalizado != null))? '(Extranjero)':'(Nacional)';
-                                        echo '<b>'.$eje->nombre_completo.'</b><span class="text-danger">'.$nacionalidad."</span><br>" ;
-                                        echo '<b>KCB: </b>'.$kcb.' - <b> FECHA NACIMIENTO: </b>'.date('d/m/Y',strtotime($eje->fecha_nacimiento)).' - <b> POR: </b>'.$padre.' y '.$madre.'<br>';
-                                        echo '<b> PROPIETARIO: </b>'.$eje->propietario->name.' - <b> CIUDAD/PAIS: </b>'.$eje->propietario->departamento.' - <b> EMAIL: </b>'.$eje->propietario->email.'<br><br>';
-                                    }
-                                }
-                            @endphp
-                        @endforeach
-                    @endif
-                @endforeach --}}
             @endif
             @if (!empty($grupo3))
                 <h5 class="text-primary">Grupo III</h5>
@@ -245,10 +169,17 @@
                     EventoController::armaCatalogo($grupo10, $evento->id, 10,1);
                 @endphp
             @endif
-        </div>
-    </div>
 
-    <div class="row">
+            @if (!empty($grupo11))
+                <h5 class="text-primary">Grupo XI</h5>
+                @php
+                    EventoController::armaCatalogo($grupo11, $evento->id, 11,1);
+                @endphp
+            @endif
+        </div>
+    </div> --}}
+
+    {{-- <div class="row">
         <div class="col-md-12">
             <h2>CATEGORIA CACHORROS ABSOLUTOS</h2>
 
@@ -263,6 +194,7 @@
                 $grupo8  = array();
                 $grupo9  = array();
                 $grupo10 = array();
+                $grupo11 = array();
                 // dd($ejemplaresAbsolutos);
                 foreach ($ejemplaresAbsolutos as $key => $e){
 
@@ -315,6 +247,10 @@
                                 break;
                             case 10:
                                 array_push($grupo10, "$ejemplar");
+                                // echo "i equals 2";
+                                break;
+                            case 11:
+                                array_push($grupo11, "$ejemplar");
                                 // echo "i equals 2";
                                 break;
                         }
@@ -401,10 +337,16 @@
                 EventoController::armaCatalogo($grupo10, $evento->id, 10,2);
             @endphp
         @endif
+        @if (!empty($grupo11))
+            <h5 class="text-primary">Grupo XI</h5>
+            @php
+                EventoController::armaCatalogo($grupo11, $evento->id, 11,2);
+            @endphp
+        @endif
         </div>
-    </div>
+    </div> --}}
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-md-12">
             <h2>CATEGORIA JOVENES</h2>
 
@@ -419,6 +361,7 @@
                 $grupo8  = array();
                 $grupo9  = array();
                 $grupo10 = array();
+                $grupo11 = array();
                 foreach ($ejemplaresJovenes as $key => $e){
 
                     $cant = App\GrupoRaza::where('raza_id',$e->raza_id)
@@ -470,6 +413,10 @@
                                 break;
                             case 10:
                                 array_push($grupo10, "$ejemplar");
+                                // echo "i equals 2";
+                                break;
+                            case 11:
+                                array_push($grupo11, "$ejemplar");
                                 // echo "i equals 2";
                                 break;
                         }
@@ -556,8 +503,14 @@
                 EventoController::armaCatalogo($grupo10, $evento->id, 10,3);
             @endphp
         @endif
+        @if (!empty($grupo11))
+            <h5 class="text-primary">Grupo XI</h5>
+            @php
+                EventoController::armaCatalogo($grupo11, $evento->id, 11,3);
+            @endphp
+        @endif
         </div>
-    </div>
+    </div> --}}
 
     <div class="row">
         <div class="col-md-12">
@@ -575,6 +528,7 @@
                 $grupo8  = array();
                 $grupo9  = array();
                 $grupo10 = array();
+                $grupo11 = array();
                 // dd($ejemplaresAdulto);
                 foreach ($ejemplaresAdulto as $key => $e){
 
@@ -628,32 +582,36 @@
                                 array_push($grupo10, "$ejemplar");
                                 // echo "i equals 2";
                                 break;
+                            case 11:
+                                array_push($grupo11, "$ejemplar");
+                                // echo "i equals 2";
+                                break;
                         }
                     }
                 }
-                // echo '<br><br>grupo I -> ';
-                // print_r($grupo1);
-                // echo '<br><br>grupo II -> ';
-                // print_r($grupo2);
-                // echo '<br><br>grupo III -> ';
-                // print_r($grupo3);
-                // echo '<br><br>grupo IV -> ';
-                // print_r($grupo4);
-                // echo '<br><br>grupo V -> ';
-                // print_r($grupo5);
-                // echo '<br><br>grupo VI -> ';
-                // print_r($grupo6);
-                // echo '<br><br>grupo VII -> ';
-                // print_r($grupo7);
-                // echo '<br><br>grupo VIII -> ';
-                // print_r($grupo8);
-                // echo '<br><br>grupo IX -> ';
-                // print_r($grupo9);
-                // echo '<br><br>grupo X -> ';
-                // print_r($grupo10);
+                echo '<br><br>grupo I -> ';
+                print_r($grupo1);
+                echo '<br><br>grupo II -> ';
+                print_r($grupo2);
+                echo '<br><br>grupo III -> ';
+                print_r($grupo3);
+                echo '<br><br>grupo IV -> ';
+                print_r($grupo4);
+                echo '<br><br>grupo V -> ';
+                print_r($grupo5);
+                echo '<br><br>grupo VI -> ';
+                print_r($grupo6);
+                echo '<br><br>grupo VII -> ';
+                print_r($grupo7);
+                echo '<br><br>grupo VIII -> ';
+                print_r($grupo8);
+                echo '<br><br>grupo IX -> ';
+                print_r($grupo9);
+                echo '<br><br>grupo X -> ';
+                print_r($grupo10);
 
             @endphp
-        @if (!empty($grupo1))
+        {{-- @if (!empty($grupo1))
             <h5 class="text-primary">Grupo I</h5>
             @php
                 EventoController::armaCatalogo($grupo1, $evento->id, 1,4);
@@ -676,7 +634,7 @@
             @php
                 EventoController::armaCatalogo($grupo4, $evento->id, 4,4);
             @endphp
-        @endif
+        @endif --}}
         @if (!empty($grupo5))
             <h5 class="text-primary">Grupo V</h5>
             @php
@@ -711,6 +669,12 @@
             <h5 class="text-primary">Grupo X</h5>
             @php
                 EventoController::armaCatalogo($grupo10, $evento->id, 10,4);
+            @endphp
+        @endif
+        @if (!empty($grupo11))
+            <h5 class="text-primary">Grupo XI</h5>
+            @php
+                EventoController::armaCatalogo($grupo11, $evento->id, 11,4);
             @endphp
         @endif
         </div>

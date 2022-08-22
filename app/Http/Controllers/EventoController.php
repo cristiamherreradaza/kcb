@@ -356,7 +356,6 @@ class EventoController extends Controller
         // dd($arrayGrupo);
         foreach ($arrayGrupo as $g2){
             if($g2 != ''){
-
                 if($g2 > 0){
                     if($g2 > 0){
                         $eje = Ejemplar::find($g2);
@@ -373,7 +372,6 @@ class EventoController extends Controller
                         }    
                     }
                 }else{
-                    
                     $h = (-1)*$g2;
                     $eje = EjemplarEvento::find($h);
                     $ejeExt = (-1) * $eje->id;
@@ -386,8 +384,6 @@ class EventoController extends Controller
                     }
                 }
             }
-            
-            
         }
 
         $razas1 = EjemplarEvento::query();
@@ -412,6 +408,9 @@ class EventoController extends Controller
 
             $razas = $razas1->get();
 
+            // $razas = $razas1->toSql();
+            // dd($razas);
+
         $swm = true;
         $swh = true;
 
@@ -431,12 +430,15 @@ class EventoController extends Controller
 
     // public static function catalogoDevuelveEjemplar($arrayEjemplares, $sw, $raza){
     public static function catalogoDevuelveEjemplar($arrayEjemplares, $sw, $raza, $evento_id){
+
+        // dd($arrayEjemplares, $sw, $raza, $evento_id);
         // dd($sexo);
         // var_dump($arrayEjemplares);
         // exit;
         
         $arrayEjemplaresAux = array();
         $arrayEjemplaresAux = $arrayEjemplares;
+        $arrayCategorias = array();
 
         // echo '<br><br>orginal mandano';
         // print_r($arrayEjemplares);
@@ -444,21 +446,26 @@ class EventoController extends Controller
         // echo '<br><br>copiado';
         // print_r($arrayEjemplaresAux);
 
+        // dd($arrayEjemplares);
+
+        $eje = null;
+
         foreach ($arrayEjemplares as $g2h){
+
+
             if($g2h > 0){
 
                 $eventoEjemplarInscrito = EjemplarEvento::where('ejemplar_id',$g2h)
                                                         ->where('evento_id',$evento_id)
                                                         ->first();
                 $sw = true;
-                                                    
+
                 foreach ($arrayEjemplaresAux as $key => $value) {
 
                     $eventoEjemplarInscritoAux = EjemplarEvento::where('ejemplar_id',$value)
                                                         ->where('evento_id',$evento_id)
                                                         ->first();
 
-                                                        // dd($eventoEjemplarInscritoAux->categoria_pista_id);
                     if($eventoEjemplarInscrito && $eventoEjemplarInscritoAux){
 
                         if($eventoEjemplarInscrito->categoria_pista_id == $eventoEjemplarInscritoAux->categoria_pista_id){
@@ -484,22 +491,6 @@ class EventoController extends Controller
                                         $sw = false;
 
                                     }
-                                    // if($sw){
-                                    //     // if($eje->kcb){
-                                    //     //     $evento = EjemplarEvento::where('kcb',$eje->kcb)->first();
-                                    //     // }else{
-                                    //     //     $evento = EjemplarEvento::where('codigo_nacionalizado',$eje->codigo_nacionalizado);
-                                    //     // }
-                                    //     $evento = EjemplarEvento::where('ejemplar_id',$eje->id)
-                                    //                                 ->where('evento_id',$evento_id)
-                                    //                                 ->first();
-                                    //     echo "<h1 class='text-success'>".$evento->categoria_pista_id."<-->".$eje->id."</h1>";
-                                    //     echo '<h6> <span class="text-danger">'.$evento->categoriaPista->nombre.'</span> '.$eje->sexo.'s</h6>';
-                
-                                    //     // $evento = EjemplarEvento::where('ejemplar_id',$eje->id)->first();
-                                    //     // echo '<h6> <span class="text-danger">'.$evento->categoriaPista->nombre.'</span>'.$eje->sexo.'s</h6>';
-                                    //     $sw = false;
-                                    // }
                 
                                     if($eje->kcb == null && ($eje->codigo_nacionalizado != '' || $eje->codigo_nacionalizado != null)){
                                         $nacionalidad = '(Extranjero)';
@@ -553,18 +544,43 @@ class EventoController extends Controller
                 
             }else{
                 $g2hExt = (-1) * $g2h ;
+                
+                if($eje){
+                    $ejeAnterior = $eje;
+                }else{
+                    $ejeAnterior = null;
+                }
 
                 $eje = EjemplarEvento::find($g2hExt);
+                
 
+                if($ejeAnterior){
+                    if($ejeAnterior->categoria_pista_id != $eje->categoria_pista_id){
+                        $sw = true;
+                    }
+                }
+                
                 if($eje){
                     if($eje->raza_id == $raza->id){
+
                         if($sw){
-                            $evento = EjemplarEvento::where('id',$eje->id)
-                                                    ->where('evento_id',$evento_id)
-                                                    ->first();
-                            echo '<h6> <span class="text-danger">'.$evento->categoriaPista->nombre.'</span> '.$eje->sexo.'s</h6>';
+                        // if($eventoEjemplarInscrito->categoria_pista_id == $eje->categoria_pista_id && $sw){
+
+                            // $evento = EjemplarEvento::where('id',$eje->id)
+                            //                         ->where('evento_id',$evento_id)
+                            //                         ->first();
+
+                            // echo '<h6> <span class="text-danger">'.$evento->categoriaPista->nombre.'</span> '.$eje->sexo.'s</h6>';
+
+                            echo '<h6> <span class="text-danger">'.$eje->categoriaPista->nombre.'</span> '.$eje->sexo.'s</h6>';
+
                             $sw = false;
                         }
+
+                        // if($g2h == -5525){
+                        //     dd($eje, $sw, $eje->id);
+                        //     // dd($eje, $sw, $evento, $eje->id);
+                        // }
 
                         $nacionalidad = '(Extranjero)';
                         $kcb =  $eje->codigo_nacionalizado; 
@@ -576,7 +592,7 @@ class EventoController extends Controller
                         $celulares_propietario      = $eje->telefono;
                         $email_propietario          = $eje->email;
 
-                        echo '<b>'.$eje->numero_prefijo.". - ".$eje->nombre_completo.'</b><span class="text-danger">'.$nacionalidad."</span><br>" ;
+                        echo '<b>'.$g2h." <->".$eje->numero_prefijo.". - ".$eje->nombre_completo.'</b><span class="text-danger">'.$nacionalidad."</span><br>" ;
                         echo '<b>COD EXTRANJERO: </b>'.$kcb.' - <b> FECHA NACIMIENTO: </b>'.date('d/m/Y',strtotime($eje->fecha_nacimiento)).' - <b> POR: </b>'.$padre.' y '.$madre.'<br>';
                         echo '<b> PROPIETARIO: </b>'.$nombre_propietario.' - <b> CIUDAD/PAIS: </b>'.$departamento_propietario.' - <b> TELEFONOS: </b>'.$celulares_propietario.' - <b> EMAIL: </b>'.$email_propietario.'<br><br>';
                     }
@@ -628,6 +644,7 @@ class EventoController extends Controller
             $grupo8  = array();
             $grupo9  = array();
             $grupo10 = array();
+            $grupo11 = array();
 
             foreach ($ejemplares as $keyE => $e){
 
@@ -671,6 +688,8 @@ class EventoController extends Controller
                             break;
                         case 10:
                             array_push($grupo10, "$ejemplar");
+                        case 11:
+                            array_push($grupo11, "$ejemplar");
                             break;
                     }
                 }
@@ -689,6 +708,7 @@ class EventoController extends Controller
             array_push($arrayDeGrupos,$grupo8);
             array_push($arrayDeGrupos,$grupo9);
             array_push($arrayDeGrupos,$grupo10);
+            array_push($arrayDeGrupos,$grupo11);
 
             $contador = 1;
 

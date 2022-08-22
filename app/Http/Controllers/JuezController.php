@@ -430,7 +430,7 @@ class JuezController extends Controller
 
         if($asignacion->estado == 1){
     
-            for($i = 1; $i <= 10 ; $i++){
+            for($i = 1; $i <= 11 ; $i++){
     
                 $emplares = Juez::ejemplaresGrupos($evento_id, $i);
     
