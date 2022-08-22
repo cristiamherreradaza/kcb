@@ -529,9 +529,10 @@
 								</td>
 								<td>
 									@if ($ee->carnet != null)
-										<a href="{{ url('imagenesCarnet/'.$ee->carnet) }}" download>
+										<h6 class="text-success">Yes!</h6>
+										{{-- <a href="{{ url('imagenesCarnet/'.$ee->carnet) }}" download>
 											<img src="{{ url('imagenesCarnet/'.$ee->carnet) }}" alt="" width="80px">
-										</a>
+										</a> --}}
 									@else
 										<h6 class="text-danger">No tiene carnet</h6>
 									@endif
