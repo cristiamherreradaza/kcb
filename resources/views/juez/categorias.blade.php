@@ -364,10 +364,12 @@
                                                                 $categoriasCachorroAbsolutosMacho        = array();
                                                                 $categoriasJovenJovenCampeonMacho        = array();
                                                                 $categoriasIntrerAbierCampeGrandMacho    = array();
+                                                                $categoriasVeteranos                     = array();
 
                                                                 $categoriasCachorroAbsolutosHembra        = array();
                                                                 $categoriasJovenJovenCampeonHembra        = array();
                                                                 $categoriasIntrerAbierCampeGrandHembra    = array();
+                                                                $categoriasVeteranosHembra                = array();
 
                                                                 foreach ($categoriasRaza as $cr){
 
@@ -459,6 +461,17 @@
 
                                                                             array_push($categoriasCachorroAbsolutosHembra, $dato);
                                                                         }
+
+                                                                        // PARA LOS VETERANOS MACHOS
+                                                                        if($cr->categoria_pista_id == 17){
+
+                                                                            $dato = array(
+                                                                                'nombre'         => $cr->categoriaPista->nombre,
+                                                                                'categoria_id'   => $cr->categoria_pista_id
+                                                                            );
+
+                                                                            array_push($categoriasVeteranosHembra, $dato);
+                                                                        }
                                                                     }
 
                                                                 }
@@ -469,6 +482,7 @@
                                                                 array_push($arrayCategoriasMachos,$categoriasCachorroAbsolutosMacho);
                                                                 array_push($arrayCategoriasMachos,$categoriasJovenJovenCampeonMacho);
                                                                 array_push($arrayCategoriasMachos,$categoriasIntrerAbierCampeGrandMacho);
+                                                                array_push($arrayCategoriasMachos,$categoriasVeteranos);
 
                                                                 // PARA HEMBRAS
                                                                 $arrayCategoriasHembras = array();
@@ -476,6 +490,8 @@
                                                                 array_push($arrayCategoriasHembras,$categoriasCachorroAbsolutosHembra);
                                                                 array_push($arrayCategoriasHembras,$categoriasJovenJovenCampeonHembra);
                                                                 array_push($arrayCategoriasHembras,$categoriasIntrerAbierCampeGrandHembra);
+                                                                array_push($arrayCategoriasHembras,$categoriasVeteranosHembra);
+
 
                                                                 $cantCategoriaHembra = count($categoriaHembra);
                                                                 $cantCategoriaMacho = count($categoriaMacho);
@@ -492,63 +508,60 @@
                                                                 
                                                             <h3 class="text-center text-primary">Machos</h3>
                                                             
-                                                            @while ($contadorArryaMacho < 3)
+                                                            @while ($contadorArryaMacho < 4)
                                                                 <div class="row">
-                                                                    @for ($i = 0; $i < 3 ; $i++)
-                                                                        @if ($contadorArryaMacho < 3)
+                                                                    @for ($i = 0; $i < 4 ; $i++)
+                                                                        @if ($contadorArryaMacho < 4)
 
                                                                             @if (count($arrayCategoriasMachos[$contadorArryaMacho]) != 0)
-                                                                                <div class="col-md-4">
+                                                                                <div class="col-md-3">
                                                                                     
                                                                                     @if (count($arrayCategoriasMachos[$contadorArryaMacho]) > 1)
-
                                                                                         @php
                                                                                             $contadorMacho1 = 0;
                                                                                         @endphp 
-
                                                                                         <button class="btn btn-primary btn-block" type="button" onclick="modalcategorias({{ json_encode($arrayCategoriasMachos[$contadorArryaMacho]) }}, '{{ $razas->raza_id }}', '{{ $evento->id }}', '{{ str_replace([1,2,3,4,5,6,7,8,9,0 ,'(',')'], '',$razas->raza->nombre) }}', '{{ ($asignacion->estado == 1)? $asignacion->num_pista : 0  }}')">
                                                                                             @foreach ( $arrayCategoriasMachos[$contadorArryaMacho] as $cate)
 
-                                                                                                {{ $cate['nombre'].' <-> ' }}
+                                                                                                {{ $cate['nombre'].' | ' }}
 
                                                                                             @endforeach
                                                                                         </button>
 
                                                                                         <div class="row">
                                                                                             @foreach ( $arrayCategoriasMachos[$contadorArryaMacho] as $ejemCAte)
-                                                                                            <div class="col-md-6">
-                                                                                                <table class="table table-hover text-center">
-                                                                                                    <thead>
-                                                                                                        <tr>
-                                                                                                            <th>{{ $ejemCAte['nombre'] }}</th>
-                                                                                                        </tr>
-                                                                                                    </thead>
-                                                                                                        @php
-                                                                                                            $categoria_id       =   $ejemCAte['categoria_id'];
-                                                                                                            $raza_id            =   $razas->raza_id;
-                                                                                                            $evento_id          =   $evento->id;
-
-                                                                                                            $ejemplares = App\Juez::EjemplarCatalogoRaza($categoria_id, $raza_id, $evento_id);
-
-                                                                                                        @endphp
-                                                                                                    <tbody>
-
-                                                                                                        @foreach ( $ejemplares  as  $eje)
+                                                                                                <div class="col-md-6">
+                                                                                                    <table class="table table-hover text-center">
+                                                                                                        <thead>
                                                                                                             <tr>
-                                                                                                                <td>
-                                                                                                                    <h1 class="text-primary">
-                                                                                                                        {{ $eje->numero_prefijo }}
-                                                                                                                    </h1>
-                                                                                                                </td>
+                                                                                                                <th>{{ $ejemCAte['nombre'] }}</th>
                                                                                                             </tr>
-                                                                                                        @endforeach
-                                                                                                        
-                                                                                                    </tbody>
-                                                                                                </table>
-                                                                                            </div>
+                                                                                                        </thead>
+                                                                                                            @php
+                                                                                                                $categoria_id       =   $ejemCAte['categoria_id'];
+                                                                                                                $raza_id            =   $razas->raza_id;
+                                                                                                                $evento_id          =   $evento->id;
+
+                                                                                                                $ejemplares = App\Juez::EjemplarCatalogoRaza($categoria_id, $raza_id, $evento_id);
+
+                                                                                                            @endphp
+                                                                                                        <tbody>
+
+                                                                                                            @foreach ( $ejemplares  as  $eje)
+                                                                                                                <tr>
+                                                                                                                    <td>
+                                                                                                                        <h1 class="text-primary">
+                                                                                                                            {{ $eje->numero_prefijo }}
+                                                                                                                        </h1>
+                                                                                                                    </td>
+                                                                                                                </tr>
+                                                                                                            @endforeach
+                                                                                                            
+                                                                                                        </tbody>
+                                                                                                    </table>
+                                                                                                </div>
                                                                                             @endforeach
                                                                                         </div>
-
                                                                                     @else
                                                                                         <table class="table table-hover text-center">
                                                                                             <thead>
@@ -599,14 +612,16 @@
                                                             <hr class="border-5 bg-dark">
 
                                                             <h3 class="text-center" style="color: #F94EE4 ;">Hembras</h3>
-                                                            @while ($contadorArryaHembra < 3)
+                                                            @while ($contadorArryaHembra < 4)
                                                                 <div class="row">
-                                                                    @for ($i = 0; $i < 3 ; $i++)
-                                                                        @if ($contadorArryaHembra < 3)
-
+                                                                    @for ($i = 0; $i < 4 ; $i++)
+                                                                        @if ($contadorArryaHembra < 4)
+                                                                            {{-- @php
+                                                                                dd($contadorArryaHembra, $arrayCategoriasHembras[0], count($arrayCategoriasHembras[0]));
+                                                                                echo "<h1 class='text-danger'>".$contadorArryaHembra."</h1>"
+                                                                            @endphp --}}
                                                                             @if (count($arrayCategoriasHembras[$contadorArryaHembra]) != 0)
-                                                                                <div class="col-md-4">
-                                                                                    
+                                                                                <div class="col-md-3">
                                                                                     @if (count($arrayCategoriasHembras[$contadorArryaHembra]) > 1)
 
                                                                                         @php
