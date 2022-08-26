@@ -119,7 +119,8 @@
         position: absolute;
         border: 1px solid black;
         width: 118px;
-        margin-top: 178px;
+        {{--  margin-top: 178px;  --}}
+        margin-top: 195px;
         font-size:10px;
     }
     .tableCertificado{
@@ -146,7 +147,7 @@
         position: absolute;
         border: 1px solid black;
         width: 118px;
-        margin-top: 178px;
+        margin-top: 195px;
         font-size:10px;
         margin-left: 129px;
         background-color: #c2ddf3;
@@ -156,7 +157,7 @@
         position: absolute;
         border: 1px solid black;
         width: 118px;
-        margin-top: 178px;
+        margin-top: 195px;
         font-size:10px;
         margin-left: 248px;
         background-color: #c2ddf3;
@@ -166,27 +167,27 @@
         position: absolute;
         border: 1px solid black;
         width: 237px;
-        margin-top: 178px;
+        margin-top: 195px;
         font-size:10px;
         margin-left: 367px;
         background-color: #ededdd;
     }
 
-    .certificadosAbierta{
+    {{--  .certificadosAbierta{
         position: absolute;
         border: 1px solid black;
         width: 118px;
-        margin-top: 178px;
+        margin-top: 195px;
         font-size:10px;
         margin-left: 486px;
         background-color: #ededdd;
-    }
+    }  --}}
 
     .certificadosCampeones{
         position: absolute;
         border: 1px solid black;
         width: 118px;
-        margin-top: 178px;
+        margin-top: 195px;
         font-size:10px;
         margin-left: 605px;
         background-color: #ededdd;
@@ -196,7 +197,7 @@
         position: absolute;
         border: 1px solid black;
         width: 118px;
-        margin-top: 178px;
+        margin-top: 195px;
         font-size:10px;
         margin-left: 724px;
         background-color: #ededdd;
@@ -206,7 +207,7 @@
         position: absolute;
         border: 1px solid black;
         width: 118px;
-        margin-top: 178px;
+        margin-top: 195px;
         font-size:10px;
         margin-left: 843px;
     }
@@ -222,7 +223,7 @@
     .machosVEncedoresCachorro{
         position: absolute;
         width: 118px;
-        margin-top: 200px;
+        margin-top: 210px;
         text-align:center;
         font-size: 10px;
     }
@@ -230,7 +231,7 @@
         position: absolute;
         width: 238px;
         height: 20px;
-        margin-top: 230px;
+        margin-top: 240px;
         text-align:center;
         font-size: 9px;
         margin-left: 97;
@@ -240,7 +241,7 @@
         position: absolute;
         width: 356px;
         height: 20px;
-        margin-top: 230px;
+        margin-top: 240px;
         text-align:center;
         font-size: 9px;
         margin-left: 367px;
@@ -249,7 +250,7 @@
 
     .machosVEncedores{
         position: absolute;
-        margin-top: 225px;
+        margin-top: 235px;
         font-size: 12px;
         margin-left: 100px;
     }
@@ -308,14 +309,14 @@
         position: absolute;
         border: 1px solid black;
         width: 118px;
-        margin-top: 448px;
+        margin-top: 465px;
         font-size:10px;
     }
     .certificadosJovenHembra{
         position: absolute;
         border: 1px solid black;
         width: 118px;
-        margin-top: 448px;
+        margin-top: 465px;
         font-size:10px;
         margin-left: 129px;
         background-color: #c2ddf3;
@@ -325,7 +326,7 @@
         position: absolute;
         border: 1px solid black;
         width: 118px;
-        margin-top: 448px;
+        margin-top: 465px;
         font-size:10px;
         margin-left: 248px;
         background-color: #c2ddf3;
@@ -335,7 +336,7 @@
         position: absolute;
         border: 1px solid black;
         width: 237px;
-        margin-top: 448px;
+        margin-top: 465px;
         font-size:10px;
         margin-left: 367px;
         background-color:#ededdd;
@@ -345,7 +346,7 @@
         position: absolute;
         border: 1px solid black;
         width: 118px;
-        margin-top: 448px;
+        margin-top: 465px;
         font-size:10px;
         margin-left: 486px;
         background-color:#ededdd;
@@ -355,7 +356,7 @@
         position: absolute;
         border: 1px solid black;
         width: 118px;
-        margin-top: 448px;
+        margin-top: 465px;
         font-size:10px;
         margin-left: 605px;
         background-color:#ededdd;
@@ -365,7 +366,7 @@
         position: absolute;
         border: 1px solid black;
         width: 118px;
-        margin-top: 448px;
+        margin-top: 465px;
         font-size:10px;
         margin-left: 724px;
         background-color:#ededdd;
@@ -375,27 +376,27 @@
         position: absolute;
         border: 1px solid black;
         width: 118px;
-        margin-top: 448px;
+        margin-top: 465px;
         font-size:10px;
         margin-left: 843px;
     }
     .hembraVencedores{
         position: absolute;
-        margin-top: 495px;
+        margin-top: 505px;
         font-size: 12px;
         width: 590px;
         margin-left: 102px;
     }
     .hembraVencedoresCachorro{
         position: absolute;
-        margin-top: 500px;
+        margin-top: 510px;
         font-size: 9px;
-        width: 118px;
+        width: 120px;
         /* margin-left: 102px; */
     }
     .hembraVencedoresJoven{
         position: absolute;
-        margin-top: 500px;
+        margin-top: 510px;
         font-size: 9px;
         width: 238px;
         margin-left: 130px;
@@ -403,7 +404,7 @@
     }
     .hembraVencedoresAdulto{
         position: absolute;
-        margin-top: 500px;
+        margin-top: 510px;
         font-size: 9px;
         width: 359px;
         margin-left: 367px;
@@ -670,7 +671,7 @@
                             <td class="bordes">Calf.</td>
                             <td class="bordes">Lugar</td>
                         </tr>
-                        @for ($i = 0; $i < 6 ; $i++)
+                        @for ($i = 0; $i < 7 ; $i++)
                             @if ($i < count($categoriaCachorroAbsolutoMacho))
                                 <tr>
                                     <td class="bordes contenidoCeldasLlenas">{{ $categoriaCachorroAbsolutoMacho[$i]->numero_prefijo }}</td>
@@ -721,7 +722,7 @@
                             <td class="bordes">Calf.</td>
                             <td class="bordes">Lugar</td>
                         </tr>
-                        @for ($i = 0; $i < 6 ; $i++)
+                        @for ($i = 0; $i < 7 ; $i++)
                             @if ($i < count($categoriaJovenMacho))
                                 <tr>
                                     <td class="bordes contenidoCeldasLlenas">{{ $categoriaJovenMacho[$i]->numero_prefijo }}</td>
@@ -772,7 +773,7 @@
                             <td class="bordes">Calf.</td>
                             <td class="bordes">Lugar</td>
                         </tr>
-                        @for ($i = 0; $i < 6 ; $i++)
+                        @for ($i = 0; $i < 7 ; $i++)
                             @if ($i < count($categoriaJovenCampeonMacho))
                                 <tr>
                                     <td class="bordes contenidoCeldasLlenas">{{ $categoriaJovenCampeonMacho[$i]->numero_prefijo }}</td>
@@ -823,7 +824,7 @@
                             <td class="bordes">Calf.</td>
                             <td class="bordes">Lugar</td>
                         </tr>
-                        @for ($i = 0; $i < 6 ; $i++)
+                        @for ($i = 0; $i < 7 ; $i++)
                             @if ($i < count($categoriaIntermediaMacho))
                                 <tr>
                                     <td class="bordes contenidoCeldasLlenas">{{ $categoriaIntermediaMacho[$i]->numero_prefijo }}</td>
@@ -903,7 +904,7 @@
                             <td class="bordes">Calf.</td>
                             <td class="bordes">Lugar</td>
                         </tr>
-                        @for ($i = 0; $i < 6 ; $i++)
+                        @for ($i = 0; $i < 7 ; $i++)
                             @if ($i < count($categoriaAbiertaMacho))
                                 <tr>
                                     <td class="bordes contenidoCeldasLlenas">{{ $categoriaAbiertaMacho[$i]->numero_prefijo }}</td>
@@ -955,7 +956,7 @@
                             <td class="bordes">Calf.</td>
                             <td class="bordes">Lugar</td>
                         </tr>
-                        @for ($i = 0; $i < 6 ; $i++)
+                        @for ($i = 0; $i < 7 ; $i++)
                             @if ($i < count($categoriaCampeonMacho))
                                 <tr>
                                     <td class="bordes contenidoCeldasLlenas">{{ $categoriaCampeonMacho[$i]->numero_prefijo }}</td>
@@ -1006,7 +1007,7 @@
                             <td class="bordes">Calf.</td>
                             <td class="bordes">Lugar</td>
                         </tr>
-                        @for ($i = 0; $i < 6 ; $i++)
+                        @for ($i = 0; $i < 7 ; $i++)
                             @if ($i < count($categoriaGrandesCampeonesMacho))
                                 <tr> 
                                     <td class="bordes contenidoCeldasLlenas">{{ $categoriaGrandesCampeonesMacho[$i]->numero_prefijo }}</td>
@@ -1059,7 +1060,7 @@
                             <td class="bordes">Calf.</td>
                             <td class="bordes">Lugar</td>
                         </tr>
-                        @for ($i = 0; $i < 6 ; $i++)
+                        @for ($i = 0; $i < 7 ; $i++)
                             @if ($i < count($categoriaVeteranosMacho))
                                 <tr>
                                     <td class="bordes contenidoCeldasLlenas">{{ $categoriaVeteranosMacho[$i]->numero_prefijo }}</td>
@@ -1315,7 +1316,7 @@
                             <td class="bordes">Calf.</td>
                             <td class="bordes">Lugar</td>
                         </tr>
-                        @for ($i = 0; $i < 6 ; $i++)
+                        @for ($i = 0; $i < 7 ; $i++)
                             @if ($i < count($categoriaCachorroAbsolutoHembras))
                                 <tr>
                                     <td class="bordes contenidoCeldasLlenas">{{ $categoriaCachorroAbsolutoHembras[$i]->numero_prefijo }}</td>
@@ -1366,7 +1367,7 @@
                             <td class="bordes">Calf.</td>
                             <td class="bordes">Lugar</td>
                         </tr>
-                        @for ($i = 0; $i < 6 ; $i++)
+                        @for ($i = 0; $i < 7 ; $i++)
                             @if ($i < count($categoriaJovenHembras))
                                 <tr>
                                     <td class="bordes contenidoCeldasLlenas">{{ $categoriaJovenHembras[$i]->numero_prefijo }}</td>
@@ -1417,7 +1418,7 @@
                             <td class="bordes">Calf.</td>
                             <td class="bordes">Lugar</td>
                         </tr>
-                        @for ($i = 0; $i < 6 ; $i++)
+                        @for ($i = 0; $i < 7 ; $i++)
                             @if ($i < count($categoriaJovenCampeonHembras))
                                 <tr>
                                     <td class="bordes contenidoCeldasLlenas">{{ $categoriaJovenCampeonHembras[$i]->numero_prefijo }}</td>
@@ -1468,7 +1469,7 @@
                             <td class="bordes">Calf.</td>
                             <td class="bordes">Lugar</td>
                         </tr>
-                        @for ($i = 0; $i < 6 ; $i++)
+                        @for ($i = 0; $i < 7 ; $i++)
                             @if ($i < count($categoriaIntermediaHembras))
                                 <tr>
                                     <td class="bordes contenidoCeldasLlenas">{{ $categoriaIntermediaHembras[$i]->numero_prefijo }}</td>
@@ -1532,7 +1533,7 @@
                             <td class="bordes">Calf.</td>
                             <td class="bordes">Lugar</td>
                         </tr>
-                        @for ($i = 0; $i < 6 ; $i++)
+                        @for ($i = 0; $i < 7 ; $i++)
                             @if ($i < count($categoriaAbiertaHembras))
                                 <tr>
                                     <td class="bordes contenidoCeldasLlenas">{{ $categoriaAbiertaHembras[$i]->numero_prefijo }}</td>
@@ -1583,7 +1584,7 @@
                             <td class="bordes">Calf.</td>
                             <td class="bordes">Lugar</td>
                         </tr>
-                        @for ($i = 0; $i < 6 ; $i++)
+                        @for ($i = 0; $i < 7 ; $i++)
                             @if ($i < count($categoriaCampeonHembras))
                                 <tr>
                                     <td class="bordes contenidoCeldasLlenas">{{ $categoriaCampeonHembras[$i]->numero_prefijo }}</td>
@@ -1634,7 +1635,7 @@
                             <td class="bordes">Calf.</td>
                             <td class="bordes">Lugar</td>
                         </tr>
-                        @for ($i = 0; $i < 6 ; $i++)
+                        @for ($i = 0; $i < 7 ; $i++)
                             @if ($i < count($categoriaGrandesCampeonesHembras))
                                 <tr> 
                                     <td class="bordes contenidoCeldasLlenas">{{ $categoriaGrandesCampeonesHembras[$i]->numero_prefijo }}</td>
@@ -1685,7 +1686,7 @@
                             <td class="bordes">Calf.</td>
                             <td class="bordes">Lugar</td>
                         </tr>
-                        @for ($i = 0; $i < 6 ; $i++)
+                        @for ($i = 0; $i < 7 ; $i++)
                             @if ($i < count($categoriaVeteranosMacho))
                                 <tr>
                                     <td class="bordes contenidoCeldasLlenas">{{ $categoriaVeteranosMacho[$i]->numero_prefijo }}</td>
@@ -2066,6 +2067,7 @@
                 </div>
             </div>
         @endforeach
+        {{--  @break  --}}
     @endforeach
 </body>
 </html>
