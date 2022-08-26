@@ -118,6 +118,8 @@ class Juez extends Model
                                         ->whereNull('grupos_razas.deleted_at')
                                         ->groupBy('ejemplares_eventos.raza_id')
                                         ->get();
+                                        // ->toSql();
+                                        // dd($ejemplaseEvento);
 
         return $ejemplaseEvento;
 

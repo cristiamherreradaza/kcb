@@ -874,22 +874,6 @@
                             </tr>
                         </tbody>
                     </table>
-
-                    {{--  @php
-                        $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, 7, $pista, $er->raza_id);
-                    @endphp
-                    <table class="tableCertificadoAbierta">
-                        <thead class="bordes">
-                            <th>Puntos</th>                            
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="contenidoCeldasLlenas">
-                                    {{ ($mejorCategoria)? $mejorCategoria->numero_prefijo : '' }}
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>  --}}
                 </div>
 
                 <table class="table abierta">
@@ -924,26 +908,6 @@
                         @endfor
                     </tbody>
                 </table>
-
-                {{-- <div class="certificadosAbierta bordes">
-                    CCCB
-                    @php
-                        $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, 7, $pista, $er->raza_id);
-                    @endphp
-                    <table class="tableCertificado">
-                        <thead class="bordes">
-                            <th>N~</th>                            
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="contenidoCeldasLlenas">
-                                    {{ ($mejorCategoria)? $mejorCategoria->numero_prefijo : '' }}
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div> --}}
-
                 <table class="table campoeones">
                     <thead>
                         <tr>
@@ -1028,9 +992,7 @@
                     </tbody>
                 </table>
                 <div class="certificadosGrandesCampeones bordes">
-                    {{-- CCCB --}}
                     <div style="margin-top:12px"></div>
-                    {{-- <div style="padding-top:10px"></div> --}}
                     @php
                         $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, [14], $pista, $er->raza_id);
                     @endphp
@@ -1168,51 +1130,6 @@
                 </table>
 
                 <div class="machosVEncedores">
-                    {{-- <table style="width: 100%;">
-                        <thead>
-                            <tr>
-                                <th colspan="8" style="background: #C1BEC1: width=100%;;">
-                                    MACHOS VENCEDORES
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="mejoresVencedoresLetras">CACHORRO</td>
-                                @php
-                                    $mejorVencedor = App\Juez::ganadorEjemplarEvento($er->raza_id, $evento_id, [11], "Macho", $pista);
-                                @endphp
-                                <td class="bordes celdasMejores">{{ ($mejorVencedor)? $mejorVencedor->numero_prefijo : '' }}</td>
-                                <td class="mejoresVencedoresLetras">JOVEN</td>
-                                @php
-                                    $mejorVencedor = App\Juez::ganadorEjemplarEvento($er->raza_id, $evento_id, [3, 12], "Macho", $pista);
-                                @endphp
-                                <td class="bordes celdasMejores">{{ ($mejorVencedor)? $mejorVencedor->numero_prefijo : '' }}</td>
-                                <td class="mejoresVencedoresLetras">ADULTO</td>
-                                @php
-                                    $mejorVencedor = App\Juez::ganadorEjemplarEvento($er->raza_id, $evento_id, [5, 7, 9, 14], "Macho", $pista);
-                                @endphp
-                                <td class="bordes celdasMejores">{{ ($mejorVencedor)? $mejorVencedor->numero_prefijo : '' }}</td>
-                                <td class="mejoresVencedoresLetras">VETERANO</td>
-                                @php
-                                    $mejorVencedor = App\Juez::ganadorEjemplarEvento($er->raza_id, $evento_id, [16], "Macho", $pista);
-                                @endphp
-                                <td class="bordes celdasMejores">{{ ($mejorVencedor)? $mejorVencedor->numero_prefijo : '' }}</td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th colspan="7" style="background: #C1BEC1;">
-                                    MEJOR MACHO
-                                </th>
-                                @php
-                                    $mejorMAcho = App\Juez::mejorVencedorSexo($evento_id, $er->raza_id, [3, 12, 5, 7, 9, 14], $pista, 'mejor_macho');
-                                @endphp
-                                <th class="bordes celdasMejores">{{ ($mejorMAcho)? $mejorMAcho->numero_prefijo : '' }}</th>
-                            </tr>
-                        </tfoot>
-                    </table> --}}
-                    
                     <div class="extrangeroMacho">
                         <table class="bordes tablaEstrangero">
                             <thead>
@@ -1553,25 +1470,7 @@
                         @endfor
                     </tbody>
                 </table>
-                {{-- <div class="certificadosAbiertaHembra bordes">
-                    CCCB
-                    @php
-                        $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, [8], $pista, $er->raza_id);
-                    @endphp
-                    <table class="tableCertificado">
-                        <thead class="bordes">
-                            <th>N~</th>                            
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="contenidoCeldasLlenas">
-                                    {{ ($mejorCategoria)? $mejorCategoria->numero_prefijo : '' }}
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div> --}}
-
+          
                 <table class="tableHembra campoeonesHembra">
                     <thead>
                         <tr>
@@ -1687,11 +1586,11 @@
                             <td class="bordes">Lugar</td>
                         </tr>
                         @for ($i = 0; $i < 7 ; $i++)
-                            @if ($i < count($categoriaVeteranosMacho))
+                            @if ($i < count($categoriaVeteranosHembras))
                                 <tr>
-                                    <td class="bordes contenidoCeldasLlenas">{{ $categoriaVeteranosMacho[$i]->numero_prefijo }}</td>
+                                    <td class="bordes contenidoCeldasLlenas">{{ $categoriaVeteranosHembras[$i]->numero_prefijo }}</td>
                                     @php
-                                        $calificaion = App\Juez::ejemplarEventoInscrito($categoriaVeteranosMacho[$i]->id, $pista);
+                                        $calificaion = App\Juez::ejemplarEventoInscrito($categoriaVeteranosHembras[$i]->id, $pista);
                                     @endphp
                                     <td class="bordes contenidoCeldasLlenas">{{ ($calificaion)? $calificaion->calificacion : '' }}</td>
                                     <td class="bordes contenidoCeldasLlenas">{{ ($calificaion)? $calificaion->lugar : '' }}</td>
@@ -1709,7 +1608,7 @@
                 <div class="certificadosVeteranoHembra bordes">
                     CACV
                     @php
-                        $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, [16], $pista, $er->raza_id);
+                        $mejorCategoria = App\Juez::mejorCategoriaEscogito($evento_id, [17], $pista, $er->raza_id);
                     @endphp
                     <table class="tableCertificado">
                         <thead class="bordes">
@@ -1794,51 +1693,7 @@
                 </table>
 
                 <div class="hembraVencedores">
-                    {{-- <table style="width: 100%;">
-                        <thead>
-                            <tr>
-                                <th colspan="8" style="background: #C1BEC1: width=100%;;">
-                                    HEMBRAS VENCEDORES
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="mejoresVencedoresLetras">CACHORRO</td>
-                                @php
-                                    $mejorVencedor = App\Juez::ganadorEjemplarEvento($er->raza_id, $evento_id, [2], "Hembra", $pista);
-                                @endphp
-                                <td class="bordes celdasMejores">{{ ($mejorVencedor)? $mejorVencedor->numero_prefijo : '' }}</td>
-                                <td class="mejoresVencedoresLetras">JOVEN</td>
-                                @php
-                                    $mejorVencedor = App\Juez::ganadorEjemplarEvento($er->raza_id, $evento_id, [4, 13], "Hembra", $pista);
-                                @endphp
-                                <td class="bordes celdasMejores">{{ ($mejorVencedor)? $mejorVencedor->numero_prefijo : '' }}</td>
-                                <td class="mejoresVencedoresLetras">ADULTO</td>
-                                @php
-                                    $mejorVencedor = App\Juez::ganadorEjemplarEvento($er->raza_id, $evento_id, [6, 8, 10, 15], "Hembra", $pista);
-                                @endphp
-                                <td class="bordes celdasMejores">{{ ($mejorVencedor)? $mejorVencedor->numero_prefijo : '' }}</td>
-                                <td class="mejoresVencedoresLetras">VETERANO</td>
-                                @php
-                                    $mejorVencedor = App\Juez::ganadorEjemplarEvento($er->raza_id, $evento_id, [17], "Hembra", $pista);
-                                @endphp
-                                <td class="bordes celdasMejores">{{ ($mejorVencedor)? $mejorVencedor->numero_prefijo : '' }}</td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th colspan="7" style="background: #C1BEC1;">
-                                    MEJOR HEMBRA
-                                </th>
-                                @php
-                                    $mejorHembra = App\Juez::mejorVencedorSexo($evento_id, $er->raza_id, [4, 13, 6, 8, 10, 15], $pista, 'mejor_hembra');
-                                @endphp
-                                <th class="bordes celdasMejores">{{ ($mejorHembra)? $mejorHembra->numero_prefijo : '' }}</th>
-                            </tr>
-                        </tfoot>
-                    </table> --}}
-
+                   
                     <div class="extrangeroMacho">
                         <table class="bordes tablaEstrangero">
                             <thead>
@@ -1968,45 +1823,6 @@
                             </thead>
                         </table>
                     </div>
-
-                    {{--  <table width="100%">
-                        <tbody>
-                            <tr>
-                                <td class="mejoresVencedoresLetras">MEJOR CACHORRO</td>
-                                @php
-                                    $mejor = App\Juez::mejorCategoria($evento_id, $pista, $er->raza_id, 'mejor_cachorro');
-                                @endphp
-                                <td class="bordes celdasMejores">{{ ($mejor)? $mejor->numero_prefijo : '' }}</td>
-                                <td class="mejoresVencedoresLetras">MEJOR JOVEN</td>
-                                @php
-                                    $mejor = App\Juez::mejorCategoria($evento_id, $pista, $er->raza_id, 'mejor_joven');
-                                @endphp
-                                <td class="bordes celdasMejores">{{ ($mejor)? $mejor->numero_prefijo : '' }}</td>
-                                <td class="mejoresVencedoresLetras">MEJOR DE LA RAZA</td>
-                                @php
-                                    $mejor = App\Juez::mejorCategoria($evento_id, $pista, $er->raza_id, 'mejor_raza');
-                                @endphp
-                                <td class="bordes celdasMejores">{{ ($mejor)? $mejor->numero_prefijo : '' }}</td>
-                            </tr>
-                            <tr>
-                                <td class="mejoresVencedoresLetras">SEXO OPUESTO</td>
-                                @php
-                                    $sexoOpuesto = App\Juez::mejorCategoria($evento_id, $pista, $er->raza_id, 'sexo_opuesto_cachorro');
-                                @endphp
-                                <td class="bordes celdasMejores">{{ ($sexoOpuesto)? $sexoOpuesto->numero_prefijo : '' }}</td>
-                                <td class="mejoresVencedoresLetras">SEXO OPUESTO</td>
-                                @php
-                                    $sexoOpuesto = App\Juez::mejorCategoria($evento_id, $pista, $er->raza_id, 'sexo_opuesto_joven');
-                                @endphp
-                                <td class="bordes celdasMejores">{{ ($sexoOpuesto)? $sexoOpuesto->numero_prefijo : '' }}</td>
-                                <td class="mejoresVencedoresLetras">SEXO OPUESTO</td>
-                                @php
-                                    $sexoOpuesto = App\Juez::mejorCategoria($evento_id, $pista, $er->raza_id, 'sexo_opuesto_raza');
-                                @endphp
-                                <td class="bordes celdasMejores">{{ ($sexoOpuesto)? $sexoOpuesto->numero_prefijo : '' }}</td>
-                            </tr>
-                        </tbody>
-                    </table>  --}}
                 </div>
                 
                 

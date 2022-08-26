@@ -1620,6 +1620,9 @@ class JuezController extends Controller
                                                         <option '.(($cali)? (($cali->lugar == 3)? 'selected' : '') : '').' value="3">Tercero</option>
                                                         <option '.(($cali)? (($cali->lugar == 4)? 'selected' : '') : '').' value="4">Cuarto</option>
                                                         <option '.(($cali)? (($cali->lugar == 5)? 'selected' : '') : '').' value="5">Quinto</option>
+                                                        <option '.(($cali)? (($cali->lugar == 6)? 'selected' : '') : '').' value="6">Sexto</option>
+                                                        <option '.(($cali)? (($cali->lugar == 7)? 'selected' : '') : '').' value="7">Septimo</option>
+                                                        <option '.(($cali)? (($cali->lugar == 8)? 'selected' : '') : '').' value="8">Octavo</option>
                                                     </select>
                                                     <small style="display: none;" class="_'.$eje->id.' text-warning">Dato repetido</small>
                                                 </td>
