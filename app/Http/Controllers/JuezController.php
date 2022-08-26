@@ -1726,6 +1726,8 @@ class JuezController extends Controller
                 $mejor = "MEJOR JOVEN";
             }else if($mejosEscogido->categoria_id == 5 || $mejosEscogido->categoria_id == 6 || $mejosEscogido->categoria_id == 7 || $mejosEscogido->categoria_id == 8 || $mejosEscogido->categoria_id == 9 || $mejosEscogido->categoria_id == 10 || $mejosEscogido->categoria_id == 14 || $mejosEscogido->categoria_id == 15){
                 $mejor = "MEJOR ADULTO";
+            }else if($mejosEscogido->categoria_id == 16 || $mejosEscogido->categoria_id == 17){
+                $mejor = "MEJOR VETERANO";
             }
 
             $data['mejorEscogidoHtml'] = '<div class="row text-center">
@@ -1794,6 +1796,13 @@ class JuezController extends Controller
             $categoria = CategoriasPista::find(14);
             array_push($arrayCategorias, str_replace([' ','(',')'],'',$categoria->nombre));
             $categoria = CategoriasPista::find(15);
+            array_push($arrayCategorias, str_replace([' ','(',')'],'',$categoria->nombre));
+        }else if($ganador->categoria_id == 16 || $ganador->categoria_id == 17){
+            $mejor = "MEJOR VETERANO";
+
+            $categoria = CategoriasPista::find(16);
+            array_push($arrayCategorias, str_replace([' ','(',')'],'',$categoria->nombre));
+            $categoria = CategoriasPista::find(17);
             array_push($arrayCategorias, str_replace([' ','(',')'],'',$categoria->nombre));
         }
 
