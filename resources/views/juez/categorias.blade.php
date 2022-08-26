@@ -462,8 +462,8 @@
                                                                             array_push($categoriasCachorroAbsolutosHembra, $dato);
                                                                         }
 
-                                                                        // PARA LOS VETERANOS MACHOS
-                                                                        if($cr->categoria_pista_id == 17){
+                                                                        // PARA LOS VETERANOS HEMBRAS
+                                                                        if($cr->categoria_pista_id == 17){ 
 
                                                                             $dato = array(
                                                                                 'nombre'         => $cr->categoriaPista->nombre,
@@ -472,6 +472,18 @@
 
                                                                             array_push($categoriasVeteranosHembra, $dato);
                                                                         }
+
+                                                                        // PARA LOS VETERANOS MACHOS
+                                                                        if($cr->categoria_pista_id == 16){ 
+
+                                                                            $dato = array(
+                                                                                'nombre'         => $cr->categoriaPista->nombre,
+                                                                                'categoria_id'   => $cr->categoria_pista_id
+                                                                            );
+
+                                                                            array_push($categoriasVeteranos, $dato);
+                                                                        }
+
                                                                     }
 
                                                                 }

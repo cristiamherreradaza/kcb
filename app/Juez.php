@@ -104,10 +104,18 @@ class Juez extends Model
 
     public static function ejemplaresGrupos($evento_id, $grupo){
 
+        // $ejemplaseEvento = EjemplarEvento::select('ejemplares_eventos.raza_id')
+        //                                 ->join('grupos_razas', 'ejemplares_eventos.raza_id', '=', 'grupos_razas.raza_id')
+        //                                 ->where('ejemplares_eventos.evento_id',$evento_id)
+        //                                 ->where('grupos_razas.grupo_id',$grupo)
+        //                                 ->groupBy('ejemplares_eventos.raza_id')
+        //                                 ->get();
+
         $ejemplaseEvento = EjemplarEvento::select('ejemplares_eventos.raza_id')
                                         ->join('grupos_razas', 'ejemplares_eventos.raza_id', '=', 'grupos_razas.raza_id')
                                         ->where('ejemplares_eventos.evento_id',$evento_id)
                                         ->where('grupos_razas.grupo_id',$grupo)
+                                        ->whereNull('grupos_razas.deleted_at')
                                         ->groupBy('ejemplares_eventos.raza_id')
                                         ->get();
 
