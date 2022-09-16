@@ -70,7 +70,7 @@ class EjemplarController extends Controller
             $nombre = $request->input('nombre');
             $queryEjemplares->where('nombre', 'like', "%$nombre%");
         }
-        
+
         if($request->filled('raza')){
             $raza = $request->input('raza');
             $queryEjemplares->where('raza_id',$raza);
@@ -80,7 +80,7 @@ class EjemplarController extends Controller
 
         $ejemplares = $queryEjemplares->get();
 
-        
+
         return view('ejemplar.ajaxBuscaEjemplar')->with(compact('ejemplares', 'camada'));
     }
 
@@ -133,7 +133,7 @@ class EjemplarController extends Controller
     public function ajaxListadoExtranjero(Request $request)
     {
         $queryEjemplares = Ejemplar::orderBy('id', 'desc');
-                            
+
         if ($request->filled('kcb_buscar')) {
             $kcb = $request->input('kcb_buscar');
             $queryEjemplares->where('kcb', $kcb);
@@ -169,14 +169,14 @@ class EjemplarController extends Controller
 
 
         $ejemplares = $queryEjemplares->get();
-        
+
         return view('ejemplar.ajaxListadoExtranjero')->with(compact('ejemplares'));
     }
 
     public function ajaxListado(Request $request)
     {
         $queryEjemplares = Ejemplar::orderBy('id', 'desc');
-                            
+
         if ($request->filled('kcb_buscar')) {
             $kcb = $request->input('kcb_buscar');
             $queryEjemplares->where('kcb', $kcb);
@@ -212,7 +212,7 @@ class EjemplarController extends Controller
 
 
         $ejemplares = $queryEjemplares->get();
-        
+
         return view('ejemplar.ajaxListado')->with(compact('ejemplares'));
     }
 
@@ -240,12 +240,12 @@ class EjemplarController extends Controller
             $this->guardaModificacion('ejemplares', $request->input('ejemplar_id'), $datosOriginales, $request->all());
         }
 
-        // Procedemos con el seteo 
+        // Procedemos con el seteo
 
         $ejemplar->user_id              = Auth::user()->id;
         $ejemplar->madre_id             = $request->input('madre_id');
         $ejemplar->padre_id             = $request->input('padre_id');
-        $ejemplar->raza_id              = $request->input('raza_id'); 
+        $ejemplar->raza_id              = $request->input('raza_id');
         $ejemplar->criadero_id          = $request->input('criadero_id');
         $ejemplar->propietario_id       = $request->input('propietario_id');
         $ejemplar->kcb                  = $request->input('kcb');
@@ -290,17 +290,17 @@ class EjemplarController extends Controller
                 if($request->input('prefijo') == ""){
                     $nombreCompleto = $nombreCompleto." ";
                 }else{
-                    $nombreCompleto = $nombreCompleto." ".$request->input('prefijo')." "; 
+                    $nombreCompleto = $nombreCompleto." ".$request->input('prefijo')." ";
                 }
                 $nombreCompleto = $nombreCompleto." ".$ejemplar->nombre;
             }
-            $ejemplar->nombre_completo      = $nombreCompleto;    
+            $ejemplar->nombre_completo      = $nombreCompleto;
         }else{
             $ejemplar->nombre_completo      = $request->input('nombre');
         }
-        
-        
-        //precedemos con el guardado de datos 
+
+
+        //precedemos con el guardado de datos
         $ejemplar->save();
 
         // sacamos el id para mostrar el registro
@@ -327,7 +327,7 @@ class EjemplarController extends Controller
                 $alquiler->numero                   = 1;
             }
             $alquiler->fecha                        = $request->input('alquiler_propietario_fecha');
-            
+
             // proseguimos al guardado del nuevo alquiler
 
             $alquiler->save();
@@ -359,7 +359,7 @@ class EjemplarController extends Controller
         $nuevoExamen->save();
 
         $examenesEjemplar = ExamenMascota::where('ejemplar_id', $request->input('ejemplar_examen_id'))
-                            ->orderBy('id', 'desc')  
+                            ->orderBy('id', 'desc')
                             ->get();
 
         $this->addbitacora($request->input('ejemplar_examen_id'), 'EXAMEN', '',$nuevoExamen->examen->nombre, 'Agregado');
@@ -376,9 +376,9 @@ class EjemplarController extends Controller
         $eliminaExamen = ExamenMascota::destroy($request->idExamen);
 
         $examenesEjemplar = ExamenMascota::where('ejemplar_id', $examenEjemplar->ejemplar_id)
-                                            ->orderBy('id', 'desc')  
+                                            ->orderBy('id', 'desc')
                                             ->get();
-                    
+
         $examenEjemplar->save();
 
         // dd($examenEjemplar->nombre);
@@ -429,11 +429,11 @@ class EjemplarController extends Controller
         }
         $transferencia->fecha_exportacion       = $request->input('transferencia_fecha_exportacion');
         $transferencia->pais_destino            = $request->input('transferencia_pais_destino');
-        
+
         $transferencia->save();
 
         $ejemplarTransferencias = Transferencia::Where('ejemplar_id', $request->input('transferencia_ejemplar_id'))
-                                        ->orderBy('id', 'desc')  
+                                        ->orderBy('id', 'desc')
                                         ->get();
 
         $this->addbitacora($request->input('transferencia_ejemplar_id'), 'TRAMSFERENCIA', '',$transferencia->propietario->name, 'Agregado');
@@ -452,7 +452,7 @@ class EjemplarController extends Controller
         $eliminaTransferencia = Transferencia::destroy($request->idTransferencia);
 
         $ejemplarTransferencias = Transferencia::where('ejemplar_id', $transferencia->ejemplar_id)
-                                            ->orderBy('id', 'desc')  
+                                            ->orderBy('id', 'desc')
                                             ->get();
 
         $transferencia->save();
@@ -481,7 +481,7 @@ class EjemplarController extends Controller
 
         $this->addbitacora($request->input('titulo_ejemplar_id'), 'TITULO', '',$titulosEjemplar->titulo->nombre, 'Agregado');
 
-        
+
         return view('ejemplar.ajaxGuardaTitulo')->with(compact('titulosEjemplares'));
     }
 
@@ -495,7 +495,7 @@ class EjemplarController extends Controller
         $eliminaTitulo = TituloEjemplar::destroy($request->idTituloEjemplar);
 
         $titulosEjemplares = TituloEjemplar::where('ejemplar_id', $tituloEjemplar->ejemplar_id)
-                                            ->orderBy('id', 'desc')  
+                                            ->orderBy('id', 'desc')
                                             ->get();
 
         $tituloEjemplar->save();
@@ -523,7 +523,7 @@ class EjemplarController extends Controller
                         ->where('padre_id', '=', $ejemplar->padre_id)
                         ->orderBy('fecha_nacimiento', 'desc')
                         // ->where('padre_id', '=', $ejemplar->padre_id)
-                        ->get();   
+                        ->get();
         }else{
             $camadasPadre = null;
         }
@@ -538,7 +538,7 @@ class EjemplarController extends Controller
                         ->where('madre_id', '=', $ejemplar->madre_id)
                         ->orderBy('fecha_nacimiento', 'desc')
                         // ->where('padre_id', '=', $ejemplar->padre_id)
-                        ->get();   
+                        ->get();
         }else{
             $camadasMadre = null;
         }
@@ -569,7 +569,7 @@ class EjemplarController extends Controller
         $camada->user_id            = Auth::user()->id;
         $camada->padre_id           = $request->input('padre_id');
         $camada->madre_id           = $request->input('madre_id');
-        $camada->criadero_id        = $request->input('criadero_id'); 
+        $camada->criadero_id        = $request->input('criadero_id');
         $camada->raza_id            = $request->input('raza_id');
         $camada->lechigada          = $request->input('lechigada');
         $camada->camada             = $request->input('camada');
@@ -593,7 +593,7 @@ class EjemplarController extends Controller
         // echo $request->input();
         // dd($request->input());
         $cantidadEjemplares = count($request->input("ejemplar"));
-        for ($i=0; $i < $cantidadEjemplares; $i++) { 
+        for ($i=0; $i < $cantidadEjemplares; $i++) {
             $ejemplar = new Ejemplar();
 
             $ejemplar->user_id          = Auth::user()->id;
@@ -610,7 +610,7 @@ class EjemplarController extends Controller
             $ejemplar->color            = $request->input("ejemplar.$i.color");
             $ejemplar->senas            = $request->input("ejemplar.$i.senas");
             $ejemplar->nombre           = $request->input("ejemplar.$i.nombre");
-             
+
             $criadero = Criadero::find($request->input('criadero_id'));
             if($request->input('primero_mostrar') == "Nombre"){
                 $nombreCompleto         = $ejemplar->nombre;
@@ -625,7 +625,7 @@ class EjemplarController extends Controller
                 if($request->input('prefijo') == ""){
                     $nombreCompleto     = $nombreCompleto." ";
                 }else{
-                    $nombreCompleto     = $nombreCompleto." ".$request->input('prefijo')." "; 
+                    $nombreCompleto     = $nombreCompleto." ".$request->input('prefijo')." ";
                 }
                 $nombreCompleto         = $nombreCompleto." ".$ejemplar->nombre;
             }
@@ -642,23 +642,23 @@ class EjemplarController extends Controller
             $ejemplar->save();
             // echo $request->input("ejemplar.$i.nombre"). "<br />";
         }
-        
+
         return redirect("Ejemplar/listadoCamada/$IdCamada");
         // dd(count($request->input("ejemplar")));
 
     }
 
     public function listadoCamada(Request $request, $camada_id) {
-        
+
         $ejemplaresCamada = Ejemplar::where('camada_id',$camada_id)->get();
         $camada = Camada::where('id',$camada_id)->first();
         return view('ejemplar.listadoCamada')->with(compact('ejemplaresCamada', 'camada'));
     }
 
     public function eliminaEjemplarCamada(Request $request, $ejemplar_id) {
-        
+
         // buscamos el ejemplar a eliminar de la camada
-        $ejemplar = Ejemplar::where('id',$ejemplar_id)->first(); 
+        $ejemplar = Ejemplar::where('id',$ejemplar_id)->first();
 
         // rescatamos el id de la camda
         $camadaId           = $ejemplar->camada_id;
@@ -688,8 +688,8 @@ class EjemplarController extends Controller
         $idEjemplarEditar = $request->input('edicion_ejemplar_id_editar');
 
         $idEjemplar = $request->input("edicion_ejemplar_id");
-        
-        $ejemplar = Ejemplar::find($idEjemplarEditar); 
+
+        $ejemplar = Ejemplar::find($idEjemplarEditar);
 
         if($request->input("edicion_madre_id")){
             $ejemplar->madre_id = $request->input("edicion_madre_id");
@@ -738,7 +738,7 @@ class EjemplarController extends Controller
         }
         // dd($ejemplar->criadero);
 
-        // ESTILOS DE LA HOJA 
+        // ESTILOS DE LA HOJA
 
         /*************** ENCABEZADO ***********************/
         $cabezera = array(
@@ -750,12 +750,12 @@ class EjemplarController extends Controller
             )
         );
 
-        
+
         $sheet->getStyle('C3')->applyFromArray($cabezera);
         $sheet->getStyle('L3')->applyFromArray($cabezera);
         $sheet->getStyle('C5')->applyFromArray($cabezera);
         $sheet->getStyle('L4')->applyFromArray($cabezera);
-        
+
         /*************** DATOS DEL EJEMPLAR ***********************/
         $datosEjemplar = array(
             'font'  => array(
@@ -766,7 +766,7 @@ class EjemplarController extends Controller
             )
         );
 
-        
+
         $sheet->getStyle('C6')->applyFromArray($datosEjemplar);
         $sheet->getStyle('C7')->applyFromArray($datosEjemplar);
         $sheet->getStyle('C8')->applyFromArray($datosEjemplar);
@@ -820,7 +820,7 @@ class EjemplarController extends Controller
         $sheet->getStyle('F23')->applyFromArray($estilosAbuelos);
 
         /*************** ARBOL GENEALOGICO "TERCERA GENERACION" ***********************/
-        
+
         $estilosTerceraGeneracion = array(
             'font'  => array(
                 'bold'  => true,
@@ -883,10 +883,10 @@ class EjemplarController extends Controller
         $sheet->getStyle('E31')->applyFromArray($estilosFooter);
 
         // *************   ORIENTACION DE LA HOJA  *****************
-        
+
         $sheet->getPageSetup()->setOrientation("landscape");
 
-        // END ESTILOS DE LA HOJA 
+        // END ESTILOS DE LA HOJA
 
         // *************   cabecera *****************
         $sheet->setCellValue('C3', "$ejemplar->nombre_completo");
@@ -961,20 +961,20 @@ class EjemplarController extends Controller
         $nombreCGPadre = '';
         $kcbCGMadre = '';
         $nombreCGMadre = '';
-        
+
         $kcbTGMadreP1 = '';
-        $nombreTGMadreP1 = '';  
-        
+        $nombreTGMadreP1 = '';
+
         $kcbTGMadreM2 = '';
         $nombreTGMadreM2 = '';
 
-        
+
         $kcbAbueloTG1 = '';
         $nombreAbueloTG1 = '';
 
         $kcbAbuelaTG1 = '';
         $nombreAbuelaTG1 = '';
-    
+
         $kcbAbueloCG1 = '';
         $nombreAbueloCG1 = '';
 
@@ -983,7 +983,7 @@ class EjemplarController extends Controller
 
         $kcbAbueloTG1M1 = '';
         $nombreAbueloTG1M1 = '';
-        
+
         $kcbAbuelaTG1M1 = '';
         $nombreAbuelaTG1M1 = '';
 
@@ -1006,7 +1006,7 @@ class EjemplarController extends Controller
 
             $sheet->setCellValue('B11', $nombrePapa.PHP_EOL."K.C.B. ".$kcbPapa.PHP_EOL."No. x Raza ".$papa->num_tatuaje.PHP_EOL."Chip ".$papa->chip.PHP_EOL."$examenPapa".PHP_EOL."$resultadoPapa".PHP_EOL."Color: ".$papa->color);
             $sheet->getStyle('B11')->getAlignment()->setWrapText(true);
-            
+
             // preguntamos si el papa tiene padre
             // para sacar al abuelo
             if($papa->padre_id != null){
@@ -1015,7 +1015,7 @@ class EjemplarController extends Controller
 
                 $kcbAbuelo = ($abuelo)?$abuelo->kcb:'';
                 $nombreAbuelo = ($abuelo != null)?$abuelo->nombre_completo:'';
-                
+
                 $examenMascotaAbuelo = ExamenMascota::where('ejemplar_id','=',$abuelo->id)
                                             ->where('examen_id','=',3)
                                             ->first();
@@ -1058,7 +1058,7 @@ class EjemplarController extends Controller
                     if($tGPadre->padre_id != null){
 
                         $cGPadre = Ejemplar::find($tGPadre->padre_id);
-                        
+
                         $kcbCGPadre = ($cGPadre)?$cGPadre->kcb:'';
                         $nombreCGPadre = ($cGPadre != null)?$cGPadre->nombre_completo:'';
 
@@ -1087,7 +1087,7 @@ class EjemplarController extends Controller
                     if($tGPadre->madre_id != null){
 
                         $cGMadre = Ejemplar::find($tGPadre->madre_id);
-                        
+
                         $kcbCGMadre = ($cGMadre)?$cGMadre->kcb:'';
                         $nombreCGMadre = ($cGMadre != null)?$cGMadre->nombre_completo:'';
 
@@ -1144,8 +1144,8 @@ class EjemplarController extends Controller
                         $CGMadreP = Ejemplar::find($tGMadre->padre_id);
 
                         $kcbTGMadreP1 = ($CGMadreP)?$CGMadreP->kcb:'';
-                        $nombreTGMadreP1 = ($CGMadreP)?$CGMadreP->nombre_completo:'';  
-                        
+                        $nombreTGMadreP1 = ($CGMadreP)?$CGMadreP->nombre_completo:'';
+
                         $examenMascotaCGMadreP = ExamenMascota::where('ejemplar_id','=',$CGMadreP->id)
                                             ->where('examen_id','=',3)
                                             ->first();
@@ -1162,7 +1162,7 @@ class EjemplarController extends Controller
                         // $sheet->getStyle('L13')->getAlignment()->setWrapText(true);
                     }else{
                         $kcbTGMadreP1 = '';
-                        $nombreTGMadreP1 = '';    
+                        $nombreTGMadreP1 = '';
                     }
 
                     // para la madre de del atercera generacion
@@ -1171,7 +1171,7 @@ class EjemplarController extends Controller
                         $CGMadreM2 = Ejemplar::find($tGMadre->madre_id);
 
                         $kcbTGMadreM2 = ($CGMadreM2)?$CGMadreM2->kcb:'';
-                        $nombreTGMadreM2 = ($CGMadreM2)?$CGMadreM2->nombre_completo:'';    
+                        $nombreTGMadreM2 = ($CGMadreM2)?$CGMadreM2->nombre_completo:'';
 
                         $examenMascotaCGMadreM2 = ExamenMascota::where('ejemplar_id','=',$CGMadreM2->id)
                                             ->where('examen_id','=',3)
@@ -1183,14 +1183,14 @@ class EjemplarController extends Controller
                             $examenCGMadreM2 = "";
                             $resultadoCGMadreM2 = "";
                         }
-                        
+
                         $sheet->setCellValue('L14', $nombreTGMadreM2." K.C.B. ".$kcbTGMadreM2." No. x Raza ".$CGMadreM2->num_tatuaje." Chip ".$CGMadreM2->chip."$examenCGMadreM2 "." $resultadoCGMadreM2"." Color: ".$CGMadreM2->color);
                         // $sheet->getStyle('L14')->getAlignment()->setWrapText(true);
                         // $sheet->setCellValue('L14', $nombreTGMadreM2.PHP_EOL."K.C.B. ".$kcbTGMadreM2.PHP_EOL."No. x Raza ".$CGMadreM2->num_tatuaje.PHP_EOL."Chip ".$CGMadreM2->chip.PHP_EOL."$examenCGMadreM2".PHP_EOL."$resultadoCGMadreM2".PHP_EOL."Color: ".$CGMadreM2->color);
                         // $sheet->getStyle('L14')->getAlignment()->setWrapText(true);
                     }else{
                         $kcbTGMadreM2 = '';
-                        $nombreTGMadreM2 = '';    
+                        $nombreTGMadreM2 = '';
                     }
 
                 }else{
@@ -1346,7 +1346,7 @@ class EjemplarController extends Controller
                             $resultadoabueloTGM1 = "";
                         }
 
-                        
+
                         $sheet->setCellValue('L17', $nombreAbueloTG1M1." K.C.B. ".$kcbAbueloTG1M1." No. x Raza ".$abueloTGM1->num_tatuaje." Chip ".$abueloTGM1->chip." $examenabueloTGM1 "." $resultadoabueloTGM1"." Color: ".$abueloTGM1->color);
                         // $sheet->getStyle('L17')->getAlignment()->setWrapText(true);
                         // $sheet->setCellValue('L17', $nombreAbueloTG1M1.PHP_EOL."K.C.B. ".$kcbAbueloTG1M1.PHP_EOL."No. x Raza ".$abueloTGM1->num_tatuaje.PHP_EOL."Chip ".$abueloTGM1->chip.PHP_EOL."$examenabueloTGM1".PHP_EOL."$resultadoabueloTGM1".PHP_EOL."Color: ".$abueloTGM1->color);
@@ -1372,7 +1372,7 @@ class EjemplarController extends Controller
                             $examenabuelaTGM1 = "";
                             $resultadoabuelaTGM1 = "";
                         }
-                        
+
                         $sheet->setCellValue('L18', $nombreAbuelaTG1M1." K.C.B. ".$kcbAbuelaTG1M1." No. x Raza ".$abuelaTGM1->num_tatuaje." Chip ".$abuelaTGM1->chip." $examenabuelaTGM1 "." $resultadoabuelaTGM1"." Color: ".$abuelaTGM1->color);
                         // $sheet->getStyle('L18')->getAlignment()->setWrapText(true);
                         // $sheet->setCellValue('L18', $nombreAbuelaTG1M1." K.C.B. ".$kcbAbuelaTG1M1.PHP_EOL."No. x Raza ".$abuelaTGM1->num_tatuaje.PHP_EOL."Chip ".$abuelaTGM1->chip.PHP_EOL."$examenabuelaTGM1".PHP_EOL."$resultadoabuelaTGM1".PHP_EOL."Color: ".$abuelaTGM1->color);
@@ -1392,7 +1392,7 @@ class EjemplarController extends Controller
 
         }else{
             $kcbPapa = '';
-            $nombrePapa = '';        
+            $nombrePapa = '';
         }
 
         // ****************** MADRE *****************************
@@ -1410,23 +1410,23 @@ class EjemplarController extends Controller
         $nombreCGPadreM = '';
         $kcbCGMadreM = '';
         $nombreCGMadreM = '';
-        
+
         $kcbCGPadreM1 = '';
         $nombreCGPadreM1 = '';
         $kcbCGPadreM2 = '';
         $nombreCGPadreM2 = '';
         $kcbabueloMSG  = '' ;
         $nombreabueloMSG  = '' ;
-        
+
         $kcbabueloMSG2  = '' ;
         $nombreabueloMSG2  = '' ;
-        
+
         $kcbabueloMTG1  = '' ;
         $nombreabueloMTG1  = '' ;
-        
+
         $kcbabueloMTG11  = '' ;
         $nombreabueloMTG11  = '' ;
-        
+
         $kcbabueloMSG22  = '' ;
         $nombreabueloMSG22  = '' ;
 
@@ -1474,7 +1474,7 @@ class EjemplarController extends Controller
                 $sheet->getStyle('F19')->getAlignment()->setWrapText(true);
 
                 if($abueloM->padre_id != null){
-                    
+
                     $tGPadreM = Ejemplar::find($abueloM->padre_id);
 
                     $kcbTGPadreM = ($tGPadreM)?$tGPadreM->kcb:'';
@@ -1511,7 +1511,7 @@ class EjemplarController extends Controller
                             $examenCGPadreM1 = "";
                             $resultadoCGPadreM1 = "";
                         }
-                        
+
                         $sheet->setCellValue('L19', $nombreCGPadreM1." K.C.B. ".$kcbCGPadreM1." No. x Raza ".$CGPadreM1->num_tatuaje." Chip ".$CGPadreM1->chip." $examenCGPadreM1 "." $resultadoCGPadreM1"." Color: ".$CGPadreM1->color);
                         // $sheet->getStyle('L19')->getAlignment()->setWrapText(true);
                         // $sheet->setCellValue('L19', $nombreCGPadreM1.PHP_EOL."K.C.B. ".$kcbCGPadreM1.PHP_EOL."No. x Raza ".$CGPadreM1->num_tatuaje.PHP_EOL."Chip ".$CGPadreM1->chip.PHP_EOL."$examenCGPadreM1".PHP_EOL."$resultadoCGPadreM1".PHP_EOL."Color: ".$CGPadreM1->color);
@@ -1577,7 +1577,7 @@ class EjemplarController extends Controller
 
                         $CGPadreM = Ejemplar::find($tGMadreM->padre_id);
 
-                        $kcbCGPadreM = ($CGPadreM)? $CGPadreM->kcb:'';                   
+                        $kcbCGPadreM = ($CGPadreM)? $CGPadreM->kcb:'';
                         $nombreCGPadreM = ($CGPadreM)? $CGPadreM->nombre_completo:'';
 
                         $examenMascotaCGPadreM = ExamenMascota::where('ejemplar_id','=',$CGPadreM->id)
@@ -1598,15 +1598,15 @@ class EjemplarController extends Controller
 
                     }else{
 
-                        $kcbCGPadreM = '';                   
-                        $nombreCGPadreM = '';                   
+                        $kcbCGPadreM = '';
+                        $nombreCGPadreM = '';
                     }
                     if($tGMadreM->madre_id != null){
 
                         $CGMadreM = Ejemplar::find($tGMadreM->madre_id);
 
-                        $kcbCGMadreM = ($CGMadreM)? $CGMadreM->kcb:'';                   
-                        $nombreCGMadreM = ($CGMadreM)? $CGMadreM->nombre_completo:'';                   
+                        $kcbCGMadreM = ($CGMadreM)? $CGMadreM->kcb:'';
+                        $nombreCGMadreM = ($CGMadreM)? $CGMadreM->nombre_completo:'';
 
                         $examenMascotaCGMadreM = ExamenMascota::where('ejemplar_id','=',$CGMadreM->id)
                                             ->where('examen_id','=',3)
@@ -1624,8 +1624,8 @@ class EjemplarController extends Controller
                         // $sheet->setCellValue('L22', $nombreCGMadreM.PHP_EOL."K.C.B. ".$kcbCGMadreM.PHP_EOL."No. x Raza ".$CGMadreM->num_tatuaje.PHP_EOL."Chip ".$CGMadreM->chip.PHP_EOL."$examenCGMadreM".PHP_EOL."$resultadoCGMadreM".PHP_EOL."Color: ".$CGMadreM->color);
                         // $sheet->getStyle('L22')->getAlignment()->setWrapText(true);
                     }else{
-                        $kcbCGMadreM = '';                   
-                        $nombreCGPadreM = '';                   
+                        $kcbCGMadreM = '';
+                        $nombreCGPadreM = '';
                     }
                 }else{
                     $kcbTGMadreM = '';
@@ -1676,7 +1676,7 @@ class EjemplarController extends Controller
                         $examenabueloSG = "";
                         $resultadoabueloSG = "";
                     }
-                    
+
                     $sheet->setCellValue('I23', $nombreabueloMSG.PHP_EOL."K.C.B. ".$kcbabueloMSG.PHP_EOL."No. x Raza ".$abueloSG->num_tatuaje.PHP_EOL."Chip ".$abueloSG->chip.PHP_EOL."$examenabueloSG".PHP_EOL."$resultadoabueloSG".PHP_EOL."Color: ".$abueloSG->color);
                     $sheet->getStyle('I23')->getAlignment()->setWrapText(true);
 
@@ -1792,7 +1792,7 @@ class EjemplarController extends Controller
                     }else{
 
                         $kcbabueloMSG22  = '' ;
-                        $nombreabueloMSG22  = '' ;  
+                        $nombreabueloMSG22  = '' ;
                     }
                     if($abueloSGM2->madre_id != null){
 
@@ -1847,15 +1847,15 @@ class EjemplarController extends Controller
     }
 
     public function ajaxGuardaEjemplar(Request $request){
-        
+
         // dd($request->all());
 
         $ejemplar = new Ejemplar();
-        
+
         $ejemplar->user_id              = Auth::user()->id;
         $ejemplar->nombre               = $request->input('edita_nuevo_nombre');
         $ejemplar->nombre_completo      = $request->input('edita_nuevo_nombre');
-        $ejemplar->raza_id              = $request->input('edita_nuevo_raza');       
+        $ejemplar->raza_id              = $request->input('edita_nuevo_raza');
         $ejemplar->sexo                 = $request->input('edita_nuevo_sexo');
         $ejemplar->codigo_nacionalizado = $request->input('edita_nuevo_codigo');
         $ejemplar->color                = $request->input('edita_nuevo_color');
@@ -1892,19 +1892,19 @@ class EjemplarController extends Controller
         $ejemplar->camada_id                = $ejemplarHermano->camada_id;
         $ejemplar->criadero_id              = $ejemplarHermano->criadero_id;
         $ejemplar->propietario_id           = $ejemplarHermano->propietario_id;
-        $ejemplar->kcb                      = $request->input('registro-nuevo-kcb');                    
-        $ejemplar->num_tatuaje              = $request->input('registro-nuevo-tatuaje');                    
-        $ejemplar->chip                     = $request->input('registro-nuevo-chip');                    
-        $ejemplar->fecha_nacimiento         = $ejemplarHermano->fecha_nacimiento;                    
-        $ejemplar->color                    = $request->input('registro-nuevo-color');                    
-        $ejemplar->senas                    = $request->input('registro-nuevo-senas');                    
-        $ejemplar->nombre                   = $request->input('registro-nuevo-nombre');                    
-        $ejemplar->primero_mostrar          = $ejemplarHermano->primero_mostrar;                    
-        $ejemplar->prefijo                  = $ejemplarHermano->prefijo;                    
-        $ejemplar->lechigada                = $ejemplarHermano->lechigada;                    
+        $ejemplar->kcb                      = $request->input('registro-nuevo-kcb');
+        $ejemplar->num_tatuaje              = $request->input('registro-nuevo-tatuaje');
+        $ejemplar->chip                     = $request->input('registro-nuevo-chip');
+        $ejemplar->fecha_nacimiento         = $ejemplarHermano->fecha_nacimiento;
+        $ejemplar->color                    = $request->input('registro-nuevo-color');
+        $ejemplar->senas                    = $request->input('registro-nuevo-senas');
+        $ejemplar->nombre                   = $request->input('registro-nuevo-nombre');
+        $ejemplar->primero_mostrar          = $ejemplarHermano->primero_mostrar;
+        $ejemplar->prefijo                  = $ejemplarHermano->prefijo;
+        $ejemplar->lechigada                = $ejemplarHermano->lechigada;
         $ejemplar->sexo                     = $request->input('registro-nuevo-sexo');
-        $ejemplar->departamento             = $ejemplarHermano->departamento;                    
-        $ejemplar->fecha_emision            = $ejemplarHermano->fecha_emision;                    
+        $ejemplar->departamento             = $ejemplarHermano->departamento;
+        $ejemplar->fecha_emision            = $ejemplarHermano->fecha_emision;
 
         $criadero = Criadero::find($ejemplarHermano->criadero_id);
 
@@ -1921,7 +1921,7 @@ class EjemplarController extends Controller
             if($ejemplar->prefijo == ""){
                 $nombreCompleto     = $nombreCompleto." ";
             }else{
-                $nombreCompleto     = $nombreCompleto." ".$ejemplar->prefijo." "; 
+                $nombreCompleto     = $nombreCompleto." ".$ejemplar->prefijo." ";
             }
             $nombreCompleto         = $nombreCompleto." ".$ejemplar->nombre;
         }
@@ -1957,11 +1957,11 @@ class EjemplarController extends Controller
         $modificacion->original    = json_encode($arrayOriginal);
         $modificacion->cambio      = json_encode($arrayModificacion);
         $modificacion->save();
-        
+
         echo 'Se guardo';
     }
 
-    public function muestraModificacion(Request $request, $tabla, $registro) 
+    public function muestraModificacion(Request $request, $tabla, $registro)
     {
         $modificaciones = Modificacione::where('tabla', $tabla)
                                         ->where('registro_id', $registro)
@@ -1993,7 +1993,7 @@ class EjemplarController extends Controller
         $tituloEjemplarAsignacion = TituloEjemplar::withTrashed()
                                         ->where('ejemplar_id',$registro)
                                         ->get();
-                                        
+
         // dd($examenEjemplar);
 
         /*foreach($modificaciones as $m){
@@ -2034,7 +2034,7 @@ class EjemplarController extends Controller
         // $arrayOriginal1 = json_encode($arrayOriginal);
         // $arrayCambio1   = json_encode($arrayCambio);
 
-        
+
         $arrayOriginal1 = $arrayOriginal;
         $arrayCambio1   = $arrayCambio;
 
@@ -2108,7 +2108,7 @@ class EjemplarController extends Controller
             if($arrayOriginal1['criadero_id']){
 
                 $criaderoOrigen1 = Criadero::find($arrayOriginal1['criadero_id']);
-                
+
                 if($criaderoOrigen1){
                     $criaderoOrigen = $criaderoOrigen1->nombre;
                 }else{
@@ -2184,7 +2184,7 @@ class EjemplarController extends Controller
             $this->addbitacora($registro_id, 'SENAS', $arrayOriginal1['senas'], $arrayCambio1['senas'], 'Modificado');
 
         }
-        
+
         if($arrayOriginal1['lechigada'] != $arrayCambio1['lechigada']){
 
             $this->addbitacora($registro_id, 'LECHIGADA', $arrayOriginal1['lechigada'], $arrayCambio1['lechigada'], 'Modificado');
@@ -2234,7 +2234,7 @@ class EjemplarController extends Controller
         }
 
     }
-    
+
     public function validaKcb(Request $request){
         // dd($request->all());
         $verificaKcb = Ejemplar::where('kcb', $request->kcb)
@@ -2245,7 +2245,7 @@ class EjemplarController extends Controller
 
     public function eliminaEjemplar(Request $request, $ejemplar_id){
 
-        // actualizamos el campo eliminador 
+        // actualizamos el campo eliminador
         $ejemplar = Ejemplar::find($ejemplar_id);
 
         $ejemplar->eliminador_id    = Auth::user()->id;
@@ -2256,12 +2256,12 @@ class EjemplarController extends Controller
             if($hijos){
 
                 foreach ($hijos as $h){
-    
+
                     $h->padre_id = null;
-    
+
                     $h->save();
                 }
-    
+
             }
         }else{
             $hijos = Ejemplar::where('madre_id',$ejemplar_id)->get();
@@ -2269,18 +2269,18 @@ class EjemplarController extends Controller
             if($hijos){
 
                 foreach ($hijos as $h){
-    
+
                     $h->madre_id = null;
-    
+
                     $h->save();
                 }
-    
+
             }
         }
 
         // eliminamos al ejemplar como tal
         Ejemplar::destroy($ejemplar_id);
-        
+
         $ejemplar->save();
 
         return redirect("Ejemplar/listado");
@@ -2291,7 +2291,7 @@ class EjemplarController extends Controller
 
         // se carga la vista como se llama a cualquier vista para
         // se ha creado una carpeta en views/pdf para los archivos
-        // de plantillas html, estan son como una pagina en blanco 
+        // de plantillas html, estan son como una pagina en blanco
         // sin heredar ningun template
         $pdf    = PDF::loadView('pdf.pedigree', compact('miNombre'))->setPaper('letter');
 
@@ -2299,7 +2299,7 @@ class EjemplarController extends Controller
         // return $pdf->download('boletinInscripcion_'.date('Y-m-d H:i:s').'.pdf');
 
         // siqueremos que el pdf se muestre
-        return $pdf->stream('boletinInscripcion_'.date('Y-m-d H:i:s').'.pdf');        
+        return $pdf->stream('boletinInscripcion_'.date('Y-m-d H:i:s').'.pdf');
     }
 
     public function certificadoRosado(Request $request, $ejemplar_id){
@@ -2310,14 +2310,14 @@ class EjemplarController extends Controller
     }
 
     public function certificadoRosadoAdelante(Request $request,$ejemplar_id){
-        
+
         $examenAptoCria = ExamenMascota::where('ejemplar_id',$ejemplar_id)
                                         ->where('examen_id',2)
                                         ->first();
 
         $ejemplar = Ejemplar::find($ejemplar_id);
 
-                                    
+
         return view('certificado.certificadoRosadoAdelante')->with(compact('ejemplar'/*, 'examenEjemplar', 'transferenciaEjemplar', 'tituloEjemplar', 'examenEjemplarAsignacion', 'transferenciaEjemplarAsignacion', 'tituloEjemplarAsignacion'*/));
     }
 
@@ -2362,7 +2362,7 @@ class EjemplarController extends Controller
         // return $pdf->download('boletinInscripcion_'.date('Y-m-d H:i:s').'.pdf');
 
         // siqueremos que el pdf se muestre
-        // return $pdf->stream('boletinInscripcion_'.date('Y-m-d H:i:s').'.pdf');   
+        // return $pdf->stream('boletinInscripcion_'.date('Y-m-d H:i:s').'.pdf');
     }
 
     public static function armaEjemplarCertificado($ejemplar,$generacion){
@@ -2376,12 +2376,14 @@ class EjemplarController extends Controller
                     $titulo = TituloEjemplar::where('ejemplar_id',$ejemplar->id)->get();
                     $i = 1;
                     foreach ($titulo as $t){
-                        if($i <= 5){
-                            echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
-                            $i++;
-                        }else{
-                            $i = 1;
-                            echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
+                        if($t->titulo){
+                            if($i <= 5){
+                                echo "<span class='text-danger'>".$t->titulo->nombre."</span>";
+                                $i++;
+                            }else{
+                                $i = 1;
+                                echo "<br><span class='text-danger'>".$t->titulo->nombre."</span>";
+                            }
                         }
                     }
                     echo "<br>";
@@ -2436,7 +2438,7 @@ class EjemplarController extends Controller
                     echo "<br>";
                 }
             }
-            
+
             echo $ejemplar->nombre_completo."<br>";
             if(!($ejemplar->kcb == 'nulo' || $ejemplar->kcb == '')){
                 echo "K.C.B. ".$ejemplar->kcb."<br>";
@@ -2543,7 +2545,7 @@ class EjemplarController extends Controller
                     echo "<br>";
                 }
             }
-            
+
             echo $ejemplar->nombre_completo." ";
 
             if(!($ejemplar->kcb == 'nulo' || $ejemplar->kcb == '')){
@@ -2573,16 +2575,16 @@ class EjemplarController extends Controller
             echo $resultadoPapa." ";
             if($ejemplar->color != '0' && $ejemplar->color != '.'){
                 echo "Color: ".$ejemplar->color." ";
-            }   
+            }
         }
         // echo $ejemplar->id;
     }
 
     public function generaExcel(Request $request){
         // dd($request->all());
-        
+
         $queryEjemplares = Ejemplar::orderBy('id', 'desc');
-                            
+
         if ($request->filled('kcb_buscar')) {
             $kcb = $request->input('kcb_buscar');
             $queryEjemplares->where('kcb', $kcb);
@@ -2624,7 +2626,7 @@ class EjemplarController extends Controller
         $libro = new Spreadsheet();
 
         $hoja = $libro->getActiveSheet();
-        
+
         $hoja->setCellValue('A1', 'LISTA DE EJEMPLARES');
         $hoja->setCellValue('A2', 'ID');
         $hoja->setCellValue('B2', 'KCB');
@@ -2639,7 +2641,7 @@ class EjemplarController extends Controller
         $contador = 3;
 
         foreach($ejemplares as $key => $eje){
-            
+
             $hoja->setCellValue("A$contador", $eje->id);
             $hoja->setCellValue("B$contador", $eje->kcb);
             $hoja->setCellValue("C$contador", $eje->nombre_completo);
@@ -2704,5 +2706,5 @@ class EjemplarController extends Controller
         header('Content-Disposition: attachment; filename="'. urlencode($fileName).'"');
         $writer->save('php://output');
 
-    } 
+    }
 }
