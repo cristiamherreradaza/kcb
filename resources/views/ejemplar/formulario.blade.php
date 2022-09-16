@@ -1409,8 +1409,10 @@
                         <label for="exampleInputPassword1">PROPIETARIO
                         </label>
                         <select class="form-control select2" id="propietario_id" name="propietario_id"   {{ ($ejemplar != null)? (($ejemplar->extranjero == 'si')? '': 'required') : 'required'}}  >
-                            @if ($ejemplar != null && $ejemplar->propietario_id != null)
-                                <option value="{{ $ejemplar->propietario->id }}">{{ $ejemplar->propietario->name }}</option>
+                            @if ($ejemplar->propietario)
+                                @if ($ejemplar != null && $ejemplar->propietario_id != null)
+                                    <option value="{{ $ejemplar->propietario->id }}">{{ $ejemplar->propietario->name }}</option>
+                                @endif
                             @endif
                             <option label="Label"></option>
                         </select>
@@ -1499,8 +1501,10 @@
                                 <label for="">Propietario Alquilado
                                     <span class="text-danger">*</span></label><br />
                                     <select class="form-control select2" id="alquiler_propietario_id" name="alquiler_propietario_id">
-                                        @if ($ejemplar != null && $ejemplar->propietario_id != null)
-                                            <option value="{{ $ejemplar->propietario->id }}">{{ $ejemplar->propietario->name }}</option>
+                                        @if ($ejemplar->propietario)
+                                            @if ($ejemplar != null && $ejemplar->propietario_id != null)
+                                                <option value="{{ $ejemplar->propietario->id }}">{{ $ejemplar->propietario->name }}</option>
+                                            @endif
                                         @endif
                                         <option label="Label"></option>
                                     </select>
