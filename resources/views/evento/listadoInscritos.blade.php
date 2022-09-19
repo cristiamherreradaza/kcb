@@ -143,17 +143,59 @@
 					</div>
 
                     <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group w-100">
+                                <label>Cambio de Categoria</label>
+                                <div class="radio-inline">
+                                    <label class="radio radio-lg">
+                                        <input type="radio" checked="checked" name="cambio_categoria" value="no" onclick="cambiaCategoria(this)"/>
+                                        <span></span>
+                                        No
+                                    </label>
+                                    <label class="radio radio-lg">
+                                        <input type="radio" name="cambio_categoria" value="si" onclick="cambiaCategoria(this)"/>
+                                        <span></span>
+                                        Si
+                                    </label>
+                                </div>
+                                <span class="form-text text-muted">Some help text goes here</span>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div id="bloque_categorias" style="display: none;">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Categoria
+                                            <span class="text-danger">*</span></label>
+                                            <br>
+                                            <select class="form-control select2" style="width: 100%" name="categoria_pista_id" id="categoria_pista_id">
+                                                <option></option>
+                                                @foreach ($categoriasPista as $cp)
+                                                    <option value="{{ $cp->id }}">{{ $cp->nombre }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Motivo
+                                            <span class="text-danger">*</span></label>
+                                            <br>
+                                            <select class="form-control" name="motivo_cambio" id="motivo_cambio">
+                                                <option value="1">Error de Inscripcion</option>
+                                                <option value="2">Cambio de Categoria</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
 						<div class="col-md-4">
-							<div class="form-group">
-                			    <label for="exampleInputPassword1">Categoria
-                			    <span class="text-danger">*</span></label>
-								<select class="form-control select2" name="categoria_pista_id" id="categoria_pista_id">
-									<option></option>
-									@foreach ($categoriasPista as $cp)
-										<option value="{{ $cp->id }}">{{ $cp->nombre }}</option>
-									@endforeach
-								</select>
-                			</div>
+
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
@@ -609,7 +651,7 @@
 			$('#estado').val(estado);
 			$('#extranjero').val(extranjero);
 			$('#extrangero').val(extranjero);
-			
+
 
             if(kcb != '' && cod_extrangero == ''){
 				$("#nombre").prop('disabled', true);
@@ -892,7 +934,7 @@
 		}
 
 		function buscaExtranjero(radio){
-			
+
 			let codigo = $("#inscribe_codigo_extranjero").val();
 
 			if(codigo != ''){
@@ -990,6 +1032,14 @@
 			}
 
 		}
+
+        function cambiaCategoria(input){
+
+            if(input.value == "si")
+                $('#bloque_categorias').show('toogle');
+            else
+                $('#bloque_categorias').hide('toogle');
+        }
 
     </script>
 @endsection

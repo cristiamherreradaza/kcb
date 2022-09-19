@@ -66,7 +66,7 @@ class EventoController extends Controller
         $tipo->numero_pista = $request->input('num_pista');
         $tipo->circuito     = $tipoCircuito;
         $tipo->habilitado   = $request->input('habilitado');
-        
+
         $tipo->save();
 
         return redirect('Evento/listado');
@@ -132,28 +132,28 @@ class EventoController extends Controller
 
                 if($transferencia != null){
 
-                    $arrayEjemplar['nom_propietario'] = $transferencia->propietario->name;    
-                    $arrayEjemplar['departamento'] = $transferencia->propietario->departamento;    
-                    $arrayEjemplar['celulares'] = $transferencia->propietario->celulares;    
-                    $arrayEjemplar['email'] = $transferencia->propietario->email; 
+                    $arrayEjemplar['nom_propietario'] = $transferencia->propietario->name;
+                    $arrayEjemplar['departamento'] = $transferencia->propietario->departamento;
+                    $arrayEjemplar['celulares'] = $transferencia->propietario->celulares;
+                    $arrayEjemplar['email'] = $transferencia->propietario->email;
 
                 }else{
 
-                    $arrayEjemplar['nom_propietario'] = $ejemplar->propietario->name;    
-                    $arrayEjemplar['departamento'] = $ejemplar->propietario->departamento;    
-                    $arrayEjemplar['celulares'] = $ejemplar->propietario->celulares;    
-                    $arrayEjemplar['email'] = $ejemplar->propietario->email; 
+                    $arrayEjemplar['nom_propietario'] = $ejemplar->propietario->name;
+                    $arrayEjemplar['departamento'] = $ejemplar->propietario->departamento;
+                    $arrayEjemplar['celulares'] = $ejemplar->propietario->celulares;
+                    $arrayEjemplar['email'] = $ejemplar->propietario->email;
                 }
 
             }else{
-                $arrayEjemplar['nom_propietario'] = null;    
-                $arrayEjemplar['departamento'] = null;    
-                $arrayEjemplar['celulares'] = null;    
-                $arrayEjemplar['email'] = null; 
+                $arrayEjemplar['nom_propietario'] = null;
+                $arrayEjemplar['departamento'] = null;
+                $arrayEjemplar['celulares'] = null;
+                $arrayEjemplar['email'] = null;
             }
-            // dd($ejemplar->propietario);   
+            // dd($ejemplar->propietario);
 
-            $arrayEjemplar['raza_id'] = $ejemplar->raza->id;                   
+            $arrayEjemplar['raza_id'] = $ejemplar->raza->id;
         }
         // dd($ejemplar->padre->nombre);
 
@@ -197,13 +197,13 @@ class EventoController extends Controller
 
         return json_encode($arrayEjemplar);
     }
-    
+
     public function inscribirEvento(Request $request){
 
         $ejemplarEvento = new EjemplarEvento();
 
         $ejemplarEvento->evento_id                  = $request->input('evento_id');
-        $ejemplarEvento->ejemplar_id                = $request->input('ejemplar_id');      
+        $ejemplarEvento->ejemplar_id                = $request->input('ejemplar_id');
         $ejemplarEvento->categoria_pista_id         = $request->input('categoria_pista');
 
         $ejemplarEvento->raza_id                    = $request->input('raza_id');
@@ -235,7 +235,7 @@ class EventoController extends Controller
         if($request->file('carnet')){
 
             $archivo                            = $request->file('carnet');
-            $direccion                          = 'imagenesCarnet/';   
+            $direccion                          = 'imagenesCarnet/';
             $nombreArchivo                      = date('YmdHis').".".$archivo->getClientOriginalExtension();
 
             $archivo->move($direccion,$nombreArchivo);
@@ -276,11 +276,11 @@ class EventoController extends Controller
         $categoriasPista = CategoriasPista::all();
 
         return view('evento.listadoInscritos')->with(compact('ejemplaresEventos', 'evento', 'razas', 'categoriasPista'));
-                                            
+
     }
 
     public function editaInscripcionEjemplarEvento(Request $request){
-        
+
         $ejemplarEvento = EjemplarEvento::find($request->input('ejemplarEvento'));
 
         if($request->input('extranjero') == 'si'){
@@ -302,6 +302,16 @@ class EventoController extends Controller
         }
 
         $ejemplarEvento->telefono               = $request->input('telefono');
+
+        if($request->input('cambio_categoria') == "si"){
+            $ejemplarEvento->cambio_categoria = 'si';
+            $ejemplarEvento->tipo_cambio = $request->input('motivo_cambio');
+        }else{
+            $ejemplarEvento->cambio_categoria = 'no';
+            $ejemplarEvento->tipo_cambio = null;
+        }
+
+
         $ejemplarEvento->categoria_pista_id     = $request->input('categoria_pista_id');
         $ejemplarEvento->email                  = $request->input('email');
         $ejemplarEvento->estado                 = $request->input('estado');
@@ -326,7 +336,7 @@ class EventoController extends Controller
         //                             ->get();
         $evento = Evento::find($evento_id);
 
-        
+
         $ejemplares = EjemplarEvento::where("categoria_pista_id",1)
                                     ->where("evento_id",$evento_id)
                                     ->get();
@@ -369,7 +379,7 @@ class EventoController extends Controller
                             array_push($g2machos, "$eje->id");
                         }else{
                             array_push($g2hembras, "$eje->id");
-                        }    
+                        }
                     }
                 }else{
                     $h = (-1)*$g2;
@@ -380,7 +390,7 @@ class EventoController extends Controller
                             array_push($g2machos, "$ejeExt");
                         }else{
                             array_push($g2hembras, "$ejeExt");
-                        }    
+                        }
                     }
                 }
             }
@@ -435,14 +445,14 @@ class EventoController extends Controller
         // dd($sexo);
         // var_dump($arrayEjemplares);
         // exit;
-        
+
         $arrayEjemplaresAux = array();
         $arrayEjemplaresAux = $arrayEjemplares;
         $arrayCategorias = array();
 
         // echo '<br><br>orginal mandano';
         // print_r($arrayEjemplares);
-        
+
         // echo '<br><br>copiado';
         // print_r($arrayEjemplaresAux);
 
@@ -491,27 +501,27 @@ class EventoController extends Controller
                                         $sw = false;
 
                                     }
-                
+
                                     if($eje->kcb == null && ($eje->codigo_nacionalizado != '' || $eje->codigo_nacionalizado != null)){
                                         $nacionalidad = '(Extranjero)';
-                                        $kcb =  $eje->codigo_nacionalizado; 
+                                        $kcb =  $eje->codigo_nacionalizado;
                                     }else{
                                         $nacionalidad = '(Nacional)';
-                                        $kcb =  $eje->kcb; 
+                                        $kcb =  $eje->kcb;
                                     }
-                
+
                                     if($eje->padre){
                                         $padre = $eje->padre->nombre_completo;
                                     }else{
                                         $padre = '';
                                     }
-                
+
                                     if($eje->madre){
                                         $madre = $eje->madre->nombre_completo;
                                     }else{
                                         $madre = '';
                                     }
-                
+
                                     if($eje->propietario){
                                         $nombre_propietario         = $eje->propietario->name;
                                         $departamento_propietario   = $eje->propietario->departamento;
@@ -523,9 +533,9 @@ class EventoController extends Controller
                                         $celulares_propietario      = '';
                                         $email_propietario          = '';
                                     }
-            
+
                                     // echo '<b>'.$eje->nombre_completo.' <--> <span class="text-danger">'.$evento->categoria_pista_id."</span><-->".$eje->id.'</b><span class="text-danger">'.$nacionalidad."</span><br><br>" ;
-            
+
                                     echo '<b>'.$numPre->numero_prefijo.". - ".$eje->nombre_completo.'</b><span class="text-danger">'.$nacionalidad."</span><br>" ;
                                     echo '<b>KCB: </b>'.$kcb.' - <b> FECHA NACIMIENTO: </b>'.date('d/m/Y',strtotime($eje->fecha_nacimiento)).' - <b> POR: </b>'.$padre.' y '.$madre.'<br>';
                                     echo '<b> PROPIETARIO: </b>'.$nombre_propietario.' - <b> CIUDAD/PAIS: </b>'.$departamento_propietario.' - <b> TELEFONOS: </b>'.$celulares_propietario.' - <b> EMAIL: </b>'.$email_propietario.'<br><br>';
@@ -540,11 +550,11 @@ class EventoController extends Controller
                     }
 
                 }
-                
-                
+
+
             }else{
                 $g2hExt = (-1) * $g2h ;
-                
+
                 if($eje){
                     $ejeAnterior = $eje;
                 }else{
@@ -552,14 +562,14 @@ class EventoController extends Controller
                 }
 
                 $eje = EjemplarEvento::find($g2hExt);
-                
+
 
                 if($ejeAnterior){
                     if($ejeAnterior->categoria_pista_id != $eje->categoria_pista_id){
                         $sw = true;
                     }
                 }
-                
+
                 if($eje){
                     if($eje->raza_id == $raza->id){
 
@@ -583,7 +593,7 @@ class EventoController extends Controller
                         // }
 
                         $nacionalidad = '(Extranjero)';
-                        $kcb =  $eje->codigo_nacionalizado; 
+                        $kcb =  $eje->codigo_nacionalizado;
                         $padre = $eje->nombre_padre;
                         $madre = $eje->nombre_madre;
 
@@ -598,14 +608,14 @@ class EventoController extends Controller
                     }
                 }
             }
-            
+
         }
     }
 
     public function catalogoNumeracion(Request $request, $evento_id){
 
         $evento = Evento::find($evento_id);
-        
+
         $ejemplares = EjemplarEvento::where("categoria_pista_id",1)
                                     ->where("evento_id",$evento_id)
                                     ->get();
@@ -624,7 +634,7 @@ class EventoController extends Controller
         $ejemplaresAdulto = EjemplarEvento::where("evento_id",$evento_id)
                                     ->whereIn("categoria_pista_id",[5,6,7,8,9,10,14,15,16,17,18,19,20])
                                     ->get();
-                                    
+
         $arrayDeEjemplares = array();
 
         array_push($arrayDeEjemplares,$ejemplares);
@@ -693,7 +703,7 @@ class EventoController extends Controller
                             break;
                     }
                 }
-                
+
             }
 
             $arrayDeGrupos = array();
@@ -735,10 +745,10 @@ class EventoController extends Controller
                                         array_push($g2machos, "$eje->id");
                                     }else{
                                         array_push($g2hembras, "$eje->id");
-                                    }    
+                                    }
                                 }
                             }else{
-                                
+
                                 $h = (-1)*$g2;
                                 $eje = EjemplarEvento::find($h);
                                 $ejeExt = (-1) * $eje->id;
@@ -747,12 +757,12 @@ class EventoController extends Controller
                                         array_push($g2machos, "$ejeExt");
                                     }else{
                                         array_push($g2hembras, "$ejeExt");
-                                    }    
+                                    }
                                 }
                             }
                         }
-                        
-                        
+
+
                     }
 
                     $razas1 = EjemplarEvento::query();
@@ -785,7 +795,7 @@ class EventoController extends Controller
                     foreach ($razas as $r){
                         if (!empty($g2machos)){
                             $swm = true;
-                            
+
                             $arrayEjemplaresAux = array();
                             $arrayEjemplaresAux = $g2machos;
 
@@ -797,7 +807,7 @@ class EventoController extends Controller
                                                                             ->where('evento_id',$evento_id)
                                                                             ->first();
                                     $swm = true;
-                                                                        
+
                                     foreach ($arrayEjemplaresAux as $keyEAM => $value) {
 
                                         $eventoEjemplarInscritoAux = EjemplarEvento::where('ejemplar_id',$value)
@@ -812,7 +822,7 @@ class EventoController extends Controller
 
                                                 if($eje){
                                                     if($eje->raza_id == $r->id){
-                                                        
+
                                                         $numPre = EjemplarEvento::where('ejemplar_id',$eje->id)
                                                                                 ->where('evento_id',$evento_id)
                                                                                 ->first();
@@ -820,27 +830,27 @@ class EventoController extends Controller
                                                         if($keyAE+1 == 1){
 
                                                             $prefijo = 'E';
-            
+
                                                         }elseif($keyAE+1 == 2){
-            
+
                                                             $prefijo = 'A';
-            
+
                                                         }elseif($keyAE+1 == 3){
-            
+
                                                             $prefijo = 'J';
-            
+
                                                         }else{
-            
+
                                                             $prefijo = '';
-            
+
                                                         }
-                                                        
+
                                                         $numPre->numero_prefijo =  $contador.$prefijo;
 
                                                         $numPre->save();
 
                                                         unset($arrayEjemplaresAux[$keyEAM]);
-                                                        
+
                                                         $contador++;
                                                     }
 
@@ -851,8 +861,8 @@ class EventoController extends Controller
                                         }
 
                                     }
-                                    
-                                    
+
+
                                 }else{
                                     $g2hExt = (-1) * $g2h ;
 
@@ -887,13 +897,13 @@ class EventoController extends Controller
                                         }
                                     }
                                 }
-                                
+
                             }
                         }
                         if (!empty($g2hembras)){
 
                             $swh = true;
-                            
+
                             $arrayEjemplaresAux = array();
                             $arrayEjemplaresAux = $g2hembras;
 
@@ -905,7 +915,7 @@ class EventoController extends Controller
                                                                             ->where('evento_id',$evento_id)
                                                                             ->first();
                                     $swh = true;
-                                                                        
+
                                     foreach ($arrayEjemplaresAux as $keyEAH => $value) {
 
                                         $eventoEjemplarInscritoAux = EjemplarEvento::where('ejemplar_id',$value)
@@ -919,12 +929,12 @@ class EventoController extends Controller
 
                                                 if($eje){
                                                     if($eje->raza_id == $r->id){
-                                                        
+
                                                         $numPre = EjemplarEvento::where('ejemplar_id',$eje->id)
                                                                                 ->where('evento_id',$evento_id)
                                                                                 ->first();
 
-                                                                                
+
                                                         if($keyAE+1 == 1){
 
                                                             $prefijo = 'E';
@@ -944,7 +954,7 @@ class EventoController extends Controller
                                                         }
 
                                                         $numPre->numero_prefijo = $contador.$prefijo;
-                                
+
                                                         $numPre->save();
 
                                                         unset($arrayEjemplaresAux[$keyEAH]);
@@ -957,8 +967,8 @@ class EventoController extends Controller
                                             }
                                         }
                                     }
-                                    
-                                    
+
+
                                 }else{
                                     $g2hExt = (-1) * $g2h ;
 
@@ -967,7 +977,7 @@ class EventoController extends Controller
                                     if($eje){
                                         if($eje->raza_id == $r->id){
 
-                                        
+
                                             if($keyAE+1 == 1){
 
                                                 $prefijo = 'E';
@@ -1037,7 +1047,7 @@ class EventoController extends Controller
             foreach ($categorias as $key =>  $ca){
                 $arrayCategorias[$punetero] = $ca->id;
                 $arrayCategorias[$punetero+1] = $ca->nombre;
-                 
+
                 $punetero = $punetero + 2 ;
                 //  $arrayCategorias[$ca->id] = $ca->nombre;
             }
@@ -1140,7 +1150,7 @@ class EventoController extends Controller
 
     //     $pdf    = PDF::loadView('evento.generaBestingPdf', compact('ganadores', 'tipo', 'arrayGrupo', 'primerLugar', 'segundoLugar', 'tercerLugar', 'cuartoLugar', 'quintoLugar', 'juez'))->setPaper('letter', 'landscape');
 
-    //     return $pdf->stream('Planilla_'.date('Y-m-d H:i:s').'.pdf');      
+    //     return $pdf->stream('Planilla_'.date('Y-m-d H:i:s').'.pdf');
 
     //     // return view('evento.generaBestingPdf')->with(compact('ganadores'));
 
@@ -1207,7 +1217,7 @@ class EventoController extends Controller
             if($ejemplar){
 
                 $data['status'] = 'success';
-                $data['ejemplar'] = $ejemplar;                
+                $data['ejemplar'] = $ejemplar;
 
             }else{
 
@@ -1233,7 +1243,7 @@ class EventoController extends Controller
 
             // PARA EL MEJOR CACHORRO
             $mejorCachorro = Juez::mejorCategoria($evento_id, $pista, $ra->raza_id, 'mejor_cachorro');
-            
+
             // PARA EL MEJOR CACHORRO SEXO OPUESTO
             $mejorCachorroSexoOpuesto = Juez::mejorCategoria($evento_id, $pista, $ra->raza_id, 'sexo_opuesto_cachorro');
 
@@ -1243,10 +1253,10 @@ class EventoController extends Controller
             //PARA EL MEJOR JOVEN SEXO OPUESTO
             $mejorJovenSexoOpuesto = Juez::mejorCategoria($evento_id, $pista, $ra->raza_id, 'sexo_opuesto_joven');
 
-            
+
             //PARA EL MEJOR RAZA
             $mejorRaza = Juez::mejorCategoria($evento_id, $pista, $ra->raza_id, 'mejor_raza');
-            
+
             //PARA EL MEJOR RAZA SEXO OPUESTO
             $mejorRazaSexoOpuesto = Juez::mejorCategoria($evento_id, $pista, $ra->raza_id, 'sexo_opuesto_raza');
 
@@ -1256,10 +1266,10 @@ class EventoController extends Controller
                 'raza_id'                   => $ra->raza->id,
                 'mejorCachoro'              => $mejorCachorro,
                 'mejorCachoroSexoOpuesto'   => $mejorCachorroSexoOpuesto,
-                
+
                 'mejorJoven'                => $mejorJoven,
                 'mejorJovenSexoOpuesto'     => $mejorJovenSexoOpuesto,
-                
+
                 'mejorRaza'                 => $mejorRaza,
                 'mejorRazaSexoOpuesto'      => $mejorRazaSexoOpuesto
             );
@@ -1274,7 +1284,7 @@ class EventoController extends Controller
         $tercerEspecial = Evento::ganadoresBesting($evento_id, $pista,'especiales',3);
         $cuartoEspecial = Evento::ganadoresBesting($evento_id, $pista,'especiales',4);
         $quintoEspecial = Evento::ganadoresBesting($evento_id, $pista,'especiales',5);
-        
+
         $arrarEspeciales = array(
             'primero' => $primeroEspecial,
             'segundo' => $segundoEspecial,
@@ -1282,14 +1292,14 @@ class EventoController extends Controller
             'cuarto' => $cuartoEspecial,
             'quinto' => $quintoEspecial
         );
-        
+
         // PARA LOS ABSOLUTOS
         $primeroAbsoluto = Evento::ganadoresBesting($evento_id, $pista,'absolutos',1);
         $segundoAbsoluto = Evento::ganadoresBesting($evento_id, $pista,'absolutos',2);
         $tercerAbsoluto = Evento::ganadoresBesting($evento_id, $pista,'absolutos',3);
         $cuartoAbsoluto = Evento::ganadoresBesting($evento_id, $pista,'absolutos',4);
         $quintoAbsoluto = Evento::ganadoresBesting($evento_id, $pista,'absolutos',5);
-        
+
         $arrarAbsoluto = array(
             'primero' => $primeroAbsoluto,
             'segundo' => $segundoAbsoluto,
@@ -1304,7 +1314,7 @@ class EventoController extends Controller
         $tercerJoven = Evento::ganadoresBesting($evento_id, $pista,'jovenes',3);
         $cuartoJoven = Evento::ganadoresBesting($evento_id, $pista,'jovenes',4);
         $quintoJoven = Evento::ganadoresBesting($evento_id, $pista,'jovenes',5);
-        
+
         $arrarJoven = array(
             'primero' => $primeroJoven,
             'segundo' => $segundoJoven,
@@ -1319,7 +1329,7 @@ class EventoController extends Controller
         $tercerAdulto = Evento::ganadoresBesting($evento_id, $pista,'adultos',3);
         $cuartoAdulto = Evento::ganadoresBesting($evento_id, $pista,'adultos',4);
         $quintoAdulto = Evento::ganadoresBesting($evento_id, $pista,'adultos',5);
-        
+
         $arrarAdulto = array(
             'primero' => $primeroAdulto,
             'segundo' => $segundoAdulto,
@@ -1328,7 +1338,7 @@ class EventoController extends Controller
             'quinto' => $quintoAdulto
         );
 
-        
+
         // AQUI MANDAREMOS LOS BESTING DE RAZAS
         $arrayGrupos = array();
 
@@ -1380,7 +1390,7 @@ class EventoController extends Controller
                     array_push($grupo10, $g);
                     break;
             }
-            
+
         }
 
         // creamos el array para que recorramos mas facil
@@ -1507,7 +1517,7 @@ class EventoController extends Controller
                     array_push($grupo10, $g);
                     break;
             }
-            
+
         }
 
         // creamos el array para que recorramos mas facil
@@ -1634,7 +1644,7 @@ class EventoController extends Controller
                     array_push($grupo10, $g);
                     break;
             }
-            
+
         }
 
         // creamos el array para que recorramos mas facil
@@ -1761,7 +1771,7 @@ class EventoController extends Controller
                     array_push($grupo10, $g);
                     break;
             }
-            
+
         }
 
         // creamos el array para que recorramos mas facil
@@ -1861,7 +1871,7 @@ class EventoController extends Controller
             $evento->save();
 
             $data['status'] = 'success';
-    
+
             return json_encode($data);
 
         }
@@ -1876,7 +1886,7 @@ class EventoController extends Controller
 
         // CREAMOS EL NUEVO EVENTO
         $eventoNuevo = new Evento();
-        
+
         $eventoNuevo->nombre        = $request->input('nombre_clonar');
         $eventoNuevo->fecha_inicio  = $evento->fecha_inicio;
         $eventoNuevo->fecha_fin     = $evento->fecha_fin;
@@ -1947,7 +1957,7 @@ class EventoController extends Controller
 
             foreach ($asignaciones as $as){
                 $selectBody = $selectBody."<option value='".$as->id."'>".$as->juez->nombre."</option>";
-            }   
+            }
 
             $data['status'] = 'success';
             $data['select'] = $select.$selectBody.$selectFin;
@@ -1955,7 +1965,7 @@ class EventoController extends Controller
             return json_encode($data);
 
         }
-        
+
     }
 
     public function listadoEjemplaresCalificados(Request $request){
@@ -1977,9 +1987,9 @@ class EventoController extends Controller
                 $ejemplaresEventos = EjemplarEvento::where('evento_id',$asignacion->evento_id)
                                                     ->orderBy('numero_prefijo', 'asc')
                                                     ->get();
-                                                    
+
             }else{
-                $ejemplaresEventos = [];   
+                $ejemplaresEventos = [];
                 $num_pista = 0;
             }
 
@@ -2026,7 +2036,7 @@ class EventoController extends Controller
     }
 
     private function modificaMejoresRaza($ganador_id, $valor){
-        
+
         $valorCombo = explode("_", $valor);
 
         $ganador = Ganador::find($ganador_id);
@@ -2039,7 +2049,7 @@ class EventoController extends Controller
                     $tipoBusqueda = "mejor_raza";
                 else
                     $tipoBusqueda = "sexo_opuesto_raza";
-                
+
 
                 $sexoOpuesto =  Juez::mejorCategoria($ganador->evento_id, $ganador->pista, $ganador->raza_id, $tipoBusqueda);
 
@@ -2097,7 +2107,7 @@ class EventoController extends Controller
                 $ganador->save();
 
             }
-            
+
 
         }else{
 
@@ -2125,7 +2135,7 @@ class EventoController extends Controller
                         $tipoBusqueda = "mejor_raza";
                     else
                         $tipoBusqueda = "sexo_opuesto_raza";
-                    
+
 
                     $sexoOpuesto =  Juez::mejorCategoria($ganador->evento_id, $ganador->pista, $ganador->raza_id, $tipoBusqueda);
 
@@ -2183,7 +2193,7 @@ class EventoController extends Controller
                     $ganador->save();
 
                 }
-                
+
 
             }else{
 
@@ -2250,21 +2260,21 @@ class EventoController extends Controller
 
                         $ganadorNew = new Ganador();
 
-                        $ganadorNew->creador_id                 = Auth::user()->id; 
-                        $ganadorNew->calificacion_id            = $calificacion->id; 
-                        $ganadorNew->ejemplar_id                = $ejemplar_evento->ejemplar_id; 
-                        $ganadorNew->evento_id                  = $ejemplar_evento->evento_id; 
-                        $ganadorNew->ejemplar_evento_id         = $ejemplar_evento_id; 
-                        $ganadorNew->categoria_id               = $ejemplar_evento->categoria_pista_id; 
-                        $ganadorNew->raza_id                    = $ejemplar_evento->raza_id; 
-                        $ganadorNew->grupo_id                   = (Juez::getGrupo($ejemplar_evento->raza_id))->grupo_id; 
-                        $ganadorNew->sexo                       = $ejemplar_evento->sexo; 
-                        $ganadorNew->numero_prefijo             = $ejemplar_evento->numero_prefijo; 
-                        $ganadorNew->calificacion               = $calificacionEjemplar; 
-                        $ganadorNew->lugar                      = $lugarEjemplar; 
+                        $ganadorNew->creador_id                 = Auth::user()->id;
+                        $ganadorNew->calificacion_id            = $calificacion->id;
+                        $ganadorNew->ejemplar_id                = $ejemplar_evento->ejemplar_id;
+                        $ganadorNew->evento_id                  = $ejemplar_evento->evento_id;
+                        $ganadorNew->ejemplar_evento_id         = $ejemplar_evento_id;
+                        $ganadorNew->categoria_id               = $ejemplar_evento->categoria_pista_id;
+                        $ganadorNew->raza_id                    = $ejemplar_evento->raza_id;
+                        $ganadorNew->grupo_id                   = (Juez::getGrupo($ejemplar_evento->raza_id))->grupo_id;
+                        $ganadorNew->sexo                       = $ejemplar_evento->sexo;
+                        $ganadorNew->numero_prefijo             = $ejemplar_evento->numero_prefijo;
+                        $ganadorNew->calificacion               = $calificacionEjemplar;
+                        $ganadorNew->lugar                      = $lugarEjemplar;
 
                         if($request->filled('mejor_categoria_hembra_macho')){
-                            $ganadorNew->mejor_escogido         = "Si"; 
+                            $ganadorNew->mejor_escogido         = "Si";
                         }else{
                             $ganadorNew->mejor_escogido         = null;
                         }
@@ -2359,9 +2369,9 @@ class EventoController extends Controller
                     if($calificacionEjemplar == "Excelente" && $lugarEjemplar == 1){
                          // MEJOR DE LA CATEGORIA
                         if($request->filled('mejor_categoria_hembra_macho')){
-                            $ganador->mejor_escogido         = "Si"; 
+                            $ganador->mejor_escogido         = "Si";
                         }else{
-                            $ganador->mejor_escogido         = null; 
+                            $ganador->mejor_escogido         = null;
                             $ganador->mejor_macho = null;
                             $ganador->mejor_hembra = null;
                         }
@@ -2458,7 +2468,7 @@ class EventoController extends Controller
                         }else{
                             $ganador->certificacionCACIB = null;
                         }
-                        
+
 
                         $ganador->save();
                     }else{

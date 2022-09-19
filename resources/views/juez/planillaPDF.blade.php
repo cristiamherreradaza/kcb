@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Plinilla</title>
+    <title>Planilla</title>
 </head>
 <style>
 
@@ -127,7 +127,7 @@
         border: 1px solid black;
         position: relative;
         margin-left:50px;
-        width: 50px; 
+        width: 50px;
         height: 8px;
         border-collapse:collapse;
         margin-top: -5px;
@@ -137,7 +137,7 @@
         /* position: relative; */
         position: absolute;
         margin-left:100px;
-        width: 50px; 
+        width: 50px;
         height: 8px;
         border-collapse:collapse;
         margin-top: -34px;
@@ -444,7 +444,7 @@
     .machosVEncedoresExtragero{
 
     }
-    
+
     .extrangeroMacho{
         position: absolute;
         margin-left: 643px;
@@ -488,8 +488,8 @@
         margin-top: 300px;
     }
 
-    h3 span { 
-        display: block; 
+    h3 span {
+        display: block;
         writing-mode: vertical-lr;
         transform: rotate(-90deg);
     }
@@ -553,12 +553,12 @@
             $ejempleresRazas = $aet['ejemplares'];
         @endphp
         @foreach ( $ejempleresRazas as $er)
-        
+
         {{--  <div class="headerCabezera">
             Kennel Club Boliviano
         </div>  --}}
             <div class="planilla">
-                
+
                 <div class="imgLogo">
                     <img src="{{ url('img/logo.png') }}" width="4%" alt="">
                 </div>
@@ -567,7 +567,7 @@
                     Kennel Club Boliviano
                 </div>
 
-                <div id="header">   
+                <div id="header">
                     PLANILLA DE RAZA
                 </div>
 
@@ -579,9 +579,9 @@
                 <p class="juez">
 
                     @if ($asignacion[0]->estado == 1)
-                        
+
                         Juez: {{ $asignacion[0]->juez->nombre}}
-                    
+
                     @else
 
                         @php
@@ -598,9 +598,9 @@
                         @endphp
 
                         Juez: {{ ($asigEnco)? $asigEnco->juez->nombre :''}}
-                        
+
                     @endif
-                    
+
                  </p>
 
                 <p class="fecha">
@@ -625,25 +625,25 @@
 
                     // CACHORROS ABSOLUTOS
                     $categoriaCachorroAbsolutoMacho  = App\Juez::EjemplarCatalogoRaza(11, $er->raza_id, $evento_id);
-                    
+
                     // JOVEN
                     $categoriaJovenMacho             = App\Juez::EjemplarCatalogoRaza(3, $er->raza_id, $evento_id);
 
                     // JOVEN CAMPEON
                     $categoriaJovenCampeonMacho      = App\Juez::EjemplarCatalogoRaza(12, $er->raza_id, $evento_id);
-                    
+
                     // INTERMEDIA
                     $categoriaIntermediaMacho        = App\Juez::EjemplarCatalogoRaza(5, $er->raza_id, $evento_id);
-                    
+
                     // ABIERTA
                     $categoriaAbiertaMacho           = App\Juez::EjemplarCatalogoRaza(7, $er->raza_id, $evento_id);
-                    
+
                     // CAMPEONES
                     $categoriaCampeonMacho           = App\Juez::EjemplarCatalogoRaza(9, $er->raza_id, $evento_id);
 
                     // GRANDES CAMPEONES
                     $categoriaGrandesCampeonesMacho  = App\Juez::EjemplarCatalogoRaza(14, $er->raza_id, $evento_id);
-                    
+
                     // VETERANOS
                     $categoriaVeteranosMacho         = App\Juez::EjemplarCatalogoRaza(16, $er->raza_id, $evento_id);
 
@@ -673,8 +673,16 @@
                         </tr>
                         @for ($i = 0; $i < 7 ; $i++)
                             @if ($i < count($categoriaCachorroAbsolutoMacho))
+                                @php
+                                    $texColor ='';
+
+                                    if($categoriaCachorroAbsolutoMacho[$i]->cambio_categoria == 'si'){
+                                        if($categoriaCachorroAbsolutoMacho[$i]->tipo_cambio == 2)
+                                            $texColor = 'style="color: red;"';
+                                    }
+                                @endphp
                                 <tr>
-                                    <td class="bordes contenidoCeldasLlenas">{{ $categoriaCachorroAbsolutoMacho[$i]->numero_prefijo }}</td>
+                                    <td class="bordes contenidoCeldasLlenas" {!! $texColor !!} >{{ $categoriaCachorroAbsolutoMacho[$i]->numero_prefijo }}</td>
                                     @php
                                         $calificaion = App\Juez::ejemplarEventoInscrito($categoriaCachorroAbsolutoMacho[$i]->id, $pista);
                                     @endphp
@@ -698,7 +706,7 @@
                     @endphp
                     <table class="tableCertificado">
                         <thead class="bordes">
-                            <th>N~</th>                            
+                            <th>N~</th>
                         </thead>
                         <tbody>
                             <tr>
@@ -724,8 +732,16 @@
                         </tr>
                         @for ($i = 0; $i < 7 ; $i++)
                             @if ($i < count($categoriaJovenMacho))
+                                @php
+                                    $texColor ='';
+
+                                    if($categoriaJovenMacho[$i]->cambio_categoria == 'si'){
+                                        if($categoriaJovenMacho[$i]->tipo_cambio == 2)
+                                            $texColor = 'style="color: red;"';
+                                    }
+                                @endphp
                                 <tr>
-                                    <td class="bordes contenidoCeldasLlenas">{{ $categoriaJovenMacho[$i]->numero_prefijo }}</td>
+                                    <td class="bordes contenidoCeldasLlenas" {!! $texColor !!} >{{ $categoriaJovenMacho[$i]->numero_prefijo }}</td>
                                     @php
                                         $calificaion = App\Juez::ejemplarEventoInscrito($categoriaJovenMacho[$i]->id, $pista);
                                     @endphp
@@ -749,7 +765,7 @@
                     @endphp
                     <table class="tableCertificado">
                         <thead class="bordes">
-                            <th>N~</th>                            
+                            <th>N~</th>
                         </thead>
                         <tbody>
                             <tr>
@@ -775,8 +791,16 @@
                         </tr>
                         @for ($i = 0; $i < 7 ; $i++)
                             @if ($i < count($categoriaJovenCampeonMacho))
+                                @php
+                                    $texColor ='';
+
+                                    if($categoriaJovenCampeonMacho[$i]->cambio_categoria == 'si'){
+                                        if($categoriaJovenCampeonMacho[$i]->tipo_cambio == 2)
+                                            $texColor = 'style="color: red;"';
+                                    }
+                                @endphp
                                 <tr>
-                                    <td class="bordes contenidoCeldasLlenas">{{ $categoriaJovenCampeonMacho[$i]->numero_prefijo }}</td>
+                                    <td class="bordes contenidoCeldasLlenas" {!! $texColor !!}>{{ $categoriaJovenCampeonMacho[$i]->numero_prefijo }}</td>
                                     @php
                                         $calificaion = App\Juez::ejemplarEventoInscrito($categoriaJovenCampeonMacho[$i]->id, $pista);
                                     @endphp
@@ -800,7 +824,7 @@
                     @endphp
                     <table class="tableCertificado">
                         <thead class="bordes">
-                            <th>N~</th>                            
+                            <th>N~</th>
                         </thead>
                         <tbody>
                             <tr>
@@ -826,8 +850,16 @@
                         </tr>
                         @for ($i = 0; $i < 7 ; $i++)
                             @if ($i < count($categoriaIntermediaMacho))
+                                @php
+                                    $texColor ='';
+
+                                    if($categoriaIntermediaMacho[$i]->cambio_categoria == 'si'){
+                                        if($categoriaIntermediaMacho[$i]->tipo_cambio == 2)
+                                            $texColor = 'style="color: red;"';
+                                    }
+                                @endphp
                                 <tr>
-                                    <td class="bordes contenidoCeldasLlenas">{{ $categoriaIntermediaMacho[$i]->numero_prefijo }}</td>
+                                    <td class="bordes contenidoCeldasLlenas" {!! $texColor !!}>{{ $categoriaIntermediaMacho[$i]->numero_prefijo }}</td>
                                     @php
                                         $calificaion = App\Juez::ejemplarEventoInscrito($categoriaIntermediaMacho[$i]->id, $pista);
                                     @endphp
@@ -851,7 +883,7 @@
                     @endphp
                     <table class="tableCertificado">
                         <thead class="bordes">
-                            <th>N~</th>                            
+                            <th>N~</th>
                         </thead>
                         <tbody>
                             <tr>
@@ -864,7 +896,7 @@
 
                     <table class="tableCertificadoAbierta">
                         <thead class="bordes">
-                            <th>Puntos</th>                            
+                            <th>Puntos</th>
                         </thead>
                         <tbody>
                             <tr>
@@ -890,8 +922,16 @@
                         </tr>
                         @for ($i = 0; $i < 7 ; $i++)
                             @if ($i < count($categoriaAbiertaMacho))
+                                @php
+                                    $texColor ='';
+
+                                    if($categoriaAbiertaMacho[$i]->cambio_categoria == 'si'){
+                                        if($categoriaAbiertaMacho[$i]->tipo_cambio == 2)
+                                            $texColor = 'style="color: red;"';
+                                    }
+                                @endphp
                                 <tr>
-                                    <td class="bordes contenidoCeldasLlenas">{{ $categoriaAbiertaMacho[$i]->numero_prefijo }}</td>
+                                    <td class="bordes contenidoCeldasLlenas" {!! $texColor !!}>{{ $categoriaAbiertaMacho[$i]->numero_prefijo }}</td>
                                     @php
                                         $calificaion = App\Juez::ejemplarEventoInscrito($categoriaAbiertaMacho[$i]->id, $pista);
                                     @endphp
@@ -922,8 +962,16 @@
                         </tr>
                         @for ($i = 0; $i < 7 ; $i++)
                             @if ($i < count($categoriaCampeonMacho))
+                                @php
+                                    $texColor ='';
+
+                                    if($categoriaCampeonMacho[$i]->cambio_categoria == 'si'){
+                                        if($categoriaCampeonMacho[$i]->tipo_cambio == 2)
+                                            $texColor = 'style="color: red;"';
+                                    }
+                                @endphp
                                 <tr>
-                                    <td class="bordes contenidoCeldasLlenas">{{ $categoriaCampeonMacho[$i]->numero_prefijo }}</td>
+                                    <td class="bordes contenidoCeldasLlenas" {!! $texColor !!}>{{ $categoriaCampeonMacho[$i]->numero_prefijo }}</td>
                                     @php
                                         $calificaion = App\Juez::ejemplarEventoInscrito($categoriaCampeonMacho[$i]->id, $pista);
                                     @endphp
@@ -947,7 +995,7 @@
                     @endphp
                     <table class="tableCertificado">
                         <thead class="bordes">
-                            <th>N~</th>                            
+                            <th>N~</th>
                         </thead>
                         <tbody>
                             <tr>
@@ -973,8 +1021,16 @@
                         </tr>
                         @for ($i = 0; $i < 7 ; $i++)
                             @if ($i < count($categoriaGrandesCampeonesMacho))
-                                <tr> 
-                                    <td class="bordes contenidoCeldasLlenas">{{ $categoriaGrandesCampeonesMacho[$i]->numero_prefijo }}</td>
+                                @php
+                                    $texColor ='';
+
+                                    if($categoriaGrandesCampeonesMacho[$i]->cambio_categoria == 'si'){
+                                        if($categoriaGrandesCampeonesMacho[$i]->tipo_cambio == 2)
+                                            $texColor = 'style="color: red;"';
+                                    }
+                                @endphp
+                                <tr>
+                                    <td class="bordes contenidoCeldasLlenas" {!! $texColor !!}>{{ $categoriaGrandesCampeonesMacho[$i]->numero_prefijo }}</td>
                                     @php
                                         $calificaion = App\Juez::ejemplarEventoInscrito($categoriaGrandesCampeonesMacho[$i]->id, $pista);
                                     @endphp
@@ -998,7 +1054,7 @@
                     @endphp
                     <table class="tableCertificado">
                         <thead class="bordes">
-                            <th>N~</th>                            
+                            <th>N~</th>
                         </thead>
                         <tbody>
                             <tr>
@@ -1024,8 +1080,16 @@
                         </tr>
                         @for ($i = 0; $i < 7 ; $i++)
                             @if ($i < count($categoriaVeteranosMacho))
+                                @php
+                                    $texColor ='';
+
+                                    if($categoriaVeteranosMacho[$i]->cambio_categoria == 'si'){
+                                        if($categoriaVeteranosMacho[$i]->tipo_cambio == 2)
+                                            $texColor = 'style="color: red;"';
+                                    }
+                                @endphp
                                 <tr>
-                                    <td class="bordes contenidoCeldasLlenas">{{ $categoriaVeteranosMacho[$i]->numero_prefijo }}</td>
+                                    <td class="bordes contenidoCeldasLlenas" {!! $texColor !!}>{{ $categoriaVeteranosMacho[$i]->numero_prefijo }}</td>
                                     @php
                                         $calificaion = App\Juez::ejemplarEventoInscrito($categoriaVeteranosMacho[$i]->id, $pista);
                                     @endphp
@@ -1049,7 +1113,7 @@
                     @endphp
                     <table class="tableCertificado">
                         <thead class="bordes">
-                            <th>N~</th>                            
+                            <th>N~</th>
                         </thead>
                         <tbody>
                             <tr>
@@ -1170,7 +1234,7 @@
 
                 </div>
 
-                
+
 
                 @php
 
@@ -1186,25 +1250,25 @@
 
                     // CACHORROS ABSOLUTOS
                     $categoriaCachorroAbsolutoHembras  = App\Juez::EjemplarCatalogoRaza(2, $er->raza_id, $evento_id);
-                    
+
                     // JOVEN
                     $categoriaJovenHembras             = App\Juez::EjemplarCatalogoRaza(4, $er->raza_id, $evento_id);
 
                     // JOVEN CAMPEON
                     $categoriaJovenCampeonHembras      = App\Juez::EjemplarCatalogoRaza(13, $er->raza_id, $evento_id);
-                    
+
                     // INTERMEDIA
                     $categoriaIntermediaHembras        = App\Juez::EjemplarCatalogoRaza(6, $er->raza_id, $evento_id);
-                    
+
                     // ABIERTA
                     $categoriaAbiertaHembras           = App\Juez::EjemplarCatalogoRaza(8, $er->raza_id, $evento_id);
-                    
+
                     // CAMPEONES
                     $categoriaCampeonHembras           = App\Juez::EjemplarCatalogoRaza(10, $er->raza_id, $evento_id);
 
                     // GRANDES CAMPEONES
                     $categoriaGrandesCampeonesHembras  = App\Juez::EjemplarCatalogoRaza(15, $er->raza_id, $evento_id);
-                    
+
                     // VETERANOS
                     $categoriaVeteranosHembras         = App\Juez::EjemplarCatalogoRaza(17, $er->raza_id, $evento_id);
 
@@ -1235,8 +1299,16 @@
                         </tr>
                         @for ($i = 0; $i < 7 ; $i++)
                             @if ($i < count($categoriaCachorroAbsolutoHembras))
+                                @php
+                                    $texColor ='';
+
+                                    if($categoriaCachorroAbsolutoHembras[$i]->cambio_categoria == 'si'){
+                                        if($categoriaCachorroAbsolutoHembras[$i]->tipo_cambio == 2)
+                                            $texColor = 'style="color: red;"';
+                                    }
+                                @endphp
                                 <tr>
-                                    <td class="bordes contenidoCeldasLlenas">{{ $categoriaCachorroAbsolutoHembras[$i]->numero_prefijo }}</td>
+                                    <td class="bordes contenidoCeldasLlenas" {!! $texColor !!}>{{ $categoriaCachorroAbsolutoHembras[$i]->numero_prefijo }}</td>
                                     @php
                                         $calificaion = App\Juez::ejemplarEventoInscrito($categoriaCachorroAbsolutoHembras[$i]->id, $pista);
                                     @endphp
@@ -1260,7 +1332,7 @@
                     @endphp
                     <table class="tableCertificado">
                         <thead class="bordes">
-                            <th>N~</th>                            
+                            <th>N~</th>
                         </thead>
                         <tbody>
                             <tr>
@@ -1286,8 +1358,16 @@
                         </tr>
                         @for ($i = 0; $i < 7 ; $i++)
                             @if ($i < count($categoriaJovenHembras))
+                                @php
+                                    $texColor ='';
+
+                                    if($categoriaJovenHembras[$i]->cambio_categoria == 'si'){
+                                        if($categoriaJovenHembras[$i]->tipo_cambio == 2)
+                                            $texColor = 'style="color: red;"';
+                                    }
+                                @endphp
                                 <tr>
-                                    <td class="bordes contenidoCeldasLlenas">{{ $categoriaJovenHembras[$i]->numero_prefijo }}</td>
+                                    <td class="bordes contenidoCeldasLlenas" {!! $texColor !!}>{{ $categoriaJovenHembras[$i]->numero_prefijo }}</td>
                                     @php
                                         $calificaion = App\Juez::ejemplarEventoInscrito($categoriaJovenHembras[$i]->id, $pista);
                                     @endphp
@@ -1311,7 +1391,7 @@
                     @endphp
                     <table class="tableCertificado">
                         <thead class="bordes">
-                            <th>N~</th>                            
+                            <th>N~</th>
                         </thead>
                         <tbody>
                             <tr>
@@ -1337,8 +1417,16 @@
                         </tr>
                         @for ($i = 0; $i < 7 ; $i++)
                             @if ($i < count($categoriaJovenCampeonHembras))
+                                @php
+                                    $texColor ='';
+
+                                    if($categoriaJovenCampeonHembras[$i]->cambio_categoria == 'si'){
+                                        if($categoriaJovenCampeonHembras[$i]->tipo_cambio == 2)
+                                            $texColor = 'style="color: red;"';
+                                    }
+                                @endphp
                                 <tr>
-                                    <td class="bordes contenidoCeldasLlenas">{{ $categoriaJovenCampeonHembras[$i]->numero_prefijo }}</td>
+                                    <td class="bordes contenidoCeldasLlenas" {!! $texColor !!}>{{ $categoriaJovenCampeonHembras[$i]->numero_prefijo }}</td>
                                     @php
                                         $calificaion = App\Juez::ejemplarEventoInscrito($categoriaJovenCampeonHembras[$i]->id, $pista);
                                     @endphp
@@ -1362,7 +1450,7 @@
                     @endphp
                     <table class="tableCertificado">
                         <thead class="bordes">
-                            <th>N~</th>                            
+                            <th>N~</th>
                         </thead>
                         <tbody>
                             <tr>
@@ -1388,8 +1476,16 @@
                         </tr>
                         @for ($i = 0; $i < 7 ; $i++)
                             @if ($i < count($categoriaIntermediaHembras))
+                                @php
+                                    $texColor ='';
+
+                                    if($categoriaIntermediaHembras[$i]->cambio_categoria == 'si'){
+                                        if($categoriaIntermediaHembras[$i]->tipo_cambio == 2)
+                                            $texColor = 'style="color: red;"';
+                                    }
+                                @endphp
                                 <tr>
-                                    <td class="bordes contenidoCeldasLlenas">{{ $categoriaIntermediaHembras[$i]->numero_prefijo }}</td>
+                                    <td class="bordes contenidoCeldasLlenas"{!! $texColor !!}>{{ $categoriaIntermediaHembras[$i]->numero_prefijo }}</td>
                                     @php
                                         $calificaion = App\Juez::ejemplarEventoInscrito($categoriaIntermediaHembras[$i]->id, $pista);
                                     @endphp
@@ -1413,7 +1509,7 @@
                     @endphp
                     <table class="tableCertificado">
                         <thead class="bordes">
-                            <th>N~</th>                            
+                            <th>N~</th>
                         </thead>
                         <tbody>
                             <tr>
@@ -1426,7 +1522,7 @@
 
                     <table class="tableCertificadoAbierta">
                         <thead class="bordes">
-                            <th>Puntos</th>                            
+                            <th>Puntos</th>
                         </thead>
                         <tbody>
                             <tr>
@@ -1452,8 +1548,16 @@
                         </tr>
                         @for ($i = 0; $i < 7 ; $i++)
                             @if ($i < count($categoriaAbiertaHembras))
+                                @php
+                                    $texColor ='';
+
+                                    if($categoriaAbiertaHembras[$i]->cambio_categoria == 'si'){
+                                        if($categoriaAbiertaHembras[$i]->tipo_cambio == 2)
+                                            $texColor = 'style="color: red;"';
+                                    }
+                                @endphp
                                 <tr>
-                                    <td class="bordes contenidoCeldasLlenas">{{ $categoriaAbiertaHembras[$i]->numero_prefijo }}</td>
+                                    <td class="bordes contenidoCeldasLlenas" {!! $texColor !!}>{{ $categoriaAbiertaHembras[$i]->numero_prefijo }}</td>
                                     @php
                                         $calificaion = App\Juez::ejemplarEventoInscrito($categoriaAbiertaHembras[$i]->id, $pista);
                                     @endphp
@@ -1470,7 +1574,7 @@
                         @endfor
                     </tbody>
                 </table>
-          
+
                 <table class="tableHembra campoeonesHembra">
                     <thead>
                         <tr>
@@ -1485,8 +1589,16 @@
                         </tr>
                         @for ($i = 0; $i < 7 ; $i++)
                             @if ($i < count($categoriaCampeonHembras))
+                                @php
+                                    $texColor ='';
+
+                                    if($categoriaCampeonHembras[$i]->cambio_categoria == 'si'){
+                                        if($categoriaCampeonHembras[$i]->tipo_cambio == 2)
+                                            $texColor = 'style="color: red;"';
+                                    }
+                                @endphp
                                 <tr>
-                                    <td class="bordes contenidoCeldasLlenas">{{ $categoriaCampeonHembras[$i]->numero_prefijo }}</td>
+                                    <td class="bordes contenidoCeldasLlenas" {!! $texColor !!}>{{ $categoriaCampeonHembras[$i]->numero_prefijo }}</td>
                                     @php
                                         $calificaion = App\Juez::ejemplarEventoInscrito($categoriaCampeonHembras[$i]->id, $pista);
                                     @endphp
@@ -1510,7 +1622,7 @@
                     @endphp
                     <table class="tableCertificado">
                         <thead class="bordes">
-                            <th>N~</th>                            
+                            <th>N~</th>
                         </thead>
                         <tbody>
                             <tr>
@@ -1536,8 +1648,16 @@
                         </tr>
                         @for ($i = 0; $i < 7 ; $i++)
                             @if ($i < count($categoriaGrandesCampeonesHembras))
-                                <tr> 
-                                    <td class="bordes contenidoCeldasLlenas">{{ $categoriaGrandesCampeonesHembras[$i]->numero_prefijo }}</td>
+                                @php
+                                    $texColor ='';
+
+                                    if($categoriaGrandesCampeonesHembras[$i]->cambio_categoria == 'si'){
+                                        if($categoriaGrandesCampeonesHembras[$i]->tipo_cambio == 2)
+                                            $texColor = 'style="color: red;"';
+                                    }
+                                @endphp
+                                <tr>
+                                    <td class="bordes contenidoCeldasLlenas" {!! $texColor !!}>{{ $categoriaGrandesCampeonesHembras[$i]->numero_prefijo }}</td>
                                     @php
                                         $calificaion = App\Juez::ejemplarEventoInscrito($categoriaGrandesCampeonesHembras[$i]->id, $pista);
                                     @endphp
@@ -1561,7 +1681,7 @@
                     @endphp
                     <table class="tableCertificado">
                         <thead class="bordes">
-                            <th>N~</th>                            
+                            <th>N~</th>
                         </thead>
                         <tbody>
                             <tr>
@@ -1587,8 +1707,16 @@
                         </tr>
                         @for ($i = 0; $i < 7 ; $i++)
                             @if ($i < count($categoriaVeteranosHembras))
+                                @php
+                                    $texColor ='';
+
+                                    if($categoriaVeteranosHembras[$i]->cambio_categoria == 'si'){
+                                        if($categoriaVeteranosHembras[$i]->tipo_cambio == 2)
+                                            $texColor = 'style="color: red;"';
+                                    }
+                                @endphp
                                 <tr>
-                                    <td class="bordes contenidoCeldasLlenas">{{ $categoriaVeteranosHembras[$i]->numero_prefijo }}</td>
+                                    <td class="bordes contenidoCeldasLlenas" {!! $texColor !!}>{{ $categoriaVeteranosHembras[$i]->numero_prefijo }}</td>
                                     @php
                                         $calificaion = App\Juez::ejemplarEventoInscrito($categoriaVeteranosHembras[$i]->id, $pista);
                                     @endphp
@@ -1612,7 +1740,7 @@
                     @endphp
                     <table class="tableCertificado">
                         <thead class="bordes">
-                            <th>N~</th>                            
+                            <th>N~</th>
                         </thead>
                         <tbody>
                             <tr>
@@ -1693,7 +1821,7 @@
                 </table>
 
                 <div class="hembraVencedores">
-                   
+
                     <div class="extrangeroMacho">
                         <table class="bordes tablaEstrangero">
                             <thead>
@@ -1824,8 +1952,8 @@
                         </table>
                     </div>
                 </div>
-                
-                
+
+
                 <div class="bloque_firmas">
                     <div class="firma_figital">
                         @php
@@ -1875,7 +2003,7 @@
                                 <img src="{{ url("imagenesFirmaJuezSecre/$firmaSecre") }}" width="100%" alt="">
                             @endif
                         @endif
-                        
+
                     </div>
 
                     _____________________________<br>
