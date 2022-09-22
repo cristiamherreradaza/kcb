@@ -1409,9 +1409,11 @@
                         <label for="exampleInputPassword1">PROPIETARIO
                         </label>
                         <select class="form-control select2" id="propietario_id" name="propietario_id"   {{ ($ejemplar != null)? (($ejemplar->extranjero == 'si')? '': 'required') : 'required'}}  >
-                            @if ($ejemplar->propietario)
-                                @if ($ejemplar != null && $ejemplar->propietario_id != null)
-                                    <option value="{{ $ejemplar->propietario->id }}">{{ $ejemplar->propietario->name }}</option>
+                            @if ($ejemplar)
+                                @if ($ejemplar->propietario)
+                                    @if ($ejemplar != null && $ejemplar->propietario_id != null)
+                                        <option value="{{ $ejemplar->propietario->id }}">{{ $ejemplar->propietario->name }}</option>
+                                    @endif
                                 @endif
                             @endif
                             <option label="Label"></option>
@@ -1486,12 +1488,6 @@
                             <option value="No">No</option>
                             <option value="Si">Si</option>
                         </select>
-
-                        {{-- <label class="exampleInputPassword1">
-                        Alquiler</label>
-                        <div class="">
-                            <input id='check_alquiler' data-switch="true" data-on-text="SI" data-off-text="NO" type="checkbox" data-on-color="primary"  onchange="mostrarAlquiler()"/>
-                        </div> --}}
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -1501,9 +1497,11 @@
                                 <label for="">Propietario Alquilado
                                     <span class="text-danger">*</span></label><br />
                                     <select class="form-control select2" id="alquiler_propietario_id" name="alquiler_propietario_id">
-                                        @if ($ejemplar->propietario)
-                                            @if ($ejemplar != null && $ejemplar->propietario_id != null)
+                                        @if ($ejemplar)
+                                            @if ($ejemplar->propietario)
+                                                @if ($ejemplar != null && $ejemplar->propietario_id != null)
                                                 <option value="{{ $ejemplar->propietario->id }}">{{ $ejemplar->propietario->name }}</option>
+                                                @endif
                                             @endif
                                         @endif
                                         <option label="Label"></option>
