@@ -93,7 +93,7 @@
 							<div class="form-group">
 								<label>Categorias <span class="text-danger">*</span></label>
 								<select class="form-control select2" id="categoriasAdd" name="categoriasAdd[]" multiple="multiple" style="width:100%;">
-									
+
 								</select>
 							</div>
 						</div>
@@ -176,7 +176,7 @@
                 </button>
             </div>
             <div class="modal-body">
-				
+
 				<label>Tipo de Asignacion</label>
 				<div class="row">
 					<div class="col-md-6">
@@ -204,7 +204,7 @@
 						<div class="col-md-12">
 							<form action="{{ url('Juez/guardaAsignacionEvento') }}" method="POST" id="formulario-asignacion">
 								@csrf
-								
+
 								<input type="hidden" name="asignacion_evento_id" id="asignacion_evento_id">
 								<input type="hidden" id="tipo_asignacion" value="pista" name="tipo_asignacion">
 
@@ -239,7 +239,7 @@
 												<label for="exampleInputPassword1">Pista
 												<span class="text-danger">*</span></label>
 												<select name="num_pista" id="num_pista" class="form-control" style="width:100%;" required>
-		
+
 												</select>
 											</div>
 										</div>
@@ -247,7 +247,7 @@
 											<div class="form-group">
 												<label>Grupos <span class="text-danger">*</span></label>
 												<select class="form-control select2" id="kt_select2_3_modal" name="grupos[]" multiple="multiple" style="width:100%;">
-													
+
 												</select>
 											</div>
 										</div>
@@ -259,7 +259,7 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div id="listaAsignaciones">
-	
+
 							</div>
 						</div>
 					</div>
@@ -351,10 +351,10 @@
 							<div class="form-group">
                 			    <label for="exampleInputPassword1">Numero de Pista
                 			    <span class="text-danger">*</span></label>
-                			    <input type="number" class="form-control" id="num_pista" name="num_pista" required />
+                			    <input type="number" class="form-control" id="num_pista_f" name="num_pista_f" required />
                 			</div>
 						</div>
-						<div class="col-md-3">
+						<div class="col-md-2">
 							<div class="form-group">
 								<label for="exampleInputPassword1">Tipo de Evento
 									<span class="text-danger">*</span></label> <p></p>
@@ -365,13 +365,23 @@
 								</label>
                 			</div>
 						</div>
-						<div class="col-md-3">
+						<div class="col-md-2">
 							<div class="form-group">
                 			    <label for="exampleInputPassword1">Habilitado
                 			    <span class="text-danger">*</span></label>
 								<select name="habilitado" id="habilitado" class="form-control">
 									<option value="Si">Si</option>
 									<option value="No">No</option>
+								</select>
+                			</div>
+						</div>
+                        <div class="col-md-2">
+							<div class="form-group">
+                			    <label for="exampleInputPassword1">Rotwailer
+                			    <span class="text-danger">*</span></label>
+								<select name="rotwailer" id="rotwailer" class="form-control">
+									<option value="No">No</option>
+									<option value="Si">Si</option>
 								</select>
                 			</div>
 						</div>
@@ -453,7 +463,7 @@
 									</div>
 								</td>
 								<td>
-									<button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $even->id }}', '{{ $even->nombre }}', '{{ $even->fecha_inicio }}', '{{ $even->fecha_fin }}', '{{ $even->direccion }}', '{{ $even->departamento }}', '{{ $even->numero_pista }}', '{{ $even->circuito }}', '{{ $even->habilitado }}')">
+									<button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $even->id }}', '{{ $even->nombre }}', '{{ $even->fecha_inicio }}', '{{ $even->fecha_fin }}', '{{ $even->direccion }}', '{{ $even->departamento }}', '{{ $even->numero_pista }}', '{{ $even->circuito }}', '{{ $even->habilitado }}', '{{ $even->estado }}')">
 										<i class="flaticon2-edit"></i>
 									</button>
 									<button type="button" class="btn btn-icon btn-primary" onclick="catalogo('{{ $even->id }}')" title="Catalogo">
@@ -538,7 +548,7 @@
 		 $('#categoriasAdd').select2({
           placeholder: "Seleccion las categorias",
          });
-		 
+
 
     	$(function () {
     	    $('#tabla-insumos').DataTable({
@@ -565,7 +575,7 @@
     		$("#modalGrupo").modal('show');
     	}
 
-		function edita(id, nombre, fecha_ini, fecha_fin, direccion, departamento, num_pista, circuito, habilitado)
+		function edita(id, nombre, fecha_ini, fecha_fin, direccion, departamento, num_pista, circuito, habilitado, estado)
     	{
 			// colocamos valores en los inputs
 			$("#evento_id").val(id);
@@ -576,11 +586,16 @@
 			// $("#fecha_fin").val(fecha_fin.replace(' ','T'));
 			$("#direccion").val(direccion);
 			$("#departamento").val(departamento);
-			$("#num_pista").val(num_pista);
+			$("#num_pista_f").val(num_pista);
 			$("#circuito").val(circuito);
 			$("#habilitado").val(habilitado);
 			// mostramos el modal
 			$("#fecha_ini").val(fecha_ini.replace(' ','T'));
+
+            if(estado === 'Si')
+                $("#rotwailer").val(estado);
+            else
+                $("#rotwailer").val("No");
 
     		$("#modalGrupo").modal('show');
     	}
@@ -738,7 +753,7 @@
 					success: function(data) {
 
 						if(data.status == 'success'){
-							
+
 							$('#listaAsignaciones').html(data.listado);
 
 							if(data.tipo != 'vacio'){
@@ -766,7 +781,7 @@
 								$('#checkGrupo').prop('disabled', false);
 
 							}
-	
+
 							Swal.fire(
 								"Exito!",
 								"El Juez fue Agregado.",
@@ -774,7 +789,7 @@
 							)
 
 						}
-						
+
 					}
 				});
 
@@ -835,7 +850,7 @@
 
 								}
 								$('#listaAsignaciones').html(data.listado);
-								
+
 								Swal.fire(
 									"Borrado!",
 									"El registro fue eliminado.",
@@ -843,7 +858,7 @@
 								)
 
 							}
-							
+
 						}
 					});
 
@@ -880,7 +895,7 @@
                         "La generacion fue un Exito.",
                         "success"
                     )
-					
+
                 } else if (result.dismiss === "cancel") {
                     Swal.fire(
                         "Cancelado",
@@ -892,7 +907,7 @@
 		}
 
 		function cerrarEvento(evento, nombre){
-			
+
 			if($('#evento_cerrerar_'+evento).prop('checked')){
 				var texto = 'habilitar';
 				var sw = true;
@@ -928,10 +943,10 @@
 								    "success"
 								)
 							}
-							
+
 						}
 					});
-					
+
                 } else if (result.dismiss === "cancel") {
 
 					if(sw)
@@ -968,7 +983,7 @@
 				$('#tipo_asignacion').val('grupo');
 
 			}
-			
+
 		}
 
 		function clonarEvento(evento, nombre){
@@ -1030,7 +1045,7 @@
 						$('#categoriasAdd').append("<option "+( (data.categorias)? (((data.categorias).indexOf('Adultos') != -1)? 'selected' : '') : '' )+" value='Adultos'>Adultos</option>");
 
 					}
-					
+
 				}
 			});
 
@@ -1076,7 +1091,7 @@
 								$('#modalAddJuez').modal('show');
 
 							}
-							
+
 						}
 					});
 
@@ -1118,7 +1133,7 @@
 						}
 
 					}
-					
+
 				}
 			});
 
@@ -1240,7 +1255,7 @@
 					// 			$('#modalAddJuez').modal('show');
 
 					// 		}
-							
+
 					// 	}
 					// });
 

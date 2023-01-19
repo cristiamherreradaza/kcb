@@ -84,287 +84,318 @@
 		</div>
 		<div class="container">
 			<br><br>
-			
+
 			<br><br>
 			@if ($evento->habilitado == "Si")
-				<div class="row">
-					<div class="col-md-12">
-						<!--begin::Card-->
-						<div class="card card-custom gutter-b example example-compact">
-							<br>
-							<div class="row">
-								<div class="col-md-4">
-									<div style="height: 100px;">
-										<img src="{{ url('img/fci.jpg') }}" alt="" height="100%">
-									</div>
-								</div>
-								<div class="col-md-4" style="">
-									<div style="height: 100px;">
-										<img src="{{ url('img/logo.png') }}" alt="" height="100%">
-									</div>
-								</div>
-								<div class="col-md-4" style="">
-									<div style="height: 100px;">
-										<img src="{{ url('img/logo.gif') }}" alt="" height="100%">
-									</div>
-								</div>
-							</div>
-							<div class="text-center">
-								<h3 class="">FORMULARIO DE INSCRIPCION ({{ $evento->nombre }})</h3>
-							</div>
-							<!--begin::Form-->
-							<form action="{{ url('Evento/inscribirEvento') }}" method="POST" id="formulario-inscripcion-evento" enctype="multipart/form-data">
-								@csrf
-								<div class="card-body">
-									<input type="hidden" name="evento_id" id="evento_id" value="{{ $evento->id }}">
-									<input type="hidden" name="ejemplar_meses" id="ejemplar_meses" >
-									<input type="hidden" name="ejemplar_id" id="ejemplar_id">
-									<div class="row">
-										<div class="col-md-6">
-											<div class="row">
-												<div class="col-md-6">
-													<div class="form-group row">
-														{{-- <label class="col-3 col-form-label">Ejemplar</label> --}}
-														<div class="col-12 col-form-label">
-															<div class="radio-inline">
-																<label class="radio radio-success">
-																	<input type="radio" name="radios5" id="Nacional" checked="checked" value="Nacional" onchange="mostrarBusqueda()"/>
-																	<span></span>
-																	Nacional
-																</label>
-																<label class="radio radio-success">
-																	<input type="radio" name="radios5" id="Extranjero"  value="Extranjero" onchange="mostrarBusqueda()"/>
-																	<span></span>
-																	Extranjero
-																</label>
-															</div>
-															<span class="form-text text-muted">Selecciona la nacionalidad o Extranjero del Ejemplar</span>
-														</div>
-													</div>
-												</div>
-												<div class="col-md-6">
-													<div id="bloque-nacional">
-														<div class="row">
-															<div class="col-md-9">
-																<div class="form-group">
-																	<label class="exampleInputPassword1">
-																	KCB
-																	</label>
-																	<input type="text" class="form-control" id="kcb_busca" name="kcb_busca"  required/>
-																	<span class="form-text text-danger" id="msg-error-kcb" style="display: none;">Ejemplar no Registrado</span>
-																	<span class="form-text text-success" id="msg-good-kcb" style="display: none;">Ejemplar Registrado</span>
-																	<span class="form-text text-danger" id="msg-vacio-kcb" style="display: none;">Digitar un K.C.B.</span>
-																</div>
-															</div>
-															<div class="col-md-3">
-																<br>
-																<button type="button" class="btn btn-success btn-block" onclick="buscaKcb()"><i class="fa fa-search"></i></button>
-															</div>
-														</div>
-													</div>
-													<div id="bloque-extrangero" style="display: none;">
-														<div class="row">
-															<div class="col-md-9">
-																<div class="form-group">
-																	<label class="exampleInputPassword1">
-																	Codigo Extrangero</label>
-																	<input type="text" class="form-control" id="cod_extrangero" name="cod_extrangero"/>
-																	<span class="form-text text-danger" id="msg-vacio-cod" style="display: none;">Digitar un Codigo de Extranjero</span>
-																</div>
-															</div>
-															<div class="col-md-3">
-																<br>
-																<button type="button" class="btn btn-success btn-block" onclick="buscaCodigo()" ><i class="fa fa-search"></i></button>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-group">
-												<input type="hidden" id="verdad_extrangero" name="verdad_extrangero" value="no">
-												<label class="exampleInputPassword1">
-												Raza</label>
-												<select class="form-control select2" id="raza_id" name="raza_id"  required >
-													<option value=""></option>
-													@forelse ($razas as $r)
-														<option value="{{ $r->id }}">{{ $r->nombre }} {{ $r->descripcion }}</option>                                    
-													@empty
-														
-													@endforelse
-												</select>
-											</div>
-										</div>
-									</div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <!--begin::Card-->
+                        <div class="card card-custom gutter-b example example-compact">
+                            <br>
+                            <div class="row">
+                                @if ($evento->estado == "Si")
+                                    <div class="col-md-3">
+                                        <div style="height: 100px;">
+                                            <img src="{{ url('img/fci.jpg') }}" alt="" height="100%">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div style="height: 100px;">
+                                            <img src="{{ url('img/rt.jpeg') }}" alt="" height="100%">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" style="">
+                                        <div style="height: 100px;">
+                                            <img src="{{ url('img/rt2.jpeg') }}" alt="" height="100%">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" style="">
+                                        <div style="height: 100px;">
+                                            <img src="{{ url('img/logo.png') }}" alt="" height="100%">
+                                        </div>
+                                    </div>
+                                @else
+                                    <div class="col-md-4">
+                                        <div style="height: 100px;">
+                                            <img src="{{ url('img/fci.jpg') }}" alt="" height="100%">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4" style="">
+                                        <div style="height: 100px;">
+                                            <img src="{{ url('img/logo.png') }}" alt="" height="100%">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4" style="">
+                                        <div style="height: 100px;">
+                                            <img src="{{ url('img/logo.gif') }}" alt="" height="100%">
+                                        </div>
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="text-center mt-5">
+                                <h3 class="">FORMULARIO DE INSCRIPCION ({{ $evento->nombre }})</h3>
+                            </div>
+                            <!--begin::Form-->
+                            <form action="{{ url('Evento/inscribirEvento') }}" method="POST" id="formulario-inscripcion-evento" enctype="multipart/form-data">
+                                @csrf
+                                <div class="card-body">
+                                    <input type="hidden" name="evento_id" id="evento_id" value="{{ $evento->id }}">
+                                    <input type="hidden" name="ejemplar_meses" id="ejemplar_meses" >
+                                    <input type="hidden" name="ejemplar_id" id="ejemplar_id">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group row">
+                                                        {{-- <label class="col-3 col-form-label">Ejemplar</label> --}}
+                                                        <div class="col-12 col-form-label">
+                                                            <div class="radio-inline">
+                                                                <label class="radio radio-success">
+                                                                    <input type="radio" name="radios5" id="Nacional" checked="checked" value="Nacional" onchange="mostrarBusqueda()"/>
+                                                                    <span></span>
+                                                                    Nacional
+                                                                </label>
+                                                                <label class="radio radio-success">
+                                                                    <input type="radio" name="radios5" id="Extranjero"  value="Extranjero" onchange="mostrarBusqueda()"/>
+                                                                    <span></span>
+                                                                    Extranjero
+                                                                </label>
+                                                            </div>
+                                                            <span class="form-text text-muted">Selecciona la nacionalidad o Extranjero del Ejemplar</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div id="bloque-nacional">
+                                                        <div class="row">
+                                                            <div class="col-md-9">
+                                                                <div class="form-group">
+                                                                    <label class="exampleInputPassword1">
+                                                                    KCB
+                                                                    </label>
+                                                                    <input type="text" class="form-control" id="kcb_busca" name="kcb_busca"  required/>
+                                                                    <span class="form-text text-danger" id="msg-error-kcb" style="display: none;">Ejemplar no Registrado</span>
+                                                                    <span class="form-text text-success" id="msg-good-kcb" style="display: none;">Ejemplar Registrado</span>
+                                                                    <span class="form-text text-danger" id="msg-vacio-kcb" style="display: none;">Digitar un K.C.B.</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <br>
+                                                                <button type="button" class="btn btn-success btn-block" onclick="buscaKcb()"><i class="fa fa-search"></i></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="bloque-extrangero" style="display: none;">
+                                                        <div class="row">
+                                                            <div class="col-md-9">
+                                                                <div class="form-group">
+                                                                    <label class="exampleInputPassword1">
+                                                                    Codigo Extrangero</label>
+                                                                    <input type="text" class="form-control" id="cod_extrangero" name="cod_extrangero"/>
+                                                                    <span class="form-text text-danger" id="msg-vacio-cod" style="display: none;">Digitar un Codigo de Extranjero</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <br>
+                                                                <button type="button" class="btn btn-success btn-block" onclick="buscaCodigo()" ><i class="fa fa-search"></i></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input type="hidden" id="verdad_extrangero" name="verdad_extrangero" value="no">
+                                                <label class="exampleInputPassword1">
+                                                Raza</label>
+                                                <select class="form-control select2" id="raza_id" name="raza_id"  required >
+                                                    <option value=""></option>
+                                                    @forelse ($razas as $r)
+                                                        <option value="{{ $r->id }}">{{ $r->nombre }} {{ $r->descripcion }}</option>
+                                                    @empty
 
-									<div class="row">
-										<div class="col-md-6">
-											<div class="form-group">
-												<label class="exampleInputPassword1">
-												Nombre del ejemplar</label>
-												<input type="text" class="form-control" id="nombre" name="nombre" required />
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-group">
-												<label class="exampleInputPassword1">
-												Color</label>
-												<input type="text" class="form-control" id="color" name="color" required />
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-6">
-											<div class="form-group">
-												<label class="exampleInputPassword1">
-												Fecha de Nacimiento</label>
-												<input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" onchange="calcular_fecha()" required />
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-group">
-												<label class="exampleInputPassword1">
-												Sexo</label>
-												<select class="form-control" id="sexo" name="sexo" onchange="BuscaCategorias(this)">
-													<option value="Macho">Macho</option>
-													<option value="Hembra">Hembra</option>
-												</select>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-4">
-											<div class="form-group">
-												<label class="exampleInputPassword1">
-												Registro de Extrangero</label>
-												<input type="text" class="form-control" id="registro_extrangero" name="registro_extrangero"/>
-											</div>
-										</div>
-										<div class="col-md-4">
-											<div class="form-group">
-												<label class="exampleInputPassword1">
-												Tatuaje</label>
-												<input type="text" class="form-control" id="tatuaje" name="tatuaje" />
-											</div>
-										</div>
-										<div class="col-md-4">
-											<div class="form-group">
-												<label class="exampleInputPassword1">
-												Microchip</label>
-												<input type="text" class="form-control" id="chip" name="chip"/>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-4">
-											<div class="form-group">
-												<label class="exampleInputPassword1">
-												KCB del Padre</label>
-												<input type="text" class="form-control" id="kcb_padre" name="kcb_padre"/>
-											</div>
-										</div>
-										<div class="col-md-8">
-											<div class="form-group">
-												<label class="exampleInputPassword1">
-												Nombre del Padre</label>
-												<input type="text" class="form-control" id="nom_padre" name="nom_padre" />
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-4">
-											<div class="form-group">
-												<label class="exampleInputPassword1">
-												KCB del Madre</label>
-												<input type="text" class="form-control" id="kcb_madre" name="kcb_madre" />
-											</div>
-										</div>
-										<div class="col-md-8">
-											<div class="form-group">
-												<label class="exampleInputPassword1">
-												Nombre del Madre</label>
-												<input type="text" class="form-control" id="nom_madre" name="nom_madre"/>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-6">
-											<div class="form-group">
-												<label class="exampleInputPassword1">
-												Categorias</label>
-												<h4 id="msjEdad" class="text-success"></h4>
-												<select class="form-control select2" id="categoria_pista" name="categoria_pista" required >
-													<option value=""></option>
-													<div id="categoria">
+                                                    @endforelse
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
 
-													</div>
-												</select>
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-group">
-												<label class="exampleInputPassword1">
-												Criador</label>
-												<input type="text" class="form-control" id="criador" name="criador"/>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-6">
-											<div class="form-group">
-												<label class="exampleInputPassword1">
-												Propietario</label>
-												<input type="text" class="form-control" id="propietario" name="propietario" required />
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-group">
-												<label class="exampleInputPassword1">
-												Ciudad / Pais</label>
-												<input type="text" class="form-control" id="ciudad" name="ciudad" required />
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-6">
-											<div class="form-group">
-												<label class="exampleInputPassword1">
-												Telefono</label>
-												<input type="text" class="form-control" id="telefono" name="telefono" required />
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-group">
-												<label class="exampleInputPassword1">
-												Email</label>
-												<input type="email" class="form-control" id="email" name="email" required />
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12">
-											<div class="form-group">
-												<label class="exampleInputPassword1">
-												Adjunte su carnet de vacunacion <b class="text-danger">*</b></label>
-												<input type="file" class="form-control" id="carnet" name="carnet" required accept="image/*" />
-											</div>
-										</div>
-									</div>
-									<br>
-									<div class="row">
-										<div class="col-md-12">
-											<button type="button" class="btn btn-success btn-block" onclick="inscribir()">INSCRIBRI EJEMPLAR</button>    
-										</div>    
-									</div>                    
-								</div>
-							</form>
-							<!--end::Form-->
-						</div>
-						<!--end::Card-->
-					</div>
-					
-				</div>	
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="exampleInputPassword1">
+                                                Nombre del ejemplar</label>
+                                                <input type="text" class="form-control" id="nombre" name="nombre" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="exampleInputPassword1">
+                                                Color</label>
+                                                <input type="text" class="form-control" id="color" name="color" required />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="exampleInputPassword1">
+                                                Fecha de Nacimiento</label>
+                                                <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" onchange="calcular_fecha()" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="exampleInputPassword1">
+                                                Sexo</label>
+                                                <select class="form-control" id="sexo" name="sexo" onchange="BuscaCategorias(this)">
+                                                    <option value="Macho">Macho</option>
+                                                    <option value="Hembra">Hembra</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="exampleInputPassword1">
+                                                Registro de Extrangero</label>
+                                                <input type="text" class="form-control" id="registro_extrangero" name="registro_extrangero"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="exampleInputPassword1">
+                                                Tatuaje</label>
+                                                <input type="text" class="form-control" id="tatuaje" name="tatuaje" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="exampleInputPassword1">
+                                                Microchip</label>
+                                                <input type="text" class="form-control" id="chip" name="chip"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="exampleInputPassword1">
+                                                KCB del Padre</label>
+                                                <input type="text" class="form-control" id="kcb_padre" name="kcb_padre"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label class="exampleInputPassword1">
+                                                Nombre del Padre</label>
+                                                <input type="text" class="form-control" id="nom_padre" name="nom_padre" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="exampleInputPassword1">
+                                                KCB del Madre</label>
+                                                <input type="text" class="form-control" id="kcb_madre" name="kcb_madre" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label class="exampleInputPassword1">
+                                                Nombre del Madre</label>
+                                                <input type="text" class="form-control" id="nom_madre" name="nom_madre"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="exampleInputPassword1">
+                                                Categorias</label>
+                                                <h4 id="msjEdad" class="text-success"></h4>
+                                                <select class="form-control select2" id="categoria_pista" name="categoria_pista" required onchange="subeCerfificado(this)">
+                                                    <option value=""></option>
+                                                    <div id="categoria">
+
+                                                    </div>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="exampleInputPassword1">
+                                                Criador</label>
+                                                <input type="text" class="form-control" id="criador" name="criador"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" id="bloque_certificado" style="display: none">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="exampleInputPassword1">
+                                                <span id="texto-variable"></span><b class="text-danger">*</b></label>
+                                                <input type="file" class="form-control" name="certificado" id="certificado" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="exampleInputPassword1">
+                                                Propietario</label>
+                                                <input type="text" class="form-control" id="propietario" name="propietario" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="exampleInputPassword1">
+                                                Ciudad / Pais</label>
+                                                <input type="text" class="form-control" id="ciudad" name="ciudad" required />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="exampleInputPassword1">
+                                                Telefono</label>
+                                                <input type="text" class="form-control" id="telefono" name="telefono" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="exampleInputPassword1">
+                                                Email</label>
+                                                <input type="email" class="form-control" id="email" name="email" required />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="exampleInputPassword1">
+                                                Adjunte su carnet de vacunacion <b class="text-danger">*</b></label>
+                                                <input type="file" class="form-control" id="carnet" name="carnet" required accept="image/*" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button type="button" class="btn btn-success btn-block" onclick="inscribir()">INSCRIBRI EJEMPLAR</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <!--end::Form-->
+                        </div>
+                        <!--end::Card-->
+                    </div>
+                </div>
 			@else
 				<div class="row">
 					<div class="col-md-12">
@@ -399,11 +430,11 @@
 
 		</div>
 		<!--end::Header Mobile-->
-		
+
 		<!--end::Main-->
 		<!-- begin::User Panel-->
-		
-		
+
+
 		<div id="kt_scrolltop" class="scrolltop">
 			<span class="svg-icon">
 				<!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Up-2.svg-->
@@ -419,10 +450,10 @@
 		</div>
 		<!--end::Scrolltop-->
 		<!--begin::Sticky Toolbar-->
-		
+
 		<!--end::Sticky Toolbar-->
 		<!--begin::Demo Panel-->
-		
+
 		<!--end::Demo Panel-->
 		<script>var HOST_URL = "https://preview.keenthemes.com/metronic/theme/html/tools/preview";</script>
 		<!--begin::Global Config(global config for global JS scripts)-->
@@ -458,19 +489,19 @@
 					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 				}
 			});
-		
+
 		function guarda()
 		{
 		if ($("#formularioPersona")[0].checkValidity()) {
-		
+
 		$("#formularioPersona").submit();
 		Swal.fire("Excelente!", "Se guardo el distrito!", "success");
-		
+
 		}else{
 		$("#formularioPersona")[0].reportValidity();
 		}
 		}
-		
+
 		function mostrarBusqueda(){
 
 			if (document.getElementById("Nacional").checked) {
@@ -481,7 +512,7 @@
 				$("#cod_extrangero").prop('required',false);
 
 			} else if (document.getElementById("Extranjero").checked) {
-				
+
 				$("#registro_extrangero").prop('required',false);
 				$('#verdad_extrangero').val('si');
 
@@ -529,119 +560,127 @@
 			$("#bloque-nacional").toggle('slow');
 			$("#bloque-extrangero").toggle('slow');
 		}
-		
+
 		function buscaKcb(){
 			let kcb = $("#kcb_busca").val();
 			if(kcb != ''){
-			$.ajax({
-				url: "{{ url('Evento/ajaxBuscaEjemplar') }}",
-				data: {
-				kcb: kcb
-				},
-				type: "POST",
-				success: function(data) {
-					//convertimos la respuesta para poder trabajar
-					let ejemplar = JSON.parse(data);
-					if(ejemplar.id){
-						$("#ejemplar_id").val(ejemplar.id);
-						$("#nombre").val(ejemplar.nombre_completo);
-						$("#color").val(ejemplar.color);
-						$("#fecha_nacimiento").val(ejemplar.fecha_nacimiento);
-						$("#sexo").val(ejemplar.sexo);
-						$("#registro_extrangero").val(ejemplar.codigo_nacionalizado);
-						$("#tatuaje").val(ejemplar.num_tatuaje);
-						$("#chip").val(ejemplar.chip);
-						$("#kcb_padre").val(ejemplar.kcb_padre);
-						$("#nom_padre").val(ejemplar.nombre_padre);
-						$("#kcb_madre").val(ejemplar.kcb_madre);
-						$("#nom_madre").val(ejemplar.nombre_madre);
-						$("#propietario").val(ejemplar.nom_propietario);
-						$("#ciudad").val(ejemplar.departamento);
-						$("#telefono").val(ejemplar.celulares);
-						$("#email").val(ejemplar.email);
-						$("#raza_id").val(ejemplar.raza_id);
-						$('#raza_id').trigger('change');
-						$("#msg-good-kcb").show();
-						$("#msg-error-kcb").hide();
-						$("#msg-vacio-kcb").hide();
+                $.ajax({
+                    url: "{{ url('Evento/ajaxBuscaEjemplar') }}",
+                    data: {
+                    kcb: kcb
+                    },
+                    type: "POST",
+                    success: function(data) {
+                        //convertimos la respuesta para poder trabajar
+                        let ejemplar = JSON.parse(data);
+                        if(ejemplar.id){
+                            $("#ejemplar_id").val(ejemplar.id);
+                            $("#nombre").val(ejemplar.nombre_completo);
+                            $("#color").val(ejemplar.color);
+                            $("#fecha_nacimiento").val(ejemplar.fecha_nacimiento);
+                            $("#sexo").val(ejemplar.sexo);
+                            $("#registro_extrangero").val(ejemplar.codigo_nacionalizado);
+                            $("#tatuaje").val(ejemplar.num_tatuaje);
+                            $("#chip").val(ejemplar.chip);
+                            $("#kcb_padre").val(ejemplar.kcb_padre);
+                            $("#nom_padre").val(ejemplar.nombre_padre);
+                            $("#kcb_madre").val(ejemplar.kcb_madre);
+                            $("#nom_madre").val(ejemplar.nombre_madre);
+                            $("#propietario").val(ejemplar.nom_propietario);
+                            $("#ciudad").val(ejemplar.departamento);
+                            $("#telefono").val(ejemplar.celulares);
+                            $("#email").val(ejemplar.email);
+                            $("#raza_id").val(ejemplar.raza_id);
+                            $('#raza_id').trigger('change');
+                            $("#msg-good-kcb").show();
+                            $("#msg-error-kcb").hide();
+                            $("#msg-vacio-kcb").hide();
 
-						calcular_fecha();
-						BuscaCategorias(document.getElementById("sexo"));
+                            calcular_fecha();
+                            // BuscaCategorias(document.getElementById("sexo"));
 
-						$("#ejemplar_id").prop('readonly', true);
-						$("#nombre").prop('readonly', true);
-						$("#color").prop('readonly', true);
-						$("#fecha_nacimiento").prop('readonly', true);
+                            $("#ejemplar_id").prop('readonly', true);
+                            $("#nombre").prop('readonly', true);
+                            $("#color").prop('readonly', true);
+                            $("#fecha_nacimiento").prop('readonly', true);
 
-						$("#sexo").prop('readonly', true);
-						$('#sexo option:not(:selected)').attr('readonly',true);
+                            $("#sexo").prop('readonly', true);
+                            $('#sexo option:not(:selected)').attr('readonly',true);
 
-						$("#registro_extrangero").prop('readonly', true);
-						$("#tatuaje").prop('readonly', true);
-						$("#chip").prop('readonly', true);
-						$("#kcb_padre").prop('readonly', true);
-						$("#nom_padre").prop('readonly', true);
-						$("#kcb_madre").prop('readonly', true);
-						$("#nom_madre").prop('readonly', true);
-						$("#raza_id").prop('readonly', true);
+                            $("#registro_extrangero").prop('readonly', true);
+                            $("#tatuaje").prop('readonly', true);
+                            $("#chip").prop('readonly', true);
+                            $("#kcb_padre").prop('readonly', true);
+                            $("#nom_padre").prop('readonly', true);
+                            $("#kcb_madre").prop('readonly', true);
+                            $("#nom_madre").prop('readonly', true);
+                            $("#raza_id").prop('readonly', true);
 
-					}else{
-						$("#ejemplar_id").val('');
-						$("#nombre").val('');
-						$("#color").val('');
-						$("#fecha_nacimiento").val('');
-						$("#sexo").val('Macho');
-						$("#registro_extrangero").val('');
-						$("#tatuaje").val('');
-						$("#chip").val('');
-						$("#kcb_padre").val('');
-						$("#nom_padre").val('');
-						$("#propietario").val(ejemplar.nom_propietario);
-						$("#ciudad").val(ejemplar.departamento);
-						$("#telefono").val(ejemplar.celulares);
-						$("#email").val(ejemplar.email);
-						$("#kcb_madre").val('');
-						$("#nom_madre").val('');
-						$("#raza_id").val('');
-						$('#raza_id').trigger('change');
+                        }else{
+                            $("#ejemplar_id").val('');
+                            $("#nombre").val('');
+                            $("#color").val('');
+                            $("#fecha_nacimiento").val('');
+                            $("#sexo").val('Macho');
+                            $("#registro_extrangero").val('');
+                            $("#tatuaje").val('');
+                            $("#chip").val('');
+                            $("#kcb_padre").val('');
+                            $("#nom_padre").val('');
+                            $("#propietario").val(ejemplar.nom_propietario);
+                            $("#ciudad").val(ejemplar.departamento);
+                            $("#telefono").val(ejemplar.celulares);
+                            $("#email").val(ejemplar.email);
+                            $("#kcb_madre").val('');
+                            $("#nom_madre").val('');
+                            $("#raza_id").val('');
+                            $('#raza_id').trigger('change');
 
 
-						$("#ejemplar_id").prop('readonly', false);
-						$("#nombre").prop('readonly', false);
-						$("#color").prop('readonly', false);
-						$("#fecha_nacimiento").prop('readonly', false);
+                            $("#ejemplar_id").prop('readonly', false);
+                            $("#nombre").prop('readonly', false);
+                            $("#color").prop('readonly', false);
+                            $("#fecha_nacimiento").prop('readonly', false);
 
-						$("#registro_extrangero").prop('readonly', false);
-						$("#tatuaje").prop('readonly', false);
-						$("#chip").prop('readonly', false);
-						$("#kcb_padre").prop('readonly', false);
-						$("#nom_padre").prop('readonly', false);
-						$("#kcb_madre").prop('readonly', false);
-						$("#nom_madre").prop('readonly', false);
-						$("#raza_id").prop('readonly', false);
-		
-						$("#msg-error-kcb").show();
-					}
-				}
-			});
+                            $("#registro_extrangero").prop('readonly', false);
+                            $("#tatuaje").prop('readonly', false);
+                            $("#chip").prop('readonly', false);
+                            $("#kcb_padre").prop('readonly', false);
+                            $("#nom_padre").prop('readonly', false);
+                            $("#kcb_madre").prop('readonly', false);
+                            $("#nom_madre").prop('readonly', false);
+                            $("#raza_id").prop('readonly', false);
+
+                            $("#msg-error-kcb").show();
+                        }
+                    }
+                });
 			}else{
 				$("#msg-vacio-kcb").show();
 			}
-		
+
+			// removeOptions(document.getElementById("categoria_pista"));
+
 		}
-		
+
 		$(function(){
 			$('#raza_id').select2({
 			placeholder: "Select a state"
 			});
 		});
-		
+
 		$(function(){
 			$('#categoria_pista').select2({
-			placeholder: "Select a state"
+			    placeholder: "Select a state"
 			});
 		});
-		
+
+        // $(function(){
+		// 	$('#categoria_pista_rot').select2({
+		// 	placeholder: "Select a state"
+		// 	});
+		// });
+
 		function calcular_fecha(){
 			let fecha_nacimiento    = $("#fecha_nacimiento").val();
 			// alert(fecha_nacimiento);
@@ -653,7 +692,7 @@
 
 			// console.log("fecha evento recibido "+fecha_inicio_evento);
 
-		
+
 			fecha_cal = new Date(fecha_nacimiento);
 
 			// console.log("fecha con el primer"+fecha_cal);
@@ -666,21 +705,21 @@
 
 			BuscaCategorias(document.getElementById("sexo"));
 		}
-		
+
 		function crea_fecha(fecha) {
 			a = fecha[0] + fecha[1] + fecha[2] + fecha[3];
 			m = fecha[4] + fecha[5];
 			d = fecha[6] + fecha[7];
 			return a + "-" + m + "-" + d;
 		}
-		
+
 		function diff_months(dt2, dt1) {
 			var diff =(dt2.getTime() - dt1.getTime()) / 1000;
 			diff /= (60 * 60 * 24 * 30);
 			// diff /= (60 * 60 * 24 * 7 * 4);
 			return Math.abs(Math.round(diff));
 		}
-		
+
 		function inscribir(){
 			if($('#formulario-inscripcion-evento')[0].checkValidity()){
 				$('#formulario-inscripcion-evento').submit();
@@ -689,7 +728,7 @@
 				$('#formulario-inscripcion-evento')[0].reportValidity();
 			}
 		}
-		
+
 		function buscaCodigo(){
 			//alert("busqueda por codigo extrangero en desarrolo :)");
 			let cod_ex = $("#cod_extrangero").val();
@@ -754,7 +793,7 @@
 						$("#nom_madre").val('');
 						$("#raza_id").val('');
 						$('#raza_id').trigger('change');
-		
+
 						// console.log("vacio");
 						$("#msg-error-kcb").show();
 					}
@@ -763,7 +802,7 @@
 			}else{
 			$("#msg-vacio-cod").show();
 			}
-		
+
 		}
 
 		function BuscaCategorias(select){
@@ -771,7 +810,7 @@
 			var edad =  document.getElementById('ejemplar_meses').value;
 
 			const sexo = select.value;
-			
+
 			removeOptions(document.getElementById("categoria_pista"));
 
 			$.ajax({
@@ -786,9 +825,7 @@
 					let categorias = JSON.parse(data);
 
 					for (let index = 0; index < categorias.length; index = index + 2 ) {
-
 						$('#categoria_pista').prepend("<option value='"+categorias[index]+"' >"+categorias[index+1]+"</option>");
-
 					}
 
 					$('#categoria').html(data);
@@ -797,15 +834,38 @@
 
 		}
 
-		function removeOptions(selectbox) { 
+		function removeOptions(selectbox) {
 			var i;
 
-			for(i=selectbox.options.length-1;i>=0;i--) { 
+			for(i=selectbox.options.length-1;i>=0;i--) {
 
-				selectbox.remove(i); 
+				selectbox.remove(i);
 
-			} 
+			}
 		}
+
+        function subeCerfificado(seleccionado){
+            var tex = '';
+            if(seleccionado.value == 21 ||   // trabajo
+               seleccionado.value == 14 ||   // gran campeon macho
+               seleccionado.value == 15 ||   // gran campeon hembra
+               seleccionado.value == 10 ||   // campeon hembra
+               seleccionado.value == 9 ||    // campeon macho
+               seleccionado.value == 13 ||   // joven campeon hembra
+               seleccionado.value == 12      // joven campeon macho
+               ){
+
+                if(seleccionado.value == 21){
+                    tex = "Certificacion de prueba trabajo";
+                }else{
+                    tex = "Certificacion Homologado";
+                }
+                $('#texto-variable').text(tex);
+                $('#bloque_certificado').show('toggle')
+            }else{
+                $('#bloque_certificado').hide('toggle')
+            }
+        }
 
 
 		</script>
@@ -820,3 +880,4 @@
 
 
 
+4
