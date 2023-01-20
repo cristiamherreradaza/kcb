@@ -86,27 +86,37 @@
 			<br><br>
 
 			<br><br>
+            @php
+
+                $textBack = '';
+                $textColor = '';
+             if($evento->estado == "Si"){
+                $textBack = 'bg-dark';
+                $textColor = 'text-white';
+             }
+
+            @endphp
 			@if ($evento->habilitado == "Si")
                 <div class="row">
                     <div class="col-md-12">
                         <!--begin::Card-->
-                        <div class="card card-custom gutter-b example example-compact">
+                        <div class="card card-custom gutter-b example example-compact {{$textBack}} {{$textColor}}">
                             <br>
                             <div class="row">
                                 @if ($evento->estado == "Si")
                                     <div class="col-md-3">
                                         <div style="height: 100px;">
-                                            <img src="{{ url('img/fci.jpg') }}" alt="" height="100%">
+                                            <img src="{{ url('img/L1.png') }}" alt="" height="100%">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div style="height: 100px;">
-                                            <img src="{{ url('img/rt.jpeg') }}" alt="" height="100%">
+                                            <img src="{{ url('img/L3.png') }}" alt="" height="100%">
                                         </div>
                                     </div>
                                     <div class="col-md-3" style="">
                                         <div style="height: 100px;">
-                                            <img src="{{ url('img/rt2.jpeg') }}" alt="" height="100%">
+                                            <img src="{{ url('img/L2.png') }}" alt="" height="100%">
                                         </div>
                                     </div>
                                     <div class="col-md-3" style="">
@@ -150,12 +160,12 @@
                                                         {{-- <label class="col-3 col-form-label">Ejemplar</label> --}}
                                                         <div class="col-12 col-form-label">
                                                             <div class="radio-inline">
-                                                                <label class="radio radio-success">
+                                                                <label class="radio radio-success {{$textColor}}">
                                                                     <input type="radio" name="radios5" id="Nacional" checked="checked" value="Nacional" onchange="mostrarBusqueda()"/>
                                                                     <span></span>
                                                                     Nacional
                                                                 </label>
-                                                                <label class="radio radio-success">
+                                                                <label class="radio radio-success {{$textColor}}">
                                                                     <input type="radio" name="radios5" id="Extranjero"  value="Extranjero" onchange="mostrarBusqueda()"/>
                                                                     <span></span>
                                                                     Extranjero
@@ -170,7 +180,7 @@
                                                         <div class="row">
                                                             <div class="col-md-9">
                                                                 <div class="form-group">
-                                                                    <label class="exampleInputPassword1">
+                                                                    <label class="exampleInputPassword1 {{$textColor}}">
                                                                     KCB
                                                                     </label>
                                                                     <input type="text" class="form-control" id="kcb_busca" name="kcb_busca"  required/>
@@ -189,7 +199,7 @@
                                                         <div class="row">
                                                             <div class="col-md-9">
                                                                 <div class="form-group">
-                                                                    <label class="exampleInputPassword1">
+                                                                    <label class="exampleInputPassword1 {{$textColor}}">
                                                                     Codigo Extrangero</label>
                                                                     <input type="text" class="form-control" id="cod_extrangero" name="cod_extrangero"/>
                                                                     <span class="form-text text-danger" id="msg-vacio-cod" style="display: none;">Digitar un Codigo de Extranjero</span>
@@ -207,7 +217,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <input type="hidden" id="verdad_extrangero" name="verdad_extrangero" value="no">
-                                                <label class="exampleInputPassword1">
+                                                <label class="exampleInputPassword1 {{$textColor}}">
                                                 Raza</label>
                                                 <select class="form-control select2" id="raza_id" name="raza_id"  required >
                                                     <option value=""></option>
@@ -224,14 +234,14 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="exampleInputPassword1">
+                                                <label class="exampleInputPassword1 {{$textColor}}">
                                                 Nombre del ejemplar</label>
                                                 <input type="text" class="form-control" id="nombre" name="nombre" required />
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="exampleInputPassword1">
+                                                <label class="exampleInputPassword1 {{$textColor}}">
                                                 Color</label>
                                                 <input type="text" class="form-control" id="color" name="color" required />
                                             </div>
@@ -240,14 +250,14 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="exampleInputPassword1">
+                                                <label class="exampleInputPassword1 {{$textColor}}">
                                                 Fecha de Nacimiento</label>
                                                 <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" onchange="calcular_fecha()" required />
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="exampleInputPassword1">
+                                                <label class="exampleInputPassword1 {{$textColor}}">
                                                 Sexo</label>
                                                 <select class="form-control" id="sexo" name="sexo" onchange="BuscaCategorias(this)">
                                                     <option value="Macho">Macho</option>
@@ -259,21 +269,21 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label class="exampleInputPassword1">
+                                                <label class="exampleInputPassword1 {{$textColor}}">
                                                 Registro de Extrangero</label>
                                                 <input type="text" class="form-control" id="registro_extrangero" name="registro_extrangero"/>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label class="exampleInputPassword1">
+                                                <label class="exampleInputPassword1 {{$textColor}}">
                                                 Tatuaje</label>
                                                 <input type="text" class="form-control" id="tatuaje" name="tatuaje" />
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label class="exampleInputPassword1">
+                                                <label class="exampleInputPassword1 {{$textColor}}">
                                                 Microchip</label>
                                                 <input type="text" class="form-control" id="chip" name="chip"/>
                                             </div>
@@ -282,14 +292,14 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label class="exampleInputPassword1">
+                                                <label class="exampleInputPassword1 {{$textColor}}">
                                                 KCB del Padre</label>
                                                 <input type="text" class="form-control" id="kcb_padre" name="kcb_padre"/>
                                             </div>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                <label class="exampleInputPassword1">
+                                                <label class="exampleInputPassword1 {{$textColor}}">
                                                 Nombre del Padre</label>
                                                 <input type="text" class="form-control" id="nom_padre" name="nom_padre" />
                                             </div>
@@ -298,14 +308,14 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label class="exampleInputPassword1">
+                                                <label class="exampleInputPassword1 {{$textColor}}">
                                                 KCB del Madre</label>
                                                 <input type="text" class="form-control" id="kcb_madre" name="kcb_madre" />
                                             </div>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                <label class="exampleInputPassword1">
+                                                <label class="exampleInputPassword1 {{$textColor}}">
                                                 Nombre del Madre</label>
                                                 <input type="text" class="form-control" id="nom_madre" name="nom_madre"/>
                                             </div>
@@ -314,7 +324,7 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="exampleInputPassword1">
+                                                <label class="exampleInputPassword1 {{$textColor}}">
                                                 Categorias</label>
                                                 <h4 id="msjEdad" class="text-success"></h4>
                                                 <select class="form-control select2" id="categoria_pista" name="categoria_pista" required onchange="subeCerfificado(this)">
@@ -327,7 +337,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="exampleInputPassword1">
+                                                <label class="exampleInputPassword1 {{$textColor}}">
                                                 Criador</label>
                                                 <input type="text" class="form-control" id="criador" name="criador"/>
                                             </div>
@@ -336,7 +346,7 @@
                                     <div class="row" id="bloque_certificado" style="display: none">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label class="exampleInputPassword1">
+                                                <label class="exampleInputPassword1 {{$textColor}}">
                                                 <span id="texto-variable"></span><b class="text-danger">*</b></label>
                                                 <input type="file" class="form-control" name="certificado" id="certificado" >
                                             </div>
@@ -345,14 +355,14 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="exampleInputPassword1">
+                                                <label class="exampleInputPassword1 {{$textColor}}">
                                                 Propietario</label>
                                                 <input type="text" class="form-control" id="propietario" name="propietario" required />
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="exampleInputPassword1">
+                                                <label class="exampleInputPassword1 {{$textColor}}">
                                                 Ciudad / Pais</label>
                                                 <input type="text" class="form-control" id="ciudad" name="ciudad" required />
                                             </div>
@@ -361,14 +371,14 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="exampleInputPassword1">
+                                                <label class="exampleInputPassword1 {{$textColor}}">
                                                 Telefono</label>
                                                 <input type="text" class="form-control" id="telefono" name="telefono" required />
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="exampleInputPassword1">
+                                                <label class="exampleInputPassword1 {{$textColor}}">
                                                 Email</label>
                                                 <input type="email" class="form-control" id="email" name="email" required />
                                             </div>
@@ -377,7 +387,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label class="exampleInputPassword1">
+                                                <label class="exampleInputPassword1 {{$textColor}}">
                                                 Adjunte su carnet de vacunacion <b class="text-danger">*</b></label>
                                                 <input type="file" class="form-control" id="carnet" name="carnet" required accept="image/*" />
                                             </div>
@@ -845,28 +855,29 @@
 		}
 
         function subeCerfificado(seleccionado){
-            var tex = '';
-            if(seleccionado.value == 21 ||   // trabajo
-               seleccionado.value == 14 ||   // gran campeon macho
-               seleccionado.value == 15 ||   // gran campeon hembra
-               seleccionado.value == 10 ||   // campeon hembra
-               seleccionado.value == 9 ||    // campeon macho
-               seleccionado.value == 13 ||   // joven campeon hembra
-               seleccionado.value == 12      // joven campeon macho
-               ){
+            @if ($evento->estado == "Si")
+                var tex = '';
+                if(seleccionado.value == 21 ||   // trabajo
+                seleccionado.value == 14    ||   // gran campeon macho
+                seleccionado.value == 15    ||   // gran campeon hembra
+                seleccionado.value == 10    ||   // campeon hembra
+                seleccionado.value == 9     ||   // campeon macho
+                seleccionado.value == 13    ||   // joven campeon hembra
+                seleccionado.value == 12         // joven campeon macho
+                ){
 
-                if(seleccionado.value == 21){
-                    tex = "Certificacion de prueba trabajo";
+                    if(seleccionado.value == 21){
+                        tex = "Certificacion de prueba trabajo";
+                    }else{
+                        tex = "Certificacion Homologado";
+                    }
+                    $('#texto-variable').text(tex);
+                    $('#bloque_certificado').show('toggle')
                 }else{
-                    tex = "Certificacion Homologado";
+                    $('#bloque_certificado').hide('toggle')
                 }
-                $('#texto-variable').text(tex);
-                $('#bloque_certificado').show('toggle')
-            }else{
-                $('#bloque_certificado').hide('toggle')
-            }
-        }
-
+            @endif
+        }    
 
 		</script>
 	</body>
