@@ -1029,13 +1029,13 @@ class EventoController extends Controller
 
             $categorias = DB::table('categorias_pistas')->where('hasta','>=',$e)
                                                         ->where('desde','<=',$e)
-                                                        ->whereIn('id', [1,3,5,7,9,11,12,14,16,20,21])
+                                                        ->whereIn('id', [1,3,5,7,9,11,12,14,16,20,21,22])
                                                         // ->toSql();
                                                         ->get();
         }else{
             $categorias = DB::table('categorias_pistas')->where('hasta','>=',$e)
                                                         ->where('desde','<=',$e)
-                                                        ->whereIn('id', [1,2,4,6,8,10,13,15,17,20,21])
+                                                        ->whereIn('id', [1,2,4,6,8,10,13,15,17,20,21,22])
                                                         // ->toSql();
                                                         ->get();
         }
