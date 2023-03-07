@@ -583,6 +583,9 @@
                     success: function(data) {
                         //convertimos la respuesta para poder trabajar
                         let ejemplar = JSON.parse(data);
+
+                        console.log(ejemplar);
+
                         if(ejemplar.id){
                             $("#ejemplar_id").val(ejemplar.id);
                             $("#nombre").val(ejemplar.nombre_completo);
@@ -692,26 +695,34 @@
 		// });
 
 		function calcular_fecha(){
+
 			let fecha_nacimiento    = $("#fecha_nacimiento").val();
-			// alert(fecha_nacimiento);
-			// let fecha_inicio_evento = "2021-08-08";
 			let fecha_inicio_evento = "{{ $evento->fecha_inicio }}";
-			// alert(fecha_inicio_evento);
-
-			// console.log("fecha nacimeitno recibido"+fecha_nacimiento);
-
-			// console.log("fecha evento recibido "+fecha_inicio_evento);
-
 
 			fecha_cal = new Date(fecha_nacimiento);
-
-			// console.log("fecha con el primer"+fecha_cal);
 
 			fechaP = fecha_inicio_evento;
 			dt2 = new Date(fechaP);
 			meses = diff_months(dt2, fecha_cal);
 			$('#msjEdad').html("OJO su Ejemplar tiene <b>" + meses + " meses</b>");
 			$("#ejemplar_meses").val(meses);
+
+            console.log("----------------------");
+            console.log("fecha nacimi: "+fecha_nacimiento)
+            console.log("----------------------");
+            console.log("fecha ini event: "+fecha_inicio_evento)
+            console.log("----------------------");
+            console.log("fecha _cal: "+fecha_cal)
+            console.log("----------------------");
+            console.log("fecha p: "+fechaP)
+            console.log("----------------------");
+            console.log("date: "+dt2)
+            console.log("----------------------");
+            console.log("meses: "+meses)
+            {{--  console.log("----------------------");  --}}
+            {{--  console.log("----------------------");  --}}
+
+            {{--  console.log("fecha naci "+fecha_nacimiento,"ini even "+fecha_inicio_evento,"fech cal "+fecha_cal);  --}}
 
 			BuscaCategorias(document.getElementById("sexo"));
 		}
@@ -877,7 +888,7 @@
                     $('#bloque_certificado').hide('toggle')
                 }
             @endif
-        }    
+        }
 
 		</script>
 	</body>
