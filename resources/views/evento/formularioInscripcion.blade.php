@@ -583,9 +583,6 @@
                     success: function(data) {
                         //convertimos la respuesta para poder trabajar
                         let ejemplar = JSON.parse(data);
-
-                        console.log(ejemplar);
-
                         if(ejemplar.id){
                             $("#ejemplar_id").val(ejemplar.id);
                             $("#nombre").val(ejemplar.nombre_completo);
