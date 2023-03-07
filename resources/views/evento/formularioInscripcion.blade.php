@@ -707,23 +707,6 @@
 			$('#msjEdad').html("OJO su Ejemplar tiene <b>" + meses + " meses</b>");
 			$("#ejemplar_meses").val(meses);
 
-            console.log("----------------------");
-            console.log("fecha nacimi: "+fecha_nacimiento)
-            console.log("----------------------");
-            console.log("fecha ini event: "+fecha_inicio_evento)
-            console.log("----------------------");
-            console.log("fecha _cal: "+fecha_cal)
-            console.log("----------------------");
-            console.log("fecha p: "+fechaP)
-            console.log("----------------------");
-            console.log("date: "+dt2)
-            console.log("----------------------");
-            console.log("meses: "+meses)
-            {{--  console.log("----------------------");  --}}
-            {{--  console.log("----------------------");  --}}
-
-            {{--  console.log("fecha naci "+fecha_nacimiento,"ini even "+fecha_inicio_evento,"fech cal "+fecha_cal);  --}}
-
 			BuscaCategorias(document.getElementById("sexo"));
 		}
 
