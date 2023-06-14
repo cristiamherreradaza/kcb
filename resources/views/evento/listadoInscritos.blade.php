@@ -549,7 +549,12 @@
 										echo ($grupo)? "Grupo ".$grupo->grupo_id : '' ;
 									@endphp
 								</td>
-								<td>{{ $ee->categoriaPista->nombre }}</td>
+
+								<td>
+									@if ($ee->categoriaPista)
+										{{ $ee->categoriaPista->nombre }}
+									@endif
+								</td>
 
 								<td>
 									@php
