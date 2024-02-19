@@ -284,8 +284,8 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label class="exampleInputPassword1 {{$textColor}}">
-                                                Microchip</label>
-                                                <input type="text" class="form-control" id="chip" name="chip"/>
+                                                Microchip <b class="text-danger">*</b></label>
+                                                <input type="text" class="form-control" id="chip" name="chip" required/>
                                             </div>
                                         </div>
                                     </div>

@@ -529,6 +529,7 @@
 							<th>Categoria</th>
 							<th>Propietario</th>
 							<th>Numero</th>
+							<th>Chip</th>
 							<th>Carnet</th>
 							<th>Acciones</th>
 						</tr>
@@ -573,6 +574,9 @@
 								</td>
 								<td>
 									{{ $ee->numero_prefijo }}
+								</td>
+								<td>
+									{{ $ee->chip }}
 								</td>
 								<td>
 									@if ($ee->carnet != null)
