@@ -385,11 +385,18 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-12">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="exampleInputPassword1 {{$textColor}}">
                                                 Adjunte su carnet de vacunacion <b class="text-danger">*</b></label>
                                                 <input type="file" class="form-control" id="carnet" name="carnet" required accept="image/*" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="exampleInputPassword1 {{$textColor}}">
+                                                Handler</label>
+                                                <input type="text" class="form-control" id="handler" name="handler"/>
                                             </div>
                                         </div>
                                     </div>

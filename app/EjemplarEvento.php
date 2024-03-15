@@ -42,6 +42,7 @@ class EjemplarEvento extends Model
         'tipo_cambio',
         'carnet',
         'estado',
+        'handler',
         'deleted_at',
     ];
 
