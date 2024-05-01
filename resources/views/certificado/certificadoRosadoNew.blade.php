@@ -28,7 +28,7 @@
     #datos-ejemplar-1{
         position        : absolute;
         top             : 90px;
-        left            : 310px;
+        left            : -10px;
         width           : 700px;
         background: rgb(21, 255, 0);
     }
@@ -166,34 +166,38 @@
     }
     .afijo{
         position : absolute;
-        top      : -5px;
+        top      : 60px;
         font-size: 22px;
         width    : 350px;
         height   : 36px;
     }
     .criador{
-        width: 350px;
+        width: 150px;
         height: 36px;
         /* background-color: red; */
         font-size:16px;
         position: absolute;
-        top: 25px;
+        top: 30px;
     }
     .direccion{
-        font-size:15px;
-        position: absolute;
-        top: 60px;
+        font-size       : 11px;
+        position        : absolute;
+        top             : 30px;
+        /* background-color: rebeccapurple; */
+        margin-left     : 165px;
+        width           : 150px;
     }
     .telefonos{
-        font-size:17px;
-        position: absolute;
-        top: 84px;
+        font-size  : 16px;
+        position   : absolute;
+        top        : -18px;
+        margin-left: 250px;
     }
     .correo{
-        font-size:17px;
-        position: absolute;
-        top: 103px;
-        padding: 0px 0px 0px 49px;
+        font-size: 17px;
+        position : absolute;
+        top      : 85px;
+        padding  : 0px 0px 0px 49px;
     }
     .raza{
         position: absolute;
