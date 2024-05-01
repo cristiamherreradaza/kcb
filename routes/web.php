@@ -192,6 +192,7 @@ Route::post('Ejemplar/validaKcb', 'EjemplarController@validaKcb');
 Route::get('Ejemplar/eliminaEjemplar/{ejemplar_id}', 'EjemplarController@eliminaEjemplar');
 Route::get('Ejemplar/generaPdf', 'EjemplarController@generaPdf');
 Route::get('Ejemplar/certificadoRosado/{ejemplar_id}', 'EjemplarController@certificadoRosado');
+Route::get('Ejemplar/certificadoRosadoNew/{ejemplar_id}', 'EjemplarController@certificadoRosadoNew');
 Route::get('Ejemplar/certificadoRosadoAdelante/{ejemplar_id}', 'EjemplarController@certificadoRosadoAdelante');
 Route::get('Ejemplar/certificadoExportacion/{ejemplar_id}', 'EjemplarController@certificadoExportacion');
 Route::get('Ejemplar/bitacora', 'EjemplarController@bitacora');

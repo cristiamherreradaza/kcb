@@ -211,20 +211,23 @@
         <br />
         {{-- inicio de lo botones de impresion --}}
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-8">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <a href="{{ url('Ejemplar/generaExcelPedigree') }}/{{ $ejemplar->id }}" class="btn btn-success btn-block"><i class="far fa-file-excel"></i> EXCEL PEEDEGRE</a>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <a href="{{ url('Ejemplar/certificadoRosado') }}/{{ $ejemplar->id }}" class="btn btn-danger btn-block"><i class="far fa-file-pdf"></i> PDF PEEDEGRE</a>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <a href="{{ url('Ejemplar/certificadoExportacion') }}/{{ $ejemplar->id }}" class="btn btn-info btn-block"><i class="fas fa-file-export"></i>PEEDEGRE DE EXPORTACION</a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="{{ url('Ejemplar/certificadoRosadoNew') }}/{{ $ejemplar->id }}" class="btn btn-danger btn-block"><i class="far fa-file-pdf"></i> PDF PEEDEGRE NEW</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6"><button type="button" class="btn btn-dark btn-block">VOLVER</button></div>
+            <div class="col-md-4"><button type="button" class="btn btn-dark btn-block">VOLVER</button></div>
         </div>
         {{-- fin inicio de lo botones de impresion --}}
 
