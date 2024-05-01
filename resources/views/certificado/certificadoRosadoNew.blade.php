@@ -28,7 +28,7 @@
     #datos-ejemplar-1{
         position        : absolute;
         top             : 90px;
-        left            : -10px;
+        left            : 200px;
         width           : 700px;
         background: rgb(21, 255, 0);
     }
@@ -63,9 +63,9 @@
         width   : 410px;
         height  : 28px;
         position: absolute;
-          /* top      : 20px; */
+        top      : -10px;
         font-size  : 16px;
-        margin-left: 200px;
+        margin-left: 250px;
         margin-top : -10px;
         /* background-color:red; */
     }
@@ -73,8 +73,8 @@
         text-align: center;
         /* background-color: red; */
         position : absolute;
-        top      : -10px;
-        left     : 600px;
+        top      : -20px;
+        left     : 550px;
         font-size: 15px;
         width    : 170px;
         height   : 28px;
@@ -83,14 +83,14 @@
         width      : 147px;
         height     : 25;
         position   : absolute;
-        top        : 30px;
+        top        : 15px;
         font-size  : 16;
-        margin-left: 200px;
+        margin-left: 250px;
     }
     .header-6{
         position   : absolute;
-        top        : 30px;
-        left       : 270px;
+        top        : 10px;
+        left       : 235px;
         width      : 140px;
         height     : 20px;
         font-size  : 16;
@@ -106,15 +106,15 @@
     }
     .header-8{
         position   : absolute;
-        top        : 60px;
+        top        : 40px;
         font-size  : 16px;
-        margin-left: 250px;
+        margin-left: 300px;
     }
     .header-9{
         position : absolute;
-        top      : 60px;
+        top      : 40px;
         font-size: 16px;
-        left     : 400px;
+        left     : 595px;
     }
     .header-10{
         position : absolute;
