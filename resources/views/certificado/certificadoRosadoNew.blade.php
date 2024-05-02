@@ -224,8 +224,8 @@
         position: absolute;
         top: 85px;
         left: 830px;
-        /* color: #000000; */
-        color: #0414ff;
+        color: #000000;
+        /* color: #0414ff; */
         font-weight: bold;
         width: 550px;
         padding:0%;
@@ -233,21 +233,21 @@
     }
     #arbol-genealogio{
         position: absolute;
-        top: 262px;
-        left: 220px;
-        color: #000000;
-        /* color: #0414ff; */
+        top     : 222px;
+        left    : 160px;
+        color   : #000000;
+          /* color: #0414ff; */
         font-weight: bold;
-        width:1340px;   
-        height: 560px;   
+        width      : 1340px;
+        height     : 560px;
     }
     #tabla-genealogio{
         width:100%;
     }
     .padres{
-        position: absolute;
-        width: 290px;
-        height: 230px;
+        position : absolute;
+        width    : 290px;
+        height   : 230px;
         font-size: 18px;
     }
     .padre_1{
@@ -258,119 +258,119 @@
     .padre_2{
         /* background-color:yellow; */
 
-        top: 255px;
+        top: 265px;
     }
     .abuelos{
-        position: absolute;
+        position : absolute;
         font-size: 12px;
-        left: 310px;
-        width:250px;
-        height: 123px;
+        left     : 290px;
+        width    : 250px;
+        height   : 123px;
         
     }
     .abuelo_1{
         top:-3px;
     }
     .abuelo_2{
-        top: 123px;
+        top: 133px;
     }
     .abuelo_3{
-        top: 250px;
+        top: 270px;
     }
     .abuelo_4{
-        top: 377px;
+        top: 407px;
     }
     .tercera_generaciones{
-        position: absolute;
+        position : absolute;
         font-size: 11px;
-        height: 60px;
-        width:300px;
-        left: 570px;
+        height   : 60px;
+        width    : 280px;
+        left     : 570px;
     }
     .tg_1{
         top:0px;
     }
     .tg_2{
-        top:63px;
+        top:68px;
     }
 
     .tg_3{
-        top:123px;
+        top:133px;
     }
     .tg_4{
-        top:183px;
+        top:205px;
     }
     .tg_5{
-        top: 250px;
+        top: 270px;
     }
     .tg_6{
-        top:312px;
+        top:340px;
     }
     .tg_7{
-        top:372px;
+        top:407px;
     }
     .tg_8{
-        top:434px;
+        top:479px;
     }
     
     .cuarta_generaciones{
-        /* background-color: yellowgreen; */
-        position: absolute;
-        width: 450px;
-        height: 30px;
+          /* background-color: yellowgreen; */
+        position : absolute;
+        width    : 400px;
+        height   : 30px;
         font-size: 11px;
-        /* padding:0;
+          /* padding:0;
         margin: 0; */
-        left: 876px;
-        /* word-wrap: break-word; */
+        left  : 860px;
+          /* word-wrap: break-word; */
     }
     .cg_1{
-        top: -5px;
+        top: -10px;
     }
     .cg_2{
-        top: 30px;
+        top: 25px;
     }
     .cg_3{
-        top: 61px;
+        top: 63px;
     }
     .cg_4{
         top: 93px;
     }
     .cg_5{
-        top: 124px;
+        top: 130px;
     }
     .cg_6{
-        top: 154px;
+        top: 164px;
     }
     .cg_7{
-        top: 185px;
+        top: 200px;
     }
     .cg_8{
-        top: 216px;
+        top: 235px;
     }
     .cg_9{
-        top: 251px;
+        top: 270px;
     }
     .cg_10{
-        top: 283px;
+        top: 303px;
     }
     .cg_11{
-        top: 314px;
-    }
-    .cg_12{
         top: 340px;
     }
+    .cg_12{
+        top: 372px;
+    }
     .cg_13{
-        top: 371px;
+        top: 407px;
     }
     .cg_14{
-        top: 402px;
+        top: 440px;
     }
     .cg_15{
-        top: 436px;
+        top: 475px;
     }
     .cg_16{
-        top: 469px;
+        top: 510px;
     }
     #certificado{
         padding: 15px 20px 0px 160px;
@@ -887,7 +887,7 @@
                 <div class="codigo-qr"><div id="qrcode"></div></div>
             </div>
         </div>
-        {{-- <div id="arbol-genealogio">
+        <div id="arbol-genealogio">
             <section id="bloque-padres" >
                 <div class="padre_1 padres">
                     <span class="padres1">
@@ -1186,7 +1186,7 @@
                     </span>
                 </div>
             </section>
-        </div> --}}
+        </div>
         {{-- <section id="footer">
             <div class="footer1">
                 <div class="lechigada">
