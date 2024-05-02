@@ -28,7 +28,7 @@
     #datos-ejemplar-1{
         position        : absolute;
         top             : 90px;
-        left            : 200px;
+        left            : 160px;
         width           : 700px;
         background: rgb(21, 255, 0);
     }
@@ -47,7 +47,7 @@
     }
     .header-1{
         position        : absolute;
-        top             : -12px;
+        top             : -25px;
         width           : 200px;
         height          : 150px;
         /* background-color: yellow; */
@@ -63,7 +63,7 @@
         width   : 410px;
         height  : 28px;
         position: absolute;
-        top      : -10px;
+        top      : -15px;
         font-size  : 16px;
         margin-left: 250px;
         margin-top : -10px;
@@ -73,8 +73,8 @@
         text-align: center;
         /* background-color: red; */
         position : absolute;
-        top      : -20px;
-        left     : 550px;
+        top      : -25px;
+        left     : 480px;
         font-size: 15px;
         width    : 170px;
         height   : 28px;
@@ -83,18 +83,18 @@
         width      : 147px;
         height     : 25;
         position   : absolute;
-        top        : 15px;
+        top        : 5px;
         font-size  : 16;
         margin-left: 250px;
     }
     .header-6{
         position   : absolute;
-        top        : 10px;
-        left       : 235px;
+        top        : 5px;
+        left       : 198px;
         width      : 140px;
         height     : 20px;
         font-size  : 16;
-        margin-left: 360px;
+        margin-left: 325px;
     }
     .header-7{
         position: absolute;
@@ -106,21 +106,21 @@
     }
     .header-8{
         position   : absolute;
-        top        : 40px;
+        top        : 30px;
         font-size  : 16px;
-        margin-left: 300px;
+        margin-left: 280px;
     }
     .header-9{
         position : absolute;
-        top      : 40px;
+        top      : 30px;
         font-size: 16px;
-        left     : 595px;
+        left     : 525px;
     }
     .header-10{
         position : absolute;
-        top      : -10px;
-        font-size: 15px;
-        left     : 801px;
+        top      : -25px;
+        font-size: 11px;
+        left     : 720px;
     }
     .header-11{
         width: 670px;
@@ -150,8 +150,8 @@
     }
 
     .codigo-qr{
-        top: 12px;
-        left: 365px;
+        top     : -25px;
+        left    : 345px;
         position: absolute;
     }
     #direccion{
@@ -165,39 +165,42 @@
         padding: 0px 0px 0px 60px;
     }
     .afijo{
-        position : absolute;
-        top      : 60px;
-        font-size: 22px;
-        width    : 350px;
-        height   : 36px;
+        position   : absolute;
+        top        : 30px;
+        font-size  : 12px;
+        width      : 340px;
+        height     : 36px;
+        /* margin-left: -80px; */
     }
     .criador{
-        width: 150px;
-        height: 36px;
-        /* background-color: red; */
-        font-size:16px;
-        position: absolute;
-        top: 30px;
+        width : 125px;
+        height: 30px;
+          /* background-color: red; */
+        font-size  : 16px;
+        position   : absolute;
+        top        : 6px;
+        /* margin-left: -80px; */
     }
     .direccion{
-        font-size       : 11px;
+        font-size       : 10px;
         position        : absolute;
-        top             : 30px;
+        top             : 5px;
         /* background-color: rebeccapurple; */
-        margin-left     : 165px;
+        margin-left     : 180px;
         width           : 150px;
     }
     .telefonos{
-        font-size  : 16px;
+        font-size  : 11px;
         position   : absolute;
         top        : -18px;
-        margin-left: 250px;
+        margin-left: 210px;
     }
     .correo{
-        font-size: 17px;
-        position : absolute;
-        top      : 85px;
-        padding  : 0px 0px 0px 49px;
+        font-size  : 12px;
+        position   : absolute;
+        top        : 55px;
+        padding    : 0px 0px 0px 49px;
+        margin-left: 10px;
     }
     .raza{
         position: absolute;
@@ -219,8 +222,8 @@
     }
     #datos-ejemplar-2{
         position: absolute;
-        top: 96px;
-        left: 1050px;
+        top: 85px;
+        left: 830px;
         /* color: #000000; */
         color: #0414ff;
         font-weight: bold;
@@ -848,7 +851,7 @@
                 </div>
                 <div class="header-5">{{ strtoupper($ejemplar->sexo)}}</div>
                 <div class="header-6">{{ date('d/m/Y',strtotime($ejemplar->fecha_nacimiento)) }}</div>
-                <div class="header-7">{{ ($ejemplar->consanguinidad!=null)? $ejemplar->consanguinidad :'--------'}}</div>
+                {{-- <div class="header-7">{{ ($ejemplar->consanguinidad!=null)? $ejemplar->consanguinidad :'--------'}}</div> --}}
                 <div class="header-8">{{ $ejemplar->kcb }}</div>
                 <div class="header-9">{{ ($ejemplar->num_tatuaje != null)? $ejemplar->num_tatuaje:'--------'}}</div>
                 <div class="header-10">{{ $ejemplar->chip }}</div>
@@ -1249,12 +1252,12 @@
     let cadenaQr = "KCB: {{ $ejemplar->kcb }}\nNombre: {{$nombre_ejemplar}}\nRaza: {{$nombre_raza}}\nN. Tatuaje: {{$ejemplar->num_tatuaje}}\nChip: {{ $ejemplar->chip }}\nSexo: {{ $ejemplar->sexo }}\nF. Nacimeinto: {{ date('d/m/Y' ,strtotime($ejemplar->fecha_nacimiento)) }}\nPagina Web: https://kcb.org.bo/";
 
     var qrcode = new QRCode("qrcode", {
-        text: cadenaQr,
-        width: 110,
-        height: 110,
-        colorDark : "#000000",
-        colorLight : "#ffffff",
-        correctLevel : QRCode.CorrectLevel.L
+        text        : cadenaQr,
+        width       : 100,
+        height      : 100,
+        colorDark   : "#000000",
+        colorLight  : "#ffffff",
+        correctLevel: QRCode.CorrectLevel.L
     });
 
 
