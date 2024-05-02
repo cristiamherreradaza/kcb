@@ -28,9 +28,8 @@
     #datos-ejemplar-1{
         position        : absolute;
         top             : 90px;
-        left            : 160px;
+        left            : 220px;
         width           : 700px;
-        background: rgb(21, 255, 0);
     }
     #table-datos-1{
         width: 100%;
@@ -60,21 +59,19 @@
         height: 28px;
     }
     .header-3{
-        width   : 410px;
-        height  : 28px;
-        position: absolute;
-        top      : -15px;
+        width      : 410px;
+        height     : 28px;
+        position   : absolute;
+        top        : -15px;
         font-size  : 16px;
-        margin-left: 250px;
-        margin-top : -10px;
-        /* background-color:red; */
+        margin-left: 265px;
     }
     .header-4{
         text-align: center;
         /* background-color: red; */
         position : absolute;
-        top      : -25px;
-        left     : 480px;
+        top      : -15px;
+        left     : 530px;
         font-size: 15px;
         width    : 170px;
         height   : 28px;
@@ -83,18 +80,18 @@
         width      : 147px;
         height     : 25;
         position   : absolute;
-        top        : 5px;
+        top        : 15px;
         font-size  : 16;
-        margin-left: 250px;
+        margin-left: 265px;
     }
     .header-6{
         position   : absolute;
-        top        : 5px;
-        left       : 198px;
+        top        : 15px;
+        left       : 583px;
         width      : 140px;
         height     : 20px;
         font-size  : 16;
-        margin-left: 325px;
+        /* margin-left: 325px; */
     }
     .header-7{
         position: absolute;
@@ -106,21 +103,21 @@
     }
     .header-8{
         position   : absolute;
-        top        : 30px;
+        top        : 40px;
         font-size  : 16px;
-        margin-left: 280px;
+        margin-left: 305px;
     }
     .header-9{
         position : absolute;
-        top      : 30px;
+        top      : 40px;
         font-size: 16px;
-        left     : 525px;
+        left     : 577px;
     }
     .header-10{
         position : absolute;
-        top      : -25px;
+        top      : -15px;
         font-size: 11px;
-        left     : 720px;
+        left     : 810px;
     }
     .header-11{
         width: 670px;
@@ -151,7 +148,7 @@
 
     .codigo-qr{
         top     : -25px;
-        left    : 345px;
+        left    : 360px;
         position: absolute;
     }
     #direccion{
@@ -186,14 +183,14 @@
         position        : absolute;
         top             : 5px;
         /* background-color: rebeccapurple; */
-        margin-left     : 180px;
+        margin-left     : 190px;
         width           : 150px;
     }
     .telefonos{
         font-size  : 11px;
         position   : absolute;
-        top        : -18px;
-        margin-left: 210px;
+        top        : -25px;
+        margin-left: 230px;
     }
     .correo{
         font-size  : 12px;
@@ -222,13 +219,14 @@
     }
     #datos-ejemplar-2{
         position: absolute;
-        top: 85px;
-        left: 830px;
-        color: #000000;
-        /* color: #0414ff; */
+        top     : 100px;
+        /* left    : 935px; */
+        left    : 975px;
+        color   : #000000;
+          /* color: #0414ff; */
         font-weight: bold;
-        width: 550px;
-        padding:0%;
+        width      : 550px;
+        padding    : 0%;
         /* background-color:rgb(9, 255, 0); */
     }
     #arbol-genealogio{
@@ -245,10 +243,11 @@
         width:100%;
     }
     .padres{
-        position : absolute;
-        width    : 290px;
-        height   : 230px;
-        font-size: 18px;
+        position   : absolute;
+        width      : 290px;
+        height     : 230px;
+        font-size  : 18px;
+        margin-left: 40px;
     }
     .padre_1{
         /* background-color:red; */
@@ -263,7 +262,7 @@
     .abuelos{
         position : absolute;
         font-size: 12px;
-        left     : 290px;
+        left     : 330px;
         width    : 250px;
         height   : 123px;
         
@@ -285,7 +284,7 @@
         font-size: 11px;
         height   : 60px;
         width    : 280px;
-        left     : 570px;
+        left     : 610px;
     }
     .tg_1{
         top:0px;
@@ -321,7 +320,7 @@
         font-size: 11px;
           /* padding:0;
         margin: 0; */
-        left  : 860px;
+        left  : 900px;
           /* word-wrap: break-word; */
     }
     .cg_1{
@@ -380,16 +379,17 @@
     .lechigada{
         /* background-color: yellowgreen; */
         position: absolute;
-        /* width: 200px;
-        height: 50px; */
-        font-size: 15px;
-        top: 775px;
-        /* bottom: 155px; */
-        left: 570px;
+          /* width: 200px;
+        height   : 50px; */
+        font-size: 13px;
+        top      : 810px;
+          /* bottom: 155px; */
+        left : 465px;
         color: #000000;
-        /* color: #0414ff; */
+          /* color: #0414ff; */
         font-weight: bold;
     }
+   
     
 </style>
 @php
@@ -1187,7 +1187,7 @@
                 </div>
             </section>
         </div>
-        {{-- <section id="footer">
+        <section id="footer">
             <div class="footer1">
                 <div class="lechigada">
                     @php
@@ -1202,7 +1202,7 @@
 
                 </div>
             </div>
-        </section> --}}
+        </section>
     </div>
     <div id="enlaces">
         <a href="{{ url('Ejemplar/informacion') }}/{{ $ejemplar->id }}">Volver</a>
