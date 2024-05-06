@@ -226,7 +226,7 @@
         left    : 975px;
         color   : #000000;
           /* color: #0414ff; */
-        font-weight: bold;
+        /* font-weight: bold; */
         width      : 550px;
         padding    : 0%;
         /* background-color:rgb(9, 255, 0); */
@@ -237,7 +237,7 @@
         left    : 160px;
         color   : #000000;
           /* color: #0414ff; */
-        font-weight: bold;
+        /* font-weight: bold; */
         width      : 1340px;
         height     : 560px;
     }
@@ -389,7 +389,7 @@
         left : 465px;
         color: #000000;
           /* color: #0414ff; */
-        font-weight: bold;
+        /* font-weight: bold; */
     }
 
     .fecha-emicion{
