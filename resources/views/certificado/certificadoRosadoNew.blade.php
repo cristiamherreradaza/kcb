@@ -394,7 +394,7 @@
     .fecha-emicion{
         position: absolute;
         /* top: 50px; */
-        margin-top: 20px;
+        margin-top: 10px;
     }
    
     
