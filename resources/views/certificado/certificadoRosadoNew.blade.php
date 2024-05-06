@@ -62,7 +62,7 @@
         width      : 250px;
         height     : 28px;
         position   : absolute;
-        top        : -15px;
+        top        : -20px;
         font-size  : 16px;
         margin-left: 265px;
     }
@@ -115,7 +115,7 @@
     }
     .header-10{
         position : absolute;
-        top      : -15px;
+        top      : -10px;
         font-size: 11px;
         left     : 810px;
     }
@@ -147,7 +147,7 @@
     }
 
     .codigo-qr{
-        top     : -25px;
+        top     : -35px;
         left    : 360px;
         position: absolute;
     }
@@ -189,15 +189,15 @@
     .telefonos{
         font-size  : 11px;
         position   : absolute;
-        top        : -25px;
-        margin-left: 230px;
+        top        : -20px;
+        margin-left: 240px;
     }
     .correo{
         font-size  : 12px;
         position   : absolute;
-        top        : 55px;
+        top        : 65px;
         padding    : 0px 0px 0px 49px;
-        margin-left: 10px;
+        margin-left: 15px;
     }
     .raza{
         position: absolute;
