@@ -41,7 +41,7 @@
         margin   : 0;
             /* color: #0414ff; */
         color           : #000000;
-        font-weight     : bold;
+        /* font-weight     : bold; */
         /* background-color: red; */
     }
     .header-1{
@@ -51,6 +51,7 @@
         height          : 150px;
         /* background-color: yellow; */
         text-align      : center;
+        font-weight     : bold;
     }
     .header-2{
         position: absolute;
