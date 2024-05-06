@@ -148,7 +148,7 @@
 
     .codigo-qr{
         top     : -35px;
-        left    : 390px;
+        left    : 410px;
         position: absolute;
     }
     #direccion{
@@ -177,20 +177,21 @@
         position   : absolute;
         top        : 6px;
         /* margin-left: -80px; */
+        left: 10px;
     }
     .direccion{
         font-size       : 10px;
         position        : absolute;
         top             : 5px;
         /* background-color: rebeccapurple; */
-        margin-left     : 190px;
+        margin-left     : 200px;
         width           : 150px;
     }
     .telefonos{
         font-size  : 11px;
         position   : absolute;
         top        : -20px;
-        margin-left: 240px;
+        margin-left: 250px;
     }
     .correo{
         font-size  : 12px;
@@ -382,12 +383,18 @@
           /* width: 200px;
         height   : 50px; */
         font-size: 13px;
-        top      : 810px;
+        top      : 820px;
           /* bottom: 155px; */
         left : 465px;
         color: #000000;
           /* color: #0414ff; */
         font-weight: bold;
+    }
+
+    .fecha-emicion{
+        position: absolute;
+        /* top: 50px; */
+        margin-top: 20px;
     }
    
     
@@ -1195,11 +1202,9 @@
                         $fechaHoraEs = $utilidades->fechaNormal($ejemplar->fecha_emision);
                     @endphp
                     {{ $ejemplar->lechigada }} <br>
-                    {{ $fechaHoraEs }}
-                    
-                </div>
-                <div class="fecha-emicion">
-
+                    <div class="fecha-emicion">
+                        {{ $fechaHoraEs }}
+                    </div>
                 </div>
             </div>
         </section>
