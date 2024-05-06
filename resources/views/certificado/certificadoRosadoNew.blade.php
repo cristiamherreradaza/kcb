@@ -103,13 +103,13 @@
     }
     .header-8{
         position   : absolute;
-        top        : 40px;
+        top        : 43px;
         font-size  : 16px;
         margin-left: 305px;
     }
     .header-9{
         position : absolute;
-        top      : 40px;
+        top      : 43px;
         font-size: 16px;
         left     : 577px;
     }
@@ -148,7 +148,7 @@
 
     .codigo-qr{
         top     : -35px;
-        left    : 360px;
+        left    : 390px;
         position: absolute;
     }
     #direccion{
@@ -231,7 +231,7 @@
     }
     #arbol-genealogio{
         position: absolute;
-        top     : 222px;
+        top     : 230px;
         left    : 160px;
         color   : #000000;
           /* color: #0414ff; */
@@ -284,7 +284,7 @@
         font-size: 11px;
         height   : 60px;
         width    : 280px;
-        left     : 610px;
+        left     : 630px;
     }
     .tg_1{
         top:0px;
@@ -320,7 +320,7 @@
         font-size: 11px;
           /* padding:0;
         margin: 0; */
-        left  : 900px;
+        left  : 920px;
           /* word-wrap: break-word; */
     }
     .cg_1{
