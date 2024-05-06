@@ -28,7 +28,7 @@
     #datos-ejemplar-1{
         position        : absolute;
         top             : 90px;
-        left            : 220px;
+        left            : 235px;
         width           : 700px;
     }
     #table-datos-1{
@@ -59,7 +59,7 @@
         height: 28px;
     }
     .header-3{
-        width      : 410px;
+        width      : 250px;
         height     : 28px;
         position   : absolute;
         top        : -15px;
