@@ -168,6 +168,7 @@
         font-size  : 12px;
         width      : 340px;
         height     : 36px;
+        /* background-color:red; */
         /* margin-left: -80px; */
     }
     .criador{
@@ -176,7 +177,7 @@
           /* background-color: red; */
         font-size  : 16px;
         position   : absolute;
-        top        : 6px;
+        top        : 0px;
         /* margin-left: -80px; */
         left: 10px;
     }
@@ -185,7 +186,7 @@
         position        : absolute;
         top             : 5px;
         /* background-color: rebeccapurple; */
-        margin-left     : 200px;
+        margin-left     : 207px;
         width           : 150px;
     }
     .telefonos{
@@ -1480,7 +1481,7 @@
 
             var AbuelotextSpan = AbuelotextDiv.getElementsByClassName("afijos")[0];
 
-            AbuelotextSpan.style.fontSize = 22;
+            AbuelotextSpan.style.fontSize = 17;
 
             while(AbuelotextSpan.offsetHeight > AbuelotextDiv.offsetHeight)
             {
