@@ -164,7 +164,7 @@
     }
     .afijo{
         position   : absolute;
-        top        : 30px;
+        top        : 35px;
         font-size  : 12px;
         width      : 340px;
         height     : 36px;
