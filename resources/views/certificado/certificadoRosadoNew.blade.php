@@ -186,7 +186,7 @@
         position        : absolute;
         top             : 5px;
         /* background-color: rebeccapurple; */
-        margin-left     : 207px;
+        margin-left     : 210px;
         width           : 150px;
     }
     .telefonos{
@@ -1481,7 +1481,7 @@
 
             var AbuelotextSpan = AbuelotextDiv.getElementsByClassName("afijos")[0];
 
-            AbuelotextSpan.style.fontSize = 17;
+            AbuelotextSpan.style.fontSize = 15;
 
             while(AbuelotextSpan.offsetHeight > AbuelotextDiv.offsetHeight)
             {
