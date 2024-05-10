@@ -887,7 +887,10 @@
             <div class="datos-secundarios">
                 <div class="afijo"> <span class="afijos">{{ ($ejemplar->criadero)? $ejemplar->criadero->nombre." FCI: ".$ejemplar->criadero->registro_fci : '' }}</span></div>
                 @php
-                    $propietarioCriadero  = App\PropietarioCriadero::where('criadero_id', $ejemplar->criadero->id)->first();
+                    if ($ejemplar->criadero)
+                        $propietarioCriadero  = App\PropietarioCriadero::where('criadero_id', $ejemplar->criadero->id)->first();
+                    else
+                        $propietarioCriadero = null;
                 @endphp
                 <div class="criador"><span class="criadors">{{ ($propietarioCriadero)? (($propietarioCriadero->propietario)? $propietarioCriadero->propietario->name : '') : '' }}</span></div>
                 <div class="direccion">{{ ($ejemplar->propietario)?  $ejemplar->propietario->direccion : ''}}</div>
