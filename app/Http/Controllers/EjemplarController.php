@@ -2716,4 +2716,11 @@ class EjemplarController extends Controller
         $writer->save('php://output');
 
     }
+
+    public function  certificadoRosadoNewBlue(Request $request, $ejemplar_id) {
+
+        $ejemplar = Ejemplar::find($ejemplar_id);
+
+        return view('certificado.certificadoRosadoNewBlue')->with(compact('ejemplar'/*, 'examenEjemplar', 'transferenciaEjemplar', 'tituloEjemplar', 'examenEjemplarAsignacion', 'transferenciaEjemplarAsignacion', 'tituloEjemplarAsignacion'*/));
+    }
 }

@@ -193,6 +193,7 @@ Route::get('Ejemplar/eliminaEjemplar/{ejemplar_id}', 'EjemplarController@elimina
 Route::get('Ejemplar/generaPdf', 'EjemplarController@generaPdf');
 Route::get('Ejemplar/certificadoRosado/{ejemplar_id}', 'EjemplarController@certificadoRosado');
 Route::get('Ejemplar/certificadoRosadoNew/{ejemplar_id}', 'EjemplarController@certificadoRosadoNew');
+Route::get('Ejemplar/certificadoRosadoNewBlue/{ejemplar_id}', 'EjemplarController@certificadoRosadoNewBlue');
 Route::get('Ejemplar/certificadoRosadoAdelante/{ejemplar_id}', 'EjemplarController@certificadoRosadoAdelante');
 Route::get('Ejemplar/certificadoExportacion/{ejemplar_id}', 'EjemplarController@certificadoExportacion');
 Route::get('Ejemplar/bitacora', 'EjemplarController@bitacora');
@@ -295,7 +296,7 @@ Route::get('Migracion/categorias_pistas', 'MigracionController@categorias_pistas
 /* Migracion de EVENTOS */
 Route::get('Migracion/eventos', 'MigracionController@eventos');
 
-// corriccion de fecha de ejemplares 
+// corriccion de fecha de ejemplares
  Route::get('Migracion/corregirFechaEjemplares', 'MigracionController@corregirFechaEjemplares');
 
  /* Migracion de EVENTOS INSCRIUTOS MASCOTAS TEMPORALES */
