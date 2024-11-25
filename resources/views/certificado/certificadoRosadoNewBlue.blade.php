@@ -28,7 +28,7 @@
     #datos-ejemplar-1{
         position        : absolute;
         /* top             : 90px; */
-        top             : 110px;
+        top             : 100px;
         /* left            : 235px; */
         left            : 320px;
         width           : 700px;
@@ -86,7 +86,7 @@
         position : absolute;
         top      : -15px;
         /* left     : 530px; */
-        left     : 540px;
+        left     : 545px;
         font-size: 15px;
         width    : 170px;
         height   : 28px;
@@ -238,7 +238,7 @@
 
     #arbol-genealogio{
         position: absolute;
-        top     : 230px;
+        top     : 250px;
         /* left    : 160px; */
         left    : 250px;
         color   : #000000;
@@ -292,9 +292,12 @@
         position : absolute;
         font-size: 11px;
         height   : 60px;
-        width    : 280px;
+        /* width    : 280px; */
+        width    : 270px;
         /* left     : 630px; */
         left     : 610px;
+        /* background-color:red; */
+
     }
     .tg_1{
         top:0px;
@@ -324,11 +327,13 @@
 
     .cuarta_generaciones{
         position : absolute;
-        width    : 400px;
+        /* width    : 400px; */
+        width    : 380px;
         height   : 30px;
         font-size: 11px;
         /* left     : 920px; */
         left     : 880px;
+        /* background-color:red; */
     }
     .cg_1{
         top: -10px;
@@ -1027,8 +1032,6 @@
                         @endphp
                     </span>
                 </div>
-
-
             </section>
 
             <section id="bloque-cg">
