@@ -28,7 +28,7 @@
     #datos-ejemplar-1{
         position        : absolute;
         /* top             : 90px; */
-        top             : 140px;
+        top             : 115px;
         /* left            : 235px; */
         left            : 320px;
         width           : 700px;
@@ -36,7 +36,7 @@
 
     #datos-ejemplar-2{
         position: absolute;
-        top     : 150px;
+        top     : 130px;
         /* top     : 100px; */
         /* left    : 975px; */
         left    : 1070px;
@@ -238,7 +238,7 @@
         position: absolute;
         top     : 230px;
         /* left    : 160px; */
-        left    : 245px;
+        left    : 250px;
         color   : #000000;
           /* color: #0414ff; */
         /* font-weight: bold; */
