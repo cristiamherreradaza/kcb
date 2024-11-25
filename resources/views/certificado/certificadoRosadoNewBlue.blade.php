@@ -27,7 +27,8 @@
     }
     #datos-ejemplar-1{
         position        : absolute;
-        top             : 90px;
+        /* top             : 90px; */
+        top             : 120px;
         left            : 235px;
         width           : 700px;
     }
@@ -230,13 +231,12 @@
         /* font-weight: bold; */
         width      : 550px;
         padding    : 0%;
-        /* background-color:rgb(9, 255, 0); */
     }
     #arbol-genealogio{
         position: absolute;
         top     : 230px;
         /* left    : 160px; */
-        left    : 240px;
+        left    : 245px;
         color   : #000000;
           /* color: #0414ff; */
         /* font-weight: bold; */
