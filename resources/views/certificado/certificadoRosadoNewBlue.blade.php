@@ -36,10 +36,10 @@
 
     #datos-ejemplar-2{
         position: absolute;
-        top     : 130px;
+        top     : 110px;
         /* top     : 100px; */
         /* left    : 975px; */
-        left    : 1070px;
+        left    : 1050px;
         color   : #000000;
         width      : 550px;
         padding    : 0%;
@@ -238,7 +238,7 @@
 
     #arbol-genealogio{
         position: absolute;
-        top     : 250px;
+        top     : 245px;
         /* left    : 160px; */
         left    : 250px;
         color   : #000000;
@@ -252,7 +252,7 @@
     }
     .padres{
         position   : absolute;
-        width      : 290px;
+        width      : 280px;
         height     : 230px;
         font-size  : 18px;
         margin-left: 40px;
@@ -265,7 +265,8 @@
     .padre_2{
         /* background-color:yellow; */
 
-        top: 265px;
+        /* top: 265px; */
+        top: 275px;
     }
     .abuelos{
         position : absolute;
@@ -283,10 +284,12 @@
         top: 133px;
     }
     .abuelo_3{
-        top: 270px;
+        /* top: 270px; */
+        top: 280px;
     }
     .abuelo_4{
-        top: 407px;
+        /* top: 407px; */
+        top: 417px;
     }
     .tercera_generaciones{
         position : absolute;
@@ -313,16 +316,20 @@
         top:205px;
     }
     .tg_5{
-        top: 270px;
+        /* top: 270px; */
+        top: 280px;
     }
     .tg_6{
-        top:340px;
+        /* top:340px; */
+        top:350px;
     }
     .tg_7{
-        top:407px;
+        /* top:407px; */
+        top:417px;
     }
     .tg_8{
-        top:479px;
+        /* top:479px; */
+        top:489px;
     }
 
     .cuarta_generaciones{
@@ -360,28 +367,36 @@
         top: 235px;
     }
     .cg_9{
-        top: 270px;
+        /* top: 270px; */
+        top: 280px;
     }
     .cg_10{
-        top: 303px;
+        /* top: 303px; */
+        top: 313px;
     }
     .cg_11{
-        top: 340px;
+        /* top: 340px; */
+        top: 350px;
     }
     .cg_12{
-        top: 372px;
+        /* top: 372px; */
+        top: 382px;
     }
     .cg_13{
-        top: 407px;
+        /* top: 407px; */
+        top: 417px;
     }
     .cg_14{
-        top: 440px;
+        /* top: 440px; */
+        top: 450px;
     }
     .cg_15{
-        top: 475px;
+        /* top: 475px; */
+        top: 485px;
     }
     .cg_16{
-        top: 510px;
+        /* top: 510px; */
+        top: 520px;
     }
     #certificado{
         padding: 15px 20px 0px 160px;
@@ -389,17 +404,13 @@
     }
 
     .lechigada{
-        /* background-color: yellowgreen; */
-        position: absolute;
-          /* width: 200px;
-        height   : 50px; */
+        position : absolute;
         font-size: 13px;
-        top      : 820px;
-          /* bottom: 155px; */
-        left : 465px;
-        color: #000000;
-          /* color: #0414ff; */
-        /* font-weight: bold; */
+        /* top      : 820px; */
+        top      : 830px;
+        /* left     : 465px; */
+        left     : 570px;
+        color    : #000000;
     }
 
     .fecha-emicion{
