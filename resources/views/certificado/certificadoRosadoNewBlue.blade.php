@@ -289,7 +289,7 @@
     }
     .abuelo_4{
         /* top: 407px; */
-        top: 417px;
+        top: 425px;
     }
     .tercera_generaciones{
         position : absolute;
@@ -325,11 +325,11 @@
     }
     .tg_7{
         /* top:407px; */
-        top:417px;
+        top:425px;
     }
     .tg_8{
         /* top:479px; */
-        top:489px;
+        top:497px;
     }
 
     .cuarta_generaciones{
@@ -407,7 +407,7 @@
         position : absolute;
         font-size: 13px;
         /* top      : 820px; */
-        top      : 830px;
+        top      : 855px;
         /* left     : 465px; */
         left     : 570px;
         color    : #000000;
