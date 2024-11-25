@@ -28,9 +28,21 @@
     #datos-ejemplar-1{
         position        : absolute;
         /* top             : 90px; */
-        top             : 120px;
-        left            : 235px;
+        top             : 140px;
+        /* left            : 235px; */
+        left            : 320px;
         width           : 700px;
+    }
+
+    #datos-ejemplar-2{
+        position: absolute;
+        top     : 150px;
+        /* top     : 100px; */
+        /* left    : 975px; */
+        left    : 1070px;
+        color   : #000000;
+        width      : 550px;
+        padding    : 0%;
     }
     #table-datos-1{
         width: 100%;
@@ -221,17 +233,7 @@
         width: 670px;
         height: 25px;
     }
-    #datos-ejemplar-2{
-        position: absolute;
-        top     : 100px;
-        /* left    : 935px; */
-        left    : 975px;
-        color   : #000000;
-          /* color: #0414ff; */
-        /* font-weight: bold; */
-        width      : 550px;
-        padding    : 0%;
-    }
+
     #arbol-genealogio{
         position: absolute;
         top     : 230px;
