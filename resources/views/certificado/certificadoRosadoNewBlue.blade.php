@@ -28,7 +28,7 @@
     #datos-ejemplar-1{
         position        : absolute;
         /* top             : 90px; */
-        top             : 115px;
+        top             : 110px;
         /* left            : 235px; */
         left            : 320px;
         width           : 700px;
@@ -85,7 +85,8 @@
         /* background-color: red; */
         position : absolute;
         top      : -15px;
-        left     : 530px;
+        /* left     : 530px; */
+        left     : 540px;
         font-size: 15px;
         width    : 170px;
         height   : 28px;
@@ -131,7 +132,8 @@
         position : absolute;
         top      : -10px;
         font-size: 11px;
-        left     : 810px;
+        /* left     : 810px; */
+        left     : 790px;
     }
     .header-11{
         width: 670px;
@@ -268,7 +270,8 @@
     .abuelos{
         position : absolute;
         font-size: 12px;
-        left     : 330px;
+        /* left     : 330px; */
+        left     : 325px;
         width    : 250px;
         height   : 123px;
 
@@ -290,7 +293,8 @@
         font-size: 11px;
         height   : 60px;
         width    : 280px;
-        left     : 630px;
+        /* left     : 630px; */
+        left     : 610px;
     }
     .tg_1{
         top:0px;
@@ -319,15 +323,12 @@
     }
 
     .cuarta_generaciones{
-          /* background-color: yellowgreen; */
         position : absolute;
         width    : 400px;
         height   : 30px;
         font-size: 11px;
-          /* padding:0;
-        margin: 0; */
-        left  : 920px;
-          /* word-wrap: break-word; */
+        /* left     : 920px; */
+        left     : 880px;
     }
     .cg_1{
         top: -10px;
@@ -863,26 +864,9 @@
                 </div>
                 <div class="header-5">{{ strtoupper($ejemplar->sexo)}}</div>
                 <div class="header-6">{{ date('d/m/Y',strtotime($ejemplar->fecha_nacimiento)) }}</div>
-                {{-- <div class="header-7">{{ ($ejemplar->consanguinidad!=null)? $ejemplar->consanguinidad :'--------'}}</div> --}}
                 <div class="header-8">{{ $ejemplar->kcb }}</div>
                 <div class="header-9">{{ ($ejemplar->num_tatuaje != null)? $ejemplar->num_tatuaje:'--------'}}</div>
                 <div class="header-10">{{ $ejemplar->chip }}</div>
-                {{-- <div class="header-11">
-                    <span class="hermanos1">
-                        @php
-                            $hermanos = App\Ejemplar::where('camada_id',$ejemplar->camada_id)
-                                                    ->whereNotNull('camada_id')
-                                                    ->get();
-                            $nombres = '';
-                            foreach ($hermanos as $h){
-                                if($h->id != $ejemplar->id){
-                                    $nombres =$nombres.$h->nombre.', ';
-                                }
-                            }
-                        @endphp
-                        {{ substr($nombres, 0, -2)}}
-                    </span>
-                </div> --}}
             </div>
         </div>
 
