@@ -358,10 +358,12 @@
         top: 130px;
     }
     .cg_6{
-        top: 164px;
+        /* top: 164px; */
+        top: 169px;
     }
     .cg_7{
-        top: 200px;
+        /* top: 200px; */
+        top: 205px;
     }
     .cg_8{
         top: 235px;
@@ -372,31 +374,31 @@
     }
     .cg_10{
         /* top: 303px; */
-        top: 313px;
+        top: 318px;
     }
     .cg_11{
         /* top: 340px; */
-        top: 350px;
+        top: 355px;
     }
     .cg_12{
         /* top: 372px; */
-        top: 382px;
+        top: 387px;
     }
     .cg_13{
         /* top: 407px; */
-        top: 417px;
+        top: 422px;
     }
     .cg_14{
         /* top: 440px; */
-        top: 450px;
+        top: 455px;
     }
     .cg_15{
         /* top: 475px; */
-        top: 485px;
+        top: 490px;
     }
     .cg_16{
         /* top: 510px; */
-        top: 520px;
+        top: 525px;
     }
     #certificado{
         padding: 15px 20px 0px 160px;
