@@ -382,19 +382,19 @@
     }
     .cg_12{
         /* top: 372px; */
-        top: 387px;
+        top: 391px;
     }
     .cg_13{
         /* top: 407px; */
-        top: 422px;
+        top: 428px;
     }
     .cg_14{
         /* top: 440px; */
-        top: 455px;
+        top: 462px;
     }
     .cg_15{
         /* top: 475px; */
-        top: 490px;
+        top: 500px;
     }
     .cg_16{
         /* top: 510px; */
