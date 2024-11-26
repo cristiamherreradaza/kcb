@@ -39,7 +39,7 @@
         top     : 110px;
         /* top     : 100px; */
         /* left    : 975px; */
-        left    : 1050px;
+        left    : 1040px;
         color   : #000000;
         width      : 550px;
         padding    : 0%;
@@ -238,7 +238,7 @@
 
     #arbol-genealogio{
         position: absolute;
-        top     : 245px;
+        top     : 240px;
         /* left    : 160px; */
         left    : 250px;
         color   : #000000;
