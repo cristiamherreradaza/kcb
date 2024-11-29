@@ -541,7 +541,19 @@
 								<td>{{ $ee->id }}</td>
 								<td>{{ ($ee->ejemplar)? $ee->ejemplar->kcb: ''}}</td>
 								<td>{{ ($ee->ejemplar)? $ee->ejemplar->nombre_completo : $ee->nombre_completo}}</td>
-								<td>{{ ($ee->ejemplar)? $ee->ejemplar->raza->nombre : $ee->raza->nombre}}</td>
+								<td>
+                                    @if($ee->ejemplar)
+                                        @if ($ee->ejemplar->raza)
+                                            {{ $ee->ejemplar->raza->nombre }}
+                                        @else
+                                            <small class="small-danger">E2</small>
+                                        @endif
+                                    @else
+                                        <small class="small-danger">E!</small>
+                                    @endif
+
+                                    {{-- {{ ($ee->ejemplar)? $ee->ejemplar->raza->nombre : $ee->raza->nombre}} --}}
+                                </td>
 								<td>{{ ($ee->ejemplar)? $ee->ejemplar->sexo : $ee->sexo}}</td>
 								<td>
 									@php
@@ -581,20 +593,17 @@
 								<td>
 									@if ($ee->carnet != null)
 										<h6 class="text-success">Yes!</h6>
-										{{-- <a href="{{ url('imagenesCarnet/'.$ee->carnet) }}" download>
-											<img src="{{ url('imagenesCarnet/'.$ee->carnet) }}" alt="" width="80px">
-										</a> --}}
 									@else
 										<h6 class="text-danger">No tiene carnet</h6>
 									@endif
 								</td>
 								<td>
-									<button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $ee->id }}', '{{ ($ee->ejemplar)? trim(addslashes($ee->ejemplar->nombre_completo)): trim(addslashes($ee->nombre_completo)) }}', '{{ ($ee->ejemplar)? $ee->ejemplar->raza->id : $ee->raza->id }}', '{{ ($ee->ejemplar)? $ee->ejemplar->kcb: '' }}', '{{ ($ee->ejemplar)? $ee->ejemplar->color: $ee->color }}', '{{ ($ee->ejemplar)? $ee->ejemplar->fecha_nacimiento: $ee->fecha_nacimiento }}', '{{ ($ee->ejemplar)? $ee->ejemplar->sexo : $ee->sexo }}', '{{ $ee->codigo_nacionalizado }}', '{{ ($ee->ejemplar)? $ee->ejemplar->num_tatuaje : $ee->tatuaje }}', '{{ ($ee->ejemplar)? $ee->ejemplar->chip : $ee->chip }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->padre)? $ee->ejemplar->padre->kcb : '') : $ee->kcb_padre }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->padre)? addslashes($ee->ejemplar->padre->nombre) : '') : addslashes($ee->nombre_padre) }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->madre)? $ee->ejemplar->madre->kcb : '') : $ee->kcb_madre }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->madre)?  addslashes($ee->ejemplar->madre->nombre) : '') : addslashes($ee->nombre_madre) }}', '{{ $ee->categoria_pista_id }}', '{{ addslashes($ee->criador) }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->propietario)? addslashes($ee->ejemplar->propietario->name) : '' ) : addslashes($ee->propietario) }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->propietario)? $ee->ejemplar->propietario->departamento : '') : $ee->ciudad }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->propietario)? $ee->ejemplar->propietario->celulares : '') : $ee->telefono }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->propietario)? $ee->ejemplar->propietario->email : '') : $ee->email }}', '{{ $ee->estado }}', '{{ $ee->extrangero }}' )">
+									{{-- <button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $ee->id }}', '{{ ($ee->ejemplar)? trim(addslashes($ee->ejemplar->nombre_completo)): trim(addslashes($ee->nombre_completo)) }}', '{{ ($ee->ejemplar)? $ee->ejemplar->raza->id : $ee->raza->id }}', '{{ ($ee->ejemplar)? $ee->ejemplar->kcb: '' }}', '{{ ($ee->ejemplar)? $ee->ejemplar->color: $ee->color }}', '{{ ($ee->ejemplar)? $ee->ejemplar->fecha_nacimiento: $ee->fecha_nacimiento }}', '{{ ($ee->ejemplar)? $ee->ejemplar->sexo : $ee->sexo }}', '{{ $ee->codigo_nacionalizado }}', '{{ ($ee->ejemplar)? $ee->ejemplar->num_tatuaje : $ee->tatuaje }}', '{{ ($ee->ejemplar)? $ee->ejemplar->chip : $ee->chip }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->padre)? $ee->ejemplar->padre->kcb : '') : $ee->kcb_padre }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->padre)? addslashes($ee->ejemplar->padre->nombre) : '') : addslashes($ee->nombre_padre) }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->madre)? $ee->ejemplar->madre->kcb : '') : $ee->kcb_madre }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->madre)?  addslashes($ee->ejemplar->madre->nombre) : '') : addslashes($ee->nombre_madre) }}', '{{ $ee->categoria_pista_id }}', '{{ addslashes($ee->criador) }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->propietario)? addslashes($ee->ejemplar->propietario->name) : '' ) : addslashes($ee->propietario) }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->propietario)? $ee->ejemplar->propietario->departamento : '') : $ee->ciudad }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->propietario)? $ee->ejemplar->propietario->celulares : '') : $ee->telefono }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->propietario)? $ee->ejemplar->propietario->email : '') : $ee->email }}', '{{ $ee->estado }}', '{{ $ee->extrangero }}' )">
                                         <i class="flaticon2-edit"></i>
                                     </button>
 									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $ee->id }}', '{{ ($ee->ejemplar)? trim(addslashes($ee->ejemplar->nombre_completo)) :  trim(addslashes($ee->nombre_completo)) }}')">
 										<i class="flaticon2-cross"></i>
-									</button>
+									</button> --}}
 								</td>
 							</tr>
 						@empty

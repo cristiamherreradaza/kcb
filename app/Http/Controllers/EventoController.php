@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MenssgeConfirmacionInscripcionEvento;
+use Dotenv\Exception\ValidationException;
 
 class EventoController extends Controller
 {
@@ -201,6 +202,34 @@ class EventoController extends Controller
 
     public function inscribirEvento(Request $request){
 
+        // Validar los datos entrantes
+        $validated = $request->validate([
+            'evento_id'          => 'required|integer',
+            'ejemplar_id'        => 'required|integer',
+            'categoria_pista'    => 'required|integer',
+            'raza_id'            => 'required|integer',
+            'nombre'             => 'required|string|max:255|regex:/^[a-zA-Z0-9\s]+$/',
+            'color'              => 'nullable|string|max:255|regex:/^[a-zA-Z0-9\s]+$/',
+            'fecha_nacimiento'   => 'required|date',
+            'chip'               => 'nullable|string|max:255|regex:/^[a-zA-Z0-9\s]+$/',
+            'kcb_padre'          => 'nullable|string|max:255|regex:/^[a-zA-Z0-9\s]+$/',
+            'nom_padre'          => 'nullable|string|max:255|regex:/^[a-zA-Z\s]+$/',
+            'kcb_madre'          => 'nullable|string|max:255|regex:/^[a-zA-Z0-9\s]+$/',
+            'nom_madre'          => 'nullable|string|max:255|regex:/^[a-zA-Z0-9\s]+$/',
+            'propietario'        => 'required|string|max:255|regex:/^[a-zA-Z0-9\s]+$/',
+            'ciudad'             => 'nullable|string|max:255|regex:/^[a-zA-Z0-9\s]+$/',
+            'sexo'               => 'required|in:Macho,Hembra',
+            'tatuaje'            => 'nullable|string|max:255|regex:/^[a-zA-Z0-9\s]+$/',
+            'verdad_extrangero'  => 'required|in:si,no|regex:/^[a-zA-Z\s]+$/',
+            'criador'            => 'nullable|string|max:255|regex:/^[a-zA-Z\s]+$/',
+            'telefono'           => 'nullable|string|regex:/^[0-9\-\s]+$/',
+            'email'              => 'required|email|max:255',
+            'handler'            => 'nullable|string|max:255|regex:/^[a-zA-Z\s]+$/',
+            'registro_extrangero'=> 'nullable|string|max:255',
+            'ejemplar_meses'     => 'required|integer',
+            'carnet'             => 'required|file|mimes:jpg,jpeg,png|max:2048'
+        ]);
+
         $ejemplarEvento = new EjemplarEvento();
 
         $ejemplarEvento->evento_id          = $request->input('evento_id');
@@ -247,10 +276,6 @@ class EventoController extends Controller
         }
 
         $ejemplarEvento->save();
-        // dd($request->input('email'));
-        // $haber = json_encode($request->all());
-        // Mail::to($request->input('email'))->send(new MenssgeConfirmacionInscripcionEvento);
-        // Mail::to('jjjoelcito123@gmail.com')->send(new MenssgeConfirmacionInscripcionEvento($request->input('email')));
         Mail::to($request->input('email'))->send(new MenssgeConfirmacionInscripcionEvento($ejemplarEvento->id));
 
         // $inscripcionEvento = $ejemplarEvento->id;
@@ -259,8 +284,9 @@ class EventoController extends Controller
         }else{
             $ejemplarVista = Ejemplar::find($ejemplarEvento->ejemplar_id);
         }
+
         return view('evento.registroExitoso')->with(compact('ejemplarVista','ejemplarEvento'));;
-        // echo  'se registro';
+
     }
 
     public function listadoInscritos(Request $request, $evento_id){
