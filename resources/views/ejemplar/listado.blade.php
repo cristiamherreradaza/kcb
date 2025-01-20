@@ -19,9 +19,11 @@
 			</div>
 			<div class="card-toolbar">
 				<!--begin::Button-->
+                @if (Auth::user()->adminDatosAgregar())
 				<a href="{{ url('Ejemplar/formulario/0') }}" class="btn btn-primary font-weight-bolder" onclick="nuevo()">
 					<i class="fa fa-plus-square"></i> EJEMPLAR
 				</a>
+                @endif
 				&nbsp;
 				<a href="#" class="btn btn-success btn-icon font-weight-bolder" onclick="muestraBarra();">
 					<i class="fas fa-search"></i> </a>

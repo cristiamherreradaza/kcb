@@ -411,6 +411,13 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label class="exampleInputPassword1 {{$textColor}}">
+                                                Comprobante Pago <b class="text-danger">*</b></label>
+                                            <input type="file" class="form-control" name="comprobante_pago" id="comprobante_pago" required>
+                                        </div>
+                                    </div>
                                     <br>
                                     <div class="row">
                                         <div class="col-md-12">

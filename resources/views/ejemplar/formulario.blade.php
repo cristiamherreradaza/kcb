@@ -1667,19 +1667,27 @@
                                             <td>{{ $e->fecha_examen }}</td>
                                             <td>{{ $e->examen->nombre }}</td>
                                             <td>
-                                                <button type="button" class="btn btn-icon btn-warning" onclick="editaExamen('{{ $e->id }}', '{{ $e->examen_id }}', '{{ $e->fecha_examen }}', '{{ $e->revisor }}', '{{ $e->resultado }}', '{{ $e->observacion }}', '{{ $e->numero_formulario }}', '{{ $e->dcf }}')">
-                                                    <i class="flaticon2-edit"></i>
-                                                </button>
+                                                @if(Auth::user()->adminDatosEditar())
+                                                    <button type="button" class="btn btn-icon btn-warning" onclick="editaExamen('{{ $e->id }}', '{{ $e->examen_id }}', '{{ $e->fecha_examen }}', '{{ $e->revisor }}', '{{ $e->resultado }}', '{{ $e->observacion }}', '{{ $e->numero_formulario }}', '{{ $e->dcf }}')">
+                                                        <i class="flaticon2-edit"></i>
+                                                    </button>
+                                                @endif
+                                                @if(Auth::user()->adminDatosEliminar())
                                                 <button type="button" class="btn btn-icon btn-danger" onclick="eliminaExamen('{{ $e->id }}', '{{ $e->examen->nombre }}')">
                                                     <i class="flaticon2-cross"></i>
                                                 </button>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
                                 </table>
+                                @if (Auth::user()->adminEjemplarRegistroExamen())
                                 <a href="#" class="btn btn-info btn-block" onclick="nuevoExamen()">Nuevo Examen</a>
+                                @endif
                             @else
+                                @if (Auth::user()->adminEjemplarRegistroExamen())
                                 <a href="#" class="btn btn-info btn-block" onclick="nuevoExamen()">Nuevo Examen</a>
+                                @endif
                             @endif
                         </div>
                         <div class="tab-pane fade" id="transferencias-1" role="tabpanel" aria-labelledby="transferencias-tab-1">
@@ -1702,17 +1710,23 @@
                                                 <td>{{ $tra->fecha_transferencia }}</td>
                                                 <td>{{ $tra->propietario->name }}</td>
                                                 <td>
+                                                    @if(Auth::user()->adminDatosEliminar())
                                                     <button type="button" class="btn btn-icon btn-danger" onclick="eliminaTransferencia('{{ $tra->id }}', '{{ $tra->propietario->name }}')">
                                                         <i class="flaticon2-cross"></i>
                                                     </button>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endif
                                     @endforeach
                                 </table>
+                                @if (Auth::user()->adminEjemplarRegistroTramsferencia())
                                 <a href="#" class="btn btn-info btn-block" onclick="nuevaTransferencia()">Nueva Tramsferencia</a>
+                                @endif
                             @else
+                                @if (Auth::user()->adminEjemplarRegistroTramsferencia())
                                 <a href="#" class="btn btn-info btn-block" onclick="nuevaTransferencia()">Nueva Tramsferencia</a>
+                                @endif
                             @endif
                         </div>
                         <div class="tab-pane fade" id="titulos-1" role="tabpanel" aria-labelledby="contact-tab-1">
@@ -1734,16 +1748,22 @@
                                             <td>{{ $te->fecha_obtencion }}</td>
                                             <td>{{ $te->titulo->nombre}}</td>
                                             <td>
+                                                @if(Auth::user()->adminDatosEliminar())
                                                 <button type="button" class="btn btn-icon btn-danger" onclick="eliminaTitulo('{{ $te->id }}', '{{ $te->titulo->nombre }}')">
                                                     <i class="flaticon2-cross"></i>
                                                 </button>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
                                 </table>
+                                @if (Auth::user()->adminEjemplarRegistroTitulo())
                                 <a href="#" class="btn btn-info btn-block" onclick="nuevoTitulo()">Nuevo Titulo</a>
+                                @endif
                             @else
+                                @if (Auth::user()->adminEjemplarRegistroTitulo())
                                 <a href="#" class="btn btn-info btn-block" onclick="nuevoTitulo()">Nuevo Titulo</a>
+                                @endif
                             @endif
                         </div>
                     </div>
@@ -1753,7 +1773,9 @@
             @endif
 
                 <div class="row">
-                    <div class="col-md-6"><button type="button" class="btn btn-success btn-block" onclick="guardar()">GUARDAR</button></div>
+                    @if(Auth::user()->adminDatosAgregar())
+                        <div class="col-md-6"><button type="button" class="btn btn-success btn-block" onclick="guardar()">GUARDAR</button></div>
+                    @endif
                     <div class="col-md-6"><button type="button" class="btn btn-dark btn-block" onclick="volver()" >VOLVER</button></div>
                 </div>
             @if($ejemplar != null)

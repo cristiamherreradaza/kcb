@@ -275,8 +275,21 @@ class EventoController extends Controller
 
         }
 
+        // PARA EL COMPROBANTEB DE PAGOS
+        if($request->file('comprobante_pago')){
+
+            $archivo                            = $request->file('comprobante_pago');
+            $direccion                          = 'comprobantesPago/';
+            $nombreArchivo                      = date('YmdHis').".".$archivo->getClientOriginalExtension();
+
+            $archivo->move($direccion,$nombreArchivo);
+
+            $ejemplarEvento->comprobante_pago             = $nombreArchivo;
+
+        }
+
         $ejemplarEvento->save();
-        Mail::to($request->input('email'))->send(new MenssgeConfirmacionInscripcionEvento($ejemplarEvento->id));
+        // Mail::to($request->input('email'))->send(new MenssgeConfirmacionInscripcionEvento($ejemplarEvento->id));
 
         // $inscripcionEvento = $ejemplarEvento->id;
         if($ejemplarEvento->extrangero == 'si'){

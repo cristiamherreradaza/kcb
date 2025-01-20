@@ -34,11 +34,11 @@ class UserController extends Controller
                         ->get();
         $sucursales = Sucursal::all();
         $perfiles = Perfil::all();
-        
+
 
         return view('user.listado')->with(compact('usuarios', 'sucursales', 'perfiles'));
     }
-    
+
     public function formulario(Request $request, $id)
     {
         if ($id != 0) {
@@ -51,7 +51,7 @@ class UserController extends Controller
         $perfiles = Perfil::where('id','<>',4)
                             ->get();
 
-        return view('user.formulario')->with(compact('sucursales', 'perfiles', 'user'));                  
+        return view('user.formulario')->with(compact('sucursales', 'perfiles', 'user'));
     }
 
     public function guarda(Request $request)
@@ -81,7 +81,7 @@ class UserController extends Controller
 
         // esto es para la firma digital de los secretarios
         if($request->file('firma_digital')){
-            
+
             // subiendo el archivo al servidor
             $archivo    = $request->file('firma_digital');
 
@@ -92,25 +92,25 @@ class UserController extends Controller
             $persona->estado    = $nombreArchivo;
 
         }
-        
+
         $persona->save();
 
         if($sw){
             $user_id = $persona->id;
-    
+
             $menus = MenuPerfil::where('perfil_id',$persona->perfil_id)->get();
-    
+
             foreach($menus as $m){
                 $menuUser = new MenuUsers();
-    
+
                 $menuUser->user_id      = $user_id;
                 $menuUser->menu_id      = $m->menu_id;
                 $menuUser->estado       = $m->estado;
-    
+
                 $menuUser->save();
-            }     
+            }
         }
-            
+
         return redirect('User/listado');
     }
 
@@ -139,7 +139,7 @@ class UserController extends Controller
     {
         $datosUsuario = User::findOrFail($id);
         $categorias = Categoria::all();
-        return view('user.edita')->with(compact('datosUsuario', 'categorias'));                   
+        return view('user.edita')->with(compact('datosUsuario', 'categorias'));
     }
 
     public function validaEmail(Request $request)
@@ -181,7 +181,7 @@ class UserController extends Controller
 
         $sucursales = Sucursal::all();
 
-        return view('propietarios.formulario')->with(compact('sucursales', 'user'));                  
+        return view('propietarios.formulario')->with(compact('sucursales', 'user'));
     }
 
     public function guardaPropietario(Request $request)
@@ -205,9 +205,9 @@ class UserController extends Controller
         $persona->genero           = $request->input('genero');
         $persona->celulares        = $request->input('celulares');
         $persona->tipo             = $request->input('socio');
-        
+
         $persona->save();
-            
+
         return redirect('User/listadoPropietario');
     }
 
@@ -241,7 +241,7 @@ class UserController extends Controller
     {
 
         $propietarios = User::orderBy('id', 'desc');
-        
+
         if($request->filled('nombre_buscar')){
             $nombre = $request->input('nombre_buscar');
             $propietarios->where('name', 'like', "%$nombre%");
@@ -305,9 +305,9 @@ class UserController extends Controller
         $persona->tipo             = $request->input('tipo');
         $persona->password         = Hash::make($request->input('cedula'));
 
-        
+
         $persona->save();
-        
+
         $ultimaPersona = User::find($persona->id);
 
         return view('user.ajaxNuevoPropietario')->with(compact('ultimaPersona'));
@@ -390,16 +390,16 @@ class UserController extends Controller
         $perfiles = Perfil::all();
 
         return view('user.listaPermisos')->with(compact('perfiles'));
-        
+
     }
 
     public function ajaxBuscaPermisos(Request $request){
-        
+
         $permisos = MenuPerfil::where('perfil_id',$request->input('perfil_id'))->get();
 
         return view('user.ajaxBuscaPerfil')->with(compact('permisos'));
     }
-    
+
     public function cambiaEstadoMenuPerfil(Request $request){
 
         $menuPerfil = MenuPerfil::find($request->input('menu_id'));
@@ -501,7 +501,7 @@ class UserController extends Controller
             $secretario = new User();
         else
             $secretario = User::find($secretario_id);
-        
+
 
         $secretario->name           = $request->input('nombre');
         $secretario->email          = $request->input('correo');
@@ -515,7 +515,7 @@ class UserController extends Controller
 
         // esto es para la firma digital de los secretarios
         if($request->file('firma')){
-            
+
             // subiendo el archivo al servidor
             $archivo    = $request->file('firma');
 
@@ -532,6 +532,85 @@ class UserController extends Controller
         $secretario->save();
 
         return redirect('User/listadoSecretario');
-            
+
+    }
+
+    public function permisosUsuario(Request $request){
+        if($request->ajax()){
+            $usuario_id = $request->input('usuario');
+            $usuario    = User::find($usuario_id);
+            $permisos   = json_decode($usuario->permisos);
+
+            // dd(
+            //     json_decode( $permisos),
+            //     json_encode($permisos)
+            // );
+
+            $data['estado']  = 'success';
+            $data['mensaje'] = 'Se proceso con exito';
+            $data['data']    = view('user.permisosUsuario')->with(compact('permisos', 'usuario_id'))->render();
+
+        }else{
+            $data['estado']  = 'error';
+            $data['mensaje'] = 'No encotrado';
+            $data['data']    = null;
+        }
+
+        return $data;
+    }
+
+    public function  guardarPermisoUsuario(Request $request){
+        if($request->ajax()){
+
+            $usuario_id = $request->input('usuario_id');
+
+            $eliminar              = $request->has('eliminar')? true : false;
+            $editar                = $request->has('editar')? true : false;
+            $agregar               = $request->has('agregar')? true : false;
+            $registroExamen        = $request->has('registroExamen')? true : false;
+            $registroTramsferencia = $request->has('registroTramsferencia')? true : false;
+            $registroTitulo        = $request->has('registroTitulo')? true : false;
+            $impresionPedigree     = $request->has('impresionPedigree')? true : false;
+
+            $usuario  = User::find($usuario_id);
+            $permisos = json_decode($usuario->permisos);
+
+            if($permisos != null){
+                $permisos->adminDatos->eliminar                 = $eliminar;
+                $permisos->adminDatos->editar                   = $editar;
+                $permisos->adminDatos->agregar                  = $agregar;
+                $permisos->adminEjemplar->registroExamen        = $registroExamen;
+                $permisos->adminEjemplar->registroTramsferencia = $registroTramsferencia;
+                $permisos->adminEjemplar->registroTitulo        = $registroTitulo;
+                $permisos->adminEjemplar->impresionPedigree     = $impresionPedigree;
+            }else{
+                $permisos = [
+                    "adminDatos" => [
+                        "eliminar" => $eliminar,
+                        "editar"   => $editar,
+                        "agregar"  => $agregar,
+                    ],
+                    "adminEjemplar" => [
+                        "registroExamen"        => $registroExamen,
+                        "registroTramsferencia" => $registroTramsferencia,
+                        "registroTitulo"        => $registroTitulo,
+                        "impresionPedigree"     => $impresionPedigree,
+                    ],
+                ];
+            }
+
+            $usuario->permisos = json_encode($permisos);
+            $usuario->save();
+
+            $data['estado']  = 'success';
+            $data['mensaje'] = 'Se proceso con exito';
+            $data['data']    = null;
+
+        }else{
+            $data['estado']  = 'error';
+            $data['mensaje'] = 'No encotrado';
+            $data['data']    = null;
+        }
+        return $data;
     }
 }

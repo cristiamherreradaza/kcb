@@ -11,7 +11,6 @@
 
 @section('content')
 	{{-- inicio modal  --}}
-	<!-- Modal-->
 	<div class="modal fade" id="modalPermiso" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
@@ -28,6 +27,29 @@
 
 						</div>
 					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	{{-- fin inicio modal  --}}
+
+	{{-- inicio modal  --}}
+	<div class="modal fade" id="modalPermisoDatos" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">PERMISOS DE ADMINISTRACION <span class="text-primary"></span></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<i aria-hidden="true" class="ki ki-close"></i>
+					</button>
+				</div>
+				<div class="modal-body">
+                    <div id="permisos_administracion">
+
+                    </div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-light-dark font-weight-bold" data-dismiss="modal">Cerrar</button>
@@ -76,13 +98,16 @@
 								<td>{{ $u->celulares }}</td>
 								<td>{{ $u->ci }}</td>
 								<td>
-									<button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $u->id }}')">
+									<button type="button" class="btn btn-icon btn-info btn-sm" title="Permisos de Usuarios" onclick="permisosUsuario('{{ $u->id }}')">
+										<i class="fa fa-user-check"></i>
+									</button>
+									<button type="button" class="btn btn-icon btn-warning btn-sm" onclick="edita('{{ $u->id }}')">
 										<i class="flaticon2-edit"></i>
 									</button>
-									<button type="button" class="btn btn-icon btn-primary" onclick="permisos('{{ $u->id }}')">
+									<button type="button" class="btn btn-icon btn-primary btn-sm" onclick="permisos('{{ $u->id }}')">
 										<i class="far fa-list-alt"></i>
 									</button>
-									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $u->id }}', '{{ $u->name }}', 0)">
+									<button type="button" class="btn btn-icon btn-danger btn-sm" onclick="elimina('{{ $u->id }}', '{{ $u->name }}', 0)">
 										<i class="flaticon2-cross"></i>
 									</button>
 								</td>
@@ -198,5 +223,52 @@
 				}
 			});
 		}
+
+        function permisosUsuario(usuario){
+            $.ajax({
+				url: "{{ url('User/permisosUsuario') }}",
+				data: {usuario:usuario},
+				type: 'POST',
+				success: function(data) {
+
+                    console.log(data);
+
+					$("#permisos_administracion").html(data.data);
+                    $('#modalPermisoDatos').modal('show');
+
+					// Swal.fire(
+                    //     "Guardado!",
+                    //     "Se gurdo con Exito el Permiso.",
+                    //     "success"
+                    // )
+				}
+			});
+        }
+
+        function guardarPermisoUsuario(){
+            let datos = $('#formularioPermisosUsuarios').serializeArray()
+            $.ajax({
+				url: "{{ url('User/guardarPermisoUsuario') }}",
+				data: datos,
+				type: 'POST',
+				success: function(data) {
+
+                    if(data.estado == 'success'){
+                        Swal.fire(
+                            "Guardado!",
+                            data.mensaje,
+                            "success"
+                        )
+                        $('#modalPermisoDatos').modal('hide');
+                    }else{
+                        Swal.fire(
+                            "Error!",
+                            data.mensaje,
+                            "error"
+                        )
+                    }
+				}
+			});
+        }
     </script>
 @endsection

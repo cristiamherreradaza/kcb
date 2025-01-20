@@ -56,7 +56,8 @@ Route::post('User/ajaxGuardaNuevoPropietario', 'UserController@ajaxGuardaNuevoPr
 Route::post('User/validaCedula', 'UserController@validaCedula');
 Route::get('User/listadoSecretario', 'UserController@listadoSecretario');
 Route::post('User/guardaSecretario', 'UserController@guardaSecretario');
-
+Route::post('User/permisosUsuario', 'UserController@permisosUsuario');
+Route::post('User/guardarPermisoUsuario', 'UserController@guardarPermisoUsuario');
 
 // MENUS
 Route::post('User/ajaxPermisos', 'UserController@ajaxPermisos');

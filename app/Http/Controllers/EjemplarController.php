@@ -175,6 +175,8 @@ class EjemplarController extends Controller
 
     public function ajaxListado(Request $request)
     {
+        $usuario = Auth::user();
+
         $queryEjemplares = Ejemplar::orderBy('id', 'desc');
 
         if ($request->filled('kcb_buscar')) {
@@ -213,7 +215,7 @@ class EjemplarController extends Controller
 
         $ejemplares = $queryEjemplares->get();
 
-        return view('ejemplar.ajaxListado')->with(compact('ejemplares'));
+        return view('ejemplar.ajaxListado')->with(compact('ejemplares', 'usuario'));
     }
 
     public function guarda(Request $request)

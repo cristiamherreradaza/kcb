@@ -213,21 +213,23 @@
         <div class="row">
             <div class="col-md-10">
                 <div class="row">
-                    <div class="col-md-2">
-                        <a href="{{ url('Ejemplar/generaExcelPedigree') }}/{{ $ejemplar->id }}" class="btn btn-success btn-block"><i class="far fa-file-excel"></i> EXCEL PEEDEGRE</a>
-                    </div>
-                    <div class="col-md-2">
-                        <a href="{{ url('Ejemplar/certificadoRosado') }}/{{ $ejemplar->id }}" class="btn btn-danger btn-block"><i class="far fa-file-pdf"></i> PDF PEEDEGRE</a>
-                    </div>
-                    <div class="col-md-2">
-                        <a href="{{ url('Ejemplar/certificadoExportacion') }}/{{ $ejemplar->id }}" class="btn btn-info btn-block"><i class="fas fa-file-export"></i>PEEDEGRE DE EXPORTACION</a>
-                    </div>
-                    <div class="col-md-2">
-                        <a href="{{ url('Ejemplar/certificadoRosadoNew') }}/{{ $ejemplar->id }}" class="btn btn-danger btn-block"><i class="far fa-file-pdf"></i> PDF PEEDEGRE NEW</a>
-                    </div>
-                    <div class="col-md-2">
-                        <a href="{{ url('Ejemplar/certificadoRosadoNewBlue') }}/{{ $ejemplar->id }}" class="btn btn-primary btn-block"><i class="far fa-file-pdf"></i> PDF PEEDEGRE NEW BLUE</a>
-                    </div>
+                    @if(Auth::user()->adminEjemplarImpresionPedigree())
+                        <div class="col-md-2">
+                            <a href="{{ url('Ejemplar/generaExcelPedigree') }}/{{ $ejemplar->id }}" class="btn btn-success btn-block"><i class="far fa-file-excel"></i> EXCEL PEEDEGRE</a>
+                        </div>
+                        <div class="col-md-2">
+                            <a href="{{ url('Ejemplar/certificadoRosado') }}/{{ $ejemplar->id }}" class="btn btn-danger btn-block"><i class="far fa-file-pdf"></i> PDF PEEDEGRE</a>
+                        </div>
+                        <div class="col-md-2">
+                            <a href="{{ url('Ejemplar/certificadoExportacion') }}/{{ $ejemplar->id }}" class="btn btn-info btn-block"><i class="fas fa-file-export"></i>PEEDEGRE DE EXPORTACION</a>
+                        </div>
+                        <div class="col-md-2">
+                            <a href="{{ url('Ejemplar/certificadoRosadoNew') }}/{{ $ejemplar->id }}" class="btn btn-danger btn-block"><i class="far fa-file-pdf"></i> PDF PEEDEGRE NEW</a>
+                        </div>
+                        <div class="col-md-2">
+                            <a href="{{ url('Ejemplar/certificadoRosadoNewBlue') }}/{{ $ejemplar->id }}" class="btn btn-primary btn-block"><i class="far fa-file-pdf"></i> PDF PEEDEGRE NEW BLUE</a>
+                        </div>
+                    @endif
                 </div>
             </div>
             <div class="col-md-2"><button type="button" class="btn btn-dark btn-block">VOLVER</button></div>

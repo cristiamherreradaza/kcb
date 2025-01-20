@@ -22,8 +22,8 @@ class User extends Authenticatable
         'perfil_id',
         'sucursale_id',
         'user_id',
-        'name', 
-        'email', 
+        'name',
+        'email',
         'password',
         'fecha_nacimiento',
         'estado',
@@ -31,7 +31,7 @@ class User extends Authenticatable
         'celulares',
         'genero',
         'tipo',
-        'ci', 
+        'ci',
         'departamento',
         'deleted_at',
     ];
@@ -62,4 +62,68 @@ class User extends Authenticatable
     public function perfil(){
         return $this->belongsTo('App\Perfil', 'perfil_id');
     }
+
+    public function adminDatosEliminar(){
+        $permisos = json_decode($this->permisos);
+        if($permisos){
+            return $permisos->adminDatos->eliminar;
+        }else{
+            return false;
+        }
+    }
+
+    public function adminDatosEditar(){
+        $permisos = json_decode($this->permisos);
+        if($permisos){
+            return $permisos->adminDatos->editar;
+        }else{
+            return false;
+        }
+    }
+
+    public function adminDatosAgregar(){
+        $permisos = json_decode($this->permisos);
+        if($permisos){
+            return $permisos->adminDatos->agregar;
+        }else{
+            return false;
+        }
+    }
+
+    public function adminEjemplarRegistroExamen(){
+        $permisos = json_decode($this->permisos);
+        if($permisos){
+            return $permisos->adminEjemplar->registroExamen;
+        }else{
+            return false;
+        }
+    }
+
+    public function adminEjemplarRegistroTramsferencia(){
+        $permisos = json_decode($this->permisos);
+        if($permisos){
+            return $permisos->adminEjemplar->registroTramsferencia;
+        }else{
+            return false;
+        }
+    }
+
+    public function adminEjemplarRegistroTitulo(){
+        $permisos = json_decode($this->permisos);
+        if($permisos){
+            return $permisos->adminEjemplar->registroTitulo;
+        }else{
+            return false;
+        }
+    }
+
+    public function adminEjemplarImpresionPedigree(){
+        $permisos = json_decode($this->permisos);
+        if($permisos){
+            return $permisos->adminEjemplar->impresionPedigree;
+        }else{
+            return false;
+        }
+    }
+
 }
