@@ -47,9 +47,11 @@
                 <button type="button" class="btn btn-icon btn-info" onclick="informacion('{{ $e->id }}')">
                     <i class="far fa-file-alt"></i>
                 </button>
+                @if(Auth::user()->adminEjemplarBitacora())
                 <button type="button" class="btn btn-icon btn-primary" onclick="logs('{{ $e->id }}')">
                     <i class="far fa-keyboard"></i>
                 </button>
+                @endif
                 @php
                     $padre = App\Camada::where('padre_id',$e->id)->count();
                     $madre = App\Camada::where('madre_id',$e->id)->count();

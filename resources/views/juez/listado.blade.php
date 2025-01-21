@@ -114,11 +114,13 @@
 				</h3>
 			</div>
 			<div class="card-toolbar">
+                @if (Auth::user()->adminDatosAgregar())
 				<!--begin::Button-->
 				<a href="#" class="btn btn-primary font-weight-bolder" onclick="nuevo()">
 					<i class="fa fa-plus-square"></i> NUEVO JUEZ
 				</a>
 				<!--end::Button-->
+                @endif
 			</div>
 		</div>
 
@@ -151,12 +153,16 @@
 									</div>
 								</td>
 								<td>
+                                    @if (Auth::user()->adminDatosEditar())
 									<button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $juez->id }}', '{{ $juez->nombre }}', '{{ $juez->email }}', '{{ $juez->foto }}', '{{ $juez->departamento }}', '{{ $juez->categoria_juez_id}}')">
 										<i class="flaticon2-edit"></i>
 									</button>
+                                    @endif
+                                    @if (Auth::user()->adminDatosEliminar())
 									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $juez->id }}', '{{ $juez->nombre }}')">
 										<i class="flaticon2-cross"></i>
 									</button>
+                                    @endif
 								</td>
 							</tr>
 						@empty

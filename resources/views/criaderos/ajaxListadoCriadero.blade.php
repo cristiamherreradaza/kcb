@@ -22,23 +22,20 @@
             <td>{{ $cri->criadero->email }}</td>
             <td>{{ $cri->criadero->celulares }}</td>
             <td>{{ $cri->criadero->departamento }}</td>
-            {{-- <td>
-                @php
-                    $cantidad = App\PropietarioCriadero::where('propietario_id', $cri->id)
-                                                        ->count();
-
-                    echo $cantidad;
-                @endphp
-            </td> --}}
             <td>
+
+                @if(Auth::user()->adminDatosEditar())
                 <button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $cri->idProCria }}')">
                     <i class="flaticon2-edit"></i>
                 </button>
-                
+                @endif
+
+                @if(Auth::user()->adminDatosEliminar())
                 <button type="button" class="btn btn-icon btn-danger"
                     onclick="elimina('{{ $cri->idProCria }}', '{{ $cri->nombre }}')">
                     <i class="flaticon2-cross"></i>
                 </button>
+                @endif
             </td>
         </tr>
         @endif

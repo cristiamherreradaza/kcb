@@ -60,11 +60,13 @@
 				</h3>
 			</div>
 			<div class="card-toolbar">
+                @if(Auth::user()->adminDatosAgregar())
 				<!--begin::Button-->
 				<a href="#" class="btn btn-primary font-weight-bolder" onclick="nuevo()">
 					<i class="fa fa-plus-square"></i> NUEVA PISTA
 				</a>
 				<!--end::Button-->
+                @endif
 			</div>
 		</div>
 
@@ -87,12 +89,16 @@
 								<td>{{ $pi->nombre }}</td>
 								<td>{{ $pi->descripcion }}</td>
 								<td>
+                                    @if(Auth::user()->adminDatosEditar())
 									<button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $pi->id }}', '{{ $pi->nombre }}', '{{ $pi->descripcion }}')">
 										<i class="flaticon2-edit"></i>
 									</button>
+                                    @endif
+                                    @if(Auth::user()->adminDatosEliminar())
 									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $pi->id }}', '{{ $pi->nombre }}')">
 										<i class="flaticon2-cross"></i>
 									</button>
+                                    @endif
 								</td>
 							</tr>
 						@empty

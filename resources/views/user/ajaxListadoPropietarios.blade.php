@@ -45,16 +45,20 @@
                 @endphp
             </td>
             <td>
+                @if(Auth::user()->adminDatosEditar())
                 <button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $p->id }}')">
                     <i class="flaticon2-edit"></i>
                 </button>
+                @endif
                 <button type="button" class="btn btn-icon btn-success" onclick="listaCriadero('{{ $p->id }}')">
                     <i class="fas fa-dog"></i>
                 </button>
+                @if(Auth::user()->adminDatosEliminar())
                 <button type="button" class="btn btn-icon btn-danger"
                     onclick="elimina('{{ $p->id }}', '{{ $p->name }}')">
                     <i class="flaticon2-cross"></i>
                 </button>
+                @endif
             </td>
         </tr>
         @empty

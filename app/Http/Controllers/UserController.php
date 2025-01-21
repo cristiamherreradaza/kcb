@@ -571,6 +571,7 @@ class UserController extends Controller
             $registroTramsferencia = $request->has('registroTramsferencia')? true : false;
             $registroTitulo        = $request->has('registroTitulo')? true : false;
             $impresionPedigree     = $request->has('impresionPedigree')? true : false;
+            $bitacora              = $request->has('bitacora')? true : false;
 
             $usuario  = User::find($usuario_id);
             $permisos = json_decode($usuario->permisos);
@@ -583,6 +584,7 @@ class UserController extends Controller
                 $permisos->adminEjemplar->registroTramsferencia = $registroTramsferencia;
                 $permisos->adminEjemplar->registroTitulo        = $registroTitulo;
                 $permisos->adminEjemplar->impresionPedigree     = $impresionPedigree;
+                $permisos->adminEjemplar->bitacora              = $bitacora;
             }else{
                 $permisos = [
                     "adminDatos" => [
@@ -595,6 +597,7 @@ class UserController extends Controller
                         "registroTramsferencia" => $registroTramsferencia,
                         "registroTitulo"        => $registroTitulo,
                         "impresionPedigree"     => $impresionPedigree,
+                        "bitacora"              => $bitacora
                     ],
                 ];
             }

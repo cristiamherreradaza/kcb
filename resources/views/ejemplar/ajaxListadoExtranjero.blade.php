@@ -32,9 +32,11 @@
             </td>
             <td>{{ $e->departamento }}</td>
             <td style="width: 10%">
+                @if (Auth::user()->adminDatosEditar())
                 <button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $e->id }}')">
                     <i class="flaticon2-edit"></i>
                 </button>
+                @endif
                 @if ($e->camada_id != null)
                     <button type="button" class="btn btn-icon btn-dark" onclick="camada('{{ $e->camada_id }}')">
                         <i class="fab fa-buromobelexperte"></i>
@@ -58,16 +60,12 @@
                                 <i class="fas fa-bezier-curve"></i>
                             </button>';
                     }
-                    // elseif($madre>0){
-                    //     echo '<button type="button" class="btn btn-icon btn-success" onclick="">
-                    //             <i class="fas fa-bezier-curve"></i>
-                    //         </button>';
-                    // }
                 @endphp
-
+                @if (Auth::user()->adminDatosEliminar())
                 <button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $e->id }}', '{{ $e->nombre }}')">
                     <i class="flaticon2-cross"></i>
                 </button>
+                @endif
             </td>
         </tr>
         @empty

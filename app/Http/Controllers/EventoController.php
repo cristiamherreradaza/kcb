@@ -23,6 +23,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MenssgeConfirmacionInscripcionEvento;
 use Dotenv\Exception\ValidationException;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class EventoController extends Controller
 {
@@ -2524,6 +2527,246 @@ class EventoController extends Controller
 
 
         }
+
+    }
+
+    public function exportarExcelInscritos(Request $request, $evento_id){
+
+        $inscritos = EjemplarEvento::where('evento_id', $evento_id)->get();
+
+        $fileName    = 'inscritosEvento.xlsx';
+        $spreadsheet = new Spreadsheet();
+        $sheet       = $spreadsheet->getActiveSheet();
+        // ESTILOS DE LA HOJA
+
+        /*************** ENCABEZADO ***********************/
+        // $cabezera = array(
+        //     'font'  => array(
+        //         'bold'  => true,
+        //         'color' => array('rgb' => '305496'),
+        //         'size'  => 16,
+        //         // 'name'  => 'Verdana'
+        //     )
+        // );
+
+
+        // $sheet->getStyle('C3')->applyFromArray($cabezera);
+        // $sheet->getStyle('L3')->applyFromArray($cabezera);
+        // $sheet->getStyle('C5')->applyFromArray($cabezera);
+        // $sheet->getStyle('L4')->applyFromArray($cabezera);
+
+        /*************** DATOS DEL EJEMPLAR ***********************/
+        // $datosEjemplar = array(
+        //     'font'  => array(
+        //         'bold'  => true,
+        //         'color' => array('rgb' => '305496'),
+        //         'size'  => 11,
+        //         // 'name'  => 'Verdana'
+        //     )
+        // );
+
+        // $sheet->getStyle('C6')->applyFromArray($datosEjemplar);
+        // $sheet->getStyle('C7')->applyFromArray($datosEjemplar);
+        // $sheet->getStyle('C8')->applyFromArray($datosEjemplar);
+        // $sheet->getStyle('E6')->applyFromArray($datosEjemplar);
+        // $sheet->getStyle('E7')->applyFromArray($datosEjemplar);
+        // $sheet->getStyle('H5')->applyFromArray($datosEjemplar);
+        // $sheet->getStyle('H6')->applyFromArray($datosEjemplar);
+        // $sheet->getStyle('H7')->applyFromArray($datosEjemplar);
+        // $sheet->getStyle('L6')->applyFromArray($datosEjemplar);
+
+        // $sheet->getStyle('L5')->applyFromArray(
+        //     array(
+        //         'font'  => array(
+        //             'bold'  => true,
+        //             'color' => array('rgb' => '305496'),
+        //             'size'  => 10,
+        //             // 'name'  => 'Verdana'
+        //         )
+        //     )
+        // );
+
+
+        /*************** ARBOL GENEALOGICO "PADRES" ***********************/
+
+        // $estilosPadre = array(
+        //     'font'  => array(
+        //         'bold'  => true,
+        //         'color' => array('rgb' => '305496'),
+        //         'size'  => 11,
+        //         // 'name'  => 'Verdana'
+        //     )
+        // );
+
+        // $sheet->getStyle('B11')->applyFromArray($estilosPadre);
+        // $sheet->getStyle('B19')->applyFromArray($estilosPadre);
+
+        /*************** ARBOL GENEALOGICO "ABUELOS" ***********************/
+
+        // $estilosAbuelos = array(
+        //     'font'  => array(
+        //         'bold'  => true,
+        //         'color' => array('rgb' => '305496'),
+        //         'size'  => 10,
+        //         // 'name'  => 'Verdana'
+        //     )
+        // );
+
+        // $sheet->getStyle('F11')->applyFromArray($estilosAbuelos);
+        // $sheet->getStyle('F15')->applyFromArray($estilosAbuelos);
+        // $sheet->getStyle('F19')->applyFromArray($estilosAbuelos);
+        // $sheet->getStyle('F23')->applyFromArray($estilosAbuelos);
+
+        /*************** ARBOL GENEALOGICO "TERCERA GENERACION" ***********************/
+
+        // $estilosTerceraGeneracion = array(
+        //     'font'  => array(
+        //         'bold'  => true,
+        //         'color' => array('rgb' => '305496'),
+        //         'size'  => 9,
+        //         // 'name'  => 'Verdana'
+        //     )
+        // );
+
+        // $sheet->getStyle('I11')->applyFromArray($estilosTerceraGeneracion);
+        // $sheet->getStyle('I13')->applyFromArray($estilosTerceraGeneracion);
+        // $sheet->getStyle('I15')->applyFromArray($estilosTerceraGeneracion);
+        // $sheet->getStyle('I17')->applyFromArray($estilosTerceraGeneracion);
+        // $sheet->getStyle('I19')->applyFromArray($estilosTerceraGeneracion);
+        // $sheet->getStyle('I21')->applyFromArray($estilosTerceraGeneracion);
+        // $sheet->getStyle('I23')->applyFromArray($estilosTerceraGeneracion);
+        // $sheet->getStyle('I25')->applyFromArray($estilosTerceraGeneracion);
+
+        /*************** ARBOL GENEALOGICO "ABUELOS" ***********************/
+
+        // $estilosCuartaGeneracion = array(
+        //     'font'  => array(
+        //         'bold'  => true,
+        //         'color' => array('rgb' => '305496'),
+        //         'size'  => 8,
+        //         // 'name'  => 'Verdana'
+        //     )
+        // );
+
+        // $sheet->getStyle('L11')->applyFromArray($estilosCuartaGeneracion);
+        // $sheet->getStyle('L12')->applyFromArray($estilosCuartaGeneracion);
+        // $sheet->getStyle('L13')->applyFromArray($estilosCuartaGeneracion);
+        // $sheet->getStyle('L14')->applyFromArray($estilosCuartaGeneracion);
+        // $sheet->getStyle('L15')->applyFromArray($estilosCuartaGeneracion);
+        // $sheet->getStyle('L16')->applyFromArray($estilosCuartaGeneracion);
+        // $sheet->getStyle('L17')->applyFromArray($estilosCuartaGeneracion);
+        // $sheet->getStyle('L18')->applyFromArray($estilosCuartaGeneracion);
+        // $sheet->getStyle('L19')->applyFromArray($estilosCuartaGeneracion);
+        // $sheet->getStyle('L20')->applyFromArray($estilosCuartaGeneracion);
+        // $sheet->getStyle('L21')->applyFromArray($estilosCuartaGeneracion);
+        // $sheet->getStyle('L22')->applyFromArray($estilosCuartaGeneracion);
+        // $sheet->getStyle('L23')->applyFromArray($estilosCuartaGeneracion);
+        // $sheet->getStyle('L24')->applyFromArray($estilosCuartaGeneracion);
+        // $sheet->getStyle('L25')->applyFromArray($estilosCuartaGeneracion);
+        // $sheet->getStyle('L26')->applyFromArray($estilosCuartaGeneracion);
+
+
+        /*************** FOOTER ***********************/
+
+        // $estilosFooter = array(
+        //     'font'  => array(
+        //         'bold'  => true,
+        //         'color' => array('rgb' => '305496'),
+        //         'size'  => 11,
+        //         // 'name'  => 'Verdana'
+        //     )
+        // );
+
+        // $sheet->getStyle('E29')->applyFromArray($estilosFooter);
+        // $sheet->getStyle('E31')->applyFromArray($estilosFooter);
+
+        // *************   ORIENTACION DE LA HOJA  *****************
+
+        $sheet->getPageSetup()->setOrientation("landscape");
+
+        // END ESTILOS DE LA HOJA
+
+        // *************   cabecera *****************
+        $sheet->setCellValue('B2', "LISTA DE INSCRITOS");
+        // $sheet->setSize(10);
+        $sheet->setCellValue('A3', "ID");
+        $sheet->setCellValue('B3', "KCB");
+        $sheet->setCellValue('C3', "NOMBRE");
+        $sheet->setCellValue('D3', "RAZA");
+        $sheet->setCellValue('E3', "SEXO");
+        $sheet->setCellValue('F3', "GRUPO");
+        $sheet->setCellValue('G3', "CATEGORIA");
+        $sheet->setCellValue('H3', "PROPIETARIO");
+        $sheet->setCellValue('I3', "NUMERO");
+        $sheet->setCellValue('J3', "CHIP");
+        $sheet->setCellValue('K3', "CARNET");
+        $sheet->setCellValue('L3', "COMPROBANTE");
+
+        // COMBINAMOS CELDAS DE LOS RANGOS
+        $sheet->mergeCells('B2:F2');
+
+
+        $contadorInicializador = 4;
+        foreach ($inscritos as $key => $ee) {
+            $sheet->setCellValue("A$contadorInicializador", $ee->id);
+            $sheet->setCellValue("B$contadorInicializador", ($ee->ejemplar)? $ee->ejemplar->kcb: '');
+            $sheet->setCellValue("C$contadorInicializador", ($ee->ejemplar)? $ee->ejemplar->nombre_completo : $ee->nombre_completo);
+            $textRaza = '';
+            if($ee->ejemplar){
+                if($ee->ejemplar->raza){
+                    $textRaza = $ee->ejemplar->raza->nombre;
+                }
+            }
+            $sheet->setCellValue("D$contadorInicializador", $textRaza);
+            $sheet->setCellValue("E$contadorInicializador", ($ee->ejemplar)? $ee->ejemplar->sexo : $ee->sexo);
+            $grupo = EjemplarEvento::getGrupo($ee->raza_id);
+            $sheet->setCellValue("F$contadorInicializador", ($grupo)? "Grupo ".$grupo->grupo_id : '' );
+            $sheet->setCellValue("G$contadorInicializador", ($ee->categoriaPista)? $ee->categoriaPista->nombre : '' );
+            $textPropietario = '';
+            if($ee->ejemplar){
+                if($ee->ejemplar->propietario != null){
+                    $textPropietario = $ee->ejemplar->propietario->name;
+                }
+            }else{
+                $textPropietario = $ee->propietario;
+            }
+            $sheet->setCellValue("H$contadorInicializador", $textPropietario);
+            $sheet->setCellValue("I$contadorInicializador", $ee->numero_prefijo);
+            $sheet->setCellValue("J$contadorInicializador", $ee->chip);
+
+            // Insertar imagen en columna K (Carnet)
+            if (!empty($ee->carnet)) {
+                $carnetPath = public_path("imagenesCarnet/$ee->carnet");
+                if (file_exists($carnetPath)) {
+                    $drawingCarnet = new Drawing();
+                    $drawingCarnet->setPath($carnetPath); // Ruta de la imagen
+                    $drawingCarnet->setCoordinates("K$contadorInicializador"); // Celda donde se coloca la imagen
+                    $drawingCarnet->setHeight(50); // Altura de la imagen
+                    $drawingCarnet->setWorksheet($sheet);
+                    $sheet->getRowDimension($contadorInicializador)->setRowHeight(70);
+                }
+            }
+
+            if (!empty($ee->comprobante_pago)) {
+                $comprobantePath = public_path("comprobantesPago/$ee->comprobante_pago");
+                if (file_exists($comprobantePath)) {
+                    $drawingComprobante = new Drawing();
+                    $drawingComprobante->setPath($comprobantePath);
+                    $drawingComprobante->setCoordinates("L$contadorInicializador"); // Celda donde se coloca la imagen
+                    $drawingComprobante->setHeight(50); // Altura de la imagen
+                    $drawingComprobante->setWorksheet($sheet);
+                    $sheet->getRowDimension($contadorInicializador)->setRowHeight(70);
+                }
+            }
+
+            $contadorInicializador++;
+        }
+
+        // exportamos el excel
+        $writer = new Xlsx($spreadsheet);
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="'. urlencode($fileName).'"');
+        $writer->save('php://output');
 
     }
 

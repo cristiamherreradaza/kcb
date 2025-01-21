@@ -98,11 +98,13 @@
 				</h3>
 			</div>
 			<div class="card-toolbar">
+                @if(Auth::user()->adminDatosAgregar())
 				<!--begin::Button-->
 				<a href="#" class="btn btn-primary font-weight-bolder" onclick="nuevo()">
 					<i class="fa fa-plus-square"></i> NUEVO SUCURSAL
 				</a>
 				<!--end::Button-->
+                @endif
 			</div>
 		</div>
 
@@ -131,12 +133,18 @@
 								<td>{{ $su->departamento }}</td>
 								<td>{{ $su->cuenta }}</td>
 								<td>
-									<button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $su->id }}', '{{ $su->nombre }}', '{{ $su->direccion }}', '{{ $su->celulares }}', '{{ $su->departamento }}', '{{ $su->cuenta }}')">
-										<i class="flaticon2-edit"></i>
-									</button>
-									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $su->id }}', '{{ $su->nombre }}')">
-										<i class="flaticon2-cross"></i>
-									</button>
+
+                                    @if(Auth::user()->adminDatosEditar())
+                                    <button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $su->id }}', '{{ $su->nombre }}', '{{ $su->direccion }}', '{{ $su->celulares }}', '{{ $su->departamento }}', '{{ $su->cuenta }}')">
+                                        <i class="flaticon2-edit"></i>
+                                    </button>
+                                    @endif
+
+                                    @if(Auth::user()->adminDatosEliminar())
+                                    <button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $su->id }}', '{{ $su->nombre }}')">
+                                        <i class="flaticon2-cross"></i>
+                                    </button>
+                                    @endif
 								</td>
 							</tr>
 						@empty

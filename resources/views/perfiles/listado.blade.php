@@ -90,11 +90,13 @@
 				</h3>
 			</div>
 			<div class="card-toolbar">
-				<!--begin::Button-->
-				<a href="#" class="btn btn-primary font-weight-bolder" onclick="nuevo()">
-					<i class="fa fa-plus-square"></i> NUEVO PERFIL
-				</a>
-				<!--end::Button-->
+                @if(Auth::user()->adminDatosAgregar())
+                <!--begin::Button-->
+                <a href="#" class="btn btn-primary font-weight-bolder" onclick="nuevo()">
+                    <i class="fa fa-plus-square"></i> NUEVO PERFIL
+                </a>
+                <!--end::Button-->
+                @endif
 			</div>
 		</div>
 
@@ -117,15 +119,21 @@
 								<td>{{ $per->nombre }}</td>
 								<td>{{ $per->descripcion }}</td>
 								<td>
-									<button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $per->id }}', '{{ $per->nombre }}', '{{ $per->descripcion }}')">
-										<i class="flaticon2-edit"></i>
-									</button>
+                                    @if(Auth::user()->adminDatosEditar())
+                                    <button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $per->id }}', '{{ $per->nombre }}', '{{ $per->descripcion }}')">
+                                        <i class="flaticon2-edit"></i>
+                                    </button>
+                                    @endif
+
 									<button type="button" class="btn btn-icon btn-primary" onclick="permisos('{{ $per->id }}')">
 										<i class="far fa-list-alt"></i>
 									</button>
-									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $per->id }}', '{{ $per->nombre }}')">
-										<i class="flaticon2-cross"></i>
-									</button>
+
+                                    @if(Auth::user()->adminDatosEliminar())
+                                    <button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $per->id }}', '{{ $per->nombre }}')">
+                                        <i class="flaticon2-cross"></i>
+                                    </button>
+                                    @endif
 								</td>
 							</tr>
 						@empty

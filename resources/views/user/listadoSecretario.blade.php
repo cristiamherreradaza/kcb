@@ -104,11 +104,13 @@
 				</h3>
 			</div>
 			<div class="card-toolbar">
+                @if (Auth::user()->adminDatosAgregar())
 				<!--begin::Button-->
 				<a href="#" class="btn btn-primary font-weight-bolder" onclick="nuevo()">
 					<i class="fa fa-plus-square"></i> NUEVO SECRETARIO
 				</a>
 				<!--end::Button-->
+                @endif
 			</div>
 		</div>
 
@@ -136,15 +138,19 @@
 								<td>{{ $u->celulares }}</td>
 								<td>{{ $u->ci }}</td>
 								<td width="70px">
-									<img src="{{ url('imagenesFirmaJuezSecre',[$u->estado]) }}" alt="Firma" width="100%">	
+									<img src="{{ url('imagenesFirmaJuezSecre',[$u->estado]) }}" alt="Firma" width="100%">
 								</td>
 								<td>
+                                    @if (Auth::user()->adminDatosEditar())
 									<button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $u->id }}', '{{ $u->name }}', '{{ $u->email }}', '{{ $u->celulares }}', '{{ $u->ci }}', '{{ $u->estado }}')">
 										<i class="flaticon2-edit"></i>
 									</button>
+                                    @endif
+                                    @if (Auth::user()->adminDatosEliminar())
 									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $u->id }}', '{{ $u->name }}', 1)">
 										<i class="flaticon2-cross"></i>
 									</button>
+                                    @endif
 								</td>
 							</tr>
 						@empty
@@ -232,7 +238,7 @@
                 }
             });
         }
-		
+
 		function guardar(){
 
             if($('#formularioSecretario')[0].checkValidity()){

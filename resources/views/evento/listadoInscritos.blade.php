@@ -531,9 +531,13 @@
 			<div class="card-toolbar">
 				<!--begin::Button-->
 
+                <a href="{{ url('Evento/exportarExcelInscritos',[$evento->id]) }}" class="btn btn-success font-weight-bolder"><i class="fa fa-file-excel"></i> Exportar Excel</a>
+
+                @if (Auth::user()->adminDatosAgregar())
 				<!--begin::Button-->
 				<button onclick="agregarEjeplarModal()" class="btn btn-info font-weight-bolder"><i class="fa fa-plus-square"></i> Nueva Inscripcion</button>
 				<!--end::Button-->
+                @endif
 
 			</div>
 		</div>
@@ -624,12 +628,16 @@
 								<td>
                                     @if ($ee->ejemplar != null && $ee->raza != null)
                                         <button class="btn btn-info btn-sm btn-icon" title="Comprobante de Pago" onclick="visualizarComprobante('{{ $ee->comprobante_pago }}')"><i class="fa fa-dollar-sign"></i></button>
+                                        @if (Auth::user()->adminDatosEditar())
                                         <button type="button" class="btn btn-sm btn-icon btn-warning" onclick="edita('{{ $ee->id }}', '{{ ($ee->ejemplar)? trim(addslashes($ee->ejemplar->nombre_completo)): trim(addslashes($ee->nombre_completo)) }}', '{{ ($ee->ejemplar)? $ee->ejemplar->raza->id : $ee->raza->id }}', '{{ ($ee->ejemplar)? $ee->ejemplar->kcb: '' }}', '{{ ($ee->ejemplar)? $ee->ejemplar->color: $ee->color }}', '{{ ($ee->ejemplar)? $ee->ejemplar->fecha_nacimiento: $ee->fecha_nacimiento }}', '{{ ($ee->ejemplar)? $ee->ejemplar->sexo : $ee->sexo }}', '{{ $ee->codigo_nacionalizado }}', '{{ ($ee->ejemplar)? $ee->ejemplar->num_tatuaje : $ee->tatuaje }}', '{{ ($ee->ejemplar)? $ee->ejemplar->chip : $ee->chip }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->padre)? $ee->ejemplar->padre->kcb : '') : $ee->kcb_padre }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->padre)? addslashes($ee->ejemplar->padre->nombre) : '') : addslashes($ee->nombre_padre) }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->madre)? $ee->ejemplar->madre->kcb : '') : $ee->kcb_madre }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->madre)?  addslashes($ee->ejemplar->madre->nombre) : '') : addslashes($ee->nombre_madre) }}', '{{ $ee->categoria_pista_id }}', '{{ addslashes($ee->criador) }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->propietario)? addslashes($ee->ejemplar->propietario->name) : '' ) : addslashes($ee->propietario) }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->propietario)? $ee->ejemplar->propietario->departamento : '') : $ee->ciudad }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->propietario)? $ee->ejemplar->propietario->celulares : '') : $ee->telefono }}', '{{ ($ee->ejemplar)? (($ee->ejemplar->propietario)? $ee->ejemplar->propietario->email : '') : $ee->email }}', '{{ $ee->estado }}', '{{ $ee->extrangero }}' )">
                                             <i class="flaticon2-edit"></i>
                                         </button>
+                                        @endif
+                                        @if (Auth::user()->adminDatosEliminar())
                                         <button type="button" class="btn btn-sm btn-icon btn-danger" onclick="elimina('{{ $ee->id }}', '{{ ($ee->ejemplar)? trim(addslashes($ee->ejemplar->nombre_completo)) :  trim(addslashes($ee->nombre_completo)) }}')">
                                             <i class="flaticon2-cross"></i>
                                         </button>
+                                        @endif
                                     @endif
 								</td>
 							</tr>

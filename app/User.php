@@ -125,5 +125,13 @@ class User extends Authenticatable
             return false;
         }
     }
+    public function adminEjemplarBitacora(){
+        $permisos = json_decode($this->permisos);
+        if($permisos){
+            return $permisos->adminEjemplar->bitacora;
+        }else{
+            return false;
+        }
+    }
 
 }

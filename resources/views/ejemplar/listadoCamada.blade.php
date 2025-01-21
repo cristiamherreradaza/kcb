@@ -149,18 +149,23 @@
 			<div class="card-toolbar">
                 <div class="row">
                     <div class="col-md-6">
+                        @if(Auth::user()->adminDatosAgregar())
                         <!--begin::Button-->
                         <a href="#" class="btn btn-primary font-weight-bolder" onclick="nuevoEjemplar()">
                             <i class="fa fa-plus-square"></i> REGISTRO NUEVO EJEMPLAR
                         </a>
                         <!--end::Button-->
+                        @endif
+
                     </div>
                     <div class="col-md-6">
+                        @if(Auth::user()->adminDatosAgregar())
                         <!--begin::Button-->
                         <a href="#" class="btn btn-primary font-weight-bolder" onclick="nuevo()">
                             <i class="fa fa-plus-square"></i> AGREGAR NUEVO EJEMPLAR
                         </a>
                         <!--end::Button-->
+                        @endif
                     </div>
                 </div>
 			</div>
@@ -219,9 +224,12 @@
 								<td>{{ $ec->chip }}</td>
 								<td>{{ $ec->num_tatuaje }}</td>
 								<td>
-									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $ec->id }}', '{{ $ec->nombre }}')">
-										<i class="flaticon2-cross"></i>
-									</button>
+
+                                    @if(Auth::user()->adminDatosEliminar())
+                                    <button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $ec->id }}', '{{ $ec->nombre }}')">
+                                        <i class="flaticon2-cross"></i>
+                                    </button>
+                                    @endif
 								</td>
 							</tr>
 						@empty

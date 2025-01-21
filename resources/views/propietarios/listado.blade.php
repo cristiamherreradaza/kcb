@@ -143,10 +143,13 @@
 				</h3>
 			</div>
 			<div class="card-toolbar">
-				<!--begin::Button-->
-				<a href="#" class="btn btn-primary font-weight-bolder" onclick="nuevo()">
-					<i class="fa fa-plus-square"></i> NUEVO PROPIETARIO
-				</a>
+                @if(Auth::user()->adminDatosAgregar())
+                <!--begin::Button-->
+                <a href="#" class="btn btn-primary font-weight-bolder" onclick="nuevo()">
+                    <i class="fa fa-plus-square"></i> NUEVO PROPIETARIO
+                </a>
+                @endif
+
 				&nbsp;
 				<a href="#" class="btn btn-success btn-icon font-weight-bolder" onclick="muestraBarra();">
 					<i class="fas fa-search"></i> </a>

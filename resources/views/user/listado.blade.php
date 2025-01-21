@@ -67,11 +67,13 @@
 				</h3>
 			</div>
 			<div class="card-toolbar">
-				<!--begin::Button-->
-				<a href="#" class="btn btn-primary font-weight-bolder" onclick="nuevo()">
-					<i class="fa fa-plus-square"></i> NUEVO USUARIO
-				</a>
-				<!--end::Button-->
+                @if(Auth::user()->adminDatosAgregar())
+                <!--begin::Button-->
+                <a href="#" class="btn btn-primary font-weight-bolder" onclick="nuevo()">
+                    <i class="fa fa-plus-square"></i> NUEVO USUARIO
+                </a>
+                <!--end::Button-->
+                @endif
 			</div>
 		</div>
 
@@ -101,15 +103,19 @@
 									<button type="button" class="btn btn-icon btn-info btn-sm" title="Permisos de Usuarios" onclick="permisosUsuario('{{ $u->id }}')">
 										<i class="fa fa-user-check"></i>
 									</button>
-									<button type="button" class="btn btn-icon btn-warning btn-sm" onclick="edita('{{ $u->id }}')">
-										<i class="flaticon2-edit"></i>
-									</button>
+                                    @if(Auth::user()->adminDatosEditar())
+                                    <button type="button" class="btn btn-icon btn-warning btn-sm" onclick="edita('{{ $u->id }}')">
+                                        <i class="flaticon2-edit"></i>
+                                    </button>
+                                    @endif
 									<button type="button" class="btn btn-icon btn-primary btn-sm" onclick="permisos('{{ $u->id }}')">
 										<i class="far fa-list-alt"></i>
 									</button>
+                                    @if(Auth::user()->adminDatosEliminar())
 									<button type="button" class="btn btn-icon btn-danger btn-sm" onclick="elimina('{{ $u->id }}', '{{ $u->name }}', 0)">
 										<i class="flaticon2-cross"></i>
 									</button>
+                                    @endif
 								</td>
 							</tr>
 						@empty

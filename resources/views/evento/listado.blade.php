@@ -73,7 +73,6 @@
 </div>
 {{-- fin inicio modal SEGUIMIENTO DE EJEMPLAR --}}
 
-
 {{-- inicio modal ADD CATEGORIAS  --}}
 <div class="modal fade" id="modalAddCategoria" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -108,7 +107,6 @@
     </div>
 </div>
 {{-- fin inicio modal ADD CATEGORIAS --}}
-
 
 {{-- inicio modal CLONAR  --}}
 <div class="modal fade" id="modalClonarEvento" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
@@ -406,11 +404,13 @@
 				</h3>
 			</div>
 			<div class="card-toolbar">
+                @if(Auth::user()->adminDatosAgregar())
 				<!--begin::Button-->
 				<a href="#" class="btn btn-primary font-weight-bolder" onclick="nuevo()">
 					<i class="fa fa-plus-square"></i> NUEVO EVENTO
 				</a>
 				<!--end::Button-->
+                @endif
 			</div>
 		</div>
 
@@ -463,9 +463,11 @@
 									</div>
 								</td>
 								<td>
+                                    @if (Auth::user()->adminDatosEditar())
 									<button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $even->id }}', '{{ $even->nombre }}', '{{ $even->fecha_inicio }}', '{{ $even->fecha_fin }}', '{{ $even->direccion }}', '{{ $even->departamento }}', '{{ $even->numero_pista }}', '{{ $even->circuito }}', '{{ $even->habilitado }}', '{{ $even->estado }}')">
 										<i class="flaticon2-edit"></i>
 									</button>
+                                    @endif
 									<button type="button" class="btn btn-icon btn-primary" onclick="catalogo('{{ $even->id }}')" title="Catalogo">
 										<i class="fas fa-book-open"></i>
 									</button>
@@ -487,9 +489,11 @@
 									<button type="button" class="btn btn-icon btn-dark" onclick="seguimientoEjemplares('{{ $even->id }}')" title="Seguimietno de Ejemplares">
 										<i class="fas fa-list"></i>
 									</button>
+                                    @if (Auth::user()->adminDatosEliminar())
 									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $even->id }}', '{{ $even->nombre }}')">
 										<i class="flaticon2-cross"></i>
 									</button>
+                                    @endif
 								</td>
 							</tr>
 						@empty

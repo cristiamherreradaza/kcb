@@ -13,6 +13,7 @@
             <br>- <input type="checkbox" id="registroTramsferencia" name="registroTramsferencia" {{ (($permisos != null)? (($permisos->adminEjemplar != null)? (($permisos->adminEjemplar->registroTramsferencia)? "checked":'') : '') : '' ) }} > <label for="registroTramsferencia">Registro de Tramsferencia</label>
             <br>- <input type="checkbox" id="registroTitulo" name="registroTitulo" {{ (($permisos != null)? (($permisos->adminEjemplar != null)? (($permisos->adminEjemplar->registroTitulo)? "checked":'') : '') : '' ) }} > <label for="registroTitulo">Registro de Titulo</label>
             <br>- <input type="checkbox" id="impresionPedigree" name="impresionPedigree" {{ (($permisos != null)? (($permisos->adminEjemplar != null)? (($permisos->adminEjemplar->impresionPedigree)? "checked":'') : '') : '' ) }}> <label for="impresionPedigree">Impresion de Pedeegre</label>
+            <br>- <input type="checkbox" id="bitacora" name="bitacora" {{ (($permisos != null)? (($permisos->adminEjemplar != null)? (($permisos->adminEjemplar->bitacora)? "checked":'') : '') : '' ) }}> <label for="bitacora">Bitacora</label>
         </div>
         {{-- @dd($permisos->adminDatos) --}}
     </div>

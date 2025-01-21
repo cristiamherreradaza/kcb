@@ -124,6 +124,7 @@ Route::post('Evento/listadoEjemplaresCalificados', 'EventoController@listadoEjem
 Route::post('Evento/calificacionesEjemplar', 'EventoController@calificacionesEjemplar');
 Route::post('Evento/modificaCalificacionFinal', 'EventoController@modificaCalificacionFinal');
 Route::post('Evento/editaCalificacion', 'EventoController@editaCalificacion');
+Route::get('Evento/exportarExcelInscritos/{evento_id}', 'EventoController@exportarExcelInscritos');
 
 
 // PISTAS
