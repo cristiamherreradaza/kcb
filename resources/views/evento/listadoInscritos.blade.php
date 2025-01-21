@@ -577,7 +577,7 @@
                                             <small class="small-danger">E2</small>
                                         @endif
                                     @else
-                                        <small class="small-danger">E!</small>
+                                        <small class="small-danger">{{ $ee->raza->nombre }}</small>
                                     @endif
 
                                     {{-- {{ ($ee->ejemplar)? $ee->ejemplar->raza->nombre : $ee->raza->nombre}} --}}
