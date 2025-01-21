@@ -82,7 +82,7 @@
             <div class="row text-center">
                 <div class="col-md-12">
                     <h4>
-                        <b>COIDIGO DE REGISTRO: {{ $ejemplarEvento->id }}</b>
+                        <b>CODIGO DE REGISTRO: {{ $ejemplarEvento->id }}</b>
                     </h4>
                 </div>
             </div>
@@ -98,10 +98,10 @@
         </div>
 		<!--end::Scrolltop-->
 		<!--begin::Sticky Toolbar-->
-		
+
 		<!--end::Sticky Toolbar-->
 		<!--begin::Demo Panel-->
-		
+
 		<!--end::Demo Panel-->
 		<script>var HOST_URL = "https://preview.keenthemes.com/metronic/theme/html/tools/preview";</script>
 		<!--begin::Global Config(global config for global JS scripts)-->
