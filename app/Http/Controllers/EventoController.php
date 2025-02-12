@@ -2716,6 +2716,8 @@ class EventoController extends Controller
                 if($ee->ejemplar->raza){
                     $textRaza = $ee->ejemplar->raza->nombre;
                 }
+            }else{
+                $textRaza = $ee->raza->nombre;
             }
             $sheet->setCellValue("D$contadorInicializador", $textRaza);
             $sheet->setCellValue("E$contadorInicializador", ($ee->ejemplar)? $ee->ejemplar->sexo : $ee->sexo);
