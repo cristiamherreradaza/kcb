@@ -464,33 +464,33 @@
 								</td>
 								<td>
                                     @if (Auth::user()->adminDatosEditar())
-									<button type="button" class="btn btn-icon btn-warning" onclick="edita('{{ $even->id }}', '{{ $even->nombre }}', '{{ $even->fecha_inicio }}', '{{ $even->fecha_fin }}', '{{ $even->direccion }}', '{{ $even->departamento }}', '{{ $even->numero_pista }}', '{{ $even->circuito }}', '{{ $even->habilitado }}', '{{ $even->estado }}')">
+									<button type="button" class="btn btn-icon btn-warning btn-sm" onclick="edita('{{ $even->id }}', '{{ $even->nombre }}', '{{ $even->fecha_inicio }}', '{{ $even->fecha_fin }}', '{{ $even->direccion }}', '{{ $even->departamento }}', '{{ $even->numero_pista }}', '{{ $even->circuito }}', '{{ $even->habilitado }}', '{{ $even->estado }}')">
 										<i class="flaticon2-edit"></i>
 									</button>
                                     @endif
-									<button type="button" class="btn btn-icon btn-primary" onclick="catalogo('{{ $even->id }}')" title="Catalogo">
+									<button type="button" class="btn btn-icon btn-primary btn-sm" onclick="catalogo('{{ $even->id }}')" title="Catalogo">
 										<i class="fas fa-book-open"></i>
 									</button>
-									<button type="button" class="btn btn-icon btn-info" onclick="listaInscritos('{{ $even->id }}')">
+									<button type="button" class="btn btn-icon btn-info btn-sm" onclick="listaInscritos('{{ $even->id }}')">
 										<i class="far fa-list-alt"></i>
 									</button>
-									<button type="button" class="btn btn-icon btn-success" onclick="addJuez('{{ $even->id }}', '{{ $even->nombre }}', '{{ $even->numero_pista }}')">
+									<button type="button" class="btn btn-icon btn-success btn-sm" onclick="addJuez('{{ $even->id }}', '{{ $even->nombre }}', '{{ $even->numero_pista }}')">
 										<i class="fas fa-gavel"></i>
 									</button>
-									<button type="button" class="btn btn-icon btn-dark" onclick="generaNumeracion('{{ $even->id }}', '{{ $even->nombre }}')">
+									<button type="button" class="btn btn-icon btn-dark btn-sm" onclick="generaNumeracion('{{ $even->id }}', '{{ $even->nombre }}')">
 										<i class="fas fa-monument"></i>
 									</button>
-									<a href="{{ url('Juez/exportarExcel', [$even->id]) }}" class="btn btn-icon btn-success">
+									<a href="{{ url('Juez/exportarExcel', [$even->id]) }}" class="btn btn-icon btn-success btn-sm">
 										<i class="fas fa-file-excel"></i>
 									</a>
-									<button type="button" class="btn btn-icon btn-white" onclick="clonarEvento('{{ $even->id }}', '{{ $even->nombre }}')" title="Clonanr evento">
+									<button type="button" class="btn btn-icon btn-white btn-sm" onclick="clonarEvento('{{ $even->id }}', '{{ $even->nombre }}')" title="Clonanr evento">
 										<i class="fas fa-copy"></i>
 									</button>
-									<button type="button" class="btn btn-icon btn-dark" onclick="seguimientoEjemplares('{{ $even->id }}')" title="Seguimietno de Ejemplares">
+									<button type="button" class="btn btn-icon btn-dark btn-sm" onclick="seguimientoEjemplares('{{ $even->id }}')" title="Seguimietno de Ejemplares">
 										<i class="fas fa-list"></i>
 									</button>
                                     @if (Auth::user()->adminDatosEliminar())
-									<button type="button" class="btn btn-icon btn-danger" onclick="elimina('{{ $even->id }}', '{{ $even->nombre }}')">
+									<button type="button" class="btn btn-icon btn-danger btn-sm" onclick="elimina('{{ $even->id }}', '{{ $even->nombre }}')">
 										<i class="flaticon2-cross"></i>
 									</button>
                                     @endif

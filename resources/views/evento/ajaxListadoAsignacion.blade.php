@@ -19,7 +19,7 @@
             <th>PISTA</th>
             <th>GRUPOS</th>
             <th>CATEGORIAS</th>
-            <th></th> 
+            <th></th>
         </tr>
     </thead>
     <tbody>
