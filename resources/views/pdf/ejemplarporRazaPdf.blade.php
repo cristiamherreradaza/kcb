@@ -73,12 +73,13 @@
                                     $raza = App\Raza::find($e->raza_id);
 
                                     echo $raza->nombre;
-                           
+
                                 @endphp
                             </td>
                             <td class="number">
                                 @php
                                     $inicial = App\Ejemplar::where('raza_id', $e->raza_id)
+                                                            ->where('kcb', 'like', "CR%")
                                                             ->whereBetween('created_at',[($anio-1).'-01-01',($anio-1).'-12-31'])
                                                             ->count();
 
@@ -114,6 +115,7 @@
                             <td class="number">
                                 @php
                                     $inicial1 = App\Ejemplar::where('raza_id', $e->raza_id)
+                                                            ->where('kcb', 'like', "CR%")
                                                             ->whereBetween('created_at',[($anio).'-01-01',($anio).'-12-31'])
                                                             ->count();
 
@@ -144,7 +146,7 @@
                                     $contnacionalizado1 = $contnacionalizado1 + $nacionalizado1;
                                 @endphp
                             </td>
-                        </tr>    
+                        </tr>
                     @endforeach
                 </tbody>
                 <tfoot>
@@ -190,7 +192,7 @@
                                     $raza = App\Raza::find($e->raza_id);
 
                                     echo $raza->nombre;
-                           
+
                                 @endphp
                             </td>
                             <td class="number">
@@ -261,7 +263,7 @@
                                     $contnacionalizado1 = $contnacionalizado1 + $nacionalizado1;
                                 @endphp
                             </td>
-                        </tr>    
+                        </tr>
                     @endforeach
                 </tbody>
                 <tfoot class="thead-dark">
