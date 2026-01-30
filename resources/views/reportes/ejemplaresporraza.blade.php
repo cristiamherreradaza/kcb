@@ -5,8 +5,6 @@
 @endsection
 
 @section('content')
-
-
 	<!--begin::Card-->
 	<div class="card card-custom gutter-b">
 		<div class="card-header flex-wrap py-3">
@@ -22,7 +20,7 @@
 				<!--end::Button-->
 			</div>
 		</div>
-		
+
 		<div class="card-body">
 			<!--begin: Datatable-->
 			<div class="table-responsive m-t-40">
@@ -32,6 +30,52 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Seleccione el Año
+                                <span class="text-danger">*</span></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <input type="number" class="form-control" id="anio" name="anio" value="{{ date('Y') }}" required />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-danger btn-block"  onclick="generar()"><i class="far fa-file-pdf"></i>Generar</button>
+                        </div>
+                    </div>
+                </form>
+			</div>
+			<!--end: Datatable-->
+		</div>
+	</div>
+	<!--end::Card-->
+
+    <!--begin::Card-->
+	<div class="card card-custom gutter-b">
+		<div class="card-header flex-wrap py-3">
+			<div class="card-title">
+				<h3 class="card-label">REPORTE REGISTRO DE EJEMPLARES GESTION
+				</h3>
+			</div>
+			<div class="card-toolbar">
+				<!--begin::Button-->
+				{{-- <a href="#" class="btn btn-primary font-weight-bolder" onclick="nuevo()">
+					<i class="fa fa-plus-square"></i> NUEVA RAZA
+				</a> --}}
+				<!--end::Button-->
+			</div>
+		</div>
+
+		<div class="card-body">
+			<!--begin: Datatable-->
+			<div class="table-responsive m-t-40">
+                <form action="{{ url('Reporte/ejemplarporGestionExcel') }}" method="POST" id="formulario-reporte">
+                    @csrf
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Escriba el Año
                                 <span class="text-danger">*</span></label>
                             </div>
                         </div>

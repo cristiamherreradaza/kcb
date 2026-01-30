@@ -211,6 +211,7 @@ Route::get('User/listado', 'UserController@listado');
 // REPORTES
 Route::get('Reporte/ejemplarporraza', 'ReporteController@ejemplarporRaza');
 Route::post('Reporte/ejemplarporrazaPdf', 'ReporteController@ejemplarporRazaPdf');
+Route::post('Reporte/ejemplarporGestionExcel', 'ReporteController@ejemplarporGestionExcel');
 
 
 //JUECES
