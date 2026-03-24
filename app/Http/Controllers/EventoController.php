@@ -47,6 +47,9 @@ class EventoController extends Controller
 
     public function guarda(Request $request)
     {
+
+        // dd($request->all());
+
         // preguntamos si tiene tipo id
         // para editar o crear un registro
         if($request->input('evento_id') == null){
@@ -61,16 +64,32 @@ class EventoController extends Controller
         }else{
             $tipoCircuito = "No";
         }
-        $tipo->user_id      = Auth::user()->id;
-        $tipo->nombre       = $request->input('nombre');
-        $tipo->fecha_inicio = $request->input('fecha_ini');
-        $tipo->fecha_fin    = $request->input('fecha_fin');
-        $tipo->direccion    = $request->input('direccion');
-        $tipo->departamento = $request->input('departamento');
-        $tipo->numero_pista = $request->input('num_pista_f');
-        $tipo->circuito     = $tipoCircuito;
-        $tipo->habilitado   = $request->input('habilitado');
-        $tipo->estado       = $request->input('rotwailer');
+
+        $tipo->user_id            = Auth::user()->id;
+        $tipo->nombre             = $request->input('nombre');
+        $tipo->fecha_inicio       = $request->input('fecha_ini');
+        $tipo->fecha_fin          = $request->input('fecha_fin');
+        $tipo->direccion          = $request->input('direccion');
+        $tipo->departamento       = $request->input('departamento');
+        $tipo->numero_pista       = $request->input('num_pista_f');
+        $tipo->circuito           = $tipoCircuito;
+        $tipo->habilitado         = $request->input('habilitado');
+        $tipo->estado             = $request->input('rotwailer');
+
+        $tipo->adjuntar_documento = $request->has('adjuntar_documento') ? "Si" : "No";
+
+        if ($request->file('img_qr_cobro')) {
+
+            $archivo       = $request->file('img_qr_cobro');
+            $direccion     = public_path('imagenesQRCobro');
+            $nombreArchivo = date('YmdHis') . "." . $archivo->getClientOriginalExtension();
+
+            if (!file_exists($direccion))
+                mkdir($direccion, 0777, true);
+
+            $archivo->move($direccion, $nombreArchivo);
+            $tipo->img_qr_cobro       = $nombreArchivo;
+        }
 
         $tipo->save();
 

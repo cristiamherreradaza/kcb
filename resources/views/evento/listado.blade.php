@@ -286,7 +286,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ url('Evento/guarda') }}" method="POST" id="formulario-tipos">
+                <form action="{{ url('Evento/guarda') }}" method="POST" id="formulario-tipos" enctype="multipart/form-data">
                 	@csrf
                 	<div class="row">
 
@@ -385,6 +385,25 @@
 						</div>
 					</div>
 
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+								<label for="exampleInputPassword1">Adjuntar Documento</label> <p></p>
+                			    <label class="checkbox checkbox-success">
+									<input type="checkbox" name="adjuntar_documento" id="adjuntar_documento"/>
+									<span></span>
+									&nbsp;Comprobante
+								</label>
+                			</div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                			    <label for="exampleInputPassword1">QR de combro</label>
+                                <input type="file" class="form-control" accept="image/*" name="img_qr_cobro" id="img_qr_cobro">
+                			</div>
+                        </div>
+                    </div>
+
                 </form>
             </div>
             <div class="modal-footer">
@@ -464,7 +483,7 @@
 								</td>
 								<td>
                                     @if (Auth::user()->adminDatosEditar())
-									<button type="button" class="btn btn-icon btn-warning btn-sm" onclick="edita('{{ $even->id }}', '{{ $even->nombre }}', '{{ $even->fecha_inicio }}', '{{ $even->fecha_fin }}', '{{ $even->direccion }}', '{{ $even->departamento }}', '{{ $even->numero_pista }}', '{{ $even->circuito }}', '{{ $even->habilitado }}', '{{ $even->estado }}')">
+									<button type="button" class="btn btn-icon btn-warning btn-sm" onclick="edita('{{ $even->id }}', '{{ $even->nombre }}', '{{ $even->fecha_inicio }}', '{{ $even->fecha_fin }}', '{{ $even->direccion }}', '{{ $even->departamento }}', '{{ $even->numero_pista }}', '{{ $even->circuito }}', '{{ $even->habilitado }}', '{{ $even->estado }}', '{{ $even->adjuntar_documento }}')">
 										<i class="flaticon2-edit"></i>
 									</button>
                                     @endif
@@ -579,15 +598,13 @@
     		$("#modalGrupo").modal('show');
     	}
 
-		function edita(id, nombre, fecha_ini, fecha_fin, direccion, departamento, num_pista, circuito, habilitado, estado)
+		function edita(id, nombre, fecha_ini, fecha_fin, direccion, departamento, num_pista, circuito, habilitado, estado, adjuntar_documento)
     	{
 			// colocamos valores en los inputs
 			$("#evento_id").val(id);
 			$("#nombre").val(nombre);
 			$("#fecha_ini").val(fecha_ini);
 			$("#fecha_fin").val(fecha_fin);
-			// $("#fecha_ini").val(fecha_ini.replace(' ','T'));
-			// $("#fecha_fin").val(fecha_fin.replace(' ','T'));
 			$("#direccion").val(direccion);
 			$("#departamento").val(departamento);
 			$("#num_pista_f").val(num_pista);
@@ -600,6 +617,15 @@
                 $("#rotwailer").val(estado);
             else
                 $("#rotwailer").val("No");
+
+            if(estado === 'Si')
+                $("#rotwailer").val(estado);
+            else
+                $("#rotwailer").val("No");
+
+            let f = adjuntar_documento === "Si" ? true : false ;
+            console.log(f, adjuntar_documento);
+            $('#adjuntar_documento').attr('checked', f);
 
     		$("#modalGrupo").modal('show');
     	}

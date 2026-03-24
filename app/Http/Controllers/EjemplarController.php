@@ -2380,7 +2380,7 @@ class EjemplarController extends Controller
 
         if($generacion == 1){
             if($ejemplar->extranjero == 'si'){
-                echo "<span class='text-danger'>".$ejemplar->titulosEjemplares."<br></span>";
+                echo "<span class='text-danger'>".$ejemplar->titulos_extranjeros."<br></span>";
             }else{
                 $titulosw = TituloEjemplar::where('ejemplar_id',$ejemplar->id)->count();
                 if($titulosw != 0){

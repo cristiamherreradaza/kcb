@@ -461,15 +461,22 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <label class="exampleInputPassword1 {{ $textColor }}">
-                                            Comprobante Pago <b class="text-danger">*</b></label>
-                                        <input type="file" class="form-control" name="comprobante_pago"
-                                            id="comprobante_pago" required accept="image/*">
+                                @if ($evento->adjuntar_documento === "Si")
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label class="exampleInputPassword1 {{ $textColor }}">
+                                                Comprobante Pago <b class="text-danger">*</b></label>
+                                            <input type="file" class="form-control" name="comprobante_pago"
+                                                id="comprobante_pago" required accept="image/*">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="exampleInputPassword1">
+                                                QR del evento</label>
+                                                <img width="50%" src="{{ url('imagenesQRCobro')."/".$evento->img_qr_cobro }}" alt="" height="100%">
+                                        </div>
                                     </div>
-                                </div>
-                                <br>
+                                    <br>
+                                @endif
                                 <div class="row">
                                     <div class="col-md-12">
                                         <button type="button" class="btn btn-success btn-block"

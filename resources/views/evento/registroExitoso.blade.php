@@ -36,6 +36,9 @@
 			display:block;
 			margin:auto;
 		}
+        body{
+            background-color: #c0deff;
+        }
 	</style>
 	<!--end::Head-->
 	<!--begin::Body-->
@@ -59,7 +62,7 @@
                     </div>
                 </div>
             </div> --}}
-            <img src="{{ url('img/registro-1.png') }}" alt="" width="50%">
+            <img src="{{ url('img/registro-2.png') }}" alt="" width="40%">
             <div class="row">
                 <div class="col-md-12">
                     <h1 class="text-center text-info">Ejemplar Registrado con Exito</h1>
