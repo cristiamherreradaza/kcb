@@ -1362,7 +1362,7 @@
 
             <div class="row">
 
-                <div class="col-md-12">
+                <div class="col-md">
                     <div class="form-group">
                         <label for="exampleInputPassword1">Raza
                             <span class="text-danger">*</span></label>
@@ -1380,7 +1380,16 @@
                             </select>
                     </div>
                 </div>
-
+                @if ($ejemplar)
+                    @if ($ejemplar->extranjero == "si")
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Titulos Extranjeros</label>
+                                <input id="titulo_extrajero_new" name="titulo_extrajero_new" type="text" class="form-control" value="{{ ($ejemplar)? $ejemplar->titulos_extranjeros : ''}}">
+                            </div>
+                        </div>
+                    @endif
+                @endif
             </div>
 
             <div class="row">

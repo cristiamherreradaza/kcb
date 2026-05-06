@@ -276,6 +276,7 @@ class EjemplarController extends Controller
         $ejemplar->fecha_emision        = $request->input('fecha_emision');
         $ejemplar->descripcion_perdido  = $request->input('descripcion_perdido');
         $ejemplar->fecha_nacionalizado  = $request->input('fecha_nacionalizado');
+        $ejemplar->titulos_extranjeros  = $request->input('titulo_extrajero_new');
 
         if($request->input('criadero_id')){
             $criadero = Criadero::find($request->input('criadero_id'));
