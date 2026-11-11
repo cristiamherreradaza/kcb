@@ -186,7 +186,7 @@ class EjemplarController extends Controller
 
         if ($request->filled('nombre_buscar')) {
             $nombre = $request->input('nombre_buscar');
-            $queryEjemplares->where('nombre', 'like', "%$nombre%");
+            $queryEjemplares->where('nombre_completo', 'like', "%$nombre%");
         }
 
         if ($request->filled('chip_buscar')) {
