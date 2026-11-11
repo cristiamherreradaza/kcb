@@ -58,7 +58,7 @@
 							</div>
 						</div>
 
-						<div class="col-md-3">
+						<div class="col-md-2">
 							<div class="form-group">
 								<label for="exampleInputPassword1">RAZA
 									</label>
@@ -74,7 +74,7 @@
 							</div>
 						</div>
 
-						<div class="col-md-4">
+						<div class="col-md-3">
 							<div class="form-group">
 								<label for="exampleInputPassword1">PROPIETARIO
 									</label>
@@ -84,6 +84,19 @@
 								</select>
 							</div>
 						</div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">AFIJO</label>
+                                <br>
+                                <select class="form-control select2" id="criadero_id" style="width:100%;" name="criadero_id">
+                                    <option label="Label"></option>
+                                    @foreach ($criaderos as $criadero)
+                                    <option value="{{ $criadero->id }}">{{ $criadero->nombre }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
 
 					</div>
                     <div class="row">
@@ -140,6 +153,12 @@
 			$('#raza_buscar').select2({
     	        placeholder: "Seleccione la raza"
 	        });
+
+            $('#criadero_id').select2({
+                placeholder: "Seleccione la AFIJO"
+            });
+
+
     	});
 
 		function crear()

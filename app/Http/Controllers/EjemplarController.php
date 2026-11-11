@@ -115,10 +115,10 @@ class EjemplarController extends Controller
     public function listado(Request $request)
     {
         $razas = Raza::all();
-        $propietarios = User::where('perfil_id', 4)
-                            ->get();
+        $propietarios = User::where('perfil_id', 4)->get();
+        $criaderos = Criadero::all();
 
-        return view('ejemplar.listado')->with(compact('razas', 'propietarios'));
+        return view('ejemplar.listado')->with(compact('razas', 'propietarios', 'criaderos'));
     }
 
     public function listadoExtranjero(Request $request)
@@ -177,6 +177,8 @@ class EjemplarController extends Controller
     {
         $usuario = Auth::user();
 
+        // dd($request->all());
+
         $queryEjemplares = Ejemplar::orderBy('id', 'desc');
 
         if ($request->filled('kcb_buscar')) {
@@ -202,6 +204,11 @@ class EjemplarController extends Controller
         if ($request->filled('propietario_buscar')) {
             $propietario_id = $request->input('propietario_buscar');
             $queryEjemplares->where('propietario_id', $propietario_id);
+        }
+
+        if ($request->filled('criadero_id')) {
+            $criadero_id = $request->input('criadero_id');
+            $queryEjemplares->where('criadero_id', $criadero_id);
         }
 
         $queryEjemplares->whereNull('extranjero');

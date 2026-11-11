@@ -8,6 +8,7 @@
             <th>CHIP</th>
             <th>RAZA</th>
             <th>PROPIETARIO</th>
+            <th>AFIJO</th>
             <th>DEPARTAMENTO</th>
             {{-- <th>Criaderos</th> --}}
             <th></th>
@@ -30,6 +31,11 @@
                     @if ($e->propietario)
                         {{ $e->propietario['name'] }}
                     @endif
+                @endif
+            </td>
+            <td>
+                @if ($e->criadero)
+                    {{ $e->criadero->nombre }}
                 @endif
             </td>
             <td>{{ $e->departamento }}</td>
